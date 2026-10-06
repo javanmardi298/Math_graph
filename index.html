@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Math-Melody Visualizer</title>
+<meta name="description" content="Turn math formulas into neon graphs and live music, then record the result as a video.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="src/styles.css">
+<!-- three.js is vendored locally so the app works with no internet connection. -->
+<script type="importmap">
+{ "imports": {
+  "three": "./vendor/three/build/three.module.min.js",
+  "three/addons/": "./vendor/three/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- ===================================================== TOP BAR -->
+  <header class="topbar glass">
+    <button class="icon-btn" id="collapse-left" type="button" aria-controls="panel-left" aria-expanded="true" title="Toggle layers panel ( [ )">☰</button>
+    <div class="brand" aria-label="Math-Melody Visualizer">
+      <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><path d="M2 22 C 7 22, 8 6, 13 6 S 19 26, 24 26 S 29 14, 30 12" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round"/><circle cx="24" cy="26" r="3.2" fill="var(--accent-2)"/></svg>
+      <span class="brand-name">Math&#8209;Melody</span>
+    </div>
+    <input class="project-name" id="project-name" aria-label="Project name" spellcheck="false">
+    <div id="mode-slot"></div>
+
+    <div class="transport">
+      <button class="icon-btn" id="rewind-btn" type="button" title="Back to start (Home)" aria-label="Back to start">⏮</button>
+      <button class="play-btn" id="play-btn" type="button" title="Play / pause (Space)" aria-label="Play"><span class="ico">▶</span></button>
+    </div>
+    <div class="hud" id="hud" aria-live="off"></div>
+
+    <div class="topbar-right">
+      <button class="rec-btn record-btn" id="topbar-record" type="button" title="Record video (R)"><span class="rec-dot"></span><span id="rec-time" class="rec-time">REC</span>Start recording</button>
+      <button class="icon-btn" id="snapshot-btn" type="button" title="Save PNG snapshot" aria-label="Save PNG snapshot">⌗</button>
+      <button class="icon-btn" id="theme-btn" type="button" title="Day / night (T)" aria-label="Switch to day mode">☀</button>
+      <button class="icon-btn" id="cinema-btn" type="button" title="Hide the interface (H)" aria-label="Hide the interface">⛶</button>
+      <button class="icon-btn" id="fullscreen-btn" type="button" title="Full screen (F)" aria-label="Full screen">⤢</button>
+      <button class="icon-btn" id="help-btn" type="button" title="Shortcuts & help (?)" aria-label="Shortcuts and help">?</button>
+      <button class="icon-btn" id="collapse-right" type="button" aria-controls="panel-right" aria-expanded="true" title="Toggle inspector ( ] )">⚙</button>
+    </div>
+  </header>
+
+  <!-- ===================================================== LEFT: LAYERS -->
+  <aside class="panel panel-left glass" id="panel-left" aria-label="Formula layers">
+    <div class="panel-scroll">
+      <div class="panel-title">
+        <h2>Layers</h2>
+        <button class="btn small" id="add-layer" type="button">+ Add layer</button>
+      </div>
+      <div id="layer-list" class="layer-list"></div>
+
+      <details class="group" open>
+        <summary>Live parameters</summary>
+        <p class="hint">Use <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code> in any formula and drag to reshape the curve while it plays. <code>t</code> is the time in seconds.</p>
+        <div id="params" class="group-body"></div>
+      </details>
+
+      <details class="group">
+        <summary>Formula cheatsheet</summary>
+        <div class="group-body">
+          <div class="chips" id="snippets" aria-label="Insert into the focused formula"></div>
+          <p class="hint">Operators <code>+ - * / ^ %</code>, implicit multiply <code>2x</code>, <code>|x|</code>, comparisons and <code>cond ? a : b</code>. Constants <code>pi e tau phi</code>.</p>
+          <p class="fn-list" id="fn-list"></p>
+          <p class="hint">Rhythm tip: <code>mod(x, 0.5)</code> repeats every half unit; <code>floor(4x)</code> makes steps you can hear as notes.</p>
+        </div>
+      </details>
+    </div>
+  </aside>
+
+  <!-- ===================================================== STAGE -->
+  <main class="stage-wrap" id="stage-wrap">
+    <div class="stage" id="stage">
+      <div class="gl-host" id="gl-host"></div>
+      <canvas class="overlay" id="overlay" aria-hidden="true"></canvas>
+      <div class="rec-badge" aria-hidden="true"><span class="rec-dot"></span>REC</div>
+      <div class="cinema-hint">Press Esc or H to show the interface</div>
+    </div>
+    <div class="toast" id="toast" role="status" hidden></div>
+    <div class="loading" id="loading">Loading…</div>
+    <div class="fatal" id="fatal" hidden><h2>Can't start the graphics engine</h2><p></p></div>
+  </main>
+
+  <!-- ===================================================== RIGHT: INSPECTOR -->
+  <aside class="panel panel-right glass" id="panel-right" aria-label="Inspector">
+    <nav class="tabbar" id="tabbar" role="tablist"></nav>
+    <div class="panel-scroll" id="tabbody"></div>
+  </aside>
+
+  <!-- ===================================================== TIMELINE -->
+  <footer class="timeline glass">
+    <div class="time-readout" id="time-readout">00:00.00 / 00:16.00</div>
+    <canvas id="timeline-canvas" class="timeline-canvas" tabindex="0" role="slider" aria-label="Timeline: drag to scrub" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></canvas>
+    <div class="timeline-ctl">
+      <div id="speed-slot"></div>
+      <div id="duration-slot"></div>
+      <div id="loop-slot"></div>
+    </div>
+  </footer>
+</div>
+
+<!-- Export result -->
+<dialog id="result-dialog" class="dialog glass">
+  <h2>Export ready</h2>
+  <div id="result-media" class="result-media"></div>
+  <p id="result-info" class="hint"></p>
+  <div class="row">
+    <button class="btn" id="result-download" type="button">Download</button>
+    <button class="btn ghost" type="button" data-close>Close</button>
+  </div>
+  <p class="hint">If the download doesn't start, you're in an embedded preview. Run the app on localhost to save files.</p>
+</dialog>
+
+<!-- Help -->
+<dialog id="help-dialog" class="dialog glass">
+  <h2>How it works</h2>
+  <p><strong>x</strong> is time: the playhead sweeps it from left to right. <strong>y</strong> is pitch: higher on the graph means a higher note. In 3D, <strong>z</strong> sets each layer's volume or stereo position.</p>
+  <table class="keys">
+    <tr><td><kbd>Space</kbd></td><td>Play / pause</td><td><kbd>R</kbd></td><td>Record video</td></tr>
+    <tr><td><kbd>Home</kbd></td><td>Back to start</td><td><kbd>← →</kbd></td><td>Jump 1 s</td></tr>
+    <tr><td><kbd>M</kbd></td><td>2D ↔ 3D</td><td><kbd>T</kbd></td><td>Day / night</td></tr>
+    <tr><td><kbd>H</kbd></td><td>Hide interface</td><td><kbd>F</kbd></td><td>Full screen</td></tr>
+    <tr><td><kbd>[</kbd> <kbd>]</kbd></td><td>Toggle panels</td><td><kbd>?</kbd></td><td>This help</td></tr>
+  </table>
+  <p class="hint">Drag the timeline to scrub and hear the curve. Everything runs in your browser: no uploads, no account, works offline.</p>
+  <div class="row"><button class="btn" type="button" data-close>Got it</button></div>
+</dialog>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+/**
+ * Built-in presets. Each one is a partial state snapshot merged over the defaults,
+ * so a preset only lists what it changes.
+ */
+
+export const BUILTIN_PRESETS = [
+  {
+    name: 'Bass Drop',
+    mode: '2d',
+    transport: { duration: 16 },
+    view: { xMin: 0, xMax: 8, yMin: -3, yMax: 3 },
+    layers: [{
+      name: 'Kick decay', type: 'function', exprs: { y: '3 * exp(-12 * mod(x, 0.5)) - 1.5' },
+      color: '#22e4ff', colorMode: 'pitch', wave: 'sawtooth', width: 5, volume: 0.7,
+    }],
+    visual: { drawMode: 'trace', bloom: { strength: 1.3 }, marker: { shape: 'circle' } },
+    audio: { noteLow: 28, noteHigh: 64, scale: 'continuous', glide: 8, distortion: 0.35,
+      filter: { type: 'lowpass', cutoff: 2400, q: 4 }, reverb: { mix: 0.15 }, delay: { mix: 0.1 } },
+  },
+  {
+    name: 'Twin Harmony',
+    mode: '2d',
+    transport: { duration: 20 },
+    view: { xMin: 0, xMax: 10, yMin: -4, yMax: 4 },
+    layers: [
+      { name: 'Melody', type: 'function', exprs: { y: '2.5 sin(1.5x) + 0.6 sin(6x)' }, color: '#22e4ff', wave: 'triangle', volume: 0.6 },
+      { name: 'Counter', type: 'function', exprs: { y: '-2 cos(x) - 1' }, color: '#ff3d9a', wave: 'sine', volume: 0.5, octave: -1, style: 'dashed' },
+    ],
+    visual: { drawMode: 'trace' },
+    audio: { scale: 'pentatonic', root: 2, articulation: 'pluck', reverb: { mix: 0.35, decay: 3.5 }, delay: { mix: 0.25 } },
+  },
+  {
+    name: 'Lissajous 3D',
+    mode: '3d',
+    transport: { duration: 24 },
+    view: { xMin: -4, xMax: 4, yMin: -4, yMax: 4 },
+    layers: [{
+      name: 'Knot', type: 'parametric', range: { min: 0, max: Math.PI * 2 },
+      exprs: { x: '3 sin(3s + t*0.2)', y: '3 sin(4s)', z: '3 sin(5s + pi/4)' },
+      colorMode: 'rainbow', width: 4, wave: 'sine', zMap: 'pan', samples: 1600,
+    }],
+    visual: { drawMode: 'ghost', trail: { count: 220 }, fog: { enabled: true, density: 0.03 } },
+    camera: { autoRotate: true, rotateSpeed: 0.7 },
+    audio: { scale: 'dorian', root: 9, noteLow: 45, noteHigh: 81, reverb: { mix: 0.4, decay: 4 } },
+  },
+  {
+    name: 'Astroid Wave',
+    mode: '2d',
+    transport: { duration: 18 },
+    view: { xMin: -4, xMax: 4, yMin: -4, yMax: 4 },
+    layers: [{
+      name: 'Astroid', type: 'parametric', range: { min: 0, max: Math.PI * 4 },
+      exprs: { x: '3.2 cos(s)^3', y: '3.2 sin(s)^3 + 0.25 sin(12s)', z: '0' },
+      colorMode: 'gradient', color: '#ffd23d', color2: '#ff3d9a', width: 4, wave: 'square', volume: 0.35,
+    }],
+    visual: { drawMode: 'trace', marker: { shape: 'star', size: 34 } },
+    audio: { scale: 'minorPentatonic', root: 4, filter: { cutoff: 3200, q: 1.5 }, delay: { mix: 0.3, time: 0.375 } },
+  },
+  {
+    name: 'Rose Garden',
+    mode: '2d',
+    transport: { duration: 20 },
+    view: { xMin: -4, xMax: 4, yMin: -4, yMax: 4 },
+    layers: [
+      { name: 'Rose', type: 'polar', range: { min: 0, max: Math.PI * 2 }, exprs: { r: '3 cos(4theta)' },
+        colorMode: 'rainbow', width: 3, wave: 'triangle', samples: 1400 },
+      { name: 'Halo', type: 'polar', range: { min: 0, max: Math.PI * 2 }, exprs: { r: '3.4 + 0.2 sin(16theta + t)' },
+        color: '#8cff5a', width: 2, style: 'dots', wave: 'sine', volume: 0.25, octave: -1 },
+    ],
+    visual: { drawMode: 'ghost' },
+    audio: { scale: 'major', root: 7, articulation: 'pluck', reverb: { mix: 0.45, decay: 4.5 } },
+  },
+  {
+    name: 'Neon Terrain',
+    mode: '3d',
+    transport: { duration: 20 },
+    view: { xMin: -5, xMax: 5, yMin: -3, yMax: 3 },
+    layers: [{
+      name: 'Terrain', type: 'surface',
+      exprs: { f: '1.4 sin(x + t) cos(0.8y) + 0.4 cos(2x - y)', path: '2.5 sin(0.9x)' },
+      colorMode: 'pitch', color: '#22e4ff', color2: '#ff3d9a', wave: 'sawtooth', volume: 0.4, samples: 64,
+    }],
+    visual: { fog: { enabled: true, density: 0.03 }, bloom: { strength: 0.7, threshold: 0.1 } },
+    camera: { autoRotate: true, rotateSpeed: 0.5 },
+    audio: { scale: 'minor', root: 0, filter: { cutoff: 2600, q: 2 }, reverb: { mix: 0.3 } },
+  },
+  {
+    name: 'Staircase Arp',
+    mode: '2d',
+    transport: { duration: 16 },
+    view: { xMin: 0, xMax: 8, yMin: -4, yMax: 4 },
+    layers: [
+      { name: 'Arp', type: 'function', exprs: { y: 'floor(mod(4x, 8)) - 3.5' }, color: '#ffd23d', wave: 'square', volume: 0.3, width: 4 },
+      { name: 'Bass', type: 'function', exprs: { y: '-3 + 0.5 square(x/2)' }, color: '#ff3d9a', wave: 'sawtooth', volume: 0.45, octave: -1 },
+    ],
+    visual: { drawMode: 'trace', marker: { shape: 'square' } },
+    audio: { scale: 'minorPentatonic', root: 9, articulation: 'pluck', glide: 5, delay: { mix: 0.3, time: 0.25, feedback: 0.4 } },
+  },
+  {
+    name: 'Helix Ascent',
+    mode: '3d',
+    transport: { duration: 24 },
+    view: { xMin: -4, xMax: 4, yMin: -4, yMax: 4 },
+    layers: [
+      { name: 'Strand A', type: 'parametric', range: { min: 0, max: Math.PI * 6 },
+        exprs: { x: '2.5 cos(s)', y: 's/2.4 - 3.9', z: '2.5 sin(s)' }, colorMode: 'gradient', color: '#22e4ff', color2: '#8cff5a', wave: 'triangle', zMap: 'pan' },
+      { name: 'Strand B', type: 'parametric', range: { min: 0, max: Math.PI * 6 },
+        exprs: { x: '2.5 cos(s + pi)', y: 's/2.4 - 3.9', z: '2.5 sin(s + pi)' }, colorMode: 'gradient', color: '#ff3d9a', color2: '#ffd23d', wave: 'sine', zMap: 'pan', octave: 1, volume: 0.35 },
+    ],
+    visual: { drawMode: 'trace', dof: { enabled: false } },
+    camera: { autoRotate: true, rotateSpeed: 1.2 },
+    audio: { scale: 'major', root: 5, reverb: { mix: 0.4 } },
+  },
+  {
+    name: 'Chaos Bells',
+    mode: '2d',
+    transport: { duration: 14 },
+    view: { xMin: 0, xMax: 7, yMin: -4, yMax: 4 },
+    layers: [{
+      name: 'Chirp', type: 'function', exprs: { y: '3 sin(a * x^2) * exp(-0.15x)' },
+      colorMode: 'rainbow', wave: 'sine', width: 3, style: 'line', volume: 0.55,
+    }],
+    params: { a: 1.6 },
+    visual: { drawMode: 'trace', motionBlur: { enabled: true, amount: 0.7 } },
+    audio: { scale: 'hirajoshi', root: 4, articulation: 'pluck', reverb: { mix: 0.5, decay: 5 } },
+  },
+];

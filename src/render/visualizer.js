@@ -1,0 +1,719 @@
+/**
+ * Three.js renderer for both 2D (orthographic) and 3D (perspective) modes.
+ *
+ * Scene layout (math → world):  x → X (time), y → Y (pitch), z → Z (volume/pan)
+ * Surfaces draw height on Y so "up" always means "higher note".
+ *
+ * Sizes (line width, marker, particles, labels) are expressed per 1000 px of
+ * canvas height, so a 4K recording looks identical to the on-screen preview.
+ */
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { Line2 } from 'three/addons/lines/Line2.js';
+import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
+import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { BokehPass } from 'three/addons/postprocessing/BokehPass.js';
+import { AfterimagePass } from 'three/addons/postprocessing/AfterimagePass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+const TRAIL_MAX = 400;
+const tmpColor = new THREE.Color();
+
+/* ------------------------------------------------------------------ helpers */
+
+/** "Nice" grid step (1, 2, 5 × 10^n) giving roughly `target` divisions. */
+function niceStep(span, target = 8) {
+  const raw = span / target;
+  const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const n = raw / mag;
+  return (n < 1.5 ? 1 : n < 3.5 ? 2 : n < 7.5 ? 5 : 10) * mag;
+}
+
+const fmt = (v) => (Math.abs(v) < 1e-9 ? '0' : Number(v.toFixed(2)).toString());
+
+/** Canvas texture of a marker shape (white, tinted by the sprite colour). */
+function shapeTexture(shape) {
+  const S = 128;
+  const c = document.createElement('canvas');
+  c.width = c.height = S;
+  const g = c.getContext('2d');
+  const m = S / 2;
+  // Soft halo behind every shape.
+  const halo = g.createRadialGradient(m, m, 0, m, m, m);
+  halo.addColorStop(0, 'rgba(255,255,255,0.55)');
+  halo.addColorStop(0.35, 'rgba(255,255,255,0.18)');
+  halo.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = halo;
+  g.fillRect(0, 0, S, S);
+  g.fillStyle = '#fff';
+  g.strokeStyle = '#fff';
+  g.lineWidth = 7;
+  g.beginPath();
+  const r = S * 0.2;
+  switch (shape) {
+    case 'square': g.rect(m - r, m - r, r * 2, r * 2); g.fill(); break;
+    case 'diamond': g.moveTo(m, m - r * 1.3); g.lineTo(m + r * 1.3, m); g.lineTo(m, m + r * 1.3); g.lineTo(m - r * 1.3, m); g.closePath(); g.fill(); break;
+    case 'ring': g.arc(m, m, r * 1.1, 0, Math.PI * 2); g.stroke(); break;
+    case 'star':
+      for (let i = 0; i < 10; i++) {
+        const a = -Math.PI / 2 + (i * Math.PI) / 5;
+        const rr = i % 2 ? r * 0.6 : r * 1.5;
+        g.lineTo(m + Math.cos(a) * rr, m + Math.sin(a) * rr);
+      }
+      g.closePath(); g.fill(); break;
+    default: g.arc(m, m, r, 0, Math.PI * 2); g.fill();
+  }
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+/** Text label as a sprite; `aspect` is kept so it can be scaled in pixels later. */
+function textSprite(text, color) {
+  const c = document.createElement('canvas');
+  const g = c.getContext('2d');
+  const font = '500 44px "JetBrains Mono", ui-monospace, monospace';
+  g.font = font;
+  const w = Math.ceil(g.measureText(text).width) + 16;
+  c.width = w; c.height = 60;
+  g.font = font;
+  g.fillStyle = color;
+  g.textBaseline = 'middle';
+  g.fillText(text, 8, 31);
+  const tex = new THREE.CanvasTexture(c);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false, fog: false });
+  const s = new THREE.Sprite(mat);
+  s.userData.aspect = w / 60;
+  s.userData.label = true;
+  return s;
+}
+
+/** Fill a Float32Array of RGB colours for each sampled point. */
+function curveColors(layer, pts, view, out) {
+  const n = pts.length / 3;
+  const a = new THREE.Color(layer.color), b = new THREE.Color(layer.color2);
+  for (let i = 0; i < n; i++) {
+    const u = n > 1 ? i / (n - 1) : 0;
+    switch (layer.colorMode) {
+      case 'gradient': tmpColor.copy(a).lerp(b, u); break;
+      case 'rainbow': tmpColor.setHSL((u * 0.9) % 1, 1, 0.58); break;
+      case 'pitch': {
+        const k = Math.min(Math.max((pts[i * 3 + 1] - view.yMin) / (view.yMax - view.yMin || 1), 0), 1);
+        tmpColor.copy(a).lerp(b, k);
+        break;
+      }
+      default: tmpColor.copy(a);
+    }
+    out[i * 3] = tmpColor.r; out[i * 3 + 1] = tmpColor.g; out[i * 3 + 2] = tmpColor.b;
+  }
+  return out;
+}
+
+/* --------------------------------------------------------------- particles */
+
+const trailVertex = /* glsl */ `
+  attribute float aBirth;
+  attribute vec3 aDir;
+  uniform float uTime, uLife, uSize, uSpread, uPixel;
+  varying float vAlpha;
+  void main() {
+    float age = (uTime - aBirth) / uLife;
+    vec3 p = position + aDir * age * uSpread;
+    vAlpha = age < 0.0 || age > 1.0 ? 0.0 : pow(1.0 - age, 1.6);
+    vec4 mv = modelViewMatrix * vec4(p, 1.0);
+    gl_Position = projectionMatrix * mv;
+    gl_PointSize = vAlpha > 0.0 ? uSize * uPixel * (0.35 + 0.65 * (1.0 - age)) : 0.0;
+  }`;
+const trailFragment = /* glsl */ `
+  uniform vec3 uColor;
+  varying float vAlpha;
+  void main() {
+    float d = length(gl_PointCoord - 0.5);
+    float a = smoothstep(0.5, 0.0, d) * vAlpha;
+    if (a < 0.01) discard;
+    gl_FragColor = vec4(uColor * a, a);
+  }`;
+
+/* --------------------------------------------------------------- LayerView */
+
+/** All the Three.js objects for one formula layer. */
+class LayerView {
+  constructor(viz, layer) {
+    this.viz = viz;
+    this.layer = layer;
+    this.group = new THREE.Group();
+    this.pts = null;
+    this.drawn = new THREE.Vector3();
+    this.hasDrawn = false;
+
+    const dashed = layer.style === 'dashed';
+    const lineMat = (opacity) => new LineMaterial({
+      vertexColors: true, linewidth: layer.width, transparent: true, opacity,
+      dashed, dashSize: 0.18, gapSize: 0.12, worldUnits: false, depthWrite: opacity >= 1,
+    });
+
+    if (layer.style === 'dots') {
+      this.dotsGeo = new THREE.BufferGeometry();
+      this.dotsMat = new THREE.PointsMaterial({
+        size: 1, vertexColors: true, sizeAttenuation: false, map: viz.dotTexture,
+        transparent: true, depthWrite: false, alphaTest: 0.05,
+      });
+      this.dots = new THREE.Points(this.dotsGeo, this.dotsMat);
+      this.group.add(this.dots);
+      this.ghostGeo = new THREE.BufferGeometry();
+      this.ghostDots = new THREE.Points(this.ghostGeo, this.dotsMat.clone());
+      this.ghostDots.material.opacity = 0.16;
+      this.group.add(this.ghostDots);
+    } else {
+      this.line = new Line2(new LineGeometry(), lineMat(1));
+      this.ghost = new Line2(new LineGeometry(), lineMat(0.16));
+      this.group.add(this.ghost, this.line);
+    }
+
+    // Playhead marker
+    this.markerMat = new THREE.SpriteMaterial({ transparent: true, depthWrite: false, depthTest: false, fog: false });
+    this.marker = new THREE.Sprite(this.markerMat);
+    this.marker.renderOrder = 10;
+    this.group.add(this.marker);
+
+    // Vertical cursor line (shows the "now" position on the time axis)
+    const cg = new THREE.BufferGeometry().setAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0, 0, 1, 0], 3));
+    this.cursor = new THREE.Line(cg, new THREE.LineBasicMaterial({ transparent: true, opacity: 0.35, depthWrite: false }));
+    this.group.add(this.cursor);
+
+    // Particle trail (ring buffer)
+    const tg = new THREE.BufferGeometry();
+    tg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(TRAIL_MAX * 3), 3));
+    tg.setAttribute('aBirth', new THREE.BufferAttribute(new Float32Array(TRAIL_MAX).fill(-1e6), 1));
+    const dirs = new Float32Array(TRAIL_MAX * 3);
+    for (let i = 0; i < dirs.length; i++) dirs[i] = (Math.random() * 2 - 1);
+    tg.setAttribute('aDir', new THREE.BufferAttribute(dirs, 3));
+    this.trailMat = new THREE.ShaderMaterial({
+      vertexShader: trailVertex, fragmentShader: trailFragment, transparent: true, depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      uniforms: { uTime: { value: 0 }, uLife: { value: 1.5 }, uSize: { value: 6 }, uSpread: { value: 0.25 }, uPixel: { value: 1 }, uColor: { value: new THREE.Color() } },
+    });
+    this.trail = new THREE.Points(tg, this.trailMat);
+    this.trail.frustumCulled = false;
+    this.trailIndex = 0;
+    this.group.add(this.trail);
+
+    // Surface mesh (3D surface layers only)
+    if (layer.type === 'surface') {
+      this.surfGeo = new THREE.BufferGeometry();
+      this.surfSolid = new THREE.Mesh(this.surfGeo, new THREE.MeshBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.1, side: THREE.DoubleSide, depthWrite: false }));
+      this.wireGeo = new THREE.BufferGeometry();
+      this.surfWire = new THREE.LineSegments(this.wireGeo, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.5, depthWrite: false }));
+      this.scan = new THREE.Line(new THREE.BufferGeometry(), new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9 }));
+      this.group.add(this.surfSolid, this.surfWire, this.scan);
+    }
+    this.applyStyle();
+  }
+
+  applyStyle() {
+    const l = this.layer, v = this.viz.state.visual;
+    const color = new THREE.Color(l.colorMode === 'solid' ? l.color : l.colorMode === 'gradient' ? l.color2 : l.color);
+    this.markerMat.color.set(v.marker.shape === 'image' && this.viz.markerImage ? 0xffffff : color);
+    this.markerMat.map = v.marker.shape === 'image' && this.viz.markerImage ? this.viz.markerImage : this.viz.shapeTex(v.marker.shape);
+    this.markerMat.needsUpdate = true;
+    this.cursor.material.color.copy(color);
+    this.trailMat.uniforms.uColor.value.copy(color);
+    this.trail.visible = v.trail.enabled;
+    this.trailMat.blending = this.viz.lightBackground ? THREE.NormalBlending : THREE.AdditiveBlending;
+  }
+
+  /** Re-sample the curve and push it to the GPU. */
+  rebuild(compiled, ctx) {
+    const { layer } = this;
+    const is3d = this.viz.state.mode === '3d';
+    const pts = compiled.sample(ctx);
+    if (!is3d) for (let i = 2; i < pts.length; i += 3) pts[i] = 0; // flatten Z in 2D
+    this.pts = pts;
+    this.count = pts.length / 3;
+    const cols = curveColors(layer, pts, ctx.view, new Float32Array(pts.length));
+
+    if (this.line) {
+      for (const ln of [this.line, this.ghost]) {
+        ln.geometry.dispose();
+        ln.geometry = new LineGeometry();
+        ln.geometry.setPositions(pts);
+        ln.geometry.setColors(cols);
+        if (layer.style === 'dashed') ln.computeLineDistances();
+      }
+    } else {
+      for (const g of [this.dotsGeo, this.ghostGeo]) {
+        g.setAttribute('position', new THREE.BufferAttribute(pts, 3));
+        g.setAttribute('color', new THREE.BufferAttribute(cols, 3));
+        g.computeBoundingSphere();
+      }
+    }
+
+    if (this.surfGeo) {
+      this.surfSolid.visible = this.surfWire.visible = is3d;
+      if (is3d) this.buildSurface(compiled, ctx);
+    }
+  }
+
+  buildSurface(compiled, ctx) {
+    const { view } = ctx;
+    const N = Math.max(8, Math.min(160, this.layer.samples | 0));
+    const pos = new Float32Array((N + 1) * (N + 1) * 3);
+    const col = new Float32Array(pos.length);
+    const a = new THREE.Color(this.layer.color), b = new THREE.Color(this.layer.color2);
+    for (let j = 0; j <= N; j++) {
+      const y = view.yMin + ((view.yMax - view.yMin) * j) / N;
+      for (let i = 0; i <= N; i++) {
+        const x = view.xMin + ((view.xMax - view.xMin) * i) / N;
+        let h = compiled.height(x, y, ctx);
+        if (!Number.isFinite(h)) h = 0;
+        h = Math.max(view.yMin * 3, Math.min(view.yMax * 3, h));
+        const k = (j * (N + 1) + i) * 3;
+        pos[k] = x; pos[k + 1] = h; pos[k + 2] = y;
+        tmpColor.copy(a).lerp(b, Math.min(Math.max((h - view.yMin) / (view.yMax - view.yMin), 0), 1));
+        col[k] = tmpColor.r; col[k + 1] = tmpColor.g; col[k + 2] = tmpColor.b;
+      }
+    }
+    if (!this.surfIndex || this.surfN !== N) {
+      const idx = [];
+      for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
+        const p = j * (N + 1) + i;
+        idx.push(p, p + 1, p + N + 1, p + 1, p + N + 2, p + N + 1);
+      }
+      this.surfIndex = idx;
+      this.surfN = N;
+      this.surfGeo.setIndex(idx);
+      // Grid lines: every `every`-th row and column, so the mesh reads as a lattice.
+      const every = Math.max(1, Math.round(N / 24));
+      const lines = [];
+      for (let j = 0; j <= N; j += every) for (let i = 0; i < N; i++) lines.push(j * (N + 1) + i, j * (N + 1) + i + 1);
+      for (let i = 0; i <= N; i += every) for (let j = 0; j < N; j++) lines.push(j * (N + 1) + i, (j + 1) * (N + 1) + i);
+      this.wireGeo.setIndex(lines);
+    }
+    const posAttr = new THREE.BufferAttribute(pos, 3), colAttr = new THREE.BufferAttribute(col, 3);
+    for (const g of [this.surfGeo, this.wireGeo]) {
+      g.setAttribute('position', posAttr);
+      g.setAttribute('color', colAttr);
+      g.computeBoundingSphere();
+    }
+  }
+
+  /**
+   * Per-frame update.
+   * @param {number} u progress 0..1
+   * @param {{x,y,z}} target exact point on the curve
+   * @param {object} f frame info (dt, now, k, worldPerPx, snap, playing)
+   */
+  frame(u, target, f, compiled, ctx) {
+    const v = this.viz.state.visual;
+    const is3d = this.viz.state.mode === '3d';
+    const tz = is3d ? target.z : 0;
+
+    // Smoothly chase the exact point so sudden jumps glide instead of teleporting.
+    if (!this.hasDrawn || f.snap || v.marker.smoothing <= 0) {
+      this.drawn.set(target.x, target.y, tz);
+      this.hasDrawn = true;
+    } else {
+      const alpha = 1 - Math.pow(v.marker.smoothing * 0.92, f.dt * 60);
+      this.drawn.lerp(tmpVec.set(target.x, target.y, tz), alpha);
+    }
+
+    // How much of the curve is visible.
+    const mode = v.drawMode;
+    const shown = mode === 'full' ? this.count : Math.max(1, Math.round(u * (this.count - 1)) + 1);
+    const res = this.viz.resolution;
+    if (this.line) {
+      this.line.geometry.instanceCount = Math.max(0, shown - 1);
+      this.ghost.visible = mode === 'ghost';
+      for (const ln of [this.line, this.ghost]) {
+        ln.material.linewidth = this.layer.width * f.k;
+        ln.material.resolution.copy(res);
+      }
+    } else {
+      this.dotsGeo.setDrawRange(0, shown);
+      this.ghostDots.visible = mode === 'ghost';
+      this.dotsMat.size = this.ghostDots.material.size = this.layer.width * 2.2 * f.k;
+    }
+
+    // Marker
+    const px = v.marker.size * f.k * f.worldPerPx;
+    this.marker.scale.set(px, px, 1);
+    this.marker.position.copy(this.drawn);
+
+    // Cursor line: only meaningful when x is time (function/surface layers in 2D).
+    const showCursor = v.marker.cursorLine && (this.layer.type === 'function' || this.layer.type === 'surface');
+    this.cursor.visible = showCursor;
+    if (showCursor) {
+      const { yMin, yMax } = ctx.view;
+      const p = this.cursor.geometry.attributes.position;
+      p.setXYZ(0, this.drawn.x, yMin, is3d ? this.drawn.z : 0);
+      p.setXYZ(1, this.drawn.x, yMax, is3d ? this.drawn.z : 0);
+      p.needsUpdate = true;
+      this.cursor.geometry.computeBoundingSphere();
+    }
+
+    // Particles
+    const tu = this.trailMat.uniforms;
+    tu.uTime.value = f.now;
+    tu.uPixel.value = f.k;
+    tu.uSize.value = v.trail.size;
+    tu.uLife.value = Math.max(0.2, v.trail.count / 110);
+    tu.uSpread.value = 0.35 * (ctx.view.yMax - ctx.view.yMin) / 8;
+    if (v.trail.enabled && f.playing) {
+      const g = this.trail.geometry;
+      const pos = g.attributes.position, birth = g.attributes.aBirth;
+      const emit = 3;
+      for (let e = 0; e < emit; e++) {
+        const i = this.trailIndex;
+        // Spread emissions along the path travelled this frame for a continuous ribbon.
+        const k = (e + 1) / emit;
+        pos.setXYZ(i,
+          this.lastEmit ? this.lastEmit.x + (this.drawn.x - this.lastEmit.x) * k : this.drawn.x,
+          this.lastEmit ? this.lastEmit.y + (this.drawn.y - this.lastEmit.y) * k : this.drawn.y,
+          this.lastEmit ? this.lastEmit.z + (this.drawn.z - this.lastEmit.z) * k : this.drawn.z);
+        birth.setX(i, f.now - (1 - k) * f.dt);
+        this.trailIndex = (i + 1) % TRAIL_MAX;
+      }
+      pos.needsUpdate = birth.needsUpdate = true;
+      (this.lastEmit ||= new THREE.Vector3()).copy(this.drawn);
+    } else {
+      this.lastEmit = null;
+    }
+
+    // Surface scan line across the depth axis at the current x.
+    if (this.scan && is3d) {
+      const N = 48;
+      const arr = new Float32Array((N + 1) * 3);
+      for (let j = 0; j <= N; j++) {
+        const y = ctx.view.yMin + ((ctx.view.yMax - ctx.view.yMin) * j) / N;
+        const h = compiled.height(target.x, y, ctx);
+        arr[j * 3] = target.x; arr[j * 3 + 1] = Number.isFinite(h) ? h : 0; arr[j * 3 + 2] = y;
+      }
+      this.scan.geometry.setAttribute('position', new THREE.BufferAttribute(arr, 3));
+      this.scan.geometry.computeBoundingSphere();
+      this.scan.visible = true;
+    } else if (this.scan) this.scan.visible = false;
+  }
+
+  dispose() {
+    this.group.traverse((o) => {
+      o.geometry?.dispose?.();
+      if (o.material && o.material !== this.markerMat) o.material.dispose?.();
+    });
+    this.markerMat.dispose();
+  }
+}
+const tmpVec = new THREE.Vector3();
+
+/* -------------------------------------------------------------- Visualizer */
+
+export class Visualizer {
+  /** @param {HTMLElement} host element the canvas is placed in */
+  constructor(host, state) {
+    this.host = host;
+    this.state = state;
+    this.views = new Map();
+    this.markerImage = null;
+    this.shapeCache = {};
+    this.resolution = new THREE.Vector2(1, 1);
+    this.lightBackground = false;
+
+    const r = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
+    r.outputColorSpace = THREE.SRGBColorSpace;
+    host.appendChild(r.domElement);
+    this.renderer = r;
+    this.canvas = r.domElement;
+
+    this.scene = new THREE.Scene();
+    this.content = new THREE.Group();
+    this.grid = new THREE.Group();
+    this.scene.add(this.content);
+    this.content.add(this.grid);
+
+    this.ortho = new THREE.OrthographicCamera(-1, 1, 1, -1, -100, 100);
+    this.ortho.position.set(0, 0, 50);
+    this.persp = new THREE.PerspectiveCamera(45, 1, 0.05, 500);
+
+    this.orthoControls = new OrbitControls(this.ortho, r.domElement);
+    Object.assign(this.orthoControls, { enableRotate: false, screenSpacePanning: true, enableDamping: true, zoomToCursor: true });
+    this.perspControls = new OrbitControls(this.persp, r.domElement);
+    Object.assign(this.perspControls, { enableDamping: true, dampingFactor: 0.07 });
+
+    this.dotTexture = shapeTexture('circle');
+
+    this.composer = new EffectComposer(r);
+    this.renderPass = new RenderPass(this.scene, this.ortho);
+    this.bokeh = new BokehPass(this.scene, this.persp, { focus: 14, aperture: 0.001, maxblur: 0.012 });
+    this.afterimage = new AfterimagePass(0.8);
+    this.bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), 1, 0.5, 0.05);
+    this.output = new OutputPass();
+    for (const p of [this.renderPass, this.bokeh, this.afterimage, this.bloom, this.output]) this.composer.addPass(p);
+
+    this.fixedSize = null; // {w,h} while recording at a fixed resolution
+    this.resizeObserver = new ResizeObserver(() => this.resize());
+    this.resizeObserver.observe(host);
+    this.resize();
+  }
+
+  get camera() {
+    return this.state.mode === '3d' ? this.persp : this.ortho;
+  }
+  get controls() {
+    return this.state.mode === '3d' ? this.perspControls : this.orthoControls;
+  }
+
+  shapeTex(shape) {
+    return (this.shapeCache[shape] ||= shapeTexture(shape === 'image' ? 'circle' : shape));
+  }
+
+  /** Load a user image (data URL) as the playhead marker. */
+  setMarkerImage(dataUrl) {
+    if (!dataUrl) { this.markerImage = null; this.restyle(); return; }
+    new THREE.TextureLoader().load(dataUrl, (tex) => {
+      tex.colorSpace = THREE.SRGBColorSpace;
+      this.markerImage = tex;
+      this.restyle();
+    });
+  }
+
+  /** Lock the drawing buffer to an exact size (video recording), or null to follow the window. */
+  setFixedSize(size) {
+    this.fixedSize = size;
+    this.resize();
+  }
+
+  resize() {
+    const w = Math.max(1, this.host.clientWidth), h = Math.max(1, this.host.clientHeight);
+    // While recording, the drawing buffer is pinned to the export size (pixel ratio 1);
+    // otherwise it follows the element size times the device pixel ratio.
+    const ratio = this.fixedSize ? 1 : Math.min(window.devicePixelRatio || 1, 2);
+    const lw = this.fixedSize ? this.fixedSize.w : w;
+    const lh = this.fixedSize ? this.fixedSize.h : h;
+    const bw = lw * ratio, bh = lh * ratio;
+    this.renderer.setPixelRatio(ratio);
+    this.renderer.setSize(lw, lh, false);
+    this.canvas.style.width = '100%';
+    this.canvas.style.height = '100%';
+    this.composer.setPixelRatio(this.renderer.getPixelRatio());
+    this.composer.setSize(lw, lh);
+    this.resolution.set(bw, bh);
+    this.bufferHeight = bh;
+    this.aspect = bw / bh;
+    this.persp.aspect = this.aspect;
+    this.persp.updateProjectionMatrix();
+    this.fitOrtho(false);
+  }
+
+  /** Fit the 2D camera to the view bounds (keeps user zoom unless reset). */
+  fitOrtho(resetZoom = true) {
+    const { xMin, xMax, yMin, yMax } = this.state.view;
+    const halfW = (xMax - xMin) / 2, halfH = (yMax - yMin) / 2;
+    const hh = Math.max(halfH, halfW / this.aspect) * 1.12;
+    const o = this.ortho;
+    o.left = -hh * this.aspect; o.right = hh * this.aspect; o.top = hh; o.bottom = -hh;
+    if (resetZoom) {
+      o.zoom = 1;
+      o.position.set(0, 0, 50);
+      this.orthoControls.target.set(0, 0, 0);
+    }
+    o.updateProjectionMatrix();
+  }
+
+  resetCamera() {
+    this.fitOrtho(true);
+    const { xMin, xMax, yMin, yMax } = this.state.view;
+    const span = Math.max(xMax - xMin, yMax - yMin);
+    this.persp.position.set(span * 0.75, span * 0.45, span * 1.05);
+    this.perspControls.target.set(0, 0, 0);
+    this.persp.lookAt(0, 0, 0);
+    this.orthoControls.update();
+    this.perspControls.update();
+  }
+
+  /** Apply visual + camera settings that don't need geometry changes. */
+  applySettings() {
+    const { visual: v, camera: c, mode } = this.state;
+    const bg = new THREE.Color(v.background);
+    this.scene.background = bg;
+    const hsl = {};
+    bg.getHSL(hsl);
+    this.lightBackground = hsl.l > 0.5;
+    this.scene.fog = v.fog.enabled && mode === '3d' ? new THREE.FogExp2(bg, v.fog.density) : null;
+
+    this.bloom.enabled = v.bloom.enabled;
+    this.bloom.strength = v.bloom.strength;
+    this.bloom.radius = v.bloom.radius;
+    this.bloom.threshold = v.bloom.threshold;
+    this.afterimage.enabled = v.motionBlur.enabled;
+    this.afterimage.uniforms.damp.value = 0.5 + v.motionBlur.amount * 0.45;
+    this.bokeh.enabled = v.dof.enabled && mode === '3d';
+    this.bokeh.uniforms.focus.value = v.dof.focus;
+    this.bokeh.uniforms.aperture.value = v.dof.aperture * 0.0025;
+
+    this.renderPass.camera = this.camera;
+    this.orthoControls.enabled = mode === '2d';
+    this.perspControls.enabled = mode === '3d';
+    this.perspControls.autoRotate = c.autoRotate;
+    this.perspControls.autoRotateSpeed = c.rotateSpeed;
+    if (this.persp.fov !== c.fov) { this.persp.fov = c.fov; this.persp.updateProjectionMatrix(); }
+    this.restyle();
+  }
+
+  restyle() {
+    for (const v of this.views.values()) v.applyStyle();
+  }
+
+  /** Rebuild grid, axes and labels for the current view and mode. */
+  buildGrid() {
+    for (const o of [...this.grid.children]) {
+      this.grid.remove(o);
+      o.geometry?.dispose();
+      o.material?.map?.dispose();
+      o.material?.dispose();
+    }
+    const { view, visual: v, mode } = this.state;
+    const { xMin, xMax, yMin, yMax } = view;
+    const cx = (xMin + xMax) / 2, cy = (yMin + yMax) / 2;
+    this.content.position.set(-cx, -cy, 0);
+    const is3d = mode === '3d';
+    const sx = niceStep(xMax - xMin), sy = niceStep(yMax - yMin);
+    const gridPts = [], axisPts = [];
+
+    if (v.showGrid) {
+      if (!is3d) {
+        for (let x = Math.ceil(xMin / sx) * sx; x <= xMax + 1e-9; x += sx) gridPts.push(x, yMin, 0, x, yMax, 0);
+        for (let y = Math.ceil(yMin / sy) * sy; y <= yMax + 1e-9; y += sy) gridPts.push(xMin, y, 0, xMax, y, 0);
+      } else {
+        // Floor grid on the XZ plane under the graph.
+        const zMin = yMin, zMax = yMax, sz = sy;
+        for (let x = Math.ceil(xMin / sx) * sx; x <= xMax + 1e-9; x += sx) gridPts.push(x, yMin, zMin, x, yMin, zMax);
+        for (let z = Math.ceil(zMin / sz) * sz; z <= zMax + 1e-9; z += sz) gridPts.push(xMin, yMin, z, xMax, yMin, z);
+        // Back wall for pitch reference.
+        for (let y = Math.ceil(yMin / sy) * sy; y <= yMax + 1e-9; y += sy) gridPts.push(xMin, y, zMin, xMax, y, zMin);
+      }
+    }
+    if (v.showAxes) {
+      const ay = Math.min(Math.max(0, yMin), yMax), ax = Math.min(Math.max(0, xMin), xMax);
+      axisPts.push(xMin, ay, 0, xMax, ay, 0, ax, yMin, 0, ax, yMax, 0);
+      if (is3d) axisPts.push(ax, ay, yMin, ax, ay, yMax);
+    }
+    const seg = (arr, color, opacity) => {
+      if (!arr.length) return;
+      const g = new THREE.BufferGeometry().setAttribute('position', new THREE.Float32BufferAttribute(arr, 3));
+      this.grid.add(new THREE.LineSegments(g, new THREE.LineBasicMaterial({ color, transparent: true, opacity, depthWrite: false })));
+    };
+    seg(gridPts, v.gridColor, 0.9);
+    seg(axisPts, v.axesColor, 1);
+
+    if (v.showLabels && v.showAxes) {
+      const ay = Math.min(Math.max(0, yMin), yMax), ax = Math.min(Math.max(0, xMin), xMax);
+      for (let x = Math.ceil(xMin / sx) * sx; x <= xMax + 1e-9; x += sx) {
+        const s = textSprite(fmt(x), v.axesColor);
+        s.position.set(x, ay, 0);
+        s.userData.offset = [0, -1.1];
+        this.grid.add(s);
+      }
+      for (let y = Math.ceil(yMin / sy) * sy; y <= yMax + 1e-9; y += sy) {
+        if (Math.abs(y) < 1e-9) continue;
+        const s = textSprite(fmt(y), v.axesColor);
+        s.position.set(ax, y, 0);
+        s.userData.offset = [-0.75, 0];
+        this.grid.add(s);
+      }
+      if (is3d) {
+        const names = [['time  x', xMax, ay, 0], ['pitch  y', ax, yMax, 0], ['z', ax, ay, yMax]];
+        for (const [txt, x, y, z] of names) {
+          const s = textSprite(txt, v.axesColor);
+          s.position.set(x, y, z);
+          s.userData.offset = [0.7, 0.9];
+          this.grid.add(s);
+        }
+      }
+    }
+  }
+
+  /** Make sure there is exactly one LayerView per visible layer (rebuilding changed ones). */
+  syncLayers(layers) {
+    const keep = new Set();
+    for (const l of layers) {
+      if (!l.enabled) continue;
+      keep.add(l.id);
+      const sig = JSON.stringify([l.style, l.type, l.width]);
+      let view = this.views.get(l.id);
+      if (view && view.sig !== sig) { this.content.remove(view.group); view.dispose(); view = null; }
+      if (!view) {
+        view = new LayerView(this, l);
+        view.sig = sig;
+        this.views.set(l.id, view);
+        this.content.add(view.group);
+      }
+      view.layer = l;
+      view.applyStyle();
+    }
+    for (const [id, view] of this.views) {
+      if (!keep.has(id)) { this.content.remove(view.group); view.dispose(); this.views.delete(id); }
+    }
+  }
+
+  rebuildLayer(id, compiled, ctx) {
+    this.views.get(id)?.rebuild(compiled, ctx);
+  }
+
+  /** World units per buffer pixel at the focus point (for pixel-sized sprites). */
+  worldPerPx() {
+    if (this.state.mode === '2d') {
+      const o = this.ortho;
+      return (o.top - o.bottom) / o.zoom / this.bufferHeight;
+    }
+    const d = this.persp.position.distanceTo(this.perspControls.target);
+    return (2 * d * Math.tan(THREE.MathUtils.degToRad(this.persp.fov / 2))) / this.bufferHeight;
+  }
+
+  /**
+   * Draw one frame.
+   * @param {{id,u,point,compiled}[]} items per-layer playhead info
+   * @param {object} ctx evaluation context (t, params, view)
+   * @param {{dt:number, now:number, snap:boolean, playing:boolean}} f
+   */
+  render(items, ctx, f) {
+    const k = this.bufferHeight / 1000;
+    const wpp = this.worldPerPx();
+    const frame = { ...f, k, worldPerPx: wpp };
+    for (const it of items) this.views.get(it.id)?.frame(it.u, it.point, frame, it.compiled, ctx);
+
+    // Labels keep a constant on-screen size.
+    for (const s of this.grid.children) {
+      if (!s.userData.label) continue;
+      const hpx = 22 * k * wpp;
+      s.scale.set(hpx * s.userData.aspect, hpx, 1);
+      s.center.set(s.userData.offset[0] < 0 ? 1 : 0, 0.5);
+      if (!s.userData.base) s.userData.base = s.position.clone();
+      s.position.set(s.userData.base.x, s.userData.base.y + s.userData.offset[1] * hpx, s.userData.base.z);
+    }
+
+    // Cinematic follow: gently steer the orbit target towards the first playhead.
+    if (this.state.mode === '3d' && this.state.camera.follow && items[0]) {
+      const p = items[0].point;
+      const goal = tmpVec.set(p.x, p.y, p.z).add(this.content.position);
+      this.perspControls.target.lerp(goal, 1 - Math.pow(0.94, f.dt * 60));
+    }
+    if (this.bokeh.enabled && items[0]) {
+      // Auto-focus on the playhead when DoF is on.
+      const p = items[0].point;
+      const world = tmpVec.set(p.x, p.y, p.z).add(this.content.position);
+      this.bokeh.uniforms.focus.value = this.persp.position.distanceTo(world) * (this.state.visual.dof.focus / 14);
+    }
+
+    this.controls.update(f.dt);
+    this.composer.render(f.dt);
+  }
+
+  /** PNG snapshot of the current frame. */
+  snapshot() {
+    this.composer.render(0);
+    return this.canvas.toDataURL('image/png');
+  }
+}
