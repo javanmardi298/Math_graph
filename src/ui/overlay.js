@@ -1,77 +1,150 @@
 /**
- * 2D overlay drawn on top of the graph: formula captions, live note names and
- * the audio analyzer. The same function draws the on-screen overlay and the
- * overlay burned into recorded videos, so what you see is what you export.
+ * 2D overlay drawn on top of the graph: title, formula list (with live note names),
+ * the audio analyzer and free text boxes. The same function draws the on-screen
+ * overlay and the overlay burned into exported videos, so what you see is what you get.
+ *
+ * Every element can be moved and resized. Positions are stored as fractions of the
+ * frame (0..1), sizes as multipliers, so a layout made at 720p lands in the same
+ * place in a 4K export. A position of null means "automatic" (the default layout).
  */
 import { noteName } from '../math/music.js';
 
 const LABEL = { function: ['y'], parametric: ['x', 'y', 'z'], polar: ['r'], surface: ['f'] };
 
+/** Font stacks. Vazirmatn covers Persian/Arabic text in every style. */
+export const FONTS = {
+  display: '"Chakra Petch", "Vazirmatn", "Segoe UI", sans-serif',
+  body: '"IBM Plex Sans", "Vazirmatn", "Segoe UI", Tahoma, sans-serif',
+  mono: '"JetBrains Mono", "Vazirmatn", ui-monospace, monospace',
+  persian: '"Vazirmatn", Tahoma, "Segoe UI", sans-serif',
+};
+export const FONT_LABELS = { display: 'Display', body: 'Clean', mono: 'Mono', persian: 'Persian (Vazirmatn)' };
+
+const isRtl = (s) => /[֐-ࣿיִ-ﻼ]/.test(s);
+
+function roundRect(g, x, y, w, h, r) {
+  g.beginPath();
+  g.moveTo(x + r, y);
+  g.arcTo(x + w, y, x + w, y + h, r);
+  g.arcTo(x + w, y + h, x, y + h, r);
+  g.arcTo(x, y + h, x, y, r);
+  g.arcTo(x, y, x + w, y, r);
+  g.closePath();
+}
+
+/** Opacity of a text box at time t (fades in/out over 0.25 s at the edges of its window). */
+export function textAlpha(tb, t) {
+  const start = Math.max(0, tb.start || 0);
+  const end = tb.end > start ? tb.end : Infinity;
+  if (t < start || t > end) return 0;
+  const fade = 0.25;
+  return Math.min(1, (t - start) / fade + (start === 0 ? 1 : 0), (end - t) / fade);
+}
+
 /**
  * @param {CanvasRenderingContext2D} g
  * @param {number} w @param {number} h  canvas size in pixels
- * @param {{state, layers, notes:Map, spectrum:Uint8Array|null, waveform:Uint8Array|null, time:number, ui:object}} d
+ * @param {object} d { state, layers, notes:Map, phases:Map, spectrum, waveform, ui, time, editing }
+ * @returns {{title:object|null, formulas:object|null, analyzer:object|null, texts:{id:string, rect:object, visible:boolean}[]}}
+ *          element rectangles in canvas pixels, for the layout editor
  */
 export function drawOverlay(g, w, h, d) {
   const { state } = d;
   const k = Math.min(w, h) / 1000; // scale with the shorter side so 9:16 looks like 16:9
   const portrait = h > w * 1.05;
   const v = state.visual;
+  const o = state.overlay;
   const ui = d.ui;
   const phases = d.phases || new Map();
-  // Analyzer box: bottom-right in landscape; top-right in portrait, where the
-  // bottom is needed for the formulas.
-  const aw = 300 * k, ah = 90 * k;
-  const ax = w - aw - 36 * k, ay = portrait ? 110 * k : h - ah - 30 * k;
+  const legacyCaption = v.caption !== false; // old presets: one switch for title + formulas
+  const rects = { title: null, formulas: null, analyzer: null, texts: [] };
   g.save();
   g.textBaseline = 'alphabetic';
 
-  if (v.caption) {
-    // Title
-    g.font = `600 ${Math.round(30 * k)}px "Chakra Petch", "JetBrains Mono", sans-serif`;
-    g.fillStyle = ui.fg;
-    g.globalAlpha = 0.92;
-    g.fillText(state.name || 'Math Melody', 36 * k, 60 * k);
-    g.globalAlpha = 0.55;
-    g.font = `500 ${Math.round(17 * k)}px "JetBrains Mono", ui-monospace, monospace`;
-    g.fillText(`${state.mode.toUpperCase()} · ${state.audio.scale === 'continuous' ? 'continuous pitch' : state.audio.scale}`, 36 * k, 88 * k);
+  /* ---------------------------------------------------------------- title */
+  if (o.title.enabled && legacyCaption) {
+    const s = o.title.size;
+    const tPx = 30 * k * s, sPx = 17 * k * s;
+    const title = o.title.text.trim() || state.name || 'Math Melody';
+    const sub = o.title.subtitle
+      ? (o.title.subtitleText.trim() || `${state.mode.toUpperCase()} · ${state.audio.scale === 'continuous' ? 'continuous pitch' : state.audio.scale}`)
+      : '';
+    g.font = `600 ${tPx}px ${FONTS.display}`;
+    let bw = g.measureText(title).width;
+    g.font = `500 ${sPx}px ${FONTS.mono}`;
+    if (sub) bw = Math.max(bw, g.measureText(sub).width);
+    const bh = tPx * 1.25 + (sub ? sPx * 1.6 : 0);
+    const x = o.title.x == null ? 36 * k : o.title.x * w;
+    const y = o.title.y == null ? 26 * k : o.title.y * h;
+    g.fillStyle = o.title.color || ui.fg;
+    g.globalAlpha = 0.95;
+    g.font = `600 ${tPx}px ${FONTS.display}`;
+    g.fillText(title, x, y + tPx);
+    if (sub) {
+      g.globalAlpha = 0.55;
+      g.font = `500 ${sPx}px ${FONTS.mono}`;
+      g.fillText(sub, x, y + tPx * 1.25 + sPx * 1.15);
+    }
+    rects.title = { x, y, w: bw, h: bh };
+  }
 
-    // Formula lines (kept clear of the analyzer in landscape). In sequence mode,
-    // layers that haven't started yet are not listed and finished ones are dimmed.
-    const maxW = w - 60 * k - (v.analyzer !== 'off' && !portrait ? 370 * k : 40 * k);
-    let y = h - (portrait ? 70 : 40) * k;
-    const lines = d.layers.filter((l) => l.enabled && phases.get(l.id) !== 'future').reverse();
-    g.font = `500 ${Math.round(20 * k)}px "JetBrains Mono", ui-monospace, monospace`;
-    for (const l of lines) {
+  /* -------------------------------------------------------------- analyzer */
+  let ana = null;
+  if (v.analyzer !== 'off') {
+    const s = o.analyzer.size;
+    const aw = 300 * k * s, ah = 90 * k * s;
+    const x = o.analyzer.x == null ? w - aw - 36 * k : o.analyzer.x * w;
+    const y = o.analyzer.y == null ? (portrait ? 110 * k : h - ah - 30 * k) : o.analyzer.y * h;
+    ana = { x, y, w: aw, h: ah };
+    rects.analyzer = ana;
+  }
+
+  /* -------------------------------------------------------------- formulas */
+  if (o.formulas.enabled && legacyCaption) {
+    const s = o.formulas.size;
+    const fs = 20 * k * s, lineH = 32 * k * s;
+    const lines = d.layers.filter((l) => l.enabled && phases.get(l.id) !== 'future');
+    const x = o.formulas.x == null ? 36 * k : o.formulas.x * w;
+    // Leave room for an automatically placed analyzer in the same corner.
+    const sharesCorner = ana && o.analyzer.x == null && o.formulas.x == null && !portrait;
+    const maxW = Math.max(80 * k, (sharesCorner ? ana.x - 30 * k : w - 24 * k) - x);
+    const bh = lines.length * lineH;
+    const y = o.formulas.y == null ? h - (portrait ? 56 : 28) * k - bh : o.formulas.y * h;
+    g.font = `500 ${fs}px ${FONTS.mono}`;
+    let bw = 0;
+    lines.forEach((l, i) => {
       const keys = l.type === 'function' && l.exprs.z.trim() !== '0' ? ['y', 'z'] : LABEL[l.type];
       const note = d.notes.get(l.id);
       const noteText = note != null ? `  ♪ ${noteName(note)}` : '';
       let text = keys.map((key) => `${key === 'f' ? 'h' : key} = ${l.exprs[key]}`).join('   ');
-      const room = maxW - g.measureText(noteText).width;
+      const room = maxW - 24 * k * s - g.measureText(noteText).width;
       if (g.measureText(text).width > room) {
         while (text.length > 4 && g.measureText(`${text}…`).width > room) text = text.slice(0, -1);
         text += '…';
       }
+      const base = y + (i + 0.72) * lineH;
       const dim = phases.get(l.id) === 'past' ? 0.38 : 1;
       g.globalAlpha = dim;
       g.fillStyle = l.color;
       g.beginPath();
-      g.arc(42 * k, y - 7 * k, 6 * k, 0, Math.PI * 2);
+      g.arc(x + 6 * k * s, base - fs * 0.35, 6 * k * s, 0, Math.PI * 2);
       g.fill();
       g.fillStyle = ui.fg;
       g.globalAlpha = 0.9 * dim;
-      g.fillText(text, 60 * k, y);
+      g.fillText(text, x + 24 * k * s, base);
+      const tw = g.measureText(text).width;
       if (note != null && dim === 1) {
-        const tw = g.measureText(text).width;
         g.fillStyle = l.color;
-        g.fillText(noteText, 60 * k + tw, y);
+        g.fillText(noteText, x + 24 * k * s + tw, base);
       }
-      y -= 32 * k;
-    }
+      bw = Math.max(bw, 24 * k * s + tw + (note != null ? g.measureText(noteText).width : 0));
+    });
+    rects.formulas = { x, y, w: Math.max(bw, 120 * k * s), h: Math.max(bh, lineH) };
   }
 
-  if (v.analyzer !== 'off') {
-    const bw = aw, bh = ah, x0 = ax, y0 = ay;
+  /* ---------------------------------------------------------- draw analyzer */
+  if (ana) {
+    const { x: x0, y: y0, w: bw, h: bh } = ana;
     const playing = d.layers.find((l) => l.enabled && phases.get(l.id) === 'active');
     const accent = playing?.color || d.layers.find((l) => l.enabled)?.color || ui.accent;
     g.globalAlpha = 1;
@@ -94,7 +167,7 @@ export function drawOverlay(g, w, h, d) {
       }
     } else if (v.analyzer === 'wave' && d.waveform) {
       g.strokeStyle = accent;
-      g.lineWidth = 2.5 * k;
+      g.lineWidth = 2.5 * k * o.analyzer.size;
       g.shadowColor = accent;
       g.shadowBlur = 12 * k;
       g.beginPath();
@@ -105,7 +178,44 @@ export function drawOverlay(g, w, h, d) {
         i ? g.lineTo(px, py) : g.moveTo(px, py);
       }
       g.stroke();
+      g.shadowBlur = 0;
     }
   }
+
+  /* ------------------------------------------------------------- text boxes */
+  for (const tb of o.texts) {
+    const lines = String(tb.text || ' ').split('\n');
+    const fPx = 56 * k * (tb.size || 1);
+    const lineH = fPx * 1.22;
+    g.font = `${tb.bold ? 700 : 500} ${fPx}px ${FONTS[tb.font] || FONTS.display}`;
+    const tw = Math.max(...lines.map((l) => g.measureText(l).width), fPx);
+    const pad = tb.box ? fPx * 0.4 : 0;
+    const bw = tw + pad * 2, bh = lines.length * lineH + pad * 2 - (lineH - fPx) * 0.5;
+    const cx = tb.x * w, cy = tb.y * h;
+    const rect = { x: cx - bw / 2, y: cy - bh / 2, w: bw, h: bh };
+    const alpha = textAlpha(tb, d.time ?? 0);
+    rects.texts.push({ id: tb.id, rect, visible: alpha > 0 });
+    if (alpha <= 0) continue;
+    g.globalAlpha = alpha;
+    if (tb.box) {
+      g.fillStyle = ui.light ? 'rgba(255,255,255,0.72)' : 'rgba(0,0,0,0.5)';
+      roundRect(g, rect.x, rect.y, bw, bh, fPx * 0.3);
+      g.fill();
+    }
+    g.fillStyle = tb.color || ui.fg;
+    if (tb.glow) { g.shadowColor = tb.color || ui.accent; g.shadowBlur = fPx * 0.45; }
+    // left/right are absolute edges in canvas (only start/end flip with direction);
+    // direction just makes Persian/Arabic runs shape and order correctly.
+    const align = tb.align || 'center';
+    g.textAlign = align;
+    g.direction = lines.some(isRtl) ? 'rtl' : 'ltr';
+    const ax = align === 'left' ? rect.x + pad : align === 'right' ? rect.x + bw - pad : cx;
+    lines.forEach((line, i) => g.fillText(line, ax, rect.y + pad + i * lineH + fPx * 0.92));
+    g.shadowBlur = 0;
+    g.textAlign = 'left';
+    g.direction = 'ltr';
+  }
+
   g.restore();
+  return rects;
 }

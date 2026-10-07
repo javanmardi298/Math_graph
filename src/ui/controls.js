@@ -104,6 +104,16 @@ export function segmented(b, options, { label, cls = '' } = {}) {
   return track(wrap, set);
 }
 
+/** Text field (or textarea). dir="auto" so Persian and English both type naturally. */
+export function text(label, b, { placeholder = '', multiline = false } = {}) {
+  const id = nextId('x');
+  const input = h(multiline ? 'textarea' : 'input', { id, placeholder, spellcheck: 'false', dir: 'auto', autocomplete: 'off' });
+  const set = () => { if (document.activeElement !== input) input.value = b.get() ?? ''; };
+  input.addEventListener('input', () => b.set(input.value));
+  set();
+  return track(h('div.ctl.ctl-text', {}, h('label', { for: id }, label), input), set);
+}
+
 export function number(label, b, { min, max, step = 1 } = {}) {
   const id = nextId('n');
   const input = h('input', { type: 'number', id, min, max, step });

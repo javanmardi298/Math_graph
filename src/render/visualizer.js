@@ -509,7 +509,10 @@ export class Visualizer {
 
     this.dotTexture = shapeTexture('circle');
 
-    this.composer = new EffectComposer(r);
+    // 4× MSAA in the post-processing chain: without it the bloom/blur passes render
+    // into plain targets and lose the canvas antialiasing (jagged edges in exports).
+    const msaa = new THREE.WebGLRenderTarget(2, 2, { type: THREE.HalfFloatType, samples: r.capabilities.isWebGL2 ? 4 : 0 });
+    this.composer = new EffectComposer(r, msaa);
     this.renderPass = new RenderPass(this.scene, this.ortho);
     this.bokeh = new BokehPass(this.scene, this.persp, { focus: 14, aperture: 0.001, maxblur: 0.012 });
     this.afterimage = new AfterimagePass(0.8);

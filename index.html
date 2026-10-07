@@ -7,13 +7,14 @@
 <meta name="description" content="Turn math formulas into neon graphs and live music, then record the result as a video.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Vazirmatn:wght@400;600;800&display=swap">
 <link rel="stylesheet" href="src/styles.css">
 <!-- three.js is vendored locally so the app works with no internet connection. -->
 <script type="importmap">
 { "imports": {
   "three": "./vendor/three/build/three.module.min.js",
-  "three/addons/": "./vendor/three/examples/jsm/"
+  "three/addons/": "./vendor/three/examples/jsm/",
+  "mp4-muxer": "./vendor/mp4-muxer/mp4-muxer.mjs"
 } }
 </script>
 </head>
@@ -37,7 +38,7 @@
     <div class="hud" id="hud" aria-live="off"></div>
 
     <div class="topbar-right">
-      <button class="rec-btn record-btn" id="topbar-record" type="button" title="Record video (R)"><span class="rec-dot"></span><span id="rec-time" class="rec-time">REC</span>Start recording</button>
+      <button class="rec-btn" id="topbar-record" type="button" title="Render a smooth, frame-perfect MP4 (E)"><span class="rec-dot"></span>Export video</button>
       <button class="icon-btn" id="snapshot-btn" type="button" title="Save PNG snapshot" aria-label="Save PNG snapshot">⌗</button>
       <button class="icon-btn" id="theme-btn" type="button" title="Day / night (T)" aria-label="Switch to day mode">☀</button>
       <button class="icon-btn" id="cinema-btn" type="button" title="Hide the interface (H)" aria-label="Hide the interface">⛶</button>
@@ -80,7 +81,10 @@
     <div class="stage" id="stage">
       <div class="gl-host" id="gl-host"></div>
       <canvas class="overlay" id="overlay" aria-hidden="true"></canvas>
-      <div class="rec-badge" aria-hidden="true"><span class="rec-dot"></span>REC</div>
+      <div class="rec-badge" aria-hidden="true"><span class="rec-dot"></span>REC <span id="rec-time">00:00</span></div>
+      <div class="stage-tools">
+        <button class="btn small" id="edit-layout-btn" type="button" aria-pressed="false" title="Move and resize the title, formulas, analyzer and text boxes">✥ Edit text &amp; layout</button>
+      </div>
       <div class="cinema-hint">Press Esc or H to show the interface</div>
     </div>
     <div class="toast" id="toast" role="status" hidden></div>
@@ -119,6 +123,7 @@
 <dialog id="result-dialog" class="dialog glass">
   <h2>Export ready</h2>
   <div id="result-media" class="result-media"></div>
+  <div class="file-row"><label class="ctl-label" for="result-name">File name</label><input id="result-name" spellcheck="false"><span id="result-ext" class="hint"></span></div>
   <p id="result-info" class="hint"></p>
   <div class="row">
     <button class="btn" id="result-download" type="button">Download</button>
@@ -127,12 +132,24 @@
   <p class="hint">If the download doesn't start, you're in an embedded preview. Run the app on localhost to save files.</p>
 </dialog>
 
+<!-- Video render progress -->
+<dialog id="render-dialog" class="dialog glass">
+  <div class="render-progress">
+    <h2 id="render-title">Rendering video</h2>
+    <progress id="render-bar" max="1" value="0"></progress>
+    <div class="render-stats" id="render-stats">Preparing…</div>
+    <p class="hint">Every frame is drawn at its exact time, so the video is perfectly smooth even if this takes a while. Keep this tab open.</p>
+    <div class="row"><button class="btn ghost" type="button" id="render-cancel">Cancel</button></div>
+  </div>
+</dialog>
+
 <!-- Help -->
 <dialog id="help-dialog" class="dialog glass">
   <h2>How it works</h2>
   <p><strong>x</strong> is time: the playhead sweeps it from left to right. <strong>y</strong> is pitch: higher on the graph means a higher note. In 3D, <strong>z</strong> sets each layer's volume or stereo position.</p>
   <table class="keys">
-    <tr><td><kbd>Space</kbd></td><td>Play / pause</td><td><kbd>R</kbd></td><td>Record video</td></tr>
+    <tr><td><kbd>Space</kbd></td><td>Play / pause</td><td><kbd>E</kbd></td><td>Export smooth video</td></tr>
+    <tr><td><kbd>R</kbd></td><td>Live capture (real time)</td><td></td><td></td></tr>
     <tr><td><kbd>Home</kbd></td><td>Back to start</td><td><kbd>← →</kbd></td><td>Jump 1 s</td></tr>
     <tr><td><kbd>M</kbd></td><td>2D ↔ 3D</td><td><kbd>T</kbd></td><td>Day / night</td></tr>
     <tr><td><kbd>H</kbd></td><td>Hide interface</td><td><kbd>F</kbd></td><td>Full screen</td></tr>

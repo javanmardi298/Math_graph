@@ -1,7 +1,7 @@
-// Locates the two external tools the studio render needs: Playwright (a headless
-// Chromium to draw frames) and ffmpeg (to encode them). Both are optional for the app.
+// Locates the optional external tools: ffmpeg (converts VP9 exports to H.264) and
+// Playwright (command-line batch rendering). Neither is needed to use the app.
 //
-// Detection runs again on every check until both are found, so installing a tool
+// ffmpeg detection runs again on every call until it succeeds, so installing it
 // while `npm start` is running works without restarting the server.
 import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
@@ -57,28 +57,4 @@ export async function loadPlaywright() {
     } catch { /* try the next one */ }
   }
   return null;
-}
-
-/** Is Playwright's Chromium actually downloaded? (npm install alone doesn't fetch it.) */
-async function chromiumInstalled(pw) {
-  try {
-    const exe = pw.chromium.executablePath();
-    return !exe || existsSync(exe);
-  } catch {
-    return false;
-  }
-}
-
-let ready = null;
-export async function checkRenderTools() {
-  if (ready) return ready;
-  const ff = findFfmpeg();
-  const pw = await loadPlaywright();
-  const problems = [];
-  if (!ff) problems.push('ffmpeg was not found. Install it and make sure `ffmpeg -version` works in a NEW terminal, or set FFMPEG_PATH to ffmpeg.exe, or run `npm install ffmpeg-static`.');
-  if (!pw) problems.push('Playwright is missing. Run `npm install` in the project folder.');
-  else if (!(await chromiumInstalled(pw))) problems.push('Playwright’s browser is not downloaded. Run `npx playwright install chromium`.');
-  if (problems.length) return { available: false, reason: problems.join(' ') };
-  ready = { available: true, reason: '', ffmpeg: ff.version, ffmpegPath: ff.path };
-  return ready;
 }

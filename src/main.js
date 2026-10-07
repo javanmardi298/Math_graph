@@ -29,6 +29,8 @@ import { Timeline } from './ui/timeline.js';
 import { drawOverlay } from './ui/overlay.js';
 import { h, bindPath, segmented, slider, number, toggle, refreshAll } from './ui/controls.js';
 import { Recorder, download, pickFormat } from './export/recorder.js';
+import { renderVideo, canRenderVideo } from './export/video-render.js';
+import { LayoutEditor } from './ui/layout-editor.js';
 import { writeMidi, samplesToNotes } from './export/midi.js';
 import { audioBufferToWav } from './export/wav.js';
 
@@ -68,6 +70,7 @@ const compiled = new Map();
 
 const clock = { pos: 0, prevPos: 0, playing: false, scrubbing: false, lastWall: performance.now() / 1000, lastAudio: 0, snap: true, autoStop: false, keyTime: null };
 const notes = new Map(); // layer id → current midi (for HUD/caption)
+const exporting = { busy: false }; // the live loop pauses while a video export draws frames
 
 /* --------------------------------------------------------------- toasts */
 
@@ -394,6 +397,9 @@ store.on((path) => {
     case 'keyframes':
       keyframesChanged();
       break;
+    case 'overlay':
+      if (second === 'texts') panels.renderTexts();
+      break;
     case 'theme':
       applyTheme();
       break;
@@ -483,6 +489,7 @@ function renderScene(time, { dt, now, playing, snap }) {
 
 function frame() {
   requestAnimationFrame(frame);
+  if (exporting.busy) return;
   const wall = performance.now() / 1000;
   let dt = Math.min(Math.max(wall - clock.lastWall, 0), 0.1);
   clock.lastWall = wall;
@@ -529,7 +536,7 @@ function frame() {
   clock.snap = false;
 
   og.clearRect(0, 0, overlay.width, overlay.height);
-  drawOverlay(og, overlay.width, overlay.height, overlayData());
+  layoutEditor.update(drawOverlay(og, overlay.width, overlay.height, overlayData()));
   if (recorder.active) {
     recorder.composite();
     $('rec-time').textContent = fmtRec(recorder.elapsed);
@@ -538,16 +545,18 @@ function frame() {
   updateHud(frames);
 }
 
-function overlayData(analysis = null) {
+function overlayData(analysis = null, time = clock.pos) {
   const light = isLight(store.state.visual.background);
+  const exportingNow = analysis != null;
   return {
     state: store.state,
     layers: store.state.layers,
-    notes: (clock.playing || clock.scrubbing || RENDER_MODE) && store.state.visual.showNotes ? notes : new Map(),
-    phases: new Map(store.state.layers.map((l) => [l.id, layerTiming(l, clock.pos).phase])),
+    time,
+    notes: (clock.playing || clock.scrubbing || exportingNow || RENDER_MODE) && store.state.visual.showNotes ? notes : new Map(),
+    phases: new Map(store.state.layers.map((l) => [l.id, layerTiming(l, time).phase])),
     spectrum: analysis ? analysis.spectrum : audio.spectrum(),
     waveform: analysis ? analysis.waveform : audio.waveform(),
-    ui: { fg: light ? '#1a1c26' : '#eef2ff', accent: '#22e4ff', accent2: light ? '#e0245e' : '#ff3d9a' },
+    ui: { fg: light ? '#1a1c26' : '#eef2ff', accent: '#22e4ff', accent2: light ? '#e0245e' : '#ff3d9a', light },
   };
 }
 
@@ -623,17 +632,19 @@ async function stopRecording() {
   document.querySelectorAll('.record-btn').forEach((b) => { b.lastChild.textContent = 'Start recording'; });
   applyStageAspect();
   if (!res || !res.blob.size) return toast('Recording came out empty. Try a different browser.');
-  showResult(res.blob, `${slug()}.${res.ext}`, 'video');
+  showResult(res.blob, `${fileBase()}.${res.ext}`, 'video');
 }
 
 const toggleRecord = () => (recorder.active ? stopRecording() : startRecording());
 
-function slug() {
-  return (store.state.name || 'math-melody').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'math-melody';
+/** File name (without extension) for exports: the Export tab's name, else the project name. Any language is fine. */
+function fileBase() {
+  const raw = (store.state.record.fileName || store.state.name || 'math-melody').trim();
+  return raw.replace(/[\\/:*?"<>|\u0000-\u001f]+/g, '-').replace(/\s+/g, ' ').slice(0, 80).trim() || 'math-melody';
 }
 
-/** Show a finished export with a preview and a download button. `src` is a Blob or a same-origin URL. */
-function showResult(src, filename, kind, sizeBytes) {
+/** Show a finished export with a preview, an editable file name and a download button. */
+function showResult(src, filename, kind, sizeBytes, note = '') {
   const dlg = $('result-dialog');
   const isBlob = src instanceof Blob;
   const url = isBlob ? URL.createObjectURL(src) : src;
@@ -642,8 +653,15 @@ function showResult(src, filename, kind, sizeBytes) {
       : kind === 'image' ? h('img', { src: url, alt: 'Snapshot preview' }) : null;
   $('result-media').replaceChildren(...(media ? [media] : []));
   const bytes = isBlob ? src.size : sizeBytes;
-  $('result-info').textContent = bytes ? `${filename} · ${(bytes / 1048576).toFixed(2)} MB` : filename;
-  $('result-download').onclick = async () => download(isBlob ? src : await (await fetch(url)).blob(), filename);
+  const dot = filename.lastIndexOf('.');
+  const ext = dot > 0 ? filename.slice(dot) : '';
+  $('result-name').value = dot > 0 ? filename.slice(0, dot) : filename;
+  $('result-ext').textContent = ext;
+  $('result-info').textContent = [bytes ? `${(bytes / 1048576).toFixed(2)} MB` : '', note].filter(Boolean).join(' · ');
+  $('result-download').onclick = async () => {
+    const name = ($('result-name').value.trim().replace(/[\\/:*?"<>|]+/g, '-') || fileBase()) + ext;
+    download(isBlob ? src : await (await fetch(url)).blob(), name);
+  };
   dlg.onclose = () => { if (isBlob) setTimeout(() => URL.revokeObjectURL(url), 1000); };
   dlg.showModal();
 }
@@ -681,7 +699,7 @@ async function exportWav() {
   try {
     const buf = await renderWavBuffer();
     toast('Audio ready.');
-    showResult(audioBufferToWav(buf), `${slug()}.wav`, 'audio');
+    showResult(audioBufferToWav(buf), `${fileBase()}.wav`, 'audio');
   } catch (err) {
     toast(`Audio render failed: ${err.message}`, 6000);
   }
@@ -719,7 +737,7 @@ function exportMidi() {
     });
   }
   const bytes = writeMidi(tracks, store.state.transport.bpm || 120);
-  download(new Blob([bytes], { type: 'audio/midi' }), `${slug()}.mid`);
+  download(new Blob([bytes], { type: 'audio/midi' }), `${fileBase()}.mid`);
   toast(`MIDI exported: ${tracks.reduce((n, t) => n + t.notes.length, 0)} notes in ${tracks.length} track${tracks.length > 1 ? 's' : ''}.`);
 }
 
@@ -731,12 +749,12 @@ function snapshot() {
   const g = c.getContext('2d');
   g.drawImage(viz.canvas, 0, 0);
   drawOverlay(g, c.width, c.height, overlayData());
-  c.toBlob((blob) => blob && showResult(blob, `${slug()}.png`, 'image'), 'image/png');
+  c.toBlob((blob) => blob && showResult(blob, `${fileBase()}.png`, 'image'), 'image/png');
 }
 
 function exportPresetFile() {
   const blob = new Blob([JSON.stringify(store.snapshot(), null, 2)], { type: 'application/json' });
-  download(blob, `${slug()}.mmv.json`);
+  download(blob, `${fileBase()}.mmv.json`);
 }
 
 function applyPalette(pal) {
@@ -774,48 +792,123 @@ async function auditionDrum(kind) {
   if (!store.state.drums.enabled) setTimeout(applyDrumVolume, 700);
 }
 
-/* ------------------------------------------------- server (studio) render */
+/* ------------------------------------------------ frame-perfect video */
 
-let serverJob = null;
+/**
+ * Draws exact video frames for exports. Time advances by a fixed step, drum
+ * pulses come from the precomputed hit list, and with subframes > 1 each frame
+ * averages several moments of its exposure (a 180° film shutter): real motion
+ * blur that makes fast curves look smooth instead of strobing.
+ */
+class FrameComposer {
+  constructor({ width, height, fps, subframes = 1, analyser, hits }) {
+    this.fps = fps;
+    this.n = Math.max(1, subframes | 0);
+    this.analyser = analyser;
+    this.hits = hits;
+    this.hitIndex = 0;
+    this.last = 0;
+    this.out = document.createElement('canvas');
+    this.out.width = width;
+    this.out.height = height;
+    this.g = this.out.getContext('2d');
+  }
 
-/** Ask the local server whether it can render (Playwright + ffmpeg installed). */
-async function serverStatus() {
-  try {
-    const r = await fetch('api/health', { cache: 'no-store' });
-    if (!r.ok) return { available: false, reason: 'offline' };
-    return await r.json();
-  } catch {
-    return { available: false, reason: 'offline' };
+  frame(i) {
+    const { fps, n, g, out } = this;
+    const t = i / fps;
+    const shutter = 0.5 / fps; // 180°
+    for (let j = 0; j < n; j++) {
+      const time = n === 1 ? t : Math.max(0, t - shutter * (1 - (j + 1) / n));
+      const dt = i === 0 && j === 0 ? 1 / fps : Math.max(time - this.last, 1e-4);
+      this.last = time;
+      clock.pos = time;
+      applyKeyframesAt(time);
+      if (store.state.drums.pulse) {
+        const src = drumSourceLayer(time);
+        while (this.hitIndex < this.hits.length && this.hits[this.hitIndex].time <= time + 1e-9) viz.pulse(this.hits[this.hitIndex++].kind, src?.id);
+      }
+      renderScene(time, { dt, now: time, playing: true, snap: i === 0 && j === 0 });
+      g.globalAlpha = 1 / (j + 1); // running average of the sub-frames
+      g.drawImage(viz.canvas, 0, 0, out.width, out.height);
+    }
+    g.globalAlpha = 1;
+    drawOverlay(g, out.width, out.height, overlayData(this.analyser?.at(t) ?? { spectrum: null, waveform: null }, t));
+    return out;
   }
 }
 
-async function serverRender(onProgress) {
-  if (serverJob) return toast('A studio render is already running.');
+const fmtEta = (s) => (s >= 90 ? `${Math.round(s / 60)} min` : `${Math.max(1, Math.round(s))} s`);
+
+/** Ask the local server (npm start + ffmpeg) to convert a VP9/Opus file to H.264/AAC. */
+async function transcodeToH264(blob) {
+  const r = await fetch('api/transcode', { method: 'POST', body: blob, headers: { 'Content-Type': 'video/mp4' } });
+  if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || `HTTP ${r.status}`);
+  return r.blob();
+}
+
+/** Render the whole timeline to a smooth MP4 in this browser (GPU + hardware encoder). */
+async function exportVideo() {
+  if (exporting.busy) return;
+  if (!canRenderVideo()) return toast('This browser cannot encode video. Use Chrome or Edge (or Live capture in the Export tab).', 7000);
+  if (recorder.active) await stopRecording();
+  const wasPlaying = clock.playing;
+  if (wasPlaying) pause();
+  const { fps, subframes, quality } = store.state.record;
   const size = recordSize();
-  const body = { preset: store.snapshot(), width: size.w, height: size.h, fps: store.state.record.fps };
-  let res;
+  const frames = Math.ceil(duration() * fps);
+  const dlg = $('render-dialog'), bar = $('render-bar'), stats = $('render-stats');
+  const token = { cancelled: false };
+  const cancel = () => { token.cancelled = true; stats.textContent = 'Cancelling…'; };
+  $('render-cancel').onclick = cancel;
+  dlg.oncancel = (e) => { e.preventDefault(); cancel(); };
+  $('render-title').textContent = `Rendering ${size.w}×${size.h} · ${fps} fps${subframes > 1 ? ` · motion blur ×${subframes}` : ''}`;
+  bar.value = 0;
+  stats.textContent = 'Rendering the soundtrack…';
+  dlg.showModal();
+  exporting.busy = true;
+  const savedPos = clock.pos;
   try {
-    res = await fetch('api/render', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-  } catch {
-    return toast('Studio render needs the local server: run `npm start` and open http://localhost:5173.', 6000);
+    await document.fonts?.ready;
+    await new Promise((r) => setTimeout(r, 30));
+    const buf = await renderWavBuffer();
+    if (token.cancelled) throw new Error('cancelled');
+    viz.setFixedSize(size);
+    const comp = new FrameComposer({ width: size.w, height: size.h, fps, subframes, analyser: new BufferAnalyser(buf), hits: drumEventsFull() });
+    const res = await renderVideo({
+      width: size.w, height: size.h, fps, frames, quality, token, audio: buf,
+      drawFrame: (i) => comp.frame(i),
+      onProgress: (p) => {
+        bar.value = p.frame / p.frames;
+        stats.textContent = `Frame ${p.frame} / ${p.frames} · ${p.fps.toFixed(1)} frames/s · about ${fmtEta(p.eta)} left`;
+      },
+    });
+    let blob = res.blob;
+    let note = `${size.w}×${size.h} · ${fps} fps · ${res.video}${res.audio ? ` + ${res.audio}` : ''}`;
+    if (res.video !== 'H.264' || (res.audio && res.audio !== 'AAC')) {
+      stats.textContent = 'Converting to H.264 / AAC with ffmpeg for maximum compatibility…';
+      try {
+        blob = await transcodeToH264(blob);
+        note = `${size.w}×${size.h} · ${fps} fps · H.264 + AAC`;
+      } catch {
+        note += ' · plays in Chrome, VLC and on YouTube (run npm start with ffmpeg installed for an H.264 copy)';
+      }
+    }
+    dlg.close();
+    showResult(blob, `${fileBase()}.mp4`, 'video', null, note);
+  } catch (err) {
+    dlg.close();
+    toast(err.message === 'cancelled' ? 'Export cancelled.' : `Video export failed: ${err.message}`, 8000);
+  } finally {
+    viz.setFixedSize(null);
+    exporting.busy = false;
+    clock.pos = savedPos;
+    clock.snap = true;
+    clock.keyTime = null;
+    scanner.reset();
+    applyStageAspect();
+    if (wasPlaying) play();
   }
-  const info = await res.json().catch(() => ({}));
-  if (!res.ok) return toast(info.error || `Render could not start (HTTP ${res.status}).`, 7000);
-  serverJob = info.id;
-  toast(`Studio render started: ${size.w}×${size.h} at ${body.fps} fps.`);
-  const poll = async () => {
-    let st;
-    try { st = await (await fetch(`api/render/${serverJob}`, { cache: 'no-store' })).json(); } catch { st = { status: 'error', error: 'Lost contact with the server.' }; }
-    onProgress?.(st);
-    if (st.status === 'done') {
-      serverJob = null;
-      showResult(st.url, st.file, 'video', st.bytes);
-    } else if (st.status === 'error') {
-      serverJob = null;
-      toast(`Studio render failed: ${st.error}`, 8000);
-    } else setTimeout(poll, 1000);
-  };
-  poll();
 }
 
 /* ------------------------------------------------------------- UI wiring */
@@ -847,16 +940,30 @@ const panels = new Panels({
   playheadTime: () => clock.pos,
   fitToBars,
   auditionDrum,
-  serverStatus,
-  serverRender,
+  exportVideo,
+  canRenderVideo,
   recordSize,
+  fileBase,
+  setLayoutEditing: (on) => setLayoutEditing(on),
 });
+
+// Layout editor on the stage
+const layoutEditor = new LayoutEditor(stage, overlay, {
+  toast,
+  onEditText: (id) => panels.focusText(id),
+});
+function setLayoutEditing(on) {
+  layoutEditor.setEnabled(on);
+  $('edit-layout-btn').setAttribute('aria-pressed', String(on));
+  panels.syncLayoutToggle?.(on);
+}
+$('edit-layout-btn').addEventListener('click', () => setLayoutEditing(!layoutEditor.enabled));
 
 // Top bar
 $('mode-slot').append(segmented(bindPath('mode'), [['2d', '2D', '2D graph (M)'], ['3d', '3D', '3D space (M)']], { label: 'View mode' }));
 $('play-btn').addEventListener('click', togglePlay);
 $('rewind-btn').addEventListener('click', () => seek(0));
-$('topbar-record').addEventListener('click', toggleRecord);
+$('topbar-record').addEventListener('click', exportVideo);
 $('theme-btn').addEventListener('click', () => toggleTheme());
 $('cinema-btn').addEventListener('click', () => document.body.classList.toggle('cinema'));
 $('help-btn').addEventListener('click', () => $('help-dialog').showModal());
@@ -914,7 +1021,8 @@ window.addEventListener('keydown', (e) => {
     case '[': togglePanel('left'); break;
     case ']': togglePanel('right'); break;
     case '?': $('help-dialog').showModal(); break;
-    case 'Escape': document.body.classList.remove('cinema'); break;
+    case 'e': case 'E': exportVideo(); break;
+    case 'Escape': document.body.classList.remove('cinema'); if (layoutEditor.enabled) setLayoutEditing(false); break;
   }
 });
 
@@ -926,50 +1034,54 @@ window.addEventListener('keydown', (e) => {
  */
 function installRenderApi() {
   document.body.classList.add('cinema', 'render-mode');
-  let fps = 60, analyser = null, hits = [], hitIndex = 0, out = null;
+  let comp = null, result = null, prep = null;
   window.__mmv = {
     ready: true,
     async load(preset) {
       store.load(preset);
       seek(0);
-      // Give async textures (custom marker image) a moment to arrive.
-      await new Promise((r) => setTimeout(r, 300));
+      // Give async textures (custom marker image) and web fonts a moment to arrive.
+      await Promise.all([new Promise((r) => setTimeout(r, 300)), document.fonts?.ready]);
       return { name: store.state.name, duration: duration() };
     },
-    async prepare({ width, height, fps: f }) {
-      fps = f;
+    /** Render the soundtrack and set up exact frame drawing. */
+    async prepare({ width, height, fps, subframes = 1 }) {
       viz.setFixedSize({ w: width, h: height });
-      out = document.createElement('canvas');
-      out.width = width;
-      out.height = height;
       const buf = await renderWavBuffer();
-      analyser = new BufferAnalyser(buf);
-      hits = drumEventsFull();
-      hitIndex = 0;
-      clock.pos = 0;
-      clock.snap = true;
-      const wav = new Uint8Array(await audioBufferToWav(buf).arrayBuffer());
-      let bin = '';
-      for (let i = 0; i < wav.length; i += 0x8000) bin += String.fromCharCode(...wav.subarray(i, i + 0x8000));
-      return { frames: Math.ceil(duration() * fps), duration: duration(), wav: btoa(bin) };
+      comp = new FrameComposer({ width, height, fps, subframes, analyser: new BufferAnalyser(buf), hits: drumEventsFull() });
+      prep = { buf, width, height, fps, frames: Math.ceil(duration() * fps) };
+      return { frames: prep.frames, duration: duration(), webcodecs: canRenderVideo() };
     },
-    /** Render frame `i` and return it as a data URL (PNG by default). */
-    frame(i, format = 'image/png', quality = 0.95) {
-      const time = i / fps;
-      const dt = 1 / fps;
-      clock.pos = time;
-      applyKeyframesAt(time);
-      if (store.state.drums.pulse) {
-        const src = drumSourceLayer();
-        while (hitIndex < hits.length && hits[hitIndex].time <= time + 1e-9) viz.pulse(hits[hitIndex++].kind, src?.id);
-      }
-      renderScene(time, { dt, now: time, playing: true, snap: i === 0 });
-      const g = out.getContext('2d');
-      g.drawImage(viz.canvas, 0, 0, out.width, out.height);
-      drawOverlay(g, out.width, out.height, overlayData(analyser.at(time)));
-      return out.toDataURL(format, quality);
+    /** One frame as a data URL (fallback path when WebCodecs is unavailable). */
+    frame(i, format = 'image/jpeg', quality = 0.95) {
+      return comp.frame(i).toDataURL(format, quality);
+    },
+    /** The soundtrack as base64 WAV (fallback path). */
+    async wav() {
+      const bytes = new Uint8Array(await audioBufferToWav(prep.buf).arrayBuffer());
+      return toBase64(bytes);
+    },
+    /** Encode the whole video in the page (fast path). Progress goes to window.__mmvProgress. */
+    async renderVideo({ quality = 'high' } = {}) {
+      const r = await renderVideo({
+        width: prep.width, height: prep.height, fps: prep.fps, frames: prep.frames, quality, audio: prep.buf,
+        drawFrame: (i) => comp.frame(i),
+        onProgress: (p) => window.__mmvProgress?.(p),
+      });
+      result = new Uint8Array(await r.blob.arrayBuffer());
+      return { bytes: result.length, video: r.video, audio: r.audio };
+    },
+    /** Read the encoded file back in base64 slices. */
+    chunk(offset, length) {
+      return toBase64(result.subarray(offset, offset + length));
     },
   };
+}
+
+function toBase64(bytes) {
+  let bin = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  return btoa(bin);
 }
 
 /* ------------------------------------------------------------------ boot */

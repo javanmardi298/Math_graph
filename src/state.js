@@ -89,7 +89,17 @@ export function defaultState() {
       delay: { time: 0.28, feedback: 0.3, mix: 0.15 },
       reverb: { decay: 2.6, mix: 0.25 },
     },
-    record: { resolution: '1080p', fps: 60, fromStart: true },
+    // Export. fileName '' = use the project name. subframes > 1 = real motion blur
+    // (each video frame averages several sub-frames, like a film camera's shutter).
+    record: { resolution: '1080p', fps: 60, fromStart: true, fileName: '', quality: 'high', subframes: 1 },
+    // Text on the video. x/y are fractions of the frame (null = automatic position),
+    // size is a multiplier. Text boxes are positioned by their centre.
+    overlay: {
+      title: { enabled: true, text: '', subtitle: true, subtitleText: '', x: null, y: null, size: 1, color: '' },
+      formulas: { enabled: true, x: null, y: null, size: 1 },
+      analyzer: { x: null, y: null, size: 1 },
+      texts: [],
+    },
     // Layer playback: all together, or one after another (each gets an equal slice of the timeline).
     sequence: { enabled: false, past: 'ghost' }, // past: ghost | keep | hide
     // Beat grid: sample the pitch once per step so curves become rhythmic notes.

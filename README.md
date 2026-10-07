@@ -19,33 +19,50 @@ npm install && npm run vendor   # only needed if you want to refresh the vendore
 node scripts/build-artifact.mjs # builds dist/artifact.html for publishing as a claude.ai Artifact
 ```
 
-### Studio render (frame-perfect 4K)
+### Exporting smooth video
 
-Live recording captures whatever your GPU manages in real time. The studio render
-instead draws **every frame at its exact time** in a headless browser and encodes
-with ffmpeg, so a 4K 60 fps video never drops a frame, however slow the machine.
+Press **Export video** (top bar, or `E`). The app renders every frame at its exact time with your
+graphics card and feeds it straight to the browser's hardware video encoder (WebCodecs), so the MP4
+has a constant 24/30/60 fps with no dropped or doubled frames, however heavy the scene. A 1080p60
+clip usually takes about as long as it plays, or less on a decent GPU. Keep the tab open; switching
+to another tab is fine.
 
-One-time setup:
+- **Output:** MP4, H.264 + AAC (plays everywhere: phones, Windows, macOS, YouTube, Instagram).
+  Browsers without an H.264 encoder produce VP9 + Opus; when the app runs from `npm start` and
+  ffmpeg is installed, that file is converted to H.264 + AAC automatically.
+- **Settings (Export tab):** file name (any language), resolution 720p–4K, frame rate, quality
+  (bitrate), and **motion blur**: each frame averages 2 or 4 sub-frames like a film camera's shutter,
+  so fast curves look fluid instead of strobing.
+- **Frame:** 16:9, 9:16 (Shorts/Reels), 1:1 or 4:5, chosen in the Look tab.
+- **Live capture** (`R`) still exists for quick screen-style recordings, but its smoothness depends on
+  how fast your computer draws in real time.
+
+Batch rendering from the command line uses the same encoder inside Playwright's Chromium:
 
 ```bash
-npm install                      # installs Playwright (dev dependency)
-npx playwright install chromium  # the headless browser
-# and install ffmpeg: https://ffmpeg.org  (or set FFMPEG_PATH)
+npm install && npx playwright install chromium     # once
+npm run render -- --builtin "Lissajous 3D" --width 1920 --height 1080 --fps 60 --out lissajous.mp4
+npm run render -- --preset my-song.mmv.json --width 1080 --height 1920 --blur 2 --out short.mp4
 ```
 
-Then either press **Export → Studio render** in the app (served by `npm start`), or use the CLI:
+Options: `--quality standard|high|max`, `--blur 1|2|4`, `--headed` (open a visible window so Chromium
+uses your graphics card; headless browsers often fall back to slow software rendering, and the script
+tells you when that happens), `--software`. ffmpeg (on PATH, `FFMPEG_PATH`, common install folders or
+the optional `ffmpeg-static` package) is used to deliver H.264/AAC.
 
-```bash
-npm run render -- --builtin "Lissajous 3D" --width 3840 --height 2160 --fps 60 --out lissajous-4k.mp4
-npm run render -- --preset my-song.mmv.json --width 1080 --height 1920 --out short.mp4   # 9:16
-```
+### Text on the video
 
-ffmpeg is found on PATH, in `FFMPEG_PATH`, in the usual Windows/macOS install folders, or from the
-optional `ffmpeg-static` package that `npm install` tries to fetch. **Export → Studio render** says exactly
-what is missing and has a *Check again* button, so you don't need to restart the server after installing.
+The **Text** tab and the **✥ Edit text & layout** button on the video control everything drawn on top:
 
-Options: `--crf 16` (quality, lower is better), `--speed medium` (x264 preset), `--jpeg` (faster frame
-transfer), `--software` (force CPU rendering when there is no GPU). Finished videos from the app land in `renders/`.
+- **Title** and subtitle: any text (defaults to the project name), colour and size, or hide them.
+- **Formulas** (bottom-left by default) and the **audio analyzer**: move, resize or hide.
+- **Text boxes**: as many as you like, multi-line, Persian or English (Vazirmatn font), with font, size,
+  colour, alignment, bold, glow, a background box, and an optional time window with fades
+  (for example a hook text for the first 3 seconds).
+
+In edit mode, drag any element to move it, drag its corner or scroll over it to resize, double-click a
+text to edit it, use arrow keys to nudge and Delete to remove a text box. Positions are stored as
+fractions of the frame, so the layout is identical at 720p and 4K, and in exports.
 
 ## Features
 
@@ -61,7 +78,8 @@ transfer), `--software` (force CPU rendering when there is no GPU). Finished vid
 | Drums | Synthesized kick, snare, hi-hat and clap (no samples). Each one fires on curve peaks, valleys, crossings of the middle, or on beats, off-beats, steps or bars of a source layer. Hits flash the glow and send out rings |
 | Keyframes | Animate parameters a–d, glow, playhead and particle size, motion blur, background colour, camera position/FOV/rotation, master volume, filter, reverb and delay, plus each layer's colours, volume, thickness and pan. Smooth, linear or hold easing; auto-key; keys shown on the timeline; `K` adds a camera key |
 | Timeline | Scrub with audio, 0.1×–5× speed, loop, length, a mini-map of every layer's pitch |
-| Export | Video (MP4 or WebM, 720p–4K, 30/60 fps, with audio and captions burned in); studio render (frame-perfect MP4 at any resolution via headless Chromium + ffmpeg); WAV (rendered offline, includes drums and animated effects); MIDI (one track per layer plus a GM drum track); PNG snapshot; preset `.json` |
+| Export | Frame-perfect MP4 (H.264 + AAC, 720p–4K, 24/30/60 fps, optional motion blur, text and captions burned in) rendered with the GPU and hardware encoder; live capture; command-line batch render; WAV (rendered offline, includes drums and animated effects); MIDI (one track per layer plus a GM drum track); PNG snapshot; preset `.json` |
+| Text | Movable, resizable title, subtitle, formula list and analyzer; unlimited text boxes (Persian supported) with fonts, glow, background and timed fades; edit directly on the video |
 | Presets | 21 built-ins. Landscape: Bass Drop, Twin Harmony, Lissajous 3D, Astroid Wave, Rose Garden, Neon Terrain, Staircase Arp, Helix Ascent, Chaos Bells, Four on the Floor, Morphing Bloom. **Vertical 9:16 for Shorts/Reels**: Heartbeat, Butterfly, Golden Spiral, Infinity Loop, Sine Ladder, Fourier Square, Rose Mandala, Bouncing Ball, Heart, DNA Helix. Save/load your own; auto-saved session |
 | UX | Day/night theme, collapsible panels, cinema mode (hide UI), frame presets 16:9 / 9:16 / 1:1 / 4:5, keyboard shortcuts, phone layout |
 
@@ -90,22 +108,25 @@ src/
     sonify.js           point → pitch / gain / pan (shared by synth, WAV and MIDI)
     drums.js            synthesized drum kit
     drum-scanner.js     finds peaks / valleys / crossings / beats in a curve
-    buffer-analyser.js  FFT spectrum of a rendered WAV (analyzer in studio renders)
+    buffer-analyser.js  FFT spectrum of a rendered WAV (analyzer in exported videos)
   render/
     visualizer.js       three.js scene, fat lines, particles, post-processing
   ui/
     controls.js         small bound-control toolkit
     panels.js           layers panel and inspector tabs
     timeline.js         scrubber with pitch mini-map
-    overlay.js          captions + analyzer (same code on screen and in videos)
+    overlay.js          title, formulas, analyzer, text boxes (same code on screen and in videos)
+    layout-editor.js    drag/resize overlay elements directly on the video
   export/
-    recorder.js         MediaRecorder video capture
+    video-render.js     frame-perfect MP4 export (WebCodecs + mp4-muxer)
+    recorder.js         MediaRecorder live capture
     midi.js             Standard MIDI File writer
     wav.js              16-bit WAV encoder
 vendor/three/           three.js r170 + the addons used (offline)
+vendor/mp4-muxer/       MP4 muxer for video export (MIT, offline)
 scripts/
-  serve.mjs             static server + studio-render API (/api/health, /api/render)
-  render.mjs            studio render CLI (Playwright + ffmpeg)
+  serve.mjs             static server + /api/transcode (VP9 → H.264 with ffmpeg)
+  render.mjs            command-line batch export (Playwright + WebCodecs, ffmpeg for H.264)
   render-tools.mjs      finds Playwright and ffmpeg
   vendor-three.mjs, build-artifact.mjs
 tests/                  node:test unit tests
@@ -116,7 +137,7 @@ tests/                  node:test unit tests
 While playing, the clock advances on the **audio hardware clock** (`AudioContext.currentTime`), so the picture can't drift from the sound. Every frame each layer's exact point is computed; the synth glides to it with `setTargetAtTime`, and the marker eases towards it, so jumps in the function glide instead of clicking or teleporting.
 
 Everything that decides the sound at a time T (keyframes, the beat grid, the drum scanner) is a pure
-function of T. Live playback, the WAV render, the MIDI export and the studio render all call the same code,
+function of T. Live playback, the WAV render, the MIDI export and video exports all call the same code,
 so they hit the same notes and drums at the same moments.
 
 ## Troubleshooting
@@ -128,7 +149,15 @@ check that hardware acceleration is on (Chrome: Settings → System). Versions b
 memory on animated layers (formulas with `t`, surfaces, dotted lines), which caused exactly this after a
 few minutes; that leak is fixed, and a lost context now shows a *Try again* button instead of freezing.
 
-**Studio render says ffmpeg or Playwright is missing**
+**Exported or recorded video is choppy or blurry**
+Use **Export video**, not live capture: live capture can only record as fast as your computer draws.
+For extra smoothness pick 60 fps and motion blur ×2; for sharpness pick Quality: High or Maximum.
+
+**The old "studio render" took hours**
+It drew frames in a headless browser that had no access to the GPU (software rendering), then copied
+each frame as a PNG. It has been replaced by Export video, which runs in your own browser with the GPU.
+
+**The command-line render says ffmpeg or Playwright is missing**
 Open a *new* terminal and check that `ffmpeg -version` works there (terminals opened before the install don't
 see the new PATH). Then run `npm install` and `npx playwright install chromium` in the project folder, and press
 *Check again*. You can also point to ffmpeg directly: `FFMPEG_PATH=C:\ffmpeg\bin\ffmpeg.exe npm start`.
@@ -162,4 +191,6 @@ npm start   # سپس http://localhost:5173 را باز کنید
 - نمایش نام نت‌ها: Look → Overlay → Show note names.
 - ۱۰ پریست عمودی 9:16 برای Shorts/Reels در تب Presets (با برچسب 9:16).
 - خطای «Error creating WebGL context»: بخش Troubleshooting بالا را ببینید (نشت حافظهٔ گرافیک رفع شد).
-- رندر استودیویی 4K بدون افت فریم: بعد از `npm install`، `npx playwright install chromium` و نصب ffmpeg، از Export → Studio render یا دستور `npm run render` استفاده کنید.
+- خروجی ویدیوی روان: دکمهٔ Export video (یا کلید E). هر فریم دقیقاً در زمان خودش با کارت گرافیک ساخته و با انکودر سخت‌افزاری مرورگر به MP4 (H.264 + AAC) تبدیل می‌شود؛ بدون افت فریم. برای روان‌تر شدن: 60fps و Motion blur ×2.
+- تب Text و دکمهٔ «✥ Edit text & layout» روی تصویر: عنوان، زیرعنوان، فرمول‌ها و آنالایزر را جابه‌جا و بزرگ/کوچک یا مخفی کنید و هر تعداد متن (فارسی هم) اضافه کنید.
+- نام فایل خروجی: در تب Export یا پنجرهٔ دانلود.

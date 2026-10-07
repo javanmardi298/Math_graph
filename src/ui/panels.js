@@ -10,7 +10,8 @@ import { BUILTIN_PRESETS } from '../presets.js';
 import { DIVISIONS } from '../math/rhythm.js';
 import { DRUM_KINDS, DRUM_LABELS, TRIGGERS } from '../audio/drum-scanner.js';
 import { animatable, describe, removeKey, EASES } from '../anim/keyframes.js';
-import { h, bindPath, bindObj, slider, color, select, toggle, segmented, number, group, disposeTree, refreshAll } from './controls.js';
+import { h, bindPath, bindObj, slider, color, select, toggle, segmented, number, text, group, disposeTree, refreshAll } from './controls.js';
+import { FONT_LABELS } from './overlay.js';
 
 const MAX_LAYERS = 4;
 const USER_PRESETS_KEY = 'mmv.presets.v1';
@@ -255,6 +256,7 @@ export class Panels {
       ['sound', 'Sound', this.soundTab()],
       ['rhythm', 'Rhythm', this.rhythmTab()],
       ['animate', 'Animate', this.animateTab()],
+      ['text', 'Text', this.textTab()],
       ['camera', 'Camera', this.cameraTab()],
       ['presets', 'Presets', this.presetsTab()],
       ['export', 'Export', this.exportTab()],
@@ -319,11 +321,6 @@ export class Panels {
         slider('Smoothing', p('visual.marker.smoothing'), { min: 0, max: 0.9, step: 0.01, fmt: (v) => (v === 0 ? 'Off' : `${Math.round(v * 100)}%`) }),
         toggle('Time cursor line', p('visual.marker.cursorLine')),
       ]),
-      group('Overlay', [
-        toggle('Title & formula caption', p('visual.caption')),
-        toggle('Show note names', p('visual.showNotes')),
-        select('Audio analyzer', p('visual.analyzer'), { spectrum: 'Spectrum bars', wave: 'Waveform', off: 'Hidden' }),
-      ], { hint: 'The overlay is burned into recorded videos too.' }),
     );
   }
 
@@ -464,17 +461,27 @@ export class Panels {
 
   exportTab() {
     const p = bindPath;
-    const fmt = this.actions.videoFormat();
+    const live = this.actions.videoFormat();
+    const smooth = this.actions.canRenderVideo();
     return h('section.tab', {},
       group('Video', [
+        text('File name', p('record.fileName'), { placeholder: 'Same as the project name' }),
         select('Resolution', p('record.resolution'), { '720p': '720p', '1080p': '1080p · Full HD', '1440p': '1440p · 2K', '2160p': '2160p · 4K' }),
-        select('Frame rate', p('record.fps'), [[30, '30 fps'], [60, '60 fps']]),
-        toggle('Record one full pass from the start', p('record.fromStart')),
-        h('button.btn.record-btn', { type: 'button', onclick: () => this.actions.toggleRecord() }, h('span.rec-dot'), 'Start recording'),
-        h('p.hint', {}, fmt ? `Saves ${fmt.ext.toUpperCase()} with the synth audio. Tip: pick a Frame in the Look tab (16:9, 9:16…) first.` : 'Video recording is not supported in this browser.'),
+        select('Frame rate', p('record.fps'), [[24, '24 fps · film'], [30, '30 fps'], [60, '60 fps · smoothest']]),
+        select('Quality', p('record.quality'), { standard: 'Standard · smaller file', high: 'High', max: 'Maximum · large file' }),
+        select('Motion blur', p('record.subframes'), [[1, 'Off · fastest'], [2, 'Natural · 2 sub-frames'], [4, 'Cinematic · 4 sub-frames']]),
+        h('button.btn.export-btn', { type: 'button', disabled: !smooth, onclick: () => this.actions.exportVideo() }, '⬇ Export video (MP4)'),
+        h('p.hint', {}, smooth
+          ? 'Renders every frame at its exact time with your graphics card and hardware encoder: a smooth, constant-frame-rate MP4 (H.264 + AAC) that plays everywhere. The Frame (16:9, 9:16…) comes from the Look tab.'
+          : 'This browser has no video encoder (WebCodecs). Use Chrome or Edge, or Live capture below.'),
       ]),
+      group('Live capture · real time', [
+        toggle('Capture one full pass from the start', p('record.fromStart')),
+        h('button.btn.record-btn', { type: 'button', onclick: () => this.actions.toggleRecord() }, h('span.rec-dot'), 'Start recording'),
+        h('p.hint', {}, live ? `Records what plays on screen as ${live.ext.toUpperCase()} (shortcut R). Quality depends on how fast your computer draws; use Export video for the best result.` : 'Live capture is not supported in this browser.'),
+      ], { open: false }),
       group('Audio & MIDI', [
-        h('button.btn', { type: 'button', onclick: () => this.actions.exportWav() }, 'Export WAV (studio render)'),
+        h('button.btn', { type: 'button', onclick: () => this.actions.exportWav() }, 'Export WAV'),
         h('p.hint', {}, 'Renders the full timeline offline: faster than real time, with no dropped frames.'),
         number('MIDI tempo (BPM)', p('transport.bpm'), { min: 30, max: 300 }),
         h('button.btn', { type: 'button', onclick: () => this.actions.exportMidi() }, 'Export MIDI'),
@@ -483,9 +490,117 @@ export class Panels {
       group('Image', [
         h('button.btn', { type: 'button', onclick: () => this.actions.snapshot() }, 'Save PNG snapshot'),
       ]),
-      this.studioGroup(),
       h('p.hint.note', {}, 'Files download to your computer. If nothing downloads, you are viewing an embedded preview: run the app on localhost (npm start) to save files.'),
     );
+  }
+
+  /* -------------------------------------------------------------- text */
+
+  textTab() {
+    const p = bindPath;
+    const o = () => store.state.overlay;
+    const reset = (key) => h('button.btn.ghost.small', { type: 'button', onclick: () => {
+      Object.assign(o()[key], { x: null, y: null, size: 1 });
+      store.emit('overlay');
+      refreshAll();
+    } }, 'Reset position & size');
+    this.layoutBtn = h('button.btn', { type: 'button', 'aria-pressed': 'false', onclick: () => this.actions.setLayoutEditing(this.layoutBtn.getAttribute('aria-pressed') !== 'true') }, '✥ Edit on the video');
+    this.textList = h('div.text-list');
+    this.titleSlot = null;
+    const titleText = text('Title text', p('overlay.title.text'), { placeholder: 'Same as the project name' });
+    this.titleInput = titleText.querySelector('input');
+    const tab = h('section.tab', {},
+      h('div.row', {}, this.layoutBtn),
+      h('p.hint', {}, 'Turn on editing, then drag anything on the video to move it; drag its corner or scroll over it to resize. Double-click a text to edit it.'),
+      group('Title', [
+        toggle('Show title', p('overlay.title.enabled')),
+        titleText,
+        toggle('Show subtitle line', p('overlay.title.subtitle')),
+        text('Subtitle text', p('overlay.title.subtitleText'), { placeholder: 'Automatic (mode · scale)' }),
+        color('Colour', { get: () => o().title.color || '#eef2ff', set: (v) => { o().title.color = v; store.emit('overlay'); } }),
+        slider('Size', p('overlay.title.size'), { min: 0.3, max: 5, step: 0.05, fmt: (v) => `${Math.round(v * 100)}%` }),
+        reset('title'),
+      ]),
+      group('Formulas', [
+        toggle('Show formulas', p('overlay.formulas.enabled')),
+        toggle('Show note names', p('visual.showNotes')),
+        slider('Size', p('overlay.formulas.size'), { min: 0.3, max: 5, step: 0.05, fmt: (v) => `${Math.round(v * 100)}%` }),
+        reset('formulas'),
+      ]),
+      group('Audio analyzer', [
+        select('Style', p('visual.analyzer'), { spectrum: 'Spectrum bars', wave: 'Waveform', off: 'Hidden' }),
+        slider('Size', p('overlay.analyzer.size'), { min: 0.3, max: 5, step: 0.05, fmt: (v) => `${Math.round(v * 100)}%` }),
+        reset('analyzer'),
+      ]),
+      group('Text boxes', [
+        h('button.btn', { type: 'button', onclick: () => this.addText() }, '+ Add text'),
+        this.textList,
+      ], { hint: 'Hooks, captions, credits. Persian works too. Set a time window to show a text only for part of the video (it fades in and out).' }),
+    );
+    this.renderTexts();
+    return tab;
+  }
+
+  addText() {
+    const t = {
+      id: `t${Date.now().toString(36)}`, text: 'Your text', x: 0.5, y: 0.2, size: 1, color: '#ffffff',
+      font: 'display', align: 'center', bold: true, box: false, glow: true, start: 0, end: 0,
+    };
+    store.state.overlay.texts.push(t);
+    store.emit('overlay.texts');
+    this.focusText(t.id);
+  }
+
+  renderTexts() {
+    if (!this.textList) return;
+    disposeTree(this.textList);
+    const list = store.state.overlay.texts;
+    if (!list.length) {
+      this.textList.replaceChildren(h('p.hint', {}, 'No text boxes yet.'));
+      return;
+    }
+    this.textList.replaceChildren(...list.map((t, i) => {
+      const ev = 'overlay';
+      const area = h('textarea', { dir: 'auto', spellcheck: 'false', 'aria-label': `Text ${i + 1}` });
+      area.value = t.text;
+      area.addEventListener('input', () => { t.text = area.value; store.emit(ev); });
+      return h('div.text-card', { dataset: { id: t.id } },
+        h('div.track-head', {}, h('strong', {}, `Text ${i + 1}`),
+          h('button.link.danger-link', { type: 'button', onclick: () => { list.splice(i, 1); store.emit('overlay.texts'); } }, 'Delete')),
+        area,
+        select('Font', bindObj(t, 'font', ev), FONT_LABELS),
+        slider('Size', bindObj(t, 'size', ev), { min: 0.2, max: 5, step: 0.05, fmt: (v) => `${Math.round(v * 100)}%` }),
+        color('Colour', bindObj(t, 'color', ev)),
+        h('div.ctl', {}, h('span.ctl-label', {}, 'Align'), segmented(bindObj(t, 'align', ev), [['left', 'Left'], ['center', 'Centre'], ['right', 'Right']], { label: 'Text alignment' })),
+        toggle('Bold', bindObj(t, 'bold', ev)),
+        toggle('Glow', bindObj(t, 'glow', ev)),
+        toggle('Background box', bindObj(t, 'box', ev)),
+        h('div.time-row', {},
+          number('Show from (s)', bindObj(t, 'start', ev), { min: 0, step: 0.1 }),
+          number('Until (s, 0 = end)', bindObj(t, 'end', ev), { min: 0, step: 0.1 })),
+        h('button.btn.ghost.small', { type: 'button', onclick: () => { t.x = 0.5; t.y = 0.5; store.emit(ev); } }, 'Centre on the video'));
+    }));
+  }
+
+  /** Jump to a text box's card (double-click on the video), or the title field. */
+  focusText(id) {
+    this.showTab('text');
+    if (id === 'title') { this.titleInput?.focus(); return; }
+    const card = this.textList.querySelector(`[data-id="${CSS.escape(id)}"]`);
+    if (!card) return;
+    card.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    const area = card.querySelector('textarea');
+    area.focus();
+    area.select();
+    card.classList.remove('flash');
+    void card.offsetWidth;
+    card.classList.add('flash');
+  }
+
+  syncLayoutToggle(on) {
+    if (!this.layoutBtn) return;
+    this.layoutBtn.setAttribute('aria-pressed', String(on));
+    this.layoutBtn.textContent = on ? '✓ Done editing' : '✥ Edit on the video';
   }
 
   /* ------------------------------------------------------------ rhythm */
@@ -595,51 +710,6 @@ export class Panels {
     }));
   }
 
-  /* ------------------------------------------------------ studio render */
-
-  studioGroup() {
-    const status = h('p.hint#srv-status', {}, 'Checking for the local render server…');
-    const bar = h('progress#srv-progress', { max: 1, value: 0, hidden: true });
-    const btn = h('button.btn', { type: 'button', disabled: true }, 'Render frame-perfect video');
-    const update = (st) => {
-      if (st.status === 'rendering' || st.status === 'starting' || st.status === 'encoding') {
-        bar.hidden = false;
-        bar.value = st.progress || 0;
-        btn.disabled = true;
-        status.textContent = st.status === 'starting' ? 'Preparing: rendering audio…'
-          : `Frame ${st.frame ?? 0} of ${st.frames ?? '?'} · ${Math.round((st.progress || 0) * 100)}%${st.eta ? ` · about ${st.eta} s left` : ''}`;
-      } else {
-        bar.hidden = st.status !== 'done';
-        btn.disabled = false;
-        if (st.status === 'done') status.textContent = `Done: ${st.file}`;
-        if (st.status === 'error') status.textContent = `Failed: ${st.error}`;
-      }
-    };
-    btn.addEventListener('click', () => {
-      const size = this.actions.recordSize();
-      status.textContent = `Starting ${size.w}×${size.h}…`;
-      this.actions.serverRender(update);
-    });
-    const recheck = h('button.btn.ghost.small', { type: 'button', hidden: true }, 'Check again');
-    const check = () => {
-      status.textContent = 'Checking for the local render server…';
-      this.actions.serverStatus().then((st) => {
-        recheck.hidden = !!st.available;
-        btn.disabled = !st.available;
-        if (st.available) {
-          status.textContent = `Ready (${st.ffmpeg || 'ffmpeg found'}). Uses the Resolution and Frame rate above and the Frame from the Look tab. Renders every frame exactly, then encodes MP4 (H.264).`;
-        } else if (st.reason === 'offline') {
-          status.textContent = 'Needs the local server. Run `npm start` and open http://localhost:5173 (not available in the embedded preview).';
-        } else {
-          status.textContent = `The server is running but can't render yet: ${st.reason}`;
-        }
-      });
-    };
-    recheck.addEventListener('click', check);
-    check();
-    return group('Studio render · 4K, no dropped frames', [btn, bar, status, recheck], { hint: 'Your computer renders each frame in a headless browser at any resolution, however long it takes, so 4K at 60 fps comes out perfectly smooth.' });
-  }
-
   /** Re-sync every control with state after a preset load. */
   refresh() {
     refreshAll();
@@ -647,6 +717,7 @@ export class Panels {
     this.renderSequence();
     this.renderRhythm();
     this.renderKeyframes();
+    this.renderTexts();
   }
 }
 

@@ -427,3 +427,57 @@ progress::-moz-progress-bar { background: var(--accent); }
 /* layer playback (sequence) */
 .seq-slot { display: flex; flex-direction: column; gap: 8px; padding: 10px; border: 1px dashed var(--line); border-radius: 9px; }
 .seq-slot .hint { margin: 0; }
+
+/* ------------------------------------------------------------- layout editor */
+.layout-layer { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+.layout-box {
+  position: absolute; pointer-events: auto; cursor: move; border: 1.5px dashed color-mix(in srgb, var(--accent) 70%, transparent);
+  border-radius: 6px; background: color-mix(in srgb, var(--accent) 6%, transparent); touch-action: none;
+}
+.layout-box:hover, .layout-box.is-selected { border-style: solid; border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.layout-box.is-offstage { opacity: 0.45; }
+.layout-tag {
+  position: absolute; top: -20px; left: -1px; font: 600 10px/1 var(--f-mono); letter-spacing: 0.06em; text-transform: uppercase;
+  background: var(--accent); color: var(--on-accent); padding: 4px 6px; border-radius: 4px 4px 0 0; white-space: nowrap;
+}
+.layout-resize {
+  position: absolute; right: -7px; bottom: -7px; width: 14px; height: 14px; border-radius: 3px; cursor: nwse-resize;
+  background: var(--accent); border: 2px solid var(--bg);
+}
+.layout-hint {
+  position: absolute; left: 50%; top: 46px; transform: translateX(-50%); pointer-events: none; z-index: 5; max-width: 92%; white-space: normal; text-align: center;
+  background: rgba(0, 0, 0, 0.65); color: #fff; font-size: 12px; padding: 5px 10px; border-radius: 6px;
+}
+.layout-box.tag-below .layout-tag { top: auto; bottom: -20px; border-radius: 0 0 4px 4px; }
+.stage-tools { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 6; display: flex; gap: 6px; }
+.stage-tools .btn { background: color-mix(in srgb, var(--bg) 70%, transparent); backdrop-filter: blur(6px); }
+.stage-tools .btn[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+body.cinema .stage-tools, body.render-mode .stage-tools { display: none; }
+
+/* text boxes panel */
+.text-card { border: 1px solid var(--line); border-radius: 9px; padding: 10px; display: flex; flex-direction: column; gap: 8px; background: var(--field); }
+.text-card textarea {
+  width: 100%; min-height: 54px; resize: vertical; font: 14px/1.4 var(--f-body), "Vazirmatn"; padding: 7px 9px; border-radius: 7px;
+  background: var(--field-hi); border: 1px solid var(--line); color: var(--fg);
+}
+.text-card textarea:focus { outline: none; border-color: var(--accent); }
+.text-card.flash { animation: flash 0.8s ease 2; }
+@keyframes flash { 50% { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); } }
+.time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.time-row .ctl-number input { width: 64px; }
+
+/* render progress dialog */
+.render-progress { display: flex; flex-direction: column; gap: 10px; min-width: min(80vw, 420px); }
+.render-progress progress { height: 8px; }
+.render-stats { font: 12px var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.file-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+.file-row input { flex: 1; min-width: 0; background: var(--field-hi); border: 1px solid var(--line); border-radius: 7px; padding: 6px 9px; font-family: var(--f-mono); }
+
+body.recording .stage-tools { display: none; }
+.rec-badge { left: 12px; right: auto; }
+.ctl-text input, .ctl-text textarea { grid-column: 1 / -1; width: 100%; min-width: 0; background: var(--field-hi); border: 1px solid var(--line); border-radius: 7px; padding: 6px 9px; font: 13px var(--f-body), "Vazirmatn"; color: var(--fg); }
+.ctl-text input:focus { outline: none; border-color: var(--accent); }
+.text-list { display: flex; flex-direction: column; gap: 10px; }
+.btn.export-btn { padding: 10px 14px; font-size: 13.5px; background: var(--accent); color: var(--on-accent); border-color: var(--accent); box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 35%, transparent); }
+.btn.export-btn:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 85%, white); }
+.btn[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
