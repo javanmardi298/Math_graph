@@ -149,6 +149,13 @@ check that hardware acceleration is on (Chrome: Settings → System). Versions b
 memory on animated layers (formulas with `t`, surfaces, dotted lines), which caused exactly this after a
 few minutes; that leak is fixed, and a lost context now shows a *Try again* button instead of freezing.
 
+**"The graphics context was lost" every time the app starts**
+Press **Start in safe graphics mode** on that screen (lighter on the GPU), or **Reset saved settings** if a
+setting you changed triggers it. The app also switches to safe mode by itself after two losses right after
+start-up, and the screen shows which GPU WebGL is using. If it still happens, restart the computer (a hung
+GPU driver can survive a browser restart) and update the graphics driver. A "Safe graphics · exit" button in
+the top bar returns to full quality.
+
 **Exported or recorded video is choppy or blurry**
 Use **Export video**, not live capture: live capture can only record as fast as your computer draws.
 For extra smoothness pick 60 fps and motion blur ×2; for sharpness pick Quality: High or Maximum.

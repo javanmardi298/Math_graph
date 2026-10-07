@@ -44,24 +44,76 @@ const stage = $('stage');
 const overlay = $('overlay');
 const og = overlay.getContext('2d');
 
+/* ------------------------------------------------- graphics robustness */
+
+// A GPU that keeps dropping the WebGL context must not trap the user in a reload
+// loop: count losses shortly after start-up and switch to safe graphics mode.
+const GPU_KEY = 'mmv.gpu.v1';
+const readGpu = () => { try { return JSON.parse(localStorage.getItem(GPU_KEY)) || {}; } catch { return {}; } };
+const writeGpu = (v) => { try { localStorage.setItem(GPU_KEY, JSON.stringify(v)); } catch { /* storage blocked */ } };
+const gpu = { early: 0, safe: false, ...readGpu() };
+const SAFE_GPU = gpu.safe || new URLSearchParams(location.search).has('safe');
+const bootAt = performance.now();
+let unloading = false;
+window.addEventListener('pagehide', () => { unloading = true; }); // registered before the renderer's own handler
+
+/** Name of the GPU WebGL runs on (for the error screen), using a throwaway context. */
+function gpuName() {
+  try {
+    const gl = document.createElement('canvas').getContext('webgl2') || document.createElement('canvas').getContext('webgl');
+    if (!gl) return 'WebGL is not available in this browser right now.';
+    const ext = gl.getExtension('WEBGL_debug_renderer_info');
+    const name = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER);
+    gl.getExtension('WEBGL_lose_context')?.loseContext();
+    return `GPU: ${name}${/swiftshader|llvmpipe|software|basic render/i.test(name) ? ' (software: hardware acceleration is not active)' : ''}`;
+  } catch (e) {
+    return `GPU check failed: ${e.message}`;
+  }
+}
+
 function showFatal(reason) {
   $('fatal').hidden = false;
   $('loading').hidden = true;
   $('fatal-reason').textContent = reason;
+  $('fatal-gpu').textContent = `${gpuName()} · ${SAFE_GPU ? 'safe graphics mode was on' : 'full quality mode'}`;
 }
 $('fatal-reload').addEventListener('click', () => location.reload());
+$('fatal-safe').addEventListener('click', () => { writeGpu({ early: 0, safe: true }); location.reload(); });
+$('fatal-reset').addEventListener('click', () => {
+  try { localStorage.removeItem('mmv.session.v1'); localStorage.removeItem('mmv.theme'); } catch { /* ignore */ }
+  writeGpu({ early: 0, safe: false });
+  location.reload();
+});
 
 let viz;
 try {
-  viz = new Visualizer($('gl-host'), store.state);
+  viz = new Visualizer($('gl-host'), store.state, { safe: SAFE_GPU });
 } catch (err) {
   showFatal(`WebGL could not start (${err.message}).`);
   throw err;
 }
 viz.onContextLost = () => {
+  if (unloading) return; // our own clean-up on page exit, not a crash
   if (clock.playing) pause();
-  showFatal('The graphics context was lost (the GPU reset or ran out of memory). Your work is saved: press Try again.');
+  saveSessionNow();
+  if (performance.now() - bootAt < 20000) {
+    gpu.early = (gpu.early || 0) + 1;
+    if (gpu.early >= 2) gpu.safe = true;
+    writeGpu(gpu);
+  }
+  showFatal(gpu.safe && !SAFE_GPU
+    ? 'The GPU dropped the graphics context again right after starting. The next start will use safe graphics mode. Your work is saved.'
+    : 'The GPU dropped the graphics context (driver reset or out of memory). Your work is saved.');
 };
+// If the browser hands the GPU back, just reload: all work is saved.
+viz.canvas.addEventListener('webglcontextrestored', () => location.reload());
+// Running fine for a while clears the crash counter.
+setTimeout(() => { if (gpu.early) { gpu.early = 0; writeGpu(gpu); } }, 20000);
+if (SAFE_GPU) {
+  $('safe-badge').hidden = false;
+  $('safe-badge').addEventListener('click', () => { writeGpu({ early: 0, safe: false }); location.reload(); });
+}
+
 const audio = new AudioEngine();
 const recorder = new Recorder();
 const scanner = new DrumScanner();
@@ -406,6 +458,12 @@ store.on((path) => {
   }
   saveSession();
 });
+
+function saveSessionNow() {
+  if (RENDER_MODE) return;
+  clearTimeout(saveTimer);
+  try { localStorage.setItem(SESSION_KEY, JSON.stringify(store.snapshot())); } catch { /* storage blocked or full */ }
+}
 
 let saveTimer;
 function saveSession() {

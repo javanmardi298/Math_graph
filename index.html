@@ -39,6 +39,7 @@
 
     <div class="topbar-right">
       <button class="rec-btn" id="topbar-record" type="button" title="Render a smooth, frame-perfect MP4 (E)"><span class="rec-dot"></span>Export video</button>
+      <button class="btn small safe-badge" id="safe-badge" type="button" hidden title="Safe graphics mode is on: lighter on the GPU. Click to go back to full quality.">Safe graphics · exit</button>
       <button class="icon-btn" id="snapshot-btn" type="button" title="Save PNG snapshot" aria-label="Save PNG snapshot">⌗</button>
       <button class="icon-btn" id="theme-btn" type="button" title="Day / night (T)" aria-label="Switch to day mode">☀</button>
       <button class="icon-btn" id="cinema-btn" type="button" title="Hide the interface (H)" aria-label="Hide the interface">⛶</button>
@@ -93,11 +94,17 @@
       <h2>Can't start the graphics engine</h2>
       <p id="fatal-reason"></p>
       <ul class="fatal-tips">
-        <li>Close other tabs of this app (each one holds a graphics context).</li>
-        <li>If the GPU crashed earlier, the browser blocks graphics until it fully restarts: quit the browser completely and reopen it.</li>
-        <li>Check that hardware acceleration is on (Chrome: Settings → System).</li>
+        <li>Try <strong>safe graphics mode</strong> first: it uses far less of the GPU (no antialiasing pass, no depth of field or motion blur, 1× pixel ratio).</li>
+        <li>If a setting you changed causes it, <strong>reset saved settings</strong> (your saved presets are kept).</li>
+        <li>After a GPU driver hang, Windows sometimes keeps the driver in a bad state: restart the computer, and update the graphics driver.</li>
+        <li>Open <code>chrome://gpu</code>: "WebGL" and "WebGL2" should say "Hardware accelerated".</li>
       </ul>
-      <button class="btn" type="button" id="fatal-reload">Try again</button>
+      <div class="row">
+        <button class="btn" type="button" id="fatal-reload">Try again</button>
+        <button class="btn" type="button" id="fatal-safe">Start in safe graphics mode</button>
+        <button class="btn ghost" type="button" id="fatal-reset">Reset saved settings</button>
+      </div>
+      <p class="hint" id="fatal-gpu"></p>
     </div>
   </main>
 

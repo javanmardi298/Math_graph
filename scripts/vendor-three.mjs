@@ -10,7 +10,7 @@ const ENTRIES = [
   'lines/Line2.js', 'lines/LineGeometry.js', 'lines/LineMaterial.js',
   'postprocessing/EffectComposer.js', 'postprocessing/RenderPass.js',
   'postprocessing/UnrealBloomPass.js', 'postprocessing/OutputPass.js',
-  'postprocessing/BokehPass.js', 'postprocessing/AfterimagePass.js',
+  'postprocessing/BokehPass.js', 'postprocessing/AfterimagePass.js', 'postprocessing/SMAAPass.js',
 ];
 
 if (!existsSync(SRC)) { console.error('Run `npm install` first.'); process.exit(1); }

@@ -18,6 +18,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { BokehPass } from 'three/addons/postprocessing/BokehPass.js';
 import { AfterimagePass } from 'three/addons/postprocessing/AfterimagePass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js';
 
 const TRAIL_MAX = 400;
 const tmpColor = new THREE.Color();
@@ -464,8 +465,13 @@ const tmpVec = new THREE.Vector3();
 /* -------------------------------------------------------------- Visualizer */
 
 export class Visualizer {
-  /** @param {HTMLElement} host element the canvas is placed in */
-  constructor(host, state) {
+  /**
+   * @param {HTMLElement} host element the canvas is placed in
+   * @param {object} state app state
+   * @param {{safe?:boolean}} [opts] safe = minimal GPU load for drivers that keep crashing
+   */
+  constructor(host, state, { safe = false } = {}) {
+    this.safe = safe;
     this.host = host;
     this.state = state;
     this.views = new Map();
@@ -474,7 +480,9 @@ export class Visualizer {
     this.resolution = new THREE.Vector2(1, 1);
     this.lightBackground = false;
 
-    const r = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
+    // No canvas MSAA: everything renders through the composer, so a multisampled
+    // backbuffer would only waste GPU memory. Antialiasing comes from the SMAA pass.
+    const r = new THREE.WebGLRenderer({ antialias: false, alpha: false, powerPreference: safe ? 'default' : 'high-performance' });
     r.outputColorSpace = THREE.SRGBColorSpace;
     host.appendChild(r.domElement);
     // If the GPU drops the context (driver reset, memory pressure), tell the app
@@ -509,16 +517,17 @@ export class Visualizer {
 
     this.dotTexture = shapeTexture('circle');
 
-    // 4× MSAA in the post-processing chain: without it the bloom/blur passes render
-    // into plain targets and lose the canvas antialiasing (jagged edges in exports).
-    const msaa = new THREE.WebGLRenderTarget(2, 2, { type: THREE.HalfFloatType, samples: r.capabilities.isWebGL2 ? 4 : 0 });
-    this.composer = new EffectComposer(r, msaa);
+    // Plain (non-multisampled) targets work on every driver; SMAA smooths the edges.
+    // Multisampled half-float targets crashed some GPUs, so they are not used.
+    const rt = new THREE.WebGLRenderTarget(2, 2, { type: safe ? THREE.UnsignedByteType : THREE.HalfFloatType });
+    this.composer = new EffectComposer(r, rt);
     this.renderPass = new RenderPass(this.scene, this.ortho);
     this.bokeh = new BokehPass(this.scene, this.persp, { focus: 14, aperture: 0.001, maxblur: 0.012 });
     this.afterimage = new AfterimagePass(0.8);
     this.bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), 1, 0.5, 0.05);
     this.output = new OutputPass();
-    for (const p of [this.renderPass, this.bokeh, this.afterimage, this.bloom, this.output]) this.composer.addPass(p);
+    this.smaa = safe ? null : new SMAAPass(2, 2);
+    for (const p of [this.renderPass, this.bokeh, this.afterimage, this.bloom, this.smaa, this.output]) if (p) this.composer.addPass(p);
 
     // Drum pulses: a glow flash on kicks and expanding rings on snares/claps.
     this.bloomKick = 0;
@@ -570,7 +579,7 @@ export class Visualizer {
     const w = Math.max(1, this.host.clientWidth), h = Math.max(1, this.host.clientHeight);
     // While recording, the drawing buffer is pinned to the export size (pixel ratio 1);
     // otherwise it follows the element size times the device pixel ratio.
-    const ratio = this.fixedSize ? 1 : Math.min(window.devicePixelRatio || 1, 2);
+    const ratio = this.fixedSize || this.safe ? 1 : Math.min(window.devicePixelRatio || 1, 2);
     const lw = this.fixedSize ? this.fixedSize.w : w;
     const lh = this.fixedSize ? this.fixedSize.h : h;
     const bw = lw * ratio, bh = lh * ratio;
@@ -663,9 +672,9 @@ export class Visualizer {
     this.bloom.strength = v.bloom.strength;
     this.bloom.radius = v.bloom.radius;
     this.bloom.threshold = v.bloom.threshold;
-    this.afterimage.enabled = v.motionBlur.enabled;
+    this.afterimage.enabled = v.motionBlur.enabled && !this.safe;
     this.afterimage.uniforms.damp.value = 0.5 + v.motionBlur.amount * 0.45;
-    this.bokeh.enabled = v.dof.enabled && mode === '3d';
+    this.bokeh.enabled = v.dof.enabled && mode === '3d' && !this.safe;
     this.bokeh.uniforms.focus.value = v.dof.focus;
     this.bokeh.uniforms.aperture.value = v.dof.aperture * 0.0025;
 

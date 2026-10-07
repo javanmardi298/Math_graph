@@ -481,3 +481,6 @@ body.recording .stage-tools { display: none; }
 .btn.export-btn { padding: 10px 14px; font-size: 13.5px; background: var(--accent); color: var(--on-accent); border-color: var(--accent); box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 35%, transparent); }
 .btn.export-btn:hover:not(:disabled) { background: color-mix(in srgb, var(--accent) 85%, white); }
 .btn[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.safe-badge { border-color: color-mix(in srgb, #ffb547 60%, transparent); background: color-mix(in srgb, #ffb547 14%, transparent); white-space: nowrap; }
+.fatal .row { justify-content: center; }
+.fatal-tips strong { color: var(--fg); }
