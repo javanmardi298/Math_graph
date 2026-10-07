@@ -53,6 +53,17 @@ export class Panels {
       store.emit('layers');
     });
 
+    // Layer playback: together or one after another.
+    const seq = document.getElementById('seq-slot');
+    this.seqPast = h('div.ctl', {}, h('span.ctl-label', {}, 'Finished layers'),
+      segmented(bindPath('sequence.past'), [['ghost', 'Ghost', 'Keep a faint trace of finished layers'], ['keep', 'Keep', 'Leave finished layers fully drawn'], ['hide', 'Hide', 'Remove finished layers']], { label: 'Finished layers' }));
+    this.seqInfo = h('p.hint');
+    seq.append(
+      h('div.ctl', {}, h('span.ctl-label', {}, 'Play layers'),
+        segmented(bindPath('sequence.enabled'), [[false, 'Together', 'All layers play at the same time'], [true, 'One after another', 'Each layer plays in turn; one loop or recording covers them all']], { label: 'Layer playback' })),
+      this.seqPast, this.seqInfo);
+    this.renderSequence();
+
     const params = document.getElementById('params');
     for (const p of ['a', 'b', 'c', 'd']) {
       params.append(slider(p, bindPath(`params.${p}`), { min: -5, max: 5, step: 0.01 }));
@@ -170,6 +181,21 @@ export class Panels {
 
     this.showErrors(l.id, this.actions.errorsFor(l.id));
     return card;
+  }
+
+  /** Show the sequence options and how long each layer plays. */
+  renderSequence() {
+    if (!this.seqInfo) return;
+    const on = store.state.sequence.enabled;
+    const n = store.state.layers.filter((l) => l.enabled).length;
+    this.seqPast.hidden = !on;
+    this.seqInfo.hidden = !on;
+    if (on) {
+      const each = store.state.transport.duration / Math.max(1, n);
+      this.seqInfo.textContent = n > 1
+        ? `${n} layers play in turn, ${each.toFixed(1)} s each (Length ÷ ${n}). A loop or recording covers all of them.`
+        : 'Add more layers: they will play one after another.';
+    }
   }
 
   rangeInput(label, layer, key) {
@@ -295,6 +321,7 @@ export class Panels {
       ]),
       group('Overlay', [
         toggle('Title & formula caption', p('visual.caption')),
+        toggle('Show note names', p('visual.showNotes')),
         select('Audio analyzer', p('visual.analyzer'), { spectrum: 'Spectrum bars', wave: 'Waveform', off: 'Hidden' }),
       ], { hint: 'The overlay is burned into recorded videos too.' }),
     );
@@ -385,7 +412,7 @@ export class Panels {
       list.append(h('button.preset', { type: 'button', onclick: () => this.actions.loadPreset(pr) },
         h('span.preset-dots', {}, (pr.layers || []).map((l) => h('i', { style: `background:${l.color || '#22e4ff'}` }))),
         h('strong', {}, pr.name),
-        h('span.badge', {}, (pr.mode || '2d').toUpperCase())));
+        h('span.badge', {}, `${pr.visual?.aspect === '9:16' ? '9:16 · ' : ''}${(pr.mode || '2d').toUpperCase()}`)));
     }
     const mine = h('div.my-presets');
     const nameIn = h('input#preset-name', { placeholder: 'Preset name', 'aria-label': 'Preset name' });
@@ -593,23 +620,31 @@ export class Panels {
       status.textContent = `Starting ${size.w}×${size.h}…`;
       this.actions.serverRender(update);
     });
-    this.actions.serverStatus().then((st) => {
-      if (st.available) {
-        btn.disabled = false;
-        status.textContent = `Ready. Uses the Resolution and Frame rate above and the Frame from the Look tab. Renders every frame exactly, then encodes MP4 (H.264) with ffmpeg.`;
-      } else if (st.reason === 'offline') {
-        status.textContent = 'Needs the local server. Run `npm start` and open http://localhost:5173 (not available in the embedded preview).';
-      } else {
-        status.textContent = `The server is running but can't render yet: ${st.reason}`;
-      }
-    });
-    return group('Studio render · 4K, no dropped frames', [btn, bar, status], { hint: 'Your computer renders each frame in a headless browser at any resolution, however long it takes, so 4K at 60 fps comes out perfectly smooth.' });
+    const recheck = h('button.btn.ghost.small', { type: 'button', hidden: true }, 'Check again');
+    const check = () => {
+      status.textContent = 'Checking for the local render server…';
+      this.actions.serverStatus().then((st) => {
+        recheck.hidden = !!st.available;
+        btn.disabled = !st.available;
+        if (st.available) {
+          status.textContent = `Ready (${st.ffmpeg || 'ffmpeg found'}). Uses the Resolution and Frame rate above and the Frame from the Look tab. Renders every frame exactly, then encodes MP4 (H.264).`;
+        } else if (st.reason === 'offline') {
+          status.textContent = 'Needs the local server. Run `npm start` and open http://localhost:5173 (not available in the embedded preview).';
+        } else {
+          status.textContent = `The server is running but can't render yet: ${st.reason}`;
+        }
+      });
+    };
+    recheck.addEventListener('click', check);
+    check();
+    return group('Studio render · 4K, no dropped frames', [btn, bar, status, recheck], { hint: 'Your computer renders each frame in a headless browser at any resolution, however long it takes, so 4K at 60 fps comes out perfectly smooth.' });
   }
 
   /** Re-sync every control with state after a preset load. */
   refresh() {
     refreshAll();
     this.renderLayers();
+    this.renderSequence();
     this.renderRhythm();
     this.renderKeyframes();
   }

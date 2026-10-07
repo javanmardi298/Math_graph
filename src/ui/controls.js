@@ -93,13 +93,13 @@ export function toggle(label, b) {
 /** Segmented button group (e.g. 2D | 3D). */
 export function segmented(b, options, { label, cls = '' } = {}) {
   const wrap = h(`div.seg${cls ? '.' + cls : ''}`, { role: 'radiogroup', 'aria-label': label || '' });
+  const set = () => btns.forEach((btn) => btn.setAttribute('aria-checked', String(btn.dataset.value === String(b.get()))));
   const btns = options.map(([v, t, title]) => {
-    const btn = h('button', { type: 'button', role: 'radio', title: title || t, onclick: () => b.set(v) }, t);
+    const btn = h('button', { type: 'button', role: 'radio', title: title || t, onclick: () => { b.set(v); set(); } }, t);
     btn.dataset.value = v;
     return btn;
   });
   wrap.append(...btns);
-  const set = () => btns.forEach((btn) => btn.setAttribute('aria-checked', String(btn.dataset.value === String(b.get()))));
   set();
   return track(wrap, set);
 }

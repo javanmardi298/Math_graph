@@ -14,9 +14,15 @@ const LABEL = { function: ['y'], parametric: ['x', 'y', 'z'], polar: ['r'], surf
  */
 export function drawOverlay(g, w, h, d) {
   const { state } = d;
-  const k = h / 1000;
+  const k = Math.min(w, h) / 1000; // scale with the shorter side so 9:16 looks like 16:9
+  const portrait = h > w * 1.05;
   const v = state.visual;
   const ui = d.ui;
+  const phases = d.phases || new Map();
+  // Analyzer box: bottom-right in landscape; top-right in portrait, where the
+  // bottom is needed for the formulas.
+  const aw = 300 * k, ah = 90 * k;
+  const ax = w - aw - 36 * k, ay = portrait ? 110 * k : h - ah - 30 * k;
   g.save();
   g.textBaseline = 'alphabetic';
 
@@ -30,10 +36,11 @@ export function drawOverlay(g, w, h, d) {
     g.font = `500 ${Math.round(17 * k)}px "JetBrains Mono", ui-monospace, monospace`;
     g.fillText(`${state.mode.toUpperCase()} · ${state.audio.scale === 'continuous' ? 'continuous pitch' : state.audio.scale}`, 36 * k, 88 * k);
 
-    // Formula lines (kept clear of the analyzer in the bottom-right corner)
-    const maxW = w - 60 * k - (v.analyzer !== 'off' ? 370 * k : 40 * k);
-    let y = h - 40 * k;
-    const lines = d.layers.filter((l) => l.enabled).reverse();
+    // Formula lines (kept clear of the analyzer in landscape). In sequence mode,
+    // layers that haven't started yet are not listed and finished ones are dimmed.
+    const maxW = w - 60 * k - (v.analyzer !== 'off' && !portrait ? 370 * k : 40 * k);
+    let y = h - (portrait ? 70 : 40) * k;
+    const lines = d.layers.filter((l) => l.enabled && phases.get(l.id) !== 'future').reverse();
     g.font = `500 ${Math.round(20 * k)}px "JetBrains Mono", ui-monospace, monospace`;
     for (const l of lines) {
       const keys = l.type === 'function' && l.exprs.z.trim() !== '0' ? ['y', 'z'] : LABEL[l.type];
@@ -45,15 +52,16 @@ export function drawOverlay(g, w, h, d) {
         while (text.length > 4 && g.measureText(`${text}…`).width > room) text = text.slice(0, -1);
         text += '…';
       }
-      g.globalAlpha = 1;
+      const dim = phases.get(l.id) === 'past' ? 0.38 : 1;
+      g.globalAlpha = dim;
       g.fillStyle = l.color;
       g.beginPath();
       g.arc(42 * k, y - 7 * k, 6 * k, 0, Math.PI * 2);
       g.fill();
       g.fillStyle = ui.fg;
-      g.globalAlpha = 0.9;
+      g.globalAlpha = 0.9 * dim;
       g.fillText(text, 60 * k, y);
-      if (note != null) {
+      if (note != null && dim === 1) {
         const tw = g.measureText(text).width;
         g.fillStyle = l.color;
         g.fillText(noteText, 60 * k + tw, y);
@@ -63,9 +71,9 @@ export function drawOverlay(g, w, h, d) {
   }
 
   if (v.analyzer !== 'off') {
-    const bw = 300 * k, bh = 90 * k;
-    const x0 = w - bw - 36 * k, y0 = h - bh - 30 * k;
-    const accent = d.layers.find((l) => l.enabled)?.color || ui.accent;
+    const bw = aw, bh = ah, x0 = ax, y0 = ay;
+    const playing = d.layers.find((l) => l.enabled && phases.get(l.id) === 'active');
+    const accent = playing?.color || d.layers.find((l) => l.enabled)?.color || ui.accent;
     g.globalAlpha = 1;
     if (v.analyzer === 'spectrum' && d.spectrum) {
       const bars = 48;

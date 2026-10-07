@@ -16,6 +16,7 @@ import { store } from './state.js';
 import { BUILTIN_PRESETS } from './presets.js';
 import { CompiledLayer } from './math/layers.js';
 import { gridAt, barsToSeconds } from './math/rhythm.js';
+import { layerTiming as seqTiming } from './math/sequence.js';
 import { AudioEngine } from './audio/engine.js';
 import { voiceFrame, hasSolo } from './audio/sonify.js';
 import { DrumScanner } from './audio/drum-scanner.js';
@@ -41,14 +42,24 @@ const stage = $('stage');
 const overlay = $('overlay');
 const og = overlay.getContext('2d');
 
+function showFatal(reason) {
+  $('fatal').hidden = false;
+  $('loading').hidden = true;
+  $('fatal-reason').textContent = reason;
+}
+$('fatal-reload').addEventListener('click', () => location.reload());
+
 let viz;
 try {
   viz = new Visualizer($('gl-host'), store.state);
 } catch (err) {
-  $('fatal').hidden = false;
-  $('fatal').querySelector('p').textContent = `WebGL could not start (${err.message}). Enable hardware acceleration or try another browser.`;
+  showFatal(`WebGL could not start (${err.message}).`);
   throw err;
 }
+viz.onContextLost = () => {
+  if (clock.playing) pause();
+  showFatal('The graphics context was lost (the GPU reset or ran out of memory). Your work is saved: press Try again.');
+};
 const audio = new AudioEngine();
 const recorder = new Recorder();
 const scanner = new DrumScanner();
@@ -73,6 +84,16 @@ function toast(msg, ms = 3200) {
 
 const evalCtx = (t = clock.pos) => ({ t, params: store.state.params, view: store.state.view });
 const duration = () => Math.max(0.5, store.state.transport.duration);
+
+/** Where `layer` is at timeline time `time` (see math/sequence.js). */
+const layerTiming = (layer, time) =>
+  seqTiming(store.state.layers, layer, time, duration(), store.state.sequence.enabled);
+
+/** The layer currently playing in sequence mode (or null in together mode). */
+function activeLayerAt(time) {
+  if (!store.state.sequence.enabled) return null;
+  return store.state.layers.find((l) => l.enabled && layerTiming(l, time).phase === 'active') || null;
+}
 
 function compileLayer(layer) {
   const next = new CompiledLayer(layer);
@@ -115,8 +136,10 @@ function updateTimelineCurves() {
     const ys = new Float32Array(N);
     const p = { x: 0, y: 0, z: 0 };
     for (let i = 0; i < N; i++) {
-      c.at(i / (N - 1), ctx, p);
-      ys[i] = l.mute ? NaN : Math.min(Math.max((p.y - view.yMin) / (view.yMax - view.yMin), 0), 1);
+      const lt = layerTiming(l, (i / (N - 1)) * duration());
+      if (l.mute || lt.phase !== 'active') { ys[i] = NaN; continue; }
+      c.at(lt.u, ctx, p);
+      ys[i] = Math.min(Math.max((p.y - view.yMin) / (view.yMax - view.yMin), 0), 1);
     }
     curves.push({ color: l.color, ys });
   }
@@ -191,7 +214,6 @@ function withTimeTravel(fn) {
  */
 function voicesAt(time) {
   const { layers, transport, rhythm } = store.state;
-  const dur = duration();
   const solo = hasSolo(layers);
   const g = rhythm.enabled ? gridAt(time, rhythm, transport.bpm) : null;
   const tq = g ? g.start : time;
@@ -201,8 +223,10 @@ function voicesAt(time) {
   for (const l of layers) {
     const c = compiled.get(l.id);
     if (!c) continue;
-    c.at(Math.min(tq / dur, 1), ctx, p);
+    const lt = layerTiming(l, tq);
+    c.at(lt.u, ctx, p);
     const f = voiceFrame(l, p, store.state, solo);
+    if (lt.phase !== 'active') f.gain = 0; // in sequence mode only the current layer sounds
     if (g) {
       f.step = g.index;
       if (g.phase > rhythm.gate) f.gain = 0;
@@ -212,8 +236,10 @@ function voicesAt(time) {
   return out;
 }
 
-/** The layer that drives the drums. */
-function drumSourceLayer() {
+/** The layer that drives the drums (the playing one in sequence mode). */
+function drumSourceLayer(time = clock.pos) {
+  const active = activeLayerAt(time);
+  if (active) return active;
   const { layers, drums } = store.state;
   const l = layers[drums.source];
   return l?.enabled ? l : layers.find((x) => x.enabled);
@@ -221,13 +247,15 @@ function drumSourceLayer() {
 
 /** Pitch of the drum source layer at `time` (y in graph units). */
 function drumSampler(applyKeys = false) {
-  const l = drumSourceLayer();
-  const c = l && compiled.get(l.id);
+  const fixed = drumSourceLayer();
   const p = { x: 0, y: 0, z: 0 };
   return (time) => {
+    // In sequence mode the drums follow whichever layer is playing.
+    const l = activeLayerAt(time) || fixed;
+    const c = l && compiled.get(l.id);
     if (!c) return NaN;
     if (applyKeys) applyKeyframesAt(time, false);
-    c.at(Math.min(time / duration(), 1), evalCtx(time), p);
+    c.at(layerTiming(l, time).u, evalCtx(time), p);
     return p.y;
   };
 }
@@ -310,6 +338,7 @@ store.on((path) => {
       if (!second || ['enabled', 'style', 'type'].includes(third)) {
         // Structural change → rebuild cards + views.
         if (!second) { panels.renderLayers(); panels.renderKeyframes(); panels.renderRhythm?.(); }
+        panels.renderSequence();
         rebuildAll();
       } else {
         const layer = store.state.layers.find((l) => l.id === second);
@@ -345,7 +374,7 @@ store.on((path) => {
       audio.applySettings(store.state.audio);
       break;
     case 'transport':
-      if (second === 'duration') updateTimelineCurves();
+      if (second === 'duration') { updateTimelineCurves(); panels.renderSequence(); }
       if (second === 'duration' || second === 'bpm') { viz.buildGrid(); timeline.draw(); }
       break;
     case 'rhythm':
@@ -355,6 +384,12 @@ store.on((path) => {
     case 'drums':
       applyDrumVolume();
       scanner.reset();
+      break;
+    case 'sequence':
+      updateTimelineCurves();
+      scanner.reset();
+      clock.snap = true;
+      panels.renderSequence();
       break;
     case 'keyframes':
       keyframesChanged();
@@ -426,7 +461,6 @@ function updateTransportUI() {
  */
 function renderScene(time, { dt, now, playing, snap }) {
   const { layers } = store.state;
-  const u = Math.min(time / duration(), 1);
   const ctx = evalCtx(time);
 
   // Animated formulas (using t) are re-sampled every frame.
@@ -437,11 +471,13 @@ function renderScene(time, { dt, now, playing, snap }) {
   const items = [];
   for (const l of layers) {
     const c = compiled.get(l.id);
-    if (c && l.enabled) items.push({ id: l.id, u, point: c.at(u, ctx, { x: 0, y: 0, z: 0 }), compiled: c });
+    if (!c || !l.enabled) continue;
+    const { u, phase } = layerTiming(l, time);
+    items.push({ id: l.id, u, phase, point: c.at(u, ctx, { x: 0, y: 0, z: 0 }), compiled: c });
   }
   const frames = voicesAt(time);
   for (const f of frames) notes.set(f.id, f.gain > 0 ? f.midi : null);
-  viz.render(items, ctx, { dt, now, snap, playing, cameraLocked: hasPoseTrack() && (playing || RENDER_MODE) });
+  viz.render(items, ctx, { dt, now, snap, playing, pastMode: store.state.sequence.past, cameraLocked: hasPoseTrack() && (playing || RENDER_MODE) });
   return frames;
 }
 
@@ -507,7 +543,8 @@ function overlayData(analysis = null) {
   return {
     state: store.state,
     layers: store.state.layers,
-    notes: clock.playing || clock.scrubbing || RENDER_MODE ? notes : new Map(),
+    notes: (clock.playing || clock.scrubbing || RENDER_MODE) && store.state.visual.showNotes ? notes : new Map(),
+    phases: new Map(store.state.layers.map((l) => [l.id, layerTiming(l, clock.pos).phase])),
     spectrum: analysis ? analysis.spectrum : audio.spectrum(),
     waveform: analysis ? analysis.waveform : audio.waveform(),
     ui: { fg: light ? '#1a1c26' : '#eef2ff', accent: '#22e4ff', accent2: light ? '#e0245e' : '#ff3d9a' },
@@ -522,6 +559,7 @@ function isLight(hex) {
 
 let hudKey = '';
 function updateHud(frames) {
+  $('hud').hidden = !store.state.visual.showNotes;
   const parts = frames
     .map((f) => {
       const l = store.state.layers.find((x) => x.id === f.id);
@@ -869,7 +907,7 @@ window.addEventListener('keydown', (e) => {
     case 'Home': case '0': seek(0); break;
     case 'ArrowLeft': if (e.target === document.body) { seek((clock.pos - 1) / dur); e.preventDefault(); } break;
     case 'ArrowRight': if (e.target === document.body) { seek((clock.pos + 1) / dur); e.preventDefault(); } break;
-    case 'm': case 'M': store.set('mode', store.state.mode === '2d' ? '3d' : '2d'); break;
+    case 'm': case 'M': store.set('mode', store.state.mode === '2d' ? '3d' : '2d'); refreshAll(); break;
     case 't': case 'T': toggleTheme(); break;
     case 'h': case 'H': document.body.classList.toggle('cinema'); break;
     case 'f': case 'F': $('fullscreen-btn').click(); break;

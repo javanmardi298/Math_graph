@@ -54,6 +54,7 @@
         <h2>Layers</h2>
         <button class="btn small" id="add-layer" type="button">+ Add layer</button>
       </div>
+      <div id="seq-slot" class="seq-slot"></div>
       <div id="layer-list" class="layer-list"></div>
 
       <details class="group" open>
@@ -84,7 +85,16 @@
     </div>
     <div class="toast" id="toast" role="status" hidden></div>
     <div class="loading" id="loading">Loading…</div>
-    <div class="fatal" id="fatal" hidden><h2>Can't start the graphics engine</h2><p></p></div>
+    <div class="fatal" id="fatal" hidden>
+      <h2>Can't start the graphics engine</h2>
+      <p id="fatal-reason"></p>
+      <ul class="fatal-tips">
+        <li>Close other tabs of this app (each one holds a graphics context).</li>
+        <li>If the GPU crashed earlier, the browser blocks graphics until it fully restarts: quit the browser completely and reopen it.</li>
+        <li>Check that hardware acceleration is on (Chrome: Settings → System).</li>
+      </ul>
+      <button class="btn" type="button" id="fatal-reload">Try again</button>
+    </div>
   </main>
 
   <!-- ===================================================== RIGHT: INSPECTOR -->

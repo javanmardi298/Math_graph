@@ -4,8 +4,8 @@
  * Scene layout (math → world):  x → X (time), y → Y (pitch), z → Z (volume/pan)
  * Surfaces draw height on Y so "up" always means "higher note".
  *
- * Sizes (line width, marker, particles, labels) are expressed per 1000 px of
- * canvas height, so a 4K recording looks identical to the on-screen preview.
+ * Sizes (line width, marker, particles, labels) are expressed per 1000 px of the
+ * canvas's shorter side, so a 4K or portrait recording looks identical to the on-screen preview.
  */
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -30,6 +30,23 @@ function niceStep(span, target = 8) {
   const mag = Math.pow(10, Math.floor(Math.log10(raw)));
   const n = raw / mag;
   return (n < 1.5 ? 1 : n < 3.5 ? 2 : n < 7.5 ? 5 : 10) * mag;
+}
+
+/**
+ * Put `array` into geometry attribute `name` without leaking GPU memory.
+ * three.js only frees a buffer when its geometry is disposed, so replacing an
+ * attribute every frame (animated formulas) used to leak until WebGL died.
+ * Same size → update in place; new size → dispose the geometry's buffers first.
+ */
+function writeAttr(geometry, name, array, itemSize) {
+  const old = geometry.getAttribute(name);
+  if (old && old.array.length === array.length) {
+    old.array.set(array);
+    old.needsUpdate = true;
+    return;
+  }
+  if (old) geometry.dispose();
+  geometry.setAttribute(name, new THREE.BufferAttribute(array, itemSize));
 }
 
 const fmt = (v) => (Math.abs(v) < 1e-9 ? '0' : Number(v.toFixed(2)).toString());
@@ -246,8 +263,8 @@ class LayerView {
       }
     } else {
       for (const g of [this.dotsGeo, this.ghostGeo]) {
-        g.setAttribute('position', new THREE.BufferAttribute(pts, 3));
-        g.setAttribute('color', new THREE.BufferAttribute(cols, 3));
+        writeAttr(g, 'position', pts, 3);
+        writeAttr(g, 'color', cols, 3);
         g.computeBoundingSphere();
       }
     }
@@ -285,6 +302,8 @@ class LayerView {
       }
       this.surfIndex = idx;
       this.surfN = N;
+      this.surfGeo.dispose(); // frees the old index and attribute buffers
+      this.wireGeo.dispose();
       this.surfGeo.setIndex(idx);
       // Grid lines: every `every`-th row and column, so the mesh reads as a lattice.
       const every = Math.max(1, Math.round(N / 24));
@@ -293,10 +312,9 @@ class LayerView {
       for (let i = 0; i <= N; i += every) for (let j = 0; j < N; j++) lines.push(j * (N + 1) + i, (j + 1) * (N + 1) + i);
       this.wireGeo.setIndex(lines);
     }
-    const posAttr = new THREE.BufferAttribute(pos, 3), colAttr = new THREE.BufferAttribute(col, 3);
     for (const g of [this.surfGeo, this.wireGeo]) {
-      g.setAttribute('position', posAttr);
-      g.setAttribute('color', colAttr);
+      writeAttr(g, 'position', pos, 3);
+      writeAttr(g, 'color', col, 3);
       g.computeBoundingSphere();
     }
   }
@@ -307,10 +325,44 @@ class LayerView {
    * @param {{x,y,z}} target exact point on the curve
    * @param {object} f frame info (dt, now, k, worldPerPx, snap, playing)
    */
-  frame(u, target, f, compiled, ctx) {
+  frame(u, target, f, compiled, ctx, phase = 'active') {
     const v = this.viz.state.visual;
     const is3d = this.viz.state.mode === '3d';
     const tz = is3d ? target.z : 0;
+
+    // Sequence mode: layers that haven't started are hidden; finished ones stay as a
+    // faint ghost, stay fully drawn, or disappear, so you can see how the curves evolve.
+    const past = phase === 'past';
+    this.group.visible = phase !== 'future' && !(past && f.pastMode === 'hide');
+    this.trailMat.uniforms.uTime.value = f.now;
+    if (!this.group.visible || past) {
+      this.lastEmit = null;
+      this.hasDrawn = false;
+      if (!this.group.visible) return;
+      const keep = f.pastMode === 'keep';
+      this.marker.visible = this.cursor.visible = false;
+      if (this.scan) this.scan.visible = false;
+      if (this.line) {
+        this.line.visible = keep;
+        this.line.geometry.instanceCount = Math.max(0, this.count - 1);
+        this.ghost.visible = !keep;
+        this.ghost.material.opacity = 0.22;
+        for (const ln of [this.line, this.ghost]) {
+          ln.material.linewidth = this.layer.width * f.k;
+          ln.material.resolution.copy(this.viz.resolution);
+        }
+      } else {
+        this.dots.visible = keep;
+        this.dotsGeo.setDrawRange(0, this.count);
+        this.ghostDots.visible = !keep;
+        this.ghostDots.material.opacity = 0.22;
+        this.dotsMat.size = this.ghostDots.material.size = this.layer.width * 2.2 * f.k;
+      }
+      return;
+    }
+    this.marker.visible = true;
+    if (this.line) { this.line.visible = true; this.ghost.material.opacity = 0.16; }
+    else { this.dots.visible = true; this.ghostDots.material.opacity = 0.16; }
 
     // Smoothly chase the exact point so sudden jumps glide instead of teleporting.
     if (!this.hasDrawn || f.snap || v.marker.smoothing <= 0) {
@@ -393,7 +445,7 @@ class LayerView {
         const h = compiled.height(target.x, y, ctx);
         arr[j * 3] = target.x; arr[j * 3 + 1] = Number.isFinite(h) ? h : 0; arr[j * 3 + 2] = y;
       }
-      this.scan.geometry.setAttribute('position', new THREE.BufferAttribute(arr, 3));
+      writeAttr(this.scan.geometry, 'position', arr, 3);
       this.scan.geometry.computeBoundingSphere();
       this.scan.visible = true;
     } else if (this.scan) this.scan.visible = false;
@@ -425,6 +477,18 @@ export class Visualizer {
     const r = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
     r.outputColorSpace = THREE.SRGBColorSpace;
     host.appendChild(r.domElement);
+    // If the GPU drops the context (driver reset, memory pressure), tell the app
+    // instead of freezing on a black canvas.
+    this.onContextLost = null;
+    r.domElement.addEventListener('webglcontextlost', (e) => {
+      e.preventDefault();
+      this.onContextLost?.();
+    });
+    // Hand the context back when the page goes away, so reloads don't pile up contexts.
+    window.addEventListener('pagehide', () => {
+      r.dispose();
+      r.forceContextLoss();
+    });
     this.renderer = r;
     this.canvas = r.domElement;
 
@@ -515,6 +579,7 @@ export class Visualizer {
     this.composer.setSize(lw, lh);
     this.resolution.set(bw, bh);
     this.bufferHeight = bh;
+    this.bufferMin = Math.min(bw, bh); // sizes scale with the shorter side (portrait videos too)
     this.aspect = bw / bh;
     this.persp.aspect = this.aspect;
     this.persp.updateProjectionMatrix();
@@ -539,7 +604,7 @@ export class Visualizer {
   /** Visual reaction to a drum hit on the layer `layerId`. */
   pulse(kind, layerId) {
     const view = this.views.get(layerId) || this.views.values().next().value;
-    if (kind === 'kick') this.bloomKick = Math.max(this.bloomKick, 1.0);
+    if (kind === 'kick') this.bloomKick = 1;
     if (view) view.bump = Math.max(view.bump || 0, kind === 'kick' ? 0.6 : kind === 'hat' ? 0.2 : 0.4);
     if ((kind === 'snare' || kind === 'clap' || kind === 'kick') && view?.hasDrawn) {
       const ring = this.rings[this.ringIndex++ % this.rings.length];
@@ -663,9 +728,11 @@ export class Visualizer {
       const beat = 60 / Math.max(1, this.state.transport.bpm);
       const beats = [], bars = [];
       const zb = is3d ? yMin : 0, ze = is3d ? yMax : 0;
+      const crowded = dur / beat > 24; // too many beats to read: draw bar lines only
       for (let i = 0, tt = 0; tt <= dur + 1e-9 && i < 4000; i++, tt = i * beat) {
+        if (crowded && i % 4) continue;
         const x = xMin + (tt / dur) * (xMax - xMin);
-        const y0 = is3d ? yMin : yMin, y1 = is3d ? yMin : yMax;
+        const y0 = yMin, y1 = is3d ? yMin : yMax;
         (i % 4 === 0 ? bars : beats).push(x, y0, zb, x, y1, ze);
       }
       seg(beats, v.axesColor, 0.22);
@@ -743,10 +810,10 @@ export class Visualizer {
    * @param {{dt:number, now:number, snap:boolean, playing:boolean}} f
    */
   render(items, ctx, f) {
-    const k = this.bufferHeight / 1000;
+    const k = this.bufferMin / 1000;
     const wpp = this.worldPerPx();
     const frame = { ...f, k, worldPerPx: wpp };
-    for (const it of items) this.views.get(it.id)?.frame(it.u, it.point, frame, it.compiled, ctx);
+    for (const it of items) this.views.get(it.id)?.frame(it.u, it.point, frame, it.compiled, ctx, it.phase);
 
     // Labels keep a constant on-screen size.
     for (const s of this.grid.children) {
@@ -773,7 +840,7 @@ export class Visualizer {
 
     // Drum pulses
     this.bloomKick *= Math.pow(0.01, f.dt);
-    this.bloom.strength = this.state.visual.bloom.strength + (this.state.visual.bloom.enabled ? this.bloomKick : 0);
+    this.bloom.strength = this.state.visual.bloom.strength * (1 + 0.5 * this.bloomKick);
     for (const ring of this.rings) {
       if (!ring.visible) continue;
       ring.userData.age += f.dt;

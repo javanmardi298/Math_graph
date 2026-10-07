@@ -71,6 +71,7 @@ export function defaultState() {
       dof: { enabled: false, focus: 14, aperture: 0.6 },
       motionBlur: { enabled: false, amount: 0.75 },
       caption: true,
+      showNotes: true, // note names in the caption and the top bar
       analyzer: 'spectrum', // spectrum | wave | off
       aspect: '16:9', // fill | 16:9 | 9:16 | 1:1 | 4:5
     },
@@ -89,6 +90,8 @@ export function defaultState() {
       reverb: { decay: 2.6, mix: 0.25 },
     },
     record: { resolution: '1080p', fps: 60, fromStart: true },
+    // Layer playback: all together, or one after another (each gets an equal slice of the timeline).
+    sequence: { enabled: false, past: 'ghost' }, // past: ghost | keep | hide
     // Beat grid: sample the pitch once per step so curves become rhythmic notes.
     rhythm: { enabled: false, division: '1/8', gate: 0.8, swing: 0, showGrid: true },
     // Drum kit triggered by events on a source layer's curve (or by the clock).
