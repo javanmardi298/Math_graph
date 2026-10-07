@@ -153,6 +153,12 @@ few minutes; that leak is fixed, and a lost context now shows a *Try again* butt
 Use **Export video**, not live capture: live capture can only record as fast as your computer draws.
 For extra smoothness pick 60 fps and motion blur ×2; for sharpness pick Quality: High or Maximum.
 
+**Export stops at "Frame 5" (or any frame) and never finishes**
+Some graphics drivers report a hardware H.264 encoder that then fails or freezes. The app now test-encodes
+a few frames with each encoder before using it, watches for an encoder that stops responding, and switches
+to the next one by itself (GPU H.264 → software H.264 → VP9 → AV1). The progress window shows which encoder
+is in use. If every encoder fails, use a lower resolution or Live capture.
+
 **The old "studio render" took hours**
 It drew frames in a headless browser that had no access to the GPU (software rendering), then copied
 each frame as a PNG. It has been replaced by Export video, which runs in your own browser with the GPU.

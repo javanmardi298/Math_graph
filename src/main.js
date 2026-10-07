@@ -817,6 +817,7 @@ class FrameComposer {
   frame(i) {
     const { fps, n, g, out } = this;
     const t = i / fps;
+    if (i === 0) { this.hitIndex = 0; this.last = 0; } // a retry with another encoder starts over
     const shutter = 0.5 / fps; // 180°
     for (let j = 0; j < n; j++) {
       const time = n === 1 ? t : Math.max(0, t - shutter * (1 - (j + 1) / n));
@@ -865,6 +866,7 @@ async function exportVideo() {
   $('render-title').textContent = `Rendering ${size.w}×${size.h} · ${fps} fps${subframes > 1 ? ` · motion blur ×${subframes}` : ''}`;
   bar.value = 0;
   stats.textContent = 'Rendering the soundtrack…';
+  $('render-encoder').textContent = '';
   dlg.showModal();
   exporting.busy = true;
   const savedPos = clock.pos;
@@ -878,13 +880,14 @@ async function exportVideo() {
     const res = await renderVideo({
       width: size.w, height: size.h, fps, frames, quality, token, audio: buf,
       drawFrame: (i) => comp.frame(i),
+      onStatus: (msg) => { $('render-encoder').textContent = msg; },
       onProgress: (p) => {
         bar.value = p.frame / p.frames;
         stats.textContent = `Frame ${p.frame} / ${p.frames} · ${p.fps.toFixed(1)} frames/s · about ${fmtEta(p.eta)} left`;
       },
     });
     let blob = res.blob;
-    let note = `${size.w}×${size.h} · ${fps} fps · ${res.video}${res.audio ? ` + ${res.audio}` : ''}`;
+    let note = `${size.w}×${size.h} · ${fps} fps · ${res.encoder}${res.audio ? ` + ${res.audio}` : ''}`;
     if (res.video !== 'H.264' || (res.audio && res.audio !== 'AAC')) {
       stats.textContent = 'Converting to H.264 / AAC with ffmpeg for maximum compatibility…';
       try {
@@ -1067,9 +1070,10 @@ function installRenderApi() {
         width: prep.width, height: prep.height, fps: prep.fps, frames: prep.frames, quality, audio: prep.buf,
         drawFrame: (i) => comp.frame(i),
         onProgress: (p) => window.__mmvProgress?.(p),
+        onStatus: (m) => window.__mmvStatus?.(m),
       });
       result = new Uint8Array(await r.blob.arrayBuffer());
-      return { bytes: result.length, video: r.video, audio: r.audio };
+      return { bytes: result.length, video: r.video, encoder: r.encoder, audio: r.audio };
     },
     /** Read the encoded file back in base64 slices. */
     chunk(offset, length) {

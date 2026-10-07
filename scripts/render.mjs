@@ -90,6 +90,7 @@ try {
   await page.exposeFunction('__mmvProgress', (p) => {
     process.stdout.write(`\r  frame ${p.frame}/${p.frames}  ${Math.round((p.frame / p.frames) * 100)}%  ${p.fps.toFixed(1)} fps  ~${p.eta}s left   `);
   });
+  await page.exposeFunction('__mmvStatus', (m) => process.stdout.write(`\n  ${m}\n`));
   const res = await page.evaluate((q) => window.__mmv.renderVideo({ quality: q }), a.quality);
   const parts = [];
   for (let off = 0; off < res.bytes; off += 8 * 1024 * 1024) {
@@ -99,7 +100,7 @@ try {
   await mkdir(dirname(out), { recursive: true });
   const raw = join(tmp, 'raw.mp4');
   await writeFile(raw, Buffer.concat(parts));
-  console.log(`\n  encoded ${res.video}${res.audio ? ` + ${res.audio}` : ''} in ${((Date.now() - t0) / 1000).toFixed(1)} s`);
+  console.log(`\n  encoded ${res.encoder}${res.audio ? ` + ${res.audio}` : ''} in ${((Date.now() - t0) / 1000).toFixed(1)} s`);
 
   if ((res.video !== 'H.264' || (res.audio && res.audio !== 'AAC')) && findFfmpeg()) {
     console.log('  converting to H.264 + AAC with ffmpeg…');
