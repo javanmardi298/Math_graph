@@ -2,27 +2,38 @@
  * Math-Melody Visualizer — app entry point.
  *
  * Owns the transport clock and the per-frame loop:
- *   clock → progress u → each layer's point → (renderer, synth, overlay, recorder)
+ *   clock → keyframes → each layer's point → (renderer, synth, drums, overlay, recorder)
  * The clock advances on the audio hardware clock while playing, so picture and
  * sound stay locked together.
+ *
+ * Every "what does it sound like at time T" question goes through voicesAt(T),
+ * so live playback, the WAV render, the MIDI export and server renders agree.
+ *
+ * With ?render=1 in the URL the app runs headless for scripts/render.mjs:
+ * no animation loop, and window.__mmv renders exact frames on demand.
  */
 import { store } from './state.js';
 import { BUILTIN_PRESETS } from './presets.js';
 import { CompiledLayer } from './math/layers.js';
+import { gridAt, barsToSeconds } from './math/rhythm.js';
 import { AudioEngine } from './audio/engine.js';
 import { voiceFrame, hasSolo } from './audio/sonify.js';
+import { DrumScanner } from './audio/drum-scanner.js';
+import { BufferAnalyser } from './audio/buffer-analyser.js';
+import { valuesAt, applyValues, upsertKey, readValue, describe } from './anim/keyframes.js';
 import { noteName, midiToFreq } from './math/music.js';
 import { Visualizer } from './render/visualizer.js';
 import { Panels, PALETTES } from './ui/panels.js';
 import { Timeline } from './ui/timeline.js';
 import { drawOverlay } from './ui/overlay.js';
-import { h, bindPath, segmented, slider, number, toggle } from './ui/controls.js';
+import { h, bindPath, segmented, slider, number, toggle, refreshAll } from './ui/controls.js';
 import { Recorder, download, pickFormat } from './export/recorder.js';
 import { writeMidi, samplesToNotes } from './export/midi.js';
 import { audioBufferToWav } from './export/wav.js';
 
 const $ = (id) => document.getElementById(id);
 const SESSION_KEY = 'mmv.session.v1';
+const RENDER_MODE = new URLSearchParams(location.search).has('render');
 
 /* ------------------------------------------------------------------ setup */
 
@@ -40,10 +51,11 @@ try {
 }
 const audio = new AudioEngine();
 const recorder = new Recorder();
+const scanner = new DrumScanner();
 /** @type {Map<string, CompiledLayer>} */
 const compiled = new Map();
 
-const clock = { pos: 0, playing: false, scrubbing: false, lastWall: performance.now() / 1000, lastAudio: 0, snap: true, autoStop: false };
+const clock = { pos: 0, prevPos: 0, playing: false, scrubbing: false, lastWall: performance.now() / 1000, lastAudio: 0, snap: true, autoStop: false, keyTime: null };
 const notes = new Map(); // layer id → current midi (for HUD/caption)
 
 /* --------------------------------------------------------------- toasts */
@@ -59,7 +71,8 @@ function toast(msg, ms = 3200) {
 
 /* ---------------------------------------------------- compile & rebuild */
 
-const evalCtx = () => ({ t: clock.pos, params: store.state.params, view: store.state.view });
+const evalCtx = (t = clock.pos) => ({ t, params: store.state.params, view: store.state.view });
+const duration = () => Math.max(0.5, store.state.transport.duration);
 
 function compileLayer(layer) {
   const next = new CompiledLayer(layer);
@@ -91,6 +104,7 @@ function rebuildAll() {
 
 /** Sample every layer's pitch for the timeline mini-map. */
 function updateTimelineCurves() {
+  if (RENDER_MODE) return;
   const { view } = store.state;
   const ctx = evalCtx();
   const N = 400;
@@ -109,12 +123,132 @@ function updateTimelineCurves() {
   timeline.setCurves(curves);
 }
 
+/* ------------------------------------------------------------- keyframes */
+
+let applyingKeys = false;
+const hasTracks = () => Object.keys(store.state.keyframes.tracks).length > 0;
+const hasPoseTrack = () => !!store.state.keyframes.tracks['camera.pose']?.length;
+
+/**
+ * Write every animated value for `time` into the state.
+ * With effects=false only the values change (used inside offline renders, where
+ * rebuilding geometry thousands of times would be wasted work).
+ */
+function applyKeyframesAt(time, effects = true) {
+  if (!hasTracks()) return;
+  applyingKeys = true;
+  const values = valuesAt(store.state.keyframes.tracks, time);
+  const changed = applyValues(store.state, values);
+  applyingKeys = false;
+  if (!effects) return;
+  if (changed.has('params')) {
+    for (const l of store.state.layers) if (l.enabled && compiled.get(l.id)?.usesParams) viz.rebuildLayer(l.id, compiled.get(l.id), evalCtx(time));
+  }
+  for (const c of changed) {
+    if (!c.startsWith('layer:')) continue;
+    const l = store.state.layers[+c.slice(6)];
+    if (l?.enabled && compiled.get(l.id)) viz.rebuildLayer(l.id, compiled.get(l.id), evalCtx(time));
+  }
+  if (changed.has('visual') || changed.has('camera') || [...changed].some((c) => c.startsWith('layer:'))) viz.applySettings();
+  if (changed.has('audio')) audio.applySettings(store.state.audio);
+  if (changed.has('pose')) viz.setPose(values.get('camera.pose'));
+  if (changed.size && !RENDER_MODE) refreshControlsSoon();
+}
+
+let refreshTimer = null;
+function refreshControlsSoon() {
+  if (refreshTimer) return;
+  refreshTimer = setTimeout(() => { refreshTimer = null; refreshAll(); }, 200);
+}
+
+/** Add (or replace) a key for `path` at the playhead with its current value. */
+function addKey(path, ease = 'smooth') {
+  const value = path === 'camera.pose' ? viz.getPose() : readValue(store.state, path);
+  if (value === undefined) return toast('That property no longer exists.');
+  upsertKey(store.state.keyframes.tracks, path, clock.pos, value, ease);
+  keyframesChanged();
+  toast(`Key added for ${describe(store.state, path)?.label || path} at ${clock.pos.toFixed(2)} s.`);
+}
+
+function keyframesChanged() {
+  panels.renderKeyframes();
+  timeline.draw();
+  clock.keyTime = null; // re-apply on the next frame
+  saveSession();
+}
+
+/** Run `fn` with keyframes evaluated at arbitrary times, then restore the playhead's values. */
+function withTimeTravel(fn) {
+  try { return fn(); } finally { applyKeyframesAt(clock.pos, true); }
+}
+
+/* -------------------------------------------------- sound at any time T */
+
+/**
+ * Voice frames (pitch, gain, pan per layer) for timeline time `time`.
+ * With the beat grid on, the curve is sampled at the start of the current step
+ * and the note is cut after `gate` of the step.
+ */
+function voicesAt(time) {
+  const { layers, transport, rhythm } = store.state;
+  const dur = duration();
+  const solo = hasSolo(layers);
+  const g = rhythm.enabled ? gridAt(time, rhythm, transport.bpm) : null;
+  const tq = g ? g.start : time;
+  const ctx = evalCtx(tq);
+  const p = { x: 0, y: 0, z: 0 };
+  const out = [];
+  for (const l of layers) {
+    const c = compiled.get(l.id);
+    if (!c) continue;
+    c.at(Math.min(tq / dur, 1), ctx, p);
+    const f = voiceFrame(l, p, store.state, solo);
+    if (g) {
+      f.step = g.index;
+      if (g.phase > rhythm.gate) f.gain = 0;
+    }
+    out.push(f);
+  }
+  return out;
+}
+
+/** The layer that drives the drums. */
+function drumSourceLayer() {
+  const { layers, drums } = store.state;
+  const l = layers[drums.source];
+  return l?.enabled ? l : layers.find((x) => x.enabled);
+}
+
+/** Pitch of the drum source layer at `time` (y in graph units). */
+function drumSampler(applyKeys = false) {
+  const l = drumSourceLayer();
+  const c = l && compiled.get(l.id);
+  const p = { x: 0, y: 0, z: 0 };
+  return (time) => {
+    if (!c) return NaN;
+    if (applyKeys) applyKeyframesAt(time, false);
+    c.at(Math.min(time / duration(), 1), evalCtx(time), p);
+    return p.y;
+  };
+}
+
+function drumCtx() {
+  const { view, transport, rhythm } = store.state;
+  return { mid: (view.yMin + view.yMax) / 2, range: view.yMax - view.yMin, bpm: transport.bpm, rhythm };
+}
+
+/** Every drum hit over the whole timeline (offline renders and MIDI). */
+function drumEventsFull() {
+  if (!store.state.drums.enabled) return [];
+  return withTimeTravel(() => new DrumScanner().scan(0, duration(), drumSampler(true), store.state.drums, drumCtx()));
+}
+
 /* ------------------------------------------------------- state reactions */
 
 function applyStageAspect() {
   const a = store.state.visual.aspect;
   const wrap = $('stage-wrap');
-  if (a === 'fill' || recorder.active) {
+  if (a === 'fill' || recorder.active || RENDER_MODE) {
     if (!recorder.active) { stage.style.width = ''; stage.style.height = ''; stage.classList.remove('framed'); }
     return;
   }
@@ -142,27 +276,40 @@ function applyTheme() {
   timeline.draw();
 }
 
+function applyDrumVolume() {
+  if (audio.ready) audio.setDrumVolume(store.state.drums.enabled ? store.state.drums.volume : 0);
+}
+
 function applyAll() {
   viz.state = store.state;
   viz.applySettings();
   viz.buildGrid();
   viz.setMarkerImage(store.state.visual.marker.image);
   audio.applySettings(store.state.audio);
+  applyDrumVolume();
   rebuildAll();
   applyTheme();
   applyStageAspect();
   viz.resetCamera();
+  clock.keyTime = null;
   $('project-name').value = store.state.name;
 }
 
 store.on((path) => {
   if (path === '*') { applyAll(); panels.refresh(); clock.snap = true; saveSession(); return; }
   const [root, second, third] = path.split('.');
+
+  // Auto-key: changing an animatable control while paused records a key at the playhead.
+  if (!applyingKeys && store.state.keyframes.autoKey && !clock.playing && describe(store.state, path)) {
+    upsertKey(store.state.keyframes.tracks, path, clock.pos, readValue(store.state, path));
+    keyframesChanged();
+  }
+
   switch (root) {
     case 'layers': {
-      if (!second || ['enabled', 'style', 'width', 'type'].includes(third)) {
+      if (!second || ['enabled', 'style', 'type'].includes(third)) {
         // Structural change → rebuild cards + views.
-        if (!second) panels.renderLayers();
+        if (!second) { panels.renderLayers(); panels.renderKeyframes(); panels.renderRhythm?.(); }
         rebuildAll();
       } else {
         const layer = store.state.layers.find((l) => l.id === second);
@@ -170,6 +317,7 @@ store.on((path) => {
         if (third === 'exprs' || third === 'look') { rebuildLayer(layer); viz.restyle(); updateTimelineCurves(); }
         if (third === 'wave') audio.syncLayers(store.state.layers);
         if (third === 'mute') updateTimelineCurves();
+        if (third === 'name') panels.renderKeyframes();
       }
       break;
     }
@@ -198,6 +346,18 @@ store.on((path) => {
       break;
     case 'transport':
       if (second === 'duration') updateTimelineCurves();
+      if (second === 'duration' || second === 'bpm') { viz.buildGrid(); timeline.draw(); }
+      break;
+    case 'rhythm':
+      viz.buildGrid();
+      timeline.draw();
+      break;
+    case 'drums':
+      applyDrumVolume();
+      scanner.reset();
+      break;
+    case 'keyframes':
+      keyframesChanged();
       break;
     case 'theme':
       applyTheme();
@@ -208,6 +368,7 @@ store.on((path) => {
 
 let saveTimer;
 function saveSession() {
+  if (RENDER_MODE) return;
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => {
     try { localStorage.setItem(SESSION_KEY, JSON.stringify(store.snapshot())); } catch { /* storage blocked or full */ }
@@ -216,7 +377,7 @@ function saveSession() {
 
 /* ------------------------------------------------------------- transport */
 
-async function play() {
+async function ensureAudio() {
   try {
     await audio.ensure();
   } catch (err) {
@@ -224,8 +385,14 @@ async function play() {
   }
   audio.applySettings(store.state.audio);
   audio.syncLayers(store.state.layers);
-  if (clock.pos >= store.state.transport.duration - 1e-3) clock.pos = 0;
+  applyDrumVolume();
+}
+
+async function play() {
+  await ensureAudio();
+  if (clock.pos >= duration() - 1e-3) clock.pos = 0;
   clock.playing = true;
+  clock.snap = true;
   clock.lastAudio = audio.now();
   clock.lastWall = performance.now() / 1000;
   updateTransportUI();
@@ -240,7 +407,7 @@ function pause() {
 const togglePlay = () => (clock.playing ? pause() : play());
 
 function seek(u) {
-  clock.pos = Math.min(Math.max(u, 0), 1) * store.state.transport.duration;
+  clock.pos = Math.min(Math.max(u, 0), 1) * duration();
   clock.snap = true;
 }
 
@@ -253,15 +420,39 @@ function updateTransportUI() {
 
 /* ---------------------------------------------------------- frame loop */
 
-const point = { x: 0, y: 0, z: 0 };
+/**
+ * Draw the scene at timeline time `time`. Shared by the live loop and server renders.
+ * @returns {object[]} voice frames at that time
+ */
+function renderScene(time, { dt, now, playing, snap }) {
+  const { layers } = store.state;
+  const u = Math.min(time / duration(), 1);
+  const ctx = evalCtx(time);
+
+  // Animated formulas (using t) are re-sampled every frame.
+  for (const l of layers) {
+    const c = compiled.get(l.id);
+    if (l.enabled && c?.usesTime) viz.rebuildLayer(l.id, c, ctx);
+  }
+  const items = [];
+  for (const l of layers) {
+    const c = compiled.get(l.id);
+    if (c && l.enabled) items.push({ id: l.id, u, point: c.at(u, ctx, { x: 0, y: 0, z: 0 }), compiled: c });
+  }
+  const frames = voicesAt(time);
+  for (const f of frames) notes.set(f.id, f.gain > 0 ? f.midi : null);
+  viz.render(items, ctx, { dt, now, snap, playing, cameraLocked: hasPoseTrack() && (playing || RENDER_MODE) });
+  return frames;
+}
 
 function frame() {
   requestAnimationFrame(frame);
   const wall = performance.now() / 1000;
   let dt = Math.min(Math.max(wall - clock.lastWall, 0), 0.1);
   clock.lastWall = wall;
-  const { transport, layers } = store.state;
-  const dur = Math.max(0.5, transport.duration);
+  const { transport } = store.state;
+  const dur = duration();
+  let wrapped = false;
 
   if (clock.playing) {
     // Prefer the audio hardware clock: it never drifts from what you hear.
@@ -272,35 +463,33 @@ function frame() {
     clock.pos += dt * transport.speed;
     if (clock.pos >= dur) {
       if (clock.autoStop && recorder.active) { clock.pos = dur; stopRecording(); pause(); }
-      else if (transport.loop) clock.pos %= dur;
+      else if (transport.loop) { clock.pos %= dur; wrapped = true; }
       else { clock.pos = dur; pause(); }
     }
   }
-  const u = clock.pos / dur;
-  const ctx = evalCtx();
 
-  // Animated formulas (using t) are re-sampled every frame.
-  for (const l of layers) {
-    const c = compiled.get(l.id);
-    if (l.enabled && c?.usesTime) viz.rebuildLayer(l.id, c, ctx);
+  // Keyframes follow the playhead (only when it moved, so paused edits stick).
+  if (clock.pos !== clock.keyTime || clock.snap) {
+    applyKeyframesAt(clock.pos);
+    clock.keyTime = clock.pos;
   }
 
-  const items = [];
-  const frames = [];
-  const solo = hasSolo(layers);
-  for (const l of layers) {
-    const c = compiled.get(l.id);
-    if (!c) continue;
-    const p = c.at(Math.min(u, 1), ctx, { ...point });
-    const vf = voiceFrame(l, p, store.state, solo);
-    frames.push(vf);
-    notes.set(l.id, vf.midi);
-    if (l.enabled) items.push({ id: l.id, u, point: p, compiled: c });
+  // Drums: scan the curve between the last frame and this one.
+  if (clock.playing && store.state.drums.enabled) {
+    let from = clock.prevPos;
+    if (wrapped || clock.snap) { scanner.reset(); from = wrapped ? 0 : clock.pos; }
+    const hits = scanner.scan(from, clock.pos, drumSampler(), store.state.drums, drumCtx());
+    const src = drumSourceLayer();
+    for (const e of hits) {
+      audio.drum(e.kind, e.vel);
+      if (store.state.drums.pulse) viz.pulse(e.kind, src?.id);
+    }
   }
+  clock.prevPos = clock.pos;
+
   const sounding = clock.playing || clock.scrubbing;
+  const frames = renderScene(clock.pos, { dt, now: wall, playing: sounding, snap: clock.snap });
   audio.update(frames, { playing: sounding, glide: store.state.audio.glide, articulation: store.state.audio.articulation });
-
-  viz.render(items, ctx, { dt, now: wall, snap: clock.snap, playing: sounding });
   clock.snap = false;
 
   og.clearRect(0, 0, overlay.width, overlay.height);
@@ -309,18 +498,18 @@ function frame() {
     recorder.composite();
     $('rec-time').textContent = fmtRec(recorder.elapsed);
   }
-  timeline.setProgress(Math.min(u, 1), clock.pos);
+  timeline.setProgress(Math.min(clock.pos / dur, 1), clock.pos);
   updateHud(frames);
 }
 
-function overlayData() {
+function overlayData(analysis = null) {
   const light = isLight(store.state.visual.background);
   return {
     state: store.state,
     layers: store.state.layers,
-    notes: clock.playing || clock.scrubbing ? notes : new Map(),
-    spectrum: audio.spectrum(),
-    waveform: audio.waveform(),
+    notes: clock.playing || clock.scrubbing || RENDER_MODE ? notes : new Map(),
+    spectrum: analysis ? analysis.spectrum : audio.spectrum(),
+    waveform: analysis ? analysis.waveform : audio.waveform(),
     ui: { fg: light ? '#1a1c26' : '#eef2ff', accent: '#22e4ff', accent2: light ? '#e0245e' : '#ff3d9a' },
   };
 }
@@ -351,11 +540,12 @@ const fmtRec = (s) => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(M
 
 /* --------------------------------------------------------------- record */
 
+/** Export size for the chosen resolution and frame. `fill` uses the stage's shape (16:9 when unknown). */
 function recordSize() {
   const short = { '720p': 720, '1080p': 1080, '1440p': 1440, '2160p': 2160 }[store.state.record.resolution] || 1080;
   const a = store.state.visual.aspect;
   let ratio;
-  if (a === 'fill') ratio = stage.clientWidth / stage.clientHeight;
+  if (a === 'fill') ratio = stage.clientWidth && stage.clientHeight ? stage.clientWidth / stage.clientHeight : 16 / 9;
   else { const [w, hh] = a.split(':').map(Number); ratio = w / hh; }
   let w, hh;
   if (ratio >= 1) { hh = short; w = short * ratio; } else { w = short; hh = short / ratio; }
@@ -404,78 +594,95 @@ function slug() {
   return (store.state.name || 'math-melody').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'math-melody';
 }
 
-/** Show a finished export with a preview and a download button. */
-function showResult(blob, filename, kind) {
+/** Show a finished export with a preview and a download button. `src` is a Blob or a same-origin URL. */
+function showResult(src, filename, kind, sizeBytes) {
   const dlg = $('result-dialog');
-  const url = URL.createObjectURL(blob);
+  const isBlob = src instanceof Blob;
+  const url = isBlob ? URL.createObjectURL(src) : src;
   const media = kind === 'video' ? h('video', { src: url, controls: true, playsinline: true })
     : kind === 'audio' ? h('audio', { src: url, controls: true })
       : kind === 'image' ? h('img', { src: url, alt: 'Snapshot preview' }) : null;
   $('result-media').replaceChildren(...(media ? [media] : []));
-  $('result-info').textContent = `${filename} · ${(blob.size / 1048576).toFixed(2)} MB`;
-  $('result-download').onclick = () => download(blob, filename);
-  dlg.onclose = () => setTimeout(() => URL.revokeObjectURL(url), 1000);
+  const bytes = isBlob ? src.size : sizeBytes;
+  $('result-info').textContent = bytes ? `${filename} · ${(bytes / 1048576).toFixed(2)} MB` : filename;
+  $('result-download').onclick = async () => download(isBlob ? src : await (await fetch(url)).blob(), filename);
+  dlg.onclose = () => { if (isBlob) setTimeout(() => URL.revokeObjectURL(url), 1000); };
   dlg.showModal();
 }
 
 /* --------------------------------------------------------------- exports */
 
-function sampleVoices(step) {
-  const { layers, transport } = store.state;
-  const solo = hasSolo(layers);
-  const dur = transport.duration;
-  const out = layers.filter((l) => l.enabled).map((l) => ({ layer: l, samples: [] }));
-  const p = { x: 0, y: 0, z: 0 };
-  for (let time = 0; time < dur; time += step) {
-    const ctx = { t: time, params: store.state.params, view: store.state.view };
-    for (const o of out) {
-      compiled.get(o.layer.id).at(time / dur, ctx, p);
-      const f = voiceFrame(o.layer, p, store.state, solo);
-      o.samples.push({ time, midi: f.midi, vel: Math.min(127, 40 + f.gain * 100) });
-    }
+/** Render the whole timeline's audio (synth + drums + keyframed effects) offline. */
+async function renderWavBuffer() {
+  const { layers, audio: a, drums } = store.state;
+  const enabled = layers.filter((l) => l.enabled);
+  const dur = duration();
+  const drumEvents = drumEventsFull();
+  const tracks = Object.keys(store.state.keyframes.tracks);
+  const audioAnimated = tracks.some((p) => p.startsWith('audio.'));
+  try {
+    return await AudioEngine.renderOffline({
+      settings: structuredClone(a),
+      layers: enabled,
+      duration: dur,
+      glide: a.glide,
+      articulation: a.articulation,
+      drumEvents,
+      drumVolume: drums.enabled ? drums.volume : 0,
+      frameAt: (time) => { applyKeyframesAt(time, false); return voicesAt(time); },
+      settingsAt: audioAnimated ? (time) => { applyKeyframesAt(time, false); return structuredClone(store.state.audio); } : null,
+    });
+  } finally {
+    applyKeyframesAt(clock.pos, true);
   }
-  return out;
-}
-
-function exportMidi() {
-  const step = 1 / 50;
-  const PROGRAM = { sine: 79, triangle: 73, square: 80, sawtooth: 81 };
-  const tracks = sampleVoices(step).map((o, i) => ({
-    name: o.layer.name,
-    channel: i,
-    program: PROGRAM[o.layer.wave] ?? 80,
-    notes: samplesToNotes(o.samples, step, 0.05),
-  }));
-  if (!tracks.length) return toast('Turn on at least one layer to export MIDI.');
-  const bytes = writeMidi(tracks, store.state.transport.bpm || 120);
-  download(new Blob([bytes], { type: 'audio/midi' }), `${slug()}.mid`);
-  toast(`MIDI exported: ${tracks.reduce((n, t) => n + t.notes.length, 0)} notes in ${tracks.length} track${tracks.length > 1 ? 's' : ''}.`);
 }
 
 async function exportWav() {
-  const { layers, transport, audio: a } = store.state;
-  const enabled = layers.filter((l) => l.enabled);
-  if (!enabled.length) return toast('Turn on at least one layer to export audio.');
+  if (!store.state.layers.some((l) => l.enabled)) return toast('Turn on at least one layer to export audio.');
   toast('Rendering audio…', 60000);
-  const solo = hasSolo(layers);
-  const p = { x: 0, y: 0, z: 0 };
   try {
-    const buf = await AudioEngine.renderOffline({
-      settings: structuredClone(a),
-      layers: enabled,
-      duration: transport.duration,
-      glide: a.glide,
-      articulation: a.articulation,
-      frameAt: (time) => enabled.map((l) => {
-        compiled.get(l.id).at(time / transport.duration, { t: time, params: store.state.params, view: store.state.view }, p);
-        return voiceFrame(l, p, store.state, solo);
-      }),
-    });
+    const buf = await renderWavBuffer();
     toast('Audio ready.');
     showResult(audioBufferToWav(buf), `${slug()}.wav`, 'audio');
   } catch (err) {
     toast(`Audio render failed: ${err.message}`, 6000);
   }
+}
+
+const GM_DRUMS = { kick: 36, snare: 38, hat: 42, clap: 39 };
+
+function exportMidi() {
+  const { layers } = store.state;
+  const enabled = layers.filter((l) => l.enabled);
+  if (!enabled.length) return toast('Turn on at least one layer to export MIDI.');
+  const step = 1 / 100;
+  const dur = duration();
+  const PROGRAM = { sine: 79, triangle: 73, square: 80, sawtooth: 81 };
+  const samples = new Map(enabled.map((l) => [l.id, []]));
+  withTimeTravel(() => {
+    for (let time = 0; time < dur; time += step) {
+      applyKeyframesAt(time, false);
+      for (const f of voicesAt(time)) {
+        samples.get(f.id)?.push({ time, midi: f.gain > 0 ? f.midi : null, vel: Math.min(127, 40 + f.gain * 100) });
+      }
+    }
+  });
+  const tracks = enabled.map((l, i) => ({
+    name: l.name,
+    channel: i,
+    program: PROGRAM[l.wave] ?? 80,
+    notes: samplesToNotes(samples.get(l.id), step, 0.03),
+  }));
+  const hits = drumEventsFull();
+  if (hits.length) {
+    tracks.push({
+      name: 'Drums', channel: 9, program: 0,
+      notes: hits.map((e) => ({ start: e.time, dur: 0.1, midi: GM_DRUMS[e.kind], vel: 70 + e.vel * 50 })),
+    });
+  }
+  const bytes = writeMidi(tracks, store.state.transport.bpm || 120);
+  download(new Blob([bytes], { type: 'audio/midi' }), `${slug()}.mid`);
+  toast(`MIDI exported: ${tracks.reduce((n, t) => n + t.notes.length, 0)} notes in ${tracks.length} track${tracks.length > 1 ? 's' : ''}.`);
 }
 
 function snapshot() {
@@ -509,8 +716,68 @@ function loadPreset(pr) {
   const wasPlaying = clock.playing;
   store.load(pr);
   seek(0);
-  if (wasPlaying) audio.syncLayers(store.state.layers);
+  if (wasPlaying) { audio.syncLayers(store.state.layers); applyDrumVolume(); }
   toast(`Preset “${store.state.name}” loaded.`);
+}
+
+function fitToBars(bars) {
+  const secs = barsToSeconds(bars, store.state.transport.bpm);
+  if (secs > 600) return toast('That would be longer than 10 minutes. Use fewer bars or a faster tempo.');
+  store.set('transport.duration', +secs.toFixed(3));
+  refreshAll();
+  toast(`Length set to ${bars} bars (${secs.toFixed(2)} s).`);
+}
+
+async function auditionDrum(kind) {
+  await ensureAudio();
+  audio.setDrumVolume(store.state.drums.volume);
+  audio.drum(kind, 1);
+  viz.pulse(kind, drumSourceLayer()?.id);
+  if (!store.state.drums.enabled) setTimeout(applyDrumVolume, 700);
+}
+
+/* ------------------------------------------------- server (studio) render */
+
+let serverJob = null;
+
+/** Ask the local server whether it can render (Playwright + ffmpeg installed). */
+async function serverStatus() {
+  try {
+    const r = await fetch('api/health', { cache: 'no-store' });
+    if (!r.ok) return { available: false, reason: 'offline' };
+    return await r.json();
+  } catch {
+    return { available: false, reason: 'offline' };
+  }
+}
+
+async function serverRender(onProgress) {
+  if (serverJob) return toast('A studio render is already running.');
+  const size = recordSize();
+  const body = { preset: store.snapshot(), width: size.w, height: size.h, fps: store.state.record.fps };
+  let res;
+  try {
+    res = await fetch('api/render', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+  } catch {
+    return toast('Studio render needs the local server: run `npm start` and open http://localhost:5173.', 6000);
+  }
+  const info = await res.json().catch(() => ({}));
+  if (!res.ok) return toast(info.error || `Render could not start (HTTP ${res.status}).`, 7000);
+  serverJob = info.id;
+  toast(`Studio render started: ${size.w}×${size.h} at ${body.fps} fps.`);
+  const poll = async () => {
+    let st;
+    try { st = await (await fetch(`api/render/${serverJob}`, { cache: 'no-store' })).json(); } catch { st = { status: 'error', error: 'Lost contact with the server.' }; }
+    onProgress?.(st);
+    if (st.status === 'done') {
+      serverJob = null;
+      showResult(st.url, st.file, 'video', st.bytes);
+    } else if (st.status === 'error') {
+      serverJob = null;
+      toast(`Studio render failed: ${st.error}`, 8000);
+    } else setTimeout(poll, 1000);
+  };
+  poll();
 }
 
 /* ------------------------------------------------------------- UI wiring */
@@ -519,7 +786,7 @@ const timeline = new Timeline({
   onSeek: (u) => seek(u),
   onScrubState: async (on) => {
     clock.scrubbing = on;
-    if (on && !audio.ready) { try { await audio.ensure(); audio.applySettings(store.state.audio); audio.syncLayers(store.state.layers); } catch { /* ignore */ } }
+    if (on && !audio.ready) await ensureAudio();
     if (!on && !clock.playing) audio.silence();
   },
 });
@@ -536,6 +803,15 @@ const panels = new Panels({
   snapshot,
   exportPresetFile,
   videoFormat: pickFormat,
+  addKey,
+  keyframesChanged,
+  seekTo: (time) => { seek(time / duration()); },
+  playheadTime: () => clock.pos,
+  fitToBars,
+  auditionDrum,
+  serverStatus,
+  serverRender,
+  recordSize,
 });
 
 // Top bar
@@ -585,10 +861,11 @@ window.addEventListener('keydown', (e) => {
   const tag = e.target.tagName;
   if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || e.target.isContentEditable) return;
   if (e.metaKey || e.ctrlKey || e.altKey) return;
-  const dur = store.state.transport.duration;
+  const dur = duration();
   switch (e.key) {
     case ' ': e.preventDefault(); togglePlay(); break;
     case 'r': case 'R': toggleRecord(); break;
+    case 'k': case 'K': addKey('camera.pose'); break;
     case 'Home': case '0': seek(0); break;
     case 'ArrowLeft': if (e.target === document.body) { seek((clock.pos - 1) / dur); e.preventDefault(); } break;
     case 'ArrowRight': if (e.target === document.body) { seek((clock.pos + 1) / dur); e.preventDefault(); } break;
@@ -603,9 +880,69 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
+/* ------------------------------------------------- headless render API */
+
+/**
+ * Used by scripts/render.mjs through Playwright. Frames are rendered at exact
+ * times with a fixed dt, so the output is identical however slow the machine is.
+ */
+function installRenderApi() {
+  document.body.classList.add('cinema', 'render-mode');
+  let fps = 60, analyser = null, hits = [], hitIndex = 0, out = null;
+  window.__mmv = {
+    ready: true,
+    async load(preset) {
+      store.load(preset);
+      seek(0);
+      // Give async textures (custom marker image) a moment to arrive.
+      await new Promise((r) => setTimeout(r, 300));
+      return { name: store.state.name, duration: duration() };
+    },
+    async prepare({ width, height, fps: f }) {
+      fps = f;
+      viz.setFixedSize({ w: width, h: height });
+      out = document.createElement('canvas');
+      out.width = width;
+      out.height = height;
+      const buf = await renderWavBuffer();
+      analyser = new BufferAnalyser(buf);
+      hits = drumEventsFull();
+      hitIndex = 0;
+      clock.pos = 0;
+      clock.snap = true;
+      const wav = new Uint8Array(await audioBufferToWav(buf).arrayBuffer());
+      let bin = '';
+      for (let i = 0; i < wav.length; i += 0x8000) bin += String.fromCharCode(...wav.subarray(i, i + 0x8000));
+      return { frames: Math.ceil(duration() * fps), duration: duration(), wav: btoa(bin) };
+    },
+    /** Render frame `i` and return it as a data URL (PNG by default). */
+    frame(i, format = 'image/png', quality = 0.95) {
+      const time = i / fps;
+      const dt = 1 / fps;
+      clock.pos = time;
+      applyKeyframesAt(time);
+      if (store.state.drums.pulse) {
+        const src = drumSourceLayer();
+        while (hitIndex < hits.length && hits[hitIndex].time <= time + 1e-9) viz.pulse(hits[hitIndex++].kind, src?.id);
+      }
+      renderScene(time, { dt, now: time, playing: true, snap: i === 0 });
+      const g = out.getContext('2d');
+      g.drawImage(viz.canvas, 0, 0, out.width, out.height);
+      drawOverlay(g, out.width, out.height, overlayData(analyser.at(time)));
+      return out.toDataURL(format, quality);
+    },
+  };
+}
+
 /* ------------------------------------------------------------------ boot */
 
 function boot() {
+  $('loading').hidden = true;
+  if (RENDER_MODE) {
+    store.load(BUILTIN_PRESETS[0]);
+    installRenderApi();
+    return;
+  }
   let saved = null;
   try { saved = JSON.parse(localStorage.getItem(SESSION_KEY)); } catch { /* ignore */ }
   if (saved?.layers?.length) store.load(saved);
@@ -613,7 +950,6 @@ function boot() {
   // Small screens start with panels tucked away.
   if (window.innerWidth < 900) { togglePanel('left'); togglePanel('right'); }
   updateTransportUI();
-  $('loading').hidden = true;
   requestAnimationFrame(frame);
 }
 boot();

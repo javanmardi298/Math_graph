@@ -14,6 +14,7 @@ export class CompiledLayer {
     this.errors = {};
     this.fns = {};
     this.usesTime = false;
+    this.usesParams = false;
     const own = LAYER_TYPES[layer.type].vars;
     const vars = [...own, ...GLOBAL_VARS];
     for (const [key] of LAYER_TYPES[layer.type].fields) {
@@ -23,6 +24,7 @@ export class CompiledLayer {
       this.fns[key] = c.fn;
       if (!c.ok) this.errors[key] = c.error;
       if (c.deps.has('t')) this.usesTime = true;
+      if (['a', 'b', 'c', 'd'].some((v) => c.deps.has(v))) this.usesParams = true;
     }
     this.ok = Object.keys(this.errors).length === 0;
     this.scope = { x: 0, y: 0, s: 0, theta: 0, t: 0, a: 1, b: 1, c: 1, d: 1 };

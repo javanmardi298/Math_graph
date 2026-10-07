@@ -124,4 +124,44 @@ export const BUILTIN_PRESETS = [
     visual: { drawMode: 'trace', motionBlur: { enabled: true, amount: 0.7 } },
     audio: { scale: 'hirajoshi', root: 4, articulation: 'pluck', reverb: { mix: 0.5, decay: 5 } },
   },
+  {
+    name: 'Four on the Floor',
+    mode: '2d',
+    transport: { duration: 15.484, bpm: 124 }, // 8 bars
+    view: { xMin: 0, xMax: 8, yMin: -4, yMax: 4 },
+    layers: [
+      { name: 'Lead', type: 'function', exprs: { y: '2.5 sin(1.3x) + 1.2 sin(3.1x)' }, color: '#22e4ff', colorMode: 'pitch', color2: '#ffd23d', wave: 'square', volume: 0.32, width: 4 },
+      { name: 'Bass', type: 'function', exprs: { y: '-2.6 + 0.8 square(x/2) + 0.3 sin(x)' }, color: '#ff3d9a', wave: 'sawtooth', volume: 0.42, octave: -1, style: 'dashed' },
+    ],
+    visual: { drawMode: 'ghost', bloom: { strength: 1 } },
+    audio: { scale: 'minorPentatonic', root: 9, articulation: 'pluck', glide: 6, filter: { cutoff: 4200, q: 2 }, delay: { mix: 0.2, time: 0.242 }, reverb: { mix: 0.2 } },
+    rhythm: { enabled: true, division: '1/16', gate: 0.55, swing: 0.15, showGrid: true },
+    drums: { enabled: true, source: 0, volume: 0.85, kick: 'beat', snare: 'off', hat: 'offbeat', clap: 'peak', sensitivity: 0.12, pulse: true },
+  },
+  {
+    name: 'Morphing Bloom',
+    mode: '2d',
+    transport: { duration: 20 },
+    view: { xMin: -4, xMax: 4, yMin: -4, yMax: 4 },
+    params: { a: 3 },
+    layers: [{
+      name: 'Bloom', type: 'polar', range: { min: 0, max: Math.PI * 2 }, exprs: { r: '1.6 + 1.6 sin(a theta) cos(theta + t/4)' },
+      color: '#22e4ff', color2: '#ff3d9a', colorMode: 'gradient', width: 4, wave: 'triangle', samples: 1600,
+    }],
+    visual: { drawMode: 'ghost', trail: { count: 220 } },
+    audio: { scale: 'major', root: 2, reverb: { mix: 0.45, decay: 4 } },
+    keyframes: {
+      tracks: {
+        'params.a': [{ time: 0, value: 3, ease: 'smooth' }, { time: 7, value: 5, ease: 'smooth' }, { time: 14, value: 8, ease: 'smooth' }, { time: 20, value: 3, ease: 'smooth' }],
+        'visual.bloom.strength': [{ time: 0, value: 0.6, ease: 'smooth' }, { time: 10, value: 1.7, ease: 'smooth' }, { time: 20, value: 0.6, ease: 'smooth' }],
+        'layer.0.color': [{ time: 0, value: '#22e4ff', ease: 'linear' }, { time: 10, value: '#ffd23d', ease: 'linear' }, { time: 20, value: '#22e4ff', ease: 'linear' }],
+        'camera.pose': [
+          { time: 0, value: { mode: '2d', p: [0, 0, 50], t: [0, 0, 0], zoom: 1 }, ease: 'smooth' },
+          { time: 10, value: { mode: '2d', p: [0.6, 0.4, 50], t: [0.6, 0.4, 0], zoom: 1.7 }, ease: 'smooth' },
+          { time: 20, value: { mode: '2d', p: [0, 0, 50], t: [0, 0, 0], zoom: 1 }, ease: 'smooth' },
+        ],
+        'audio.filter.cutoff': [{ time: 0, value: 1200, ease: 'smooth' }, { time: 10, value: 9000, ease: 'smooth' }, { time: 20, value: 1200, ease: 'smooth' }],
+      },
+    },
+  },
 ];

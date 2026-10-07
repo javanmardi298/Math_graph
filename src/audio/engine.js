@@ -5,12 +5,15 @@
  *                                                     ├→ Bus → Filter → Drive ┬→ Dry ─────────┐
  *                                                     │                       ├→ Delay(+fb) ──┤→ Compressor → Master → Analyser → speakers
  *                                                                             └→ Reverb ──────┘                     └→ MediaStream (video recording)
+ *   drums:            DrumKit ────────────────────────────────────────────────────┬──────────────→ Compressor
+ *                                                                                 └→ Reverb (small send)
  *
  * Every frame the app calls update() with each layer's current pitch/volume/pan.
  * Parameters move with setTargetAtTime, which glides smoothly between frames,
  * so the sound has no zipper noise or clicks even at 60 updates per second.
  */
 import { midiToFreq } from '../math/music.js';
+import { DrumKit } from './drums.js';
 
 // Rough loudness compensation so switching waveforms doesn't jump in volume.
 const WAVE_GAIN = { sine: 1, triangle: 0.9, square: 0.42, sawtooth: 0.5 };
@@ -64,6 +67,13 @@ export class AudioEngine {
     this.delay.connect(this.delayWet).connect(this.comp);
     this.drive.connect(this.reverb).connect(this.reverbWet).connect(this.comp);
     this.comp.connect(this.master);
+    // Drums skip the synth filter/drive so they stay punchy, with a little reverb.
+    this.drumBus = ctx.createGain();
+    this.drumSend = ctx.createGain();
+    this.drumSend.gain.value = 0.25;
+    this.drumBus.connect(this.comp);
+    this.drumBus.connect(this.drumSend).connect(this.reverb);
+    this.drums = new DrumKit(ctx, this.drumBus);
     this.master.connect(this.analyser).connect(ctx.destination);
     if (ctx.createMediaStreamDestination) {
       this.streamDest = ctx.createMediaStreamDestination();
@@ -89,17 +99,24 @@ export class AudioEngine {
     return this.ctx ? this.ctx.currentTime : performance.now() / 1000;
   }
 
-  /** Apply global audio settings (effects, master volume). Safe to call before ensure(). */
-  applySettings(a) {
+  /**
+   * Apply global audio settings (effects, master volume). Safe to call before ensure().
+   * @param {object} a audio settings
+   * @param {number|null} at schedule at this audio time (offline rendering) instead of now
+   */
+  applySettings(a, at = null) {
     this.settings = a;
     if (!this.ctx) return;
-    const t = this.ctx.currentTime;
+    const t = at ?? this.ctx.currentTime;
     const tc = 0.03;
     this.master.gain.setTargetAtTime(a.master, t, tc);
     this.filter.type = a.filter.type;
     this.filter.frequency.setTargetAtTime(a.filter.cutoff, t, tc);
     this.filter.Q.setTargetAtTime(a.filter.q, t, tc);
-    this.drive.curve = a.distortion > 0.001 ? makeDriveCurve(a.distortion) : null;
+    if (this.driveAmount !== a.distortion) {
+      this.driveAmount = a.distortion;
+      this.drive.curve = a.distortion > 0.001 ? makeDriveCurve(a.distortion) : null;
+    }
     this.delay.delayTime.setTargetAtTime(a.delay.time, t, 0.05);
     this.delayFb.gain.setTargetAtTime(Math.min(a.delay.feedback, 0.92), t, tc);
     this.delayWet.gain.setTargetAtTime(a.delay.mix, t, tc);
@@ -109,6 +126,16 @@ export class AudioEngine {
       this.reverbDecay = a.reverb.decay;
       this.reverb.buffer = makeImpulse(this.ctx, a.reverb.decay);
     }
+  }
+
+  /** Drum volume (0..1). */
+  setDrumVolume(v, at = null) {
+    this.drums?.setVolume(v, at ?? this.ctx.currentTime);
+  }
+
+  /** Play a drum hit now (live) or at `at` (offline). */
+  drum(kind, vel = 1, at = null) {
+    this.drums?.trigger(kind, at ?? this.ctx.currentTime, vel);
   }
 
   /** Keep one voice per layer; create/remove voices to match the layer list. */
@@ -140,7 +167,8 @@ export class AudioEngine {
 
   /**
    * Per-frame update.
-   * @param {{id:string, midi:number|null, gain:number, pan:number, wave:string}[]} frames
+   * @param {{id:string, midi:number|null, gain:number, pan:number, wave:string, step?:number}[]} frames
+   *        `step` (beat-grid step index) retriggers plucked notes even when the pitch repeats
    * @param {{playing:boolean, glide:number, articulation:string}} opts
    */
   update(frames, opts, at = null) {
@@ -157,7 +185,7 @@ export class AudioEngine {
 
       if (opts.articulation === 'pluck' && audible) {
         // Retrigger a short percussive envelope every time the (rounded) note changes.
-        const note = Math.round(f.midi);
+        const note = f.step == null ? Math.round(f.midi) : `${Math.round(f.midi)}@${f.step}`;
         if (note !== v.lastNote) {
           const g = v.amp.gain;
           if (g.cancelAndHoldAtTime) g.cancelAndHoldAtTime(t);
@@ -176,17 +204,33 @@ export class AudioEngine {
 
   /**
    * Render the whole timeline to an AudioBuffer faster than real time.
-   * @param {object} opts { settings, layers, duration, frameAt(time) → frames[], glide, articulation }
+   * @param {object} o
+   * @param {object} o.settings audio settings at time 0
+   * @param {object[]} o.layers enabled layers
+   * @param {number} o.duration seconds
+   * @param {(time:number)=>object[]} o.frameAt voice frames at a time (see update())
+   * @param {(time:number)=>object} [o.settingsAt] animated audio settings (keyframes), sampled at 60 Hz
+   * @param {{kind:string,time:number,vel:number}[]} [o.drumEvents] drum hits to schedule
+   * @param {number} [o.drumVolume]
    */
-  static async renderOffline({ settings, layers, duration, frameAt, glide, articulation, sampleRate = 48000 }) {
+  static async renderOffline({ settings, layers, duration, frameAt, settingsAt, drumEvents = [], drumVolume = 0.8, glide, articulation, sampleRate = 48000 }) {
     const tail = settings.reverb.decay + 0.5;
     const ctx = new OfflineAudioContext(2, Math.ceil((duration + tail) * sampleRate), sampleRate);
     const eng = new AudioEngine();
     eng.settings = settings;
     eng.build(ctx);
     eng.syncLayers(layers);
+    eng.setDrumVolume(drumVolume, 0);
     const step = 1 / 240;
-    for (let time = 0; time < duration; time += step) eng.update(frameAt(time), { playing: true, glide, articulation }, time);
+    let nextSettings = 0;
+    for (let time = 0; time < duration; time += step) {
+      if (settingsAt && time >= nextSettings) {
+        eng.applySettings(settingsAt(time), time);
+        nextSettings = time + 1 / 60;
+      }
+      eng.update(frameAt(time), { playing: true, glide, articulation }, time);
+    }
+    for (const e of drumEvents) if (e.time < duration) eng.drum(e.kind, e.vel, e.time);
     for (const v of eng.voices.values()) v.amp.gain.setTargetAtTime(0, duration, 0.03);
     return ctx.startRendering();
   }

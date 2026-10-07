@@ -89,6 +89,12 @@ export function defaultState() {
       reverb: { decay: 2.6, mix: 0.25 },
     },
     record: { resolution: '1080p', fps: 60, fromStart: true },
+    // Beat grid: sample the pitch once per step so curves become rhythmic notes.
+    rhythm: { enabled: false, division: '1/8', gate: 0.8, swing: 0, showGrid: true },
+    // Drum kit triggered by events on a source layer's curve (or by the clock).
+    drums: { enabled: false, source: 0, volume: 0.8, kick: 'valley', snare: 'peak', hat: 'step', clap: 'off', sensitivity: 0.08, pulse: true },
+    // Keyframe animation: { tracks: { [path]: [{ time, value, ease }] } }
+    keyframes: { tracks: {}, autoKey: false },
   };
 }
 

@@ -153,7 +153,7 @@ body.recording .rec-dot { animation: blink 1s steps(2) infinite; }
 .panel-title { display: flex; align-items: center; justify-content: space-between; }
 h2 { font: 600 13px/1.2 var(--f-display); letter-spacing: 0.14em; text-transform: uppercase; margin: 0; color: var(--muted); }
 
-.tabbar { display: flex; gap: 2px; padding: 6px 6px 0; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; flex: none; }
+.tabbar { display: flex; flex-wrap: wrap; gap: 0 2px; padding: 4px 6px 0; border-bottom: 1px solid var(--line); flex: none; }
 .tabbar button {
   border: 0; background: transparent; padding: 8px 9px 9px; cursor: pointer; color: var(--muted);
   font: 600 12px/1 var(--f-display); letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 2px solid transparent; white-space: nowrap;
@@ -394,3 +394,30 @@ body.cinema .cinema-hint {
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* ------------------------------------------------------------- rhythm & animate */
+.seg-div button { padding: 5px 4px; font-size: 11px; }
+.drum-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px; align-items: center; }
+.drum-row .icon-btn { height: 28px; font-size: 11px; border-color: var(--line); }
+#fit-bars { width: 60px; background: var(--field-hi); border: 1px solid var(--line); border-radius: 7px; padding: 5px 8px; font-family: var(--f-mono); }
+.tracks { display: flex; flex-direction: column; gap: 10px; }
+.track { display: flex; flex-direction: column; gap: 6px; }
+.track-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 12.5px; }
+.track-head strong { font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.danger-link { color: var(--muted); font-size: 12px; }
+.danger-link:hover { color: var(--danger); }
+.key-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.key-chip {
+  display: inline-flex; align-items: center; gap: 2px; border: 1px solid var(--line); border-radius: 99px;
+  background: var(--field-hi); padding: 0 2px 0 8px; font: 11.5px var(--f-mono); font-variant-numeric: tabular-nums;
+}
+.key-chip::before { content: "◆"; color: var(--accent-2); font-size: 9px; margin-right: 4px; }
+.key-swatch { width: 9px; height: 9px; border-radius: 2px; margin-right: 4px; border: 1px solid var(--line); }
+.key-chip button { border: 0; background: transparent; cursor: pointer; padding: 3px 4px; color: var(--fg); font: inherit; border-radius: 99px; }
+.key-chip button:hover { background: var(--field-hi); }
+.key-chip .key-del:hover { color: var(--danger); }
+.key-chip .key-ease { color: var(--muted); }
+progress { width: 100%; height: 6px; appearance: none; -webkit-appearance: none; border: 0; border-radius: 99px; background: var(--field-hi); overflow: hidden; }
+progress::-webkit-progress-bar { background: var(--field-hi); }
+progress::-webkit-progress-value { background: var(--accent); }
+progress::-moz-progress-bar { background: var(--accent); }

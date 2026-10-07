@@ -339,7 +339,8 @@ class LayerView {
     }
 
     // Marker
-    const px = v.marker.size * f.k * f.worldPerPx;
+    this.bump = (this.bump || 0) * Math.pow(0.004, f.dt); // drum hits make the marker jump, then settle
+    const px = v.marker.size * (1 + this.bump) * f.k * f.worldPerPx;
     this.marker.scale.set(px, px, 1);
     this.marker.position.copy(this.drawn);
 
@@ -452,6 +453,19 @@ export class Visualizer {
     this.output = new OutputPass();
     for (const p of [this.renderPass, this.bokeh, this.afterimage, this.bloom, this.output]) this.composer.addPass(p);
 
+    // Drum pulses: a glow flash on kicks and expanding rings on snares/claps.
+    this.bloomKick = 0;
+    this.rings = [];
+    for (let i = 0; i < 6; i++) {
+      const ring = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.shapeTex('ring'), transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, fog: false }));
+      ring.visible = false;
+      ring.renderOrder = 9;
+      ring.userData.age = 1;
+      this.rings.push(ring);
+      this.content.add(ring);
+    }
+    this.ringIndex = 0;
+
     this.fixedSize = null; // {w,h} while recording at a fixed resolution
     this.resizeObserver = new ResizeObserver(() => this.resize());
     this.resizeObserver.observe(host);
@@ -520,6 +534,40 @@ export class Visualizer {
       this.orthoControls.target.set(0, 0, 0);
     }
     o.updateProjectionMatrix();
+  }
+
+  /** Visual reaction to a drum hit on the layer `layerId`. */
+  pulse(kind, layerId) {
+    const view = this.views.get(layerId) || this.views.values().next().value;
+    if (kind === 'kick') this.bloomKick = Math.max(this.bloomKick, 1.0);
+    if (view) view.bump = Math.max(view.bump || 0, kind === 'kick' ? 0.6 : kind === 'hat' ? 0.2 : 0.4);
+    if ((kind === 'snare' || kind === 'clap' || kind === 'kick') && view?.hasDrawn) {
+      const ring = this.rings[this.ringIndex++ % this.rings.length];
+      ring.position.copy(view.drawn);
+      ring.material.color.copy(view.markerMat.color);
+      ring.userData.age = 0;
+      ring.userData.big = kind === 'kick' ? 1.6 : 1;
+      ring.visible = true;
+    }
+  }
+
+  /** Current camera placement (for camera keyframes). */
+  getPose() {
+    const is3d = this.state.mode === '3d';
+    const cam = is3d ? this.persp : this.ortho;
+    const ctl = is3d ? this.perspControls : this.orthoControls;
+    return { mode: this.state.mode, p: cam.position.toArray(), t: ctl.target.toArray(), zoom: is3d ? 1 : cam.zoom };
+  }
+
+  setPose(pose) {
+    if (!pose || pose.mode !== this.state.mode) return;
+    const is3d = pose.mode === '3d';
+    const cam = is3d ? this.persp : this.ortho;
+    const ctl = is3d ? this.perspControls : this.orthoControls;
+    cam.position.fromArray(pose.p);
+    ctl.target.fromArray(pose.t);
+    if (!is3d) { cam.zoom = pose.zoom ?? 1; cam.updateProjectionMatrix(); }
+    cam.lookAt(ctl.target);
   }
 
   resetCamera() {
@@ -608,6 +656,22 @@ export class Visualizer {
     seg(gridPts, v.gridColor, 0.9);
     seg(axisPts, v.axesColor, 1);
 
+    // Beat grid: x is time, so beats are vertical lines (bars brighter).
+    const r = this.state.rhythm;
+    const dur = this.state.transport.duration;
+    if (r?.enabled && r.showGrid && dur > 0) {
+      const beat = 60 / Math.max(1, this.state.transport.bpm);
+      const beats = [], bars = [];
+      const zb = is3d ? yMin : 0, ze = is3d ? yMax : 0;
+      for (let i = 0, tt = 0; tt <= dur + 1e-9 && i < 4000; i++, tt = i * beat) {
+        const x = xMin + (tt / dur) * (xMax - xMin);
+        const y0 = is3d ? yMin : yMin, y1 = is3d ? yMin : yMax;
+        (i % 4 === 0 ? bars : beats).push(x, y0, zb, x, y1, ze);
+      }
+      seg(beats, v.axesColor, 0.22);
+      seg(bars, v.accentGrid || v.axesColor, 0.55);
+    }
+
     if (v.showLabels && v.showAxes) {
       const ay = Math.min(Math.max(0, yMin), yMax), ax = Math.min(Math.max(0, xMin), xMax);
       for (let x = Math.ceil(xMin / sx) * sx; x <= xMax + 1e-9; x += sx) {
@@ -641,7 +705,7 @@ export class Visualizer {
     for (const l of layers) {
       if (!l.enabled) continue;
       keep.add(l.id);
-      const sig = JSON.stringify([l.style, l.type, l.width]);
+      const sig = JSON.stringify([l.style, l.type]);
       let view = this.views.get(l.id);
       if (view && view.sig !== sig) { this.content.remove(view.group); view.dispose(); view = null; }
       if (!view) {
@@ -707,6 +771,21 @@ export class Visualizer {
       this.bokeh.uniforms.focus.value = this.persp.position.distanceTo(world) * (this.state.visual.dof.focus / 14);
     }
 
+    // Drum pulses
+    this.bloomKick *= Math.pow(0.01, f.dt);
+    this.bloom.strength = this.state.visual.bloom.strength + (this.state.visual.bloom.enabled ? this.bloomKick : 0);
+    for (const ring of this.rings) {
+      if (!ring.visible) continue;
+      ring.userData.age += f.dt;
+      const life = ring.userData.age / 0.55;
+      if (life >= 1) { ring.visible = false; continue; }
+      const px = (30 + 260 * Math.sqrt(life)) * ring.userData.big * k * wpp;
+      ring.scale.set(px, px, 1);
+      ring.material.opacity = (1 - life) * 0.9;
+    }
+
+    // While playing, camera keyframes (applied by the app) own the camera; damping would fight them.
+    this.controls.enableDamping = !f.cameraLocked;
     this.controls.update(f.dt);
     this.composer.render(f.dt);
   }

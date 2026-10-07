@@ -1,12 +1,15 @@
 /**
  * Builds the two side panels:
  *   left  — formula layers, live parameters a–d, formula cheatsheet
- *   right — inspector tabs: Look · FX · Sound · Camera · Presets · Export
+ *   right — inspector tabs: Look · FX · Sound · Rhythm · Animate · Camera · Presets · Export
  */
 import { store, createLayer, LAYER_TYPES } from '../state.js';
 import { SCALE_LABELS, NOTE_NAMES, noteName } from '../math/music.js';
 import { compile, FUNCTIONS } from '../math/parser.js';
 import { BUILTIN_PRESETS } from '../presets.js';
+import { DIVISIONS } from '../math/rhythm.js';
+import { DRUM_KINDS, DRUM_LABELS, TRIGGERS } from '../audio/drum-scanner.js';
+import { animatable, describe, removeKey, EASES } from '../anim/keyframes.js';
 import { h, bindPath, bindObj, slider, color, select, toggle, segmented, number, group, disposeTree, refreshAll } from './controls.js';
 
 const MAX_LAYERS = 4;
@@ -224,6 +227,8 @@ export class Panels {
       ['look', 'Look', this.lookTab()],
       ['fx', 'FX', this.fxTab()],
       ['sound', 'Sound', this.soundTab()],
+      ['rhythm', 'Rhythm', this.rhythmTab()],
+      ['animate', 'Animate', this.animateTab()],
       ['camera', 'Camera', this.cameraTab()],
       ['presets', 'Presets', this.presetsTab()],
       ['export', 'Export', this.exportTab()],
@@ -451,14 +456,162 @@ export class Panels {
       group('Image', [
         h('button.btn', { type: 'button', onclick: () => this.actions.snapshot() }, 'Save PNG snapshot'),
       ]),
+      this.studioGroup(),
       h('p.hint.note', {}, 'Files download to your computer. If nothing downloads, you are viewing an embedded preview: run the app on localhost (npm start) to save files.'),
     );
+  }
+
+  /* ------------------------------------------------------------ rhythm */
+
+  rhythmTab() {
+    const p = bindPath;
+    const bars = h('input#fit-bars', { type: 'number', min: 1, max: 256, value: 8, 'aria-label': 'Number of bars' });
+    this.drumSourceSlot = h('div');
+    const drumRows = DRUM_KINDS.map((kind) => h('div.drum-row', {},
+      select(DRUM_LABELS[kind], p(`drums.${kind}`), TRIGGERS),
+      h('button.icon-btn', { type: 'button', title: `Play the ${DRUM_LABELS[kind].toLowerCase()}`, 'aria-label': `Play the ${DRUM_LABELS[kind].toLowerCase()}`, onclick: () => this.actions.auditionDrum(kind) }, '▶')));
+    const tab = h('section.tab', {},
+      group('Beat grid', [
+        toggle('Snap notes to the beat', p('rhythm.enabled')),
+        number('Tempo (BPM)', p('transport.bpm'), { min: 30, max: 300 }),
+        h('div.ctl', {}, h('span.ctl-label', {}, 'Note value'), segmented(p('rhythm.division'), Object.keys(DIVISIONS).map((d) => [d, d, `${d} notes`]), { label: 'Grid division', cls: 'seg-div' })),
+        slider('Note length (gate)', p('rhythm.gate'), { min: 0.05, max: 1, step: 0.01, fmt: (v) => (v >= 1 ? 'Tied' : `${Math.round(v * 100)}%`) }),
+        slider('Swing', p('rhythm.swing'), { min: 0, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
+        toggle('Show beat lines', p('rhythm.showGrid')),
+        h('div.row', {}, h('label.ctl-label', { for: 'fit-bars' }, 'Length in bars'), bars,
+          h('button.btn.small', { type: 'button', onclick: () => this.actions.fitToBars(Math.max(1, Math.round(+bars.value || 1))) }, 'Fit length')),
+      ], { hint: 'The pitch is held for each step, so any curve becomes a rhythmic melody. Pair it with Pluck articulation (Sound tab) for crisp notes.' }),
+      group('Drums', [
+        toggle('Enabled', p('drums.enabled')),
+        this.drumSourceSlot,
+        ...drumRows,
+        slider('Sensitivity', p('drums.sensitivity'), { min: 0.01, max: 0.5, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
+        slider('Drum volume', p('drums.volume'), { min: 0, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
+        toggle('Flash and rings on hits', p('drums.pulse')),
+      ], { hint: 'Hits come from the source layer: its peaks, valleys and crossings of the middle line, or from the clock. Sensitivity is how big a turn must be to count as a peak.' }),
+    );
+    this.renderRhythm();
+    return tab;
+  }
+
+  /** Rebuild the parts of the Rhythm tab that list layers. */
+  renderRhythm() {
+    if (!this.drumSourceSlot) return;
+    disposeTree(this.drumSourceSlot);
+    const opts = store.state.layers.map((l, i) => [i, `${i + 1} · ${l.name}`]);
+    this.drumSourceSlot.replaceChildren(select('Source layer', bindPath('drums.source'), opts));
+  }
+
+  /* ----------------------------------------------------------- animate */
+
+  animateTab() {
+    this.keyPropSlot = h('div.ctl.ctl-select');
+    this.keyTracks = h('div.tracks');
+    this.keyEase = 'smooth';
+    const ease = h('select#key-ease', {}, Object.entries(EASES).map(([v, t]) => h('option', { value: v }, t)));
+    ease.addEventListener('change', () => { this.keyEase = ease.value; });
+    const tab = h('section.tab', {},
+      group('Add keyframe', [
+        this.keyPropSlot,
+        h('div.ctl.ctl-select', {}, h('label', { for: 'key-ease' }, 'Ease out of key'), ease),
+        h('div.row', {},
+          h('button.btn', { type: 'button', onclick: () => this.actions.addKey(this.keyPath, this.keyEase) }, '◆ Add key at playhead'),
+          h('button.btn.ghost', { type: 'button', title: 'Shortcut: K', onclick: () => this.actions.addKey('camera.pose', this.keyEase) }, 'Camera key (K)')),
+        toggle('Auto-key while paused', bindPath('keyframes.autoKey')),
+      ], { hint: 'Move the playhead, set a value, add a key. Between keys the value glides. With auto-key on, moving an animatable slider while paused records a key by itself.' }),
+      group('Tracks', [this.keyTracks]),
+    );
+    this.renderKeyframes();
+    return tab;
+  }
+
+  renderKeyframes() {
+    if (!this.keyTracks) return;
+    const state = store.state;
+    const props = animatable(state);
+    if (!this.keyPath || !props.some((a) => a.path === this.keyPath)) this.keyPath = 'params.a';
+    // Property picker, grouped.
+    const sel = h('select#key-prop');
+    const groups = new Map();
+    for (const a of props) {
+      if (!groups.has(a.group)) groups.set(a.group, h('optgroup', { label: a.group }));
+      groups.get(a.group).append(h('option', { value: a.path }, a.label));
+    }
+    sel.append(...groups.values());
+    sel.value = this.keyPath;
+    sel.addEventListener('change', () => { this.keyPath = sel.value; });
+    this.keyPropSlot.replaceChildren(h('label', { for: 'key-prop' }, 'Property'), sel);
+
+    // Track list
+    const tracks = state.keyframes.tracks;
+    const paths = Object.keys(tracks);
+    if (!paths.length) {
+      this.keyTracks.replaceChildren(h('p.hint', {}, 'No animation yet. Example: put the playhead at 0 s, add a key for Parameter a, move to 8 s, change a, add another key.'));
+      return;
+    }
+    const fmtVal = (v) => (typeof v === 'number' ? +v.toFixed(2) : typeof v === 'string' ? v : 'view');
+    const nextEase = { smooth: 'linear', linear: 'hold', hold: 'smooth' };
+    const easeMark = { smooth: '∿', linear: '／', hold: '⌐' };
+    this.keyTracks.replaceChildren(...paths.map((path) => {
+      const d = describe(state, path);
+      const keys = tracks[path];
+      const chips = keys.map((k, i) => h('span.key-chip', {},
+        typeof k.value === 'string' ? h('i.key-swatch', { style: `background:${k.value}` }) : null,
+        h('button.key-time', { type: 'button', title: 'Jump to this key', onclick: () => this.actions.seekTo(k.time) }, `${k.time.toFixed(2)}s · ${fmtVal(k.value)}`),
+        h('button.key-ease', { type: 'button', title: `Ease: ${EASES[k.ease || 'smooth']} (click to change)`, onclick: () => { k.ease = nextEase[k.ease || 'smooth']; this.actions.keyframesChanged(); } }, easeMark[k.ease || 'smooth']),
+        h('button.key-del', { type: 'button', title: 'Delete key', 'aria-label': 'Delete key', onclick: () => { removeKey(tracks, path, i); this.actions.keyframesChanged(); } }, '×')));
+      return h('div.track', {},
+        h('div.track-head', {},
+          h('strong', {}, d ? `${d.group.startsWith('Layer') ? d.group.split(' · ')[0] + ' · ' : ''}${d.label}` : path),
+          h('button.link.danger-link', { type: 'button', onclick: () => { delete tracks[path]; this.actions.keyframesChanged(); } }, 'Clear')),
+        h('div.key-chips', {}, chips));
+    }));
+  }
+
+  /* ------------------------------------------------------ studio render */
+
+  studioGroup() {
+    const status = h('p.hint#srv-status', {}, 'Checking for the local render server…');
+    const bar = h('progress#srv-progress', { max: 1, value: 0, hidden: true });
+    const btn = h('button.btn', { type: 'button', disabled: true }, 'Render frame-perfect video');
+    const update = (st) => {
+      if (st.status === 'rendering' || st.status === 'starting' || st.status === 'encoding') {
+        bar.hidden = false;
+        bar.value = st.progress || 0;
+        btn.disabled = true;
+        status.textContent = st.status === 'starting' ? 'Preparing: rendering audio…'
+          : `Frame ${st.frame ?? 0} of ${st.frames ?? '?'} · ${Math.round((st.progress || 0) * 100)}%${st.eta ? ` · about ${st.eta} s left` : ''}`;
+      } else {
+        bar.hidden = st.status !== 'done';
+        btn.disabled = false;
+        if (st.status === 'done') status.textContent = `Done: ${st.file}`;
+        if (st.status === 'error') status.textContent = `Failed: ${st.error}`;
+      }
+    };
+    btn.addEventListener('click', () => {
+      const size = this.actions.recordSize();
+      status.textContent = `Starting ${size.w}×${size.h}…`;
+      this.actions.serverRender(update);
+    });
+    this.actions.serverStatus().then((st) => {
+      if (st.available) {
+        btn.disabled = false;
+        status.textContent = `Ready. Uses the Resolution and Frame rate above and the Frame from the Look tab. Renders every frame exactly, then encodes MP4 (H.264) with ffmpeg.`;
+      } else if (st.reason === 'offline') {
+        status.textContent = 'Needs the local server. Run `npm start` and open http://localhost:5173 (not available in the embedded preview).';
+      } else {
+        status.textContent = `The server is running but can't render yet: ${st.reason}`;
+      }
+    });
+    return group('Studio render · 4K, no dropped frames', [btn, bar, status], { hint: 'Your computer renders each frame in a headless browser at any resolution, however long it takes, so 4K at 60 fps comes out perfectly smooth.' });
   }
 
   /** Re-sync every control with state after a preset load. */
   refresh() {
     refreshAll();
     this.renderLayers();
+    this.renderRhythm();
+    this.renderKeyframes();
   }
 }
 

@@ -82,13 +82,25 @@ export class Timeline {
     const fg = css.getPropertyValue('--fg').trim() || '#fff';
     g.clearRect(0, 0, w, h);
 
-    // Beat ticks: 1 tick per second, bold every 4.
+    // Ticks: beats (bars bold, numbered) when the beat grid is on, otherwise seconds.
     const dur = store.state.transport.duration;
+    const { rhythm, transport } = store.state;
+    const useBeats = rhythm?.enabled;
+    const unit = useBeats ? 60 / Math.max(1, transport.bpm) : 1;
+    const count = Math.min(2000, Math.floor(dur / unit + 1e-9));
     g.fillStyle = line;
-    for (let s = 0; s <= dur; s++) {
-      const x = (s / dur) * w;
-      g.globalAlpha = s % 4 === 0 ? 0.9 : 0.4;
-      g.fillRect(x, 0, 1, s % 4 === 0 ? h * 0.25 : h * 0.12);
+    g.font = `${Math.round(h * 0.16)}px "JetBrains Mono", monospace`;
+    for (let i = 0; i <= count; i++) {
+      const x = ((i * unit) / dur) * w;
+      const major = i % 4 === 0;
+      g.globalAlpha = major ? 0.9 : 0.4;
+      g.fillRect(x, 0, 1, major ? h * 0.25 : h * 0.12);
+      if (useBeats && major && (w / count) * 4 > 26) {
+        g.globalAlpha = 0.7;
+        g.fillStyle = muted;
+        g.fillText(String(i / 4 + 1), x + 3, h * 0.24);
+        g.fillStyle = line;
+      }
     }
     g.globalAlpha = 1;
 
@@ -111,6 +123,20 @@ export class Timeline {
       g.stroke();
     }
     g.globalAlpha = 1;
+
+    // Keyframes: a diamond per key along the bottom edge.
+    const tracks = store.state.keyframes?.tracks || {};
+    const accent2 = css.getPropertyValue('--accent-2').trim() || '#ff3d9a';
+    g.fillStyle = accent2;
+    const ky = h - h * 0.12, ks = Math.max(3, h * 0.07);
+    for (const keys of Object.values(tracks)) {
+      for (const k of keys) {
+        const x = (k.time / dur) * w;
+        g.beginPath();
+        g.moveTo(x, ky - ks); g.lineTo(x + ks, ky); g.lineTo(x, ky + ks); g.lineTo(x - ks, ky);
+        g.fill();
+      }
+    }
 
     // Played region + playhead
     const px = this.u * w;
