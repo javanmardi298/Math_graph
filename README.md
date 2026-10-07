@@ -156,6 +156,11 @@ start-up, and the screen shows which GPU WebGL is using. If it still happens, re
 GPU driver can survive a browser restart) and update the graphics driver. A "Safe graphics · exit" button in
 the top bar returns to full quality.
 
+**Downloading from the claude.ai Artifact**
+The published artifact saves files through the viewer: you confirm each save. MP4, WebM, PNG and preset
+JSON save directly; WAV and MIDI (not on the viewer's list of allowed types) arrive inside a .zip. The
+ffmpeg conversion to H.264 needs `npm start`, so in the artifact a browser without an H.264 encoder saves VP9.
+
 **Exported or recorded video is choppy or blurry**
 Use **Export video**, not live capture: live capture can only record as fast as your computer draws.
 For extra smoothness pick 60 fps and motion blur ×2; for sharpness pick Quality: High or Maximum.

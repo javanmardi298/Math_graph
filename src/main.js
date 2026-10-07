@@ -28,7 +28,7 @@ import { Panels, PALETTES } from './ui/panels.js';
 import { Timeline } from './ui/timeline.js';
 import { drawOverlay } from './ui/overlay.js';
 import { h, bindPath, segmented, slider, number, toggle, refreshAll } from './ui/controls.js';
-import { Recorder, download, pickFormat } from './export/recorder.js';
+import { Recorder, download, pickFormat, setDownloadNotifier } from './export/recorder.js';
 import { renderVideo, canRenderVideo } from './export/video-render.js';
 import { LayoutEditor } from './ui/layout-editor.js';
 import { writeMidi, samplesToNotes } from './export/midi.js';
@@ -125,6 +125,8 @@ const notes = new Map(); // layer id → current midi (for HUD/caption)
 const exporting = { busy: false }; // the live loop pauses while a video export draws frames
 
 /* --------------------------------------------------------------- toasts */
+
+setDownloadNotifier((msg) => toast(msg, 4500));
 
 let toastTimer;
 function toast(msg, ms = 3200) {

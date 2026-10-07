@@ -79,8 +79,27 @@ export class Recorder {
   }
 }
 
-/** Save a Blob as a file. */
-export function download(blob, filename) {
+/* ----------------------------------------------------------------- saving */
+
+// Inside the claude.ai Artifact viewer, plain <a download> links are blocked; the
+// page hands files over through the viewer's `downloads` capability instead (the
+// viewer confirms each save). That only accepts some extensions, so other files
+// (WAV, MIDI) travel inside a .zip. Everywhere else (localhost) a normal download.
+const VIEWER_TYPES = new Set(['gif', 'png', 'jpg', 'jpeg', 'webp', 'mp4', 'webm', 'txt', 'json', 'md', 'csv', 'html', 'svg', 'pdf', 'zip']);
+let viewerDownloads;
+const notify = { fn: () => {} };
+
+/** Where to report outcomes ("Saved", "Download cancelled"…). */
+export function setDownloadNotifier(fn) { notify.fn = fn; }
+
+function viewerSaver() {
+  if (viewerDownloads === undefined) {
+    viewerDownloads = window.claude?.use ? window.claude.use('downloads').catch(() => null) : Promise.resolve(null);
+  }
+  return viewerDownloads;
+}
+
+function browserDownload(blob, filename) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
@@ -89,4 +108,28 @@ export function download(blob, filename) {
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 60_000);
+}
+
+/** Save a Blob as a file (works on localhost and inside the Artifact viewer). */
+export async function download(blob, filename) {
+  const saver = await viewerSaver();
+  if (!saver) return browserDownload(blob, filename);
+  let name = filename;
+  let data = blob;
+  const ext = (filename.split('.').pop() || '').toLowerCase();
+  if (!VIEWER_TYPES.has(ext)) {
+    const { makeZip } = await import('./zip.js');
+    data = new Blob([makeZip([{ name: filename, data: new Uint8Array(await blob.arrayBuffer()) }])]);
+    name = `${filename.replace(/\.[^.]+$/, '')}.zip`;
+  }
+  try {
+    await saver.save({ filename: name, data });
+    notify.fn(name === filename ? `Saved ${name}.` : `Saved ${name} (contains ${filename}).`);
+  } catch (err) {
+    const code = err?.code;
+    if (code === 'declined') notify.fn('Download cancelled.');
+    else if (code === 'rate_limited') notify.fn('A save prompt is already open. Finish it, then try again.');
+    else if (code === 'too_large') notify.fn('This file is too large to save here. Try a lower resolution.');
+    else notify.fn(`This view can't save files (${code || 'unavailable'}). Run the app on localhost to download.`);
+  }
 }

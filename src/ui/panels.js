@@ -490,7 +490,7 @@ export class Panels {
       group('Image', [
         h('button.btn', { type: 'button', onclick: () => this.actions.snapshot() }, 'Save PNG snapshot'),
       ]),
-      h('p.hint.note', {}, 'Files download to your computer. If nothing downloads, you are viewing an embedded preview: run the app on localhost (npm start) to save files.'),
+      h('p.hint.note', {}, 'Files download to your computer. In the claude.ai viewer you confirm each save, and WAV/MIDI arrive inside a .zip.'),
     );
   }
 
