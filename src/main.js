@@ -829,11 +829,6 @@ function snapshot() {
   c.toBlob((blob) => blob && showResult(blob, `${fileBase()}.png`, 'image'), 'image/png');
 }
 
-function exportPresetFile() {
-  const blob = new Blob([JSON.stringify(store.snapshot(), null, 2)], { type: 'application/json' });
-  download(blob, `${fileBase()}.mmv.json`);
-}
-
 function applyPalette(pal) {
   const v = store.state.visual;
   Object.assign(v, { background: pal.background, gridColor: pal.gridColor, axesColor: pal.axesColor });
@@ -1022,7 +1017,6 @@ const panels = new Panels({
   exportMidi,
   exportWav,
   snapshot,
-  exportPresetFile,
   videoFormat: pickFormat,
   addKey,
   keyframesChanged,

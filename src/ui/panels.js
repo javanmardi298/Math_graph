@@ -6,7 +6,8 @@
 import { store, createLayer, LAYER_TYPES } from '../state.js';
 import { SCALE_LABELS, NOTE_NAMES, noteName } from '../math/music.js';
 import { compile, FUNCTIONS } from '../math/parser.js';
-import { BUILTIN_PRESETS } from '../presets.js';
+import { LibraryView } from './library-view.js';
+import { download } from '../export/recorder.js';
 import { DIVISIONS } from '../math/rhythm.js';
 import { DRUM_KINDS, DRUM_LABELS, TRIGGERS } from '../audio/drum-scanner.js';
 import { animatable, describe, removeKey, EASES } from '../anim/keyframes.js';
@@ -14,20 +15,10 @@ import { h, bindPath, bindObj, slider, color, select, toggle, segmented, number,
 import { FONT_LABELS } from './overlay.js';
 
 const MAX_LAYERS = 4;
-const USER_PRESETS_KEY = 'mmv.presets.v1';
 
 const WAVES = [['sine', '∿', 'Sine'], ['triangle', '⋀', 'Triangle'], ['square', '⊓', 'Square'], ['sawtooth', '⩘', 'Sawtooth']];
 
 const SNIPPETS = ['sin()', 'cos()', 'exp()', 'mod(x, 1)', 'abs()', 'floor()', 'sqrt()', 'saw()', 'tri()', 'square()', 'noise()', 'pi', 't', 'a'];
-
-/* ---------------------------------------------------------- user presets */
-
-function readUserPresets() {
-  try { return JSON.parse(localStorage.getItem(USER_PRESETS_KEY)) || []; } catch { return []; }
-}
-function writeUserPresets(list) {
-  try { localStorage.setItem(USER_PRESETS_KEY, JSON.stringify(list)); return true; } catch { return false; }
-}
 
 /* ------------------------------------------------------------ the panels */
 
@@ -404,59 +395,13 @@ export class Panels {
   }
 
   presetsTab() {
-    const list = h('div.preset-grid');
-    for (const pr of BUILTIN_PRESETS) {
-      list.append(h('button.preset', { type: 'button', onclick: () => this.actions.loadPreset(pr) },
-        h('span.preset-dots', {}, (pr.layers || []).map((l) => h('i', { style: `background:${l.color || '#22e4ff'}` }))),
-        h('strong', {}, pr.name),
-        h('span.badge', {}, `${pr.visual?.aspect === '9:16' ? '9:16 · ' : ''}${(pr.mode || '2d').toUpperCase()}`)));
-    }
-    const mine = h('div.my-presets');
-    const nameIn = h('input#preset-name', { placeholder: 'Preset name', 'aria-label': 'Preset name' });
-    const renderMine = () => {
-      const items = readUserPresets();
-      mine.replaceChildren(...(items.length ? items.map((pr, i) => h('div.my-preset', {},
-        h('button.link', { type: 'button', onclick: () => this.actions.loadPreset(pr) }, pr.name),
-        h('button.icon-btn.danger', { type: 'button', title: `Delete ${pr.name}`, onclick: () => { const all = readUserPresets(); all.splice(i, 1); writeUserPresets(all); renderMine(); } }, '✕')))
-        : [h('p.hint', {}, 'Nothing saved yet. Name your current setup and press Save.')]));
-    };
-    renderMine();
-    const importIn = h('input', { type: 'file', accept: 'application/json,.json', hidden: true });
-    importIn.addEventListener('change', async () => {
-      const f = importIn.files[0];
-      importIn.value = '';
-      if (!f) return;
-      try {
-        const data = JSON.parse(await f.text());
-        this.actions.loadPreset(data);
-        this.actions.toast(`Loaded “${data.name || f.name}”.`);
-      } catch {
-        this.actions.toast('That file is not a Math-Melody preset (invalid JSON).');
-      }
+    this.library = new LibraryView({
+      loadPreset: (p) => this.actions.loadPreset(p),
+      toast: this.actions.toast,
+      snapshot: () => store.snapshot(),
+      download,
     });
-    return h('section.tab', {},
-      group('Built-in', [list]),
-      group('My presets', [
-        h('div.row', {}, nameIn, h('button.btn', {
-          type: 'button',
-          onclick: () => {
-            const name = nameIn.value.trim() || store.state.name || 'My preset';
-            const snap = { ...store.snapshot(), name };
-            const all = readUserPresets().filter((p) => p.name !== name);
-            all.unshift(snap);
-            if (!writeUserPresets(all)) this.actions.toast('Browser storage is blocked here. Use “Export file” instead.');
-            else this.actions.toast(`Saved “${name}”.`);
-            store.state.name = name;
-            nameIn.value = '';
-            renderMine();
-          },
-        }, 'Save')),
-        mine,
-        h('div.row', {},
-          h('button.btn.ghost', { type: 'button', onclick: () => this.actions.exportPresetFile() }, 'Export file'),
-          h('button.btn.ghost', { type: 'button', onclick: () => importIn.click() }, 'Import file'), importIn),
-      ], { hint: 'Saved in this browser. Export a .json file to share or back up.' }),
-    );
+    return this.library.el;
   }
 
   exportTab() {
