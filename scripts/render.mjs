@@ -29,6 +29,7 @@ const { values: a } = parseArgs({
     fps: { type: 'string', default: '60' },
     quality: { type: 'string', default: 'high' }, // standard | high | max
     blur: { type: 'string', default: '1' }, // motion-blur sub-frames: 1, 2 or 4
+    'gpu-encoder': { type: 'boolean', default: false }, // also try the GPU video encoder
     headed: { type: 'boolean', default: false },
     software: { type: 'boolean', default: false },
     help: { type: 'boolean', short: 'h' },
@@ -37,7 +38,7 @@ const { values: a } = parseArgs({
 
 if (a.help) {
   console.log(`Usage: node scripts/render.mjs [--preset file.json | --builtin NAME] [--width 1920 --height 1080 --fps 60]
-       [--out render.mp4] [--quality standard|high|max] [--blur 1|2|4] [--headed] [--software]`);
+       [--out render.mp4] [--quality standard|high|max] [--blur 1|2|4] [--gpu-encoder] [--headed] [--software]`);
   process.exit(0);
 }
 const fail = (msg) => { console.error(`\n✗ ${msg}`); process.exit(1); };
@@ -91,7 +92,7 @@ try {
     process.stdout.write(`\r  frame ${p.frame}/${p.frames}  ${Math.round((p.frame / p.frames) * 100)}%  ${p.fps.toFixed(1)} fps  ~${p.eta}s left   `);
   });
   await page.exposeFunction('__mmvStatus', (m) => process.stdout.write(`\n  ${m}\n`));
-  const res = await page.evaluate((q) => window.__mmv.renderVideo({ quality: q }), a.quality);
+  const res = await page.evaluate(([q, g]) => window.__mmv.renderVideo({ quality: q, gpuEncoder: g }), [a.quality, a['gpu-encoder']]);
   const parts = [];
   for (let off = 0; off < res.bytes; off += 8 * 1024 * 1024) {
     parts.push(Buffer.from(await page.evaluate(([o, l]) => window.__mmv.chunk(o, l), [off, 8 * 1024 * 1024]), 'base64'));

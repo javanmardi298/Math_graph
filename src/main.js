@@ -74,8 +74,12 @@ function gpuName() {
 function showFatal(reason) {
   $('fatal').hidden = false;
   $('loading').hidden = true;
-  $('fatal-reason').textContent = reason;
-  $('fatal-gpu').textContent = `${gpuName()} · ${SAFE_GPU ? 'safe graphics mode was on' : 'full quality mode'}`;
+  const name = gpuName();
+  const blocked = name.startsWith('WebGL is not available');
+  $('fatal-reason').textContent = blocked
+    ? `${reason} WebGL is switched off for this whole browser: browsers do that after the GPU crashes several times. Restart the browser completely by typing chrome://restart (Edge: edge://restart) in the address bar; just closing the windows is not enough when it keeps running in the background. If it still fails, restart the computer. The video export now uses the CPU encoder, which avoids this crash.`
+    : reason;
+  $('fatal-gpu').textContent = `${name} · ${SAFE_GPU ? 'safe graphics mode was on' : 'full quality mode'}`;
 }
 $('fatal-reload').addEventListener('click', () => location.reload());
 $('fatal-safe').addEventListener('click', () => { writeGpu({ early: 0, safe: true }); location.reload(); });
@@ -96,6 +100,17 @@ viz.onContextLost = () => {
   if (unloading) return; // our own clean-up on page exit, not a crash
   if (clock.playing) pause();
   saveSessionNow();
+  if (exporting.busy) {
+    // The GPU died while exporting: stop the export, never use the GPU video encoder
+    // again here, and start the next session in safe graphics mode.
+    if (exporting.token) exporting.token.cancelled = true;
+    if ($('render-dialog').open) $('render-dialog').close();
+    gpu.encoderCrash = true;
+    gpu.safe = true;
+    writeGpu(gpu);
+    showFatal('The GPU stopped responding during the video export. The next start uses safe graphics mode and the CPU video encoder. Your work is saved.');
+    return;
+  }
   if (performance.now() - bootAt < 20000) {
     gpu.early = (gpu.early || 0) + 1;
     if (gpu.early >= 2) gpu.safe = true;
@@ -890,6 +905,8 @@ class FrameComposer {
         while (this.hitIndex < this.hits.length && this.hits[this.hitIndex].time <= time + 1e-9) viz.pulse(this.hits[this.hitIndex++].kind, src?.id);
       }
       renderScene(time, { dt, now: time, playing: true, snap: i === 0 && j === 0 });
+      // A lost GPU context draws nothing: stop instead of encoding black frames.
+      if (viz.renderer.getContext().isContextLost()) throw new Error('graphics context lost');
       g.globalAlpha = 1 / (j + 1); // running average of the sub-frames
       g.drawImage(viz.canvas, 0, 0, out.width, out.height);
     }
@@ -920,6 +937,7 @@ async function exportVideo() {
   const frames = Math.ceil(duration() * fps);
   const dlg = $('render-dialog'), bar = $('render-bar'), stats = $('render-stats');
   const token = { cancelled: false };
+  exporting.token = token;
   const cancel = () => { token.cancelled = true; stats.textContent = 'Cancelling…'; };
   $('render-cancel').onclick = cancel;
   dlg.oncancel = (e) => { e.preventDefault(); cancel(); };
@@ -941,6 +959,7 @@ async function exportVideo() {
       width: size.w, height: size.h, fps, frames, quality, token, audio: buf,
       drawFrame: (i) => comp.frame(i),
       onStatus: (msg) => { $('render-encoder').textContent = msg; },
+      allowGpu: store.state.record.gpuEncoder && !gpu.encoderCrash,
       onProgress: (p) => {
         bar.value = p.frame / p.frames;
         stats.textContent = `Frame ${p.frame} / ${p.frames} · ${p.fps.toFixed(1)} frames/s · about ${fmtEta(p.eta)} left`;
@@ -961,6 +980,12 @@ async function exportVideo() {
     showResult(blob, `${fileBase()}.mp4`, 'video', null, note);
   } catch (err) {
     dlg.close();
+    if (err.message === 'graphics context lost') {
+      gpu.encoderCrash = true;
+      gpu.safe = true;
+      writeGpu(gpu);
+    }
+    if (!$('fatal').hidden) return; // the GPU loss screen already explains what happened
     toast(err.message === 'cancelled' ? 'Export cancelled.' : `Video export failed: ${err.message}`, 8000);
   } finally {
     viz.setFixedSize(null);
@@ -1125,12 +1150,13 @@ function installRenderApi() {
       return toBase64(bytes);
     },
     /** Encode the whole video in the page (fast path). Progress goes to window.__mmvProgress. */
-    async renderVideo({ quality = 'high' } = {}) {
+    async renderVideo({ quality = 'high', gpuEncoder = false } = {}) {
       const r = await renderVideo({
         width: prep.width, height: prep.height, fps: prep.fps, frames: prep.frames, quality, audio: prep.buf,
         drawFrame: (i) => comp.frame(i),
         onProgress: (p) => window.__mmvProgress?.(p),
         onStatus: (m) => window.__mmvStatus?.(m),
+        allowGpu: gpuEncoder,
       });
       result = new Uint8Array(await r.blob.arrayBuffer());
       return { bytes: result.length, video: r.video, encoder: r.encoder, audio: r.audio };

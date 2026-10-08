@@ -5,7 +5,8 @@
  * exact time and handed straight to the GPU's video encoder, so the result is a
  * constant 30/60 fps MP4 with no dropped or doubled frames, however heavy the scene.
  *
- * Codec preference: H.264 + AAC (plays everywhere), then VP9 / Opus as fallback
+ * Encoders run on the CPU by default (the GPU encoder is opt-in: it crashed some
+ * Windows graphics drivers). Codec preference: H.264 + AAC (plays everywhere), then VP9 / Opus as fallback
  * (Chromium builds without proprietary codecs). The caller can ask the local
  * server to convert a fallback file to H.264/AAC with ffmpeg.
  */
@@ -36,11 +37,15 @@ function within(promise, ms, what) {
  * Every encoder the browser says it supports, in order of preference: one H.264
  * profile on hardware, then one in software, then VP9, then AV1.
  */
-async function videoCandidates(width, height, fps, bitrate) {
+async function videoCandidates(width, height, fps, bitrate, allowGpu) {
   const out = [];
   const seen = new Set();
+  // Software (CPU) encoders only, unless the user opts in to the GPU encoder: on some
+  // Windows drivers, running the GPU's video encoder next to WebGL crashes the GPU
+  // process, and after a few crashes the browser switches WebGL off entirely.
+  const accels = allowGpu ? ['prefer-hardware', 'prefer-software'] : ['prefer-software'];
   for (const mux of ['avc', 'vp9', 'av1']) {
-    for (const accel of ['prefer-hardware', 'prefer-software']) {
+    for (const accel of accels) {
       for (const [codec, m] of VIDEO_CODECS) {
         if (m !== mux || seen.has(`${mux}/${accel}`)) continue;
         const config = {
@@ -124,14 +129,15 @@ const yieldToUi = () => new Promise((r) => {
  * @param {(p:{frame:number, frames:number, fps:number, eta:number})=>void} [o.onProgress]
  * @param {{cancelled:boolean}} [o.token] set token.cancelled = true to stop
  * @param {(msg:string)=>void} [o.onStatus] which encoder is being tested / used
+ * @param {boolean} [o.allowGpu] also try the GPU's hardware video encoder (off by default)
  * @returns {Promise<{blob:Blob, video:string, encoder:string, audio:string|null}>}
  */
 export async function renderVideo(opts) {
-  const { width, height, fps, quality = 'high', onStatus } = opts;
+  const { width, height, fps, quality = 'high', onStatus, allowGpu = false } = opts;
   if (!canRenderVideo()) throw new Error('This browser cannot encode video (WebCodecs missing). Use Chrome or Edge, or Live capture.');
   const bitrate = Math.round(Math.min(100e6, Math.max(6e6, width * height * fps * (QUALITY[quality] || QUALITY.high))));
-  const key = `${width}x${height}@${fps}/${bitrate}`;
-  const candidates = await videoCandidates(width, height, fps, bitrate);
+  const key = `${width}x${height}@${fps}/${bitrate}/${allowGpu}`;
+  const candidates = await videoCandidates(width, height, fps, bitrate, allowGpu);
   if (!candidates.length) throw new Error(`No video encoder for ${width}×${height} at ${fps} fps in this browser. Try a lower resolution.`);
   const known = proven.get(key);
   if (known) candidates.sort((a, b) => (a.label === known ? -1 : b.label === known ? 1 : 0));

@@ -149,6 +149,14 @@ check that hardware acceleration is on (Chrome: Settings → System). Versions b
 memory on animated layers (formulas with `t`, surfaces, dotted lines), which caused exactly this after a
 few minutes; that leak is fixed, and a lost context now shows a *Try again* button instead of freezing.
 
+**"WebGL could not start (Error creating WebGL context)" in every browser**
+On some Windows graphics drivers, running the GPU's hardware video encoder next to WebGL crashes the GPU;
+after a few crashes the browser switches WebGL off entirely. Video export therefore encodes on the CPU by
+default (the GPU encoder is an opt-in toggle in the Export tab, and is never used again after a crash during
+export). To get WebGL back, restart the browser fully with `chrome://restart` (Edge: `edge://restart`); just
+closing windows isn't enough while it keeps running in the background. If that doesn't help, restart the
+computer.
+
 **"The graphics context was lost" every time the app starts**
 Press **Start in safe graphics mode** on that screen (lighter on the GPU), or **Reset saved settings** if a
 setting you changed triggers it. The app also switches to safe mode by itself after two losses right after

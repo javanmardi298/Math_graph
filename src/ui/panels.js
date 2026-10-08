@@ -470,9 +470,10 @@ export class Panels {
         select('Frame rate', p('record.fps'), [[24, '24 fps · film'], [30, '30 fps'], [60, '60 fps · smoothest']]),
         select('Quality', p('record.quality'), { standard: 'Standard · smaller file', high: 'High', max: 'Maximum · large file' }),
         select('Motion blur', p('record.subframes'), [[1, 'Off · fastest'], [2, 'Natural · 2 sub-frames'], [4, 'Cinematic · 4 sub-frames']]),
+        toggle('Use the GPU video encoder (faster, unstable on some drivers)', p('record.gpuEncoder')),
         h('button.btn.export-btn', { type: 'button', disabled: !smooth, onclick: () => this.actions.exportVideo() }, '⬇ Export video (MP4)'),
         h('p.hint', {}, smooth
-          ? 'Renders every frame at its exact time with your graphics card and hardware encoder: a smooth, constant-frame-rate MP4 (H.264 + AAC) that plays everywhere. The Frame (16:9, 9:16…) comes from the Look tab.'
+          ? 'Renders every frame at its exact time and encodes it on the CPU: a smooth, constant-frame-rate MP4 (H.264 + AAC) that plays everywhere. Leave the GPU encoder off if your graphics driver ever crashed. The Frame (16:9, 9:16…) comes from the Look tab.'
           : 'This browser has no video encoder (WebCodecs). Use Chrome or Edge, or Live capture below.'),
       ]),
       group('Live capture · real time', [
