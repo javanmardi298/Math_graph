@@ -57,7 +57,7 @@ export function drawOverlay(g, w, h, d) {
   const ui = d.ui;
   const phases = d.phases || new Map();
   const legacyCaption = v.caption !== false; // old presets: one switch for title + formulas
-  const rects = { title: null, formulas: null, analyzer: null, texts: [] };
+  const rects = { title: null, formulas: null, name: null, analyzer: null, texts: [] };
   g.save();
   g.textBaseline = 'alphabetic';
 
@@ -105,11 +105,13 @@ export function drawOverlay(g, w, h, d) {
     const fs = 20 * k * s, lineH = 32 * k * s;
     const lines = d.layers.filter((l) => l.enabled && phases.get(l.id) !== 'future');
     const x = o.formulas.x == null ? 36 * k : o.formulas.x * w;
-    // Leave room for an automatically placed analyzer in the same corner.
-    const sharesCorner = ana && o.analyzer.x == null && o.formulas.x == null && !portrait;
+    // Leave room for an automatically placed analyzer in the same (top) corner.
+    const sharesCorner = ana && o.analyzer.x == null && o.formulas.x == null && portrait;
     const maxW = Math.max(80 * k, (sharesCorner ? ana.x - 30 * k : w - 24 * k) - x);
     const bh = lines.length * lineH;
-    const y = o.formulas.y == null ? h - (portrait ? 56 : 28) * k - bh : o.formulas.y * h;
+    // Automatic place: top left, under an automatically placed title.
+    const autoTop = rects.title && o.title.y == null ? rects.title.y + rects.title.h + 14 * k : 26 * k;
+    const y = o.formulas.y == null ? autoTop : o.formulas.y * h;
     g.font = `500 ${fs}px ${FONTS.mono}`;
     let bw = 0;
     lines.forEach((l, i) => {
@@ -140,6 +142,24 @@ export function drawOverlay(g, w, h, d) {
       bw = Math.max(bw, 24 * k * s + tw + (note != null ? g.measureText(noteText).width : 0));
     });
     rects.formulas = { x, y, w: Math.max(bw, 120 * k * s), h: Math.max(bh, lineH) };
+  }
+
+  /* ----------------------------------------------------------- preset name */
+  if (o.name?.enabled && state.name) {
+    const s = o.name.size;
+    const fPx = 30 * k * s; // same size as the title
+    g.font = `600 ${fPx}px ${FONTS.display}`;
+    g.direction = isRtl(state.name) ? 'rtl' : 'ltr';
+    const bw = g.measureText(state.name).width, bh = fPx * 1.25;
+    const above = rects.formulas && o.formulas.y == null ? rects.formulas : rects.title && o.title.y == null ? rects.title : null;
+    const x = o.name.x == null ? (w - bw) / 2 : o.name.x * w;
+    const y = o.name.y == null ? (above ? above.y + above.h : 26 * k) + 12 * k : o.name.y * h;
+    g.fillStyle = o.name.color || ui.fg;
+    g.globalAlpha = 0.95;
+    g.textAlign = 'left';
+    g.fillText(state.name, x, y + fPx); // 'left' is the absolute left edge in either direction
+    g.direction = 'ltr';
+    rects.name = { x, y, w: bw, h: bh };
   }
 
   /* ---------------------------------------------------------- draw analyzer */

@@ -10,7 +10,7 @@
 import { store } from '../state.js';
 import { h } from './controls.js';
 
-const LABELS = { title: 'Title', formulas: 'Formulas', analyzer: 'Analyzer' };
+const LABELS = { title: 'Title', formulas: 'Formulas', name: 'Name', analyzer: 'Analyzer' };
 const MIN_SIZE = 0.3, MAX_SIZE = 5;
 
 export class LayoutEditor {
@@ -85,7 +85,7 @@ export class LayoutEditor {
     const sx = this.canvas.clientWidth / this.canvas.width;
     const sy = this.canvas.clientHeight / this.canvas.height;
     const list = new Map();
-    for (const key of ['title', 'formulas', 'analyzer']) if (rects[key]) list.set(key, rects[key]);
+    for (const key of ['title', 'formulas', 'name', 'analyzer']) if (rects[key]) list.set(key, rects[key]);
     for (const t of rects.texts) list.set(`text:${t.id}`, t.rect);
     this.lastRects = list;
     for (const [key, box] of this.boxes) if (!list.has(key)) { box.remove(); this.boxes.delete(key); }

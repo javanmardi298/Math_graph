@@ -71,8 +71,8 @@ export function defaultState() {
       dof: { enabled: false, focus: 14, aperture: 0.6 },
       motionBlur: { enabled: false, amount: 0.75 },
       caption: true,
-      showNotes: true, // note names in the caption and the top bar
-      analyzer: 'spectrum', // spectrum | wave | off
+      showNotes: false, // note names in the caption and the top bar
+      analyzer: 'off', // spectrum | wave | off
       aspect: '16:9', // fill | 16:9 | 9:16 | 1:1 | 4:5
     },
     camera: { autoRotate: false, rotateSpeed: 0.8, fov: 45, follow: false },
@@ -96,8 +96,11 @@ export function defaultState() {
     // Text on the video. x/y are fractions of the frame (null = automatic position),
     // size is a multiplier. Text boxes are positioned by their centre.
     overlay: {
-      title: { enabled: true, text: '', subtitle: true, subtitleText: '', x: null, y: null, size: 1, color: '' },
+      // layout 2: formulas top left, preset name top centre; title, subtitle, notes and analyzer off.
+      layout: 2,
+      title: { enabled: false, text: '', subtitle: false, subtitleText: '', x: null, y: null, size: 1, color: '' },
       formulas: { enabled: true, x: null, y: null, size: 1 },
+      name: { enabled: true, x: null, y: null, size: 1, color: '' },
       analyzer: { x: null, y: null, size: 1 },
       texts: [],
     },
@@ -134,6 +137,15 @@ function mergeDeep(base, patch) {
   return patch === undefined ? base : patch;
 }
 
+/** Bring presets saved before layout 2 to the current on-screen text defaults. */
+function applyLayout2(st) {
+  st.visual.analyzer = 'off';
+  st.visual.showNotes = false;
+  Object.assign(st.overlay.title, { enabled: false, subtitle: false });
+  Object.assign(st.overlay.formulas, { enabled: true, x: null, y: null });
+  st.overlay.layout = 2;
+}
+
 class Store {
   constructor() {
     this.state = defaultState();
@@ -157,6 +169,7 @@ class Store {
   /** Replace the whole state from a preset/snapshot (missing keys fall back to defaults). */
   load(snapshot) {
     const merged = mergeDeep(defaultState(), structuredClone(snapshot));
+    if ((snapshot.overlay?.layout ?? 1) < 2) applyLayout2(merged);
     merged.layers = (merged.layers || []).map((l) => createLayer({ ...l, id: undefined, exprs: { ...l.exprs } }));
     merged.layers.forEach((l, i) => { l.id = `L${Date.now().toString(36)}${i}`; });
     this.state = merged;

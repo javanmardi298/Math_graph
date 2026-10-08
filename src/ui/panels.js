@@ -474,6 +474,12 @@ export class Panels {
         slider('Size', p('overlay.formulas.size'), { min: 0.3, max: 5, step: 0.05, fmt: (v) => `${Math.round(v * 100)}%` }),
         reset('formulas'),
       ]),
+      group('Preset name', [
+        toggle('Show preset name', p('overlay.name.enabled')),
+        color('Colour', { get: () => o().name.color || '#eef2ff', set: (v) => { o().name.color = v; store.emit('overlay'); } }),
+        slider('Size', p('overlay.name.size'), { min: 0.3, max: 5, step: 0.05, fmt: (v) => `${Math.round(v * 100)}%` }),
+        reset('name'),
+      ], { hint: 'The project / preset name, centred under the formulas.' }),
       group('Audio analyzer', [
         select('Style', p('visual.analyzer'), { spectrum: 'Spectrum bars', wave: 'Waveform', off: 'Hidden' }),
         slider('Size', p('overlay.analyzer.size'), { min: 0.3, max: 5, step: 0.05, fmt: (v) => `${Math.round(v * 100)}%` }),
