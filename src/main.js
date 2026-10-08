@@ -37,6 +37,8 @@ import { audioBufferToWav } from './export/wav.js';
 const $ = (id) => document.getElementById(id);
 const SESSION_KEY = 'mmv.session.v1';
 const RENDER_MODE = new URLSearchParams(location.search).has('render');
+/** Build id of the published Artifact (set by scripts/build-artifact.mjs); "local" on localhost. */
+const BUILD = window.MMV_BUILD || 'local';
 
 /* ------------------------------------------------------------------ setup */
 
@@ -79,7 +81,7 @@ function showFatal(reason) {
   $('fatal-reason').textContent = blocked
     ? `${reason} WebGL is switched off for this whole browser: browsers do that after the GPU crashes several times. Restart the browser completely by typing chrome://restart (Edge: edge://restart) in the address bar; just closing the windows is not enough when it keeps running in the background. If it still fails, restart the computer. The video export now uses the CPU encoder, which avoids this crash.`
     : reason;
-  $('fatal-gpu').textContent = `${name} · ${SAFE_GPU ? 'safe graphics mode was on' : 'full quality mode'}`;
+  $('fatal-gpu').textContent = `${name} · ${SAFE_GPU ? 'safe graphics mode was on' : 'full quality mode'} · build ${BUILD}`;
 }
 $('fatal-reload').addEventListener('click', () => location.reload());
 $('fatal-safe').addEventListener('click', () => { writeGpu({ early: 0, safe: true }); location.reload(); });
@@ -1177,6 +1179,7 @@ function toBase64(bytes) {
 /* ------------------------------------------------------------------ boot */
 
 function boot() {
+  document.querySelectorAll('.build-id').forEach((el) => { el.textContent = `Build ${BUILD}`; });
   $('loading').hidden = true;
   if (RENDER_MODE) {
     store.load(BUILTIN_PRESETS[0]);
