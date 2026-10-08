@@ -1179,6 +1179,7 @@ function toBase64(bytes) {
 /* ------------------------------------------------------------------ boot */
 
 function boot() {
+  window.MMV_STARTED = true; // tells the start-up watchdog in index.html that the code loaded
   document.querySelectorAll('.build-id').forEach((el) => { el.textContent = `Build ${BUILD}`; });
   $('loading').hidden = true;
   if (RENDER_MODE) {

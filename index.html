@@ -169,6 +169,37 @@
   <div class="row"><button class="btn" type="button" data-close>Got it</button></div>
 </dialog>
 
+<!-- Start-up watchdog: if the app's code fails to load or crashes before it starts,
+     show the reason instead of a blank page. main.js sets window.MMV_STARTED. -->
+<script>
+(function () {
+  var shown = false;
+  function fail(msg) {
+    if (shown || window.MMV_STARTED) return;
+    var fatal = document.getElementById('fatal');
+    if (fatal && !fatal.hidden) return; // the graphics error screen already explains it
+    shown = true;
+    var el = document.getElementById('loading');
+    if (!el) return;
+    el.hidden = false;
+    el.innerHTML = '';
+    var box = document.createElement('div');
+    var h = document.createElement('h2'); h.textContent = 'The app did not start';
+    var p = document.createElement('p'); p.textContent = msg;
+    var q = document.createElement('p');
+    q.textContent = 'Reload the page (Ctrl+Shift+R). If it keeps happening, run it locally: git pull, then npm start. Build ' + (window.MMV_BUILD || 'local') + '.';
+    box.append(h, p, q);
+    el.append(box);
+  }
+  window.addEventListener('error', function (e) {
+    var t = e.target;
+    if (t && t !== window && (t.src || t.href)) fail('Could not load ' + (t.src || t.href));
+    else if (e.message) fail(e.message);
+  }, true);
+  window.addEventListener('unhandledrejection', function (e) { fail(String((e.reason && e.reason.message) || e.reason)); });
+  setTimeout(function () { fail('Loading took longer than 20 seconds.'); }, 20000);
+})();
+</script>
 <script type="module" src="src/main.js"></script>
 </body>
 </html>

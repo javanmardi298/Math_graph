@@ -40,7 +40,13 @@ html = html
 if (!html.includes(`${prefix}/main.js`)) throw new Error('index.html no longer loads src/main.js the expected way');
 
 const files = {};
-for (const f of srcFiles) files[f.replace(/^src[\\/]/, `${prefix}/`).replace(/\\/g, '/')] = f.replace(/\\/g, '/');
+for (const f of srcFiles) {
+  const local = f.replace(/\\/g, '/');
+  files[local.replace(/^src\//, `${prefix}/`)] = local;
+  // Also at the plain src/ path: a viewer still holding an older page (which loads
+  // src/main.js) then starts too, instead of failing on missing files.
+  files[local] = local;
+}
 for (const f of walk('vendor').filter((x) => /\.(m?js)$/.test(x))) files[f.replace(/\\/g, '/')] = f.replace(/\\/g, '/');
 
 mkdirSync('dist', { recursive: true });
