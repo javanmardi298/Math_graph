@@ -468,9 +468,10 @@ export class Visualizer {
   /**
    * @param {HTMLElement} host element the canvas is placed in
    * @param {object} state app state
-   * @param {{safe?:boolean}} [opts] safe = minimal GPU load for drivers that keep crashing
+   * @param {{safe?:boolean, smaa?:boolean}} [opts] safe = minimal GPU load for drivers that keep crashing;
+   *        smaa = false skips only the antialiasing pass (fast CPU-only batch renders keep 16-bit colour)
    */
-  constructor(host, state, { safe = false } = {}) {
+  constructor(host, state, { safe = false, smaa = true } = {}) {
     this.safe = safe;
     this.host = host;
     this.state = state;
@@ -526,7 +527,7 @@ export class Visualizer {
     this.afterimage = new AfterimagePass(0.8);
     this.bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), 1, 0.5, 0.05);
     this.output = new OutputPass();
-    this.smaa = safe ? null : new SMAAPass(2, 2);
+    this.smaa = safe || !smaa ? null : new SMAAPass(2, 2);
     for (const p of [this.renderPass, this.bokeh, this.afterimage, this.bloom, this.smaa, this.output]) if (p) this.composer.addPass(p);
 
     // Drum pulses: a glow flash on kicks and expanding rings on snares/claps.

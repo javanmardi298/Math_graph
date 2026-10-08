@@ -93,7 +93,7 @@ $('fatal-reset').addEventListener('click', () => {
 
 let viz;
 try {
-  viz = new Visualizer($('gl-host'), store.state, { safe: SAFE_GPU });
+  viz = new Visualizer($('gl-host'), store.state, { safe: SAFE_GPU, smaa: !new URLSearchParams(location.search).has('nosmaa') });
 } catch (err) {
   showFatal(`WebGL could not start (${err.message}).`);
   throw err;
