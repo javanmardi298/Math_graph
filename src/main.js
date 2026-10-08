@@ -30,6 +30,8 @@ import { drawOverlay } from './ui/overlay.js';
 import { h, bindPath, segmented, slider, number, toggle, refreshAll } from './ui/controls.js';
 import { Recorder, download, pickFormat, setDownloadNotifier } from './export/recorder.js';
 import { renderVideo, canRenderVideo } from './export/video-render.js';
+import { renderWithFfmpeg, ffmpegServer } from './export/ffmpeg-render.js';
+import { fixWebmDuration } from './export/webm-duration.js';
 import { LayoutEditor } from './ui/layout-editor.js';
 import { writeMidi, samplesToNotes } from './export/midi.js';
 import { audioBufferToWav } from './export/wav.js';
@@ -702,6 +704,7 @@ async function startRecording() {
 
 async function stopRecording() {
   if (!recorder.active) return;
+  const seconds = recorder.elapsed;
   const res = await recorder.stop();
   viz.setFixedSize(null);
   clock.autoStop = false;
@@ -709,7 +712,24 @@ async function stopRecording() {
   document.querySelectorAll('.record-btn').forEach((b) => { b.lastChild.textContent = 'Start recording'; });
   applyStageAspect();
   if (!res || !res.blob.size) return toast('Recording came out empty. Try a different browser.');
-  showResult(res.blob, `${fileBase()}.${res.ext}`, 'video');
+  // Live recordings come out with uneven frame timing and (in Chrome) no duration, so
+  // players can't show the length or seek. With the local ffmpeg: re-encode to a
+  // constant-frame-rate H.264 MP4. Without it: at least write the duration into WebM.
+  const { fps } = store.state.record;
+  if (await ffmpegServer()) {
+    toast('Finishing the recording with ffmpeg (constant frame rate, H.264)…', 120000);
+    try {
+      const r = await fetch(`api/transcode?fps=${fps}`, { method: 'POST', body: res.blob });
+      if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || `HTTP ${r.status}`);
+      const blob = await r.blob();
+      toast('Recording ready.');
+      return showResult(blob, `${fileBase()}.mp4`, 'video', null, `${fps} fps constant · H.264 + AAC (ffmpeg)`);
+    } catch (err) {
+      toast(`ffmpeg could not convert the recording (${err.message}); keeping the original.`, 6000);
+    }
+  }
+  const blob = res.ext === 'webm' ? await fixWebmDuration(res.blob, seconds) : res.blob;
+  showResult(blob, `${fileBase()}.${res.ext}`, 'video');
 }
 
 const toggleRecord = () => (recorder.active ? stopRecording() : startRecording());
@@ -884,6 +904,7 @@ class FrameComposer {
     this.out.width = width;
     this.out.height = height;
     this.g = this.out.getContext('2d');
+    this.px = new Uint8Array(4);
   }
 
   frame(i) {
@@ -903,7 +924,12 @@ class FrameComposer {
       }
       renderScene(time, { dt, now: time, playing: true, snap: i === 0 && j === 0 });
       // A lost GPU context draws nothing: stop instead of encoding black frames.
-      if (viz.renderer.getContext().isContextLost()) throw new Error('graphics context lost');
+      const gl = viz.renderer.getContext();
+      if (gl.isContextLost()) throw new Error('graphics context lost');
+      // Wait for the GPU to finish this frame before queueing the next one. Exports draw
+      // frames back to back with no screen refresh in between; without this the GPU's
+      // queue grows until some drivers reset ("context lost").
+      gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, this.px);
       g.globalAlpha = 1 / (j + 1); // running average of the sub-frames
       g.drawImage(viz.canvas, 0, 0, out.width, out.height);
     }
@@ -925,7 +951,10 @@ async function transcodeToH264(blob) {
 /** Render the whole timeline to a smooth MP4 in this browser (GPU + hardware encoder). */
 async function exportVideo() {
   if (exporting.busy) return;
-  if (!canRenderVideo()) return toast('This browser cannot encode video. Use Chrome or Edge (or Live capture in the Export tab).', 7000);
+  const engine = store.state.record.engine;
+  const server = engine === 'browser' ? null : await ffmpegServer();
+  if (engine === 'ffmpeg' && !server) return toast('ffmpeg export needs the local server with ffmpeg: run “npm start” on a computer with ffmpeg installed and open http://localhost:5173.', 9000);
+  if (!server && !canRenderVideo()) return toast('This browser cannot encode video. Use Chrome or Edge (or Live capture in the Export tab).', 7000);
   if (recorder.active) await stopRecording();
   const wasPlaying = clock.playing;
   if (wasPlaying) pause();
@@ -952,16 +981,22 @@ async function exportVideo() {
     if (token.cancelled) throw new Error('cancelled');
     viz.setFixedSize(size);
     const comp = new FrameComposer({ width: size.w, height: size.h, fps, subframes, analyser: new BufferAnalyser(buf), hits: drumEventsFull() });
-    const res = await renderVideo({
+    const common = {
       width: size.w, height: size.h, fps, frames, quality, token, audio: buf,
       drawFrame: (i) => comp.frame(i),
       onStatus: (msg) => { $('render-encoder').textContent = msg; },
-      allowGpu: store.state.record.gpuEncoder && !gpu.encoderCrash,
       onProgress: (p) => {
         bar.value = p.frame / p.frames;
         stats.textContent = `Frame ${p.frame} / ${p.frames} · ${p.fps.toFixed(1)} frames/s · about ${fmtEta(p.eta)} left`;
       },
-    });
+    };
+    if (server) {
+      const r = await renderWithFfmpeg(common);
+      dlg.close();
+      showResult(r.blob, `${fileBase()}.mp4`, 'video', null, `${size.w}×${size.h} · ${fps} fps · ${r.encoder}`);
+      return;
+    }
+    const res = await renderVideo({ ...common, allowGpu: store.state.record.gpuEncoder && !gpu.encoderCrash });
     let blob = res.blob;
     let note = `${size.w}×${size.h} · ${fps} fps · ${res.encoder}${res.audio ? ` + ${res.audio}` : ''}`;
     if (res.video !== 'H.264' || (res.audio && res.audio !== 'AAC')) {

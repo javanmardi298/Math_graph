@@ -92,7 +92,8 @@ export function defaultState() {
     // Export. fileName '' = use the project name. subframes > 1 = real motion blur
     // (each video frame averages several sub-frames, like a film camera's shutter).
     // gpuEncoder: use the graphics card's video encoder (faster, but crashes some drivers).
-    record: { resolution: '1080p', fps: 60, fromStart: true, fileName: '', quality: 'high', subframes: 1, gpuEncoder: false },
+    // engine: auto = ffmpeg on the local server when available, else the browser's encoder.
+    record: { resolution: '1080p', fps: 60, fromStart: true, fileName: '', quality: 'high', subframes: 1, gpuEncoder: false, engine: 'auto' },
     // Text on the video. x/y are fractions of the frame (null = automatic position),
     // size is a multiplier. Text boxes are positioned by their centre.
     overlay: {

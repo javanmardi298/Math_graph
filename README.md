@@ -28,14 +28,19 @@ clip usually takes about as long as it plays, or less on a decent GPU. Keep the 
 to another tab is fine.
 
 - **Output:** MP4, H.264 + AAC (plays everywhere: phones, Windows, macOS, YouTube, Instagram).
-  Browsers without an H.264 encoder produce VP9 + Opus; when the app runs from `npm start` and
-  ffmpeg is installed, that file is converted to H.264 + AAC automatically.
+- **Encoder (Export tab):** when the app runs from `npm start` on a computer with ffmpeg, the browser
+  only draws the frames and **ffmpeg (x264) encodes them** (Encoder: Automatic or ffmpeg). This is the
+  most reliable path: the browser's own video encoder, which crashes some graphics drivers, is never
+  used. Without ffmpeg (or in the artifact) the browser encodes with WebCodecs; browsers without an
+  H.264 encoder produce VP9 + Opus.
 - **Settings (Export tab):** file name (any language), resolution 720p–4K, frame rate, quality
   (bitrate), and **motion blur**: each frame averages 2 or 4 sub-frames like a film camera's shutter,
   so fast curves look fluid instead of strobing.
 - **Frame:** 16:9, 9:16 (Shorts/Reels), 1:1 or 4:5, chosen in the Look tab.
 - **Live capture** (`R`) still exists for quick screen-style recordings, but its smoothness depends on
-  how fast your computer draws in real time.
+  how fast your computer draws in real time. With `npm start` + ffmpeg the recording is re-encoded to a
+  constant-frame-rate H.264 MP4 (no stutter, correct length, seeking works); without it, WebM recordings
+  get their missing duration written in so players show the length and can seek.
 
 Batch rendering from the command line uses the same encoder inside Playwright's Chromium:
 
@@ -120,13 +125,15 @@ src/
     layout-editor.js    drag/resize overlay elements directly on the video
   export/
     video-render.js     frame-perfect MP4 export (WebCodecs + mp4-muxer)
+    ffmpeg-render.js    frame-perfect MP4 export through the local server's ffmpeg
     recorder.js         MediaRecorder live capture
+    webm-duration.js    writes the missing duration into Chrome's WebM recordings
     midi.js             Standard MIDI File writer
     wav.js              16-bit WAV encoder
 vendor/three/           three.js r170 + the addons used (offline)
 vendor/mp4-muxer/       MP4 muxer for video export (MIT, offline)
 scripts/
-  serve.mjs             static server + /api/transcode (VP9 → H.264 with ffmpeg)
+  serve.mjs             static server + /api/render (frames → MP4 with ffmpeg) + /api/transcode
   render.mjs            command-line batch export (Playwright + WebCodecs, ffmpeg for H.264)
   render-tools.mjs      finds Playwright and ffmpeg
   vendor-three.mjs, build-artifact.mjs
@@ -169,6 +176,12 @@ the top bar returns to full quality.
 The published artifact saves files through the viewer: you confirm each save. MP4, WebM, PNG and preset
 JSON save directly; WAV and MIDI (not on the viewer's list of allowed types) arrive inside a .zip. The
 ffmpeg conversion to H.264 needs `npm start`, so in the artifact a browser without an H.264 encoder saves VP9.
+
+**"Can't start the graphics engine" / the GPU dropped the graphics context during export**
+After a few GPU crashes Chrome switches WebGL off for the whole browser: restart it with `chrome://restart`
+(Edge: `edge://restart`), or restart the computer, and update the graphics driver. Then export with
+`npm start` and ffmpeg installed (Encoder: Automatic), so the browser's video encoder isn't used at all.
+Exports now also wait for the GPU to finish each frame before drawing the next, so the GPU's queue can't pile up.
 
 **Exported or recorded video is choppy or blurry**
 Use **Export video**, not live capture: live capture can only record as fast as your computer draws.

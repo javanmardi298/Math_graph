@@ -2,11 +2,16 @@
 // Usage: npm start  (or: node scripts/serve.mjs 5173)
 //
 //   GET  /api/health      → { ffmpeg: bool, version }   can this machine convert videos?
-//   POST /api/transcode   body: an MP4 (any codecs) → the same video as H.264 + AAC
+//   POST /api/transcode   body: any video → the same video as H.264 + AAC
+//                         (?fps=60 also makes the frame rate constant: fixes live captures)
 //
-// Videos are rendered in the browser (GPU + hardware encoder). Browsers without an
-// H.264/AAC encoder fall back to VP9/Opus; the app then asks this server to convert
-// the file with ffmpeg so it plays in every player.
+//   Video export with ffmpeg (the browser draws the frames, ffmpeg encodes them, so the
+//   browser's own video encoder is never used):
+//   POST   /api/render?width=&height=&fps=&quality=   body: the soundtrack (WAV, may be empty) → { id }
+//   POST   /api/render/<id>/frames                     body: JPEG frames back to back
+//   POST   /api/render/<id>/finish                     → { size } once the MP4 is written
+//   GET    /api/render/<id>/file                       → the MP4 (then the job is removed)
+//   DELETE /api/render/<id>                            cancel
 import { createServer } from 'node:http';
 import { readFile, stat, writeFile, rm, mkdir } from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
@@ -32,12 +37,14 @@ const json = (res, code, body) => {
 };
 
 /** Re-encode to H.264 (high quality) + AAC. Video quality is kept by a low CRF. */
-export function transcode(input, output) {
+export function transcode(input, output, { fps = 0 } = {}) {
   return new Promise((ok, fail) => {
     const ff = findFfmpeg();
     if (!ff) return fail(new Error('ffmpeg was not found.'));
     const p = spawn(ff.path, [
       '-y', '-loglevel', 'error', '-i', input,
+      // Constant frame rate: live captures have uneven frame timing, which players show as stutter.
+      ...(fps > 0 ? ['-vsync', 'cfr', '-r', String(fps)] : []),
       '-c:v', 'libx264', '-preset', 'medium', '-crf', '16', '-pix_fmt', 'yuv420p', '-profile:v', 'high',
       '-c:a', 'aac', '-b:a', '320k', '-movflags', '+faststart', output,
     ], { windowsHide: true });
@@ -62,7 +69,8 @@ async function handleTranscode(req, res) {
       chunks.push(c);
     }
     await writeFile(input, Buffer.concat(chunks));
-    await transcode(input, output);
+    const fps = Math.min(120, Math.max(0, Number(new URL(req.url, 'http://x').searchParams.get('fps')) || 0));
+    await transcode(input, output, { fps });
     const { size: outSize } = await stat(output);
     res.writeHead(200, { 'Content-Type': 'video/mp4', 'Content-Length': outSize, 'Cache-Control': 'no-store' });
     await new Promise((ok, fail) => createReadStream(output).on('error', fail).on('end', ok).pipe(res));
@@ -74,6 +82,102 @@ async function handleTranscode(req, res) {
   }
 }
 
+/* ------------------------------------------------------------ ffmpeg render */
+
+const CRF = { standard: 20, high: 16, max: 12 };
+const jobs = new Map(); // id → { dir, ff, out, error, closed:Promise, touched }
+
+async function readBody(req, limit = MAX_UPLOAD) {
+  const chunks = [];
+  let size = 0;
+  for await (const c of req) {
+    size += c.length;
+    if (size > limit) throw new Error('Upload is too large.');
+    chunks.push(c);
+  }
+  return Buffer.concat(chunks);
+}
+
+async function removeJob(id) {
+  const job = jobs.get(id);
+  if (!job) return;
+  jobs.delete(id);
+  if (job.ff.exitCode === null) job.ff.kill('SIGKILL');
+  await rm(job.dir, { recursive: true, force: true }).catch(() => {});
+}
+
+// Forget jobs the page abandoned (tab closed mid-export).
+setInterval(() => {
+  for (const [id, job] of jobs) if (Date.now() - job.touched > 10 * 60_000) removeJob(id);
+}, 60_000).unref();
+
+async function handleRender(req, res, url) {
+  const ff = findFfmpeg();
+  const parts = url.split('/').filter(Boolean); // api, render, id?, action?
+  const [, , id, action] = parts;
+  if (!id && req.method === 'POST') {
+    if (!ff) return json(res, 503, { error: 'ffmpeg was not found on this computer.' });
+    const q = new URL(req.url, 'http://x').searchParams;
+    const even = (n) => Math.max(2, Math.round(Number(n) / 2) * 2);
+    const width = even(q.get('width')), height = even(q.get('height'));
+    const fps = Math.min(120, Math.max(1, Number(q.get('fps')) || 30));
+    const crf = CRF[q.get('quality')] ?? CRF.high;
+    const jobId = randomUUID();
+    const dir = join(tmpdir(), `mmv-render-${jobId}`);
+    await mkdir(dir, { recursive: true });
+    const wav = await readBody(req);
+    const audio = join(dir, 'audio.wav'), out = join(dir, 'video.mp4');
+    if (wav.length > 44) await writeFile(audio, wav);
+    const args = [
+      '-y', '-loglevel', 'error',
+      '-f', 'image2pipe', '-framerate', String(fps), '-c:v', 'mjpeg', '-i', 'pipe:0',
+      ...(wav.length > 44 ? ['-i', audio] : []),
+      '-map', '0:v:0', ...(wav.length > 44 ? ['-map', '1:a:0'] : []),
+      '-vf', `scale=${width}:${height}:flags=lanczos,format=yuv420p`,
+      '-c:v', 'libx264', '-preset', 'medium', '-crf', String(crf), '-profile:v', 'high',
+      '-g', String(fps * 2), '-r', String(fps),
+      ...(wav.length > 44 ? ['-c:a', 'aac', '-b:a', '320k', '-shortest'] : []),
+      '-movflags', '+faststart', out,
+    ];
+    const proc = spawn(ff.path, args, { windowsHide: true });
+    const job = { dir, ff: proc, out, error: null, touched: Date.now(), frames: 0 };
+    let err = '';
+    proc.stderr.on('data', (d) => { err = (err + d).slice(-1500); });
+    proc.stdin.on('error', () => {}); // reported through `closed`
+    job.closed = new Promise((ok) => {
+      proc.on('error', (e) => { job.error = e.message; ok(); });
+      proc.on('close', (code) => { if (code !== 0 && !job.error) job.error = err.trim().split('\n').pop() || `ffmpeg exited with ${code}`; ok(); });
+    });
+    jobs.set(jobId, job);
+    return json(res, 200, { id: jobId, ffmpeg: ff.version });
+  }
+  const job = jobs.get(id);
+  if (!job) return json(res, 404, { error: 'This render job is gone (the server restarted?). Start the export again.' });
+  job.touched = Date.now();
+  if (req.method === 'DELETE') { await removeJob(id); return json(res, 200, { ok: true }); }
+  if (action === 'frames' && req.method === 'POST') {
+    const body = await readBody(req, 512 * 1024 ** 2);
+    if (job.error || job.ff.exitCode !== null) return json(res, 500, { error: job.error || 'ffmpeg stopped early' });
+    if (!job.ff.stdin.write(body)) await new Promise((ok) => { job.ff.stdin.once('drain', ok); job.ff.once('close', ok); });
+    return json(res, 200, { ok: true });
+  }
+  if (action === 'finish' && req.method === 'POST') {
+    job.ff.stdin.end();
+    await job.closed;
+    if (job.error) { const e = job.error; await removeJob(id); return json(res, 500, { error: e }); }
+    const { size } = await stat(job.out);
+    return json(res, 200, { size });
+  }
+  if (action === 'file' && req.method === 'GET') {
+    const { size } = await stat(job.out);
+    res.writeHead(200, { 'Content-Type': 'video/mp4', 'Content-Length': size, 'Cache-Control': 'no-store' });
+    await new Promise((ok, fail) => createReadStream(job.out).on('error', fail).on('end', ok).pipe(res));
+    await removeJob(id);
+    return;
+  }
+  return json(res, 404, { error: 'Unknown render action.' });
+}
+
 export function startServer(port = 5173, host = '127.0.0.1') {
   const server = createServer(async (req, res) => {
     try {
@@ -83,6 +187,9 @@ export function startServer(port = 5173, host = '127.0.0.1') {
         return json(res, 200, { ffmpeg: !!ff, version: ff?.version || null });
       }
       if (url === '/api/transcode' && req.method === 'POST') return await handleTranscode(req, res);
+      if (url === '/api/render' || url.startsWith('/api/render/')) {
+        try { return await handleRender(req, res, url); } catch (err) { if (!res.headersSent) return json(res, 500, { error: err.message }); return res.end(); }
+      }
       if (url.startsWith('/api/')) return json(res, 404, { error: 'Unknown API route.' });
       let file = normalize(join(ROOT, url));
       if (!file.startsWith(ROOT)) { res.writeHead(403).end(); return; }
@@ -108,5 +215,5 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   const server = await startServer(port);
   console.log(`Math-Melody Visualizer → http://localhost:${server.address().port}`);
   const ff = findFfmpeg();
-  console.log(ff ? `ffmpeg: ${ff.version}` : 'ffmpeg: not found (only needed to convert VP9 exports to H.264)');
+  console.log(ff ? `ffmpeg: ${ff.version}` : 'ffmpeg: not found (install it for the most reliable video export)');
 }
