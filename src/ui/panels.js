@@ -8,6 +8,7 @@ import { SCALE_LABELS, NOTE_NAMES, noteName } from '../math/music.js';
 import { compile, FUNCTIONS } from '../math/parser.js';
 import { LibraryView } from './library-view.js';
 import { download } from '../export/recorder.js';
+import { suggestYoutube, youtubeFor, youtubeText, TITLE_MAX } from '../export/youtube.js';
 import { DIVISIONS } from '../math/rhythm.js';
 import { DRUM_KINDS, DRUM_LABELS, TRIGGERS } from '../audio/drum-scanner.js';
 import { animatable, describe, removeKey, EASES } from '../anim/keyframes.js';
@@ -400,8 +401,50 @@ export class Panels {
       toast: this.actions.toast,
       snapshot: () => store.snapshot(),
       download,
+      renderVideos: (items) => this.actions.renderBatch(items),
     });
     return this.library.el;
+  }
+
+  /** Title, description and tags for YouTube Shorts: saved in the preset, written next to videos. */
+  youtubeGroup() {
+    const p = bindPath;
+    const yt = () => store.state.youtube;
+    const counter = h('span.hint.yt-count');
+    const updateCount = () => {
+      const n = (yt().title || '').length;
+      counter.textContent = n ? `${n} / ${TITLE_MAX}` : 'Empty: a title is suggested automatically';
+      counter.classList.toggle('over', n > TITLE_MAX);
+    };
+    const title = text('Title', p('youtube.title'), { placeholder: 'e.g. Fourier builds a square wave 🎵 #shorts' });
+    title.querySelector('input').addEventListener('input', updateCount);
+    updateCount();
+    this.updateYtCount = updateCount;
+    const copy = async (what, value) => {
+      try { await navigator.clipboard.writeText(value); } catch {
+        const ta = h('textarea', { style: 'position:fixed;opacity:0' }, value);
+        document.body.append(ta); ta.select(); document.execCommand('copy'); ta.remove();
+      }
+      this.actions.toast(`${what} copied.`);
+    };
+    return group('YouTube Shorts · title & description', [
+      title, counter,
+      text('Description', p('youtube.description'), { multiline: true, placeholder: 'Empty: suggested from the name and formulas' }),
+      text('Tags (comma separated)', p('youtube.tags'), { placeholder: 'math, music, fourier, shorts' }),
+      h('div.row', {},
+        h('button.btn.ghost.small', { type: 'button', onclick: () => {
+          const s = suggestYoutube(store.state);
+          Object.assign(yt(), s);
+          store.emit('youtube');
+          refreshAll();
+          updateCount();
+        } }, 'Suggest'),
+        h('button.btn.ghost.small', { type: 'button', onclick: () => copy('Title', youtubeFor(store.state).title) }, 'Copy title'),
+        h('button.btn.ghost.small', { type: 'button', onclick: () => copy('Description', `${youtubeFor(store.state).description}`) }, 'Copy description'),
+        h('button.btn.ghost.small', { type: 'button', onclick: () => {
+          download(new Blob([youtubeText(youtubeFor(store.state))], { type: 'text/plain' }), `${this.actions.fileBase()}.txt`);
+        } }, 'Save .txt')),
+    ], { open: false, hint: 'Saved with the preset; never drawn into the video. Every exported video (and every video in a batch) gets a .txt with these, and batches also get one CSV of all of them.' });
   }
 
   exportTab() {
@@ -422,6 +465,7 @@ export class Panels {
           ? 'Renders every frame at its exact time: a smooth, constant-frame-rate MP4 (H.264 + AAC) that plays and seeks everywhere. With “npm start” and ffmpeg installed, ffmpeg does the encoding (most reliable: the browser’s encoder is not used). The Frame (16:9, 9:16…) comes from the Look tab.'
           : 'This browser has no video encoder (WebCodecs). Use Chrome or Edge, or Live capture below.'),
       ]),
+      this.youtubeGroup(),
       group('Live capture · real time', [
         toggle('Capture one full pass from the start', p('record.fromStart')),
         h('button.btn.record-btn', { type: 'button', onclick: () => this.actions.toggleRecord() }, h('span.rec-dot'), 'Start recording'),
@@ -667,6 +711,7 @@ export class Panels {
   /** Re-sync every control with state after a preset load. */
   refresh() {
     refreshAll();
+    this.updateYtCount?.();
     this.renderLayers();
     this.renderSequence();
     this.renderRhythm();

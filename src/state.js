@@ -94,6 +94,9 @@ export function defaultState() {
     // gpuEncoder: use the graphics card's video encoder (faster, but crashes some drivers).
     // engine: auto = ffmpeg on the local server when available, else the browser's encoder.
     record: { resolution: '1080p', fps: 60, fromStart: true, fileName: '', quality: 'high', subframes: 1, gpuEncoder: false, engine: 'auto' },
+    // YouTube Shorts metadata, saved with the preset and written next to exported videos
+    // (never drawn into the video). Empty fields are filled with a suggestion at export.
+    youtube: { title: '', description: '', tags: '' },
     // Text on the video. x/y are fractions of the frame (null = automatic position),
     // size is a multiplier. Text boxes are positioned by their centre.
     overlay: {

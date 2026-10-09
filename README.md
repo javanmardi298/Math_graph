@@ -37,6 +37,14 @@ to another tab is fine.
   (bitrate), and **motion blur**: each frame averages 2 or 4 sub-frames like a film camera's shutter,
   so fast curves look fluid instead of strobing.
 - **Frame:** 16:9, 9:16 (Shorts/Reels), 1:1 or 4:5, chosen in the Look tab.
+- **Batch export (Presets tab):** tick presets (or *Select all*) and press **🎬 Render N videos**. Each
+  one is rendered with the Export tab's settings and they all arrive in **one .zip**: `01 Name.mp4`,
+  `01 Name.txt` (its YouTube title, description and tags), `YouTube titles and descriptions.csv` for the
+  whole batch and `presets.mmv.json`. With `npm start` the batch is also kept in `exports/<batch>/`
+  next to the app (ZIP64, so batches over 4 GB are fine); a failed video doesn't stop the rest.
+- **YouTube Shorts metadata (Export tab):** title (100-character counter), description and tags are
+  saved inside the preset and never drawn into the video. Empty fields are suggested from the preset's
+  name and formulas. *Copy title*, *Copy description* and *Save .txt*; the export result also offers the .txt.
 - **Live capture** (`R`) still exists for quick screen-style recordings, but its smoothness depends on
   how fast your computer draws in real time. With `npm start` + ffmpeg the recording is re-encoded to a
   constant-frame-rate H.264 MP4 (no stutter, correct length, seeking works); without it, WebM recordings
@@ -85,7 +93,7 @@ fractions of the frame, so the layout is identical at 720p and 4K, and in export
 | Timeline | Scrub with audio, 0.1×–5× speed, loop, length, a mini-map of every layer's pitch |
 | Export | Frame-perfect MP4 (H.264 + AAC, 720p–4K, 24/30/60 fps, optional motion blur, text and captions burned in) rendered with the GPU and hardware encoder; live capture; command-line batch render; WAV (rendered offline, includes drums and animated effects); MIDI (one track per layer plus a GM drum track); PNG snapshot; preset `.json` |
 | Text | Movable, resizable title, subtitle, formula list and analyzer; unlimited text boxes (Persian supported) with fonts, glow, background and timed fades; edit directly on the video |
-| Presets | 21 built-ins. Landscape: Bass Drop, Twin Harmony, Lissajous 3D, Astroid Wave, Rose Garden, Neon Terrain, Staircase Arp, Helix Ascent, Chaos Bells, Four on the Floor, Morphing Bloom. **Vertical 9:16 for Shorts/Reels**: Heartbeat, Butterfly, Golden Spiral, Infinity Loop, Sine Ladder, Fourier Square, Rose Mandala, Bouncing Ball, Heart, DNA Helix. **Preset library** for hundreds of presets: one searchable list (name, collection, formula), filters (built-in / mine / favourites, 16:9 / 9:16, 2D / 3D), collections, favourites, sort, multi-select export/delete/move. Import any preset file the app exports (`.json` single or bundle, a `.zip` of them, or older exports; many files at once or drag & drop); name clashes get “(2)” instead of overwriting; one-click backup of all your presets. Auto-saved session |
+| Presets | 21 built-ins. Landscape: Bass Drop, Twin Harmony, Lissajous 3D, Astroid Wave, Rose Garden, Neon Terrain, Staircase Arp, Helix Ascent, Chaos Bells, Four on the Floor, Morphing Bloom. **Vertical 9:16 for Shorts/Reels**: Heartbeat, Butterfly, Golden Spiral, Infinity Loop, Sine Ladder, Fourier Square, Rose Mandala, Bouncing Ball, Heart, DNA Helix. **Preset library** for hundreds of presets: one searchable list (name, collection, formula), filters (built-in / mine / favourites, 16:9 / 9:16, 2D / 3D), collections, favourites, sort, multi-select export/delete/move. Import any preset file the app exports (`.json` single or bundle, a `.zip` of them, or older exports; many files at once or drag & drop); name clashes get “(2)” instead of overwriting; one-click backup of all your presets. Stored in IndexedDB (thousands of presets; older localStorage libraries move over automatically). Auto-saved session |
 | UX | Day/night theme, collapsible panels, cinema mode (hide UI), frame presets 16:9 / 9:16 / 1:1 / 4:5, keyboard shortcuts, phone layout |
 
 ### Keyboard
@@ -125,7 +133,8 @@ src/
     layout-editor.js    drag/resize overlay elements directly on the video
   export/
     video-render.js     frame-perfect MP4 export (WebCodecs + mp4-muxer)
-    ffmpeg-render.js    frame-perfect MP4 export through the local server's ffmpeg
+    ffmpeg-render.js    frame-perfect MP4 export through the local server's ffmpeg (+ batch folders)
+    youtube.js          YouTube Shorts title/description/tags: suggestions, .txt and .csv
     recorder.js         MediaRecorder live capture
     webm-duration.js    writes the missing duration into Chrome's WebM recordings
     midi.js             Standard MIDI File writer
@@ -133,7 +142,8 @@ src/
 vendor/three/           three.js r170 + the addons used (offline)
 vendor/mp4-muxer/       MP4 muxer for video export (MIT, offline)
 scripts/
-  serve.mjs             static server + /api/render (frames → MP4 with ffmpeg) + /api/transcode
+  serve.mjs             static server + /api/render (frames → MP4 with ffmpeg) + /api/batch + /api/transcode
+  zip-writer.mjs        streams batch folders into a .zip (ZIP64 for > 4 GB)
   render.mjs            command-line batch export (Playwright + WebCodecs, ffmpeg for H.264)
   render-tools.mjs      finds Playwright and ffmpeg
   vendor-three.mjs, build-artifact.mjs

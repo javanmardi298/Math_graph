@@ -30,7 +30,10 @@ import { drawOverlay } from './ui/overlay.js';
 import { h, bindPath, segmented, slider, number, toggle, refreshAll } from './ui/controls.js';
 import { Recorder, download, pickFormat, setDownloadNotifier } from './export/recorder.js';
 import { renderVideo, canRenderVideo } from './export/video-render.js';
-import { renderWithFfmpeg, ffmpegServer } from './export/ffmpeg-render.js';
+import { renderWithFfmpeg, ffmpegServer, createBatch, addBatchFile, zipBatch } from './export/ffmpeg-render.js';
+import { youtubeFor, youtubeText, youtubeCsv } from './export/youtube.js';
+import { makeZip } from './export/zip.js';
+import { bundleFile } from './library.js';
 import { fixWebmDuration } from './export/webm-duration.js';
 import { LayoutEditor } from './ui/layout-editor.js';
 import { writeMidi, samplesToNotes } from './export/midi.js';
@@ -757,7 +760,23 @@ function showResult(src, filename, kind, sizeBytes, note = '') {
   $('result-info').textContent = [bytes ? `${(bytes / 1048576).toFixed(2)} MB` : '', note].filter(Boolean).join(' · ');
   $('result-download').onclick = async () => {
     const name = ($('result-name').value.trim().replace(/[\\/:*?"<>|]+/g, '-') || fileBase()) + ext;
-    download(isBlob ? src : await (await fetch(url)).blob(), name);
+    if (isBlob) return download(src, name);
+    if (kind === 'zip') {
+      // A batch zip on the local server can be gigabytes: let the browser stream it to disk.
+      const a = h('a', { href: url, download: name });
+      document.body.append(a);
+      a.click();
+      a.remove();
+      return;
+    }
+    download(await (await fetch(url)).blob(), name);
+  };
+  // A single video gets its YouTube title/description as a .txt with the same name.
+  const yt = $('result-youtube');
+  yt.hidden = kind !== 'video';
+  yt.onclick = () => {
+    const base = $('result-name').value.trim().replace(/[\\/:*?"<>|]+/g, '-') || fileBase();
+    download(new Blob([youtubeText(youtubeFor(store.state), base + ext)], { type: 'text/plain' }), `${base}.txt`);
   };
   dlg.onclose = () => { if (isBlob) setTimeout(() => URL.revokeObjectURL(url), 1000); };
   dlg.showModal();
@@ -948,77 +967,100 @@ async function transcodeToH264(blob) {
   return r.blob();
 }
 
-/** Render the whole timeline to a smooth MP4 in this browser (GPU + hardware encoder). */
-async function exportVideo() {
-  if (exporting.busy) return;
+/** Which encoder to use: the local server's ffmpeg (when available and allowed) or the browser's. */
+async function pickEncoder() {
   const engine = store.state.record.engine;
   const server = engine === 'browser' ? null : await ffmpegServer();
-  if (engine === 'ffmpeg' && !server) return toast('ffmpeg export needs the local server with ffmpeg: run “npm start” on a computer with ffmpeg installed and open http://localhost:5173.', 9000);
-  if (!server && !canRenderVideo()) return toast('This browser cannot encode video. Use Chrome or Edge (or Live capture in the Export tab).', 7000);
-  if (recorder.active) await stopRecording();
-  const wasPlaying = clock.playing;
-  if (wasPlaying) pause();
+  if (engine === 'ffmpeg' && !server) { toast('ffmpeg export needs the local server with ffmpeg: run “npm start” on a computer with ffmpeg installed and open http://localhost:5173.', 9000); return false; }
+  if (!server && !canRenderVideo()) { toast('This browser cannot encode video. Use Chrome or Edge (or Live capture in the Export tab).', 7000); return false; }
+  return { server };
+}
+
+/**
+ * Render the loaded project's whole timeline to an MP4 (soundtrack, frames, encoding).
+ * With `keep`, the server leaves the file in a batch folder and no blob comes back.
+ * @returns {Promise<{blob:Blob|null, size:number, note:string}>}
+ */
+async function renderTimeline({ server, token, keep, onProgress, onStatus, onPhase }) {
   const { fps, subframes, quality } = store.state.record;
   const size = recordSize();
   const frames = Math.ceil(duration() * fps);
+  onPhase?.('Rendering the soundtrack…');
+  const buf = await renderWavBuffer();
+  if (token.cancelled) throw new Error('cancelled');
+  viz.setFixedSize(size);
+  try {
+    const comp = new FrameComposer({ width: size.w, height: size.h, fps, subframes, analyser: new BufferAnalyser(buf), hits: drumEventsFull() });
+    const common = { width: size.w, height: size.h, fps, frames, quality, token, audio: buf, drawFrame: (i) => comp.frame(i), onStatus, onProgress };
+    const base = `${size.w}×${size.h} · ${fps} fps`;
+    if (server) {
+      const r = await renderWithFfmpeg({ ...common, keep });
+      return { blob: r.blob, size: r.size, note: `${base} · ${r.encoder}` };
+    }
+    const res = await renderVideo({ ...common, allowGpu: store.state.record.gpuEncoder && !gpu.encoderCrash });
+    let blob = res.blob;
+    let note = `${base} · ${res.encoder}${res.audio ? ` + ${res.audio}` : ''}`;
+    if (res.video !== 'H.264' || (res.audio && res.audio !== 'AAC')) {
+      onPhase?.('Converting to H.264 / AAC with ffmpeg for maximum compatibility…');
+      try {
+        blob = await transcodeToH264(blob);
+        note = `${base} · H.264 + AAC`;
+      } catch {
+        note += ' · plays in Chrome, VLC and on YouTube (run npm start with ffmpeg installed for an H.264 copy)';
+      }
+    }
+    return { blob, size: blob.size, note };
+  } finally {
+    viz.setFixedSize(null);
+  }
+}
+
+/** Progress dialog shared by single and batch exports. */
+function openRenderDialog(title) {
   const dlg = $('render-dialog'), bar = $('render-bar'), stats = $('render-stats');
   const token = { cancelled: false };
   exporting.token = token;
   const cancel = () => { token.cancelled = true; stats.textContent = 'Cancelling…'; };
   $('render-cancel').onclick = cancel;
   dlg.oncancel = (e) => { e.preventDefault(); cancel(); };
-  $('render-title').textContent = `Rendering ${size.w}×${size.h} · ${fps} fps${subframes > 1 ? ` · motion blur ×${subframes}` : ''}`;
+  $('render-title').textContent = title;
   bar.value = 0;
-  stats.textContent = 'Rendering the soundtrack…';
+  stats.textContent = 'Preparing…';
   $('render-encoder').textContent = '';
   dlg.showModal();
+  return {
+    token,
+    close: () => dlg.close(),
+    phase: (msg) => { stats.textContent = msg; },
+    title: (msg) => { $('render-title').textContent = msg; },
+    status: (msg) => { $('render-encoder').textContent = msg; },
+    progress: (p, prefix = '', overall = null) => {
+      bar.value = overall ?? p.frame / p.frames;
+      stats.textContent = `${prefix}Frame ${p.frame} / ${p.frames} · ${p.fps.toFixed(1)} frames/s · about ${fmtEta(p.eta)} left`;
+    },
+  };
+}
+
+function exportFailed(err) {
+  if (err.message === 'graphics context lost') {
+    gpu.encoderCrash = true;
+    gpu.safe = true;
+    writeGpu(gpu);
+  }
+}
+
+/** Common setup/teardown around an export: pause playback, restore the playhead after. */
+async function withExport(fn) {
+  if (exporting.busy) return;
+  if (recorder.active) await stopRecording();
+  const wasPlaying = clock.playing;
+  if (wasPlaying) pause();
   exporting.busy = true;
   const savedPos = clock.pos;
   try {
     await document.fonts?.ready;
     await new Promise((r) => setTimeout(r, 30));
-    const buf = await renderWavBuffer();
-    if (token.cancelled) throw new Error('cancelled');
-    viz.setFixedSize(size);
-    const comp = new FrameComposer({ width: size.w, height: size.h, fps, subframes, analyser: new BufferAnalyser(buf), hits: drumEventsFull() });
-    const common = {
-      width: size.w, height: size.h, fps, frames, quality, token, audio: buf,
-      drawFrame: (i) => comp.frame(i),
-      onStatus: (msg) => { $('render-encoder').textContent = msg; },
-      onProgress: (p) => {
-        bar.value = p.frame / p.frames;
-        stats.textContent = `Frame ${p.frame} / ${p.frames} · ${p.fps.toFixed(1)} frames/s · about ${fmtEta(p.eta)} left`;
-      },
-    };
-    if (server) {
-      const r = await renderWithFfmpeg(common);
-      dlg.close();
-      showResult(r.blob, `${fileBase()}.mp4`, 'video', null, `${size.w}×${size.h} · ${fps} fps · ${r.encoder}`);
-      return;
-    }
-    const res = await renderVideo({ ...common, allowGpu: store.state.record.gpuEncoder && !gpu.encoderCrash });
-    let blob = res.blob;
-    let note = `${size.w}×${size.h} · ${fps} fps · ${res.encoder}${res.audio ? ` + ${res.audio}` : ''}`;
-    if (res.video !== 'H.264' || (res.audio && res.audio !== 'AAC')) {
-      stats.textContent = 'Converting to H.264 / AAC with ffmpeg for maximum compatibility…';
-      try {
-        blob = await transcodeToH264(blob);
-        note = `${size.w}×${size.h} · ${fps} fps · H.264 + AAC`;
-      } catch {
-        note += ' · plays in Chrome, VLC and on YouTube (run npm start with ffmpeg installed for an H.264 copy)';
-      }
-    }
-    dlg.close();
-    showResult(blob, `${fileBase()}.mp4`, 'video', null, note);
-  } catch (err) {
-    dlg.close();
-    if (err.message === 'graphics context lost') {
-      gpu.encoderCrash = true;
-      gpu.safe = true;
-      writeGpu(gpu);
-    }
-    if (!$('fatal').hidden) return; // the GPU loss screen already explains what happened
-    toast(err.message === 'cancelled' ? 'Export cancelled.' : `Video export failed: ${err.message}`, 8000);
+    await fn();
   } finally {
     viz.setFixedSize(null);
     exporting.busy = false;
@@ -1029,6 +1071,114 @@ async function exportVideo() {
     applyStageAspect();
     if (wasPlaying) play();
   }
+}
+
+/** Render the whole timeline to a smooth MP4. */
+async function exportVideo() {
+  if (exporting.busy) return;
+  const enc = await pickEncoder();
+  if (!enc) return;
+  const { fps, subframes } = store.state.record;
+  const size = recordSize();
+  await withExport(async () => {
+    const ui = openRenderDialog(`Rendering ${size.w}×${size.h} · ${fps} fps${subframes > 1 ? ` · motion blur ×${subframes}` : ''}`);
+    try {
+      const r = await renderTimeline({ server: enc.server, token: ui.token, onPhase: ui.phase, onStatus: ui.status, onProgress: (p) => ui.progress(p) });
+      ui.close();
+      showResult(r.blob, `${fileBase()}.mp4`, 'video', null, r.note);
+    } catch (err) {
+      ui.close();
+      exportFailed(err);
+      if (!$('fatal').hidden) return; // the GPU loss screen already explains what happened
+      toast(err.message === 'cancelled' ? 'Export cancelled.' : `Video export failed: ${err.message}`, 8000);
+    }
+  });
+}
+
+const fileSafe = (s) => (String(s || 'video').replace(/[\\/:*?"<>|\u0000-\u001f]+/g, '-').replace(/\s+/g, ' ').trim().slice(0, 80) || 'video');
+
+/**
+ * Render many presets to MP4 in one go, with the Export tab's settings. Each video gets a
+ * .txt with its YouTube title/description/tags; the batch also gets a CSV of all of them and
+ * a bundle of the presets. Everything ends up in one .zip (and, with the local server, in a
+ * folder under exports/ too, so nothing is lost if the browser closes).
+ * @param {{name:string, preset:object}[]} entries
+ */
+async function renderBatch(entries) {
+  if (exporting.busy || !entries.length) return;
+  const enc = await pickEncoder();
+  if (!enc) return;
+  const { server } = enc;
+  const original = store.snapshot();
+  const record = structuredClone(original.record); // the Export tab's settings apply to every video
+  const stamp = new Date().toISOString().slice(0, 16).replace('T', ' ').replace(':', '-');
+  const batchName = `Math-Melody videos ${stamp}`;
+  const pad = String(entries.length).length;
+  await withExport(async () => {
+    const ui = openRenderDialog(`Rendering ${entries.length} videos`);
+    const done = [], failed = [], files = [];
+    const textEnc = new TextEncoder();
+    let batch = null;
+    try {
+      if (server) batch = await createBatch(batchName);
+      for (let i = 0; i < entries.length && !ui.token.cancelled; i++) {
+        const e = entries[i];
+        store.load({ ...e.preset, name: e.name || e.preset.name });
+        store.state.record = structuredClone(record);
+        const base = `${String(i + 1).padStart(Math.max(2, pad), '0')} ${fileSafe(store.state.name)}`;
+        const meta = youtubeFor(store.state);
+        const prefix = `Video ${i + 1} / ${entries.length} · `;
+        ui.title(`${prefix}${store.state.name}`);
+        try {
+          const r = await renderTimeline({
+            server, token: ui.token, keep: batch ? { batch: batch.id, file: `${base}.mp4` } : null,
+            onPhase: (m) => ui.phase(prefix + m), onStatus: ui.status,
+            onProgress: (p) => ui.progress(p, prefix, (i + p.frame / p.frames) / entries.length),
+          });
+          const txt = youtubeText(meta, `${base}.mp4`);
+          if (batch) await addBatchFile(batch.id, `${base}.txt`, txt);
+          else files.push({ name: `${base}.mp4`, data: new Uint8Array(await r.blob.arrayBuffer()) }, { name: `${base}.txt`, data: textEnc.encode(txt) });
+          done.push({ file: `${base}.mp4`, ...meta, preset: store.snapshot() });
+        } catch (err) {
+          if (err.message === 'cancelled') break;
+          if (err.message === 'graphics context lost') throw err;
+          failed.push({ name: store.state.name, error: err.message });
+        }
+      }
+      if (!done.length) {
+        ui.close();
+        toast(ui.token.cancelled ? 'Export cancelled.' : `No video could be rendered: ${failed.map((f) => `${f.name}: ${f.error}`).join('; ')}`, 9000);
+        return;
+      }
+      // Batch extras: every title/description in one CSV, and the presets themselves.
+      const csv = youtubeCsv(done);
+      const bundle = bundleFile(done.map((d) => d.preset));
+      const extras = [['YouTube titles and descriptions.csv', csv], ['presets.mmv.json', bundle]];
+      if (failed.length) extras.push(['FAILED.txt', failed.map((f) => `${f.name}: ${f.error}`).join('\n')]);
+      ui.phase('Packing the zip…');
+      ui.status('');
+      const summary = `${done.length} video${done.length === 1 ? '' : 's'}${failed.length ? ` · ${failed.length} failed` : ''}${ui.token.cancelled ? ' · cancelled early' : ''}`;
+      if (batch) {
+        for (const [name, text] of extras) await addBatchFile(batch.id, name, text);
+        const z = await zipBatch(batch.id);
+        ui.close();
+        showResult(z.url, `${batchName}.zip`, 'zip', z.size, `${summary} · also saved in ${z.dir}`);
+      } else {
+        for (const [name, text] of extras) files.push({ name, data: textEnc.encode(text) });
+        const zip = new Blob([makeZip(files.map((f) => ({ ...f, name: `${batchName}/${f.name}` })))], { type: 'application/zip' });
+        ui.close();
+        showResult(zip, `${batchName}.zip`, 'zip', null, summary);
+      }
+    } catch (err) {
+      ui.close();
+      exportFailed(err);
+      if (!$('fatal').hidden) return;
+      toast(`Batch export stopped: ${err.message}${batch ? ` (finished videos are in ${batch.dir})` : ''}`, 10000);
+    } finally {
+      store.load(original);
+      seek(0);
+    }
+  });
 }
 
 /* ------------------------------------------------------------- UI wiring */
@@ -1060,6 +1210,7 @@ const panels = new Panels({
   fitToBars,
   auditionDrum,
   exportVideo,
+  renderBatch,
   canRenderVideo,
   recordSize,
   fileBase,

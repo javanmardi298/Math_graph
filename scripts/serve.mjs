@@ -12,6 +12,13 @@
 //   POST   /api/render/<id>/finish                     → { size } once the MP4 is written
 //   GET    /api/render/<id>/file                       → the MP4 (then the job is removed)
 //   DELETE /api/render/<id>                            cancel
+//
+//   Batches (many videos → one folder + one zip, saved in exports/ next to the app):
+//   POST /api/batch?name=                → { id, dir }
+//   POST /api/render/<id>/finish?batch=<bid>&file=<name.mp4>   keeps the MP4 in the batch folder
+//   POST /api/batch/<bid>/file?file=     body: a small text file (title/description, CSV…)
+//   POST /api/batch/<bid>/zip            → { size, url } builds <folder>.zip
+//   GET  /api/batch/<bid>/zip            the zip, as a download
 import { createServer } from 'node:http';
 import { readFile, stat, writeFile, rm, mkdir } from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
@@ -21,6 +28,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { randomUUID } from 'node:crypto';
 import { tmpdir } from 'node:os';
 import { findFfmpeg } from './render-tools.mjs';
+import { writeZip } from './zip-writer.mjs';
+import { rename, readdir, copyFile } from 'node:fs/promises';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const TYPES = {
@@ -85,6 +94,11 @@ async function handleTranscode(req, res) {
 /* ------------------------------------------------------------ ffmpeg render */
 
 const CRF = { standard: 20, high: 16, max: 12 };
+const EXPORTS = join(ROOT, 'exports');
+const batches = new Map(); // id → { dir, name, zip }
+
+/** A file or folder name that is safe on Windows, macOS and Linux (any language is kept). */
+const safeFileName = (s, fallback = 'file') => (String(s || '').replace(/[\\/:*?"<>|\u0000-\u001f]+/g, '-').replace(/^\.+/, '').trim().slice(0, 120) || fallback);
 const jobs = new Map(); // id → { dir, ff, out, error, closed:Promise, touched }
 
 async function readBody(req, limit = MAX_UPLOAD) {
@@ -166,6 +180,14 @@ async function handleRender(req, res, url) {
     await job.closed;
     if (job.error) { const e = job.error; await removeJob(id); return json(res, 500, { error: e }); }
     const { size } = await stat(job.out);
+    const q = new URL(req.url, 'http://x').searchParams;
+    const batch = batches.get(q.get('batch'));
+    if (batch) {
+      const dest = join(batch.dir, safeFileName(q.get('file'), 'video.mp4'));
+      await rename(job.out, dest).catch(async () => { await copyFile(job.out, dest); });
+      await removeJob(id);
+      return json(res, 200, { size, kept: true });
+    }
     return json(res, 200, { size });
   }
   if (action === 'file' && req.method === 'GET') {
@@ -178,6 +200,47 @@ async function handleRender(req, res, url) {
   return json(res, 404, { error: 'Unknown render action.' });
 }
 
+async function handleBatch(req, res, url) {
+  const [, , id, action] = url.split('/').filter(Boolean); // api, batch, id?, action?
+  if (!id && req.method === 'POST') {
+    const want = safeFileName(new URL(req.url, 'http://x').searchParams.get('name'), 'videos');
+    await mkdir(EXPORTS, { recursive: true });
+    let name = want;
+    for (let i = 2; await stat(join(EXPORTS, name)).catch(() => null); i++) name = `${want} (${i})`;
+    const dir = join(EXPORTS, name);
+    await mkdir(dir, { recursive: true });
+    const bid = randomUUID();
+    batches.set(bid, { dir, name, zip: null });
+    return json(res, 200, { id: bid, dir });
+  }
+  const batch = batches.get(id);
+  if (!batch) return json(res, 404, { error: 'This batch is gone (the server restarted?). Its files are still in the exports folder.' });
+  if (action === 'file' && req.method === 'POST') {
+    const body = await readBody(req, 64 * 1024 ** 2);
+    await writeFile(join(batch.dir, safeFileName(new URL(req.url, 'http://x').searchParams.get('file'))), body);
+    return json(res, 200, { ok: true });
+  }
+  if (action === 'zip' && req.method === 'POST') {
+    const names = (await readdir(batch.dir)).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    const zip = join(EXPORTS, `${batch.name}.zip`);
+    const size = await writeZip(names.map((n) => ({ name: `${batch.name}/${n}`, path: join(batch.dir, n) })), zip);
+    batch.zip = zip;
+    return json(res, 200, { size, url: `api/batch/${id}/zip`, zip, dir: batch.dir });
+  }
+  if (action === 'zip' && req.method === 'GET') {
+    if (!batch.zip) return json(res, 404, { error: 'The zip has not been built yet.' });
+    const { size } = await stat(batch.zip);
+    const file = `${batch.name}.zip`;
+    res.writeHead(200, {
+      'Content-Type': 'application/zip', 'Content-Length': size, 'Cache-Control': 'no-store',
+      'Content-Disposition': `attachment; filename="${file.replace(/[^\x20-\x7e]+/g, '_').replace(/"/g, '')}"; filename*=UTF-8''${encodeURIComponent(file)}`,
+    });
+    await new Promise((ok, fail) => createReadStream(batch.zip).on('error', fail).on('end', ok).pipe(res));
+    return;
+  }
+  return json(res, 404, { error: 'Unknown batch action.' });
+}
+
 export function startServer(port = 5173, host = '127.0.0.1') {
   const server = createServer(async (req, res) => {
     try {
@@ -187,6 +250,9 @@ export function startServer(port = 5173, host = '127.0.0.1') {
         return json(res, 200, { ffmpeg: !!ff, version: ff?.version || null });
       }
       if (url === '/api/transcode' && req.method === 'POST') return await handleTranscode(req, res);
+      if (url === '/api/batch' || url.startsWith('/api/batch/')) {
+        try { return await handleBatch(req, res, url); } catch (err) { if (!res.headersSent) return json(res, 500, { error: err.message }); return res.end(); }
+      }
       if (url === '/api/render' || url.startsWith('/api/render/')) {
         try { return await handleRender(req, res, url); } catch (err) { if (!res.headersSent) return json(res, 500, { error: err.message }); return res.end(); }
       }

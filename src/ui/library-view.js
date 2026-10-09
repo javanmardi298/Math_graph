@@ -9,7 +9,7 @@
  */
 import { BUILTIN_PRESETS } from '../presets.js';
 import {
-  readLibrary, writeLibrary, makeItem, uniqueName, describe, readPresetFiles,
+  readLibrary, loadLibrary, saveLibrary, makeItem, uniqueName, describe, readPresetFiles,
   singleFile, bundleFile, clean, STORAGE_BUDGET,
 } from '../library.js';
 import { h } from './controls.js';
@@ -29,7 +29,8 @@ export class LibraryView {
    */
   constructor(actions) {
     this.actions = actions;
-    this.items = readLibrary();
+    this.items = readLibrary(); // instant; replaced by the IndexedDB copy a moment later
+    this.backend = 'local';
     this.favs = readFavs();
     this.builtins = BUILTIN_PRESETS.map((p) => ({ id: `b:${p.name}`, name: p.name, collection: 'Built-in', builtin: true, savedAt: 0, preset: p }));
     this.filter = { q: '', source: 'all', aspect: 'any', mode: 'any', collection: '*', sort: 'name' };
@@ -41,19 +42,30 @@ export class LibraryView {
     this.activeId = null;
     this.build();
     this.render();
+    loadLibrary().then(({ items, backend }) => {
+      this.items = items;
+      this.backend = backend;
+      this.render();
+      this.updateQuota();
+    });
+  }
+
+  updateQuota() {
+    navigator.storage?.estimate?.().then((e) => { this.quota = e; this.render(); }).catch(() => {});
   }
 
   /* ---------------------------------------------------------------- data */
 
   persist() {
-    const r = writeLibrary(this.items);
-    if (!r.ok) {
-      this.actions.toast(r.error === 'full'
-        ? 'This browser’s storage is full. Export a backup, then delete presets you don’t need (custom marker images take the most space).'
-        : 'Browser storage is blocked here, so presets can’t be saved. Export them as files instead.', 8000);
-    }
-    this.bytes = r.bytes;
-    return r.ok;
+    saveLibrary(this.items, this.backend).then((r) => {
+      if (!r.ok) {
+        this.actions.toast(r.error === 'full'
+          ? 'This browser’s storage is full. Export a backup, then delete presets you don’t need (custom marker images take the most space).'
+          : 'Browser storage is blocked here, so presets can’t be saved. Export them as files instead.', 8000);
+      }
+      this.updateQuota();
+    });
+    return true;
   }
 
   all() { return [...this.builtins, ...this.items]; }
@@ -73,7 +85,7 @@ export class LibraryView {
       if (f.mode !== 'any' && d.mode !== f.mode) return false;
       if (f.collection !== '*' && (x.collection || '') !== f.collection) return false;
       if (q) {
-        const hay = `${x.name} ${x.collection} ${(x.preset.layers || []).map((l) => Object.values(l.exprs || {}).join(' ')).join(' ')}`.toLowerCase();
+        const hay = `${x.name} ${x.collection} ${x.preset.youtube?.title || ''} ${(x.preset.layers || []).map((l) => Object.values(l.exprs || {}).join(' ')).join(' ')}`.toLowerCase();
         if (!q.split(/\s+/).every((w) => hay.includes(w))) return false;
       }
       return true;
@@ -177,8 +189,11 @@ export class LibraryView {
     this.bulk.hidden = !this.selected.size;
     if (this.selected.size) this.renderBulk(list);
 
-    const bytes = this.bytes ?? JSON.stringify(this.items).length * 2;
-    this.storage.textContent = `Saved in this browser: ${this.items.length} preset${this.items.length === 1 ? '' : 's'} · ${fmtKB(bytes)} of about ${fmtKB(STORAGE_BUDGET)}`;
+    const n = `${this.items.length} preset${this.items.length === 1 ? '' : 's'}`;
+    const q = this.quota;
+    this.storage.textContent = this.backend === 'idb'
+      ? `Saved in this browser: ${n}${q?.usage != null ? ` · ${fmtKB(q.usage)} used${q.quota ? ` of ${fmtKB(q.quota)} available` : ''}` : ''}`
+      : `Saved in this browser: ${n} · ${fmtKB(JSON.stringify(this.items).length * 2)} of about ${fmtKB(STORAGE_BUDGET)}`;
   }
 
   row(x) {
@@ -186,7 +201,7 @@ export class LibraryView {
     const sel = this.selected.has(x.id);
     const menuOpen = this.openMenu === x.id;
     const tags = [d.aspect, d.mode.toUpperCase(), `${d.layers} layer${d.layers === 1 ? '' : 's'}`,
-      d.sequence && 'sequence', d.drums && 'drums', d.animated && 'animated', x.collection].filter(Boolean);
+      d.sequence && 'sequence', d.drums && 'drums', d.animated && 'animated', x.preset.youtube?.title && '▶ YT title', x.collection].filter(Boolean);
 
     const check = h('input.lib-check', { type: 'checkbox', 'aria-label': `Select ${x.name}` });
     check.checked = sel;
@@ -227,6 +242,7 @@ export class LibraryView {
     const act = (label, fn, cls = '') => h(`button.btn.ghost.small${cls}`, { type: 'button', onclick: fn }, label);
     const menu = h('div.lib-menu', {},
       act('Load', () => this.load(x)),
+      act('Render video', () => this.renderItems([x])),
       act('Export', () => this.exportItems([x])),
       act('Duplicate', () => this.duplicate(x)),
       ...(x.builtin ? [] : [
@@ -263,7 +279,8 @@ export class LibraryView {
         h('button.link', { type: 'button', onclick: () => { for (const x of list) this.selected.add(x.id); this.render(); } }, `Select all ${list.length}`),
         h('button.link', { type: 'button', onclick: () => { this.selected.clear(); this.confirmDelete = null; this.render(); } }, 'Clear')),
       h('div.row', {},
-        h('button.btn.small', { type: 'button', onclick: () => this.exportItems(sel) }, `Export ${sel.length}`),
+        h('button.btn.small.lib-render', { type: 'button', onclick: () => this.renderItems(sel), title: 'Render every selected preset to MP4 (Export tab settings) and download them in one .zip, each with its YouTube title and description' }, `🎬 Render ${sel.length} video${sel.length === 1 ? '' : 's'}`),
+        h('button.btn.ghost.small', { type: 'button', onclick: () => this.exportItems(sel) }, `Export ${sel.length} preset${sel.length === 1 ? '' : 's'}`),
         mine.length ? h('button.btn.ghost.small.danger', { type: 'button', onclick: () => {
           if (!armed) { this.confirmDelete = 'bulk'; this.render(); return; }
           const ids = new Set(mine.map((x) => x.id));
@@ -284,6 +301,15 @@ export class LibraryView {
     this.activeId = x.id;
     this.openMenu = null;
     this.actions.loadPreset(clean(x.preset));
+    this.render();
+  }
+
+  /** Render presets to videos, in list order, as one zip (see renderBatch in main.js). */
+  renderItems(items) {
+    this.openMenu = null;
+    const order = this.visible().map((x) => x.id);
+    const sorted = [...items].sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
+    this.actions.renderVideos?.(sorted.map((x) => ({ name: x.name, preset: clean(x.preset) })));
     this.render();
   }
 

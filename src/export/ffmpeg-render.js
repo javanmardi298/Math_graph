@@ -46,9 +46,10 @@ const toJpeg = (canvas, q) => new Promise((ok, fail) => canvas.toBlob((b) => (b 
  * @param {{cancelled:boolean}} [o.token]
  * @param {(p:{frame:number, frames:number, fps:number, eta:number})=>void} [o.onProgress]
  * @param {(msg:string)=>void} [o.onStatus]
- * @returns {Promise<{blob:Blob, encoder:string}>}
+ * @param {{batch:string, file:string}} [o.keep] leave the MP4 in this server batch folder instead of downloading it
+ * @returns {Promise<{blob:Blob|null, size:number, encoder:string}>}
  */
-export async function renderWithFfmpeg({ width, height, fps, frames, drawFrame, audio, quality = 'high', token = {}, onProgress, onStatus }) {
+export async function renderWithFfmpeg({ width, height, fps, frames, drawFrame, audio, quality = 'high', token = {}, onProgress, onStatus, keep }) {
   let wav = null;
   if (audio) {
     // Trim the soundtrack to the video so the MP4 ends with the last frame.
@@ -87,11 +88,32 @@ export async function renderWithFfmpeg({ width, height, fps, frames, drawFrame, 
     await inFlight;
     if (token.cancelled) throw new Error('cancelled');
     onStatus?.('ffmpeg is finishing the MP4…');
+    const encoder = 'H.264 (ffmpeg x264) + AAC';
+    if (keep) {
+      const r = await (await call(`${base}/finish?${new URLSearchParams(keep)}`, { method: 'POST' })).json();
+      return { blob: null, size: r.size, encoder };
+    }
     await call(`${base}/finish`, { method: 'POST' });
     const blob = await (await call(`${base}/file`)).blob();
-    return { blob: new Blob([blob], { type: 'video/mp4' }), encoder: 'H.264 (ffmpeg x264) + AAC' };
+    return { blob: new Blob([blob], { type: 'video/mp4' }), size: blob.size, encoder };
   } catch (err) {
     fetch(base, { method: 'DELETE' }).catch(() => {});
     throw err;
   }
+}
+
+/* ------------------------------------------------------------------ batches */
+
+/** A folder in exports/ on the local server that collects a batch of videos. */
+export async function createBatch(name) {
+  return (await call(`api/batch?${new URLSearchParams({ name })}`, { method: 'POST' })).json();
+}
+
+export async function addBatchFile(id, file, text) {
+  await call(`api/batch/${id}/file?${new URLSearchParams({ file })}`, { method: 'POST', body: new Blob([text], { type: 'text/plain' }) });
+}
+
+/** Builds <folder>.zip on the server; returns { size, url, zip, dir }. */
+export async function zipBatch(id) {
+  return (await call(`api/batch/${id}/zip`, { method: 'POST' })).json();
 }

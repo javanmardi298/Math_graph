@@ -16,6 +16,75 @@ export const STORAGE_BUDGET = 5 * 1024 * 1024; // typical localStorage quota
 
 const uid = () => `p${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 
+/* ----------------------------------------------------- IndexedDB storage */
+// localStorage holds only ~5 MB (about a thousand presets). The library lives in
+// IndexedDB, which can hold hundreds of MB; localStorage is only the fallback (and the
+// place older versions kept it, migrated on first load).
+
+const DB_NAME = 'mmv-library';
+const DB_STORE = 'kv';
+
+function openDb() {
+  return new Promise((ok, fail) => {
+    if (!globalThis.indexedDB) return fail(new Error('IndexedDB unavailable'));
+    const r = indexedDB.open(DB_NAME, 1);
+    r.onupgradeneeded = () => r.result.createObjectStore(DB_STORE);
+    r.onsuccess = () => ok(r.result);
+    r.onerror = () => fail(r.error);
+    r.onblocked = () => fail(new Error('IndexedDB blocked'));
+  });
+}
+
+function idbCall(db, mode, fn) {
+  return new Promise((ok, fail) => {
+    const t = db.transaction(DB_STORE, mode);
+    const req = fn(t.objectStore(DB_STORE));
+    t.oncomplete = () => ok(req?.result);
+    t.onerror = () => fail(t.error);
+    t.onabort = () => fail(t.error || new Error('aborted'));
+  });
+}
+
+let dbPromise = null;
+
+/**
+ * Load the library. @returns {Promise<{items:object[], backend:'idb'|'local'}>}
+ */
+export async function loadLibrary(storage = globalThis.localStorage) {
+  try {
+    const db = await (dbPromise ||= openDb());
+    const stored = await idbCall(db, 'readonly', (st) => st.get('items'));
+    if (Array.isArray(stored)) return { items: stored, backend: 'idb' };
+    const legacy = readLibrary(storage);
+    await idbCall(db, 'readwrite', (st) => st.put(legacy, 'items'));
+    try { storage.removeItem(KEY); } catch { /* blocked */ }
+    globalThis.navigator?.storage?.persist?.().catch(() => {}); // ask the browser not to evict it
+    return { items: legacy, backend: 'idb' };
+  } catch {
+    dbPromise = null;
+    return { items: readLibrary(storage), backend: 'local' };
+  }
+}
+
+let saving = Promise.resolve();
+
+/** Save the library (writes run one after another). @returns {Promise<{ok:boolean, bytes:number, error?:string}>} */
+export function saveLibrary(items, backend, storage = globalThis.localStorage) {
+  const snapshot = items.slice();
+  saving = saving.then(async () => {
+    if (backend !== 'idb') return writeLibrary(snapshot, storage);
+    try {
+      const db = await (dbPromise ||= openDb());
+      await idbCall(db, 'readwrite', (st) => st.put(snapshot, 'items'));
+      return { ok: true };
+    } catch (err) {
+      const full = /quota|exceed/i.test(`${err?.name} ${err?.message}`);
+      return { ok: false, error: full ? 'full' : 'blocked' };
+    }
+  });
+  return saving;
+}
+
 /** Is this object an app state the app can load? */
 export const isPreset = (o) => !!o && typeof o === 'object' && !Array.isArray(o) && Array.isArray(o.layers) && o.layers.length > 0;
 

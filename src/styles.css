@@ -510,3 +510,9 @@ div.lib-main { cursor: default; }
 .lib-count { text-align: center; margin-top: -4px; }
 .lib.drop-hover { outline: 2px dashed var(--accent); outline-offset: -4px; border-radius: 10px; }
 .lib.drop-hover::before { content: "Drop preset files to import"; display: block; text-align: center; padding: 8px; font: 600 12px var(--f-display); color: var(--accent); }
+
+/* YouTube metadata */
+.yt-count { margin-top: -4px; }
+.yt-count.over { color: #ff5d6c; }
+.ctl-text textarea { min-height: 96px; resize: vertical; }
+.lib-render { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
