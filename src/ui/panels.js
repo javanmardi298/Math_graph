@@ -8,16 +8,17 @@ import { SCALE_LABELS, NOTE_NAMES, noteName } from '../math/music.js';
 import { compile, FUNCTIONS } from '../math/parser.js';
 import { LibraryView } from './library-view.js';
 import { download } from '../export/recorder.js';
-import { suggestYoutube, youtubeFor, youtubeText, TITLE_MAX } from '../export/youtube.js';
+import { suggestYoutube, youtubeFor, youtubeText, youtubeProblems, TITLE_MAX } from '../export/youtube.js';
 import { DIVISIONS } from '../math/rhythm.js';
+import { layerGroups } from '../math/sequence.js';
 import { DRUM_KINDS, DRUM_LABELS, TRIGGERS } from '../audio/drum-scanner.js';
 import { animatable, describe, removeKey, EASES } from '../anim/keyframes.js';
+import { INSTRUMENTS, INSTRUMENT_GROUPS } from '../audio/instruments.js';
 import { h, bindPath, bindObj, slider, color, select, toggle, segmented, number, text, group, disposeTree, refreshAll } from './controls.js';
 import { FONT_LABELS } from './overlay.js';
 
 const MAX_LAYERS = 4;
 
-const WAVES = [['sine', '∿', 'Sine'], ['triangle', '⋀', 'Triangle'], ['square', '⊓', 'Square'], ['sawtooth', '⩘', 'Sawtooth']];
 
 const SNIPPETS = ['sin()', 'cos()', 'exp()', 'mod(x, 1)', 'abs()', 'floor()', 'sqrt()', 'saw()', 'tri()', 'square()', 'noise()', 'pi', 't', 'a'];
 
@@ -122,6 +123,18 @@ export class Panels {
       h('button.icon-btn', { type: 'button', title: 'Duplicate', disabled: total >= MAX_LAYERS, onclick: () => this.duplicateLayer(index) }, '⧉'),
       h('button.icon-btn.danger', { type: 'button', title: 'Delete layer', disabled: total <= 1, onclick: () => this.removeLayer(index) }, '✕'),
     );
+    // Sequence link: this layer joins the step of the layer above (any number can chain).
+    if (index > 0) {
+      const link = h('button.layer-link', { type: 'button', 'aria-pressed': String(!!l.withPrev) });
+      const label = () => {
+        link.setAttribute('aria-pressed', String(!!l.withPrev));
+        link.textContent = l.withPrev ? '🔗 Plays together with the layer above' : '⛓ Starts its own step · click to play with the layer above';
+        card.classList.toggle('is-linked', !!l.withPrev);
+      };
+      link.addEventListener('click', () => { l.withPrev = !l.withPrev; label(); store.emit('sequence'); });
+      label();
+      card.append(link);
+    }
     card.append(h('header.layer-head', {}, colorIn, nameIn, pill('M', 'mute', 'Mute'), pill('S', 'solo', 'Solo'), vis, menu));
     if (!l.enabled) card.classList.add('is-hidden');
 
@@ -165,7 +178,7 @@ export class Panels {
     // Sound
     const vol = slider('Volume', bindObj(l, 'volume', `${ev}.sound`), { min: 0, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` });
     card.append(group('Sound', [
-      h('div.ctl', {}, h('span.ctl-label', {}, 'Wave'), segmented(bindObj(l, 'wave', `${ev}.wave`), WAVES, { label: 'Waveform', cls: 'seg-wave' })),
+      this.soundPicker(l, ev),
       vol,
       slider('Octave', bindObj(l, 'octave', `${ev}.sound`), { min: -3, max: 3, step: 1, fmt: (v) => (v > 0 ? `+${v}` : `${v}`) }),
       slider('Pan', bindObj(l, 'pan', `${ev}.sound`), { min: -1, max: 1, step: 0.01, fmt: (v) => (Math.abs(v) < 0.01 ? 'C' : v < 0 ? `L${Math.round(-v * 100)}` : `R${Math.round(v * 100)}`) }),
@@ -180,14 +193,16 @@ export class Panels {
   renderSequence() {
     if (!this.seqInfo) return;
     const on = store.state.sequence.enabled;
-    const n = store.state.layers.filter((l) => l.enabled).length;
     this.seqPast.hidden = !on;
     this.seqInfo.hidden = !on;
+    this.layerList?.classList.toggle('seq-on', on);
     if (on) {
-      const each = store.state.transport.duration / Math.max(1, n);
-      this.seqInfo.textContent = n > 1
-        ? `${n} layers play in turn, ${each.toFixed(1)} s each (Length ÷ ${n}). A loop or recording covers all of them.`
-        : 'Add more layers: they will play one after another.';
+      const groups = layerGroups(store.state.layers);
+      const each = store.state.transport.duration / Math.max(1, groups.length);
+      const steps = groups.map((g, i) => `${i + 1}: ${g.map((l) => l.name).join(' + ')}`).join(' → ');
+      this.seqInfo.textContent = groups.length > 1
+        ? `${groups.length} steps, ${each.toFixed(1)} s each (Length ÷ ${groups.length}). ${steps}. Link layers (🔗 on a layer) to play them together inside one step.`
+        : 'Add more layers (or unlink them): steps play one after another.';
     }
   }
 
@@ -406,18 +421,44 @@ export class Panels {
     return this.library.el;
   }
 
+  /** Grouped instrument list with previous/next and a preview button. */
+  soundPicker(l, ev) {
+    const ids = Object.keys(INSTRUMENTS);
+    const sel = h('select', { 'aria-label': 'Sound' }, INSTRUMENT_GROUPS.map((g) => h('optgroup', { label: g },
+      ids.filter((id) => INSTRUMENTS[id].group === g).map((id) => h('option', { value: id }, INSTRUMENTS[id].label)))));
+    const set = (id) => { l.wave = id; sel.value = id; store.emit(`${ev}.wave`); };
+    sel.value = INSTRUMENTS[l.wave] ? l.wave : 'sine';
+    sel.addEventListener('change', () => set(sel.value));
+    const step = (d) => set(ids[(ids.indexOf(sel.value) + d + ids.length) % ids.length]);
+    return h('div.ctl.ctl-sound', {},
+      h('span.ctl-label', {}, 'Sound'),
+      h('div.sound-row', {},
+        h('button.icon-btn', { type: 'button', title: 'Previous sound', onclick: () => step(-1) }, '‹'),
+        sel,
+        h('button.icon-btn', { type: 'button', title: 'Next sound', onclick: () => step(1) }, '›'),
+        h('button.icon-btn', { type: 'button', title: 'Preview this sound', onclick: () => this.actions.previewSound?.(sel.value) }, '▶')));
+  }
+
   /** Title, description and tags for YouTube Shorts: saved in the preset, written next to videos. */
   youtubeGroup() {
     const p = bindPath;
     const yt = () => store.state.youtube;
     const counter = h('span.hint.yt-count');
+    const warn = h('p.hint.yt-warn', { hidden: true });
     const updateCount = () => {
       const n = (yt().title || '').length;
       counter.textContent = n ? `${n} / ${TITLE_MAX}` : 'Empty: a title is suggested automatically';
       counter.classList.toggle('over', n > TITLE_MAX);
+      const problems = youtubeProblems(yt());
+      warn.hidden = !problems.length;
+      warn.textContent = problems.join(' ');
     };
     const title = text('Title', p('youtube.title'), { placeholder: 'e.g. Fourier builds a square wave 🎵 #shorts' });
     title.querySelector('input').addEventListener('input', updateCount);
+    const descCtl = text('Description', p('youtube.description'), { multiline: true, placeholder: 'Empty: suggested from the name and formulas' });
+    const tagsCtl = text('Tags (comma separated)', p('youtube.tags'), { placeholder: 'math, music, fourier, shorts' });
+    descCtl.querySelector('textarea').addEventListener('input', updateCount);
+    tagsCtl.querySelector('input').addEventListener('input', updateCount);
     updateCount();
     this.updateYtCount = updateCount;
     const copy = async (what, value) => {
@@ -429,8 +470,9 @@ export class Panels {
     };
     return group('YouTube Shorts · title & description', [
       title, counter,
-      text('Description', p('youtube.description'), { multiline: true, placeholder: 'Empty: suggested from the name and formulas' }),
-      text('Tags (comma separated)', p('youtube.tags'), { placeholder: 'math, music, fourier, shorts' }),
+      descCtl,
+      tagsCtl,
+      warn,
       h('div.row', {},
         h('button.btn.ghost.small', { type: 'button', onclick: () => {
           const s = suggestYoutube(store.state);
@@ -541,7 +583,8 @@ export class Panels {
 
   addText() {
     const t = {
-      id: `t${Date.now().toString(36)}`, text: 'Your text', x: 0.5, y: 0.2, size: 1, color: '#ffffff',
+      // Vertical videos: just above the area Shorts/Reels cover with their own captions.
+      id: `t${Date.now().toString(36)}`, text: 'Your text', x: 0.5, y: ['9:16', '4:5'].includes(store.state.visual.aspect) ? 0.7 : 0.2, size: 1, color: '#ffffff',
       font: 'display', align: 'center', bold: true, box: false, glow: true, start: 0, end: 0,
     };
     store.state.overlay.texts.push(t);

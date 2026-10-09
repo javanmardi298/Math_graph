@@ -18,6 +18,7 @@ import { CompiledLayer } from './math/layers.js';
 import { gridAt, barsToSeconds } from './math/rhythm.js';
 import { layerTiming as seqTiming } from './math/sequence.js';
 import { AudioEngine } from './audio/engine.js';
+import { instrumentOf } from './audio/instruments.js';
 import { voiceFrame, hasSolo } from './audio/sonify.js';
 import { DrumScanner } from './audio/drum-scanner.js';
 import { BufferAnalyser } from './audio/buffer-analyser.js';
@@ -842,7 +843,7 @@ function exportMidi() {
   const tracks = enabled.map((l, i) => ({
     name: l.name,
     channel: i,
-    program: PROGRAM[l.wave] ?? 80,
+    program: instrumentOf(l.wave).program ?? PROGRAM[l.wave] ?? 80,
     notes: samplesToNotes(samples.get(l.id), step, 0.03),
   }));
   const hits = drumEventsFull();
@@ -1211,6 +1212,7 @@ const panels = new Panels({
   auditionDrum,
   exportVideo,
   renderBatch,
+  previewSound: async (id) => { await ensureAudio(); audio.preview(id); },
   canRenderVideo,
   recordSize,
   fileBase,

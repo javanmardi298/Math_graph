@@ -1,7 +1,7 @@
 /**
  * Real-time synth built directly on the Web Audio API (no samples, no libraries).
  *
- *   voice per layer:  Oscillator → Amp → StereoPanner ┐
+ *   voice per layer:  Instrument (oscillators/FM/LFO → filter) → Amp → StereoPanner ┐
  *                                                     ├→ Bus → Filter → Drive ┬→ Dry ─────────┐
  *                                                     │                       ├→ Delay(+fb) ──┤→ Compressor → Master → Analyser → speakers
  *                                                                             └→ Reverb ──────┘                     └→ MediaStream (video recording)
@@ -14,9 +14,7 @@
  */
 import { midiToFreq } from '../math/music.js';
 import { DrumKit } from './drums.js';
-
-// Rough loudness compensation so switching waveforms doesn't jump in volume.
-const WAVE_GAIN = { sine: 1, triangle: 0.9, square: 0.42, sawtooth: 0.5 };
+import { Voice } from './instruments.js';
 
 export class AudioEngine {
   constructor() {
@@ -138,30 +136,21 @@ export class AudioEngine {
     this.drums?.trigger(kind, at ?? this.ctx.currentTime, vel);
   }
 
-  /** Keep one voice per layer; create/remove voices to match the layer list. */
+  /** Keep one voice per layer; create/remove voices to match the layer list and their sounds. */
   syncLayers(layers) {
     if (!this.ctx) return;
+    const t = this.ctx.currentTime;
     const ids = new Set(layers.map((l) => l.id));
     for (const [id, v] of this.voices) {
-      if (!ids.has(id)) {
-        v.amp.gain.setTargetAtTime(0, this.ctx.currentTime, 0.02);
-        v.osc.stop(this.ctx.currentTime + 0.2);
-        this.voices.delete(id);
-      }
+      if (!ids.has(id)) { v.stop(t); this.voices.delete(id); }
     }
     for (const l of layers) {
-      let v = this.voices.get(l.id);
-      if (!v) {
-        const osc = this.ctx.createOscillator();
-        const amp = this.ctx.createGain();
-        const pan = this.ctx.createStereoPanner();
-        amp.gain.value = 0;
-        osc.connect(amp).connect(pan).connect(this.bus);
-        osc.start();
-        v = { osc, amp, pan, lastNote: null, wave: null };
-        this.voices.set(l.id, v);
-      }
-      if (v.wave !== l.wave) { v.osc.type = l.wave; v.wave = l.wave; }
+      const v = this.voices.get(l.id);
+      if (v && v.id === l.wave) continue;
+      if (v) v.stop(t); // the sound changed: build the new instrument
+      const nv = new Voice(this.ctx, l.wave, this.bus);
+      nv.lastNote = null;
+      this.voices.set(l.id, nv);
     }
   }
 
@@ -174,28 +163,25 @@ export class AudioEngine {
   update(frames, opts, at = null) {
     if (!this.ctx) return;
     const t = at ?? this.ctx.currentTime;
+    const live = at == null;
     const glide = Math.max(opts.glide, 4) / 1000 / 3; // time constant: ~95% reached after `glide` ms
     for (const f of frames) {
       const v = this.voices.get(f.id);
       if (!v) continue;
       const audible = opts.playing && f.midi != null && f.gain > 0;
-      if (f.midi != null) v.osc.frequency.setTargetAtTime(midiToFreq(f.midi), t, glide);
+      if (f.midi != null) v.setFreq(midiToFreq(f.midi), t, glide);
       v.pan.pan.setTargetAtTime(Math.max(-1, Math.min(1, f.pan)), t, 0.03);
-      const level = audible ? f.gain * (WAVE_GAIN[f.wave] ?? 0.6) : 0;
-
-      if (opts.articulation === 'pluck' && audible) {
-        // Retrigger a short percussive envelope every time the (rounded) note changes.
+      const level = audible ? f.gain * v.gainScale : 0;
+      const mode = v.inst.mode || opts.articulation;
+      if (mode === 'pluck' && audible) {
+        // Retrigger the instrument's envelopes every time the (rounded) note or beat step changes.
         const note = f.step == null ? Math.round(f.midi) : `${Math.round(f.midi)}@${f.step}`;
         if (note !== v.lastNote) {
-          const g = v.amp.gain;
-          if (g.cancelAndHoldAtTime) g.cancelAndHoldAtTime(t);
-          else { g.cancelScheduledValues(t); if (at == null) g.setValueAtTime(g.value, t); }
-          v.amp.gain.linearRampToValueAtTime(level, t + 0.006);
-          v.amp.gain.setTargetAtTime(level * 0.18, t + 0.01, 0.16);
+          v.trigger(level, t, live);
           v.lastNote = note;
         }
       } else {
-        v.amp.gain.setTargetAtTime(level, t, audible ? 0.012 : 0.04);
+        v.level(level, t, audible);
         v.lastNote = null;
       }
       if (!audible) v.lastNote = null;
@@ -231,8 +217,22 @@ export class AudioEngine {
       eng.update(frameAt(time), { playing: true, glide, articulation }, time);
     }
     for (const e of drumEvents) if (e.time < duration) eng.drum(e.kind, e.vel, e.time);
-    for (const v of eng.voices.values()) v.amp.gain.setTargetAtTime(0, duration, 0.03);
+    for (const v of eng.voices.values()) { v.amp.gain.cancelScheduledValues(duration); v.amp.gain.setTargetAtTime(0, duration, 0.03); }
     return ctx.startRendering();
+  }
+
+  /** Play a short arpeggio with an instrument so it can be heard before choosing it. */
+  preview(id, root = 60) {
+    if (!this.ctx) return;
+    const v = new Voice(this.ctx, id, this.bus);
+    const t0 = this.ctx.currentTime + 0.02;
+    [0, 3, 7, 12, 7].forEach((semi, i) => {
+      const t = t0 + i * 0.22;
+      v.setFreq(midiToFreq(root + semi), t, 0.005);
+      v.trigger(0.55 * v.gainScale, t, false);
+    });
+    v.amp.gain.setTargetAtTime(0, t0 + 1.25, 0.08);
+    for (const n of v.nodes) n.stop(t0 + 1.8);
   }
 
   /** Mute everything quickly (pause/stop). */

@@ -25,7 +25,11 @@ export class LayoutEditor {
     this.actions = actions;
     this.layer = h('div.layout-layer', { hidden: true, 'aria-label': 'Overlay layout editor' });
     this.hint = h('div.layout-hint', {}, 'Drag to move · drag the corner or scroll to resize · double-click text to edit · Esc to finish');
-    this.layer.append(this.hint);
+    // Where YouTube Shorts / Reels / TikTok draw their own buttons and captions over a
+    // vertical video. Only a guide while editing; never part of the video.
+    this.safe = h('div.safe-zone', { 'aria-hidden': 'true' },
+      h('div.safe-top'), h('div.safe-bottom', {}, h('span', {}, 'Shorts: channel name & caption')), h('div.safe-right', {}, h('span', {}, 'buttons')));
+    this.layer.append(this.safe, this.hint);
     stage.append(this.layer);
     this.boxes = new Map();
     this.selected = null;
@@ -82,6 +86,7 @@ export class LayoutEditor {
   /** Called after each overlay draw with the element rectangles in canvas pixels. */
   update(rects) {
     if (!this.enabled) return;
+    this.safe.hidden = !['9:16', '4:5'].includes(store.state.visual.aspect);
     const sx = this.canvas.clientWidth / this.canvas.width;
     const sy = this.canvas.clientHeight / this.canvas.height;
     const list = new Map();

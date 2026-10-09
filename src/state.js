@@ -39,6 +39,7 @@ export function createLayer(overrides = {}) {
     zMap: 'volume', // what the Z coordinate controls: volume | pan | none
     mute: false,
     solo: false,
+    withPrev: false, // in "one after another": play together with the layer above
     samples: 900,
     ...overrides,
   };
@@ -101,7 +102,7 @@ export function defaultState() {
     // size is a multiplier. Text boxes are positioned by their centre.
     overlay: {
       // layout 2: formulas top left, preset name top centre; title, subtitle, notes and analyzer off.
-      layout: 2,
+      layout: 3,
       title: { enabled: false, text: '', subtitle: false, subtitleText: '', x: null, y: null, size: 1, color: '' },
       formulas: { enabled: true, x: null, y: null, size: 1 },
       name: { enabled: true, x: null, y: null, size: 1, color: '' },
@@ -150,6 +151,17 @@ function applyLayout2(st) {
   st.overlay.layout = 2;
 }
 
+/** Top of the area YouTube Shorts covers with the channel name and caption (fraction of height). */
+export const SHORTS_SAFE_BOTTOM = 0.74;
+
+/** Layout 3: on vertical videos, captions sit above the area Shorts covers. */
+function applyLayout3(st) {
+  if (['9:16', '4:5'].includes(st.visual.aspect)) {
+    for (const t of st.overlay.texts || []) if (t.y > 0.72) t.y = 0.7;
+  }
+  st.overlay.layout = 3;
+}
+
 class Store {
   constructor() {
     this.state = defaultState();
@@ -174,6 +186,7 @@ class Store {
   load(snapshot) {
     const merged = mergeDeep(defaultState(), structuredClone(snapshot));
     if ((snapshot.overlay?.layout ?? 1) < 2) applyLayout2(merged);
+    if ((snapshot.overlay?.layout ?? 1) < 3) applyLayout3(merged);
     merged.layers = (merged.layers || []).map((l) => createLayer({ ...l, id: undefined, exprs: { ...l.exprs } }));
     merged.layers.forEach((l, i) => { l.id = `L${Date.now().toString(36)}${i}`; });
     this.state = merged;

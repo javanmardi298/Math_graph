@@ -7,6 +7,41 @@
 
 const TITLE_MAX = 100; // YouTube's limit
 const DESC_MAX = 5000;
+const TAGS_MAX = 500; // all tags together
+
+/**
+ * YouTube rejects titles, descriptions and tags that contain < or > ("Angled brackets
+ * aren't allowed"). Swap them for look-alikes it accepts, and ≤ ≥ stay as they are.
+ */
+export function youtubeSafe(text) {
+  return String(text ?? '')
+    .replace(/<=/g, '≤').replace(/>=/g, '≥')
+    .replace(/</g, '‹').replace(/>/g, '›');
+}
+
+/** Tags trimmed to YouTube's 500-character total, dropping whole tags. */
+function fitTags(tags) {
+  const list = youtubeSafe(tags).split(',').map((t) => t.trim()).filter(Boolean);
+  const out = [];
+  let len = 0;
+  for (const t of list) {
+    const add = t.length + (out.length ? 2 : 0) + (/\s/.test(t) ? 2 : 0); // YouTube counts quotes around multi-word tags
+    if (len + add > TAGS_MAX) break;
+    out.push(t);
+    len += add;
+  }
+  return out.join(', ');
+}
+
+/** Problems YouTube would reject, for the editor to show. */
+export function youtubeProblems(meta) {
+  const out = [];
+  const raw = `${meta.title || ''}${meta.description || ''}${meta.tags || ''}`;
+  if (/[<>]/.test(raw)) out.push('Contains < or >: YouTube rejects these; they are replaced with ‹ › in every export.');
+  if ((meta.title || '').length > TITLE_MAX) out.push(`Title is longer than ${TITLE_MAX} characters.`);
+  if ((meta.description || '').length > DESC_MAX) out.push(`Description is longer than ${DESC_MAX} characters.`);
+  return out;
+}
 const BASE_TAGS = ['math', 'mathematics', 'math visualization', 'math music', 'sonification', 'graphs', 'math art', 'shorts'];
 
 const FORMULA_KEYS = { function: ['y'], parametric: ['x', 'y'], polar: ['r'], surface: ['f'] };
@@ -40,14 +75,15 @@ export function youtubeFor(state) {
   const own = state.youtube || {};
   const auto = suggestYoutube(state);
   return {
-    title: (own.title || '').trim().slice(0, TITLE_MAX) || auto.title,
-    description: (own.description || '').trim().slice(0, DESC_MAX) || auto.description,
-    tags: (own.tags || '').trim() || auto.tags,
+    title: youtubeSafe((own.title || '').trim() || auto.title).slice(0, TITLE_MAX),
+    description: youtubeSafe((own.description || '').trim() || auto.description).slice(0, DESC_MAX),
+    tags: fitTags((own.tags || '').trim() || auto.tags),
   };
 }
 
 /** Text file that sits next to a video. */
 export function youtubeText(meta, videoFile = '') {
+  meta = { title: youtubeSafe(meta.title), description: youtubeSafe(meta.description), tags: fitTags(meta.tags || '') };
   return [
     videoFile ? `VIDEO\n${videoFile}\n` : '',
     `TITLE\n${meta.title}\n`,
@@ -61,7 +97,7 @@ const csvCell = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
 /** One row per video: file, title, description, tags (UTF-8 with BOM so Excel shows Persian correctly). */
 export function youtubeCsv(rows) {
   const lines = [['file', 'title', 'description', 'tags'].map(csvCell).join(',')];
-  for (const r of rows) lines.push([r.file, r.title, r.description, r.tags].map(csvCell).join(','));
+  for (const r of rows) lines.push([r.file, youtubeSafe(r.title), youtubeSafe(r.description), fitTags(r.tags || '')].map(csvCell).join(','));
   return `﻿${lines.join('\r\n')}\r\n`;
 }
 
