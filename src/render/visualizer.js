@@ -532,6 +532,8 @@ export class Visualizer {
 
     // Drum pulses: a glow flash on kicks and expanding rings on snares/claps.
     this.bloomKick = 0;
+    this.punch = 0;
+    this.trackPt = null;
     this.rings = [];
     for (let i = 0; i < 6; i++) {
       const ring = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.shapeTex('ring'), transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, fog: false }));
@@ -617,7 +619,8 @@ export class Visualizer {
   /** Visual reaction to a drum hit on the layer `layerId`. */
   pulse(kind, layerId) {
     const view = this.views.get(layerId) || this.views.values().next().value;
-    if (kind === 'kick') this.bloomKick = 1;
+    if (kind === 'kick') { this.bloomKick = 1; this.punch = 1; }
+    else if (kind === 'snare' || kind === 'clap') this.punch = Math.max(this.punch, 0.55);
     if (view) view.bump = Math.max(view.bump || 0, kind === 'kick' ? 0.6 : kind === 'hat' ? 0.2 : 0.4);
     if ((kind === 'snare' || kind === 'clap' || kind === 'kick') && view?.hasDrawn) {
       const ring = this.rings[this.ringIndex++ % this.rings.length];
@@ -867,7 +870,50 @@ export class Visualizer {
     // While playing, camera keyframes (applied by the app) own the camera; damping would fight them.
     this.controls.enableDamping = !f.cameraLocked;
     this.controls.update(f.dt);
+    this.renderWithCameraMoves(items, f);
+  }
+
+  /**
+   * Cinematic camera moves layered on top of the user's camera for this frame only
+   * (so they never fight orbit controls or keyframed poses): follow the drawing pen
+   * (track), bump in on drum hits (punch) and tilt (roll).
+   */
+  renderWithCameraMoves(items, f) {
+    const c = this.state.camera;
+    this.punch *= Math.pow(0.004, f.dt); // ~0.25 s decay
+    const lead = items.find((it) => it.phase === 'active') || items[0];
+    const track = Math.min(1, Math.max(0, c.track || 0));
+    if (lead) {
+      const goal = tmpVec.set(lead.point.x, lead.point.y, lead.point.z).add(this.content.position);
+      if (!this.trackPt || f.snap) this.trackPt = goal.clone();
+      else this.trackPt.lerp(goal, 1 - Math.pow(1 - Math.min(0.9, c.trackSpeed ?? 0.06), f.dt * 60));
+    }
+    const punch = (c.punch || 0) * this.punch;
+    const roll = THREE.MathUtils.degToRad(c.roll || 0);
+    if (!track && punch < 1e-4 && !roll) { this.composer.render(f.dt); return; }
+
+    const is3d = this.state.mode === '3d';
+    const cam = this.camera;
+    const target = (is3d ? this.perspControls : this.orthoControls).target;
+    const saved = { p: cam.position.clone(), q: cam.quaternion.clone(), zoom: cam.zoom, fov: cam.fov };
+    const off = new THREE.Vector3();
+    if (track && this.trackPt) off.copy(this.trackPt).sub(target).multiplyScalar(track);
+    if (!is3d) off.z = 0;
+    cam.position.add(off);
+    cam.lookAt(tmpVec.copy(target).add(off));
+    if (roll) cam.rotateZ(roll);
+    if (punch > 1e-4) {
+      if (is3d) cam.fov = saved.fov / (1 + 0.14 * punch);
+      else cam.zoom = saved.zoom * (1 + 0.14 * punch);
+      cam.updateProjectionMatrix();
+    }
     this.composer.render(f.dt);
+    cam.position.copy(saved.p);
+    cam.quaternion.copy(saved.q);
+    if (punch > 1e-4) {
+      if (is3d) cam.fov = saved.fov; else cam.zoom = saved.zoom;
+      cam.updateProjectionMatrix();
+    }
   }
 
   /** PNG snapshot of the current frame. */

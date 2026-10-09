@@ -76,7 +76,9 @@ export function defaultState() {
       analyzer: 'off', // spectrum | wave | off
       aspect: '16:9', // fill | 16:9 | 9:16 | 1:1 | 4:5
     },
-    camera: { autoRotate: false, rotateSpeed: 0.8, fov: 45, follow: false },
+    // punch: zoom bump on every kick (0..1); track: how closely the camera follows the
+    // drawing pen (0..1, both modes); roll: tilt in degrees. All three can be keyframed.
+    camera: { autoRotate: false, rotateSpeed: 0.8, fov: 45, follow: false, punch: 0, track: 0, trackSpeed: 0.06, roll: 0 },
     audio: {
       master: 0.7,
       noteLow: 36,

@@ -17,7 +17,7 @@ import { INSTRUMENTS, INSTRUMENT_GROUPS } from '../audio/instruments.js';
 import { h, bindPath, bindObj, slider, color, select, toggle, segmented, number, text, group, disposeTree, refreshAll } from './controls.js';
 import { FONT_LABELS } from './overlay.js';
 
-const MAX_LAYERS = 4;
+const MAX_LAYERS = 8;
 
 
 const SNIPPETS = ['sin()', 'cos()', 'exp()', 'mod(x, 1)', 'abs()', 'floor()', 'sqrt()', 'saw()', 'tri()', 'square()', 'noise()', 'pi', 't', 'a'];
@@ -407,6 +407,12 @@ export class Panels {
         slider('Field of view', p('camera.fov'), { min: 20, max: 100, step: 1, unit: '°' }),
         h('button.btn.small', { type: 'button', onclick: () => this.actions.resetCamera() }, 'Reset camera'),
       ], { hint: 'Drag to orbit · right-drag or two fingers to pan · scroll to zoom. In 2D, drag pans and scroll zooms.' }),
+      group('Moves with the music', [
+        slider('Follow the pen', p('camera.track'), { min: 0, max: 1, step: 0.01, fmt: (v) => (v ? `${Math.round(v * 100)}%` : 'Off') }),
+        slider('Follow smoothness', p('camera.trackSpeed'), { min: 0.01, max: 0.3, step: 0.01, fmt: (v) => (v < 0.05 ? 'Slow-motion' : v < 0.12 ? 'Smooth' : 'Tight') }),
+        slider('Beat punch zoom', p('camera.punch'), { min: 0, max: 1, step: 0.01, fmt: (v) => (v ? `${Math.round(v * 100)}%` : 'Off') }),
+        slider('Roll', p('camera.roll'), { min: -45, max: 45, step: 0.5, unit: '°' }),
+      ], { hint: 'Follow the pen + a zoomed-in camera (scroll, or a camera keyframe with K) gives tracking shots; punch zooms in on kicks and snares (Rhythm tab drums with “pulse” on). All of these can be keyframed in the Animate tab for dramatic reveals.' }),
     );
   }
 

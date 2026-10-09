@@ -72,10 +72,21 @@ export class AudioEngine {
     this.drumBus.connect(this.comp);
     this.drumBus.connect(this.drumSend).connect(this.reverb);
     this.drums = new DrumKit(ctx, this.drumBus);
-    this.master.connect(this.analyser).connect(ctx.destination);
+    // Safety limiter: catches the odd peak from stacked layers/drums so exports never clip.
+    this.limiter = ctx.createDynamicsCompressor();
+    this.limiter.threshold.value = -2.5;
+    this.limiter.knee.value = 0;
+    this.limiter.ratio.value = 20;
+    this.limiter.attack.value = 0.002;
+    this.limiter.release.value = 0.12;
+    // The Web Audio compressor adds automatic make-up gain; take it back so peaks stay below -1 dB.
+    this.post = ctx.createGain();
+    this.post.gain.value = 0.8;
+    this.master.connect(this.limiter).connect(this.post);
+    this.post.connect(this.analyser).connect(ctx.destination);
     if (ctx.createMediaStreamDestination) {
       this.streamDest = ctx.createMediaStreamDestination();
-      this.master.connect(this.streamDest);
+      this.post.connect(this.streamDest);
     }
 
     this.freqData = new Uint8Array(this.analyser.frequencyBinCount);
