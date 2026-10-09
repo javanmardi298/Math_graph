@@ -96,7 +96,14 @@ export function defaultState() {
     // (each video frame averages several sub-frames, like a film camera's shutter).
     // gpuEncoder: use the graphics card's video encoder (faster, but crashes some drivers).
     // engine: auto = ffmpeg on the local server when available, else the browser's encoder.
-    record: { resolution: '1080p', fps: 60, fromStart: true, fileName: '', quality: 'high', subframes: 1, gpuEncoder: false, engine: 'auto' },
+    // hook: Shorts opening (teaser of the finished picture + hook line + flash/boom at the cut);
+    // outro: seconds of fade to black at the end. Both apply to every exported video.
+    record: {
+      resolution: '1080p', fps: 60, fromStart: true, fileName: '', quality: 'high', subframes: 1, gpuEncoder: false, engine: 'auto',
+      hook: { enabled: true, teaser: 0.8, flash: true, impact: true }, outro: 0.6,
+    },
+    // The hook line shown over the first ~2 s of a video ('' = the YouTube title without hashtags).
+    hook: { text: '' },
     // YouTube Shorts metadata, saved with the preset and written next to exported videos
     // (never drawn into the video). Empty fields are filled with a suggestion at export.
     youtube: { title: '', description: '', tags: '' },

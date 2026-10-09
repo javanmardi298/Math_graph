@@ -36,6 +36,8 @@ import { youtubeFor, youtubeText, youtubeCsv } from './export/youtube.js';
 import { makeZip } from './export/zip.js';
 import { bundleFile } from './library.js';
 import { fixWebmDuration } from './export/webm-duration.js';
+import { shortsTiming, mapVideoTime, frameEffects, drawHook, hookTextFor, shortsAudio } from './export/shorts.js';
+import { FONTS } from './ui/overlay.js';
 import { LayoutEditor } from './ui/layout-editor.js';
 import { writeMidi, samplesToNotes } from './export/midi.js';
 import { audioBufferToWav } from './export/wav.js';
@@ -913,13 +915,20 @@ async function auditionDrum(kind) {
  * blur that makes fast curves look smooth instead of strobing.
  */
 class FrameComposer {
-  constructor({ width, height, fps, subframes = 1, analyser, hits }) {
+  /**
+   * @param {object} o
+   * @param {object} [o.timing] shortsTiming(): teaser, outro and hook (video time ≠ timeline time)
+   */
+  constructor({ width, height, fps, subframes = 1, analyser, hits, timing = null, hookText = '' }) {
     this.fps = fps;
     this.n = Math.max(1, subframes | 0);
     this.analyser = analyser;
     this.hits = hits;
+    this.timing = timing || { on: false, teaser: 0, outro: 0, duration: duration(), total: duration(), hookEnd: 0 };
+    this.hookText = hookText;
     this.hitIndex = 0;
     this.last = 0;
+    this.lastPhase = null;
     this.out = document.createElement('canvas');
     this.out.width = width;
     this.out.height = height;
@@ -928,21 +937,29 @@ class FrameComposer {
   }
 
   frame(i) {
-    const { fps, n, g, out } = this;
-    const t = i / fps;
-    if (i === 0) { this.hitIndex = 0; this.last = 0; } // a retry with another encoder starts over
+    const { fps, n, g, out, timing: T } = this;
+    const vt = i / fps;
+    if (i === 0) { this.hitIndex = 0; this.last = 0; this.lastPhase = null; } // a retry with another encoder starts over
     const shutter = 0.5 / fps; // 180°
+    const fx = frameEffects(T, vt);
+    let m = null;
     for (let j = 0; j < n; j++) {
-      const time = n === 1 ? t : Math.max(0, t - shutter * (1 - (j + 1) / n));
-      const dt = i === 0 && j === 0 ? 1 / fps : Math.max(time - this.last, 1e-4);
+      const svt = n === 1 ? vt : Math.max(0, vt - shutter * (1 - (j + 1) / n));
+      m = mapVideoTime(T, svt);
+      const time = m.time;
+      // The cut from the teaser to the start: a fresh start (trails, camera follow, drum hits).
+      const snap = m.phase !== this.lastPhase && m.phase !== 'outro';
+      if (snap && m.phase === 'main') this.hitIndex = 0;
+      this.lastPhase = m.phase;
+      const dt = snap ? 1 / fps : Math.max(time - this.last, 1e-4);
       this.last = time;
       clock.pos = time;
       applyKeyframesAt(time);
-      if (store.state.drums.pulse) {
+      if (store.state.drums.pulse && m.phase === 'main') {
         const src = drumSourceLayer(time);
         while (this.hitIndex < this.hits.length && this.hits[this.hitIndex].time <= time + 1e-9) viz.pulse(this.hits[this.hitIndex++].kind, src?.id);
       }
-      renderScene(time, { dt, now: time, playing: true, snap: i === 0 && j === 0 });
+      renderScene(time, { dt, now: time, playing: m.phase === 'main', snap });
       // A lost GPU context draws nothing: stop instead of encoding black frames.
       const gl = viz.renderer.getContext();
       if (gl.isContextLost()) throw new Error('graphics context lost');
@@ -951,12 +968,34 @@ class FrameComposer {
       // queue grows until some drivers reset ("context lost").
       gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, this.px);
       g.globalAlpha = 1 / (j + 1); // running average of the sub-frames
-      g.drawImage(viz.canvas, 0, 0, out.width, out.height);
+      if (fx.scale !== 1) {
+        const sw = out.width * fx.scale, sh = out.height * fx.scale;
+        g.drawImage(viz.canvas, (out.width - sw) / 2, (out.height - sh) / 2, sw, sh);
+      } else g.drawImage(viz.canvas, 0, 0, out.width, out.height);
     }
     g.globalAlpha = 1;
-    drawOverlay(g, out.width, out.height, overlayData(this.analyser?.at(t) ?? { spectrum: null, waveform: null }, t));
+    // Text: formulas/captions with the timeline, except during the teaser (only the hook line).
+    if (m.phase !== 'teaser') drawOverlay(g, out.width, out.height, overlayData(this.analyser?.at(vt) ?? { spectrum: null, waveform: null }, m.time));
+    if (T.on) drawHook(g, out.width, out.height, this.hookText, vt, T.hookEnd, FONTS.display);
+    if (fx.flash > 0) { g.fillStyle = `rgba(255,255,255,${fx.flash})`; g.fillRect(0, 0, out.width, out.height); }
+    if (fx.black > 0) { g.fillStyle = `rgba(0,0,0,${fx.black})`; g.fillRect(0, 0, out.width, out.height); }
     return out;
   }
+}
+
+/**
+ * Soundtrack + frame composer for the loaded project at an export size: the timeline
+ * audio wrapped with the Shorts teaser/boom/fade, and frames drawn in video time.
+ */
+async function prepareComposition({ width, height, fps, subframes }) {
+  const T = shortsTiming(store.state.record, duration());
+  const main = await renderWavBuffer();
+  const buf = T.on || T.outro ? shortsAudio(main, T) : main;
+  const comp = new FrameComposer({
+    width, height, fps, subframes, timing: T, hookText: hookTextFor(store.state),
+    analyser: new BufferAnalyser(buf), hits: drumEventsFull(),
+  });
+  return { comp, buf, frames: Math.ceil(T.total * fps), timing: T };
 }
 
 const fmtEta = (s) => (s >= 90 ? `${Math.round(s / 60)} min` : `${Math.max(1, Math.round(s))} s`);
@@ -985,13 +1024,11 @@ async function pickEncoder() {
 async function renderTimeline({ server, token, keep, onProgress, onStatus, onPhase }) {
   const { fps, subframes, quality } = store.state.record;
   const size = recordSize();
-  const frames = Math.ceil(duration() * fps);
   onPhase?.('Rendering the soundtrack…');
-  const buf = await renderWavBuffer();
+  const { comp, buf, frames } = await prepareComposition({ width: size.w, height: size.h, fps, subframes });
   if (token.cancelled) throw new Error('cancelled');
   viz.setFixedSize(size);
   try {
-    const comp = new FrameComposer({ width: size.w, height: size.h, fps, subframes, analyser: new BufferAnalyser(buf), hits: drumEventsFull() });
     const common = { width: size.w, height: size.h, fps, frames, quality, token, audio: buf, drawFrame: (i) => comp.frame(i), onStatus, onProgress };
     const base = `${size.w}×${size.h} · ${fps} fps`;
     if (server) {
@@ -1093,6 +1130,56 @@ async function exportVideo() {
       if (!$('fatal').hidden) return; // the GPU loss screen already explains what happened
       toast(err.message === 'cancelled' ? 'Export cancelled.' : `Video export failed: ${err.message}`, 8000);
     }
+  });
+}
+
+/**
+ * Real-time preview of the Shorts opening and ending (small size, with sound): what a
+ * viewer sees in the first seconds and the last ones, without exporting the whole video.
+ */
+async function previewShorts() {
+  if (exporting.busy) return;
+  const full = recordSize();
+  const sc = Math.min(1, 640 / Math.max(full.w, full.h));
+  const size = { w: Math.round((full.w * sc) / 2) * 2, h: Math.round((full.h * sc) / 2) * 2 };
+  let dlg = document.getElementById('shorts-preview');
+  if (!dlg) {
+    dlg = h('dialog#shorts-preview.dialog.glass', {},
+      h('h2', {}, 'Start & end preview'),
+      h('canvas.shorts-canvas'),
+      h('p.hint.shorts-phase'),
+      h('div.row', {}, h('button.btn.ghost', { type: 'button', onclick: () => dlg.close() }, 'Close')));
+    document.body.append(dlg);
+  }
+  const cv = dlg.querySelector('canvas'), phase = dlg.querySelector('.shorts-phase');
+  cv.width = size.w; cv.height = size.h;
+  const g2 = cv.getContext('2d');
+  dlg.showModal();
+  phase.textContent = 'Preparing…';
+  await ensureAudio();
+  await withExport(async () => {
+    viz.setFixedSize(size);
+    const { comp, buf, timing: T } = await prepareComposition({ width: size.w, height: size.h, fps: 30, subframes: 1 });
+    const segments = [['Start', 0, Math.min(T.total, Math.max(T.hookEnd, T.teaser) + 1.5)], ['End', Math.max(0, T.total - 2.5), T.total]];
+    for (const [label, a, b] of segments) {
+      if (!dlg.open) break;
+      phase.textContent = `${label} · ${a.toFixed(1)}–${b.toFixed(1)} s of ${T.total.toFixed(1)} s`;
+      comp.lastPhase = null;
+      const src = audio.ctx.createBufferSource();
+      src.buffer = buf;
+      src.connect(audio.ctx.destination);
+      src.start(audio.ctx.currentTime + 0.05, a, b - a);
+      const t0 = audio.ctx.currentTime + 0.05;
+      while (dlg.open) {
+        const vt = a + Math.max(0, audio.ctx.currentTime - t0);
+        if (vt >= b) break;
+        g2.drawImage(comp.frame(Math.max(1, Math.round(vt * 30))), 0, 0);
+        await new Promise((r) => requestAnimationFrame(r));
+      }
+      src.stop();
+      await new Promise((r) => setTimeout(r, 350));
+    }
+    phase.textContent = dlg.open ? 'Done. Change the settings and preview again, or close.' : '';
   });
 }
 
@@ -1213,6 +1300,7 @@ const panels = new Panels({
   exportVideo,
   renderBatch,
   previewSound: async (id) => { await ensureAudio(); audio.preview(id); },
+  previewShorts,
   canRenderVideo,
   recordSize,
   fileBase,
@@ -1319,10 +1407,10 @@ function installRenderApi() {
     /** Render the soundtrack and set up exact frame drawing. */
     async prepare({ width, height, fps, subframes = 1 }) {
       viz.setFixedSize({ w: width, h: height });
-      const buf = await renderWavBuffer();
-      comp = new FrameComposer({ width, height, fps, subframes, analyser: new BufferAnalyser(buf), hits: drumEventsFull() });
-      prep = { buf, width, height, fps, frames: Math.ceil(duration() * fps) };
-      return { frames: prep.frames, duration: duration(), webcodecs: canRenderVideo() };
+      const c = await prepareComposition({ width, height, fps, subframes });
+      comp = c.comp;
+      prep = { buf: c.buf, width, height, fps, frames: c.frames };
+      return { frames: prep.frames, duration: c.timing.total, webcodecs: canRenderVideo() };
     },
     /** One frame as a data URL (fallback path when WebCodecs is unavailable). */
     frame(i, format = 'image/jpeg', quality = 0.95) {

@@ -513,6 +513,15 @@ export class Panels {
           ? 'Renders every frame at its exact time: a smooth, constant-frame-rate MP4 (H.264 + AAC) that plays and seeks everywhere. With “npm start” and ffmpeg installed, ffmpeg does the encoding (most reliable: the browser’s encoder is not used). The Frame (16:9, 9:16…) comes from the Look tab.'
           : 'This browser has no video encoder (WebCodecs). Use Chrome or Edge, or Live capture below.'),
       ]),
+      group('Shorts: hook & ending', [
+        toggle('Hook in the first seconds', p('record.hook.enabled')),
+        text('Hook line', p('hook.text'), { placeholder: 'Empty: the YouTube title (without hashtags)' }),
+        slider('Teaser of the finished picture', p('record.hook.teaser'), { min: 0, max: 2, step: 0.1, fmt: (v) => (v ? `${v.toFixed(1)} s` : 'Off') }),
+        toggle('Flash at the cut', p('record.hook.flash')),
+        toggle('Whoosh + boom sound', p('record.hook.impact')),
+        slider('Fade to black at the end', p('record.outro'), { min: 0, max: 2, step: 0.1, fmt: (v) => (v ? `${v.toFixed(1)} s` : 'Off') }),
+        h('button.btn.ghost.small', { type: 'button', onclick: () => this.actions.previewShorts?.() }, '▶ Preview start & end'),
+      ], { hint: 'Viewers decide in the first 1–2 seconds. The video opens on the finished picture with a big hook line (readable with the sound off), then a flash and a boom cut to the drawing from zero. At the end the picture and sound fade to black instead of stopping abruptly. Applies to every exported video, batches included; the hook line is saved with the preset.' }),
       this.youtubeGroup(),
       group('Live capture · real time', [
         toggle('Capture one full pass from the start', p('record.fromStart')),

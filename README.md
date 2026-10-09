@@ -37,6 +37,11 @@ to another tab is fine.
   (bitrate), and **motion blur**: each frame averages 2 or 4 sub-frames like a film camera's shutter,
   so fast curves look fluid instead of strobing.
 - **Frame:** 16:9, 9:16 (Shorts/Reels), 1:1 or 4:5, chosen in the Look tab.
+- **Shorts hook & ending (Export tab, on by default):** every video opens on the finished picture
+  (0.8 s teaser, slow push) with a big hook line (the preset's own, else its YouTube title without
+  hashtags), then a white flash and a whoosh-to-boom cut to the drawing from zero, with a punch-in.
+  At the end the picture fades to black and the sound fades out (0.6 s) instead of stopping abruptly.
+  *Preview start & end* plays both parts with sound without exporting.
 - **Batch export (Presets tab):** tick presets (or *Select all*) and press **🎬 Render N videos**. Each
   one is rendered with the Export tab's settings and they all arrive in **one .zip**: `01 Name.mp4`,
   `01 Name.txt` (its YouTube title, description and tags), `YouTube titles and descriptions.csv` for the
@@ -136,6 +141,7 @@ src/
     video-render.js     frame-perfect MP4 export (WebCodecs + mp4-muxer)
     ffmpeg-render.js    frame-perfect MP4 export through the local server's ffmpeg (+ batch folders)
     youtube.js          YouTube Shorts title/description/tags: suggestions, .txt and .csv
+    shorts.js           Shorts hook (teaser, hook line, flash, whoosh/boom) and fade-out ending
     recorder.js         MediaRecorder live capture
     webm-duration.js    writes the missing duration into Chrome's WebM recordings
     midi.js             Standard MIDI File writer
