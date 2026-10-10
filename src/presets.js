@@ -5,11 +5,10 @@
 
 import { CIRCLE_PRESETS } from './circle/presets.js';
 import { LAB_PRESETS } from './circle/presets-lab.js';
+import { STACK_PRESETS } from './circle/presets-stack.js';
+import { SCENES } from './circle/scenes.js';
 
 // Circle Lab presets shown as built-ins (the full set is in circle/presets.js).
-const CIRCLE_BUILTINS = ['Will It Ever Close?', 'One Ball Becomes 256', 'Für Elise Bounce', 'Escape 8 Rings', '16 Rhythms at Once', 'Six Balls, Zero Friction']
-  .map((n) => CIRCLE_PRESETS.find((p) => p.name === n));
-
 export const BUILTIN_PRESETS = [
   {
     name: 'Bass Drop',
@@ -319,6 +318,21 @@ export const BUILTIN_PRESETS = [
     audio: { scale: 'major', root: 2, articulation: 'pluck', reverb: { mix: 0.4 } },
     rhythm: { enabled: true, division: '1/8', gate: 0.8 },
   },
-  ...CIRCLE_BUILTINS,
+  ...CIRCLE_PRESETS,
   ...LAB_PRESETS,
-];
+  ...STACK_PRESETS,
+].map((p) => ({ ...p, $category: p.$category || categoryOf(p) }));
+
+/** Library shelf of a built-in preset. */
+export function categoryOf(p) {
+  if (p.mode === 'circle') {
+    if (p.circle?.layers?.length) return 'Circle · Stories & split screens';
+    const sc = SCENES[p.circle?.rule];
+    return `Circle · ${sc ? sc.group : 'Classic circle'}`;
+  }
+  return p.mode === '3d' ? 'Formulas · 3D' : 'Formulas · 2D';
+}
+
+/** Shelf order in the library. */
+export const CATEGORY_ORDER = ['Circle · Stories & split screens', 'Circle · Classic circle', 'Circle · Multiply & split', 'Circle · Fill the screen', 'Circle · Battles & formulas',
+  'Circle · Battles & growth', 'Circle · Patterns & rhythm', 'Circle · Drawing machines', 'Circle · Bounce & draw', 'Formulas · 2D', 'Formulas · 3D'];

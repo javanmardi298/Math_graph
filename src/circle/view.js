@@ -3,93 +3,134 @@
  *
  * The whole frame is used: a living background (nebula light, drifting dust that
  * sparkles with the hits, big ripples on milestones, a vignette) fills everything,
- * the simulation fills the safe area between the Shorts title and caption zones
+ * the simulations fill the safe area between the Shorts title and caption zones
  * (layout.js), and a soft bloom pass makes every bright thing glow.
  *
- * It keeps a CircleSim in step with the timeline: playing forward just advances it,
- * jumping back replays it from t = 0. Permanent trails and dots are drawn once onto an
- * "ink" canvas, so hundreds of thousands of them cost nothing per frame.
+ * Several layers can play one after another or together (stack.js). Each layer keeps
+ * its own CircleSim in step with its own clock: playing forward just advances it,
+ * jumping back replays it from its start. Permanent trails and dots are drawn once onto
+ * the layer's "ink" canvas, so hundreds of thousands of them cost nothing per frame.
  */
 import { CircleSim, DT } from './sim.js';
 import { pixelFrame } from './layout.js';
 import { PALETTES, CIRCLE_PALETTES, frac, hexA, paletteOf } from './palettes.js';
+import { circleSchedule, visibleAt, headlineAt } from './stack.js';
 
 export { CIRCLE_PALETTES, PALETTES };
 
 const TAU = Math.PI * 2;
 const NO_SPARKS = new Set(['rps', 'predator', 'knives', 'popper', 'pendulum', 'sorting', 'tree', 'dna', 'times', 'chaos', 'phyllo', 'harmono', 'orbits', 'spiro', 'packing', 'paper', 'mitosis', 'coral', 'snowflake', 'galton', 'pyramid', 'pachinko', 'beatfill']);
 
+/** One layer's simulation and its permanent ink. */
+class LayerView {
+  constructor() {
+    this.ink = document.createElement('canvas');
+    this.ig = this.ink.getContext('2d');
+    this.sim = null;
+    this.cfg = null;
+    this.recent = [];
+    this.tails = new Map();
+    this.inked = 0;
+    this.inkedDots = 0;
+  }
+
+  reset(cfg, env) {
+    this.cfg = cfg;
+    this.sim = new CircleSim(cfg, env);
+    this.inked = 0; this.inkedDots = 0;
+    this.recent = [];
+    this.tails.clear();
+    this.ig.clearRect(0, 0, this.ink.width, this.ink.height);
+  }
+
+  size(w, h) {
+    if (this.ink.width !== w || this.ink.height !== h) { this.ink.width = w; this.ink.height = h; this.sim = null; }
+  }
+}
+
 export class CircleView {
   constructor() {
     this.canvas = document.createElement('canvas');
     this.canvas.className = 'circle-canvas';
     this.g = this.canvas.getContext('2d');
-    this.ink = document.createElement('canvas');
-    this.ig = this.ink.getContext('2d');
     this.glow = document.createElement('canvas');
     this.gg = this.glow.getContext('2d');
+    this.scratch = document.createElement('canvas');
     this.canFilter = 'filter' in this.gg;
-    this.cfg = null;
-    this.sim = null;
-    this.inked = 0;
-    this.inkedDots = 0;
-    this.recent = []; // events of the last second (sparks, pulses, ripples)
-    this.tails = new Map();
+    this.layers = new Map(); // layer id → LayerView
+    this.c = null;
+    this.dirty = true;
+    this.schedule = [];
+    this.time = 0;
   }
 
   /** Settings changed: start over on the next frame. */
-  invalidate() { this.sim = null; }
+  invalidate() { this.dirty = true; }
 
   ensureSize(w, h) {
-    if (this.canvas.width !== w || this.canvas.height !== h) {
-      this.canvas.width = w; this.canvas.height = h;
-      this.ink.width = w; this.ink.height = h;
-      this.inked = 0; this.inkedDots = 0;
-      this.ig.clearRect(0, 0, w, h);
-    }
+    if (this.canvas.width !== w || this.canvas.height !== h) { this.canvas.width = w; this.canvas.height = h; }
   }
 
-  /** Pixel mapping of the world (the unit circle spans the safe area's width on vertical videos). */
-  frame() {
+  /** Pixel mapping of a layer (zoom and position are per layer). */
+  frameOf(cfg) {
     const { width: w, height: h } = this.canvas;
-    return pixelFrame(w, h, this.cfg.look.zoom ?? 1);
+    const L = cfg.look || {};
+    const F = pixelFrame(w, h, L.zoom ?? 1);
+    const base = F.R / (L.zoom ?? 1);
+    F.cx += (L.dx || 0) * base; F.cy -= (L.dy || 0) * base;
+    return F;
   }
 
   /**
-   * Draw the simulation at `time` and return the events that happened since the last
-   * call (only when moving forward), for live sound.
+   * Draw every layer at `time` and return the events that happened since the last call
+   * (only when moving forward), per layer, for live sound: [{ id, cfg, events }].
    * @param {{snap?:boolean, width:number, height:number, env?:{duration:number,bpm:number,ratio:number}}} o
    */
-  renderAt(time, cfg, { snap = false, width, height, env = {} } = {}) {
-    const envKey = `${env.duration}|${env.bpm}|${env.ratio}`;
-    if (cfg !== this.cfg || !this.sim || envKey !== this.envKey) { this.cfg = cfg; this.sim = null; this.envKey = envKey; }
+  renderAt(time, c, { snap = false, width, height, env = {} } = {}) {
     this.ensureSize(width, height);
-    const fresh = [];
-    if (!this.sim || time < this.sim.t - DT * 2 || (snap && time < this.sim.t)) {
-      this.sim = new CircleSim(cfg, env);
-      this.inked = 0; this.inkedDots = 0;
-      this.recent = [];
-      this.tails.clear();
-      this.ig.clearRect(0, 0, this.ink.width, this.ink.height);
+    const envKey = `${env.duration}|${env.bpm}|${env.ratio}`;
+    if (c !== this.c || envKey !== this.envKey) { this.c = c; this.envKey = envKey; this.dirty = true; }
+    const schedule = circleSchedule(c, env.duration ?? 30);
+    if (this.dirty) {
+      this.dirty = false;
+      for (const lv of this.layers.values()) lv.sim = null;
+      const ids = new Set(schedule.map((s) => s.layer.id));
+      for (const id of [...this.layers.keys()]) if (!ids.has(id)) this.layers.delete(id);
     }
-    const jumping = time - this.sim.t > 0.5; // a seek: don't flood sound and sparks
-    this.sim.advance(time, (e) => { if (!jumping) fresh.push(e); this.recent.push(e); });
-    const cut = time - 1.3;
-    if (this.recent.length && this.recent[0].t < cut) this.recent = this.recent.filter((e) => e.t > cut);
-    if (this.recent.length > 600) this.recent = this.recent.slice(-600);
-    this.paint(time);
-    return fresh;
+    this.schedule = schedule;
+    this.time = time;
+    const out = [];
+    const shown = visibleAt(schedule, time);
+    for (const s of shown) {
+      let lv = this.layers.get(s.layer.id);
+      if (!lv) this.layers.set(s.layer.id, (lv = new LayerView()));
+      lv.size(width, height);
+      const cfg = s.layer.cfg;
+      const lenv = { ...env, duration: s.end - s.start };
+      if (!lv.sim || lv.cfg !== cfg || s.local < lv.sim.t - DT * 2 || (snap && s.local < lv.sim.t)) lv.reset(cfg, lenv);
+      const jumping = s.local - lv.sim.t > 0.5; // a seek: don't flood sound and sparks
+      const fresh = [];
+      lv.sim.advance(s.local, (e) => { if (!jumping && s.alpha > 0.5) fresh.push({ ...e, t: e.t + s.start }); lv.recent.push(e); });
+      const cut = s.local - 1.3;
+      if (lv.recent.length && lv.recent[0].t < cut) lv.recent = lv.recent.filter((e) => e.t > cut);
+      if (lv.recent.length > 600) lv.recent = lv.recent.slice(-600);
+      if (fresh.length) out.push({ id: s.layer.id, cfg, events: fresh });
+    }
+    this.paint(time, c, shown);
+    return out;
   }
 
-  inkSegments() {
-    const { sim, ig } = this;
-    const L = this.cfg.look, pal = paletteOf(L.palette);
-    const { k, R, cx, cy } = this.frame();
+  /* --------------------------------------------------------------- paint */
+
+  inkLayer(lv, F) {
+    const { sim, ig } = lv;
+    const L = lv.cfg.look, pal = paletteOf(L.palette);
+    const { k, R, cx, cy } = F;
     const segs = sim.segments;
-    if (L.trail === 'lines' && this.inked < segs.length) {
+    if (L.trail === 'lines' && lv.inked < segs.length) {
       const lw = (L.trailWidth ?? 1.6) * k * 1.6;
       ig.lineCap = 'round';
-      for (let i = this.inked; i < segs.length; i++) {
+      for (let i = lv.inked; i < segs.length; i++) {
         const s = segs[i];
         const x1 = cx + s.x1 * R, y1 = cy - s.y1 * R, x2 = cx + s.x2 * R, y2 = cy - s.y2 * R;
         ig.strokeStyle = pal.line(s.hue);
@@ -101,11 +142,11 @@ export class CircleView {
         ig.beginPath(); ig.moveTo(x1, y1); ig.lineTo(x2, y2); ig.stroke();
       }
       ig.globalAlpha = 1;
-      this.inked = segs.length;
+      lv.inked = segs.length;
     }
     const dots = sim.dots;
-    if (this.inkedDots < dots.length) {
-      for (let i = this.inkedDots; i < dots.length; i++) {
+    if (lv.inkedDots < dots.length) {
+      for (let i = lv.inkedDots; i < dots.length; i++) {
         const d = dots[i], r = d.s * k;
         ig.globalAlpha = d.a;
         ig.fillStyle = pal.line(d.hue);
@@ -113,18 +154,22 @@ export class CircleView {
         else { ig.beginPath(); ig.arc(cx + d.x * R, cy - d.y * R, r, 0, TAU); ig.fill(); }
       }
       ig.globalAlpha = 1;
-      this.inkedDots = dots.length;
+      lv.inkedDots = dots.length;
     }
   }
 
-  /** Recent activity, 0..1 (drives the background sparkle). */
-  energy(time) {
+  /** Recent activity of the visible layers, 0..1 (drives the background sparkle). */
+  energy(shown) {
     let n = 0;
-    for (let i = this.recent.length - 1; i >= 0 && this.recent[i].t > time - 0.5; i--) n++;
+    for (const s of shown) {
+      const lv = this.layers.get(s.layer.id);
+      if (!lv) continue;
+      for (let i = lv.recent.length - 1; i >= 0 && lv.recent[i].t > s.local - 0.5; i--) n++;
+    }
     return Math.min(1, n / 6);
   }
 
-  background(time, F, pal, L, energy) {
+  background(time, F, pal, L, energy, shown) {
     const { g } = this;
     const { w, h, k, R, cx, cy } = F;
     g.globalCompositeOperation = 'source-over';
@@ -152,14 +197,20 @@ export class CircleView {
       g.fillStyle = pal.line(i * 0.13);
       g.beginPath(); g.arc(x, y, (0.8 + 2.2 * c) * k * (1 + 0.6 * energy), 0, TAU); g.fill();
     }
-    // ripples across the whole frame on big moments
-    for (const e of this.recent) {
-      if (e.type !== 'fill' && !(e.type === 'escape' && !this.sim.scene)) continue;
-      const age = time - e.t;
-      if (age < 0 || age > 1.3) continue;
-      g.globalAlpha = 0.35 * (1 - age / 1.3);
-      g.strokeStyle = pal.ring; g.lineWidth = Math.max(1, (6 - 4 * age) * k);
-      g.beginPath(); g.arc(cx + (e.x ?? 0) * R, cy - (e.y ?? 0) * R, age * 1100 * k, 0, TAU); g.stroke();
+    // ripples across the whole frame on big moments, and when a new step starts
+    for (const s of shown) {
+      const lv = this.layers.get(s.layer.id);
+      if (!lv?.sim) continue;
+      const LF = this.frameOf(s.layer.cfg);
+      const rings = lv.recent.filter((e) => e.type === 'fill' || (e.type === 'escape' && !lv.sim.scene)).map((e) => [e.t, e.x ?? 0, e.y ?? 0]);
+      if (s.start > 0) rings.push([0, 0, 0]);
+      for (const [t, x, y] of rings) {
+        const age = s.local - t;
+        if (age < 0 || age > 1.3) continue;
+        g.globalAlpha = 0.35 * (1 - age / 1.3);
+        g.strokeStyle = pal.ring; g.lineWidth = Math.max(1, (6 - 4 * age) * k);
+        g.beginPath(); g.arc(LF.cx + x * LF.R, LF.cy - y * LF.R, age * 1100 * k, 0, TAU); g.stroke();
+      }
     }
     g.globalAlpha = 1;
     g.globalCompositeOperation = 'source-over';
@@ -192,39 +243,57 @@ export class CircleView {
     g.globalCompositeOperation = 'source-over';
   }
 
-  paint(time) {
-    const { g, sim, cfg } = this;
-    const L = cfg.look, pal = paletteOf(L.palette);
-    const F = this.frame();
-    const energy = this.energy(time);
-    this.background(time, F, pal, L, energy);
+  paint(time, c, shown) {
+    const { g } = this;
+    const L0 = c.look, pal0 = paletteOf(L0.palette);
+    const F0 = this.frameOf(c);
+    this.background(time, F0, pal0, L0, this.energy(shown), shown);
+    for (const s of shown) {
+      const lv = this.layers.get(s.layer.id);
+      if (!lv?.sim) continue;
+      if (s.alpha >= 0.999) { this.paintLayer(g, lv, s.local); continue; }
+      // fading: draw the layer on its own, then blend it in with a slight zoom
+      const sc = this.scratch;
+      if (sc.width !== this.canvas.width || sc.height !== this.canvas.height) { sc.width = this.canvas.width; sc.height = this.canvas.height; }
+      const sg = sc.getContext('2d');
+      sg.setTransform(1, 0, 0, 1, 0, 0);
+      sg.globalAlpha = 1; sg.globalCompositeOperation = 'source-over';
+      sg.clearRect(0, 0, sc.width, sc.height);
+      this.paintLayer(sg, lv, s.local);
+      g.globalAlpha = s.alpha;
+      const z = 0.94 + 0.06 * s.alpha;
+      g.drawImage(sc, (sc.width * (1 - z)) / 2, (sc.height * (1 - z)) / 2, sc.width * z, sc.height * z);
+      g.globalAlpha = 1;
+    }
+    this.vignette(F0);
+    this.bloom(F0, L0);
+  }
 
-    // permanent ink (trails, dots)
-    this.inkSegments();
-    if (L.trail === 'lines' || sim.dots.length) g.drawImage(this.ink, 0, 0);
-    if (L.trail === 'fade') this.fadeTrails(time, F, pal, L);
-
-    const lastHit = this.recent.length ? this.recent[this.recent.length - 1].t : -9;
+  /** One layer: ink, the simulation, sparks. */
+  paintLayer(g, lv, time) {
+    const { sim } = lv;
+    const cfg = lv.cfg, L = cfg.look, pal = paletteOf(L.palette);
+    const F = this.frameOf(cfg);
+    this.inkLayer(lv, F);
+    if (L.trail === 'lines' || sim.dots.length) g.drawImage(lv.ink, 0, 0);
+    if (L.trail === 'fade') this.fadeTrails(g, lv, time, F, pal, L);
+    const lastHit = lv.recent.length ? lv.recent[lv.recent.length - 1].t : -9;
     if (sim.scene) {
       const D = {
-        g, X: (x) => F.cx + x * F.R, Y: (y) => F.cy - y * F.R, R: F.R, k: F.k, pal, look: L, time, lastHit, energy,
-        underBalls: () => { if (L.comet && sim.balls.length <= 40) this.comets(F, pal, L); },
+        g, X: (x) => F.cx + x * F.R, Y: (y) => F.cy - y * F.R, R: F.R, k: F.k, pal, look: L, time, lastHit, energy: 0,
+        underBalls: () => { if (L.comet && sim.balls.length <= 40) this.comets(g, lv, F, pal, L); },
       };
       g.save();
       sim.scene.draw(sim, sim.P, D);
       g.restore();
     } else {
-      this.paintClassic(time, F, pal, L, lastHit);
+      this.paintClassic(g, lv, time, F, pal, L, lastHit);
     }
-
-    if (L.sparks && !NO_SPARKS.has(cfg.rule)) this.sparks(time, F, pal);
-    this.vignette(F);
-    this.bloom(F, L);
+    if (L.sparks && !NO_SPARKS.has(cfg.rule)) this.sparks(g, lv, time, F, pal);
   }
 
-  fadeTrails(time, F, pal, L) {
-    const { g, sim } = this;
-    const segs = sim.segments, from = time - 2.5;
+  fadeTrails(g, lv, time, F, pal, L) {
+    const segs = lv.sim.segments, from = time - 2.5;
     g.lineCap = 'round';
     for (let i = segs.length - 1; i >= 0 && segs[i].t > from; i--) {
       const s = segs[i], a = 1 - (time - s.t) / 2.5;
@@ -236,12 +305,12 @@ export class CircleView {
     g.globalAlpha = 1;
   }
 
-  comets(F, pal, L) {
-    const { g, sim } = this;
+  comets(g, lv, F, pal, L) {
+    const { sim } = lv;
     for (const b of sim.balls) {
       const x = F.cx + b.x * F.R, y = F.cy - b.y * F.R;
-      let tail = this.tails.get(b.i);
-      if (!tail) this.tails.set(b.i, (tail = []));
+      let tail = lv.tails.get(b.i);
+      if (!tail) lv.tails.set(b.i, (tail = []));
       const prev = tail[tail.length - 1];
       if (prev && Math.hypot(prev[0] - x, prev[1] - y) > F.R * 0.35) tail.length = 0; // a jump (seek), not motion
       tail.push([x, y]);
@@ -261,13 +330,12 @@ export class CircleView {
     }
   }
 
-  sparks(time, F, pal) {
-    const { g } = this;
+  sparks(g, lv, time, F, pal) {
     const { k, R, cx, cy } = F;
     g.globalCompositeOperation = 'lighter';
     let drawn = 0;
-    for (let j = this.recent.length - 1; j >= 0 && drawn < 40; j--) {
-      const e = this.recent[j];
+    for (let j = lv.recent.length - 1; j >= 0 && drawn < 40; j--) {
+      const e = lv.recent[j];
       const age = time - e.t;
       if (age < 0 || age > 0.45 || e.x == null) continue;
       drawn++;
@@ -287,8 +355,8 @@ export class CircleView {
   }
 
   /** The six original circle rules. */
-  paintClassic(time, F, pal, L, lastHit) {
-    const { g, sim, cfg } = this;
+  paintClassic(g, lv, time, F, pal, L, lastHit) {
+    const { sim, cfg } = lv;
     const { k, R, cx, cy } = F;
     const P = (x, y) => [cx + x * R, cy - y * R];
 
@@ -342,7 +410,7 @@ export class CircleView {
       stroke(() => { g.moveTo(cx - R * 1.02, cy); g.lineTo(cx + R * 1.02, cy); }, pal.ring, ringW * 0.6, 12);
       for (const b of sim.balls) {
         let last = -9;
-        for (let j = this.recent.length - 1; j >= 0; j--) if (this.recent[j].ball === b.i) { last = this.recent[j].t; break; }
+        for (let j = lv.recent.length - 1; j >= 0; j--) if (lv.recent[j].ball === b.i) { last = lv.recent[j].t; break; }
         const flash = Math.max(0, 1 - (time - last) / 0.4);
         g.globalAlpha = 0.25 + 0.75 * flash;
         stroke(() => g.arc(cx, cy, b.arc * R, Math.PI, Math.PI * 2), pal.line(b.hue), (1.2 + 3 * flash) * k * 1.6, 6 + 18 * flash);
@@ -353,7 +421,7 @@ export class CircleView {
     }
 
     // balls (with comet tails)
-    if (L.comet) this.comets(F, pal, L);
+    if (L.comet) this.comets(g, lv, F, pal, L);
     for (const b of sim.balls) {
       const [x, y] = P(b.x, b.y);
       const rad = Math.max(cfg.rule === 'polyrhythm' ? 9 * k : 10 * k, (b.r || 0) * R) * (L.ballSize ?? 1);
@@ -368,16 +436,25 @@ export class CircleView {
     }
   }
 
+  /** The layer whose text and counter are on screen now. */
+  headline() {
+    if (!this.schedule.length) return null;
+    const s = headlineAt(this.schedule, this.time);
+    return s ? { cfg: s.layer.cfg, lv: this.layers.get(s.layer.id) } : null;
+  }
+
   /** Counter text for the overlay. */
   stats() {
-    const s = this.sim;
+    const hd = this.headline();
+    const s = hd?.lv?.sim;
     if (!s) return '';
-    const label = (this.cfg.text?.counter || '').trim();
+    const cfg = hd.cfg;
+    const label = (cfg.text?.counter || this.c?.text?.counter || '').trim();
     let text;
     if (s.scene) text = s.scene.stats(s, s.P);
-    else if (this.cfg.rule === 'escape') text = `rings left: ${s.rings.filter((r) => r.alive).length}`;
-    else if (this.cfg.rule === 'split') text = `balls: ${s.balls.length}`;
-    else if (this.cfg.rule === 'polyrhythm') text = `notes: ${s.hits}`;
+    else if (cfg.rule === 'escape') text = `rings left: ${s.rings.filter((r) => r.alive).length}`;
+    else if (cfg.rule === 'split') text = `balls: ${s.balls.length}`;
+    else if (cfg.rule === 'polyrhythm') text = `notes: ${s.hits}`;
     else text = `bounces: ${s.hits}`;
     // a custom label replaces the automatic one ("balls: 12" → "my label 12")
     if (label) text = `${label} ${text.replace(/^[^:]*:\s*/, '')}`;

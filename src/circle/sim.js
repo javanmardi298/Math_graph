@@ -56,14 +56,19 @@ export function defaultCircle() {
     poly: { dots: 12, base: 24, cycle: 60 },
     look: {
       palette: 'neon', trail: 'lines', trailWidth: 1.6, glow: 1, ringWidth: 5, ballSize: 1,
-      sparks: true, ringPulse: true, comet: true, counter: true, background: '#060814', zoom: 1, bloom: 1, ambience: true,
+      sparks: true, ringPulse: true, comet: true, counter: true, background: '#060814', zoom: 1, dx: 0, dy: 0, bloom: 1, ambience: true,
     },
     sound: { instrument: 'kalimba', pitch: 'angle', melody: 'ode', notes: '', drum: 'off', length: 0.35, volume: 0.6, maxRate: 30 },
-    text: { formula: '', counter: '' },
+    // the line above the simulation: '' = the preset's question (hook) or a plain description;
+    // show 'caption' (plain words) or 'formula' (the rule as maths)
+    text: { formula: '', counter: '', show: 'caption' },
     // simulation speed over time (the clock of the motion; the soundtrack stays in real time)
     speed: { from: 1, to: 1, curve: 'linear', pulse: 0 },
     // settings of the other simulations, per simulation: { triple: { coreN: 3, … }, … }
     lab: {},
+    // more simulations in the same video (see stack.js): played one after another or together
+    layers: [],
+    combine: 'sequence',
   };
 }
 
@@ -359,4 +364,40 @@ export function formulaLine(cfg) {
     case 'polyrhythm': return `dot k: ${cfg.poly.base}+k swings per ${cfg.poly.cycle} s`;
     default: return cfg.physics.gravity ? 'gravity + perfect bounces' : 'perfect bounces, no friction';
   }
+}
+
+/**
+ * Plain words for the line above the simulation, so anyone gets the point of the video
+ * without maths: a short question or what is happening.
+ */
+const CAPTIONS = {
+  chord: 'Will this pattern ever close?', bounce: 'A ball that never slows down', split: 'Every bounce: one more ball',
+  grow: 'It grows with every bounce', escape: 'Can the ball escape?', polyrhythm: 'Every dot has its own rhythm',
+  triple: 'Hit the triangle, become three', boxcore: 'Hit the square, become two', shatter: 'Every bounce shatters it',
+  escapeplus: 'Every escape brings more balls', chain: 'Every touch makes a new ball', mitosis: 'One cell, again and again',
+  galton: 'Where will the balls land?', pyramid: 'Where will they land?', beatfill: 'Filling up, one beat at a time',
+  pachinko: 'Raining through the pins', hexagon: 'A ball in a spinning hexagon', shrink: 'The walls are closing in',
+  billiard: 'A ball that never stops', colorwar: 'Which colour wins?', growpack: 'They grow until they get stuck',
+  coral: 'Watch a reef grow', snowflake: 'Watch a crystal grow',
+  paper: (P) => ({ half: 'Cut it in half, again and again', quad: 'Cut it in four, again and again', golden: 'Cut off a square, again and again', tri: 'Cut out the middle, forever' }[P.mode]),
+  radar: (P) => ({ add: 'Every ping adds a new dot', grow: 'Every ping makes it grow', turn: 'The beam pushes every dot', remove: 'Every ping deletes a dot' }[P.action]),
+  chaos: 'Random jumps. Watch what appears.', phyllo: 'How a sunflower places its seeds', packing: 'They grow until they touch',
+  pendulum: 'Watch them fall in and out of sync', dna: 'Building DNA, one pair at a time', harmono: 'Two pendulums, one drawing',
+  orbits: 'Two planets draw a flower', sorting: 'Listen to the bars sort themselves', tree: 'A tree grows on every beat',
+  times: 'Multiply around a circle', polygons: 'One note on every corner', spiro: 'A wheel inside a wheel',
+  rps: 'Rock, paper or scissors: who wins?', predator: (P) => (P.theme === 'bubbles' ? 'Bubbles vs needles: who survives?' : 'Flowers grow, scissors cut. Who survives?'),
+  slicer: 'Every ball it touches is cut in half', knives: 'Don’t hit another knife!', popper: 'What will it draw?',
+};
+
+/**
+ * The line above a simulation: your own text, else the preset's question (`question`,
+ * usually the hook line), else plain words for the simulation; or its formula when
+ * text.show is 'formula'.
+ */
+export function captionLine(cfg, question = '') {
+  if (cfg.text?.formula) return cfg.text.formula;
+  if (cfg.text?.show === 'formula') return formulaLine(cfg);
+  if (question) return question;
+  const c = CAPTIONS[cfg.rule];
+  return (typeof c === 'function' ? c(sceneParams(cfg) || {}) : c) || formulaLine(cfg);
 }

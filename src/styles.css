@@ -549,3 +549,16 @@ div.lib-main { cursor: default; }
 body.mode-circle #layer-list, body.mode-circle #seq-slot, body.mode-circle #add-layer, body.mode-circle .panel-left details { display: none; }
 .circle-left-note { display: none; }
 body.mode-circle .circle-left-note { display: block; }
+.circle-layers { display: flex; flex-direction: column; gap: 10px; }
+.circle-layers .layer-list { margin: 0; }
+.circle-layer { --layer: var(--accent, #22e4ff); }
+.circle-layer.is-editing { border-color: var(--accent, #22e4ff); box-shadow: 0 0 0 1px var(--accent, #22e4ff) inset; }
+.circle-layer .layer-link { display: block; }
+.circle-layer-num { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 600 11px var(--f-mono, monospace); background: color-mix(in srgb, var(--accent, #22e4ff) 25%, transparent); flex: none; }
+.circle-layer-name { flex: 1; min-width: 0; text-align: left; background: none; border: 0; color: var(--fg); font: 500 12px var(--f-body); cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 4px; }
+.circle-layer-name:hover { text-decoration: underline; }
+.circle-layers .row select { flex: 1; min-width: 0; }
+.circle-edit-chips .chip[aria-pressed="true"] { background: var(--accent, #22e4ff); color: #000; }
+.lib-shelf { display: flex; justify-content: space-between; align-items: center; width: 100%; margin: 10px 0 2px; padding: 6px 4px; background: none; border: 0; border-bottom: 1px solid var(--line); color: var(--fg); font: 600 11px var(--f-mono, monospace); letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; }
+.lib-shelf:hover { color: var(--accent, #22e4ff); }
+.lib-shelf-n { color: var(--muted); font-weight: 400; }

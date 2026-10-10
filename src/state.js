@@ -102,7 +102,7 @@ export function defaultState() {
     // outro: seconds of fade to black at the end. Both apply to every exported video.
     record: {
       resolution: '1080p', fps: 60, fromStart: true, fileName: '', quality: 'high', subframes: 1, gpuEncoder: false, engine: 'auto',
-      hook: { enabled: true, teaser: 0.8, flash: true, impact: true }, outro: 0.6,
+      hook: { enabled: false, teaser: 0.8, flash: true, impact: true }, outro: 0.6,
     },
     // The hook line shown over the first ~2 s of a video ('' = the YouTube title without hashtags).
     hook: { text: '' },
@@ -115,7 +115,7 @@ export function defaultState() {
     // size is a multiplier. Text boxes are positioned by their centre.
     overlay: {
       // layout 2: formulas top left, preset name top centre; title, subtitle, notes and analyzer off.
-      layout: 3,
+      layout: 4,
       title: { enabled: false, text: '', subtitle: false, subtitleText: '', x: null, y: null, size: 1, color: '' },
       formulas: { enabled: true, x: null, y: null, size: 1 },
       name: { enabled: true, x: null, y: null, size: 1, color: '' },
@@ -175,6 +175,12 @@ function applyLayout3(st) {
   st.overlay.layout = 3;
 }
 
+/** Layout 4: the Shorts opening hook (teaser + flash) is off unless a preset asks for it. */
+function applyLayout4(st) {
+  st.record.hook.enabled = false;
+  st.overlay.layout = 4;
+}
+
 class Store {
   constructor() {
     this.state = defaultState();
@@ -200,6 +206,11 @@ class Store {
     const merged = mergeDeep(defaultState(), structuredClone(snapshot));
     if ((snapshot.overlay?.layout ?? 1) < 2) applyLayout2(merged);
     if ((snapshot.overlay?.layout ?? 1) < 3) applyLayout3(merged);
+    if ((snapshot.overlay?.layout ?? 1) < 4) applyLayout4(merged);
+    // Circle layers: each one a complete circle setting (older or partial ones get the defaults)
+    merged.circle.layers = (merged.circle.layers || []).map((l, i) => ({
+      id: l.id || `C${i + 1}`, enabled: l.enabled !== false, withPrev: !!l.withPrev, cfg: mergeDeep(defaultCircle(), { ...(l.cfg || {}), layers: [] }),
+    }));
     merged.layers = (merged.layers || []).map((l) => createLayer({ ...l, id: undefined, exprs: { ...l.exprs } }));
     merged.layers.forEach((l, i) => { l.id = `L${Date.now().toString(36)}${i}`; });
     this.state = merged;

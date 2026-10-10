@@ -5,6 +5,8 @@ import { SCENES, sceneParams } from '../src/circle/scenes.js';
 import { speedAt, worldFor, pixelFrame } from '../src/circle/layout.js';
 import { LAB_PRESETS } from '../src/circle/presets-lab.js';
 import { beats, RPS_NAMES, formulaError, pretty } from '../src/circle/battles.js';
+import { circleSchedule, visibleAt, headlineAt } from '../src/circle/stack.js';
+import { STACK_PRESETS } from '../src/circle/presets-stack.js';
 
 const cfg = (rule, lab = {}, extra = {}) => ({ ...defaultCircle(), rule, lab: { [rule]: lab }, ...extra });
 const env = { duration: 30, bpm: 120, ratio: 9 / 16 };
@@ -122,4 +124,29 @@ test('formulas drive the blade and the spike; bad formulas fall back', () => {
   assert.ok(formulaError('sin(', ['t']));
   assert.equal(formulaError('cos(4*t)*sin(t)', ['t']), '');
   assert.equal(pretty('16*sin(t)^3/17'), '16·sin(t)³/17');
+});
+
+test('circle layers: one after another (linked steps play together) or all together', () => {
+  const c = { ...defaultCircle(), combine: 'sequence', layers: [
+    { id: 'b', enabled: true, withPrev: false, cfg: defaultCircle() },
+    { id: 'c', enabled: true, withPrev: true, cfg: defaultCircle() },
+    { id: 'd', enabled: false, withPrev: false, cfg: defaultCircle() },
+  ] };
+  const s = circleSchedule(c, 30);
+  assert.deepEqual(s.map((x) => [x.layer.id, x.start, x.end]), [['main', 0, 15], ['b', 15, 30], ['c', 15, 30]]);
+  assert.deepEqual(visibleAt(s, 5).map((x) => x.layer.id), ['main']);
+  const mid = visibleAt(s, 15.2);
+  assert.ok(mid.find((x) => x.layer.id === 'main').alpha < 1 && mid.find((x) => x.layer.id === 'b').alpha < 1, 'cross-fade');
+  assert.equal(headlineAt(s, 20).layer.id, 'b');
+  const together = circleSchedule({ ...c, combine: 'together' }, 30);
+  assert.ok(together.every((x) => x.start === 0 && x.end === 30));
+});
+
+test('layer presets: every layer is a known simulation, with plain text', () => {
+  assert.ok(STACK_PRESETS.length >= 8);
+  for (const p of STACK_PRESETS) {
+    assert.ok(p.circle.layers.length >= 1, p.name);
+    for (const l of [p.circle, ...p.circle.layers.map((x) => x.cfg)]) assert.ok(CIRCLE_RULES[l.rule], `${p.name}: ${l.rule}`);
+    assert.ok(!/[=^]/.test(p.hook.text), `${p.name}: plain words, no formula`);
+  }
 });

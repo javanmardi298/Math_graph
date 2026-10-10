@@ -6,6 +6,7 @@ const TAGS = 'satisfying, simulation, math, physics, generative art, asmr, oddly
 
 const L = (name, rule, lab, { look = {}, sound = {}, speed, seed, duration = 30, bpm = 120, audio = {}, hook, title, desc, tags, text } = {}) => ({
   name, mode: 'circle', transport: { duration, bpm },
+  overlay: { layout: 4, name: { enabled: false } }, // light text: just the question / caption line
   visual: { aspect: '9:16' },
   audio: { scale: 'minorPentatonic', root: 9, noteLow: 50, noteHigh: 86, reverb: { decay: 3.5, mix: 0.35 }, delay: { time: 0.375, feedback: 0.3, mix: 0.16 }, ...audio },
   circle: {
@@ -23,7 +24,7 @@ export const LAB_PRESETS = [
   /* ------------------------------------------------------- multiply & split */
   L('Every Hit Makes 3', 'triple', { coreN: 3, spread: 70 }, {
     look: { palette: 'rainbow' }, sound: { instrument: 'marimba', pitch: 'rise', volume: 1, maxRate: 14 }, speed: { from: 0.8, to: 1.4, curve: 'smooth' },
-    hook: 'Every hit on the triangle: 1 ball becomes 3',
+    hook: 'Every ball that hits the triangle becomes 3',
     title: '1 ball → 3 → 9 → 27 … → 729 🔺', desc: 'A spinning triangle sits in the middle of the circle. Every ball that hits it splits into three. Powers of three explode fast: 729 balls in seconds.',
   }),
   L('Square Core Doubler', 'boxcore', { coreN: 2 }, {
@@ -48,13 +49,13 @@ export const LAB_PRESETS = [
   }),
   L('Mitosis', 'mitosis', { divide: 3, childScale: 0.86 }, {
     look: { palette: 'aurora' }, sound: { instrument: 'glass-pad', pitch: 'rise', length: 0.9 }, bpm: 100,
-    hook: '1 cell, divide every 3 beats', title: '1 cell → 512 cells, on the beat 🧫', desc: 'One cell divides into two every three beats. Each generation is a little smaller and pushes the others away, until the whole box is a living tissue.',
+    hook: 'One cell. How many at the end?', title: '1 cell → 512 cells, on the beat 🧫', desc: 'One cell divides into two every three beats. Each generation is a little smaller and pushes the others away, until the whole box is a living tissue.',
   }),
 
   /* --------------------------------------------------------- fill the screen */
   L('Galton Board', 'galton', {}, {
     look: { palette: 'neon' }, sound: { instrument: 'kalimba', pitch: 'angle', maxRate: 18 }, duration: 34,
-    hook: 'Random bounces always make this shape', title: 'Pure chance always draws a bell curve 🔔', desc: 'Every ball goes left or right at each peg, 50/50. Nobody aims, yet the bins always fill into the same bell curve: the normal distribution, live.',
+    hook: 'Pure luck. Same shape every time?', title: 'Pure chance always draws a bell curve 🔔', desc: 'Every ball goes left or right at each peg, 50/50. Nobody aims, yet the bins always fill into the same bell curve: the normal distribution, live.',
     tags: 'galton board, bell curve, normal distribution, probability, statistics, math, satisfying, shorts',
   }),
   L('Pyramid Cascade', 'pyramid', { rows: 5 }, {
@@ -63,11 +64,11 @@ export const LAB_PRESETS = [
   }),
   L('Beat Fill', 'beatfill', { emitRamp: 8, colorEvery: 24 }, {
     look: { palette: 'candy' }, sound: { instrument: 'marimba', pitch: 'angle', drum: 'kick' }, bpm: 118,
-    hook: 'One drop per beat… then more', title: 'Filling the capsule, one beat at a time 🍬', desc: 'One ball drops on every half beat, one more per drop every bar, a new colour every 24 balls. Layer after layer until the capsule is full.',
+    hook: 'Can it fill the whole capsule?', title: 'Filling the capsule, one beat at a time 🍬', desc: 'One ball drops on every half beat, one more per drop every bar, a new colour every 24 balls. Layer after layer until the capsule is full.',
   }),
   L('Pachinko Rain', 'pachinko', {}, {
     look: { palette: 'ocean' }, sound: { instrument: 'music-box', pitch: 'angle', maxRate: 20 },
-    hook: '700 balls, 100 pins', title: '700 balls rain through 100 pins 🌧️', desc: 'Every pin rings a note when a ball hits it, higher at the top, lower at the bottom. The rain slowly fills the floor.',
+    hook: 'Every pin plays a note', title: '700 balls rain through 100 pins 🌧️', desc: 'Every pin rings a note when a ball hits it, higher at the top, lower at the bottom. The rain slowly fills the floor.',
   }),
   L('Paper Cut ×256', 'paper', { mode: 'half' }, {
     look: { palette: 'candy' }, sound: { instrument: 'marimba', pitch: 'angle' },
@@ -97,7 +98,7 @@ export const LAB_PRESETS = [
   }),
   L('Radar Countdown', 'radar', { action: 'remove', blips: 120, sweep: 0.35 }, {
     look: { palette: 'matrix' }, sound: { instrument: 'synth-pluck', pitch: 'angle' }, speed: { from: 0.7, to: 1.6, curve: 'build' },
-    hook: '120 targets. Each ping deletes one.', title: '120 targets, every ping deletes one 🟢', desc: 'A radar sweep removes every target it touches. The sweep speeds up; the screen empties; the last ping is the loudest.',
+    hook: 'Every ping deletes a dot. How long until none?', title: '120 targets, every ping deletes one 🟢', desc: 'A radar sweep removes every target it touches. The sweep speeds up; the screen empties; the last ping is the loudest.',
   }),
   L('Radar Push', 'radar', { action: 'turn', blips: 40, turn: -30, sweep: 0.5 }, {
     look: { palette: 'aurora' }, sound: { instrument: 'marimba', pitch: 'angle' },
@@ -110,20 +111,20 @@ export const LAB_PRESETS = [
   }),
   L('Golden Pentagon Chaos', 'chaos', { corners: 5, ratio: 0.618, rate0: 3 }, {
     look: { palette: 'gold' }, sound: { instrument: 'harp', pitch: 'ball' },
-    hook: '5 corners, jump 0.618 of the way', title: 'Jump 1/φ of the way: a golden fractal ⭐', desc: 'Five corners. Jump 0.618 (1 over the golden ratio) of the way to a random one. The dots build a pentagon of pentagons.',
+    hook: 'Random jumps. What shape appears?', title: 'Jump 1/φ of the way: a golden fractal ⭐', desc: 'Five corners. Jump 0.618 (1 over the golden ratio) of the way to a random one. The dots build a pentagon of pentagons.',
   }),
   L('Never Twice Square', 'chaos', { corners: 4, ratio: 0.5, rule: 'norepeat' }, {
     look: { palette: 'candy' }, sound: { instrument: 'e-piano', pitch: 'ball' },
-    hook: 'Same rule, one twist', title: 'Never pick the same corner twice 🟦', desc: 'In a square, random half-jumps just fill it with noise. Add one rule (never the same corner twice) and a fractal appears.',
+    hook: 'Random jumps, one small rule', title: 'Never pick the same corner twice 🟦', desc: 'In a square, random half-jumps just fill it with noise. Add one rule (never the same corner twice) and a fractal appears.',
   }),
   L('Sunflower', 'phyllo', { color: 'spiral' }, {
     look: { palette: 'gold' }, sound: { instrument: 'kalimba', pitch: 'angle' }, speed: { from: 1, to: 1.2, curve: 'smooth' },
-    hook: 'Turn 137.5° every seed', title: 'Turn 137.5° per seed: a sunflower 🌻', desc: 'Every new seed turns by the golden angle (137.508°) and sits a little further out. No other angle packs seeds so evenly: you can count 21 and 34 spirals.',
+    hook: 'How does a sunflower place its seeds?', title: 'Turn 137.5° per seed: a sunflower 🌻', desc: 'Every new seed turns by the golden angle (137.508°) and sits a little further out. No other angle packs seeds so evenly: you can count 21 and 34 spirals.',
     tags: 'golden angle, phyllotaxis, sunflower, fibonacci, golden ratio, math, satisfying, shorts',
   }),
   L('One Degree Off', 'phyllo', { angle: 137.3, color: 'golden' }, {
     look: { palette: 'rainbow' }, sound: { instrument: 'bell', pitch: 'angle' },
-    hook: '137.3° instead of 137.5°', title: 'What if the sunflower is 0.2° off? 🌀', desc: 'The same seed rule with 137.3° instead of the golden angle: the seeds line up into spokes and leave gaps. Nature picks the golden one.',
+    hook: 'What if the sunflower is a tiny bit off?', title: 'What if the sunflower is 0.2° off? 🌀', desc: 'The same seed rule with 137.3° instead of the golden angle: the seeds line up into spokes and leave gaps. Nature picks the golden one.',
   }),
   L('Pendulum Wave', 'pendulum', { count: 15, base: 20, cycle: 30 }, {
     look: { palette: 'rainbow' }, sound: { instrument: 'marimba', pitch: 'ball', length: 0.5 }, audio: { scale: 'pentatonic', root: 2, noteLow: 50, noteHigh: 90 },
@@ -131,12 +132,12 @@ export const LAB_PRESETS = [
   }),
   L('DNA Zip', 'dna', { pairs: 40, zip: 0.5 }, {
     look: { palette: 'neon' }, sound: { instrument: 'e-piano', pitch: 'ball', length: 0.5 }, audio: { scale: 'major', root: 0, noteLow: 55, noteHigh: 84 },
-    hook: 'A–T, G–C, on every beat', title: 'Building a DNA helix, one base pair per beat 🧬', desc: 'The double helix zips up from the bottom: one base pair per half beat, A with T, G with C, each with its own note.',
+    hook: 'Building DNA, one pair per beat', title: 'Building a DNA helix, one base pair per beat 🧬', desc: 'The double helix zips up from the bottom: one base pair per half beat, A with T, G with C, each with its own note.',
     tags: 'dna, double helix, biology, science, satisfying, animation, shorts',
   }),
   L('Polygon Polyrhythm', 'polygons', { from: 3, to: 10, lap: 8 }, {
     look: { palette: 'rainbow' }, sound: { instrument: 'kalimba', pitch: 'ball' }, audio: { scale: 'pentatonic', root: 2, noteLow: 50, noteHigh: 88 },
-    hook: '3 to 10 corners, one lap each', title: 'Triangle to decagon: a note on every corner 🔺⬠⬡', desc: 'Eight nested polygons, one dot each, all finishing a lap at the same time. More corners means more notes: 3 against 4 against 5 … against 10.',
+    hook: 'One note on every corner', title: 'Triangle to decagon: a note on every corner 🔺⬠⬡', desc: 'Eight nested polygons, one dot each, all finishing a lap at the same time. More corners means more notes: 3 against 4 against 5 … against 10.',
   }),
   L('Sorting: Quicksort', 'sorting', { algo: 'quick', bars: 64, time: 20 }, {
     look: { palette: 'rainbow' }, sound: { instrument: 'square', pitch: 'angle', length: 0.1, maxRate: 40, volume: 1 }, audio: { scale: 'continuous', noteLow: 48, noteHigh: 96 },
@@ -145,7 +146,7 @@ export const LAB_PRESETS = [
   }),
   L('Sorting: Merge Sort', 'sorting', { algo: 'merge', bars: 96, time: 22 }, {
     look: { palette: 'candy' }, sound: { instrument: 'triangle', pitch: 'angle', length: 0.1, maxRate: 40, volume: 1 }, audio: { scale: 'continuous', noteLow: 48, noteHigh: 96 },
-    hook: 'Divide, sort, merge', title: 'Merge sort, with sound 🍬', desc: 'Merge sort splits the 96 bars in halves, sorts the halves and merges them back. Listen for the rising sweeps when two halves merge.',
+    hook: 'Can you hear it sorting?', title: 'Merge sort, with sound 🍬', desc: 'Merge sort splits the 96 bars in halves, sorts the halves and merges them back. Listen for the rising sweeps when two halves merge.',
     tags: 'sorting algorithm, merge sort, programming, computer science, satisfying, shorts',
   }),
   L('Sorting: Bubble Sort', 'sorting', { algo: 'bubble', bars: 32, time: 24 }, {
@@ -169,7 +170,7 @@ export const LAB_PRESETS = [
   }),
   L('Cardioid to Chaos', 'times', { points: 200, from: 2, to: 21, build: 5, morph: 22 }, {
     look: { palette: 'rainbow' }, sound: { instrument: 'e-piano', pitch: 'angle' },
-    hook: 'Multiply by 2… then keep going', title: 'Times tables on a circle: × 2 draws a heart ❤️', desc: '200 points on a circle; connect point i to point 2i. A cardioid appears. Then the multiplier slides up to 21 and new shapes bloom: nephroid at × 3, flowers after that.',
+    hook: 'Lines on a circle draw a heart', title: 'Times tables on a circle: × 2 draws a heart ❤️', desc: '200 points on a circle; connect point i to point 2i. A cardioid appears. Then the multiplier slides up to 21 and new shapes bloom: nephroid at × 3, flowers after that.',
     tags: 'times tables, cardioid, mathologer, modular arithmetic, math art, satisfying, shorts',
   }),
   L('Fractal Tree', 'tree', { depth: 11, angle: 24, beats: 1 }, {
@@ -178,7 +179,7 @@ export const LAB_PRESETS = [
   }),
   L('Ball in a Spinning Hexagon', 'hexagon', {}, {
     look: { palette: 'rainbow', trailWidth: 1 }, sound: { instrument: 'marimba', pitch: 'angle' },
-    hook: 'Gravity + a spinning hexagon', title: 'A ball in a spinning hexagon 🔷', desc: 'Gravity pulls, the walls spin and kick the ball. Its path paints a rainbow web.',
+    hook: 'Can the ball stay inside?', title: 'A ball in a spinning hexagon 🔷', desc: 'Gravity pulls, the walls spin and kick the ball. Its path paints a rainbow web.',
   }),
   L('Closing In', 'shrink', { shrink: 0.006 }, {
     look: { palette: 'sunset' }, sound: { instrument: 'synth-pluck', pitch: 'rise' }, speed: { from: 0.8, to: 1.5, curve: 'build' },
@@ -198,7 +199,7 @@ export const LAB_PRESETS = [
   }),
   L('Coral Reef', 'coral', {}, {
     look: { palette: 'ocean' }, sound: { instrument: 'glass-pad', pitch: 'angle', length: 0.8 },
-    hook: 'Wander, touch, stick', title: 'Random walkers grow a coral reef 🪸', desc: 'Particles wander at random and freeze the moment they touch the reef. Branches catch more walkers than valleys, so the reef grows into a forest (diffusion-limited aggregation).',
+    hook: 'Watch a reef grow', title: 'Random walkers grow a coral reef 🪸', desc: 'Particles wander at random and freeze the moment they touch the reef. Branches catch more walkers than valleys, so the reef grows into a forest (diffusion-limited aggregation).',
   }),
   L('Snow Crystal', 'snowflake', {}, {
     look: { palette: 'mono' }, sound: { instrument: 'music-box', pitch: 'angle' },
@@ -214,7 +215,7 @@ export const LAB_PRESETS = [
   }),
   L('Rock Paper Scissors Lizard Spock', 'rps', { kinds: 5, each: 12 }, {
     seed: 9, look: { palette: 'neon', bloom: 0.45 }, sound: { instrument: 'kalimba', pitch: 'ball', maxRate: 16 }, audio: { scale: 'pentatonic', root: 2 },
-    hook: '5 teams, one rule: (a − b) mod 5 is odd', title: 'Rock, paper, scissors, lizard, Spock: who wins? 🖖🦎',
+    hook: 'Five teams. Who wins?', title: 'Rock, paper, scissors, lizard, Spock: who wins? 🖖🦎',
     desc: 'Five teams, and each one beats exactly two others. One formula decides every fight: a beats b when (a − b) mod 5 is odd. Watch the alliances shift on the graph.',
     tags: 'rock paper scissors lizard spock, simulation, battle, who wins, math, shorts',
   }),
@@ -246,12 +247,12 @@ export const LAB_PRESETS = [
   }),
   L('Lissajous Blade', 'slicer', { ba: '2.4*t', bx: '0.5*sin(2*t)', by: '0.5*sin(3*t)', len: 1, balls: 7 }, {
     look: { palette: 'sunset' }, sound: { instrument: 'marimba', pitch: 'angle', maxRate: 20 },
-    hook: 'The blade follows a Lissajous curve', title: 'A blade on a Lissajous path slices everything ✨',
+    hook: 'Every ball it touches is cut in half', title: 'A blade on a Lissajous path slices everything ✨',
     desc: 'The blade spins while its centre follows the Lissajous curve (0.5 sin 2t, 0.5 sin 3t). Every ball it touches splits in two.',
   }),
   L('Star Blades', 'slicer', { ba: '0.6*t + 0.8*sin(2*t)', blades: 3, len: 0.9, balls: 4, size: 0.2, speed: 0.45, minR: 0.014, max: 600 }, {
     look: { palette: 'fire' }, sound: { instrument: 'bell', pitch: 'angle', maxRate: 18 },
-    hook: 'Three blades, one formula', title: 'Three blades, swinging back and forth ⭐',
+    hook: 'Three blades. How many pieces?', title: 'Three blades, swinging back and forth ⭐',
     desc: 'A six-pointed star of blades turns by a = 0.6t + 0.8 sin 2t: forward, back, forward. Every ball it crosses is cut in two.',
   }),
   L('Knife Hit', 'knives', {}, {
@@ -272,8 +273,7 @@ export const LAB_PRESETS = [
   }),
   L('Heart Popper', 'popper', { x: '16*sin(t)^3/17', y: '(13*cos(t) - 5*cos(2*t) - 2*cos(3*t) - cos(4*t))/17', rate: 0.21 }, {
     look: { palette: 'candy', trailWidth: 2.4 }, sound: { instrument: 'music-box', pitch: 'angle', maxRate: 20 },
-    text: { formula: 'x = 16 sin³t,  y = 13 cos t − 5 cos 2t − …' },
-    hook: 'One formula, 320 balloons, a heart', title: 'A formula pops a heart into 320 balloons ❤️🎈',
+    hook: 'What will it draw?', title: 'A formula pops a heart into 320 balloons ❤️🎈',
     desc: 'The heart curve x = 16 sin³t, y = 13 cos t − 5 cos 2t − 2 cos 3t − cos 4t, traced by a spike through a field of balloons.',
     tags: 'heart curve, math art, balloons, satisfying, love, formula, shorts',
   }),
@@ -284,7 +284,7 @@ export const LAB_PRESETS = [
   }),
   L('Lissajous Popper', 'popper', { x: 'sin(3*t)', y: 'sin(4*t)', rate: 0.21, spike: 0.07 }, {
     look: { palette: 'neon', trailWidth: 2 }, sound: { instrument: 'e-piano', pitch: 'angle', maxRate: 20 },
-    hook: 'x = sin 3t, y = sin 4t', title: 'x = sin 3t, y = sin 4t, popped into balloons 🎈',
+    hook: 'What shape will it pop?', title: 'x = sin 3t, y = sin 4t, popped into balloons 🎈',
     desc: 'A Lissajous figure: the spike swings 3 times left-right while it swings 4 times up-down, popping every balloon on its way.',
   }),
 ];

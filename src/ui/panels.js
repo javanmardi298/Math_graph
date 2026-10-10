@@ -15,6 +15,7 @@ import { CIRCLE_RULES, chordStep, ruleGroups } from '../circle/sim.js';
 import { SCENES, sceneParams } from '../circle/scenes.js';
 import { formulaError } from '../circle/battles.js';
 import { SPEED_CURVES } from '../circle/layout.js';
+import { newLayer } from '../circle/stack.js';
 import { CIRCLE_PALETTES } from '../circle/view.js';
 import { MELODIES } from '../circle/sound.js';
 import { DRUM_KINDS, DRUM_LABELS, TRIGGERS } from '../audio/drum-scanner.js';
@@ -80,6 +81,7 @@ export class Panels {
     const fnList = document.getElementById('fn-list');
     fnList.textContent = Object.keys(FUNCTIONS).join('  ');
     this.renderLayers();
+    this.renderCircleLayers();
   }
 
   insertSnippet(text) {
@@ -444,58 +446,77 @@ export class Panels {
   }
 
   /** Rebuild the Circle Lab controls (the visible options depend on the rule). */
+  /** Which circle layer the Circle tab edits: 0 = the first (state.circle), n = circle.layers[n − 1]. */
+  circleTarget() {
+    const c = store.state.circle;
+    const idx = Math.max(0, Math.min(this.circleEdit || 0, (c.layers || []).length));
+    this.circleEdit = idx;
+    return { idx, base: idx ? `circle.layers.${idx - 1}.cfg` : 'circle', L: idx ? c.layers[idx - 1].cfg : c };
+  }
+
+  /** Rebuild the Circle Lab controls (the visible options depend on the rule and the layer). */
   renderCircle() {
     if (!this.circleBody) return;
     disposeTree(this.circleBody);
     const p = bindPath;
     const c = store.state.circle;
+    const { idx, base, L } = this.circleTarget();
+    const P = (k) => bindPath(`${base}.${k}`);
     const on = store.state.mode === 'circle';
     const pct = (v) => `${Math.round(v * 100)}%`;
     const parts = [];
     if (!on) {
       parts.push(h('div.circle-intro', {},
-        h('p.hint', {}, 'Circle Lab: a ball, a chord walker or a polyrhythm moves inside a circle and every hit plays a note. Trails build up into star polygons, mandalas and chaos — the “satisfying” Shorts genre.'),
+        h('p.hint', {}, 'Circle Lab: balls, blades, battles and drawing machines move inside the frame and every hit plays a note. Trails build up into stars, mandalas and fractals — the “satisfying” Shorts genre.'),
         h('button.btn.export-btn', { type: 'button', onclick: () => { store.set('mode', 'circle'); refreshAll(); } }, '◎ Switch to Circle Lab')));
+    }
+    if (c.layers?.length) {
+      // which layer these controls edit
+      parts.push(h('div.chips.circle-edit-chips', {}, ...[c, ...c.layers.map((l) => l.cfg)].map((cfg, i) =>
+        h('button.chip', { type: 'button', 'aria-pressed': String(i === idx), onclick: () => { this.circleEdit = i; this.renderCircle(); this.renderCircleLayers(); } }, `${i + 1} · ${CIRCLE_RULES[cfg.rule] || cfg.rule}`))));
     }
     // simulation picker, grouped
     const ruleSel = h('select', { 'aria-label': 'Simulation' }, ruleGroups().map(([g, items]) => h('optgroup', { label: g }, items.map(([id, label]) => h('option', { value: id }, label)))));
-    ruleSel.value = c.rule;
-    ruleSel.addEventListener('change', () => store.set('circle.rule', ruleSel.value));
+    ruleSel.value = L.rule;
+    ruleSel.addEventListener('change', () => store.set(`${base}.rule`, ruleSel.value));
     const nRules = Object.keys(CIRCLE_RULES).length;
-    parts.push(group('Simulation', [
+    parts.push(group(idx ? `Layer ${idx + 1}: simulation` : 'Simulation', [
       h('div.ctl.ctl-select', {}, h('label', {}, `Simulation (${nRules})`), ruleSel),
-      number('Random seed', p('circle.seed'), { min: 1, max: 9999 }),
-    ], { hint: 'Everything is deterministic: the same settings always give the same video and sound. Change the seed for a different variation.' }));
+      h('div.row', {},
+        number('Random seed', P('seed'), { min: 1, max: 9999 }),
+        h('button.btn.ghost.small', { type: 'button', title: 'Another variation of the same simulation', onclick: () => { store.set(`${base}.seed`, 1 + Math.floor(Math.random() * 9999)); refreshAll(); } }, '🎲 New variation')),
+    ], { hint: 'Everything is deterministic: the same settings always give the same video and sound. A new seed gives another variation.' }));
 
-    const scene = SCENES[c.rule];
+    const scene = SCENES[L.rule];
     if (scene) {
+      const cur = () => this.circleTarget().L;
       const sb = (key) => ({
-        get: () => sceneParams(store.state.circle)[key],
-        set: (v) => { const cc = store.state.circle; store.set(`circle.lab.${cc.rule}`, { ...(cc.lab?.[cc.rule] || {}), [key]: v }); },
+        get: () => sceneParams(cur())[key],
+        set: (v) => { const cc = cur(); store.set(`${base}.lab.${cc.rule}`, { ...(cc.lab?.[cc.rule] || {}), [key]: v }); },
       });
       const ctls = scene.controls.filter(Boolean).map(([key, label, kind, a, b, st, unit]) => {
         if (kind === 's') return select(label, sb(key), a);
         if (kind === 't') return toggle(label, sb(key));
         if (kind === 'f') {
-          // a formula: show what is wrong as you type (variables listed in the label hint)
+          // a formula: show what is wrong as you type, else which variables it can use
           const ctl = text(`${label}`, sb(key), { placeholder: a });
           const err = h('p.hint.formula-error');
-          const check = () => { const e = formulaError(sceneParams(store.state.circle)[key], b); err.textContent = e ? `⚠ ${e}` : `variables: ${b.join(', ')}`; err.style.color = e ? '#ff6b81' : 'var(--muted, #8a93a6)'; };
+          const check = () => { const e = formulaError(sceneParams(cur())[key], b); err.textContent = e ? `⚠ ${e}` : `variables: ${b.join(', ')}`; err.style.color = e ? '#ff6b81' : 'var(--muted, #8a93a6)'; };
           ctl.querySelector('input').addEventListener('input', check);
           check();
           return h('div', {}, ctl, err);
         }
         return slider(label, sb(key), { min: a, max: b, step: st, unit: unit || '' });
       });
-      ctls.push(h('button.btn', { type: 'button', onclick: () => { store.set(`circle.lab.${store.state.circle.rule}`, {}); refreshAll(); } }, 'Reset these to the defaults'));
+      ctls.push(h('button.btn', { type: 'button', onclick: () => { store.set(`${base}.lab.${cur().rule}`, {}); refreshAll(); } }, 'Reset these to the defaults'));
       parts.push(group(scene.label, ctls));
     }
 
-    if (c.rule === 'chord') {
-      const stepIn = text('Step per hit (fraction of a turn)', p('circle.chord.step'), { placeholder: '1/phi^2' });
+    if (L.rule === 'chord') {
+      const stepIn = text('Step per hit (fraction of a turn)', P('chord.step'), { placeholder: '1/phi^2' });
       const info = h('p.hint.circle-step');
       const showStep = () => {
-        const v = chordStep(c.chord.step);
+        const v = chordStep(this.circleTarget().L.chord.step);
         const deg = (v * 360) % 360;
         // a rational step p/q closes after q hits; irrational ones never close
         let close = '';
@@ -504,102 +525,166 @@ export class Panels {
       };
       stepIn.querySelector('input').addEventListener('input', showStep);
       showStep();
-      const chip = (label, expr) => h('button.chip', { type: 'button', onclick: () => { store.set('circle.chord.step', expr); refreshAll(); showStep(); } }, label);
+      const chip = (label, expr) => h('button.chip', { type: 'button', onclick: () => { store.set(`${base}.chord.step`, expr); refreshAll(); showStep(); } }, label);
       parts.push(group('Chord walker', [
         stepIn, info,
         h('div.chips', {}, chip('1/φ² golden', '1/phi^2'), chip('1/φ', '1/phi'), chip('2/5 star', '2/5'), chip('3/7', '3/7'), chip('5/13', '5/13'),
           chip('8/21', '8/21'), chip('√2 − 1', 'sqrt(2) - 1'), chip('π − 3', 'pi - 3'), chip('e − 2', 'e - 2'), chip('11/24', '11/24')),
-        slider('Walkers', p('circle.chord.walkers'), { min: 1, max: 12, step: 1 }),
-        slider('Speed', p('circle.chord.speed'), { min: 0.2, max: 8, step: 0.05 }),
-        slider('Speed-up per hit', p('circle.chord.speedGain'), { min: 1, max: 1.06, step: 0.001, fmt: (v) => `×${v.toFixed(3)}` }),
-        slider('Start angle', p('circle.chord.start'), { min: 0, max: 360, step: 1, unit: '°' }),
+        slider('Walkers', P('chord.walkers'), { min: 1, max: 12, step: 1 }),
+        slider('Speed', P('chord.speed'), { min: 0.2, max: 8, step: 0.05 }),
+        slider('Speed-up per hit', P('chord.speedGain'), { min: 1, max: 1.06, step: 0.001, fmt: (v) => `×${v.toFixed(3)}` }),
+        slider('Start angle', P('chord.start'), { min: 0, max: 360, step: 1, unit: '°' }),
       ], { hint: 'Write any expression: 1/phi^2, 2/5, sqrt(2)-1, pi-3… Fibonacci ratios (5/13, 8/21, 13/34) look golden for a while, then close.' }));
     }
-    if (['bounce', 'split', 'grow', 'escape'].includes(c.rule)) {
+    if (['bounce', 'split', 'grow', 'escape'].includes(L.rule)) {
       parts.push(group('Balls & physics', [
-        slider('Balls', p('circle.physics.balls'), { min: 1, max: 32, step: 1 }),
-        slider('Speed', p('circle.physics.speed'), { min: 0.2, max: 5, step: 0.05 }),
-        slider('Launch angle', p('circle.physics.angle'), { min: 0, max: 360, step: 1, unit: '°' }),
-        slider('Gravity', p('circle.physics.gravity'), { min: 0, max: 8, step: 0.1 }),
-        slider('Bounciness', p('circle.physics.restitution'), { min: 0.5, max: 1.1, step: 0.01, fmt: pct }),
-        slider('Speed-up per bounce', p('circle.physics.speedGain'), { min: 1, max: 1.08, step: 0.002, fmt: (v) => `×${v.toFixed(3)}` }),
-        slider('Top speed', p('circle.physics.maxSpeed'), { min: 1, max: 12, step: 0.1 }),
-        slider('Ball size', p('circle.physics.size'), { min: 0.005, max: 0.2, step: 0.005 }),
+        slider('Balls', P('physics.balls'), { min: 1, max: 32, step: 1 }),
+        slider('Speed', P('physics.speed'), { min: 0.2, max: 5, step: 0.05 }),
+        slider('Launch angle', P('physics.angle'), { min: 0, max: 360, step: 1, unit: '°' }),
+        slider('Gravity', P('physics.gravity'), { min: 0, max: 8, step: 0.1 }),
+        slider('Bounciness', P('physics.restitution'), { min: 0.5, max: 1.1, step: 0.01, fmt: pct }),
+        slider('Speed-up per bounce', P('physics.speedGain'), { min: 1, max: 1.08, step: 0.002, fmt: (v) => `×${v.toFixed(3)}` }),
+        slider('Top speed', P('physics.maxSpeed'), { min: 1, max: 12, step: 0.1 }),
+        slider('Ball size', P('physics.size'), { min: 0.005, max: 0.2, step: 0.005 }),
       ]));
     }
-    if (c.rule === 'split') {
+    if (L.rule === 'split') {
       parts.push(group('Split', [
-        slider('Split angle', p('circle.split.angle'), { min: 1, max: 60, step: 0.5, unit: '°' }),
-        slider('Most balls', p('circle.split.max'), { min: 2, max: 512, step: 1 }),
+        slider('Split angle', P('split.angle'), { min: 1, max: 60, step: 0.5, unit: '°' }),
+        slider('Most balls', P('split.max'), { min: 2, max: 512, step: 1 }),
       ]));
     }
-    if (c.rule === 'grow') {
+    if (L.rule === 'grow') {
       parts.push(group('Grow', [
-        slider('Growth per bounce', p('circle.grow.amount'), { min: 0.001, max: 0.04, step: 0.001 }),
-        slider('Stop at', p('circle.grow.until'), { min: 0.3, max: 0.99, step: 0.01, fmt: pct }),
+        slider('Growth per bounce', P('grow.amount'), { min: 0.001, max: 0.04, step: 0.001 }),
+        slider('Stop at', P('grow.until'), { min: 0.3, max: 0.99, step: 0.01, fmt: pct }),
       ]));
     }
-    if (c.rule === 'escape') {
+    if (L.rule === 'escape') {
       parts.push(group('Rings', [
-        slider('Rings', p('circle.escape.rings'), { min: 1, max: 14, step: 1 }),
-        slider('Innermost ring', p('circle.escape.inner'), { min: 0.1, max: 0.9, step: 0.01, fmt: pct }),
-        slider('Gap', p('circle.escape.gap'), { min: 5, max: 120, step: 1, unit: '°' }),
-        slider('Ring spin', p('circle.escape.spin'), { min: 0, max: 5, step: 0.05 }),
+        slider('Rings', P('escape.rings'), { min: 1, max: 14, step: 1 }),
+        slider('Innermost ring', P('escape.inner'), { min: 0.1, max: 0.9, step: 0.01, fmt: pct }),
+        slider('Gap', P('escape.gap'), { min: 5, max: 120, step: 1, unit: '°' }),
+        slider('Ring spin', P('escape.spin'), { min: 0, max: 5, step: 0.05 }),
       ], { hint: 'The ball bounces inside the innermost ring; hitting its gap breaks it and frees the ball into the next one.' }));
     }
-    if (c.rule === 'polyrhythm') {
+    if (L.rule === 'polyrhythm') {
       parts.push(group('Polyrhythm', [
-        slider('Dots', p('circle.poly.dots'), { min: 2, max: 32, step: 1 }),
-        slider('Swings of the slowest dot', p('circle.poly.base'), { min: 1, max: 80, step: 1 }),
-        slider('Cycle (all line up again)', p('circle.poly.cycle'), { min: 5, max: 300, step: 1, unit: ' s' }),
+        slider('Dots', P('poly.dots'), { min: 2, max: 32, step: 1 }),
+        slider('Swings of the slowest dot', P('poly.base'), { min: 1, max: 80, step: 1 }),
+        slider('Cycle (all line up again)', P('poly.cycle'), { min: 5, max: 300, step: 1, unit: ' s' }),
       ], { hint: 'Dot k swings base + k times per cycle; after one cycle every dot is back at the start together.' }));
     }
     parts.push(group('Speed over time', [
-      slider('Speed at the start', p('circle.speed.from'), { min: 0, max: 4, step: 0.01, fmt: (v) => `×${v.toFixed(2)}` }),
-      slider('Speed at the end', p('circle.speed.to'), { min: 0, max: 4, step: 0.01, fmt: (v) => `×${v.toFixed(2)}` }),
-      select('How it changes', p('circle.speed.curve'), SPEED_CURVES),
-      slider('Pulse on every beat', p('circle.speed.pulse'), { min: 0, max: 3, step: 0.05 }),
+      slider('Speed at the start', P('speed.from'), { min: 0, max: 4, step: 0.01, fmt: (v) => `×${v.toFixed(2)}` }),
+      slider('Speed at the end', P('speed.to'), { min: 0, max: 4, step: 0.01, fmt: (v) => `×${v.toFixed(2)}` }),
+      select('How it changes', P('speed.curve'), SPEED_CURVES),
+      slider('Pulse on every beat', P('speed.pulse'), { min: 0, max: 3, step: 0.05 }),
       h('div.chips', {}, ...[['Steady', 1, 1, 'linear', 0], ['Speed up ×3', 0.7, 2.2, 'build', 0], ['Slow-mo ending', 1.2, 0.25, 'late', 0], ['Fast start', 2.5, 0.8, 'early', 0], ['Breathing', 0.6, 1.6, 'wave', 0], ['Beat pulse', 0.8, 0.8, 'linear', 1.2]]
-        .map(([label, from, to, curve, pulse]) => h('button.chip', { type: 'button', onclick: () => { store.set('circle.speed', { from, to, curve, pulse }); refreshAll(); } }, label))),
-    ], { hint: 'Changes how fast the motion runs while the video plays (×1 = normal). The notes follow the motion, so the music speeds up and slows down with it.' }));
+        .map(([label, from, to, curve, pulse]) => h('button.chip', { type: 'button', onclick: () => { store.set(`${base}.speed`, { from, to, curve, pulse }); refreshAll(); } }, label))),
+    ], { hint: 'How fast the motion runs while the video plays (×1 = normal). The notes follow the motion, so the music speeds up and slows down with it.' }));
     parts.push(group('Sound', [
-      this.soundPickerFor(p('circle.sound.instrument')),
-      select('Notes from', p('circle.sound.pitch'), { angle: 'Where it happens (position, size, value)', melody: 'A melody, note by note', rise: 'Rising scale', ball: 'Each ball / object its own note' }),
-      ...(c.sound.pitch === 'melody' ? [select('Melody', p('circle.sound.melody'), Object.fromEntries(Object.entries(MELODIES).map(([k, m]) => [k, m.label])))] : []),
-      ...(c.sound.pitch === 'melody' && c.sound.melody === 'custom' ? [text('Notes', p('circle.sound.notes'), { placeholder: 'E4 D#4 E4 D#4 E4 B3 D4 C4 A3' })] : []),
-      select('Drum on every hit', p('circle.sound.drum'), { off: 'None', kick: 'Kick', snare: 'Snare', clap: 'Clap', hat: 'Hi-hat' }),
-      slider('Note length', p('circle.sound.length'), { min: 0.05, max: 2, step: 0.01, unit: ' s' }),
-      slider('Volume', p('circle.sound.volume'), { min: 0, max: 1, step: 0.01, fmt: pct }),
-      slider('Most notes per second', p('circle.sound.maxRate'), { min: 4, max: 60, step: 1 }),
+      this.soundPickerFor(P('sound.instrument')),
+      select('Notes from', P('sound.pitch'), { angle: 'Where it happens (position, size, value)', melody: 'A melody, note by note', rise: 'Rising scale', ball: 'Each ball / object its own note' }),
+      ...(L.sound.pitch === 'melody' ? [select('Melody', P('sound.melody'), Object.fromEntries(Object.entries(MELODIES).map(([k, m]) => [k, m.label])))] : []),
+      ...(L.sound.pitch === 'melody' && L.sound.melody === 'custom' ? [text('Notes', P('sound.notes'), { placeholder: 'E4 D#4 E4 D#4 E4 B3 D4 C4 A3' })] : []),
+      select('Drum on every hit', P('sound.drum'), { off: 'None', kick: 'Kick', snare: 'Snare', clap: 'Clap', hat: 'Hi-hat' }),
+      slider('Note length', P('sound.length'), { min: 0.05, max: 2, step: 0.01, unit: ' s' }),
+      slider('Volume', P('sound.volume'), { min: 0, max: 1, step: 0.01, fmt: pct }),
+      slider('Most notes per second', P('sound.maxRate'), { min: 4, max: 60, step: 1 }),
     ], { hint: 'Key and note range come from the Sound tab (scale, root, low/high note). Very fast hits are thinned so it stays musical.' }));
     parts.push(group('Look', [
-      select('Palette', p('circle.look.palette'), CIRCLE_PALETTES),
-      select('Trail', p('circle.look.trail'), { lines: 'Lines stay (pattern builds up)', fade: 'Lines fade', none: 'No trail' }),
-      slider('Line width', p('circle.look.trailWidth'), { min: 0.3, max: 6, step: 0.1 }),
-      slider('Glow', p('circle.look.glow'), { min: 0, max: 2.5, step: 0.05 }),
-      slider('Ring width', p('circle.look.ringWidth'), { min: 0, max: 16, step: 0.5 }),
-      slider('Ball size', p('circle.look.ballSize'), { min: 0.3, max: 3, step: 0.05, fmt: (v) => `×${v.toFixed(2)}` }),
-      slider('Zoom', p('circle.look.zoom'), { min: 0.6, max: 1.3, step: 0.01, fmt: pct }),
+      select('Palette', P('look.palette'), CIRCLE_PALETTES),
+      select('Trail', P('look.trail'), { lines: 'Lines stay (pattern builds up)', fade: 'Lines fade', none: 'No trail' }),
+      slider('Line width', P('look.trailWidth'), { min: 0.3, max: 6, step: 0.1 }),
+      slider('Glow', P('look.glow'), { min: 0, max: 2.5, step: 0.05 }),
+      slider('Ring width', P('look.ringWidth'), { min: 0, max: 16, step: 0.5 }),
+      slider('Ball size', P('look.ballSize'), { min: 0.3, max: 3, step: 0.05, fmt: (v) => `×${v.toFixed(2)}` }),
+      toggle('Sparks on impact', P('look.sparks')),
+      toggle('Ring pulses on hits', P('look.ringPulse')),
+      toggle('Comet tail', P('look.comet')),
+    ]));
+    parts.push(group('Size & place', [
+      slider('Zoom', P('look.zoom'), { min: 0.3, max: 1.3, step: 0.01, fmt: pct }),
+      slider('Move right / left', P('look.dx'), { min: -1, max: 1, step: 0.01 }),
+      slider('Move up / down', P('look.dy'), { min: -1.3, max: 1.3, step: 0.01 }),
+      h('div.chips', {}, ...[['Full', 1, 0, 0], ['Top half', 0.5, 0, 0.6], ['Bottom half', 0.5, 0, -0.6], ['Left', 0.5, -0.5, 0], ['Right', 0.5, 0.5, 0], ['Small centre', 0.6, 0, 0]]
+        .map(([label, z, dx, dy]) => h('button.chip', { type: 'button', onclick: () => { store.set(`${base}.look.zoom`, z); store.set(`${base}.look.dx`, dx); store.set(`${base}.look.dy`, dy); refreshAll(); } }, label))),
+    ], { hint: 'Useful with layers that play together: put two simulations one above the other, or side by side.' }));
+    parts.push(group('Frame', [
       slider('Bloom', p('circle.look.bloom'), { min: 0, max: 2.5, step: 0.05 }),
       toggle('Living background (light, dust, ripples)', p('circle.look.ambience')),
       color('Background', p('circle.look.background')),
-      toggle('Sparks on impact', p('circle.look.sparks')),
-      toggle('Ring pulses on hits', p('circle.look.ringPulse')),
-      toggle('Comet tail', p('circle.look.comet')),
-      toggle('Counter (bounces / balls)', p('circle.look.counter')),
-    ]));
-    parts.push(group('Titles on the video', [
-      toggle('Show the name', p('overlay.name.enabled')),
+    ], { hint: 'For the whole video (all layers).' }));
+    parts.push(group('Text on the video', [
+      text(idx ? `Line above layer ${idx + 1}` : 'Line above the simulation', P('text.formula'), { placeholder: idx ? 'Automatic: plain words for this simulation' : 'Automatic: the question below, or plain words' }),
+      select('Automatic text', P('text.show'), { caption: 'Plain words / a question', formula: 'The formula' }),
+      ...(idx ? [] : [text('Question (also the YouTube hook line)', p('hook.text'), { placeholder: 'e.g. Will this pattern ever close?' })]),
+      toggle('Show the line + counter', p('overlay.formulas.enabled')),
+      slider('Text size', p('overlay.formulas.size'), { min: 0.4, max: 2.5, step: 0.05, fmt: (v) => `×${v.toFixed(2)}` }),
+      toggle('Counter (balls / pieces / bounces)', p('circle.look.counter')),
+      text('Counter label', P('text.counter'), { placeholder: 'Automatic, e.g. balls:' }),
+      toggle('Show the preset name', p('overlay.name.enabled')),
       text('Name', p('name'), { placeholder: 'Preset name' }),
       slider('Name size', p('overlay.name.size'), { min: 0.5, max: 3, step: 0.05, fmt: (v) => `×${v.toFixed(2)}` }),
-      toggle('Show the title line + counter', p('overlay.formulas.enabled')),
-      text('Title line', p('circle.text.formula'), { placeholder: 'Automatic, e.g. angle = 1/φ² turn' }),
-      slider('Title size', p('overlay.formulas.size'), { min: 0.4, max: 2.5, step: 0.05, fmt: (v) => `×${v.toFixed(2)}` }),
-      toggle('Counter (balls / pieces / bounces)', p('circle.look.counter')),
-      text('Counter label', p('circle.text.counter'), { placeholder: 'Automatic, e.g. balls:' }),
-      text('Hook line (first 2 seconds)', p('hook.text'), { placeholder: 'Automatic: the YouTube title' }),
-    ], { hint: 'The name and the title line sit above the simulation, under the Shorts top bar. Leave a field empty for the automatic text; switch it off to hide it.' }));
+      toggle('Opening hook (teaser + flash, exported videos)', p('record.hook.enabled')),
+    ], { hint: 'Keep it light: one short line that tells the viewer what to watch for. With layers, each layer can have its own line.' }));
     this.circleBody.replaceChildren(...parts);
+  }
+
+  /** Circle layers in the left panel: one after another or together, linked steps, order. */
+  renderCircleLayers() {
+    const box = document.getElementById('circle-layers');
+    if (!box) return;
+    disposeTree(box);
+    const c = store.state.circle;
+    const layers = c.layers || [];
+    const all = [{ id: 'main', enabled: true, withPrev: false, cfg: c }, ...layers];
+    const { idx } = this.circleTarget();
+    const seq = c.combine === 'sequence';
+    const steps = seq ? all.filter((l) => l.enabled).reduce((n, l, i) => n + (i === 0 || !l.withPrev ? 1 : 0), 0) : 1;
+    const dur = store.state.transport.duration;
+    const edit = (i) => { this.circleEdit = i; this.renderCircle(); this.renderCircleLayers(); this.showTab?.('circle'); };
+    const change = () => { store.emit('circle.layers'); };
+    const cards = all.map((l, i) => {
+      const card = h('article.layer.circle-layer', { dataset: { id: l.id } });
+      card.classList.toggle('is-editing', i === idx);
+      card.classList.toggle('is-hidden', !l.enabled);
+      card.classList.toggle('is-linked', seq && !!l.withPrev && i > 0);
+      if (i > 0 && seq) {
+        const link = h('button.layer-link', { type: 'button', 'aria-pressed': String(!!l.withPrev) },
+          l.withPrev ? '🔗 Plays together with the layer above' : '⛓ Starts its own step · click to play with the layer above');
+        link.addEventListener('click', () => { l.withPrev = !l.withPrev; change(); });
+        card.append(link);
+      }
+      const vis = h('button.icon-btn', { type: 'button', title: l.enabled ? 'Hide layer' : 'Show layer', disabled: i === 0 }, l.enabled ? '◉' : '○');
+      vis.addEventListener('click', () => { l.enabled = !l.enabled; change(); });
+      const move = (d) => { const j = i - 1 + d; if (j < 0 || j >= layers.length) return; [layers[i - 1], layers[j]] = [layers[j], layers[i - 1]]; this.circleEdit = j + 1; change(); };
+      card.append(h('header.layer-head', {},
+        h('span.circle-layer-num', {}, String(i + 1)),
+        h('button.circle-layer-name', { type: 'button', title: 'Edit this layer in the Circle tab', onclick: () => edit(i) }, CIRCLE_RULES[l.cfg.rule] || l.cfg.rule),
+        vis,
+        h('div.layer-menu', {},
+          h('button.icon-btn', { type: 'button', title: 'Move up', disabled: i < 2, onclick: () => move(-1) }, '↑'),
+          h('button.icon-btn', { type: 'button', title: 'Move down', disabled: i === 0 || i === all.length - 1, onclick: () => move(1) }, '↓'),
+          h('button.icon-btn', { type: 'button', title: 'Duplicate', disabled: all.length >= 6, onclick: () => { layers.splice(i, 0, { ...newLayer(l.cfg, l.cfg.rule, `C${Date.now().toString(36)}`), withPrev: false }); this.circleEdit = i + 1; change(); } }, '⧉'),
+          h('button.icon-btn.danger', { type: 'button', title: 'Delete layer', disabled: i === 0, onclick: () => { layers.splice(i - 1, 1); this.circleEdit = Math.min(i, layers.length); change(); } }, '✕'))));
+      return card;
+    });
+    const addSel = h('select', { 'aria-label': 'Simulation for the new layer' }, ruleGroups().map(([g, items]) => h('optgroup', { label: g }, items.map(([id, label]) => h('option', { value: id }, label)))));
+    addSel.value = 'chaos';
+    const add = h('button.btn.small', { type: 'button', disabled: all.length >= 6, onclick: () => {
+      layers.push(newLayer(all[idx].cfg, addSel.value, `C${Date.now().toString(36)}`));
+      this.circleEdit = layers.length;
+      change();
+    } }, '+ Add layer');
+    box.replaceChildren(
+      h('p.hint', {}, '◎ Circle Lab: pick and tune each layer in the Circle tab on the right.'),
+      h('div.ctl', {}, h('span.ctl-label', {}, 'Play layers'),
+        segmented(bindPath('circle.combine'), [['sequence', 'One after another', 'Each step plays in turn (linked layers play together inside a step)'], ['together', 'Together', 'All layers play at the same time, on top of each other']], { label: 'Layer playback' })),
+      h('p.hint', {}, all.length < 2 ? 'Add a layer to tell a story: e.g. a question, then the answer.' : seq ? `${steps} step${steps === 1 ? '' : 's'} × ${(dur / steps).toFixed(1)} s` : `${all.filter((l) => l.enabled).length} layers at once · use “Size & place” to give each its spot`),
+      h('div.layer-list', {}, cards),
+      h('div.row', {}, addSel, add));
   }
 
   /** Instrument list bound to any path (Circle Lab). */
@@ -961,9 +1046,12 @@ export class Panels {
 
   /** Re-sync every control with state after a preset load. */
   refresh() {
+    // rebuild the Circle tab first: its controls may point at layers that no longer exist
+    this.circleEdit = Math.min(this.circleEdit || 0, store.state.circle.layers?.length || 0);
+    this.renderCircle();
+    this.renderCircleLayers();
     refreshAll();
     this.updateYtCount?.();
-    this.renderCircle();
     this.renderLayers();
     this.renderSequence();
     this.renderRhythm();

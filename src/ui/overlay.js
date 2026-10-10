@@ -168,13 +168,14 @@ export function drawOverlay(g, w, h, d) {
   // The rule as a formula (e.g. "angle = 1/φ² turn") and a counter, centred under the name.
   if (d.circle && o.formulas.enabled && (d.circle.formula || d.circle.stats)) {
     const s = o.formulas.size;
-    let fs = 46 * k * s;
-    const ss = 24 * k * s;
+    // light and readable: one short line, a small counter under it
+    let fs = 40 * k * s;
+    const ss = 21 * k * s;
     const custom = o.formulas.x != null;
     const top = o.formulas.y != null ? o.formulas.y * h : (rects.name ? rects.name.y + rects.name.h + 16 * k : (portrait ? Math.max(40 * k, 0.06 * h) : 40 * k));
-    g.font = `700 ${fs}px ${FONTS.display}`;
+    g.font = `500 ${fs}px ${FONTS.display}`;
     // long formulas shrink to fit the width
-    if (d.circle.formula) { const raw = g.measureText(d.circle.formula).width; if (raw > w * 0.92) { fs *= (w * 0.92) / raw; g.font = `700 ${fs}px ${FONTS.display}`; } }
+    if (d.circle.formula) { const raw = g.measureText(d.circle.formula).width; if (raw > w * 0.92) { fs *= (w * 0.92) / raw; g.font = `500 ${fs}px ${FONTS.display}`; } }
     const fw = d.circle.formula ? g.measureText(d.circle.formula).width : 0;
     g.font = `500 ${ss}px ${FONTS.mono}`;
     const sw = d.circle.stats ? g.measureText(d.circle.stats).width : 0;
@@ -184,9 +185,9 @@ export function drawOverlay(g, w, h, d) {
     const cx = x + bw / 2;
     let y = top;
     if (d.circle.formula) {
-      g.font = `700 ${fs}px ${FONTS.display}`;
+      g.font = `500 ${fs}px ${FONTS.display}`;
       g.fillStyle = ui.fg;
-      g.globalAlpha = 0.97;
+      g.globalAlpha = 0.92;
       g.shadowColor = 'rgba(0,0,0,0.6)';
       g.shadowBlur = fs * 0.3;
       g.fillText(d.circle.formula, cx, y + fs);
@@ -195,7 +196,7 @@ export function drawOverlay(g, w, h, d) {
     }
     if (d.circle.stats) {
       g.font = `500 ${ss}px ${FONTS.mono}`;
-      g.globalAlpha = 0.65;
+      g.globalAlpha = 0.5;
       g.fillText(d.circle.stats, cx, y + ss);
       y += ss * 1.4;
     }

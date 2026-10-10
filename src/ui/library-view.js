@@ -7,7 +7,8 @@
  * No prompt()/confirm(): they don't work inside the claude.ai viewer, so renames,
  * moves and deletions are done inline (deletions need a second click).
  */
-import { BUILTIN_PRESETS } from '../presets.js';
+import { BUILTIN_PRESETS, CATEGORY_ORDER } from '../presets.js';
+import { CIRCLE_RULES } from '../circle/sim.js';
 import {
   readLibrary, loadLibrary, saveLibrary, makeItem, uniqueName, describe, readPresetFiles,
   singleFile, bundleFile, clean, STORAGE_BUDGET,
@@ -32,8 +33,10 @@ export class LibraryView {
     this.items = readLibrary(); // instant; replaced by the IndexedDB copy a moment later
     this.backend = 'local';
     this.favs = readFavs();
-    this.builtins = BUILTIN_PRESETS.map((p) => ({ id: `b:${p.name}`, name: p.name, collection: 'Built-in', builtin: true, savedAt: 0, preset: p }));
-    this.filter = { q: '', source: 'all', aspect: 'any', mode: 'any', collection: '*', sort: 'name' };
+    // built-in presets sit on shelves (categories); your own ones in their collections
+    this.builtins = BUILTIN_PRESETS.map((p) => ({ id: `b:${p.name}`, name: p.name, collection: p.$category || 'Built-in', builtin: true, savedAt: 0, preset: p }));
+    this.filter = { q: '', source: 'all', aspect: 'any', mode: 'any', collection: '*', sort: 'shelf' };
+    this.collapsed = new Set();
     this.selected = new Set();
     this.limit = PAGE;
     this.openMenu = null; // id of the row whose action menu is open
@@ -71,6 +74,11 @@ export class LibraryView {
   all() { return [...this.builtins, ...this.items]; }
   byId(id) { return this.all().find((x) => x.id === id); }
   collections() { return [...new Set(this.items.map((x) => x.collection).filter(Boolean))].sort((a, b) => a.localeCompare(b)); }
+  shelves() {
+    const order = (c) => { const i = CATEGORY_ORDER.indexOf(c); return i < 0 ? 999 : i; };
+    return [...new Set(this.builtins.map((x) => x.collection))].sort((a, b) => order(a) - order(b) || a.localeCompare(b));
+  }
+  shelfOf(x) { return x.builtin ? x.collection : x.collection || 'My presets'; }
 
   visible() {
     const f = this.filter;
@@ -85,13 +93,20 @@ export class LibraryView {
       if (f.mode !== 'any' && d.mode !== f.mode) return false;
       if (f.collection !== '*' && (x.collection || '') !== f.collection) return false;
       if (q) {
-        const hay = `${x.name} ${x.collection} ${x.preset.youtube?.title || ''} ${(x.preset.layers || []).map((l) => Object.values(l.exprs || {}).join(' ')).join(' ')}`.toLowerCase();
+        const rule = x.preset.circle ? [x.preset.circle, ...(x.preset.circle.layers || []).map((l) => l.cfg || {})].map((c) => `${c.rule || ''} ${CIRCLE_RULES[c.rule] || ''}`).join(' ') : '';
+        const hay = `${x.name} ${x.collection} ${x.preset.hook?.text || ''} ${rule} ${x.preset.youtube?.title || ''} ${(x.preset.layers || []).map((l) => Object.values(l.exprs || {}).join(' ')).join(' ')}`.toLowerCase();
         if (!q.split(/\s+/).every((w) => hay.includes(w))) return false;
       }
       return true;
     });
     if (f.sort === 'recent') list = list.sort((a, b) => (b.savedAt || 0) - (a.savedAt || 0));
-    else list = list.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+    else if (f.sort === 'shelf') {
+      // your own collections first, then the built-in shelves in their order; keep each shelf's own order
+      const shelves = [...this.collections(), 'My presets', ...this.shelves()];
+      const rank = new Map(shelves.map((c, i) => [c, i]));
+      const pos = new Map(this.all().map((x, i) => [x.id, i]));
+      list = list.sort((a, b) => (rank.get(this.shelfOf(a)) ?? 999) - (rank.get(this.shelfOf(b)) ?? 999) || (a.builtin ? pos.get(a.id) - pos.get(b.id) : (b.savedAt || 0) - (a.savedAt || 0)));
+    } else list = list.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
     return list;
   }
 
@@ -114,7 +129,7 @@ export class LibraryView {
 
     this.collSel = h('select.lib-select', { 'aria-label': 'Collection' });
     this.collSel.addEventListener('change', () => { f.collection = this.collSel.value; this.limit = PAGE; this.render(); });
-    this.sortSel = h('select.lib-select', { 'aria-label': 'Sort' }, h('option', { value: 'name' }, 'Sort: A–Z'), h('option', { value: 'recent' }, 'Sort: newest'));
+    this.sortSel = h('select.lib-select', { 'aria-label': 'Sort' }, h('option', { value: 'shelf' }, 'By shelf'), h('option', { value: 'name' }, 'Sort: A–Z'), h('option', { value: 'recent' }, 'Sort: newest'));
     this.sortSel.addEventListener('change', () => { f.sort = this.sortSel.value; this.render(); });
 
     this.bulk = h('div.lib-bulk', { hidden: true });
@@ -136,7 +151,8 @@ export class LibraryView {
     this.storage = h('p.hint.lib-storage');
 
     this.el = h('section.tab.lib', {},
-      h('div.lib-top', {}, this.search, this.chips, h('div.row', {}, this.collSel, this.sortSel)),
+      h('div.lib-top', {}, this.search, this.chips, h('div.row', {}, this.collSel, this.sortSel,
+        h('button.btn.ghost.small', { type: 'button', title: 'Load a random preset from the list', onclick: () => { const v = this.visible(); if (v.length) this.load(v[Math.floor(Math.random() * v.length)]); } }, '🎲'))),
       this.report,
       this.bulk,
       this.list, this.more, this.count,
@@ -168,16 +184,18 @@ export class LibraryView {
     const f = this.filter;
     for (const b of this.chips.querySelectorAll('.lib-chip')) b.setAttribute('aria-pressed', String(f[b.dataset.key] === b.dataset.value));
     const colls = this.collections();
-    if (f.collection !== '*' && f.collection !== 'Built-in' && !colls.includes(f.collection)) f.collection = '*';
-    this.collSel.replaceChildren(h('option', { value: '*' }, 'All collections'), h('option', { value: 'Built-in' }, 'Built-in'),
-      ...colls.map((c) => h('option', { value: c }, c)));
+    const shelves = this.shelves();
+    if (f.collection !== '*' && !shelves.includes(f.collection) && !colls.includes(f.collection)) f.collection = '*';
+    this.collSel.replaceChildren(h('option', { value: '*' }, 'All shelves'),
+      colls.length ? h('optgroup', { label: 'My collections' }, colls.map((c) => h('option', { value: c }, c))) : null,
+      h('optgroup', { label: 'Built-in' }, shelves.map((c) => h('option', { value: c }, `${c} (${this.builtins.filter((x) => x.collection === c).length})`))));
     this.collSel.value = f.collection;
     this.collList.replaceChildren(...colls.map((c) => h('option', { value: c })));
     this.search.placeholder = `Search ${this.all().length} presets (name, collection, formula)…`;
 
     const list = this.visible();
     const shown = list.slice(0, this.limit);
-    this.list.replaceChildren(...(shown.length ? shown.map((x) => this.row(x)) : [h('p.hint.lib-empty', {}, this.items.length || f.source !== 'mine'
+    this.list.replaceChildren(...(shown.length ? this.rows(shown, list) : [h('p.hint.lib-empty', {}, this.items.length || f.source !== 'mine'
       ? 'No presets match. Clear the search or filters.'
       : 'You have no saved presets yet. Save the current setup below, or import preset files.')]));
     this.more.hidden = list.length <= this.limit;
@@ -196,12 +214,32 @@ export class LibraryView {
       : `Saved in this browser: ${n} · ${fmtKB(JSON.stringify(this.items).length * 2)} of about ${fmtKB(STORAGE_BUDGET)}`;
   }
 
+  /** Rows, with a header per shelf when sorted by shelf (click a header to fold it). */
+  rows(shown, list) {
+    if (this.filter.sort !== 'shelf') return shown.map((x) => this.row(x));
+    const out = [];
+    let shelf = null;
+    for (const x of shown) {
+      const s = this.shelfOf(x);
+      if (s !== shelf) {
+        shelf = s;
+        const n = list.filter((y) => this.shelfOf(y) === s).length;
+        const folded = this.collapsed.has(s);
+        out.push(h('button.lib-shelf', { type: 'button', 'aria-expanded': String(!folded), onclick: () => { folded ? this.collapsed.delete(s) : this.collapsed.add(s); this.render(); } },
+          h('span', {}, `${folded ? '▸' : '▾'} ${s}`), h('span.lib-shelf-n', {}, String(n))));
+      }
+      if (!this.collapsed.has(s)) out.push(this.row(x));
+    }
+    return out;
+  }
+
   row(x) {
     const d = describe(x.preset);
     const sel = this.selected.has(x.id);
     const menuOpen = this.openMenu === x.id;
-    const tags = [d.aspect, d.mode === 'circle' ? `◎ ${x.preset.circle?.rule || 'circle'}` : d.mode.toUpperCase(), d.mode === 'circle' ? null : `${d.layers} layer${d.layers === 1 ? '' : 's'}`,
-      d.sequence && 'sequence', d.drums && 'drums', d.animated && 'animated', x.preset.youtube?.title && '▶ YT title', x.collection].filter(Boolean);
+    const rule = x.preset.circle?.rule;
+    const tags = [d.aspect, d.mode === 'circle' ? `◎ ${CIRCLE_RULES[rule]?.split(/[(:]/)[0].trim() || rule || 'circle'}` : d.mode.toUpperCase(), d.mode === 'circle' ? (d.circleLayers > 1 ? `${d.circleLayers} layers · ${x.preset.circle.combine === 'together' ? 'together' : 'one after another'}` : null) : `${d.layers} layer${d.layers === 1 ? '' : 's'}`,
+      d.sequence && 'sequence', d.drums && 'drums', d.animated && 'animated', x.preset.youtube?.title && '▶ YT title', !x.builtin && x.collection].filter(Boolean);
 
     const check = h('input.lib-check', { type: 'checkbox', 'aria-label': `Select ${x.name}` });
     check.checked = sel;

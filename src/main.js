@@ -39,7 +39,8 @@ import { fixWebmDuration } from './export/webm-duration.js';
 import { shortsTiming, mapVideoTime, frameEffects, drawHook, hookTextFor, shortsAudio } from './export/shorts.js';
 import { FONTS } from './ui/overlay.js';
 import { CircleView } from './circle/view.js';
-import { eventsUntil, formulaLine } from './circle/sim.js';
+import { eventsUntil, captionLine, CIRCLE_RULES } from './circle/sim.js';
+import { circleSchedule } from './circle/stack.js';
 import { notesForEvents } from './circle/sound.js';
 import { LayoutEditor } from './ui/layout-editor.js';
 import { writeMidi, samplesToNotes } from './export/midi.js';
@@ -59,7 +60,7 @@ const og = overlay.getContext('2d');
 // Circle Lab draws on its own 2D canvas under the overlay (no WebGL needed).
 const circle = new CircleView();
 stage.insertBefore(circle.canvas, overlay);
-let circleRun = { last: -1, k: 0, burst: 0 };
+let circleRuns = new Map(); // per circle layer: note thinning state for live play
 const isCircle = () => store.state.mode === 'circle';
 /** The picture of the current mode (what exports and snapshots copy). */
 const sceneCanvas = () => (isCircle() ? circle.canvas : viz.canvas);
@@ -423,7 +424,7 @@ function applyAll() {
   $('project-name').value = store.state.name;
   applyCircleMode();
   circle.invalidate();
-  circleRun = { last: -1, k: 0, burst: 0 };
+  circleRuns = new Map();
 }
 
 function applyCircleMode() {
@@ -468,9 +469,14 @@ store.on((path) => {
       break;
     case 'circle':
       circle.invalidate();
-      circleRun = { last: -1, k: 0, burst: 0 };
+      circleRuns = new Map();
       clock.snap = true;
-      if (second === 'rule' || !second || (second === 'sound' && (third === 'pitch' || third === 'melody'))) panels.renderCircle?.();
+      {
+        // rebuild the Circle tab when the visible controls change (rule, pitch mode, the layer list)
+        const tail = path.split('.').slice(-2).join('.');
+        if (!second || second === 'combine' || path === 'circle.layers' || /(^|\.)rule$/.test(path) || tail === 'sound.pitch' || tail === 'sound.melody') panels.renderCircle?.();
+        if (!second || second === 'layers' || second === 'combine') panels.renderCircleLayers?.();
+      }
       break;
     case 'view':
       viz.buildGrid(); rebuildAll(); viz.fitOrtho(true);
@@ -610,15 +616,28 @@ function renderScene(time, { dt, now, playing, snap }) {
   return frames;
 }
 
+/** The line above the simulation and the counter: from the layer playing now. */
+function circleText() {
+  const c = store.state.circle;
+  const hd = circle.headline();
+  const cfg = hd?.cfg || c;
+  // the preset's question (hook line) belongs to the first layer; other layers say their own words
+  const question = cfg === c ? (store.state.hook?.text || '').trim() : '';
+  return { formula: captionLine(cfg, question), stats: c.look.counter ? circle.stats() : '' };
+}
+
 /** Circle Lab frame: draw the simulation; while playing live, every hit plays its note. */
 function renderCircle(time, { playing, snap }) {
-  const events = circle.renderAt(time, store.state.circle, { snap, width: viz.canvas.width, height: viz.canvas.height, env: circleEnv() });
-  if (snap) circleRun = { last: -1, k: 0, burst: 0 };
-  if (playing && events.length && !exporting.busy && !RENDER_MODE && audio.ready) {
-    const s = store.state.circle.sound;
-    for (const n of notesForEvents(events, store.state.circle, store.state.audio, circleRun)) {
-      audio.playNote(s.instrument, n.midi, n.vel * s.volume, null, s.length);
-      if (s.drum && s.drum !== 'off') audio.drum(s.drum, n.vel * 0.45);
+  const groups = circle.renderAt(time, store.state.circle, { snap, width: viz.canvas.width, height: viz.canvas.height, env: circleEnv() });
+  if (snap) circleRuns = new Map();
+  if (playing && groups.length && !exporting.busy && !RENDER_MODE && audio.ready) {
+    for (const { id, cfg, events } of groups) {
+      if (!circleRuns.has(id)) circleRuns.set(id, { last: -1, k: 0, burst: 0 });
+      const s = cfg.sound;
+      for (const n of notesForEvents(events, cfg, store.state.audio, circleRuns.get(id))) {
+        audio.playNote(s.instrument, n.midi, n.vel * s.volume, null, s.length);
+        if (s.drum && s.drum !== 'off') audio.drum(s.drum, n.vel * 0.45);
+      }
     }
   }
   return [];
@@ -699,7 +718,7 @@ function overlayData(analysis = null, time = clock.pos) {
     spectrum: analysis ? analysis.spectrum : audio.spectrum(),
     waveform: analysis ? analysis.waveform : audio.waveform(),
     ui: { fg: light ? '#1a1c26' : '#eef2ff', accent: '#22e4ff', accent2: light ? '#e0245e' : '#ff3d9a', light },
-    circle: isCircle() ? { formula: formulaLine(store.state.circle), stats: store.state.circle.look.counter ? circle.stats() : '' } : null,
+    circle: isCircle() ? circleText() : null,
   };
 }
 
@@ -871,21 +890,43 @@ async function renderWavBuffer() {
   }
 }
 
+/**
+ * Every note of the Circle Lab soundtrack, per layer: each layer replays on its own clock
+ * (its step of the timeline) with its own sound. Times are timeline seconds.
+ */
+function circleNoteTracks() {
+  const { circle: c, audio: a } = store.state;
+  const env = circleEnv();
+  return circleSchedule(c, duration()).map((s) => {
+    const cfg = s.layer.cfg, len = s.end - s.start;
+    const notes = notesForEvents(eventsUntil(cfg, len, { ...env, duration: len }), cfg, a).map((n) => ({ ...n, t: n.t + s.start }));
+    return { layer: s.layer, cfg, notes };
+  });
+}
+
 /** Circle Lab soundtrack: replay the simulation, one note per (thinned) hit, plus drums. */
 async function renderCircleWav() {
   const { circle: c, audio: a, drums } = store.state;
   const dur = duration();
-  const notes = notesForEvents(eventsUntil(c, dur, circleEnv()), c, a);
+  const notes = [];
   const drumEvents = drumEventsFull();
-  if (c.sound.drum && c.sound.drum !== 'off') for (const n of notes) drumEvents.push({ kind: c.sound.drum, time: n.t, vel: n.vel * 0.45 });
+  let hitDrums = false;
+  for (const { cfg, notes: ns } of circleNoteTracks()) {
+    const snd = cfg.sound;
+    for (const n of ns) {
+      notes.push({ ...n, instrument: snd.instrument, length: snd.length, volume: snd.volume });
+      if (snd.drum && snd.drum !== 'off') { hitDrums = true; drumEvents.push({ kind: snd.drum, time: n.t, vel: n.vel * 0.45 }); }
+    }
+  }
+  notes.sort((x, y) => x.t - y.t);
   return AudioEngine.renderNotesOffline({
     settings: structuredClone(a), duration: dur, notes, instrument: c.sound.instrument, length: c.sound.length, volume: c.sound.volume,
-    drumEvents, drumVolume: drums.enabled || (c.sound.drum && c.sound.drum !== 'off') ? drums.volume : 0,
+    drumEvents, drumVolume: drums.enabled || hitDrums ? drums.volume : 0,
   });
 }
 
 async function exportWav() {
-  if (!store.state.layers.some((l) => l.enabled)) return toast('Turn on at least one layer to export audio.');
+  if (!isCircle() && !store.state.layers.some((l) => l.enabled)) return toast('Turn on at least one layer to export audio.');
   toast('Rendering audio…', 60000);
   try {
     const buf = await renderWavBuffer();
@@ -898,7 +939,24 @@ async function exportWav() {
 
 const GM_DRUMS = { kick: 36, snare: 38, hat: 42, clap: 39 };
 
+/** Circle Lab as MIDI: one track per layer (its instrument), plus the hit drums. */
+function exportCircleMidi() {
+  const tracks = circleNoteTracks().map(({ cfg, notes }, i) => ({
+    name: `${i + 1} ${CIRCLE_RULES[cfg.rule] || cfg.rule}`.slice(0, 60),
+    channel: i >= 9 ? i + 1 : i,
+    program: instrumentOf(cfg.sound.instrument).program ?? 0,
+    notes: notes.map((n) => ({ start: n.t, dur: Math.max(0.05, cfg.sound.length), midi: n.midi, vel: Math.max(20, Math.min(127, Math.round(n.vel * 127 * (cfg.sound.volume ?? 0.7) * 1.4))) })),
+  })).filter((t) => t.notes.length);
+  const drumHits = circleNoteTracks().flatMap(({ cfg, notes }) => (cfg.sound.drum && cfg.sound.drum !== 'off' ? notes.map((n) => ({ start: n.t, dur: 0.1, midi: GM_DRUMS[cfg.sound.drum], vel: 60 + n.vel * 40 })) : []));
+  if (drumHits.length) tracks.push({ name: 'Drums', channel: 9, program: 0, notes: drumHits });
+  if (!tracks.length) return toast('No notes yet: this simulation makes no sound with these settings.');
+  const bytes = writeMidi(tracks, store.state.transport.bpm || 120);
+  download(new Blob([bytes], { type: 'audio/midi' }), `${fileBase()}.mid`);
+  toast(`MIDI exported: ${tracks.reduce((n, t) => n + t.notes.length, 0)} notes in ${tracks.length} track${tracks.length > 1 ? 's' : ''}.`);
+}
+
 function exportMidi() {
+  if (isCircle()) return exportCircleMidi();
   const { layers } = store.state;
   const enabled = layers.filter((l) => l.enabled);
   if (!enabled.length) return toast('Turn on at least one layer to export MIDI.');
@@ -1062,7 +1120,7 @@ class FrameComposer {
  */
 async function prepareComposition({ width, height, fps, subframes }) {
   // Escape: the finished picture is an empty screen, so the teaser shows the start instead.
-  const teaserAt = isCircle() && store.state.circle.rule === 'escape' ? 0.05 : undefined;
+  const teaserAt = isCircle() && store.state.circle.rule === 'escape' && !store.state.circle.layers?.length ? 0.05 : undefined;
   const T = shortsTiming(store.state.record, duration(), { teaserAt });
   const main = await renderWavBuffer();
   const buf = T.on || T.outro ? shortsAudio(main, T) : main;

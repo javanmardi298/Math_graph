@@ -275,7 +275,8 @@ export class AudioEngine {
     eng.settings = settings;
     eng.build(ctx);
     eng.setDrumVolume(drumVolume, 0);
-    for (const n of notes) if (n.t < duration) eng.playNote(instrument, n.midi, n.vel * volume, n.t, length);
+    // a note may carry its own instrument / length / volume (Circle Lab layers)
+    for (const n of notes) if (n.t < duration) eng.playNote(n.instrument || instrument, n.midi, n.vel * (n.volume ?? volume), n.t, n.length ?? length);
     for (const e of drumEvents) if (e.time < duration) eng.drum(e.kind, e.vel, e.time);
     return ctx.startRendering();
   }

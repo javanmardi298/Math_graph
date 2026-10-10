@@ -90,7 +90,7 @@ export const isPreset = (o) => !!o && typeof o === 'object' && !Array.isArray(o)
 
 /** Remove library-only fields before a preset is loaded or exported. */
 export function clean(preset) {
-  const { $format, version, $collection, ...rest } = preset;
+  const { $format, version, $collection, $category, ...rest } = preset;
   return rest;
 }
 
@@ -147,6 +147,7 @@ export function describe(preset) {
     rhythm: !!preset.rhythm?.enabled,
     drums: !!preset.drums?.enabled,
     animated: Object.keys(preset.keyframes?.tracks || {}).length > 0,
+    circleLayers: 1 + (preset.circle?.layers || []).length,
   };
 }
 
