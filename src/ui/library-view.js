@@ -110,7 +110,7 @@ export class LibraryView {
     };
     this.chips = h('div.lib-chips', {},
       chip('source', 'all', 'All'), chip('source', 'builtin', 'Built-in'), chip('source', 'mine', 'Mine'), chip('source', 'fav', '★ Favourites'),
-      chip('aspect', '16:9', '16:9'), chip('aspect', '9:16', '9:16'), chip('mode', '2d', '2D'), chip('mode', '3d', '3D'));
+      chip('aspect', '16:9', '16:9'), chip('aspect', '9:16', '9:16'), chip('mode', '2d', '2D'), chip('mode', '3d', '3D'), chip('mode', 'circle', '◎ Circle'));
 
     this.collSel = h('select.lib-select', { 'aria-label': 'Collection' });
     this.collSel.addEventListener('change', () => { f.collection = this.collSel.value; this.limit = PAGE; this.render(); });
@@ -200,7 +200,7 @@ export class LibraryView {
     const d = describe(x.preset);
     const sel = this.selected.has(x.id);
     const menuOpen = this.openMenu === x.id;
-    const tags = [d.aspect, d.mode.toUpperCase(), `${d.layers} layer${d.layers === 1 ? '' : 's'}`,
+    const tags = [d.aspect, d.mode === 'circle' ? `◎ ${x.preset.circle?.rule || 'circle'}` : d.mode.toUpperCase(), d.mode === 'circle' ? null : `${d.layers} layer${d.layers === 1 ? '' : 's'}`,
       d.sequence && 'sequence', d.drums && 'drums', d.animated && 'animated', x.preset.youtube?.title && '▶ YT title', x.collection].filter(Boolean);
 
     const check = h('input.lib-check', { type: 'checkbox', 'aria-label': `Select ${x.name}` });

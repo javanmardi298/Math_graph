@@ -229,6 +229,14 @@ export class Voice {
   trigger(level, t, live) {
     const env = this.inst.amp || A(0.006, 0.16, 0.18);
     const g = this.amp.gain;
+    // A voice's first note scheduled ahead of time (offline renders): anchor the envelopes
+    // at the note, or the ramps would start at t = 0 and sound before it.
+    if (this.fresh !== false && !live) {
+      g.setValueAtTime(0, t);
+      if (this.filter && this.inst.filter?.env) this.filter.frequency.setValueAtTime(this.baseCutoff(), t);
+      if (this.inst.fm?.env) this.modGain.gain.setValueAtTime(this.freq * this.inst.fm.index, t);
+    }
+    this.fresh = false;
     hold(g, t, live);
     g.linearRampToValueAtTime(level, t + env.attack);
     g.setTargetAtTime(level * env.sustain, t + env.attack, Math.max(0.01, env.decay / 3));

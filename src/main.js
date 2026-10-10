@@ -38,6 +38,9 @@ import { bundleFile } from './library.js';
 import { fixWebmDuration } from './export/webm-duration.js';
 import { shortsTiming, mapVideoTime, frameEffects, drawHook, hookTextFor, shortsAudio } from './export/shorts.js';
 import { FONTS } from './ui/overlay.js';
+import { CircleView } from './circle/view.js';
+import { eventsUntil, formulaLine } from './circle/sim.js';
+import { notesForEvents } from './circle/sound.js';
 import { LayoutEditor } from './ui/layout-editor.js';
 import { writeMidi, samplesToNotes } from './export/midi.js';
 import { audioBufferToWav } from './export/wav.js';
@@ -53,6 +56,13 @@ const BUILD = window.MMV_BUILD || 'local';
 const stage = $('stage');
 const overlay = $('overlay');
 const og = overlay.getContext('2d');
+// Circle Lab draws on its own 2D canvas under the overlay (no WebGL needed).
+const circle = new CircleView();
+stage.insertBefore(circle.canvas, overlay);
+let circleRun = { last: -1, k: 0, burst: 0 };
+const isCircle = () => store.state.mode === 'circle';
+/** The picture of the current mode (what exports and snapshots copy). */
+const sceneCanvas = () => (isCircle() ? circle.canvas : viz.canvas);
 
 /* ------------------------------------------------- graphics robustness */
 
@@ -403,6 +413,16 @@ function applyAll() {
   viz.resetCamera();
   clock.keyTime = null;
   $('project-name').value = store.state.name;
+  applyCircleMode();
+  circle.invalidate();
+  circleRun = { last: -1, k: 0, burst: 0 };
+}
+
+function applyCircleMode() {
+  const on = isCircle();
+  document.body.classList.toggle('mode-circle', on);
+  circle.canvas.hidden = !on;
+  $('gl-host').style.visibility = on ? 'hidden' : '';
 }
 
 store.on((path) => {
@@ -434,6 +454,15 @@ store.on((path) => {
     }
     case 'mode':
       viz.applySettings(); viz.buildGrid(); rebuildAll(); viz.resetCamera(); clock.snap = true;
+      applyCircleMode();
+      panels.renderCircle?.();
+      if (isCircle()) panels.showTab?.('circle');
+      break;
+    case 'circle':
+      circle.invalidate();
+      circleRun = { last: -1, k: 0, burst: 0 };
+      clock.snap = true;
+      if (second === 'rule' || !second || (second === 'sound' && (third === 'pitch' || third === 'melody'))) panels.renderCircle?.();
       break;
     case 'view':
       viz.buildGrid(); rebuildAll(); viz.fitOrtho(true);
@@ -551,6 +580,7 @@ function updateTransportUI() {
  * @returns {object[]} voice frames at that time
  */
 function renderScene(time, { dt, now, playing, snap }) {
+  if (isCircle()) return renderCircle(time, { playing, snap });
   const { layers } = store.state;
   const ctx = evalCtx(time);
 
@@ -570,6 +600,20 @@ function renderScene(time, { dt, now, playing, snap }) {
   for (const f of frames) notes.set(f.id, f.gain > 0 ? f.midi : null);
   viz.render(items, ctx, { dt, now, snap, playing, pastMode: store.state.sequence.past, cameraLocked: hasPoseTrack() && (playing || RENDER_MODE) });
   return frames;
+}
+
+/** Circle Lab frame: draw the simulation; while playing live, every hit plays its note. */
+function renderCircle(time, { playing, snap }) {
+  const events = circle.renderAt(time, store.state.circle, { snap, width: viz.canvas.width, height: viz.canvas.height });
+  if (snap) circleRun = { last: -1, k: 0, burst: 0 };
+  if (playing && events.length && !exporting.busy && !RENDER_MODE && audio.ready) {
+    const s = store.state.circle.sound;
+    for (const n of notesForEvents(events, store.state.circle, store.state.audio, circleRun)) {
+      audio.playNote(s.instrument, n.midi, n.vel * s.volume, null, s.length);
+      if (s.drum && s.drum !== 'off') audio.drum(s.drum, n.vel * 0.45);
+    }
+  }
+  return [];
 }
 
 function frame() {
@@ -636,7 +680,7 @@ function frame() {
 }
 
 function overlayData(analysis = null, time = clock.pos) {
-  const light = isLight(store.state.visual.background);
+  const light = isLight(isCircle() ? store.state.circle.look.background || '#000000' : store.state.visual.background);
   const exportingNow = analysis != null;
   return {
     state: store.state,
@@ -647,6 +691,7 @@ function overlayData(analysis = null, time = clock.pos) {
     spectrum: analysis ? analysis.spectrum : audio.spectrum(),
     waveform: analysis ? analysis.waveform : audio.waveform(),
     ui: { fg: light ? '#1a1c26' : '#eef2ff', accent: '#22e4ff', accent2: light ? '#e0245e' : '#ff3d9a', light },
+    circle: isCircle() ? { formula: formulaLine(store.state.circle), stats: store.state.circle.look.counter ? circle.stats() : '' } : null,
   };
 }
 
@@ -794,6 +839,7 @@ function showResult(src, filename, kind, sizeBytes, note = '') {
 
 /** Render the whole timeline's audio (synth + drums + keyframed effects) offline. */
 async function renderWavBuffer() {
+  if (isCircle()) return renderCircleWav();
   const { layers, audio: a, drums } = store.state;
   const enabled = layers.filter((l) => l.enabled);
   const dur = duration();
@@ -815,6 +861,19 @@ async function renderWavBuffer() {
   } finally {
     applyKeyframesAt(clock.pos, true);
   }
+}
+
+/** Circle Lab soundtrack: replay the simulation, one note per (thinned) hit, plus drums. */
+async function renderCircleWav() {
+  const { circle: c, audio: a, drums } = store.state;
+  const dur = duration();
+  const notes = notesForEvents(eventsUntil(c, dur), c, a);
+  const drumEvents = drumEventsFull();
+  if (c.sound.drum && c.sound.drum !== 'off') for (const n of notes) drumEvents.push({ kind: c.sound.drum, time: n.t, vel: n.vel * 0.45 });
+  return AudioEngine.renderNotesOffline({
+    settings: structuredClone(a), duration: dur, notes, instrument: c.sound.instrument, length: c.sound.length, volume: c.sound.volume,
+    drumEvents, drumVolume: drums.enabled || (c.sound.drum && c.sound.drum !== 'off') ? drums.volume : 0,
+  });
 }
 
 async function exportWav() {
@@ -866,12 +925,13 @@ function exportMidi() {
 }
 
 function snapshot() {
-  viz.composer.render(0);
+  if (!isCircle()) viz.composer.render(0);
+  const src = sceneCanvas();
   const c = document.createElement('canvas');
-  c.width = viz.canvas.width;
-  c.height = viz.canvas.height;
+  c.width = src.width;
+  c.height = src.height;
   const g = c.getContext('2d');
-  g.drawImage(viz.canvas, 0, 0);
+  g.drawImage(src, 0, 0);
   drawOverlay(g, c.width, c.height, overlayData());
   c.toBlob((blob) => blob && showResult(blob, `${fileBase()}.png`, 'image'), 'image/png');
 }
@@ -971,12 +1031,12 @@ class FrameComposer {
       // Wait for the GPU to finish this frame before queueing the next one. Exports draw
       // frames back to back with no screen refresh in between; without this the GPU's
       // queue grows until some drivers reset ("context lost").
-      gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, this.px);
+      if (!isCircle()) gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, this.px);
       g.globalAlpha = 1 / (j + 1); // running average of the sub-frames
       if (fx.scale !== 1) {
         const sw = out.width * fx.scale, sh = out.height * fx.scale;
-        g.drawImage(viz.canvas, (out.width - sw) / 2, (out.height - sh) / 2, sw, sh);
-      } else g.drawImage(viz.canvas, 0, 0, out.width, out.height);
+        g.drawImage(sceneCanvas(), (out.width - sw) / 2, (out.height - sh) / 2, sw, sh);
+      } else g.drawImage(sceneCanvas(), 0, 0, out.width, out.height);
     }
     g.globalAlpha = 1;
     // Text: formulas/captions with the timeline, except during the teaser (only the hook line).
@@ -993,7 +1053,9 @@ class FrameComposer {
  * audio wrapped with the Shorts teaser/boom/fade, and frames drawn in video time.
  */
 async function prepareComposition({ width, height, fps, subframes }) {
-  const T = shortsTiming(store.state.record, duration());
+  // Escape: the finished picture is an empty screen, so the teaser shows the start instead.
+  const teaserAt = isCircle() && store.state.circle.rule === 'escape' ? 0.05 : undefined;
+  const T = shortsTiming(store.state.record, duration(), { teaserAt });
   const main = await renderWavBuffer();
   const buf = T.on || T.outro ? shortsAudio(main, T) : main;
   const comp = new FrameComposer({
@@ -1325,7 +1387,7 @@ function setLayoutEditing(on) {
 $('edit-layout-btn').addEventListener('click', () => setLayoutEditing(!layoutEditor.enabled));
 
 // Top bar
-$('mode-slot').append(segmented(bindPath('mode'), [['2d', '2D', '2D graph (M)'], ['3d', '3D', '3D space (M)']], { label: 'View mode' }));
+$('mode-slot').append(segmented(bindPath('mode'), [['2d', '2D', '2D graph (M)'], ['3d', '3D', '3D space (M)'], ['circle', '◎', 'Circle Lab: bouncing balls, chords and polyrhythms with a note on every hit']], { label: 'View mode' }));
 $('play-btn').addEventListener('click', togglePlay);
 $('rewind-btn').addEventListener('click', () => seek(0));
 $('topbar-record').addEventListener('click', exportVideo);
@@ -1379,7 +1441,7 @@ window.addEventListener('keydown', (e) => {
     case 'Home': case '0': seek(0); break;
     case 'ArrowLeft': if (e.target === document.body) { seek((clock.pos - 1) / dur); e.preventDefault(); } break;
     case 'ArrowRight': if (e.target === document.body) { seek((clock.pos + 1) / dur); e.preventDefault(); } break;
-    case 'm': case 'M': store.set('mode', store.state.mode === '2d' ? '3d' : '2d'); refreshAll(); break;
+    case 'm': case 'M': store.set('mode', { '2d': '3d', '3d': 'circle', circle: '2d' }[store.state.mode] || '2d'); refreshAll(); break;
     case 't': case 'T': toggleTheme(); break;
     case 'h': case 'H': document.body.classList.toggle('cinema'); break;
     case 'f': case 'F': $('fullscreen-btn').click(); break;

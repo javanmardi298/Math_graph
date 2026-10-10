@@ -232,6 +232,24 @@ export class AudioEngine {
     return ctx.startRendering();
   }
 
+  /**
+   * One note on a pooled voice of an instrument (Circle Lab: a note per bounce).
+   * Up to 12 notes of the same sound ring at once; the oldest is reused.
+   */
+  playNote(id, midi, vel = 0.8, at = null, length = 0.35) {
+    if (!this.ctx) return;
+    this.notePools ||= new Map();
+    let pool = this.notePools.get(id);
+    if (!pool) this.notePools.set(id, (pool = { voices: [], next: 0 }));
+    let v = pool.voices[pool.next];
+    if (!v) { v = new Voice(this.ctx, id, this.bus); pool.voices[pool.next] = v; }
+    pool.next = (pool.next + 1) % 12;
+    const t = at ?? this.ctx.currentTime;
+    v.setFreq(midiToFreq(midi), t, 0.001);
+    v.trigger(vel * 1.6 * v.gainScale, t, at == null);
+    v.amp.gain.setTargetAtTime(0, t + Math.max(0.05, length), 0.08);
+  }
+
   /** Play a short arpeggio with an instrument so it can be heard before choosing it. */
   preview(id, root = 60) {
     if (!this.ctx) return;
@@ -244,6 +262,22 @@ export class AudioEngine {
     });
     v.amp.gain.setTargetAtTime(0, t0 + 1.25, 0.08);
     for (const n of v.nodes) n.stop(t0 + 1.8);
+  }
+
+  /**
+   * Render a list of notes (+ drums) offline: the Circle Lab soundtrack.
+   * @param {{t:number, midi:number, vel:number}[]} o.notes
+   */
+  static async renderNotesOffline({ settings, duration, notes, instrument, length = 0.35, volume = 0.6, drumEvents = [], drumVolume = 0.8, sampleRate = 48000 }) {
+    const tail = settings.reverb.decay + 1;
+    const ctx = new OfflineAudioContext(2, Math.ceil((duration + tail) * sampleRate), sampleRate);
+    const eng = new AudioEngine();
+    eng.settings = settings;
+    eng.build(ctx);
+    eng.setDrumVolume(drumVolume, 0);
+    for (const n of notes) if (n.t < duration) eng.playNote(instrument, n.midi, n.vel * volume, n.t, length);
+    for (const e of drumEvents) if (e.time < duration) eng.drum(e.kind, e.vel, e.time);
+    return ctx.startRendering();
   }
 
   /** Mute everything quickly (pause/stop). */

@@ -11,6 +11,9 @@ import { download } from '../export/recorder.js';
 import { suggestYoutube, youtubeFor, youtubeText, youtubeProblems, TITLE_MAX } from '../export/youtube.js';
 import { DIVISIONS } from '../math/rhythm.js';
 import { layerGroups } from '../math/sequence.js';
+import { CIRCLE_RULES, chordStep } from '../circle/sim.js';
+import { CIRCLE_PALETTES } from '../circle/view.js';
+import { MELODIES } from '../circle/sound.js';
 import { DRUM_KINDS, DRUM_LABELS, TRIGGERS } from '../audio/drum-scanner.js';
 import { animatable, describe, removeKey, EASES } from '../anim/keyframes.js';
 import { INSTRUMENTS, INSTRUMENT_GROUPS } from '../audio/instruments.js';
@@ -258,6 +261,7 @@ export class Panels {
 
   buildRight() {
     const tabs = [
+      ['circle', '◎ Circle', this.circleTab()],
       ['look', 'Look', this.lookTab()],
       ['fx', 'FX', this.fxTab()],
       ['sound', 'Sound', this.soundTab()],
@@ -425,6 +429,146 @@ export class Panels {
       renderVideos: (items) => this.actions.renderBatch(items),
     });
     return this.library.el;
+  }
+
+  /* ------------------------------------------------------------- circle lab */
+
+  circleTab() {
+    this.circleBody = h('div.tab-inner');
+    const tab = h('section.tab', {}, this.circleBody);
+    this.renderCircle();
+    return tab;
+  }
+
+  /** Rebuild the Circle Lab controls (the visible options depend on the rule). */
+  renderCircle() {
+    if (!this.circleBody) return;
+    disposeTree(this.circleBody);
+    const p = bindPath;
+    const c = store.state.circle;
+    const on = store.state.mode === 'circle';
+    const pct = (v) => `${Math.round(v * 100)}%`;
+    const parts = [];
+    if (!on) {
+      parts.push(h('div.circle-intro', {},
+        h('p.hint', {}, 'Circle Lab: a ball, a chord walker or a polyrhythm moves inside a circle and every hit plays a note. Trails build up into star polygons, mandalas and chaos — the “satisfying” Shorts genre.'),
+        h('button.btn.export-btn', { type: 'button', onclick: () => { store.set('mode', 'circle'); refreshAll(); } }, '◎ Switch to Circle Lab')));
+    }
+    parts.push(group('Rule', [
+      select('Simulation', p('circle.rule'), CIRCLE_RULES),
+      number('Random seed', p('circle.seed'), { min: 1, max: 9999 }),
+    ], { hint: 'Everything is deterministic: the same settings always give the same video and sound. Change the seed for a different variation.' }));
+
+    if (c.rule === 'chord') {
+      const stepIn = text('Step per hit (fraction of a turn)', p('circle.chord.step'), { placeholder: '1/phi^2' });
+      const info = h('p.hint.circle-step');
+      const showStep = () => {
+        const v = chordStep(c.chord.step);
+        const deg = (v * 360) % 360;
+        // a rational step p/q closes after q hits; irrational ones never close
+        let close = '';
+        for (let q = 1; q <= 400; q++) { if (Math.abs(v * q - Math.round(v * q)) < 1e-9) { close = `closes after ${q} hits`; break; } }
+        info.textContent = `= ${v.toFixed(6)} turn = ${deg.toFixed(3)}° · ${close || 'never closes (irrational): fills the disc'}`;
+      };
+      stepIn.querySelector('input').addEventListener('input', showStep);
+      showStep();
+      const chip = (label, expr) => h('button.chip', { type: 'button', onclick: () => { store.set('circle.chord.step', expr); refreshAll(); showStep(); } }, label);
+      parts.push(group('Chord walker', [
+        stepIn, info,
+        h('div.chips', {}, chip('1/φ² golden', '1/phi^2'), chip('1/φ', '1/phi'), chip('2/5 star', '2/5'), chip('3/7', '3/7'), chip('5/13', '5/13'),
+          chip('8/21', '8/21'), chip('√2 − 1', 'sqrt(2) - 1'), chip('π − 3', 'pi - 3'), chip('e − 2', 'e - 2'), chip('11/24', '11/24')),
+        slider('Walkers', p('circle.chord.walkers'), { min: 1, max: 12, step: 1 }),
+        slider('Speed', p('circle.chord.speed'), { min: 0.2, max: 8, step: 0.05 }),
+        slider('Speed-up per hit', p('circle.chord.speedGain'), { min: 1, max: 1.06, step: 0.001, fmt: (v) => `×${v.toFixed(3)}` }),
+        slider('Start angle', p('circle.chord.start'), { min: 0, max: 360, step: 1, unit: '°' }),
+      ], { hint: 'Write any expression: 1/phi^2, 2/5, sqrt(2)-1, pi-3… Fibonacci ratios (5/13, 8/21, 13/34) look golden for a while, then close.' }));
+    }
+    if (['bounce', 'split', 'grow', 'escape'].includes(c.rule)) {
+      parts.push(group('Balls & physics', [
+        slider('Balls', p('circle.physics.balls'), { min: 1, max: 32, step: 1 }),
+        slider('Speed', p('circle.physics.speed'), { min: 0.2, max: 5, step: 0.05 }),
+        slider('Launch angle', p('circle.physics.angle'), { min: 0, max: 360, step: 1, unit: '°' }),
+        slider('Gravity', p('circle.physics.gravity'), { min: 0, max: 8, step: 0.1 }),
+        slider('Bounciness', p('circle.physics.restitution'), { min: 0.5, max: 1.1, step: 0.01, fmt: pct }),
+        slider('Speed-up per bounce', p('circle.physics.speedGain'), { min: 1, max: 1.08, step: 0.002, fmt: (v) => `×${v.toFixed(3)}` }),
+        slider('Top speed', p('circle.physics.maxSpeed'), { min: 1, max: 12, step: 0.1 }),
+        slider('Ball size', p('circle.physics.size'), { min: 0.005, max: 0.2, step: 0.005 }),
+      ]));
+    }
+    if (c.rule === 'split') {
+      parts.push(group('Split', [
+        slider('Split angle', p('circle.split.angle'), { min: 1, max: 60, step: 0.5, unit: '°' }),
+        slider('Most balls', p('circle.split.max'), { min: 2, max: 512, step: 1 }),
+      ]));
+    }
+    if (c.rule === 'grow') {
+      parts.push(group('Grow', [
+        slider('Growth per bounce', p('circle.grow.amount'), { min: 0.001, max: 0.04, step: 0.001 }),
+        slider('Stop at', p('circle.grow.until'), { min: 0.3, max: 0.99, step: 0.01, fmt: pct }),
+      ]));
+    }
+    if (c.rule === 'escape') {
+      parts.push(group('Rings', [
+        slider('Rings', p('circle.escape.rings'), { min: 1, max: 14, step: 1 }),
+        slider('Innermost ring', p('circle.escape.inner'), { min: 0.1, max: 0.9, step: 0.01, fmt: pct }),
+        slider('Gap', p('circle.escape.gap'), { min: 5, max: 120, step: 1, unit: '°' }),
+        slider('Ring spin', p('circle.escape.spin'), { min: 0, max: 5, step: 0.05 }),
+      ], { hint: 'The ball bounces inside the innermost ring; hitting its gap breaks it and frees the ball into the next one.' }));
+    }
+    if (c.rule === 'polyrhythm') {
+      parts.push(group('Polyrhythm', [
+        slider('Dots', p('circle.poly.dots'), { min: 2, max: 32, step: 1 }),
+        slider('Swings of the slowest dot', p('circle.poly.base'), { min: 1, max: 80, step: 1 }),
+        slider('Cycle (all line up again)', p('circle.poly.cycle'), { min: 5, max: 300, step: 1, unit: ' s' }),
+      ], { hint: 'Dot k swings base + k times per cycle; after one cycle every dot is back at the start together.' }));
+    }
+    parts.push(group('Sound', [
+      this.soundPickerFor(p('circle.sound.instrument')),
+      select('Notes from', p('circle.sound.pitch'), { angle: 'Where it hits the circle', melody: 'A melody, note by note', rise: 'Rising scale', ball: 'Each ball its own note' }),
+      ...(c.sound.pitch === 'melody' ? [select('Melody', p('circle.sound.melody'), Object.fromEntries(Object.entries(MELODIES).map(([k, m]) => [k, m.label])))] : []),
+      ...(c.sound.pitch === 'melody' && c.sound.melody === 'custom' ? [text('Notes', p('circle.sound.notes'), { placeholder: 'E4 D#4 E4 D#4 E4 B3 D4 C4 A3' })] : []),
+      select('Drum on every hit', p('circle.sound.drum'), { off: 'None', kick: 'Kick', snare: 'Snare', clap: 'Clap', hat: 'Hi-hat' }),
+      slider('Note length', p('circle.sound.length'), { min: 0.05, max: 2, step: 0.01, unit: ' s' }),
+      slider('Volume', p('circle.sound.volume'), { min: 0, max: 1, step: 0.01, fmt: pct }),
+      slider('Most notes per second', p('circle.sound.maxRate'), { min: 4, max: 60, step: 1 }),
+    ], { hint: 'Key and note range come from the Sound tab (scale, root, low/high note). Very fast hits are thinned so it stays musical.' }));
+    parts.push(group('Look', [
+      select('Palette', p('circle.look.palette'), CIRCLE_PALETTES),
+      select('Trail', p('circle.look.trail'), { lines: 'Lines stay (pattern builds up)', fade: 'Lines fade', none: 'No trail' }),
+      slider('Line width', p('circle.look.trailWidth'), { min: 0.3, max: 6, step: 0.1 }),
+      slider('Glow', p('circle.look.glow'), { min: 0, max: 2.5, step: 0.05 }),
+      slider('Ring width', p('circle.look.ringWidth'), { min: 0, max: 16, step: 0.5 }),
+      slider('Ball size', p('circle.look.ballSize'), { min: 0.3, max: 3, step: 0.05, fmt: (v) => `×${v.toFixed(2)}` }),
+      slider('Circle size', p('circle.look.size'), { min: 0.2, max: 0.5, step: 0.005, fmt: pct }),
+      slider('Circle height', p('circle.look.center'), { min: 0.3, max: 0.7, step: 0.005, fmt: pct }),
+      color('Background', p('circle.look.background')),
+      toggle('Sparks on impact', p('circle.look.sparks')),
+      toggle('Ring pulses on hits', p('circle.look.ringPulse')),
+      toggle('Comet tail', p('circle.look.comet')),
+      toggle('Counter (bounces / balls)', p('circle.look.counter')),
+    ]));
+    parts.push(group('Text', [
+      text('Formula line', p('circle.text.formula'), { placeholder: 'Automatic, e.g. angle = 1/φ² turn' }),
+    ], { hint: 'Shown under the name. The hook question (Export tab) and YouTube title make it a Short: “Will this pattern ever close?”' }));
+    this.circleBody.replaceChildren(...parts);
+  }
+
+  /** Instrument list bound to any path (Circle Lab). */
+  soundPickerFor(b) {
+    const ids = Object.keys(INSTRUMENTS);
+    const sel = h('select', { 'aria-label': 'Sound' }, INSTRUMENT_GROUPS.map((g) => h('optgroup', { label: g },
+      ids.filter((id) => INSTRUMENTS[id].group === g).map((id) => h('option', { value: id }, INSTRUMENTS[id].label)))));
+    sel.value = INSTRUMENTS[b.get()] ? b.get() : 'kalimba';
+    const set = (id) => { sel.value = id; b.set(id); };
+    sel.addEventListener('change', () => set(sel.value));
+    const step = (d) => set(ids[(ids.indexOf(sel.value) + d + ids.length) % ids.length]);
+    return h('div.ctl.ctl-sound', {},
+      h('span.ctl-label', {}, 'Sound'),
+      h('div.sound-row', {},
+        h('button.icon-btn', { type: 'button', title: 'Previous sound', onclick: () => step(-1) }, '‹'),
+        sel,
+        h('button.icon-btn', { type: 'button', title: 'Next sound', onclick: () => step(1) }, '›'),
+        h('button.icon-btn', { type: 'button', title: 'Preview this sound', onclick: () => this.actions.previewSound?.(sel.value) }, '▶')));
   }
 
   /** Grouped instrument list with previous/next and a preview button. */
@@ -770,6 +914,7 @@ export class Panels {
   refresh() {
     refreshAll();
     this.updateYtCount?.();
+    this.renderCircle();
     this.renderLayers();
     this.renderSequence();
     this.renderRhythm();

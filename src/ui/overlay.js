@@ -100,7 +100,7 @@ export function drawOverlay(g, w, h, d) {
   }
 
   /* -------------------------------------------------------------- formulas */
-  if (o.formulas.enabled && legacyCaption) {
+  if (o.formulas.enabled && legacyCaption && !d.circle) {
     const s = o.formulas.size;
     const fs = 20 * k * s, lineH = 32 * k * s;
     const lines = d.layers.filter((l) => l.enabled && phases.get(l.id) !== 'future');
@@ -160,6 +160,43 @@ export function drawOverlay(g, w, h, d) {
     g.fillText(state.name, x, y + fPx); // 'left' is the absolute left edge in either direction
     g.direction = 'ltr';
     rects.name = { x, y, w: bw, h: bh };
+  }
+
+  /* ---------------------------------------------------- circle lab text */
+  // The rule as a formula (e.g. "angle = 1/φ² turn") and a counter, centred under the name.
+  if (d.circle && o.formulas.enabled && (d.circle.formula || d.circle.stats)) {
+    const s = o.formulas.size;
+    const fs = 46 * k * s, ss = 24 * k * s;
+    const custom = o.formulas.x != null;
+    const top = o.formulas.y != null ? o.formulas.y * h : (rects.name ? rects.name.y + rects.name.h + 16 * k : 40 * k);
+    g.font = `700 ${fs}px ${FONTS.display}`;
+    const fw = d.circle.formula ? g.measureText(d.circle.formula).width : 0;
+    g.font = `500 ${ss}px ${FONTS.mono}`;
+    const sw = d.circle.stats ? g.measureText(d.circle.stats).width : 0;
+    const bw = Math.max(fw, sw);
+    const x = custom ? o.formulas.x * w : (w - bw) / 2;
+    g.textAlign = 'center';
+    const cx = x + bw / 2;
+    let y = top;
+    if (d.circle.formula) {
+      g.font = `700 ${fs}px ${FONTS.display}`;
+      g.fillStyle = ui.fg;
+      g.globalAlpha = 0.97;
+      g.shadowColor = 'rgba(0,0,0,0.6)';
+      g.shadowBlur = fs * 0.3;
+      g.fillText(d.circle.formula, cx, y + fs);
+      g.shadowBlur = 0;
+      y += fs * 1.35;
+    }
+    if (d.circle.stats) {
+      g.font = `500 ${ss}px ${FONTS.mono}`;
+      g.globalAlpha = 0.65;
+      g.fillText(d.circle.stats, cx, y + ss);
+      y += ss * 1.4;
+    }
+    g.globalAlpha = 1;
+    g.textAlign = 'left';
+    rects.formulas = { x, y: top, w: bw, h: y - top };
   }
 
   /* ---------------------------------------------------------- draw analyzer */

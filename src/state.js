@@ -3,6 +3,8 @@
  * object and listens for changes, so presets are just snapshots of it.
  */
 
+import { defaultCircle } from './circle/sim.js';
+
 let nextId = 1;
 
 /** Layer types and the formulas each one uses. */
@@ -104,6 +106,8 @@ export function defaultState() {
     },
     // The hook line shown over the first ~2 s of a video ('' = the YouTube title without hashtags).
     hook: { text: '' },
+    // Circle Lab (mode 'circle'): bouncing / chord / polyrhythm simulations with a note per hit.
+    circle: defaultCircle(),
     // YouTube Shorts metadata, saved with the preset and written next to exported videos
     // (never drawn into the video). Empty fields are filled with a suggestion at export.
     youtube: { title: '', description: '', tags: '' },

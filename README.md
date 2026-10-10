@@ -90,6 +90,7 @@ fractions of the frame, so the layout is identical at 720p and 4K, and in export
 | Layer types | `y = f(x)`, parametric `x(s), y(s), z(s)` (Lissajous, astroids, knots), polar `r(θ)`, 3D surfaces `h(x, y)` with a playhead path |
 | Multi-layer | Up to 8 layers, each with its own colour, line style, sound, volume, octave, pan, mute/solo. Play them **together** or **one after another**; in sequence mode any layer can be **linked (🔗) to the layer above**, so groups of any size play together as one step and the steps follow each other (each step gets an equal slice of the timeline, so one loop or one recording covers them all); finished layers can stay as a ghost, stay fully drawn, or disappear |
 | Live parameters | `a b c d` sliders reshape curves while they play; `t` animates formulas over time |
+| Circle Lab (◎) | A separate mode for the “satisfying” circle genre, drawn with Canvas 2D (no WebGL): **chord walker** (jump a fixed fraction of a turn: rational steps close into star polygons, irrational ones such as 1/φ² never close), **bouncing balls** (gravity, bounciness, speed-up per bounce), **split on every bounce** (1 → 2 → 4 … up to 512), **grow on every bounce**, **escape the rings** (spinning rings with gaps) and **polyrhythm arcs**. Every hit plays a note: by where it lands on the circle, the next note of a melody (Ode to Joy, Für Elise, Twinkle, Greensleeves, Bach, Pachelbel, Grieg, or your own notes), a rising scale or one note per ball, with any of the 35 sounds and an optional drum per hit. Neon palettes, trails that build into the pattern (or fade), comet tails, sparks, ring pulses, counters and the rule as a formula line. Deterministic (same settings → same video), so live play, WAV, video and batch exports match. 12 presets with hooks and YouTube texts |
 | Camera | Auto-rotate, follow, field of view, plus **moves with the music**: follow the pen (close-up tracking shots, adjustable smoothness for a slow-motion feel), beat punch zoom on kicks/snares, roll; all keyframable together with camera position/zoom for pull-back reveals |
 | Visuals | 2D (orthographic) and 3D (orbit camera); trace, ghost or full drawing; solid, gradient, rainbow or pitch colouring; solid, dashed or dotted lines; neon bloom, particle trails, motion blur, fog, depth of field; playhead shapes or your own image; 6 colour palettes |
 | Sound | Web Audio synth with **35 sounds per layer** in a grouped list with preview: basic waves; house & deep house (chord stab, garage chord, deep organ, house piano, deep bass, dub chord); techno & acid (303 squelch, acid square, techno stab, reese, FM bass); psychedelic & trance (rolling psy bass, psychedelic lead, supersaw, wobble, squelchy FM, space arp); pads (warm, glass, choir, drone); keys & bells (e-piano, FM bell, marimba, kalimba, music box, pluck, harp); retro (chiptune, vibrato lead, flute). A safety limiter keeps exports from clipping; scale quantising (major, minor, pentatonic, blues, dorian, hirajoshi…) in any key; glide; legato or pluck articulation; filter, distortion, delay, reverb; spectrum or waveform analyzer |
@@ -142,6 +143,11 @@ src/
     ffmpeg-render.js    frame-perfect MP4 export through the local server's ffmpeg (+ batch folders)
     youtube.js          YouTube Shorts title/description/tags: suggestions, .txt and .csv
     shorts.js           Shorts hook (teaser, hook line, flash, whoosh/boom) and fade-out ending
+  circle/
+    sim.js              Circle Lab simulations (deterministic, fixed step)
+    view.js             Circle Lab renderer (Canvas 2D: ink trails, glow, sparks)
+    sound.js            hit → note mapping, melodies, note thinning
+    presets.js          12 Circle Lab presets with hooks and YouTube texts
     recorder.js         MediaRecorder live capture
     webm-duration.js    writes the missing duration into Chrome's WebM recordings
     midi.js             Standard MIDI File writer

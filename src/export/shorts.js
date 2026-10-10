@@ -14,13 +14,14 @@
  */
 
 /** Seconds of each part for a timeline of `duration`. */
-export function shortsTiming(record, duration) {
+export function shortsTiming(record, duration, { teaserAt } = {}) {
   const hook = record.hook || {};
   const on = hook.enabled !== false;
   const teaser = on ? Math.max(0, Math.min(3, hook.teaser ?? 0.8)) : 0;
   const outro = Math.max(0, Math.min(3, record.outro ?? 0.6));
   return {
     on, teaser, outro, duration,
+    teaserAt: teaserAt ?? Math.max(0, duration - 1e-3), // which moment the teaser shows (default: the finished picture)
     total: Math.round((teaser + duration + outro) * 1e6) / 1e6,
     hookEnd: on ? Math.max(2, teaser + 1.4) : 0, // the hook line stays this long (video time)
     flash: on && hook.flash !== false,
@@ -33,7 +34,7 @@ export function shortsTiming(record, duration) {
  * @returns {{phase:'teaser'|'main'|'outro', time:number, k:number}} k = progress inside the phase (0..1)
  */
 export function mapVideoTime(T, vt) {
-  if (vt < T.teaser) return { phase: 'teaser', time: Math.max(0, T.duration - 1e-3), k: vt / T.teaser };
+  if (vt < T.teaser) return { phase: 'teaser', time: T.teaserAt ?? Math.max(0, T.duration - 1e-3), k: vt / T.teaser };
   const t = vt - T.teaser;
   if (t < T.duration) return { phase: 'main', time: t, k: t / T.duration };
   return { phase: 'outro', time: T.duration, k: T.outro ? Math.min(1, (t - T.duration) / T.outro) : 1 };

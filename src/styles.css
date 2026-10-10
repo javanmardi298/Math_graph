@@ -540,3 +540,12 @@ div.lib-main { cursor: default; }
 /* Shorts start/end preview */
 #shorts-preview { max-width: min(92vw, 420px); }
 .shorts-canvas { display: block; width: 100%; height: auto; max-height: 70vh; object-fit: contain; border-radius: 10px; background: #000; }
+
+/* Circle Lab */
+.circle-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.circle-intro { display: flex; flex-direction: column; gap: 8px; padding: 10px; border: 1px dashed var(--accent); border-radius: 9px; }
+.circle-step { font-family: var(--f-mono); }
+.tab-inner { display: flex; flex-direction: column; gap: 10px; }
+body.mode-circle #layer-list, body.mode-circle #seq-slot, body.mode-circle #add-layer, body.mode-circle .panel-left details { display: none; }
+.circle-left-note { display: none; }
+body.mode-circle .circle-left-note { display: block; }

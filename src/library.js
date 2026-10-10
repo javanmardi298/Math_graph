@@ -140,7 +140,7 @@ export function describe(preset) {
   return {
     aspect,
     vertical: aspect === '9:16' || aspect === '4:5',
-    mode: preset.mode === '3d' ? '3d' : '2d',
+    mode: preset.mode === '3d' ? '3d' : preset.mode === 'circle' ? 'circle' : '2d',
     layers: (preset.layers || []).length,
     colors: (preset.layers || []).slice(0, 4).map((l) => l.color || '#22e4ff'),
     sequence: !!preset.sequence?.enabled,

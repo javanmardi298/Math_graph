@@ -3,6 +3,12 @@
  * so a preset only lists what it changes.
  */
 
+import { CIRCLE_PRESETS } from './circle/presets.js';
+
+// Circle Lab presets shown as built-ins (the full set is in circle/presets.js).
+const CIRCLE_BUILTINS = ['Will It Ever Close?', 'One Ball Becomes 256', 'Für Elise Bounce', 'Escape 8 Rings', '16 Rhythms at Once', 'Six Balls, Zero Friction']
+  .map((n) => CIRCLE_PRESETS.find((p) => p.name === n));
+
 export const BUILTIN_PRESETS = [
   {
     name: 'Bass Drop',
@@ -312,4 +318,5 @@ export const BUILTIN_PRESETS = [
     audio: { scale: 'major', root: 2, articulation: 'pluck', reverb: { mix: 0.4 } },
     rhythm: { enabled: true, division: '1/8', gate: 0.8 },
   },
+  ...CIRCLE_BUILTINS,
 ];
