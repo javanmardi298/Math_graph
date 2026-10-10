@@ -11,7 +11,9 @@ import { download } from '../export/recorder.js';
 import { suggestYoutube, youtubeFor, youtubeText, youtubeProblems, TITLE_MAX } from '../export/youtube.js';
 import { DIVISIONS } from '../math/rhythm.js';
 import { layerGroups } from '../math/sequence.js';
-import { CIRCLE_RULES, chordStep } from '../circle/sim.js';
+import { CIRCLE_RULES, chordStep, ruleGroups } from '../circle/sim.js';
+import { SCENES, sceneParams } from '../circle/scenes.js';
+import { SPEED_CURVES } from '../circle/layout.js';
 import { CIRCLE_PALETTES } from '../circle/view.js';
 import { MELODIES } from '../circle/sound.js';
 import { DRUM_KINDS, DRUM_LABELS, TRIGGERS } from '../audio/drum-scanner.js';
@@ -454,10 +456,30 @@ export class Panels {
         h('p.hint', {}, 'Circle Lab: a ball, a chord walker or a polyrhythm moves inside a circle and every hit plays a note. Trails build up into star polygons, mandalas and chaos — the “satisfying” Shorts genre.'),
         h('button.btn.export-btn', { type: 'button', onclick: () => { store.set('mode', 'circle'); refreshAll(); } }, '◎ Switch to Circle Lab')));
     }
-    parts.push(group('Rule', [
-      select('Simulation', p('circle.rule'), CIRCLE_RULES),
+    // simulation picker, grouped
+    const ruleSel = h('select', { 'aria-label': 'Simulation' }, ruleGroups().map(([g, items]) => h('optgroup', { label: g }, items.map(([id, label]) => h('option', { value: id }, label)))));
+    ruleSel.value = c.rule;
+    ruleSel.addEventListener('change', () => store.set('circle.rule', ruleSel.value));
+    const nRules = Object.keys(CIRCLE_RULES).length;
+    parts.push(group('Simulation', [
+      h('div.ctl.ctl-select', {}, h('label', {}, `Simulation (${nRules})`), ruleSel),
       number('Random seed', p('circle.seed'), { min: 1, max: 9999 }),
     ], { hint: 'Everything is deterministic: the same settings always give the same video and sound. Change the seed for a different variation.' }));
+
+    const scene = SCENES[c.rule];
+    if (scene) {
+      const sb = (key) => ({
+        get: () => sceneParams(store.state.circle)[key],
+        set: (v) => { const cc = store.state.circle; store.set(`circle.lab.${cc.rule}`, { ...(cc.lab?.[cc.rule] || {}), [key]: v }); },
+      });
+      const ctls = scene.controls.filter(Boolean).map(([key, label, kind, a, b, st, unit]) => {
+        if (kind === 's') return select(label, sb(key), a);
+        if (kind === 't') return toggle(label, sb(key));
+        return slider(label, sb(key), { min: a, max: b, step: st, unit: unit || '' });
+      });
+      ctls.push(h('button.btn', { type: 'button', onclick: () => { store.set(`circle.lab.${store.state.circle.rule}`, {}); refreshAll(); } }, 'Reset these to the defaults'));
+      parts.push(group(scene.label, ctls));
+    }
 
     if (c.rule === 'chord') {
       const stepIn = text('Step per hit (fraction of a turn)', p('circle.chord.step'), { placeholder: '1/phi^2' });
@@ -522,9 +544,17 @@ export class Panels {
         slider('Cycle (all line up again)', p('circle.poly.cycle'), { min: 5, max: 300, step: 1, unit: ' s' }),
       ], { hint: 'Dot k swings base + k times per cycle; after one cycle every dot is back at the start together.' }));
     }
+    parts.push(group('Speed over time', [
+      slider('Speed at the start', p('circle.speed.from'), { min: 0, max: 4, step: 0.01, fmt: (v) => `×${v.toFixed(2)}` }),
+      slider('Speed at the end', p('circle.speed.to'), { min: 0, max: 4, step: 0.01, fmt: (v) => `×${v.toFixed(2)}` }),
+      select('How it changes', p('circle.speed.curve'), SPEED_CURVES),
+      slider('Pulse on every beat', p('circle.speed.pulse'), { min: 0, max: 3, step: 0.05 }),
+      h('div.chips', {}, ...[['Steady', 1, 1, 'linear', 0], ['Speed up ×3', 0.7, 2.2, 'build', 0], ['Slow-mo ending', 1.2, 0.25, 'late', 0], ['Fast start', 2.5, 0.8, 'early', 0], ['Breathing', 0.6, 1.6, 'wave', 0], ['Beat pulse', 0.8, 0.8, 'linear', 1.2]]
+        .map(([label, from, to, curve, pulse]) => h('button.chip', { type: 'button', onclick: () => { store.set('circle.speed', { from, to, curve, pulse }); refreshAll(); } }, label))),
+    ], { hint: 'Changes how fast the motion runs while the video plays (×1 = normal). The notes follow the motion, so the music speeds up and slows down with it.' }));
     parts.push(group('Sound', [
       this.soundPickerFor(p('circle.sound.instrument')),
-      select('Notes from', p('circle.sound.pitch'), { angle: 'Where it hits the circle', melody: 'A melody, note by note', rise: 'Rising scale', ball: 'Each ball its own note' }),
+      select('Notes from', p('circle.sound.pitch'), { angle: 'Where it happens (position, size, value)', melody: 'A melody, note by note', rise: 'Rising scale', ball: 'Each ball / object its own note' }),
       ...(c.sound.pitch === 'melody' ? [select('Melody', p('circle.sound.melody'), Object.fromEntries(Object.entries(MELODIES).map(([k, m]) => [k, m.label])))] : []),
       ...(c.sound.pitch === 'melody' && c.sound.melody === 'custom' ? [text('Notes', p('circle.sound.notes'), { placeholder: 'E4 D#4 E4 D#4 E4 B3 D4 C4 A3' })] : []),
       select('Drum on every hit', p('circle.sound.drum'), { off: 'None', kick: 'Kick', snare: 'Snare', clap: 'Clap', hat: 'Hi-hat' }),
@@ -539,17 +569,26 @@ export class Panels {
       slider('Glow', p('circle.look.glow'), { min: 0, max: 2.5, step: 0.05 }),
       slider('Ring width', p('circle.look.ringWidth'), { min: 0, max: 16, step: 0.5 }),
       slider('Ball size', p('circle.look.ballSize'), { min: 0.3, max: 3, step: 0.05, fmt: (v) => `×${v.toFixed(2)}` }),
-      slider('Circle size', p('circle.look.size'), { min: 0.2, max: 0.5, step: 0.005, fmt: pct }),
-      slider('Circle height', p('circle.look.center'), { min: 0.3, max: 0.7, step: 0.005, fmt: pct }),
+      slider('Zoom', p('circle.look.zoom'), { min: 0.6, max: 1.3, step: 0.01, fmt: pct }),
+      slider('Bloom', p('circle.look.bloom'), { min: 0, max: 2.5, step: 0.05 }),
+      toggle('Living background (light, dust, ripples)', p('circle.look.ambience')),
       color('Background', p('circle.look.background')),
       toggle('Sparks on impact', p('circle.look.sparks')),
       toggle('Ring pulses on hits', p('circle.look.ringPulse')),
       toggle('Comet tail', p('circle.look.comet')),
       toggle('Counter (bounces / balls)', p('circle.look.counter')),
     ]));
-    parts.push(group('Text', [
-      text('Formula line', p('circle.text.formula'), { placeholder: 'Automatic, e.g. angle = 1/φ² turn' }),
-    ], { hint: 'Shown under the name. The hook question (Export tab) and YouTube title make it a Short: “Will this pattern ever close?”' }));
+    parts.push(group('Titles on the video', [
+      toggle('Show the name', p('overlay.name.enabled')),
+      text('Name', p('name'), { placeholder: 'Preset name' }),
+      slider('Name size', p('overlay.name.size'), { min: 0.5, max: 3, step: 0.05, fmt: (v) => `×${v.toFixed(2)}` }),
+      toggle('Show the title line + counter', p('overlay.formulas.enabled')),
+      text('Title line', p('circle.text.formula'), { placeholder: 'Automatic, e.g. angle = 1/φ² turn' }),
+      slider('Title size', p('overlay.formulas.size'), { min: 0.4, max: 2.5, step: 0.05, fmt: (v) => `×${v.toFixed(2)}` }),
+      toggle('Counter (balls / pieces / bounces)', p('circle.look.counter')),
+      text('Counter label', p('circle.text.counter'), { placeholder: 'Automatic, e.g. balls:' }),
+      text('Hook line (first 2 seconds)', p('hook.text'), { placeholder: 'Automatic: the YouTube title' }),
+    ], { hint: 'The name and the title line sit above the simulation, under the Shorts top bar. Leave a field empty for the automatic text; switch it off to hide it.' }));
     this.circleBody.replaceChildren(...parts);
   }
 

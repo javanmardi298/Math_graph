@@ -4,6 +4,7 @@
  */
 
 import { CIRCLE_PRESETS } from './circle/presets.js';
+import { LAB_PRESETS } from './circle/presets-lab.js';
 
 // Circle Lab presets shown as built-ins (the full set is in circle/presets.js).
 const CIRCLE_BUILTINS = ['Will It Ever Close?', 'One Ball Becomes 256', 'Für Elise Bounce', 'Escape 8 Rings', '16 Rhythms at Once', 'Six Balls, Zero Friction']
@@ -319,4 +320,5 @@ export const BUILTIN_PRESETS = [
     rhythm: { enabled: true, division: '1/8', gate: 0.8 },
   },
   ...CIRCLE_BUILTINS,
+  ...LAB_PRESETS,
 ];

@@ -63,6 +63,14 @@ let circleRun = { last: -1, k: 0, burst: 0 };
 const isCircle = () => store.state.mode === 'circle';
 /** The picture of the current mode (what exports and snapshots copy). */
 const sceneCanvas = () => (isCircle() ? circle.canvas : viz.canvas);
+/** What a Circle Lab simulation depends on besides its settings: length, tempo, frame shape. */
+function circleEnv() {
+  const a = store.state.visual.aspect;
+  let ratio;
+  if (a && a !== 'fill') { const [w, h] = a.split(':').map(Number); ratio = w / h; }
+  else ratio = viz.canvas.width && viz.canvas.height ? viz.canvas.width / viz.canvas.height : 16 / 9;
+  return { duration: duration(), bpm: store.state.transport.bpm || 120, ratio };
+}
 
 /* ------------------------------------------------- graphics robustness */
 
@@ -604,7 +612,7 @@ function renderScene(time, { dt, now, playing, snap }) {
 
 /** Circle Lab frame: draw the simulation; while playing live, every hit plays its note. */
 function renderCircle(time, { playing, snap }) {
-  const events = circle.renderAt(time, store.state.circle, { snap, width: viz.canvas.width, height: viz.canvas.height });
+  const events = circle.renderAt(time, store.state.circle, { snap, width: viz.canvas.width, height: viz.canvas.height, env: circleEnv() });
   if (snap) circleRun = { last: -1, k: 0, burst: 0 };
   if (playing && events.length && !exporting.busy && !RENDER_MODE && audio.ready) {
     const s = store.state.circle.sound;
@@ -867,7 +875,7 @@ async function renderWavBuffer() {
 async function renderCircleWav() {
   const { circle: c, audio: a, drums } = store.state;
   const dur = duration();
-  const notes = notesForEvents(eventsUntil(c, dur), c, a);
+  const notes = notesForEvents(eventsUntil(c, dur, circleEnv()), c, a);
   const drumEvents = drumEventsFull();
   if (c.sound.drum && c.sound.drum !== 'off') for (const n of notes) drumEvents.push({ kind: c.sound.drum, time: n.t, vel: n.vel * 0.45 });
   return AudioEngine.renderNotesOffline({

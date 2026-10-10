@@ -16,10 +16,12 @@
  * No DOM here: rendering is in view.js, sound mapping in sound.js.
  */
 import { tryCompile } from '../math/parser.js';
+import { worldFor, speedAt } from './layout.js';
+import { SCENES, sceneParams } from './scenes.js';
 
 export const DT = 1 / 240;
 
-export const CIRCLE_RULES = {
+const CLASSIC = {
   chord: 'Chord walker (golden angle, stars)',
   bounce: 'Bouncing ball',
   split: 'Split on every bounce',
@@ -27,6 +29,19 @@ export const CIRCLE_RULES = {
   escape: 'Escape the rings',
   polyrhythm: 'Polyrhythm arcs',
 };
+
+/** Every simulation: id → label. */
+export const CIRCLE_RULES = { ...CLASSIC, ...Object.fromEntries(Object.entries(SCENES).map(([id, s]) => [id, s.label])) };
+
+/** Simulations grouped for the picker: [[group, [[id, label], …]], …] */
+export function ruleGroups() {
+  const groups = new Map([['Classic circle', Object.entries(CLASSIC)]]);
+  for (const [id, s] of Object.entries(SCENES)) {
+    if (!groups.has(s.group)) groups.set(s.group, []);
+    groups.get(s.group).push([id, s.label]);
+  }
+  return [...groups];
+}
 
 /** Default settings (state.circle). */
 export function defaultCircle() {
@@ -41,10 +56,14 @@ export function defaultCircle() {
     poly: { dots: 12, base: 24, cycle: 60 },
     look: {
       palette: 'neon', trail: 'lines', trailWidth: 1.6, glow: 1, ringWidth: 5, ballSize: 1,
-      sparks: true, ringPulse: true, comet: true, counter: true, background: '#060814', center: 0.47, size: 0.43,
+      sparks: true, ringPulse: true, comet: true, counter: true, background: '#060814', zoom: 1, bloom: 1, ambience: true,
     },
     sound: { instrument: 'kalimba', pitch: 'angle', melody: 'ode', notes: '', drum: 'off', length: 0.35, volume: 0.6, maxRate: 30 },
-    text: { formula: '' },
+    text: { formula: '', counter: '' },
+    // simulation speed over time (the clock of the motion; the soundtrack stays in real time)
+    speed: { from: 1, to: 1, curve: 'linear', pulse: 0 },
+    // settings of the other simulations, per simulation: { triple: { coreN: 3, … }, … }
+    lab: {},
   };
 }
 
@@ -70,23 +89,39 @@ const TAU = Math.PI * 2;
 const wrapPi = (a) => { a = (a + Math.PI) % TAU; if (a < 0) a += TAU; return a - Math.PI; };
 const SEGMENT_CAP = 250000;
 
+const DOT_CAP = 200000;
+
 export class CircleSim {
-  constructor(cfg) {
+  /**
+   * @param {object} cfg state.circle
+   * @param {{duration?:number, bpm?:number, ratio?:number}} [env] timeline length, tempo and
+   *   frame width/height (the world is the frame's safe area, see layout.js)
+   */
+  constructor(cfg, env = {}) {
     this.cfg = cfg;
+    this.duration = env.duration ?? 30;
+    this.bpm = env.bpm ?? 120;
+    this.W = worldFor(env.ratio ?? 9 / 16);
     this.reset();
   }
 
   reset() {
     const c = this.cfg;
-    this.t = 0;
+    this.t = 0; // real time (seconds of video)
+    this.st = 0; // simulation time (runs faster / slower with the speed curve)
     this.hits = 0;
     this.balls = [];
     this.rings = [];
     this.segments = []; // permanent trail: { x1, y1, x2, y2, t, hue }
+    this.dots = []; // permanent dots: { x, y, s, hue, a }
     this.walkers = [];
     this.done = false;
     this.rand = mulberry32(c.seed ?? 7);
-    if (c.rule === 'chord') this.initChord();
+    this.scene = SCENES[c.rule] || null;
+    if (this.scene) {
+      this.P = sceneParams(c);
+      this.scene.init(this, this.P);
+    } else if (c.rule === 'chord') this.initChord();
     else if (c.rule === 'polyrhythm') this.initPoly();
     else this.initPhysics();
   }
@@ -118,16 +153,16 @@ export class CircleSim {
   stepChord(onEvent) {
     const gain = this.cfg.chord.speedGain || 1;
     for (const w of this.walkers) {
-      while (this.t >= w.t0 + w.dur) {
+      while (this.st >= w.t0 + w.dur) {
         const at = w.t0 + w.dur;
-        this.addSegment(w.from.x, w.from.y, w.to.x, w.to.y, at, w.hue + this.hits * 0.01);
+        this.addSegment(w.from.x, w.from.y, w.to.x, w.to.y, this.t, w.hue + this.hits * 0.01);
         w.angle = w.to.angle;
         this.hits++;
-        onEvent?.({ t: at, type: 'hit', ball: w.i, x: w.to.x, y: w.to.y, angle: w.angle, n: this.hits });
+        onEvent?.({ t: this.t, type: 'hit', ball: w.i, x: w.to.x, y: w.to.y, angle: w.angle, n: this.hits });
         w.speed = Math.min(12, w.speed * gain);
         this.aimWalker(w, at);
       }
-      const k = (this.t - w.t0) / w.dur;
+      const k = (this.st - w.t0) / w.dur;
       w.x = w.from.x + (w.to.x - w.from.x) * k;
       w.y = w.from.y + (w.to.y - w.from.y) * k;
     }
@@ -164,7 +199,7 @@ export class CircleSim {
     return ring ? ring.r : 1.12;
   }
 
-  ringAngle(ring, t = this.t) { return ring.phase + ring.spin * t; }
+  ringAngle(ring, t = this.st) { return ring.phase + ring.spin * t; }
 
   stepPhysics(dt, onEvent) {
     const c = this.cfg, p = c.physics;
@@ -254,7 +289,7 @@ export class CircleSim {
     for (const b of this.balls) {
       // dot i makes (base + i) passes (end to end) per cycle; slowest is the innermost
       const rate = (p.base + b.i) / Math.max(1, p.cycle);
-      const pos = this.t * rate;
+      const pos = this.st * rate;
       const passes = Math.floor(pos);
       const k = pos - passes;
       const along = passes % 2 ? 1 - k : k; // back and forth along the upper semicircle
@@ -265,7 +300,7 @@ export class CircleSim {
         b.passes = passes;
         this.hits++;
         const end = passes % 2 ? 0 : Math.PI;
-        onEvent?.({ t: passes / rate, type: 'hit', ball: b.i, x: b.arc * Math.cos(end), y: 0, angle: end, n: this.hits });
+        onEvent?.({ t: this.t, type: 'hit', ball: b.i, x: b.arc * Math.cos(end), y: 0, angle: end, n: this.hits });
       }
     }
   }
@@ -276,12 +311,24 @@ export class CircleSim {
     if (this.segments.length < SEGMENT_CAP) this.segments.push({ x1, y1, x2, y2, t, hue });
   }
 
+  /** A permanent dot (size in pixels at 1000 px, hue, alpha). */
+  addDot(x, y, s, hue, a = 1) {
+    if (this.dots.length < DOT_CAP) this.dots.push({ x, y, s, hue, a });
+  }
+
+  /** Current speed of the simulation clock. */
+  speed(t = this.t) { return speedAt(this.cfg.speed, t, this.duration, this.bpm); }
+
   step(dt, onEvent) {
     this.t += dt;
+    const sdt = dt * this.speed();
+    this.st += sdt;
     const r = this.cfg.rule;
-    if (r === 'chord') this.stepChord(onEvent);
+    if (this.scene) {
+      this.scene.step(this, this.P, sdt, (e) => { this.hits++; onEvent?.({ ...e, t: this.t, n: this.hits }); });
+    } else if (r === 'chord') this.stepChord(onEvent);
     else if (r === 'polyrhythm') this.stepPoly(onEvent);
-    else this.stepPhysics(dt, onEvent);
+    else this.stepPhysics(sdt, onEvent);
   }
 
   /** Advance to `time` (never backwards: reset() first). */
@@ -291,8 +338,8 @@ export class CircleSim {
 }
 
 /** Every sound/visual event from 0 to `duration` (for the offline soundtrack). */
-export function eventsUntil(cfg, duration) {
-  const sim = new CircleSim(cfg);
+export function eventsUntil(cfg, duration, env = {}) {
+  const sim = new CircleSim(cfg, { duration, ...env });
   const out = [];
   sim.advance(duration, (e) => out.push(e));
   return out;
@@ -301,6 +348,8 @@ export function eventsUntil(cfg, duration) {
 /** A readable formula line for the on-screen text, e.g. "angle = 1/φ² turn". */
 export function formulaLine(cfg) {
   if (cfg.text?.formula) return cfg.text.formula;
+  const scene = SCENES[cfg.rule];
+  if (scene) return scene.formula(sceneParams(cfg)) || '';
   const pretty = (s) => String(s).replace(/\bphi\b/g, 'φ').replace(/\bpi\b/g, 'π').replace(/\^2\b/g, '²').replace(/\^3\b/g, '³').replace(/sqrt\(([^)]+)\)/g, '√$1').replace(/\s+/g, ' ');
   switch (cfg.rule) {
     case 'chord': return `angle = ${pretty(cfg.chord.step)} turn`;

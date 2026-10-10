@@ -153,7 +153,9 @@ export function drawOverlay(g, w, h, d) {
     const bw = g.measureText(state.name).width, bh = fPx * 1.25;
     const above = rects.formulas && o.formulas.y == null ? rects.formulas : rects.title && o.title.y == null ? rects.title : null;
     const x = o.name.x == null ? (w - bw) / 2 : o.name.x * w;
-    const y = o.name.y == null ? (above ? above.y + above.h : 26 * k) + 12 * k : o.name.y * h;
+    // Circle Lab on vertical videos: start just under the Shorts top bar
+    const top0 = d.circle && portrait ? Math.max(26 * k, 0.05 * h) : 26 * k;
+    const y = o.name.y == null ? (above ? above.y + above.h : top0) + 12 * k : o.name.y * h;
     g.fillStyle = o.name.color || ui.fg;
     g.globalAlpha = 0.95;
     g.textAlign = 'left';
@@ -168,7 +170,7 @@ export function drawOverlay(g, w, h, d) {
     const s = o.formulas.size;
     const fs = 46 * k * s, ss = 24 * k * s;
     const custom = o.formulas.x != null;
-    const top = o.formulas.y != null ? o.formulas.y * h : (rects.name ? rects.name.y + rects.name.h + 16 * k : 40 * k);
+    const top = o.formulas.y != null ? o.formulas.y * h : (rects.name ? rects.name.y + rects.name.h + 16 * k : (portrait ? Math.max(40 * k, 0.06 * h) : 40 * k));
     g.font = `700 ${fs}px ${FONTS.display}`;
     const fw = d.circle.formula ? g.measureText(d.circle.formula).width : 0;
     g.font = `500 ${ss}px ${FONTS.mono}`;

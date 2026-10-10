@@ -1,7 +1,8 @@
 /**
  * Which note each Circle Lab event plays.
  *
- *   angle    where the hit lands on the circle picks the note (the circle is a keyboard)
+ *   angle    where the hit lands on the circle picks the note (the circle is a keyboard);
+ *            scenes can give their own position instead (bar height, ring, size …)
  *   melody   every hit plays the next note of a melody (public-domain tunes, or your own)
  *   rise     every hit climbs one step up the scale, wrapping around
  *   ball     each ball / dot has its own note (polyrhythm style)
@@ -61,7 +62,7 @@ export function notesForEvents(events, cfg, audio, run = { last: -1, k: 0, burst
   const out = [];
   let { last, k, burst } = run;
   for (const e of events) {
-    if (e.type === 'split' && cfg.rule === 'split') continue; // the hit that caused it already sounds
+    if (e.silent || (e.type === 'split' && cfg.rule === 'split')) continue; // the hit that caused it already sounds
     if (e.t - last < minGap) { burst++; continue; }
     const density = Math.min(1, 1 / Math.sqrt(1 + burst * 0.5));
     burst = 0;
@@ -73,7 +74,8 @@ export function notesForEvents(events, cfg, audio, run = { last: -1, k: 0, burst
     else if (s.pitch === 'rise') midi = scale[k % scale.length];
     else if (s.pitch === 'ball') midi = scale[(e.ball * 2) % scale.length] + 12 * Math.floor((e.ball * 2) / scale.length);
     else {
-      const frac = ((((e.angle ?? 0) / (2 * Math.PI)) % 1) + 1) % 1;
+      // where it happens: a scene's own pitch (height, size, value …) or the angle on the circle
+      const frac = e.pitch != null ? Math.min(1, Math.max(0, e.pitch)) : ((((e.angle ?? 0) / (2 * Math.PI)) % 1) + 1) % 1;
       midi = quantize(audio.noteLow + frac * (audio.noteHigh - audio.noteLow), audio.scale === 'continuous' ? 'major' : audio.scale, audio.root);
     }
     k++;
