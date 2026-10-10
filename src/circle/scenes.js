@@ -13,6 +13,8 @@
  */
 import { LAB_DEFAULTS, labInit, labStep, labDraw, labStats } from './lab.js';
 import { frac, hexA } from './palettes.js';
+import { drawScissors } from './icons.js';
+import { BATTLES } from './battles.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -34,36 +36,6 @@ function glowDot(g, x, y, r, color, k, blur = 16) {
 }
 
 /* ================================================================ paper cut */
-
-function drawScissors(g, x, y, ang, size, open, color) {
-  g.save();
-  g.translate(x, y);
-  g.rotate(ang);
-  const blade = (s) => {
-    g.save();
-    g.rotate(s * open);
-    const bg = g.createLinearGradient(0, -size * 0.12, 0, size * 0.12);
-    bg.addColorStop(0, '#ffffff'); bg.addColorStop(0.5, '#c9d3e3'); bg.addColorStop(1, '#8794ad');
-    g.fillStyle = bg;
-    g.beginPath();
-    g.moveTo(0, 0);
-    g.quadraticCurveTo(size * 0.5, -s * size * 0.14, size * 1.05, -s * size * 0.015);
-    g.lineTo(size * 1.05, s * size * 0.01);
-    g.quadraticCurveTo(size * 0.5, s * size * 0.02, 0, s * size * 0.05);
-    g.closePath(); g.fill();
-    // handle ring
-    g.strokeStyle = color; g.lineWidth = size * 0.09;
-    g.beginPath(); g.ellipse(-size * 0.42, s * size * 0.2, size * 0.24, size * 0.15, s * 0.5, 0, TAU); g.stroke();
-    g.beginPath(); g.moveTo(-size * 0.06, s * size * 0.03); g.lineTo(-size * 0.22, s * size * 0.14); g.stroke();
-    g.restore();
-  };
-  g.shadowColor = 'rgba(0,0,0,0.5)'; g.shadowBlur = size * 0.2;
-  blade(1); blade(-1);
-  g.shadowBlur = 0;
-  g.fillStyle = '#ffffff';
-  g.beginPath(); g.arc(0, 0, size * 0.045, 0, TAU); g.fill();
-  g.restore();
-}
 
 const paper = {
   label: 'Paper cut: halve, halve, halve…', group: 'Fill the screen',
@@ -1151,6 +1123,7 @@ const LAB_SCENES = {
 export const SCENES = {
   ...LAB_SCENES,
   paper, radar, chaos, phyllo, packing, pendulum, dna, harmono, orbits, sorting, tree, times, polygons, spiro,
+  ...BATTLES,
 };
 
 /** Settings of a scene: its defaults, overridden by what the user / preset set. */

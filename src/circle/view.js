@@ -17,7 +17,7 @@ import { PALETTES, CIRCLE_PALETTES, frac, hexA, paletteOf } from './palettes.js'
 export { CIRCLE_PALETTES, PALETTES };
 
 const TAU = Math.PI * 2;
-const NO_SPARKS = new Set(['pendulum', 'sorting', 'tree', 'dna', 'times', 'chaos', 'phyllo', 'harmono', 'orbits', 'spiro', 'packing', 'paper', 'mitosis', 'coral', 'snowflake', 'galton', 'pyramid', 'pachinko', 'beatfill']);
+const NO_SPARKS = new Set(['rps', 'predator', 'knives', 'popper', 'pendulum', 'sorting', 'tree', 'dna', 'times', 'chaos', 'phyllo', 'harmono', 'orbits', 'spiro', 'packing', 'paper', 'mitosis', 'coral', 'snowflake', 'galton', 'pyramid', 'pachinko', 'beatfill']);
 
 export class CircleView {
   constructor() {

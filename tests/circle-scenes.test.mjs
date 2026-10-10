@@ -4,6 +4,7 @@ import { CircleSim, defaultCircle, eventsUntil, formulaLine, CIRCLE_RULES, ruleG
 import { SCENES, sceneParams } from '../src/circle/scenes.js';
 import { speedAt, worldFor, pixelFrame } from '../src/circle/layout.js';
 import { LAB_PRESETS } from '../src/circle/presets-lab.js';
+import { beats, RPS_NAMES, formulaError, pretty } from '../src/circle/battles.js';
 
 const cfg = (rule, lab = {}, extra = {}) => ({ ...defaultCircle(), rule, lab: { [rule]: lab }, ...extra });
 const env = { duration: 30, bpm: 120, ratio: 9 / 16 };
@@ -88,4 +89,37 @@ test('new presets: known simulations, YouTube-safe texts', () => {
     assert.ok(p.hook.text && p.youtube.title.length <= 100, p.name);
     assert.ok(!/[<>]/.test(p.youtube.title + p.youtube.description), p.name);
   }
+});
+
+test('rock paper scissors (lizard Spock): one formula gives every classic rule', () => {
+  const id = Object.fromEntries(RPS_NAMES.map((n, i) => [n, i]));
+  const wins = [['paper', 'rock'], ['rock', 'scissors'], ['scissors', 'paper']];
+  for (const [a, b] of wins) { assert.ok(beats(id[a], id[b], 3)); assert.ok(!beats(id[b], id[a], 3)); }
+  const wins5 = [...wins, ['rock', 'lizard'], ['lizard', 'spock'], ['spock', 'scissors'], ['scissors', 'lizard'], ['lizard', 'paper'], ['paper', 'spock'], ['spock', 'rock']];
+  for (const [a, b] of wins5) { assert.ok(beats(id[a], id[b], 5), `${a} beats ${b}`); assert.ok(!beats(id[b], id[a], 5)); }
+});
+
+test('battles: someone wins, populations rise and fall, knives level up', () => {
+  const r = new CircleSim(cfg('rps', { chase: '0.1 + 0.03*t' }, { seed: 13 }), env);
+  r.advance(30);
+  assert.ok(SCENES.rps.counts(r).includes(60), 'one team took over');
+  const p = new CircleSim(cfg('predator'), env);
+  const flowers = [];
+  for (let t = 1; t <= 30; t++) { p.advance(t); flowers.push(p.sc.fl.length); }
+  assert.ok(Math.max(...flowers) > 100 && Math.min(...flowers.slice(5)) < 20, 'boom and bust');
+  const k = new CircleSim(cfg('knives'), env);
+  k.advance(30);
+  assert.ok(k.sc.n >= 3 && k.sc.hits > 10);
+});
+
+test('formulas drive the blade and the spike; bad formulas fall back', () => {
+  const pop = new CircleSim(cfg('popper', { x: 'cos(4*t)*cos(t)', y: 'cos(4*t)*sin(t)' }), env);
+  pop.advance(20);
+  assert.ok(pop.sc.popped > 50 && pop.segments.length > 1000);
+  const bad = new CircleSim(cfg('slicer', { ba: 'sin(', bx: 'oops' }), env);
+  bad.advance(3);
+  assert.ok(bad.sc.b.length >= 1);
+  assert.ok(formulaError('sin(', ['t']));
+  assert.equal(formulaError('cos(4*t)*sin(t)', ['t']), '');
+  assert.equal(pretty('16*sin(t)^3/17'), '16·sin(t)³/17');
 });

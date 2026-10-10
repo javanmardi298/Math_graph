@@ -13,6 +13,7 @@ import { DIVISIONS } from '../math/rhythm.js';
 import { layerGroups } from '../math/sequence.js';
 import { CIRCLE_RULES, chordStep, ruleGroups } from '../circle/sim.js';
 import { SCENES, sceneParams } from '../circle/scenes.js';
+import { formulaError } from '../circle/battles.js';
 import { SPEED_CURVES } from '../circle/layout.js';
 import { CIRCLE_PALETTES } from '../circle/view.js';
 import { MELODIES } from '../circle/sound.js';
@@ -475,6 +476,15 @@ export class Panels {
       const ctls = scene.controls.filter(Boolean).map(([key, label, kind, a, b, st, unit]) => {
         if (kind === 's') return select(label, sb(key), a);
         if (kind === 't') return toggle(label, sb(key));
+        if (kind === 'f') {
+          // a formula: show what is wrong as you type (variables listed in the label hint)
+          const ctl = text(`${label}`, sb(key), { placeholder: a });
+          const err = h('p.hint.formula-error');
+          const check = () => { const e = formulaError(sceneParams(store.state.circle)[key], b); err.textContent = e ? `⚠ ${e}` : `variables: ${b.join(', ')}`; err.style.color = e ? '#ff6b81' : 'var(--muted, #8a93a6)'; };
+          ctl.querySelector('input').addEventListener('input', check);
+          check();
+          return h('div', {}, ctl, err);
+        }
         return slider(label, sb(key), { min: a, max: b, step: st, unit: unit || '' });
       });
       ctls.push(h('button.btn', { type: 'button', onclick: () => { store.set(`circle.lab.${store.state.circle.rule}`, {}); refreshAll(); } }, 'Reset these to the defaults'));

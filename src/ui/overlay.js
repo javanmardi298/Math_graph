@@ -168,10 +168,13 @@ export function drawOverlay(g, w, h, d) {
   // The rule as a formula (e.g. "angle = 1/φ² turn") and a counter, centred under the name.
   if (d.circle && o.formulas.enabled && (d.circle.formula || d.circle.stats)) {
     const s = o.formulas.size;
-    const fs = 46 * k * s, ss = 24 * k * s;
+    let fs = 46 * k * s;
+    const ss = 24 * k * s;
     const custom = o.formulas.x != null;
     const top = o.formulas.y != null ? o.formulas.y * h : (rects.name ? rects.name.y + rects.name.h + 16 * k : (portrait ? Math.max(40 * k, 0.06 * h) : 40 * k));
     g.font = `700 ${fs}px ${FONTS.display}`;
+    // long formulas shrink to fit the width
+    if (d.circle.formula) { const raw = g.measureText(d.circle.formula).width; if (raw > w * 0.92) { fs *= (w * 0.92) / raw; g.font = `700 ${fs}px ${FONTS.display}`; } }
     const fw = d.circle.formula ? g.measureText(d.circle.formula).width : 0;
     g.font = `500 ${ss}px ${FONTS.mono}`;
     const sw = d.circle.stats ? g.measureText(d.circle.stats).width : 0;

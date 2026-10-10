@@ -204,4 +204,87 @@ export const LAB_PRESETS = [
     look: { palette: 'mono' }, sound: { instrument: 'music-box', pitch: 'angle' },
     hook: 'Random dust becomes a crystal', title: 'Random dust grows a crystal ❄️', desc: 'Dust drifts in from the edge and sticks when it touches the crystal in the middle. Over a thousand grains later: a snowflake-like fractal.',
   }),
+
+  /* ------------------------------------------------- battles & formulas */
+  L('Rock Paper Scissors', 'rps', { kinds: 3, each: 20 }, {
+    seed: 13, look: { palette: 'neon', bloom: 0.45 }, sound: { instrument: 'marimba', pitch: 'ball', maxRate: 16, volume: 1 },
+    hook: 'Rock, paper or scissors: who wins?', title: 'Rock vs paper vs scissors: who wins? 🪨📄✂️',
+    desc: '60 players, 3 teams. Paper covers rock, rock crushes scissors, scissors cut paper: whoever loses joins the winner. Everyone chases its prey and runs from its hunter, a little more aggressive every second (chase = 0.1 + 0.03·t). The graph shows who is winning.',
+    tags: 'rock paper scissors, simulation, battle, who wins, satisfying, math, shorts',
+  }),
+  L('Rock Paper Scissors Lizard Spock', 'rps', { kinds: 5, each: 12 }, {
+    seed: 9, look: { palette: 'neon', bloom: 0.45 }, sound: { instrument: 'kalimba', pitch: 'ball', maxRate: 16 }, audio: { scale: 'pentatonic', root: 2 },
+    hook: '5 teams, one rule: (a − b) mod 5 is odd', title: 'Rock, paper, scissors, lizard, Spock: who wins? 🖖🦎',
+    desc: 'Five teams, and each one beats exactly two others. One formula decides every fight: a beats b when (a − b) mod 5 is odd. Watch the alliances shift on the graph.',
+    tags: 'rock paper scissors lizard spock, simulation, battle, who wins, math, shorts',
+  }),
+  L('RPS Whirlpool', 'rps', { kinds: 3, each: 20, flow: 0.7, flowX: '-y', flowY: 'x' }, {
+    seed: 7, look: { palette: 'aurora', bloom: 0.45 }, sound: { instrument: 'harp', pitch: 'ball', maxRate: 16, volume: 0.9 },
+    hook: 'Same battle, but in a whirlpool', title: 'Rock paper scissors inside a whirlpool 🌀',
+    desc: 'The same battle, but everyone drifts in the flow field v = (−y, x): a rotating whirlpool. The armies get stretched into spirals.',
+  }),
+  L('RPS Wave Field', 'rps', { kinds: 3, each: 20, flow: 0.6, flowX: 'sin(3*y + t)', flowY: 'cos(3*x - t)' }, {
+    seed: 11, look: { palette: 'candy', bloom: 0.45 }, sound: { instrument: 'music-box', pitch: 'ball', maxRate: 16, volume: 0.85 },
+    hook: 'A battle on moving waves', title: 'Rock paper scissors on a sea of waves 🌊',
+    desc: 'Every player drifts in the wave field v = (sin(3y + t), cos(3x − t)) while it hunts. Currents carry the armies into each other.',
+  }),
+  L('Scissors vs Flowers', 'predator', { theme: 'garden' }, {
+    look: { palette: 'candy', bloom: 0.5 }, sound: { instrument: 'kalimba', pitch: 'angle', maxRate: 18 },
+    hook: 'Flowers grow. Scissors cut. Who survives?', title: 'Scissors vs flowers: who survives? ✂️🌸',
+    desc: 'Flowers multiply; scissors hunt them. Every cut feeds a pair of scissors, enough food splits it in two, hunger kills it. Boom, bust, boom: the Lotka–Volterra equations F′ = αF − βFS, S′ = δFS − γS, played out live, with the graph below.',
+    tags: 'predator prey, lotka volterra, ecosystem simulation, math, biology, satisfying, shorts',
+  }),
+  L('Needles vs Bubbles', 'predator', { theme: 'bubbles', speed: 0.55 }, {
+    look: { palette: 'ocean', bloom: 0.5 }, sound: { instrument: 'music-box', pitch: 'angle', maxRate: 18 },
+    hook: 'Bubbles multiply, needles pop them', title: 'Needles vs bubbles: who wins? 🫧📍',
+    desc: 'Bubbles multiply, needles hunt them, eat to split, starve to death. The populations rise and fall like the Lotka–Volterra equations predict.',
+  }),
+  L('Katana', 'slicer', { ba: '1.1*t' }, {
+    look: { palette: 'rainbow' }, sound: { instrument: 'synth-pluck', pitch: 'angle', maxRate: 20 },
+    hook: 'Every ball it touches: cut in half', title: 'A blade cuts every ball in half 🗡️',
+    desc: 'A blade turns at a = 1.1·t radians and slices every ball it crosses into two halves with the same total area (r → r/√2). Five balls become hundreds.',
+  }),
+  L('Lissajous Blade', 'slicer', { ba: '2.4*t', bx: '0.5*sin(2*t)', by: '0.5*sin(3*t)', len: 1, balls: 7 }, {
+    look: { palette: 'sunset' }, sound: { instrument: 'marimba', pitch: 'angle', maxRate: 20 },
+    hook: 'The blade follows a Lissajous curve', title: 'A blade on a Lissajous path slices everything ✨',
+    desc: 'The blade spins while its centre follows the Lissajous curve (0.5 sin 2t, 0.5 sin 3t). Every ball it touches splits in two.',
+  }),
+  L('Star Blades', 'slicer', { ba: '0.6*t + 0.8*sin(2*t)', blades: 3, len: 0.9, balls: 4, size: 0.2, speed: 0.45, minR: 0.014, max: 600 }, {
+    look: { palette: 'fire' }, sound: { instrument: 'bell', pitch: 'angle', maxRate: 18 },
+    hook: 'Three blades, one formula', title: 'Three blades, swinging back and forth ⭐',
+    desc: 'A six-pointed star of blades turns by a = 0.6t + 0.8 sin 2t: forward, back, forward. Every ball it crosses is cut in two.',
+  }),
+  L('Knife Hit', 'knives', {}, {
+    look: { palette: 'sunset' }, sound: { instrument: 'marimba', pitch: 'angle', volume: 1, drum: 'snare' }, bpm: 116,
+    hook: 'Will the next knife hit another one?', title: 'Every beat, a knife. Don’t hit another one! 🔪',
+    desc: 'A knife flies on every beat into a target spinning at ω = 1.6 + 1.3·sin(0.8t). Land too close to another knife and it bounces off. Level n needs n + 5 knives; then the target bursts.',
+    tags: 'knife hit, game, satisfying, rhythm, physics, shorts',
+  }),
+  L('Knife Hit: Chaos Spin', 'knives', { spin: '3*sin(1.3*t)*cos(0.5*t) + 0.3*n', more: 'n + 6', every: 0.5 }, {
+    look: { palette: 'fire' }, sound: { instrument: 'synth-pluck', pitch: 'angle', drum: 'kick' }, bpm: 124,
+    hook: 'It spins back and forth. Faster every level.', title: 'Knife hit, but the target goes crazy 🌀🔪',
+    desc: 'The target follows ω = 3 sin(1.3t) cos(0.5t) + 0.3n: it stops, reverses and spins faster every level. A knife every half beat.',
+  }),
+  L('Rose Popper', 'popper', { x: 'cos(4*t)*cos(t)', y: 'cos(4*t)*sin(t)', rate: 0.21 }, {
+    look: { palette: 'rainbow', trailWidth: 2 }, sound: { instrument: 'kalimba', pitch: 'angle', maxRate: 20 },
+    hook: 'Popping balloons draws a flower', title: 'Popping 320 balloons draws a flower 🎈🌸',
+    desc: 'A spike follows the rose curve r = cos 4θ (x = cos 4t cos t, y = cos 4t sin t) through 320 balloons. The balloons it pops reveal the eight petals.',
+  }),
+  L('Heart Popper', 'popper', { x: '16*sin(t)^3/17', y: '(13*cos(t) - 5*cos(2*t) - 2*cos(3*t) - cos(4*t))/17', rate: 0.21 }, {
+    look: { palette: 'candy', trailWidth: 2.4 }, sound: { instrument: 'music-box', pitch: 'angle', maxRate: 20 },
+    text: { formula: 'x = 16 sin³t,  y = 13 cos t − 5 cos 2t − …' },
+    hook: 'One formula, 320 balloons, a heart', title: 'A formula pops a heart into 320 balloons ❤️🎈',
+    desc: 'The heart curve x = 16 sin³t, y = 13 cos t − 5 cos 2t − 2 cos 3t − cos 4t, traced by a spike through a field of balloons.',
+    tags: 'heart curve, math art, balloons, satisfying, love, formula, shorts',
+  }),
+  L('Spiral Popper', 'popper', { x: 't/6.3*cos(4*t)', y: 't/6.3*sin(4*t)', rate: 0.21, spike: 0.07 }, {
+    look: { palette: 'aurora', trailWidth: 2 }, sound: { instrument: 'harp', pitch: 'angle', maxRate: 20 },
+    hook: 'A spiral, popped balloon by balloon', title: 'An Archimedean spiral through 320 balloons 🌀🎈',
+    desc: 'The spike moves along r = t/6.3 while turning 4 times faster (x = r cos 4t, y = r sin 4t): an Archimedean spiral carved out of balloons.',
+  }),
+  L('Lissajous Popper', 'popper', { x: 'sin(3*t)', y: 'sin(4*t)', rate: 0.21, spike: 0.07 }, {
+    look: { palette: 'neon', trailWidth: 2 }, sound: { instrument: 'e-piano', pitch: 'angle', maxRate: 20 },
+    hook: 'x = sin 3t, y = sin 4t', title: 'x = sin 3t, y = sin 4t, popped into balloons 🎈',
+    desc: 'A Lissajous figure: the spike swings 3 times left-right while it swings 4 times up-down, popping every balloon on its way.',
+  }),
 ];
