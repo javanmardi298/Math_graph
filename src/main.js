@@ -622,6 +622,11 @@ function frame() {
 
   og.clearRect(0, 0, overlay.width, overlay.height);
   layoutEditor.update(drawOverlay(og, overlay.width, overlay.height, overlayData()));
+  // Live look at the Shorts hook: while playing the first seconds, show the hook line on the
+  // stage too (the export adds the teaser, flash and boom around it).
+  if (clock.playing && store.state.record.hook?.enabled !== false && clock.pos < 2) {
+    drawHook(og, overlay.width, overlay.height, hookTextFor(store.state), clock.pos, 2, FONTS.display);
+  }
   if (recorder.active) {
     recorder.composite();
     $('rec-time').textContent = fmtRec(recorder.elapsed);
