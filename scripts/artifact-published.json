@@ -1,6 +1,6 @@
 [
  {
-  "build": "d06edc5e84",
+  "build": "cdc43b4afc",
   "files": [
    "anim/keyframes.js",
    "audio/buffer-analyser.js",
@@ -16,7 +16,6 @@
    "circle/layout.js",
    "circle/palettes.js",
    "circle/presets-lab.js",
-   "circle/presets-lessons.js",
    "circle/presets-stack.js",
    "circle/presets.js",
    "circle/scenes.js",
@@ -34,6 +33,12 @@
    "export/webm-duration.js",
    "export/youtube.js",
    "export/zip.js",
+   "lessons/circle-basics.js",
+   "lessons/circle-patterns.js",
+   "lessons/formulas.js",
+   "lessons/index.js",
+   "lessons/kit.js",
+   "lessons/waves.js",
    "library.js",
    "main.js",
    "math/layers.js",
@@ -53,7 +58,7 @@
   ]
  },
  {
-  "build": "cdc43b4afc",
+  "build": "083db3a9d7",
   "files": [
    "anim/keyframes.js",
    "audio/buffer-analyser.js",
