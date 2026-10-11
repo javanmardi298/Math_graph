@@ -11,7 +11,7 @@
 //
 // File limit: an Artifact version holds at most ~510 files, and every build adds a new
 // src-<hash>/ folder. scripts/artifact-published.json remembers which build folders are
-// online (and their files); dist/artifact-publish.json is the map to publish: the new
+// online (and their files); dist/artifact-publish-<n>.json are the maps to publish (≤ 250 entries each): the new
 // files plus `null` for every older build folder except the previous one (kept so a
 // viewer who loaded the page a moment ago keeps working). So the count stays at about
 // 3 × the number of modules, however many times the app is republished.
@@ -69,8 +69,12 @@ record = record.filter((r) => r.build !== build);
 const keep = record.slice(-1), drop = record.slice(0, -1);
 const publish = Object.fromEntries(Object.entries(files).filter(([k]) => !k.startsWith('vendor/')));
 for (const r of drop) for (const f of r.files) publish[`src-${r.build}/${f}`] = null;
-writeFileSync('dist/artifact-publish.json', JSON.stringify(publish));
+// One publish call takes at most 255 entries: new files first, removals in later parts.
+const entries = Object.entries(publish).sort(([, a], [, b]) => (a === null) - (b === null));
+const parts = [];
+for (let i = 0; i < entries.length; i += 250) parts.push(Object.fromEntries(entries.slice(i, i + 250)));
+parts.forEach((part, i) => writeFileSync(`dist/artifact-publish-${i + 1}.json`, JSON.stringify(part)));
 writeFileSync(RECORD, `${JSON.stringify([...keep, { build, files: own }], null, 1)}\n`);
 const online = keep.reduce((n, r) => n + r.files.length, 0) + own.length * 2 + Object.keys(files).filter((k) => k.startsWith('vendor/')).length + 1;
-console.log(`Publish map: dist/artifact-publish.json · removes ${drop.length} old build folder(s) · about ${online} files online after publishing`);
+console.log(`Publish maps: dist/artifact-publish-1…${parts.length}.json (publish them in order) · removes ${drop.length} old build folder(s) · about ${online} files online after publishing`);
 console.log(`Wrote dist/artifact.html · build ${build} · ${Object.keys(files).length} files`);
