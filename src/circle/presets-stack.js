@@ -5,13 +5,13 @@
 const TAGS = 'satisfying, simulation, math, physics, generative art, asmr, oddly satisfying, shorts';
 
 /** A layer: rule + settings (partial; everything else comes from the defaults). */
-const Y = (rule, lab = {}, { look = {}, sound = {}, text, speed, seed, withPrev = false, more = {} } = {}) => ({
+export const Y = (rule, lab = {}, { look = {}, sound = {}, text, speed, seed, withPrev = false, more = {} } = {}) => ({
   enabled: true, withPrev,
   cfg: { rule, ...(seed ? { seed } : {}), lab: { [rule]: lab }, look: { trail: 'lines', ...look }, sound: { instrument: 'kalimba', pitch: 'angle', volume: 0.7, maxRate: 22, ...sound }, ...(text ? { text: { formula: text } } : {}), ...(speed ? { speed: { from: 1, to: 1, curve: 'linear', pulse: 0, ...speed } } : {}), ...more },
 });
 
 /** A preset: the first layer is the main one; `combine` = 'sequence' or 'together'. */
-const S = (name, first, rest, { combine = 'sequence', duration = 30, bpm = 120, audio = {}, hook, title, desc, tags, ambience = true } = {}) => ({
+export const S = (name, first, rest, { combine = 'sequence', duration = 30, bpm = 120, audio = {}, hook, title, desc, tags, ambience = true } = {}) => ({
   name, mode: 'circle', transport: { duration, bpm },
   visual: { aspect: '9:16' },
   overlay: { layout: 4, name: { enabled: false } },

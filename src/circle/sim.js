@@ -389,6 +389,8 @@ const CAPTIONS = {
   slicer: 'Every ball it touches is cut in half', knives: 'Don’t hit another knife!', popper: 'What will it draw?',
   chladni: 'Sound turns sand into shapes', tubes: 'Every tube sings one note', ripple: 'Where waves cancel, the sand stays',
   filings: 'An invisible field, made visible',
+  string: 'A string only sings whole waves', travel: 'Higher note, shorter wave', fourier: 'Circles on circles draw any wave',
+  beats: 'Two close notes make a wobble', scope: 'Two notes draw one shape', doppler: 'Moving sound squeezes its waves',
 };
 
 /**

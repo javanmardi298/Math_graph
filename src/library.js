@@ -167,7 +167,8 @@ function presetsIn(data, single, bundle) {
   if (isPreset(data)) return [{ preset: clean(data), collection: data.$collection || single }];
   const list = Array.isArray(data) ? data : Array.isArray(data?.presets) ? data.presets : null;
   if (!list) return [];
-  return list.filter(isPreset).map((p) => ({ preset: clean(p), collection: p.$collection || bundle }));
+  const coll = (!Array.isArray(data) && typeof data.$collection === 'string' && data.$collection) || bundle; // a pack names its own collection
+  return list.filter(isPreset).map((p) => ({ preset: clean(p), collection: p.$collection || coll }));
 }
 
 /**

@@ -291,30 +291,47 @@ function drawWave(D, G, pal, t) {
 
 /* ================================================================== tubes */
 
+/** The standing wave (dust is thrown off where it is big) in a tube, x from 0 to 1, harmonic h. */
+function tubeWave(P) {
+  if (P.pipe === 'open') return (x, h) => Math.cos(h * Math.PI * x);
+  if (P.pipe === 'half') return (x, h) => Math.sin((h * Math.PI * x) / 2);
+  if (P.pipe === 'formula') {
+    const c = tryCompile(String(P.formula || '0'), ['x', 'k']);
+    if (c.ok) return (x, k) => { const v = c.fn({ x, k }); return Number.isFinite(v) ? v : 0; };
+  }
+  return (x, h) => Math.sin(h * Math.PI * x);
+}
+/** Harmonic h of a low A (h = 1, 2, 3 … → octave, fifth, …: the natural series). */
+const harmonicMidi = (h) => Math.round(45 + 12 * Math.log2(Math.max(1, h)));
+
 const tubes = {
   label: "Kundt's tubes: dust piles at the nodes", group: 'Vibration & waves',
-  defaults: { count: 7, grains: 900, every: 2, wait: 0.6, shake: 0.5, grain: 'sand' },
-  controls: [['count', 'Tubes (harmonics)', 'r', 2, 12, 1], ['grains', 'Grains per tube', 'r', 100, 3000, 50], ['every', 'Beats before the next tube starts', 'r', 0.5, 8, 0.5],
+  defaults: { count: 7, grains: 900, every: 2, wait: 0.6, shake: 0.5, grain: 'sand', pipe: 'fixed', harmonics: '', formula: 'sin(k*pi*x)' },
+  controls: [['count', 'Tubes (harmonics)', 'r', 2, 12, 1],
+    ['pipe', 'Tube ends', 's', { fixed: 'Both ends closed (1, 2, 3 …)', open: 'Both ends open (1, 2, 3 …)', half: 'One end open: odd harmonics only (1, 3, 5 …)', formula: 'My wave formula' }],
+    ['harmonics', 'Harmonics, one per tube (empty = 1, 2, 3 …)', 'x', '1 2 3 5 8'],
+    ['formula', 'Wave in tube k, x from 0 to 1 (for “My wave formula”)', 'f', 'sin(k*pi*x)', ['x', 'k']], ['grains', 'Grains per tube', 'r', 100, 3000, 50], ['every', 'Beats before the next tube starts', 'r', 0.5, 8, 0.5],
     ['shake', 'Vibration strength', 'r', 0.05, 2, 0.01], ['grain', 'Grain', 's', { sand: 'Sand', rice: 'Rice', glow: 'Glowing (palette)' }]],
   init(S, P) {
     const n = clamp(P.count | 0, 2, 12), { hw, hh } = S.W;
     const gap = (2 * hh * 0.94) / n, half = gap * 0.28, sx = hw * 0.92;
-    const rows = [];
+    const rows = [], list = String(P.harmonics || '').split(/[\s,;]+/).map(Number).filter((v) => v > 0);
+    const wave = tubeWave(P);
     for (let i = 0; i < n; i++) {
       const cy = hh * 0.94 - gap * (i + 0.5);
-      const h = i + 1; // harmonic
-      const G = makeGrid(sx, half, (x) => Math.sin(h * Math.PI * ((x + sx) / (2 * sx))), 160);
+      const h = list.length ? list[i % list.length] : P.pipe === 'half' ? 2 * i + 1 : i + 1; // harmonic
+      const G = makeGrid(sx, half, (x) => wave((x + sx) / (2 * sx), h), 160);
       const inside = (x, y) => Math.abs(x) < sx && Math.abs(y) < half;
       rows.push({ h, cy, half, G, g: scatter(S, clamp(P.grains | 0, 50, 4000), inside, [sx, half]), inside, start: null });
     }
-    S.sc = { rows, sx, acc: 0, beat: -1, keep: (x, y) => [clamp(x, -sx * 0.995, sx * 0.995), clamp(y, -half * 0.99, half * 0.99)] };
+    S.sc = { rows, sx, wave, top: Math.max(...rows.map((r) => r.h)), acc: 0, beat: -1, keep: (x, y) => [clamp(x, -sx * 0.995, sx * 0.995), clamp(y, -half * 0.99, half * 0.99)] };
   },
   step(S, P, dt, emit) {
     const sc = S.sc, beat = 60 / S.bpm;
     sc.rows.forEach((r, i) => {
       if (r.start == null && S.st >= P.wait + i * beat * P.every) {
         r.start = S.st;
-        emit({ type: 'hit', ball: i, x: 0, y: r.cy, angle: 0, pitch: Math.log2(r.h) / Math.log2(sc.rows.length) });
+        emit({ type: 'hit', ball: i, x: 0, y: r.cy, angle: 0, pitch: Math.log2(r.h) / Math.log2(Math.max(2, sc.top)), midi: harmonicMidi(r.h) });
       }
     });
     // on every beat the singing tubes play an arpeggio of their harmonics
@@ -322,7 +339,7 @@ const tubes = {
     if (bt !== sc.beat) {
       sc.beat = bt;
       const on = sc.rows.filter((r) => r.start != null && r.start < S.st - 0.05);
-      if (on.length) { const r = on[bt % on.length]; emit({ type: 'hit', ball: r.h - 1, x: 0, y: r.cy, angle: 0, pitch: Math.log2(r.h) / Math.log2(sc.rows.length) }); }
+      if (on.length) { const r = on[bt % on.length]; emit({ type: 'hit', ball: r.h - 1, x: 0, y: r.cy, angle: 0, pitch: Math.log2(r.h) / Math.log2(Math.max(2, sc.top)), midi: harmonicMidi(r.h) }); }
     }
     sc.acc += dt;
     while (sc.acc >= SUB) {
@@ -344,7 +361,7 @@ const tubes = {
       g.fillStyle = 'rgba(255,255,255,0.03)'; g.fillRect(D.X(-sc.sx), D.Y(r.cy + r.half), 2 * sc.sx * D.R, 2 * r.half * D.R);
       if (on) { // the standing wave, faint
         g.strokeStyle = hexA(pal.glow, 0.35); g.lineWidth = 1.5 * k; g.beginPath();
-        for (let i = 0; i <= 80; i++) { const u = i / 80, x = -sc.sx + 2 * sc.sx * u, y = r.cy + Math.sin(r.h * Math.PI * u) * r.half * 0.8 * Math.cos(S.st * 14); i ? g.lineTo(D.X(x), D.Y(y)) : g.moveTo(D.X(x), D.Y(y)); }
+        for (let i = 0; i <= 80; i++) { const u = i / 80, x = -sc.sx + 2 * sc.sx * u, y = r.cy + clamp(sc.wave(u, r.h), -1, 1) * r.half * 0.8 * Math.cos(S.st * 14); i ? g.lineTo(D.X(x), D.Y(y)) : g.moveTo(D.X(x), D.Y(y)); }
         g.stroke();
       }
       const shifted = { ...r.g, y: r.g.y.map((y) => y + r.cy) };
@@ -354,17 +371,21 @@ const tubes = {
     }
   },
   stats(S) { return `tubes singing: ${S.sc.rows.filter((r) => r.start != null).length}`; },
-  formula: () => 'harmonic k: k + 1 piles',
+  formula: (P) => ({ fixed: 'harmonic k: λ = 2L/k', open: 'open tube, harmonic k: λ = 2L/k', half: 'one end open: λ = 4L/k, k odd', formula: `wave = ${P.formula}` }[P.pipe] || 'λ = 2L/k'),
 };
 
 /* ================================================================= ripple */
 
 const ripple = {
   label: 'Wave interference: where waves cancel, sand stays', group: 'Vibration & waves',
-  defaults: { steps: '2:0.32 2:0.2 3:0.26 4:0.22 5:0.2 6:0.17', every: 4, wait: 1, grains: 7000, shake: 0.5, drift: 0.1, grain: 'glow', spread: 0.35 },
+  defaults: { steps: '2:0.32 2:0.2 3:0.26 4:0.22 5:0.2 6:0.17', every: 4, wait: 1, grains: 7000, shake: 0.5, drift: 0.1, grain: 'glow', spread: 0.35, layout: 'ring', phase: '0' },
   controls: [['steps', 'Sources : wavelength, one after another', 'x', '2:0.3 3:0.25 4:0.2'], ['every', 'Beats per step', 'r', 1, 16, 0.5], ['spread', 'Sources apart', 'r', 0.05, 0.9, 0.01],
+    ['layout', 'Sources', 's', { ring: 'In a ring', line: 'In a row (double slit, grating)' }],
+    ['phase', 'Head start of source j of n, at step k (radians): steers the beam', 'f', '0', ['j', 'n', 'k']],
     ['grains', 'Grains', 'r', 500, 20000, 100], ['grain', 'Grain', 's', { sand: 'Sand', rice: 'Rice', glow: 'Glowing (palette)' }], ['shake', 'Vibration strength', 'r', 0.05, 2, 0.01]],
-  sources(P, n) { const out = []; for (let i = 0; i < n; i++) { const a = Math.PI / 2 + (i * TAU) / n; out.push([Math.cos(a) * P.spread, Math.sin(a) * P.spread]); } return n === 2 ? [[-P.spread, 0], [P.spread, 0]] : out; },
+  sources(P, n) {
+    if (P.layout === 'line') { const y0 = -0.75; return Array.from({ length: n }, (_, j) => [(j - (n - 1) / 2) * P.spread, y0]); }
+    const out = []; for (let i = 0; i < n; i++) { const a = Math.PI / 2 + (i * TAU) / n; out.push([Math.cos(a) * P.spread, Math.sin(a) * P.spread]); } return n === 2 ? [[-P.spread, 0], [P.spread, 0]] : out; },
   init(S, P) {
     const sx = S.W.hw * 0.95, sy = S.W.hh * 0.95;
     const inside = (x, y) => Math.abs(x) < sx && Math.abs(y) < sy;
@@ -377,9 +398,11 @@ const ripple = {
       const [n, lam] = sc.list[k];
       const src = this.sources(P, Math.max(1, Math.round(n)));
       const kk = TAU / Math.max(0.02, lam);
+      const ph = tryCompile(String(P.phase || '0'), ['j', 'n', 'k']);
+      const phase = src.map((_, j) => { const v = ph.ok ? ph.fn({ j, n: src.length, k }) : 0; return Number.isFinite(v) ? v : 0; });
       sc.A = sc.B;
-      // time-averaged amplitude |Σ e^{i k r_j}|: zero on the lines where the waves cancel
-      sc.B = makeGrid(sc.sx, sc.sy, (x, y) => { let re = 0, im = 0; for (const [a, b] of src) { const r = Math.hypot(x - a, y - b); re += Math.cos(kk * r); im += Math.sin(kk * r); } return Math.hypot(re, im); });
+      // time-averaged amplitude |Σ e^{i(k r_j − φ_j)}|: zero on the lines where the waves cancel
+      sc.B = makeGrid(sc.sx, sc.sy, (x, y) => { let re = 0, im = 0; src.forEach(([a, b], j) => { const r = Math.hypot(x - a, y - b); re += Math.cos(kk * r - phase[j]); im += Math.sin(kk * r - phase[j]); }); return Math.hypot(re, im); });
       sc.k = k; sc.changed = S.st; sc.src = src; sc.lam = lam;
       emit({ type: 'fill', ball: k, x: 0, y: 0, angle: 0, pitch: clamp(1 - lam, 0, 1) });
     }
@@ -412,7 +435,7 @@ const ripple = {
     drawGrains(D, sc.g, P, (i) => col(sc.g.e[i]));
   },
   stats(S) { const sc = S.sc; return sc.k < 0 ? 'silence…' : `${sc.src.length} sources · wavelength ${sc.lam}`; },
-  formula: () => 'amplitude = |Σ e^{i·k·r}|',
+  formula: (P) => (P.phase && P.phase.trim() !== '0' ? `amplitude = |Σ e^{i(k·r − φ)}|, φ = ${P.phase}` : 'amplitude = |Σ e^{i·k·r}|'),
 };
 
 /* ================================================================ filings */
@@ -423,22 +446,34 @@ const MAGNETS = {
   repel: [[-0.45, 0.25, 1], [-0.45, -0.25, -1], [0.45, 0.25, -1], [0.45, -0.25, 1]],
   quad: [[0.4, 0.4, 1], [-0.4, 0.4, -1], [-0.4, -0.4, 1], [0.4, -0.4, -1]],
   ring: Array.from({ length: 6 }, (_, i) => [Math.cos((i * TAU) / 6) * 0.55, Math.sin((i * TAU) / 6) * 0.55, i % 2 ? 1 : -1]),
+  // straight wires carrying a current through the paper: the field goes round them (4th item = wire)
+  wire: [[0, 0, 1, 1]],
+  wires: [[-0.4, 0, 1, 1], [0.4, 0, -1, 1]],
+  coil: [[-0.5, 0.3, 1, 1], [-0.5, 0.1, 1, 1], [-0.5, -0.1, 1, 1], [-0.5, -0.3, 1, 1], [0.5, 0.3, -1, 1], [0.5, 0.1, -1, 1], [0.5, -0.1, -1, 1], [0.5, -0.3, -1, 1]],
+  formula: [],
 };
 
 const filings = {
   label: 'Iron filings show the magnetic field', group: 'Vibration & waves',
-  defaults: { setups: 'bar attract repel quad ring', every: 6, wait: 0.8, grains: 3800, tap: 0.6, paper: 'dark' },
-  controls: [['setups', 'Magnets, one after another (bar attract repel quad ring)', 'x', 'bar attract repel'], ['every', 'Beats per setup', 'r', 1, 16, 0.5],
+  defaults: { setups: 'bar attract repel quad ring', every: 6, wait: 0.8, grains: 3800, tap: 0.6, paper: 'dark', bx: 'y', by: 'sin(2*x)' },
+  controls: [['setups', 'Magnets, one after another (bar attract repel quad ring wire wires coil formula)', 'x', 'bar attract repel'], ['every', 'Beats per setup', 'r', 1, 16, 0.5],
+    ['bx', 'My field, sideways part Bx(x, y) (for “formula”)', 'f', 'y', ['x', 'y']], ['by', 'My field, up-down part By(x, y)', 'f', 'sin(2*x)', ['x', 'y']],
     ['grains', 'Filings', 'r', 500, 12000, 100], ['tap', 'Tapping strength', 'r', 0.05, 2, 0.01], ['paper', 'Paper', 's', { dark: 'Dark', light: 'White paper' }]],
   init(S, P) {
     const sx = S.W.hw * 0.95, sy = S.W.hh * 0.95;
     const inside = (x, y) => Math.abs(x) < sx && Math.abs(y) < sy;
     const list = String(P.setups || 'bar').split(/[\s,]+/).filter((s) => MAGNETS[s]);
-    S.sc = { list: list.length ? list : ['bar'], g: scatter(S, clamp(P.grains | 0, 100, 20000), inside, [sx, sy]), sx, sy, k: -2, changed: 0, acc: 0, beat: -1 };
+    const fx = tryCompile(String(P.bx || '0'), ['x', 'y']), fy = tryCompile(String(P.by || '0'), ['x', 'y']);
+    const own = (x, y) => { const a = fx.ok ? fx.fn({ x, y }) : 0, b = fy.ok ? fy.fn({ x, y }) : 0; return [Number.isFinite(a) ? a : 0, Number.isFinite(b) ? b : 0]; };
+    S.sc = { own, list: list.length ? list : ['bar'], g: scatter(S, clamp(P.grains | 0, 100, 20000), inside, [sx, sy]), sx, sy, k: -2, changed: 0, acc: 0, beat: -1 };
   },
   field(sc, x, y) {
+    if (sc.list[sc.k] === 'formula') { const [bx, by] = sc.own(x, y); return [bx * 8, by * 8]; }
     let bx = 0, by = 0;
-    for (const [a, b, q] of MAGNETS[sc.list[sc.k]]) { const dx = x - a, dy = y - b, r2 = dx * dx + dy * dy + 0.004; bx += (q * dx) / r2; by += (q * dy) / r2; }
+    for (const [a, b, q, wire] of MAGNETS[sc.list[sc.k]]) {
+      const dx = x - a, dy = y - b, r2 = dx * dx + dy * dy + 0.004;
+      if (wire) { bx -= (q * dy) / r2; by += (q * dx) / r2; } else { bx += (q * dx) / r2; by += (q * dy) / r2; }
+    }
     return [bx, by];
   },
   step(S, P, dt, emit) {
@@ -487,16 +522,17 @@ const filings = {
     }
     g.globalAlpha = 1;
     if (sc.k >= 0) {
-      for (const [a, b, q] of MAGNETS[sc.list[sc.k]]) {
-        g.fillStyle = q > 0 ? '#ff3b5c' : '#3b8bff'; g.shadowColor = g.fillStyle; g.shadowBlur = 14 * k;
+      for (const [a, b, q, wire] of MAGNETS[sc.list[sc.k]]) {
+        g.fillStyle = wire ? '#ffb020' : q > 0 ? '#ff3b5c' : '#3b8bff'; g.shadowColor = g.fillStyle; g.shadowBlur = 14 * k;
         g.beginPath(); g.arc(D.X(a), D.Y(b), 12 * k, 0, TAU); g.fill(); g.shadowBlur = 0;
         g.fillStyle = '#fff'; g.font = `700 ${13 * k}px ui-sans-serif, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
-        g.fillText(q > 0 ? 'N' : 'S', D.X(a), D.Y(b));
+        // a wire: ⊙ current comes out of the screen, ⊗ goes in
+        g.fillText(wire ? (q > 0 ? '•' : '×') : q > 0 ? 'N' : 'S', D.X(a), D.Y(b));
       }
     }
   },
-  stats(S) { const sc = S.sc; return sc.k < 0 ? 'no magnet yet…' : `magnets: ${sc.list[sc.k]}`; },
-  formula: () => 'B = Σ q·(p − pᵢ) / |p − pᵢ|²',
+  stats(S) { const sc = S.sc; return sc.k < 0 ? 'no magnet yet…' : `${/wire|coil/.test(sc.list[sc.k]) ? 'current' : sc.list[sc.k] === 'formula' ? 'field' : 'magnets'}: ${sc.list[sc.k]}`; },
+  formula: (P) => (/formula/.test(P.setups) ? `B = (${P.bx}, ${P.by})` : /wire|coil/.test(P.setups) ? 'wire: B goes round, B ∝ 1/r' : 'B = Σ q·(p − pᵢ) / |p − pᵢ|²'),
 };
 
 export const CYMATICS = { chladni, tubes, ripple, filings };

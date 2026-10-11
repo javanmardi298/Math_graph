@@ -327,4 +327,65 @@ export const LAB_PRESETS = [
     look: { palette: 'mono', background: '#1c1b19', bloom: 0.3 }, sound: { instrument: 'marimba', pitch: 'angle', volume: 1 },
     hook: 'Two magnets: pull or push?', title: 'Two magnets: pull or push? 🧲🧲', desc: 'Iron filings on white paper show what two magnets do: when they attract the lines join, when they repel the lines turn away.',
   }),
+  /* ------------------------------------------------------ waves & sound */
+  L('Harmonics on a String', 'string', { modes: '1 2 3 4 5 6 7 8', every: 3 }, {
+    look: { palette: 'aurora' }, sound: { instrument: 'harp', pitch: 'angle', length: 0.8 }, bpm: 100,
+    hook: 'Why does a guitar string sound like that?', title: 'A string can only make whole waves 🎸', desc: 'A string tied at both ends can only swing in whole loops: 1, 2, 3 … Each extra loop makes the wave shorter and the note higher. You hear the harmonic series: the notes every instrument is built from.',
+    tags: 'harmonics, standing wave, string, music, physics, math, education, shorts',
+  }),
+  L('Higher Note, Shorter Wave', 'travel', { lambdas: '0.9 0.6 0.45 0.3 0.2', every: 5 }, {
+    look: { palette: 'ocean' }, sound: { instrument: 'synth-pluck', pitch: 'angle', volume: 0.6 }, bpm: 100,
+    hook: 'What is a wavelength?', title: 'Wavelength explained in 30 seconds 🌊', desc: 'A wave moves along a rope and through the air. The beads only bob up and down; the wave moves on. Make the wave shorter and the note gets higher: speed = frequency × wavelength.',
+    tags: 'wavelength, frequency, waves, sound, physics, education, shorts',
+  }),
+  L('Square Wave from Circles', 'fourier', { wave: 'square', terms: 15, every: 2 }, {
+    look: { palette: 'neon', bloom: 0.5 }, sound: { instrument: 'e-piano', pitch: 'angle', volume: 0.6 }, bpm: 100,
+    hook: 'Can circles draw a square?', title: 'Spinning circles draw a square wave 🔵', desc: 'Each circle is one sine wave. Add them up, the biggest first, and a square wave appears. This is the Fourier series: any sound can be built from sines.',
+    tags: 'fourier, fourier series, epicycles, square wave, math, education, shorts',
+  }),
+  L('Sawtooth from Circles', 'fourier', { wave: 'saw', terms: 14, every: 2, spin: 0.3 }, {
+    look: { palette: 'sunset' }, sound: { instrument: 'synth-pluck', pitch: 'angle', volume: 0.55 }, bpm: 110,
+    hook: 'How many circles make a sawtooth?', title: 'How many circles make a sawtooth? 🪚', desc: 'Every circle adds one harmonic, sin(n·x)/n. With 14 circles the curve is almost a perfect sawtooth.',
+    tags: 'fourier, sawtooth, epicycles, math, education, shorts',
+  }),
+  L('Beats', 'beats', { f1: 6, gaps: '3 2 1 0.5 0.25 0', every: 5 }, {
+    look: { palette: 'gold' }, sound: { instrument: 'glass-pad', pitch: 'angle', length: 1.2, volume: 0.6 }, bpm: 100,
+    hook: 'Two notes, almost the same…', title: 'Two almost-equal notes make a wobble 〰️', desc: 'Two waves with nearly the same frequency drift in and out of step. The sound swells and fades |f₁ − f₂| times a second. Musicians tune by making the wobble stop.',
+    tags: 'beats, interference, tuning, sound, physics, education, shorts',
+  }),
+  L('Music You Can See', 'scope', { intervals: '1:1 2:1 3:2 4:3 5:4 6:5 16:15 45:32', every: 4 }, {
+    look: { palette: 'neon', bloom: 0.55 }, sound: { instrument: 'e-piano', pitch: 'angle', length: 1.2, volume: 0.6 }, bpm: 100,
+    hook: 'Which shape sounds the nicest?', title: 'What musical intervals look like 🎹', desc: 'An oscilloscope draws one note against another. Simple ratios like 2:1 and 3:2 draw calm closed shapes and sound sweet; messy ratios like 45:32 scribble and sound tense.',
+    tags: 'lissajous, oscilloscope, intervals, music theory, harmony, math, shorts',
+  }),
+  L('Sonic Boom', 'doppler', { machs: '0 0.5 0.8 1 1.4 2' , every: 5 }, {
+    look: { palette: 'fire' }, sound: { instrument: 'synth-pluck', pitch: 'angle', volume: 0.6 }, bpm: 100,
+    hook: 'What happens when it outruns its own sound?', title: 'Faster than sound: the sonic boom 💥', desc: 'A moving source squeezes the waves in front of it, so the pitch goes up ahead and down behind (Doppler effect). Faster than sound, the waves pile up into a cone: the sonic boom.',
+    tags: 'doppler effect, sonic boom, mach cone, sound, physics, education, shorts',
+  }),
+  L('Open vs Closed Tubes', 'tubes', { pipe: 'half', count: 6, every: 2 }, {
+    look: { palette: 'gold' }, sound: { instrument: 'marimba', pitch: 'angle', length: 0.6 }, bpm: 100,
+    hook: 'Why does a clarinet sound different?', title: 'A tube closed at one end skips every other note 🎷', desc: 'Close one end of a tube and it can only sing the odd harmonics: 1, 3, 5, 7 … That is why a clarinet sounds hollow. The dust shows each standing wave.',
+    tags: 'kundt tube, harmonics, clarinet, standing wave, physics, education, shorts',
+  }),
+  L('Double Slit', 'ripple', { layout: 'line', steps: '2:0.3 2:0.2 2:0.14', spread: 0.4, every: 6 }, {
+    look: { palette: 'ocean' }, sound: { instrument: 'glass-pad', pitch: 'angle', length: 1.2, volume: 0.6 }, bpm: 100,
+    hook: 'Two openings, one wave', title: 'The double slit, drawn by sand 🌊', desc: 'Two sources side by side send out the same wave. Where the waves meet in step they add up; where they meet out of step they cancel, and the sand gathers on those lines. Shorter waves, more lines.',
+    tags: 'double slit, interference, waves, physics, education, satisfying, shorts',
+  }),
+  L('Beam Steering', 'ripple', { layout: 'line', steps: '6:0.2 6:0.2 6:0.2 6:0.2', spread: 0.12, phase: '0.8*j*(k - 1.5)', every: 4 }, {
+    look: { palette: 'neon' }, sound: { instrument: 'synth-pluck', pitch: 'angle', volume: 0.55 }, bpm: 110,
+    hook: 'How does 5G aim a signal?', title: 'Six speakers aim one beam 📡', desc: 'Six sources in a row. Give each one a small head start (a phase that grows with j) and their waves add up in a slanted beam. That is how phased-array radar and 5G antennas steer without moving.',
+    tags: 'phased array, beam steering, interference, waves, physics, education, shorts',
+  }),
+  L('Field Around a Wire', 'filings', { setups: 'wire wires coil', every: 6 }, {
+    look: { palette: 'gold', bloom: 0.4 }, sound: { instrument: 'marimba', pitch: 'angle', volume: 0.8 },
+    hook: 'Electricity makes a magnet?', title: 'A wire with a current is a magnet ⚡🧲', desc: 'Iron filings around a wire carrying a current line up in circles. Two wires, then a whole coil: the field of the coil looks just like a bar magnet.',
+    tags: 'electromagnetism, magnetic field, iron filings, current, physics, education, shorts',
+  }),
+  L('Draw a Field', 'filings', { setups: 'formula', bx: 'sin(3*y)', by: 'cos(3*x)', every: 30 }, {
+    look: { palette: 'aurora' }, sound: { instrument: 'kalimba', pitch: 'angle', volume: 0.6 },
+    hook: 'Type two formulas, see a field', title: 'Two formulas, one invisible field ✨', desc: 'The filings follow the field B = (sin 3y, cos 3x). Change the two formulas and the filings line up into whirls, saddles and streams.',
+    tags: 'vector field, iron filings, math, physics, education, shorts',
+  }),
 ];

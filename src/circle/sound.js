@@ -63,13 +63,15 @@ export function notesForEvents(events, cfg, audio, run = { last: -1, k: 0, burst
   let { last, k, burst } = run;
   for (const e of events) {
     if (e.silent || (e.type === 'split' && cfg.rule === 'split')) continue; // the hit that caused it already sounds
-    if (e.t - last < minGap) { burst++; continue; }
+    // notes of a chord (e.together) are never thinned against each other
+    if (!e.together && e.t - last < minGap) { burst++; continue; }
     const density = Math.min(1, 1 / Math.sqrt(1 + burst * 0.5));
     burst = 0;
     last = e.t;
     let midi;
     if (e.type === 'escape') midi = scale[Math.min(scale.length - 1, Math.round(scale.length * 0.85))] + 12;
     else if (e.type === 'fill') midi = scale[0];
+    else if (e.midi != null && s.pitch === 'angle') midi = e.midi; // the scene knows the exact note (harmonics, intervals)
     else if (s.pitch === 'melody' && melody.length) midi = melody[k % melody.length];
     else if (s.pitch === 'rise') midi = scale[k % scale.length];
     else if (s.pitch === 'ball') midi = scale[(e.ball * 2) % scale.length] + 12 * Math.floor((e.ball * 2) / scale.length);

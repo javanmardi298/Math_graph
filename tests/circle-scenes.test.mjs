@@ -165,3 +165,53 @@ test('vibration: sand leaves the moving parts and gathers on the still lines', a
   }
   for (const id of ['tubes', 'ripple', 'filings']) assert.ok(eventsUntil(cfg(id), 10, env).length > 3, id);
 });
+
+test('waves: formulas drive the shapes, bad formulas fall back, notes are the real harmonics', async () => {
+  const { WAVES } = await import('../src/circle/waves.js');
+  for (const id of Object.keys(WAVES)) {
+    for (const lab of [{}, { formula: 'oops(', coeff: '1/', y1: '', x: 'sin(' }]) {
+      const ev = eventsUntil(cfg(id, lab), 10, env);
+      assert.ok(ev.length > 3 && ev.every((e) => Number.isFinite(e.t)), `${id} ${JSON.stringify(lab)}`);
+    }
+  }
+  const str = eventsUntil(cfg('string', { modes: '1 2 4', every: 4 }), 6, env);
+  const midis = new Set(str.map((e) => e.midi));
+  assert.ok(midis.has(45) && midis.has(57), 'harmonic 2 is an octave up');
+  const four = new CircleSim(cfg('fourier', { wave: 'custom', coeff: '1/n^2', terms: 5 }), env);
+  four.advance(1);
+  assert.deepEqual(four.sc.c.map(([n]) => n), [1, 2, 3, 4, 5]);
+});
+
+test('formula options: odd harmonics in a half-open tube, steered beams, wires and own fields', () => {
+  const tube = new CircleSim(cfg('tubes', { pipe: 'half', count: 4 }), env);
+  assert.deepEqual(tube.sc.rows.map((r) => r.h), [1, 3, 5, 7]);
+  const own = new CircleSim(cfg('tubes', { pipe: 'formula', formula: 'x*(1-x)*k', harmonics: '2 9' }), env);
+  assert.deepEqual(own.sc.rows.slice(0, 3).map((r) => r.h), [2, 9, 2]);
+  for (const phase of ['0', '0.8*j*(k - 1.5)', 'bad(']) {
+    const r = new CircleSim(cfg('ripple', { layout: 'line', steps: '4:0.2 4:0.2', phase }), env);
+    r.advance(6);
+    assert.ok(r.sc.src.every(([, y]) => y < 0), 'sources in a row');
+  }
+  const w = new CircleSim(cfg('filings', { setups: 'wire', wait: 0 }), env);
+  w.advance(0.5);
+  const [bx, by] = SCENES.filings.field(w.sc, 0.3, 0);
+  assert.ok(Math.abs(bx) < 1e-9 && by > 0, 'the field goes round the wire');
+  const f = new CircleSim(cfg('filings', { setups: 'formula', bx: '1', by: '0', wait: 0 }), env);
+  f.advance(0.5);
+  assert.deepEqual(SCENES.filings.field(f.sc, 0.1, 0.2), [8, 0]);
+});
+
+test('lessons pack: every step is a known simulation, plain captions, importable as full states', async () => {
+  const { LESSON_PRESETS, lessonPack } = await import('../src/circle/presets-lessons.js');
+  const { normalize } = await import('../src/state.js');
+  const { isPreset } = await import('../src/library.js');
+  assert.ok(LESSON_PRESETS.length >= 6);
+  for (const p of LESSON_PRESETS) {
+    assert.equal(p.$category, 'Circle · Math lessons');
+    assert.ok(!/[=^]/.test(p.hook.text), p.name);
+    for (const l of [p.circle, ...p.circle.layers.map((x) => x.cfg)]) assert.ok(CIRCLE_RULES[l.rule] && l.text?.formula, `${p.name}: ${l.rule}`);
+  }
+  const pack = lessonPack();
+  assert.ok(pack.length >= 18 && new Set(pack.map((p) => p.name)).size === pack.length);
+  assert.ok(pack.map(normalize).every(isPreset));
+});

@@ -203,22 +203,28 @@ class Store {
   }
   /** Replace the whole state from a preset/snapshot (missing keys fall back to defaults). */
   load(snapshot) {
-    const merged = mergeDeep(defaultState(), structuredClone(snapshot));
-    if ((snapshot.overlay?.layout ?? 1) < 2) applyLayout2(merged);
-    if ((snapshot.overlay?.layout ?? 1) < 3) applyLayout3(merged);
-    if ((snapshot.overlay?.layout ?? 1) < 4) applyLayout4(merged);
-    // Circle layers: each one a complete circle setting (older or partial ones get the defaults)
-    merged.circle.layers = (merged.circle.layers || []).map((l, i) => ({
-      id: l.id || `C${i + 1}`, enabled: l.enabled !== false, withPrev: !!l.withPrev, cfg: mergeDeep(defaultCircle(), { ...(l.cfg || {}), layers: [] }),
-    }));
-    merged.layers = (merged.layers || []).map((l) => createLayer({ ...l, id: undefined, exprs: { ...l.exprs } }));
-    merged.layers.forEach((l, i) => { l.id = `L${Date.now().toString(36)}${i}`; });
+    const merged = normalize(snapshot);
     this.state = merged;
     this.emit('*');
   }
   snapshot() {
     return structuredClone(this.state);
   }
+}
+
+/** A complete state from a saved or partial preset (missing settings get the defaults). */
+export function normalize(snapshot) {
+  const merged = mergeDeep(defaultState(), structuredClone(snapshot));
+  if ((snapshot.overlay?.layout ?? 1) < 2) applyLayout2(merged);
+  if ((snapshot.overlay?.layout ?? 1) < 3) applyLayout3(merged);
+  if ((snapshot.overlay?.layout ?? 1) < 4) applyLayout4(merged);
+  // Circle layers: each one a complete circle setting (older or partial ones get the defaults)
+  merged.circle.layers = (merged.circle.layers || []).map((l, i) => ({
+    id: l.id || `C${i + 1}`, enabled: l.enabled !== false, withPrev: !!l.withPrev, cfg: mergeDeep(defaultCircle(), { ...(l.cfg || {}), layers: [] }),
+  }));
+  merged.layers = (merged.layers || []).map((l) => createLayer({ ...l, id: undefined, exprs: { ...l.exprs } }));
+  merged.layers.forEach((l, i) => { l.id = `L${Date.now().toString(36)}${i}`; });
+  return merged;
 }
 
 export const store = new Store();

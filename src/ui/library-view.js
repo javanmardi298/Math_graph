@@ -14,6 +14,8 @@ import {
   singleFile, bundleFile, clean, STORAGE_BUDGET,
 } from '../library.js';
 import { h } from './controls.js';
+import { normalize } from '../state.js';
+import { lessonPack, PACK_NAME } from '../circle/presets-lessons.js';
 
 const FAV_KEY = 'mmv.favorites.v1';
 const PAGE = 100;
@@ -161,6 +163,7 @@ export class LibraryView {
       h('details.group', { open: true }, h('summary', {}, 'Import & export'),
         h('div.group-body', {},
           h('button.btn', { type: 'button', onclick: () => this.fileIn.click() }, '⇪ Import preset files…'), this.fileIn,
+          h('button.btn.ghost', { type: 'button', title: 'Adds lessons on waves, sound and numbers to your presets, in their own collection', onclick: () => this.addPack() }, `＋ Add the “${PACK_NAME}” pack`),
           h('p.hint', {}, 'Choose one or many .json preset files or a .zip of them, or drop them on this tab. Same-named presets are kept and renamed, never overwritten.'),
           h('div.row', {},
             h('button.btn.ghost', { type: 'button', onclick: () => this.exportCurrent() }, 'Export current setup'),
@@ -375,6 +378,19 @@ export class LibraryView {
     this.saveName.value = '';
     this.filter.source = this.filter.source === 'builtin' ? 'all' : this.filter.source;
     this.render();
+  }
+
+  /** Copy the built-in lessons pack into my presets, in its own collection (once per preset). */
+  addPack() {
+    const have = new Set(this.items.filter((i) => i.collection === PACK_NAME).map((i) => i.name));
+    const added = lessonPack().filter((p) => !have.has(p.name)).map((p) => makeItem(normalize(p), { name: p.name, collection: PACK_NAME }));
+    if (!added.length) { this.actions.toast(`The “${PACK_NAME}” pack is already in your presets.`); return; }
+    this.items = [...added, ...this.items];
+    this.persist();
+    Object.assign(this.filter, { source: 'mine', q: '', collection: PACK_NAME, sort: 'recent' });
+    this.search.value = '';
+    this.render();
+    this.actions.toast(`Added ${added.length} lessons to “${PACK_NAME}”.`);
   }
 
   async importFiles(files) {
