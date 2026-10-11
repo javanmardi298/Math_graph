@@ -9,7 +9,7 @@ const fn = (y, more = {}) => ({ type: 'function', exprs: { y }, ...more });
 const par = (x, y, z = '0', max = 2 * Math.PI, more = {}) => ({ type: 'parametric', exprs: { x, y, z }, range: { min: 0, max }, ...more });
 const polar = (r, max = 2 * Math.PI, more = {}) => ({ type: 'polar', exprs: { r }, range: { min: 0, max }, ...more });
 // surfaces: a 64 × 64 grid (more is a white blur), coloured by height
-const surf = (f, path = '2.5 sin(0.9x)', more = {}) => ({ type: 'surface', exprs: { f, path }, samples: 64, width: 2, colorMode: 'pitch', color2: '#ff3d9a', wave: 'sawtooth', volume: 0.35, ...more });
+const surf = (f, path = '2.5 sin(0.9x)', more = {}) => ({ type: 'surface', exprs: { f, path }, samples: 64, width: 2, colorMode: 'pitch', color2: '#ff3d9a', wave: 'sawtooth', volume: 1, ...more });
 const SOFT_3D = { bloom: { strength: 0.7, threshold: 0.1 }, fog: { enabled: true, density: 0.03 } };
 
 const WAVE_VIEW = { xMin: 0, xMax: 6.3, yMin: -5, yMax: 5 };
@@ -112,13 +112,13 @@ export const FORMULAS_3D = [
     { say: 'height = sin x · cos y: hills and valleys', layer: surf('sin(x) cos(y)') },
     { say: 'x² − y²: a saddle', layer: surf('0.15 (x^2 - y^2)') },
     { say: 'A ripple: sin of the distance', layer: surf('1.2 sin(2 hypot(x, y)) / (1 + 0.3 hypot(x, y))') },
-  ], { view: { xMin: -5, xMax: 5, yMin: -3, yMax: 3 }, past: 'hide', camera: { autoRotate: true, rotateSpeed: 0.5 }, visual: SOFT_3D, hook: 'What does a formula of x and y look like?', title: 'Formulas that make landscapes ⛰️', desc: 'A formula of two variables gives a height for every point: a landscape. sin x · cos y makes hills, x² − y² a saddle, and a sine of the distance a ripple.' }),
+  ], { view: { xMin: -5, xMax: 5, yMin: -3, yMax: 3 }, past: 'hide', camera: { autoRotate: true, rotateSpeed: 0.5 }, visual: SOFT_3D, audio: { master: 1, noteLow: 40, noteHigh: 76 }, hook: 'What does a formula of x and y look like?', title: 'Formulas that make landscapes ⛰️', desc: 'A formula of two variables gives a height for every point: a landscape. sin x · cos y makes hills, x² − y² a saddle, and a sine of the distance a ripple.' }),
 
   M('Bowls and Bells', '3d', [
     { say: 'x² + y²: a bowl (paraboloid)', layer: surf('0.2 (x^2 + y^2) - 2') },
     { say: 'e^(−r²): a bell, the 3D bell curve', layer: surf('3 exp(-(x^2 + y^2)/3) - 1') },
     { say: 'cos x + cos y: an egg box', layer: surf('cos(x) + cos(y)') },
-  ], { view: { xMin: -5, xMax: 5, yMin: -3, yMax: 3 }, past: 'hide', camera: { autoRotate: true, rotateSpeed: 0.5 }, visual: SOFT_3D, hook: 'Can you guess the shape from the formula?', title: 'Bowl, bell, egg box: guess the formula 🥣', desc: 'x² + y² curves up in every direction: a bowl. e^(−r²) is the bell curve spun around. cos x + cos y repeats in both directions like an egg box.' }),
+  ], { view: { xMin: -5, xMax: 5, yMin: -3, yMax: 3 }, past: 'hide', camera: { autoRotate: true, rotateSpeed: 0.5 }, visual: SOFT_3D, audio: { master: 1, noteLow: 40, noteHigh: 76 }, hook: 'Can you guess the shape from the formula?', title: 'Bowl, bell, egg box: guess the formula 🥣', desc: 'x² + y² curves up in every direction: a bowl. e^(−r²) is the bell curve spun around. cos x + cos y repeats in both directions like an egg box.' }),
 
   M('Knots', '3d', [
     { say: 'Round a ring: a simple loop', layer: par('2.5 cos(s)', '2.5 sin(s)', '0') },

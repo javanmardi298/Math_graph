@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3i3v8x0",
+          "id": "Lmv3ihhe00",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -49,7 +49,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -59,7 +59,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x1",
+          "id": "Lmv3ihhe01",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -81,7 +81,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -91,7 +91,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x2",
+          "id": "Lmv3ihhe02",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -113,7 +113,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -178,7 +178,7 @@
         "roll": 0
       },
       "audio": {
-        "master": 0.7,
+        "master": 0.95,
         "noteLow": 48,
         "noteHigh": 84,
         "scale": "pentatonic",
@@ -437,7 +437,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3i3v8x0",
+          "id": "Lmv3ihhe00",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -459,7 +459,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -469,7 +469,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x1",
+          "id": "Lmv3ihhe01",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -491,7 +491,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -501,7 +501,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x2",
+          "id": "Lmv3ihhe02",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -523,7 +523,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -588,7 +588,7 @@
         "roll": 0
       },
       "audio": {
-        "master": 0.7,
+        "master": 0.95,
         "noteLow": 48,
         "noteHigh": 84,
         "scale": "pentatonic",
@@ -847,7 +847,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3i3v8x0",
+          "id": "Lmv3ihhe00",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -869,7 +869,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -879,7 +879,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x1",
+          "id": "Lmv3ihhe01",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -901,7 +901,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -911,7 +911,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x2",
+          "id": "Lmv3ihhe02",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -933,7 +933,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -998,7 +998,7 @@
         "roll": 0
       },
       "audio": {
-        "master": 0.7,
+        "master": 0.95,
         "noteLow": 48,
         "noteHigh": 84,
         "scale": "pentatonic",
@@ -1257,7 +1257,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3i3v8x0",
+          "id": "Lmv3ihhe00",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -1279,7 +1279,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -1289,7 +1289,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x1",
+          "id": "Lmv3ihhe01",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -1311,7 +1311,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -1321,7 +1321,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x2",
+          "id": "Lmv3ihhe02",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -1343,7 +1343,7 @@
           "width": 6,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -1408,7 +1408,7 @@
         "roll": 0
       },
       "audio": {
-        "master": 0.7,
+        "master": 0.95,
         "noteLow": 48,
         "noteHigh": 84,
         "scale": "pentatonic",
@@ -1667,7 +1667,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3i3v8x0",
+          "id": "Lmv3ihhe00",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -1689,7 +1689,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -1699,7 +1699,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x1",
+          "id": "Lmv3ihhe01",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -1721,7 +1721,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -1731,7 +1731,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x2",
+          "id": "Lmv3ihhe02",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -1818,7 +1818,7 @@
         "roll": 0
       },
       "audio": {
-        "master": 0.7,
+        "master": 0.95,
         "noteLow": 48,
         "noteHigh": 84,
         "scale": "pentatonic",
@@ -2077,7 +2077,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3i3v8x0",
+          "id": "Lmv3ihhe00",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -2099,7 +2099,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -2109,7 +2109,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x1",
+          "id": "Lmv3ihhe01",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -2131,7 +2131,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -2141,7 +2141,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x2",
+          "id": "Lmv3ihhe02",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -2163,7 +2163,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -2228,7 +2228,7 @@
         "roll": 0
       },
       "audio": {
-        "master": 0.7,
+        "master": 0.95,
         "noteLow": 48,
         "noteHigh": 84,
         "scale": "pentatonic",
@@ -2487,7 +2487,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3i3v8x0",
+          "id": "Lmv3ihhe00",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -2509,7 +2509,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -2519,7 +2519,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x1",
+          "id": "Lmv3ihhe01",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -2541,7 +2541,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -2551,7 +2551,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x2",
+          "id": "Lmv3ihhe02",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -2573,7 +2573,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -2638,7 +2638,7 @@
         "roll": 0
       },
       "audio": {
-        "master": 0.7,
+        "master": 0.95,
         "noteLow": 48,
         "noteHigh": 84,
         "scale": "pentatonic",
@@ -2897,7 +2897,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3i3v8x0",
+          "id": "Lmv3ihhe00",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -2919,7 +2919,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -2929,7 +2929,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x1",
+          "id": "Lmv3ihhe01",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -2951,7 +2951,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -2961,7 +2961,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x2",
+          "id": "Lmv3ihhe02",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -2983,7 +2983,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -3048,7 +3048,7 @@
         "roll": 0
       },
       "audio": {
-        "master": 0.7,
+        "master": 0.95,
         "noteLow": 48,
         "noteHigh": 84,
         "scale": "pentatonic",
@@ -3307,7 +3307,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3i3v8x0",
+          "id": "Lmv3ihhe00",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -3329,7 +3329,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -3339,7 +3339,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x1",
+          "id": "Lmv3ihhe01",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -3361,7 +3361,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -3371,7 +3371,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8x2",
+          "id": "Lmv3ihhe02",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -3393,7 +3393,7 @@
           "width": 5,
           "style": "dots",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -3458,7 +3458,7 @@
         "roll": 0
       },
       "audio": {
-        "master": 0.7,
+        "master": 0.95,
         "noteLow": 48,
         "noteHigh": 84,
         "scale": "pentatonic",
@@ -3717,7 +3717,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3i3v8y0",
+          "id": "Lmv3ihhe00",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -3739,7 +3739,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -3749,7 +3749,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8y1",
+          "id": "Lmv3ihhe01",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -3771,7 +3771,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -3781,7 +3781,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8y2",
+          "id": "Lmv3ihhe02",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -3803,7 +3803,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -3868,7 +3868,7 @@
         "roll": 0
       },
       "audio": {
-        "master": 0.7,
+        "master": 0.95,
         "noteLow": 48,
         "noteHigh": 84,
         "scale": "continuous",
@@ -4127,7 +4127,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3i3v8y0",
+          "id": "Lmv3ihhe00",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -4159,7 +4159,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8y1",
+          "id": "Lmv3ihhe01",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -4191,7 +4191,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8y2",
+          "id": "Lmv3ihhe02",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -4213,7 +4213,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -4278,7 +4278,7 @@
         "roll": 0
       },
       "audio": {
-        "master": 0.7,
+        "master": 0.95,
         "noteLow": 48,
         "noteHigh": 84,
         "scale": "pentatonic",
@@ -4537,7 +4537,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3i3v8y0",
+          "id": "Lmv3ihhe10",
           "name": "Step 1",
           "enabled": true,
           "type": "polar",
@@ -4559,7 +4559,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -4569,7 +4569,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8y1",
+          "id": "Lmv3ihhe11",
           "name": "Step 2",
           "enabled": true,
           "type": "polar",
@@ -4591,7 +4591,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -4601,7 +4601,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8y2",
+          "id": "Lmv3ihhe12",
           "name": "Step 3",
           "enabled": true,
           "type": "polar",
@@ -4623,7 +4623,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -4688,7 +4688,7 @@
         "roll": 0
       },
       "audio": {
-        "master": 0.7,
+        "master": 0.95,
         "noteLow": 48,
         "noteHigh": 84,
         "scale": "pentatonic",
@@ -4947,7 +4947,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3i3v8y0",
+          "id": "Lmv3ihhe10",
           "name": "Step 1",
           "enabled": true,
           "type": "polar",
@@ -4969,7 +4969,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -4979,7 +4979,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8y1",
+          "id": "Lmv3ihhe11",
           "name": "Step 2",
           "enabled": true,
           "type": "polar",
@@ -5001,7 +5001,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -5011,7 +5011,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8y2",
+          "id": "Lmv3ihhe12",
           "name": "Step 3",
           "enabled": true,
           "type": "polar",
@@ -5033,7 +5033,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -5098,7 +5098,7 @@
         "roll": 0
       },
       "audio": {
-        "master": 0.7,
+        "master": 0.95,
         "noteLow": 48,
         "noteHigh": 84,
         "scale": "pentatonic",
@@ -5357,7 +5357,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3i3v8y0",
+          "id": "Lmv3ihhe10",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -5379,7 +5379,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -5389,7 +5389,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8y1",
+          "id": "Lmv3ihhe11",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -5411,7 +5411,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -5421,7 +5421,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3i3v8y2",
+          "id": "Lmv3ihhe12",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -5443,7 +5443,7 @@
           "width": 5,
           "style": "line",
           "wave": "triangle",
-          "volume": 0.5,
+          "volume": 1,
           "octave": 0,
           "pan": 0,
           "zMap": "volume",
@@ -5508,7 +5508,7 @@
         "roll": 0
       },
       "audio": {
-        "master": 0.7,
+        "master": 0.95,
         "noteLow": 48,
         "noteHigh": 84,
         "scale": "pentatonic",

@@ -26,7 +26,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v890",
+     "id": "Lmv3ihhdm0",
      "name": "Layer 2",
      "enabled": true,
      "type": "function",
@@ -519,7 +519,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v890",
+     "id": "Lmv3ihhdn0",
      "name": "Layer 4",
      "enabled": true,
      "type": "function",
@@ -1014,7 +1014,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v890",
+     "id": "Lmv3ihhdn0",
      "name": "Layer 6",
      "enabled": true,
      "type": "function",
@@ -1508,7 +1508,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v890",
+     "id": "Lmv3ihhdn0",
      "name": "Layer 8",
      "enabled": true,
      "type": "function",
@@ -2003,7 +2003,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v890",
+     "id": "Lmv3ihhdn0",
      "name": "Layer 10",
      "enabled": true,
      "type": "function",
@@ -2494,7 +2494,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v890",
+     "id": "Lmv3ihhdo0",
      "name": "Layer 12",
      "enabled": true,
      "type": "function",
@@ -2893,7 +2893,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v890",
+     "id": "Lmv3ihhdo0",
      "name": "Layer 14",
      "enabled": true,
      "type": "function",
@@ -3386,7 +3386,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v890",
+     "id": "Lmv3ihhdo0",
      "name": "Layer 16",
      "enabled": true,
      "type": "function",
@@ -3875,7 +3875,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8c0",
+     "id": "Lmv3ihhdr0",
      "name": "Layer 18",
      "enabled": true,
      "type": "function",
@@ -4366,7 +4366,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8c0",
+     "id": "Lmv3ihhdr0",
      "name": "Layer 20",
      "enabled": true,
      "type": "function",
@@ -4858,7 +4858,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8c0",
+     "id": "Lmv3ihhdr0",
      "name": "Layer 22",
      "enabled": true,
      "type": "function",
@@ -5352,7 +5352,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8c0",
+     "id": "Lmv3ihhdr0",
      "name": "Layer 24",
      "enabled": true,
      "type": "function",
@@ -5843,7 +5843,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8c0",
+     "id": "Lmv3ihhds0",
      "name": "Layer 26",
      "enabled": true,
      "type": "function",
@@ -6334,7 +6334,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8c0",
+     "id": "Lmv3ihhds0",
      "name": "Layer 28",
      "enabled": true,
      "type": "function",
@@ -6825,7 +6825,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8s0",
+     "id": "Lmv3ihhdw0",
      "name": "Layer 30",
      "enabled": true,
      "type": "function",
@@ -7324,7 +7324,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8s0",
+     "id": "Lmv3ihhdw0",
      "name": "Layer 32",
      "enabled": true,
      "type": "function",
@@ -7821,7 +7821,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8s0",
+     "id": "Lmv3ihhdw0",
      "name": "Layer 34",
      "enabled": true,
      "type": "function",
@@ -8320,7 +8320,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8s0",
+     "id": "Lmv3ihhdw0",
      "name": "Layer 36",
      "enabled": true,
      "type": "function",
@@ -8814,7 +8814,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8x0",
+     "id": "Lmv3ihhe00",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -8836,7 +8836,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -8846,7 +8846,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x1",
+     "id": "Lmv3ihhe01",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -8868,7 +8868,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -8878,7 +8878,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x2",
+     "id": "Lmv3ihhe02",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -8900,7 +8900,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -8965,7 +8965,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -9225,7 +9225,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8x0",
+     "id": "Lmv3ihhe00",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -9247,7 +9247,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -9257,7 +9257,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x1",
+     "id": "Lmv3ihhe01",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -9279,7 +9279,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -9289,7 +9289,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x2",
+     "id": "Lmv3ihhe02",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -9311,7 +9311,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -9376,7 +9376,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -9636,7 +9636,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8x0",
+     "id": "Lmv3ihhe00",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -9658,7 +9658,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -9668,7 +9668,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x1",
+     "id": "Lmv3ihhe01",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -9690,7 +9690,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -9700,7 +9700,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x2",
+     "id": "Lmv3ihhe02",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -9722,7 +9722,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -9787,7 +9787,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -10047,7 +10047,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8x0",
+     "id": "Lmv3ihhe00",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -10069,7 +10069,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -10079,7 +10079,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x1",
+     "id": "Lmv3ihhe01",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -10101,7 +10101,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -10111,7 +10111,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x2",
+     "id": "Lmv3ihhe02",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -10133,7 +10133,7 @@
      "width": 6,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -10198,7 +10198,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -10458,7 +10458,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8x0",
+     "id": "Lmv3ihhe00",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -10480,7 +10480,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -10490,7 +10490,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x1",
+     "id": "Lmv3ihhe01",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -10512,7 +10512,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -10522,7 +10522,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x2",
+     "id": "Lmv3ihhe02",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -10609,7 +10609,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -10869,7 +10869,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8x0",
+     "id": "Lmv3ihhe00",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -10891,7 +10891,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -10901,7 +10901,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x1",
+     "id": "Lmv3ihhe01",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -10923,7 +10923,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -10933,7 +10933,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x2",
+     "id": "Lmv3ihhe02",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -10955,7 +10955,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -11020,7 +11020,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -11280,7 +11280,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8x0",
+     "id": "Lmv3ihhe00",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -11302,7 +11302,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -11312,7 +11312,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x1",
+     "id": "Lmv3ihhe01",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -11334,7 +11334,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -11344,7 +11344,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x2",
+     "id": "Lmv3ihhe02",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -11366,7 +11366,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -11431,7 +11431,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -11691,7 +11691,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8x0",
+     "id": "Lmv3ihhe00",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -11713,7 +11713,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -11723,7 +11723,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x1",
+     "id": "Lmv3ihhe01",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -11745,7 +11745,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -11755,7 +11755,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x2",
+     "id": "Lmv3ihhe02",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -11777,7 +11777,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -11842,7 +11842,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -12102,7 +12102,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8x0",
+     "id": "Lmv3ihhe00",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -12124,7 +12124,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -12134,7 +12134,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x1",
+     "id": "Lmv3ihhe01",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -12156,7 +12156,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -12166,7 +12166,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8x2",
+     "id": "Lmv3ihhe02",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -12188,7 +12188,7 @@
      "width": 5,
      "style": "dots",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -12253,7 +12253,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -12513,7 +12513,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8y0",
+     "id": "Lmv3ihhe00",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -12535,7 +12535,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -12545,7 +12545,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8y1",
+     "id": "Lmv3ihhe01",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -12567,7 +12567,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -12577,7 +12577,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8y2",
+     "id": "Lmv3ihhe02",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -12599,7 +12599,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -12664,7 +12664,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "continuous",
@@ -12924,7 +12924,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8y0",
+     "id": "Lmv3ihhe00",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -12956,7 +12956,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8y1",
+     "id": "Lmv3ihhe01",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -12988,7 +12988,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8y2",
+     "id": "Lmv3ihhe02",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -13010,7 +13010,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -13075,7 +13075,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -13335,7 +13335,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8y0",
+     "id": "Lmv3ihhe10",
      "name": "Step 1",
      "enabled": true,
      "type": "polar",
@@ -13357,7 +13357,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -13367,7 +13367,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8y1",
+     "id": "Lmv3ihhe11",
      "name": "Step 2",
      "enabled": true,
      "type": "polar",
@@ -13389,7 +13389,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -13399,7 +13399,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8y2",
+     "id": "Lmv3ihhe12",
      "name": "Step 3",
      "enabled": true,
      "type": "polar",
@@ -13421,7 +13421,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -13486,7 +13486,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -13746,7 +13746,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8y0",
+     "id": "Lmv3ihhe10",
      "name": "Step 1",
      "enabled": true,
      "type": "polar",
@@ -13768,7 +13768,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -13778,7 +13778,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8y1",
+     "id": "Lmv3ihhe11",
      "name": "Step 2",
      "enabled": true,
      "type": "polar",
@@ -13800,7 +13800,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -13810,7 +13810,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8y2",
+     "id": "Lmv3ihhe12",
      "name": "Step 3",
      "enabled": true,
      "type": "polar",
@@ -13832,7 +13832,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -13897,7 +13897,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -14157,7 +14157,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v8y0",
+     "id": "Lmv3ihhe10",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -14179,7 +14179,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -14189,7 +14189,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8y1",
+     "id": "Lmv3ihhe11",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -14211,7 +14211,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -14221,7 +14221,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v8y2",
+     "id": "Lmv3ihhe12",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -14243,7 +14243,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -14308,7 +14308,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -14568,7 +14568,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v900",
+     "id": "Lmv3ihhe40",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -14590,7 +14590,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -14600,7 +14600,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v901",
+     "id": "Lmv3ihhe41",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -14622,7 +14622,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -14632,7 +14632,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v902",
+     "id": "Lmv3ihhe42",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -14654,7 +14654,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -14719,7 +14719,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -14979,7 +14979,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v900",
+     "id": "Lmv3ihhe40",
      "name": "Step 1",
      "enabled": true,
      "type": "surface",
@@ -15001,7 +15001,7 @@
      "width": 2,
      "style": "line",
      "wave": "sawtooth",
-     "volume": 0.35,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -15011,7 +15011,7 @@
      "samples": 64
     },
     {
-     "id": "Lmv3i3v901",
+     "id": "Lmv3ihhe41",
      "name": "Step 2",
      "enabled": true,
      "type": "surface",
@@ -15033,7 +15033,7 @@
      "width": 2,
      "style": "line",
      "wave": "sawtooth",
-     "volume": 0.35,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -15043,7 +15043,7 @@
      "samples": 64
     },
     {
-     "id": "Lmv3i3v902",
+     "id": "Lmv3ihhe42",
      "name": "Step 3",
      "enabled": true,
      "type": "surface",
@@ -15065,7 +15065,7 @@
      "width": 2,
      "style": "line",
      "wave": "sawtooth",
-     "volume": 0.35,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -15130,9 +15130,9 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
-    "noteLow": 48,
-    "noteHigh": 84,
+    "master": 1,
+    "noteLow": 40,
+    "noteHigh": 76,
     "scale": "pentatonic",
     "root": 2,
     "glide": 25,
@@ -15390,7 +15390,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v900",
+     "id": "Lmv3ihhe40",
      "name": "Step 1",
      "enabled": true,
      "type": "surface",
@@ -15412,7 +15412,7 @@
      "width": 2,
      "style": "line",
      "wave": "sawtooth",
-     "volume": 0.35,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -15422,7 +15422,7 @@
      "samples": 64
     },
     {
-     "id": "Lmv3i3v901",
+     "id": "Lmv3ihhe41",
      "name": "Step 2",
      "enabled": true,
      "type": "surface",
@@ -15444,7 +15444,7 @@
      "width": 2,
      "style": "line",
      "wave": "sawtooth",
-     "volume": 0.35,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -15454,7 +15454,7 @@
      "samples": 64
     },
     {
-     "id": "Lmv3i3v902",
+     "id": "Lmv3ihhe42",
      "name": "Step 3",
      "enabled": true,
      "type": "surface",
@@ -15476,7 +15476,7 @@
      "width": 2,
      "style": "line",
      "wave": "sawtooth",
-     "volume": 0.35,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -15541,9 +15541,9 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
-    "noteLow": 48,
-    "noteHigh": 84,
+    "master": 1,
+    "noteLow": 40,
+    "noteHigh": 76,
     "scale": "pentatonic",
     "root": 2,
     "glide": 25,
@@ -15801,7 +15801,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v900",
+     "id": "Lmv3ihhe40",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -15823,7 +15823,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -15833,7 +15833,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v901",
+     "id": "Lmv3ihhe41",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -15855,7 +15855,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -15865,7 +15865,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v902",
+     "id": "Lmv3ihhe42",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -15887,7 +15887,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -15952,7 +15952,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -16212,7 +16212,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v900",
+     "id": "Lmv3ihhe40",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -16234,7 +16234,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -16244,7 +16244,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v901",
+     "id": "Lmv3ihhe41",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -16266,7 +16266,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -16276,7 +16276,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3i3v902",
+     "id": "Lmv3ihhe42",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -16298,7 +16298,7 @@
      "width": 5,
      "style": "line",
      "wave": "triangle",
-     "volume": 0.5,
+     "volume": 1,
      "octave": 0,
      "pan": 0,
      "zMap": "volume",
@@ -16363,7 +16363,7 @@
     "roll": 0
    },
    "audio": {
-    "master": 0.7,
+    "master": 0.95,
     "noteLow": 48,
     "noteHigh": 84,
     "scale": "pentatonic",
@@ -16623,7 +16623,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v940",
+     "id": "Lmv3ihhe90",
      "name": "Layer 114",
      "enabled": true,
      "type": "function",
@@ -17105,7 +17105,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v970",
+     "id": "Lmv3ihhe90",
      "name": "Layer 116",
      "enabled": true,
      "type": "function",
@@ -17587,7 +17587,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v970",
+     "id": "Lmv3ihhe90",
      "name": "Layer 118",
      "enabled": true,
      "type": "function",
@@ -18069,7 +18069,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v970",
+     "id": "Lmv3ihhea0",
      "name": "Layer 120",
      "enabled": true,
      "type": "function",
@@ -18551,7 +18551,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v970",
+     "id": "Lmv3ihhea0",
      "name": "Layer 122",
      "enabled": true,
      "type": "function",
@@ -19033,7 +19033,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v970",
+     "id": "Lmv3ihhea0",
      "name": "Layer 124",
      "enabled": true,
      "type": "function",
@@ -19515,7 +19515,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9b0",
+     "id": "Lmv3ihhev0",
      "name": "Layer 126",
      "enabled": true,
      "type": "function",
@@ -20007,7 +20007,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9b0",
+     "id": "Lmv3ihhev0",
      "name": "Layer 128",
      "enabled": true,
      "type": "function",
@@ -20500,7 +20500,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9b0",
+     "id": "Lmv3ihhew0",
      "name": "Layer 130",
      "enabled": true,
      "type": "function",
@@ -20992,7 +20992,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9b0",
+     "id": "Lmv3ihhew0",
      "name": "Layer 132",
      "enabled": true,
      "type": "function",
@@ -21480,7 +21480,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9b0",
+     "id": "Lmv3ihhew0",
      "name": "Layer 134",
      "enabled": true,
      "type": "function",
@@ -21976,7 +21976,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9b0",
+     "id": "Lmv3ihhew0",
      "name": "Layer 136",
      "enabled": true,
      "type": "function",
@@ -22464,7 +22464,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9c0",
+     "id": "Lmv3ihhez0",
      "name": "Layer 138",
      "enabled": true,
      "type": "function",
@@ -22955,7 +22955,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9c0",
+     "id": "Lmv3ihhez0",
      "name": "Layer 140",
      "enabled": true,
      "type": "function",
@@ -23449,7 +23449,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9c0",
+     "id": "Lmv3ihhez0",
      "name": "Layer 142",
      "enabled": true,
      "type": "function",
@@ -23942,7 +23942,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9d0",
+     "id": "Lmv3ihhez0",
      "name": "Layer 144",
      "enabled": true,
      "type": "function",
@@ -24435,7 +24435,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9d0",
+     "id": "Lmv3ihhez0",
      "name": "Layer 146",
      "enabled": true,
      "type": "function",
@@ -24929,7 +24929,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9d0",
+     "id": "Lmv3ihhez0",
      "name": "Layer 148",
      "enabled": true,
      "type": "function",
@@ -25421,7 +25421,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9f0",
+     "id": "Lmv3ihhf40",
      "name": "Layer 150",
      "enabled": true,
      "type": "function",
@@ -25909,7 +25909,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9f0",
+     "id": "Lmv3ihhf40",
      "name": "Layer 152",
      "enabled": true,
      "type": "function",
@@ -26401,7 +26401,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9f0",
+     "id": "Lmv3ihhf40",
      "name": "Layer 154",
      "enabled": true,
      "type": "function",
@@ -26889,7 +26889,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9l0",
+     "id": "Lmv3ihhf60",
      "name": "Layer 156",
      "enabled": true,
      "type": "function",
@@ -27380,7 +27380,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9l0",
+     "id": "Lmv3ihhf60",
      "name": "Layer 158",
      "enabled": true,
      "type": "function",
@@ -27869,7 +27869,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9l0",
+     "id": "Lmv3ihhf60",
      "name": "Layer 160",
      "enabled": true,
      "type": "function",
@@ -28358,7 +28358,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9l0",
+     "id": "Lmv3ihhf70",
      "name": "Layer 162",
      "enabled": true,
      "type": "function",
@@ -28849,7 +28849,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9n0",
+     "id": "Lmv3ihhf80",
      "name": "Layer 164",
      "enabled": true,
      "type": "function",
@@ -29340,7 +29340,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9n0",
+     "id": "Lmv3ihhf80",
      "name": "Layer 166",
      "enabled": true,
      "type": "function",
@@ -29838,7 +29838,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9n0",
+     "id": "Lmv3ihhf80",
      "name": "Layer 168",
      "enabled": true,
      "type": "function",
@@ -30332,7 +30332,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9n0",
+     "id": "Lmv3ihhf80",
      "name": "Layer 170",
      "enabled": true,
      "type": "function",
@@ -30826,7 +30826,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9n0",
+     "id": "Lmv3ihhf80",
      "name": "Layer 172",
      "enabled": true,
      "type": "function",
@@ -31318,7 +31318,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9n0",
+     "id": "Lmv3ihhf80",
      "name": "Layer 174",
      "enabled": true,
      "type": "function",
@@ -31814,7 +31814,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9n0",
+     "id": "Lmv3ihhf80",
      "name": "Layer 176",
      "enabled": true,
      "type": "function",
@@ -32308,7 +32308,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9o0",
+     "id": "Lmv3ihhfc0",
      "name": "Layer 178",
      "enabled": true,
      "type": "function",
@@ -32811,7 +32811,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9o0",
+     "id": "Lmv3ihhfc0",
      "name": "Layer 180",
      "enabled": true,
      "type": "function",
@@ -33305,7 +33305,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9p0",
+     "id": "Lmv3ihhfc0",
      "name": "Layer 182",
      "enabled": true,
      "type": "function",
@@ -33800,7 +33800,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9p0",
+     "id": "Lmv3ihhfc0",
      "name": "Layer 184",
      "enabled": true,
      "type": "function",
@@ -34297,7 +34297,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9p0",
+     "id": "Lmv3ihhfc0",
      "name": "Layer 186",
      "enabled": true,
      "type": "function",
@@ -34791,7 +34791,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9r0",
+     "id": "Lmv3ihhfq0",
      "name": "Layer 188",
      "enabled": true,
      "type": "function",
@@ -35282,7 +35282,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9r0",
+     "id": "Lmv3ihhfq0",
      "name": "Layer 190",
      "enabled": true,
      "type": "function",
@@ -35777,7 +35777,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9r0",
+     "id": "Lmv3ihhfq0",
      "name": "Layer 192",
      "enabled": true,
      "type": "function",
@@ -36272,7 +36272,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9s0",
+     "id": "Lmv3ihhfq0",
      "name": "Layer 194",
      "enabled": true,
      "type": "function",
@@ -36763,7 +36763,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3i3v9s0",
+     "id": "Lmv3ihhfq0",
      "name": "Layer 196",
      "enabled": true,
      "type": "function",

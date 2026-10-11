@@ -44,7 +44,7 @@ export function mathLesson(name, mode, steps, o = {}) {
   const duration = o.duration || 9 * steps.length;
   const seg = duration / steps.length;
   const layers = steps.flatMap((s, i) => [s.layer, ...(s.layers || [])].map((l, j) => ({
-    name: `Step ${i + 1}`, wave: 'triangle', volume: 0.5, width: 5, samples: 1400,
+    name: `Step ${i + 1}`, wave: 'triangle', volume: 1, width: 5, samples: 1400,
     color: STEP_COLORS[(i + j) % STEP_COLORS.length], ...l, withPrev: j > 0,
   })));
   return {
@@ -55,7 +55,7 @@ export function mathLesson(name, mode, steps, o = {}) {
     layers,
     visual: { aspect: '9:16', drawMode: 'trace', marker: { shape: 'circle', size: 30 }, ...(o.visual || {}) },
     camera: o.camera || {},
-    audio: { scale: 'pentatonic', root: 2, noteLow: 48, noteHigh: 84, articulation: 'pluck', reverb: { mix: 0.3, decay: 3 }, ...(o.audio || {}) },
+    audio: { master: 0.95, scale: 'pentatonic', root: 2, noteLow: 48, noteHigh: 84, articulation: 'pluck', reverb: { mix: 0.3, decay: 3 }, ...(o.audio || {}) },
     ...(o.rhythm ? { rhythm: o.rhythm } : {}),
     overlay: {
       layout: 4, name: { enabled: false },
