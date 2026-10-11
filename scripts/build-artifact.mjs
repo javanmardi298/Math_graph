@@ -8,6 +8,13 @@
 //
 // Also writes dist/artifact-files.json: { "<published path>": "<local file>" } for the
 // Artifact publish call.
+//
+// File limit: an Artifact version holds at most ~510 files, and every build adds a new
+// src-<hash>/ folder. scripts/artifact-published.json remembers which build folders are
+// online (and their files); dist/artifact-publish.json is the map to publish: the new
+// files plus `null` for every older build folder except the previous one (kept so a
+// viewer who loaded the page a moment ago keeps working). So the count stays at about
+// 3 × the number of modules, however many times the app is republished.
 import { mkdirSync, readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join } from 'node:path';
@@ -52,4 +59,18 @@ for (const f of walk('vendor').filter((x) => /\.(m?js)$/.test(x))) files[f.repla
 mkdirSync('dist', { recursive: true });
 writeFileSync('dist/artifact.html', html);
 writeFileSync('dist/artifact-files.json', JSON.stringify({ build, prefix, files }, null, 2));
+
+// Prune old build folders (see the note at the top).
+const RECORD = 'scripts/artifact-published.json';
+let record = [];
+try { record = JSON.parse(readFileSync(RECORD, 'utf8')); } catch { /* first build */ }
+const own = Object.keys(files).filter((k) => k.startsWith(`${prefix}/`)).map((k) => k.slice(prefix.length + 1));
+record = record.filter((r) => r.build !== build);
+const keep = record.slice(-1), drop = record.slice(0, -1);
+const publish = Object.fromEntries(Object.entries(files).filter(([k]) => !k.startsWith('vendor/')));
+for (const r of drop) for (const f of r.files) publish[`src-${r.build}/${f}`] = null;
+writeFileSync('dist/artifact-publish.json', JSON.stringify(publish));
+writeFileSync(RECORD, `${JSON.stringify([...keep, { build, files: own }], null, 1)}\n`);
+const online = keep.reduce((n, r) => n + r.files.length, 0) + own.length * 2 + Object.keys(files).filter((k) => k.startsWith('vendor/')).length + 1;
+console.log(`Publish map: dist/artifact-publish.json · removes ${drop.length} old build folder(s) · about ${online} files online after publishing`);
 console.log(`Wrote dist/artifact.html · build ${build} · ${Object.keys(files).length} files`);

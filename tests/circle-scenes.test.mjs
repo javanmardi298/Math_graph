@@ -201,17 +201,30 @@ test('formula options: odd harmonics in a half-open tube, steered beams, wires a
   assert.deepEqual(SCENES.filings.field(f.sc, 0.1, 0.2), [8, 0]);
 });
 
-test('lessons pack: every step is a known simulation, plain captions, importable as full states', async () => {
-  const { LESSON_PRESETS, lessonPack } = await import('../src/circle/presets-lessons.js');
+test('lesson packs: every circle simulation has a lesson; steps are known, captioned, importable', async () => {
+  const { PACKS } = await import('../src/lessons/index.js');
   const { normalize } = await import('../src/state.js');
   const { isPreset } = await import('../src/library.js');
-  assert.ok(LESSON_PRESETS.length >= 6);
-  for (const p of LESSON_PRESETS) {
-    assert.equal(p.$category, 'Circle · Math lessons');
-    assert.ok(!/[=^]/.test(p.hook.text), p.name);
-    for (const l of [p.circle, ...p.circle.layers.map((x) => x.cfg)]) assert.ok(CIRCLE_RULES[l.rule] && l.text?.formula, `${p.name}: ${l.rule}`);
+  const { tryCompile } = await import('../src/math/parser.js');
+  const taught = new Set(), names = new Set();
+  for (const pack of PACKS) {
+    const list = await pack.load();
+    assert.ok(list.length >= 3, pack.id);
+    for (const p of list) {
+      assert.ok(!names.has(p.name), `duplicate ${p.name}`); names.add(p.name);
+      assert.ok(p.name.startsWith('Lesson · ') && p.visual.aspect === '9:16', p.name);
+      assert.ok(p.hook.text && !/[=^]/.test(p.hook.text) && p.youtube.title.length <= 100, p.name);
+      assert.ok(isPreset(normalize(p)), p.name);
+      if (p.mode === 'circle') {
+        const steps = [p.circle, ...p.circle.layers.map((x) => x.cfg)];
+        assert.ok(steps.length >= 2, p.name);
+        for (const l of steps) { assert.ok(CIRCLE_RULES[l.rule] && l.text?.formula, `${p.name}: ${l.rule}`); taught.add(l.rule); }
+      } else {
+        assert.equal(p.overlay.texts.length, new Set(p.layers.filter((l) => !l.withPrev).map((l) => l.name)).size, p.name);
+        for (const l of p.layers) for (const v of Object.values(l.exprs)) assert.ok(tryCompile(v, ['x', 'y', 's', 'theta', 't', 'a', 'b', 'c', 'd']).ok, `${p.name}: ${v}`);
+      }
+    }
   }
-  const pack = lessonPack();
-  assert.ok(pack.length >= 18 && new Set(pack.map((p) => p.name)).size === pack.length);
-  assert.ok(pack.map(normalize).every(isPreset));
+  const missing = Object.keys(CIRCLE_RULES).filter((r) => !taught.has(r));
+  assert.deepEqual(missing, [], 'simulations without a lesson');
 });

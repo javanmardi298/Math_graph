@@ -15,7 +15,7 @@ import {
 } from '../library.js';
 import { h } from './controls.js';
 import { normalize } from '../state.js';
-import { lessonPack, PACK_NAME } from '../circle/presets-lessons.js';
+import { PACKS, collectionOf } from '../lessons/index.js';
 
 const FAV_KEY = 'mmv.favorites.v1';
 const PAGE = 100;
@@ -160,10 +160,17 @@ export class LibraryView {
       this.list, this.more, this.count,
       h('details.group', { open: true }, h('summary', {}, 'Save current setup'),
         h('div.group-body', {}, this.saveName, h('div.row', {}, this.saveColl, save), this.collList)),
+      h('details.group', {}, h('summary', {}, `Lesson packs (${PACKS.length})`),
+        h('div.group-body', {},
+          h('p.hint', {}, 'Step-by-step vertical lessons, one idea per step. They are not in the built-in list: add the packs you want and they appear in your presets, each pack in its own collection.'),
+          h('div.lib-packs', {}, PACKS.map((p) => h('div.lib-pack', {},
+            h('div.lib-pack-text', {}, h('strong', {}, p.name), h('span.hint', {}, p.about)),
+            h('button.btn.ghost.small', { type: 'button', title: 'Load its first lesson to watch it now', onclick: () => this.tryPack(p) }, '▶'),
+            h('button.btn.small', { type: 'button', onclick: () => this.addPacks([p]) }, '＋ Add')))),
+          h('button.btn', { type: 'button', onclick: () => this.addPacks(PACKS) }, '＋ Add all lesson packs'))),
       h('details.group', { open: true }, h('summary', {}, 'Import & export'),
         h('div.group-body', {},
           h('button.btn', { type: 'button', onclick: () => this.fileIn.click() }, '⇪ Import preset files…'), this.fileIn,
-          h('button.btn.ghost', { type: 'button', title: 'Adds lessons on waves, sound and numbers to your presets, in their own collection', onclick: () => this.addPack() }, `＋ Add the “${PACK_NAME}” pack`),
           h('p.hint', {}, 'Choose one or many .json preset files or a .zip of them, or drop them on this tab. Same-named presets are kept and renamed, never overwritten.'),
           h('div.row', {},
             h('button.btn.ghost', { type: 'button', onclick: () => this.exportCurrent() }, 'Export current setup'),
@@ -380,17 +387,32 @@ export class LibraryView {
     this.render();
   }
 
-  /** Copy the built-in lessons pack into my presets, in its own collection (once per preset). */
-  addPack() {
-    const have = new Set(this.items.filter((i) => i.collection === PACK_NAME).map((i) => i.name));
-    const added = lessonPack().filter((p) => !have.has(p.name)).map((p) => makeItem(normalize(p), { name: p.name, collection: PACK_NAME }));
-    if (!added.length) { this.actions.toast(`The “${PACK_NAME}” pack is already in your presets.`); return; }
+  /** Copy lesson packs into my presets, each in its own collection (once per preset). */
+  async addPacks(packs) {
+    let added = [];
+    try {
+      for (const pack of packs) {
+        const coll = collectionOf(pack);
+        const have = new Set(this.items.filter((i) => i.collection === coll).map((i) => i.name));
+        const list = await pack.load();
+        added = added.concat(list.filter((p) => !have.has(p.name)).map((p) => makeItem(normalize(p), { name: p.name, collection: coll })));
+      }
+    } catch (err) {
+      this.actions.toast(`Could not load the lessons (${err.message}).`);
+      return;
+    }
+    if (!added.length) { this.actions.toast(packs.length === 1 ? 'This pack is already in your presets.' : 'All lesson packs are already in your presets.'); return; }
     this.items = [...added, ...this.items];
     this.persist();
-    Object.assign(this.filter, { source: 'mine', q: '', collection: PACK_NAME, sort: 'recent' });
+    Object.assign(this.filter, { source: 'mine', q: '', collection: packs.length === 1 ? collectionOf(packs[0]) : '*', sort: 'recent' });
     this.search.value = '';
     this.render();
-    this.actions.toast(`Added ${added.length} lessons to “${PACK_NAME}”.`);
+    this.actions.toast(`Added ${added.length} lesson${added.length === 1 ? '' : 's'}.`);
+  }
+
+  /** Watch the first lesson of a pack without adding anything. */
+  async tryPack(pack) {
+    try { const [first] = await pack.load(); if (first) this.actions.loadPreset(first); } catch (err) { this.actions.toast(`Could not load the lessons (${err.message}).`); }
   }
 
   async importFiles(files) {

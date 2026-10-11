@@ -505,6 +505,10 @@ div.lib-main { cursor: default; }
 .lib-report .row { justify-content: space-between; }
 .lib-problems { margin: 0; padding-left: 18px; font-size: 12px; color: var(--muted); }
 .lib-problems strong { color: var(--fg); font-weight: 500; }
+.lib-packs { display: flex; flex-direction: column; margin-bottom: 8px; }
+.lib-pack { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 6px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.lib-pack-text { display: flex; flex-direction: column; min-width: 0; }
+.lib-pack-text .hint { font-size: 11.5px; margin: 0; }
 .lib-empty { padding: 14px; text-align: center; }
 .lib-more { align-self: center; }
 .lib-count { text-align: center; margin-top: -4px; }
@@ -549,7 +553,7 @@ div.lib-main { cursor: default; }
 body.mode-circle #layer-list, body.mode-circle #seq-slot, body.mode-circle #add-layer, body.mode-circle .panel-left details { display: none; }
 .circle-left-note { display: none; }
 body.mode-circle .circle-left-note { display: block; }
-.circle-layers { display: flex; flex-direction: column; gap: 10px; }
+body.mode-circle .circle-layers { display: flex; flex-direction: column; gap: 10px; }
 .circle-layers .layer-list { margin: 0; }
 .circle-layer { --layer: var(--accent, #22e4ff); }
 .circle-layer.is-editing { border-color: var(--accent, #22e4ff); box-shadow: 0 0 0 1px var(--accent, #22e4ff) inset; }

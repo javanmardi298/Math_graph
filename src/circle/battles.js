@@ -16,7 +16,7 @@
  * Same contract as scenes.js; deterministic, no DOM.
  */
 import { tryCompile } from '../math/parser.js';
-import { frac, hexA } from './palettes.js';
+import { hexA } from './palettes.js';
 import { drawScissors, drawRock, drawPaper, drawLizard, drawSpock, drawFlower, drawBubble, drawNeedle, drawKnife, drawBalloon } from './icons.js';
 
 const TAU = Math.PI * 2;

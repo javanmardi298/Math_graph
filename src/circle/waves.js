@@ -351,6 +351,7 @@ const doppler = {
   pos(S, P, M) {
     const sc = S.sc, { hw } = S.W, u = (S.st - sc.start) * M * P.c;
     if (P.path === 'circle') { const r = 0.6; sc.ang = u / r; return [Math.cos(sc.ang) * r, Math.sin(sc.ang) * r]; }
+    if (M <= 0) return [0, 0]; // standing still: in the middle
     const L = 2 * hw * 0.9;
     return [-hw * 0.9 + (((u % L) + L) % L), 0];
   },
