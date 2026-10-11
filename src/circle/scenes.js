@@ -15,6 +15,7 @@ import { LAB_DEFAULTS, labInit, labStep, labDraw, labStats } from './lab.js';
 import { frac, hexA } from './palettes.js';
 import { drawScissors } from './icons.js';
 import { BATTLES } from './battles.js';
+import { CYMATICS } from './cymatics.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -1124,6 +1125,7 @@ export const SCENES = {
   ...LAB_SCENES,
   paper, radar, chaos, phyllo, packing, pendulum, dna, harmono, orbits, sorting, tree, times, polygons, spiro,
   ...BATTLES,
+  ...CYMATICS,
 };
 
 /** Settings of a scene: its defaults, overridden by what the user / preset set. */

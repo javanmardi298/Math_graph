@@ -150,3 +150,18 @@ test('layer presets: every layer is a known simulation, with plain text', () => 
     assert.ok(!/[=^]/.test(p.hook.text), `${p.name}: plain words, no formula`);
   }
 });
+
+test('vibration: sand leaves the moving parts and gathers on the still lines', async () => {
+  const { besselZero } = await import('../src/circle/cymatics.js');
+  assert.ok(Math.abs(besselZero(0, 1) - 3.8317) < 1e-3 && Math.abs(besselZero(1, 1) - 1.8412) < 1e-3);
+  for (const plate of ['square', 'circle']) {
+    const sim = new CircleSim(cfg('chladni', { plate, modes: plate === 'circle' ? '2,2' : '2,4', grains: 1500, wait: 0 }), env);
+    sim.advance(0.1);
+    const mean = () => { let s = 0; const g = sim.sc.g; for (let i = 0; i < g.n; i++) s += g.e[i]; return s / g.n; };
+    sim.advance(1);
+    const start = mean();
+    sim.advance(8);
+    assert.ok(mean() < start * 0.5, `${plate}: grains settle on the nodes (${start.toFixed(2)} → ${mean().toFixed(2)})`);
+  }
+  for (const id of ['tubes', 'ripple', 'filings']) assert.ok(eventsUntil(cfg(id), 10, env).length > 3, id);
+});

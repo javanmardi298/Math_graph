@@ -287,4 +287,44 @@ export const LAB_PRESETS = [
     hook: 'What shape will it pop?', title: 'x = sin 3t, y = sin 4t, popped into balloons 🎈',
     desc: 'A Lissajous figure: the spike swings 3 times left-right while it swings 4 times up-down, popping every balloon on its way.',
   }),
+
+  /* ------------------------------------------------- vibration & waves */
+  L('Sand on a Singing Plate', 'chladni', { plate: 'square', grain: 'sand' }, {
+    look: { palette: 'gold', bloom: 0.6 }, sound: { instrument: 'bell', pitch: 'angle', length: 1.2, volume: 0.6 }, bpm: 96,
+    hook: 'What does sound look like?', title: 'What does sound look like? Sand on a vibrating plate 🔊',
+    desc: 'Sand on a metal plate. When the plate sings, the sand jumps away from the parts that move and gathers on the lines that stand still. Every new note draws a new figure: Chladni figures, first seen in 1787.',
+    tags: 'chladni, cymatics, sound, vibration, physics, satisfying, science, shorts',
+  }),
+  L('Round Plate', 'chladni', { plate: 'circle', modes: '1,1 2,1 0,2 3,1 1,2 4,1 2,2 5,1', every: 6, grain: 'glow', shake: 0.8 }, {
+    look: { palette: 'aurora' }, sound: { instrument: 'glass-pad', pitch: 'angle', length: 1.5, volume: 0.6 }, bpm: 100,
+    hook: 'Sound draws circles and stars', title: 'A round plate sings and the sand draws ⭕', desc: 'On a round plate the still lines are circles and diameters. Each note gives a different number of each.',
+    tags: 'chladni, cymatics, sound, vibration, bessel, physics, satisfying, shorts',
+  }),
+  L('Rice on a Tall Plate', 'chladni', { plate: 'tall', grain: 'rice', modes: '1,3 2,4 3,5 2,6 4,6 3,7 5,7 4,8', grains: 6000 }, {
+    look: { palette: 'mono', bloom: 0.5 }, sound: { instrument: 'kalimba', pitch: 'angle', volume: 0.6 }, bpm: 100,
+    hook: 'Will the rice find the pattern?', title: 'Rice grains find the hidden pattern 🍚', desc: 'Rice on a tall vibrating plate. The grains rattle off every part that moves and line up on the lines that stay still.',
+  }),
+  L('Formula Plate', 'chladni', { plate: 'formula', grain: 'glow', modes: '1,2 2,3 3,4 2,5 4,5 3,6' }, {
+    look: { palette: 'candy' }, sound: { instrument: 'e-piano', pitch: 'angle', length: 0.8 }, bpm: 100,
+    hook: 'A formula decides where the sand goes', title: 'Type a formula, the sand draws it ✨', desc: 'This plate vibrates as sin(nπx)·sin(mπy) + sin(mπx)·sin(nπy). Change the formula and the sand finds the new still lines.',
+  }),
+  L("Kundt's Tubes", 'tubes', { count: 7, every: 2 }, {
+    look: { palette: 'gold' }, sound: { instrument: 'marimba', pitch: 'angle', length: 0.6 }, bpm: 100, audio: { scale: 'major', root: 0, noteLow: 48, noteHigh: 84 },
+    hook: 'Each tube sings one note', title: 'Dust shows the shape of sound in a tube 🎵', desc: 'A sound wave stands still in each tube. Dust is pushed away where the air moves and piles up where it stays still. Tube k plays harmonic k, so it gets k + 1 piles.',
+    tags: 'kundt tube, standing wave, harmonics, sound, physics, satisfying, shorts',
+  }),
+  L('Wave Interference', 'ripple', {}, {
+    look: { palette: 'ocean' }, sound: { instrument: 'glass-pad', pitch: 'angle', length: 1.2, volume: 0.6 }, bpm: 100,
+    hook: 'Where waves cancel, the sand stays', title: 'Two waves meet: where they cancel, sand stays 🌊', desc: 'Waves spread out from 2, 3, 4 … sources. Where a crest meets a trough they cancel, the water stays still, and the sand gathers there.',
+    tags: 'interference, waves, physics, cymatics, satisfying, science, shorts',
+  }),
+  L('Iron Filings', 'filings', {}, {
+    look: { palette: 'neon' }, sound: { instrument: 'synth-pluck', pitch: 'angle', volume: 0.55 },
+    hook: 'Can you see a magnetic field?', title: 'Iron filings make a magnetic field visible 🧲', desc: 'Random iron filings, a magnet underneath, a tap on every beat: each filing turns along the field and the invisible lines appear.',
+    tags: 'magnet, magnetic field, iron filings, physics, science, satisfying, shorts',
+  }),
+  L('Filings on Paper', 'filings', { paper: 'light', setups: 'bar repel attract' }, {
+    look: { palette: 'mono', background: '#1c1b19', bloom: 0.3 }, sound: { instrument: 'marimba', pitch: 'angle', volume: 1 },
+    hook: 'Two magnets: pull or push?', title: 'Two magnets: pull or push? 🧲🧲', desc: 'Iron filings on white paper show what two magnets do: when they attract the lines join, when they repel the lines turn away.',
+  }),
 ];

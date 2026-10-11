@@ -497,6 +497,7 @@ export class Panels {
       const ctls = scene.controls.filter(Boolean).map(([key, label, kind, a, b, st, unit]) => {
         if (kind === 's') return select(label, sb(key), a);
         if (kind === 't') return toggle(label, sb(key));
+        if (kind === 'x') return text(label, sb(key), { placeholder: a });
         if (kind === 'f') {
           // a formula: show what is wrong as you type, else which variables it can use
           const ctl = text(`${label}`, sb(key), { placeholder: a });

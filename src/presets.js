@@ -335,4 +335,4 @@ export function categoryOf(p) {
 
 /** Shelf order in the library. */
 export const CATEGORY_ORDER = ['Circle · Stories & split screens', 'Circle · Classic circle', 'Circle · Multiply & split', 'Circle · Fill the screen', 'Circle · Battles & formulas',
-  'Circle · Battles & growth', 'Circle · Patterns & rhythm', 'Circle · Drawing machines', 'Circle · Bounce & draw', 'Formulas · 2D', 'Formulas · 3D'];
+  'Circle · Battles & growth', 'Circle · Vibration & waves', 'Circle · Patterns & rhythm', 'Circle · Drawing machines', 'Circle · Bounce & draw', 'Formulas · 2D', 'Formulas · 3D'];

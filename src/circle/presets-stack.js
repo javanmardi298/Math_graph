@@ -68,4 +68,10 @@ export const STACK_PRESETS = [
       Y('orbits', { cycle: 8, every: 0.03 }, { look: { palette: 'gold', trailWidth: 0.8 }, sound: { instrument: 'bell', volume: 0.5 }, text: '…two planets…' }),
       Y('times', { build: 2.5, morph: 5, to: 6 }, { look: { palette: 'rainbow' }, sound: { instrument: 'e-piano' }, text: '…times tables' })],
     { duration: 32, hook: 'Four machines that draw by themselves', title: 'Four machines that draw by themselves ✍️', desc: 'A harmonograph, a spirograph, two orbiting planets and a times-table circle: four simple machines, four drawings.' }),
+
+  S('Sound Shapes', Y('tubes', { count: 6, every: 1, wait: 0.3 }, { look: { palette: 'gold' }, sound: { instrument: 'marimba', length: 0.6 }, text: 'Sound in a tube…' }),
+    [Y('chladni', { plate: 'square', every: 3, wait: 0.3, modes: '1,3 2,4 3,5 4,6' }, { look: { palette: 'gold' }, sound: { instrument: 'bell', length: 1 }, text: '…on a square plate…' }),
+      Y('chladni', { plate: 'circle', every: 3, wait: 0.3, modes: '2,1 0,2 2,2 4,1', grain: 'glow', shake: 0.8 }, { look: { palette: 'aurora' }, sound: { instrument: 'glass-pad', length: 1.2 }, text: '…on a round plate…' }),
+      Y('ripple', { every: 3, wait: 0.3, steps: '2:0.25 3:0.22 5:0.2' }, { look: { palette: 'ocean' }, sound: { instrument: 'glass-pad' }, text: '…and in water' })],
+    { duration: 40, bpm: 100, hook: 'What does sound look like?', title: 'What sound looks like, 4 ways 🔊', desc: 'Dust in a tube, sand on a square plate, sand on a round plate, waves in water: four ways to see the shape of sound.', tags: 'cymatics, chladni, sound, vibration, physics, satisfying, shorts' }),
 ];

@@ -387,6 +387,8 @@ const CAPTIONS = {
   times: 'Multiply around a circle', polygons: 'One note on every corner', spiro: 'A wheel inside a wheel',
   rps: 'Rock, paper or scissors: who wins?', predator: (P) => (P.theme === 'bubbles' ? 'Bubbles vs needles: who survives?' : 'Flowers grow, scissors cut. Who survives?'),
   slicer: 'Every ball it touches is cut in half', knives: 'Don’t hit another knife!', popper: 'What will it draw?',
+  chladni: 'Sound turns sand into shapes', tubes: 'Every tube sings one note', ripple: 'Where waves cancel, the sand stays',
+  filings: 'An invisible field, made visible',
 };
 
 /**
