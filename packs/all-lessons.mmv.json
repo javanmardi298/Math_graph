@@ -26,8 +26,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8of0",
-     "name": "Layer 2",
+     "id": "Lmv52dnbx0",
+     "name": "Layer 224",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -43,8 +43,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -152,7 +152,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What is a wave, really?"
@@ -520,8 +522,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8of0",
-     "name": "Layer 4",
+     "id": "Lmv52dnbx0",
+     "name": "Layer 226",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -537,8 +539,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -646,7 +648,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Why do instruments sound different?"
@@ -1016,8 +1020,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8og0",
-     "name": "Layer 6",
+     "id": "Lmv52dnbx0",
+     "name": "Layer 228",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -1033,8 +1037,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -1142,7 +1146,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can circles draw any shape?"
@@ -1511,8 +1517,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8og0",
-     "name": "Layer 8",
+     "id": "Lmv52dnbx0",
+     "name": "Layer 230",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -1528,8 +1534,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -1637,7 +1643,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What happens when two waves meet?"
@@ -2007,8 +2015,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oh0",
-     "name": "Layer 10",
+     "id": "Lmv52dnbx0",
+     "name": "Layer 232",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -2024,8 +2032,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -2133,7 +2141,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Why do some notes sound good together?"
@@ -2499,8 +2509,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oh0",
-     "name": "Layer 12",
+     "id": "Lmv52dnbx0",
+     "name": "Layer 234",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -2516,8 +2526,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -2625,7 +2635,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Why does a siren change its pitch?"
@@ -2899,8 +2911,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oh0",
-     "name": "Layer 14",
+     "id": "Lmv52dnbx0",
+     "name": "Layer 236",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -2916,8 +2928,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -3025,7 +3037,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can electricity make a magnet?"
@@ -3393,8 +3407,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oh0",
-     "name": "Layer 16",
+     "id": "Lmv52dnbx0",
+     "name": "Layer 238",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -3410,8 +3424,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -3519,7 +3533,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What do numbers look like on a circle?"
@@ -3883,8 +3899,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oj0",
-     "name": "Layer 18",
+     "id": "Lmv52dnbx0",
+     "name": "Layer 240",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -3900,8 +3916,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -4009,7 +4025,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Why does a string play these notes?"
@@ -4375,8 +4393,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oj0",
-     "name": "Layer 20",
+     "id": "Lmv52dnbx0",
+     "name": "Layer 242",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -4392,8 +4410,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -4501,7 +4519,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What is a wavelength?"
@@ -4868,8 +4888,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oj0",
-     "name": "Layer 22",
+     "id": "Lmv52dnbx0",
+     "name": "Layer 244",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -4885,8 +4905,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -4994,7 +5014,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can circles draw a square?"
@@ -5363,8 +5385,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oj0",
-     "name": "Layer 24",
+     "id": "Lmv52dnbx0",
+     "name": "Layer 246",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -5380,8 +5402,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -5489,7 +5511,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How do musicians tune by ear?"
@@ -5855,8 +5879,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oj0",
-     "name": "Layer 26",
+     "id": "Lmv52dnby0",
+     "name": "Layer 248",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -5872,8 +5896,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -5981,7 +6005,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Which interval sounds the sweetest?"
@@ -6347,8 +6373,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oj0",
-     "name": "Layer 28",
+     "id": "Lmv52dnby0",
+     "name": "Layer 250",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -6364,8 +6390,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -6473,7 +6499,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Why does a siren change pitch?"
@@ -6839,8 +6867,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ok0",
-     "name": "Layer 30",
+     "id": "Lmv52dnby0",
+     "name": "Layer 252",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -6856,8 +6884,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -6965,7 +6993,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What does a note look like?"
@@ -7339,8 +7369,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ol0",
-     "name": "Layer 32",
+     "id": "Lmv52dnby0",
+     "name": "Layer 254",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -7356,8 +7386,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -7465,7 +7495,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can you see a sound wave?"
@@ -7837,8 +7869,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ol0",
-     "name": "Layer 34",
+     "id": "Lmv52dnby0",
+     "name": "Layer 256",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -7854,8 +7886,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -7963,7 +7995,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Where do two waves cancel?"
@@ -8337,8 +8371,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ol0",
-     "name": "Layer 36",
+     "id": "Lmv52dnby0",
+     "name": "Layer 258",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -8354,8 +8388,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -8463,7 +8497,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can you see a magnetic field?"
@@ -8832,7 +8868,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8on0",
+     "id": "Lmv52dnby0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -8850,7 +8886,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -8864,7 +8900,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8on1",
+     "id": "Lmv52dnby1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -8882,7 +8918,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -8896,7 +8932,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8on2",
+     "id": "Lmv52dnby2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -8914,7 +8950,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -9022,7 +9058,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What does the number in front do?"
@@ -9244,7 +9282,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8on0",
+     "id": "Lmv52dnby0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -9262,7 +9300,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -9276,7 +9314,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8on1",
+     "id": "Lmv52dnby1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -9294,7 +9332,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -9308,7 +9346,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8on2",
+     "id": "Lmv52dnby2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -9326,7 +9364,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -9434,7 +9472,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What does the number inside do?"
@@ -9656,7 +9696,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oo0",
+     "id": "Lmv52dnby0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -9674,7 +9714,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -9688,7 +9728,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo1",
+     "id": "Lmv52dnby1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -9706,7 +9746,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -9720,7 +9760,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo2",
+     "id": "Lmv52dnby2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -9738,7 +9778,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -9846,7 +9886,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Is cosine just a moved sine?"
@@ -10068,7 +10110,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oo0",
+     "id": "Lmv52dnby0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -10086,7 +10128,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -10100,7 +10142,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo1",
+     "id": "Lmv52dnby1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -10118,7 +10160,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -10132,7 +10174,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo2",
+     "id": "Lmv52dnby2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -10150,7 +10192,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 6,
      "style": "line",
      "wave": "triangle",
@@ -10258,7 +10300,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What do two waves make together?"
@@ -10480,7 +10524,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oo0",
+     "id": "Lmv52dnby0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -10498,7 +10542,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -10512,7 +10556,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo1",
+     "id": "Lmv52dnby1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -10530,7 +10574,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -10544,7 +10588,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo2",
+     "id": "Lmv52dnby2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -10562,7 +10606,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "square",
@@ -10670,7 +10714,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can smooth waves make sharp corners?"
@@ -10892,7 +10938,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oo0",
+     "id": "Lmv52dnby0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -10910,7 +10956,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -10924,7 +10970,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo1",
+     "id": "Lmv52dnby1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -10942,7 +10988,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -10956,7 +11002,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo2",
+     "id": "Lmv52dnby2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -10974,7 +11020,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -11082,7 +11128,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What does the slope sound like?"
@@ -11304,7 +11352,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oo0",
+     "id": "Lmv52dnby0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -11322,7 +11370,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -11336,7 +11384,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo1",
+     "id": "Lmv52dnby1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -11354,7 +11402,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -11368,7 +11416,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo2",
+     "id": "Lmv52dnby2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -11386,7 +11434,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -11494,7 +11542,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How do you move a parabola?"
@@ -11716,7 +11766,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oo0",
+     "id": "Lmv52dnby0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -11734,7 +11784,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -11748,7 +11798,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo1",
+     "id": "Lmv52dnby1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -11766,7 +11816,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -11780,7 +11830,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo2",
+     "id": "Lmv52dnby2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -11798,7 +11848,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -11906,7 +11956,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Why do plucked notes fade?"
@@ -12128,7 +12180,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oo0",
+     "id": "Lmv52dnby0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -12146,7 +12198,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -12160,7 +12212,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo1",
+     "id": "Lmv52dnby1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -12178,7 +12230,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -12192,7 +12244,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo2",
+     "id": "Lmv52dnby2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -12210,7 +12262,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "dots",
      "wave": "triangle",
@@ -12318,7 +12370,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What do the bars | | do?"
@@ -12540,7 +12594,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oo0",
+     "id": "Lmv52dnby0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -12558,7 +12612,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -12572,7 +12626,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo1",
+     "id": "Lmv52dnby1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -12590,7 +12644,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -12604,7 +12658,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo2",
+     "id": "Lmv52dnby2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -12622,7 +12676,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -12730,7 +12784,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What does a graph sound like?"
@@ -12952,7 +13008,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oo0",
+     "id": "Lmv52dnby0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -12970,7 +13026,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "sawtooth",
@@ -12984,7 +13040,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo1",
+     "id": "Lmv52dnby1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -13002,7 +13058,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "square",
@@ -13016,7 +13072,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo2",
+     "id": "Lmv52dnby2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -13034,7 +13090,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -13142,7 +13198,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Where do synth sounds come from?"
@@ -13364,7 +13422,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oo0",
+     "id": "Lmv52dnby0",
      "name": "Step 1",
      "enabled": true,
      "type": "polar",
@@ -13382,7 +13440,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -13396,7 +13454,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo1",
+     "id": "Lmv52dnby1",
      "name": "Step 2",
      "enabled": true,
      "type": "polar",
@@ -13414,7 +13472,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -13428,7 +13486,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo2",
+     "id": "Lmv52dnby2",
      "name": "Step 3",
      "enabled": true,
      "type": "polar",
@@ -13446,7 +13504,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -13554,7 +13612,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What if distance depends on the angle?"
@@ -13776,7 +13836,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oo0",
+     "id": "Lmv52dnbz0",
      "name": "Step 1",
      "enabled": true,
      "type": "polar",
@@ -13794,7 +13854,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -13808,7 +13868,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo1",
+     "id": "Lmv52dnbz1",
      "name": "Step 2",
      "enabled": true,
      "type": "polar",
@@ -13826,7 +13886,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -13840,7 +13900,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo2",
+     "id": "Lmv52dnbz2",
      "name": "Step 3",
      "enabled": true,
      "type": "polar",
@@ -13858,7 +13918,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -13966,7 +14026,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How many petals does cos 2θ have?"
@@ -14188,7 +14250,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oo0",
+     "id": "Lmv52dnbz0",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -14206,7 +14268,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -14220,7 +14282,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo1",
+     "id": "Lmv52dnbz1",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -14238,7 +14300,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -14252,7 +14314,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oo2",
+     "id": "Lmv52dnbz2",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -14270,7 +14332,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -14378,7 +14440,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What if x and y both follow a formula?"
@@ -14600,7 +14664,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oq0",
+     "id": "Lmv52dnbz0",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -14618,7 +14682,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -14632,7 +14696,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oq1",
+     "id": "Lmv52dnbz1",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -14650,7 +14714,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -14664,7 +14728,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oq2",
+     "id": "Lmv52dnbz2",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -14682,7 +14746,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -14790,7 +14854,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How do you turn a circle into a spring?"
@@ -15012,7 +15078,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oq0",
+     "id": "Lmv52dnbz0",
      "name": "Step 1",
      "enabled": true,
      "type": "surface",
@@ -15044,7 +15110,7 @@
      "samples": 64
     },
     {
-     "id": "Lmv51o8oq1",
+     "id": "Lmv52dnbz1",
      "name": "Step 2",
      "enabled": true,
      "type": "surface",
@@ -15076,7 +15142,7 @@
      "samples": 64
     },
     {
-     "id": "Lmv51o8oq2",
+     "id": "Lmv52dnbz2",
      "name": "Step 3",
      "enabled": true,
      "type": "surface",
@@ -15202,7 +15268,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What does a formula of x and y look like?"
@@ -15424,7 +15492,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oq0",
+     "id": "Lmv52dnbz0",
      "name": "Step 1",
      "enabled": true,
      "type": "surface",
@@ -15456,7 +15524,7 @@
      "samples": 64
     },
     {
-     "id": "Lmv51o8oq1",
+     "id": "Lmv52dnbz1",
      "name": "Step 2",
      "enabled": true,
      "type": "surface",
@@ -15488,7 +15556,7 @@
      "samples": 64
     },
     {
-     "id": "Lmv51o8oq2",
+     "id": "Lmv52dnbz2",
      "name": "Step 3",
      "enabled": true,
      "type": "surface",
@@ -15614,7 +15682,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can you guess the shape from the formula?"
@@ -15836,7 +15906,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oq0",
+     "id": "Lmv52dnbz0",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -15854,7 +15924,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -15868,7 +15938,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oq1",
+     "id": "Lmv52dnbz1",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -15886,7 +15956,7 @@
      },
      "colorMode": "rainbow",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -15900,7 +15970,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oq2",
+     "id": "Lmv52dnbz2",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -15918,7 +15988,7 @@
      },
      "colorMode": "rainbow",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -16026,7 +16096,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can a formula tie a knot?"
@@ -16248,7 +16320,7 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oq0",
+     "id": "Lmv52dnbz0",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -16266,7 +16338,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#8cff5a",
+     "color2": "#ff3d9a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -16280,7 +16352,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oq1",
+     "id": "Lmv52dnbz1",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -16298,7 +16370,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -16312,7 +16384,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv51o8oq2",
+     "id": "Lmv52dnbz2",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -16330,7 +16402,7 @@
      },
      "colorMode": "rainbow",
      "color": "#ffd23d",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -16438,7 +16510,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What happens with three frequencies?"
@@ -16660,8 +16734,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ot0",
-     "name": "Layer 114",
+     "id": "Lmv52dnbz0",
+     "name": "Layer 336",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -16677,8 +16751,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -16786,7 +16860,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can circles draw anything?"
@@ -17155,8 +17231,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ot0",
-     "name": "Layer 116",
+     "id": "Lmv52dnbz0",
+     "name": "Layer 338",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -17172,8 +17248,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -17281,7 +17357,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What is a derivative, really?"
@@ -17648,8 +17726,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ot0",
-     "name": "Layer 118",
+     "id": "Lmv52dnbz0",
+     "name": "Layer 340",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -17665,8 +17743,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -17774,7 +17852,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How do you measure a curved area?"
@@ -18157,8 +18237,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ot0",
-     "name": "Layer 120",
+     "id": "Lmv52dnbz0",
+     "name": "Layer 342",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -18174,8 +18254,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -18283,7 +18363,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How does a calculator know sin and cos?"
@@ -18652,8 +18734,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ot0",
-     "name": "Layer 122",
+     "id": "Lmv52dnbz0",
+     "name": "Layer 344",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -18669,8 +18751,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -18778,7 +18860,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Where do sine and cosine come from?"
@@ -19145,8 +19229,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ou0",
-     "name": "Layer 124",
+     "id": "Lmv52dnbz0",
+     "name": "Layer 346",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -19162,8 +19246,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -19271,7 +19355,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How did Archimedes find π?"
@@ -19637,8 +19723,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ov0",
-     "name": "Layer 126",
+     "id": "Lmv52dnbz0",
+     "name": "Layer 348",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -19654,8 +19740,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -19763,7 +19849,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can random dots find π?"
@@ -20132,8 +20220,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ov0",
-     "name": "Layer 128",
+     "id": "Lmv52dnbz0",
+     "name": "Layer 350",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -20149,8 +20237,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -20258,7 +20346,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can needles on a floor find π?"
@@ -20627,8 +20717,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ov0",
-     "name": "Layer 130",
+     "id": "Lmv52dnc00",
+     "name": "Layer 352",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -20644,8 +20734,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -20753,7 +20843,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Which formula finds π fastest?"
@@ -21122,8 +21214,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ov0",
-     "name": "Layer 132",
+     "id": "Lmv52dnc00",
+     "name": "Layer 354",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -21139,8 +21231,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -21248,7 +21340,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Do the digits of π have a pattern?"
@@ -21620,8 +21714,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ow0",
-     "name": "Layer 134",
+     "id": "Lmv52dnc00",
+     "name": "Layer 356",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -21637,8 +21731,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -21746,7 +21840,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What is the Mandelbrot set?"
@@ -22115,8 +22211,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ow0",
-     "name": "Layer 136",
+     "id": "Lmv52dnc00",
+     "name": "Layer 358",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -22132,8 +22228,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -22241,7 +22337,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "One number shapes a whole fractal"
@@ -22613,8 +22711,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8ow0",
-     "name": "Layer 138",
+     "id": "Lmv52dnc00",
+     "name": "Layer 360",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -22630,8 +22728,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -22739,7 +22837,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can one rule make infinite detail?"
@@ -23108,8 +23208,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oz0",
-     "name": "Layer 140",
+     "id": "Lmv52dnc00",
+     "name": "Layer 362",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -23125,8 +23225,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -23234,7 +23334,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Which jumps close into a shape?"
@@ -23591,8 +23693,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oz0",
-     "name": "Layer 142",
+     "id": "Lmv52dnc00",
+     "name": "Layer 364",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -23608,8 +23710,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -23717,7 +23819,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What does gravity do to a bounce?"
@@ -24074,8 +24178,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oz0",
-     "name": "Layer 144",
+     "id": "Lmv52dnc00",
+     "name": "Layer 366",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -24091,8 +24195,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -24200,7 +24304,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How fast does doubling grow?"
@@ -24557,8 +24663,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oz0",
-     "name": "Layer 146",
+     "id": "Lmv52dnc00",
+     "name": "Layer 368",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -24574,8 +24680,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -24683,7 +24789,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Why do the notes get faster?"
@@ -25040,8 +25148,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oz0",
-     "name": "Layer 148",
+     "id": "Lmv52dnc00",
+     "name": "Layer 370",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -25057,8 +25165,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -25166,7 +25274,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can the ball get out?"
@@ -25523,8 +25633,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8oz0",
-     "name": "Layer 150",
+     "id": "Lmv52dnc00",
+     "name": "Layer 372",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -25540,8 +25650,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -25649,7 +25759,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Will they ever line up again?"
@@ -26006,8 +26118,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p10",
-     "name": "Layer 152",
+     "id": "Lmv52dnc00",
+     "name": "Layer 374",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -26023,8 +26135,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -26132,7 +26244,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Which grows faster: ×2, ×3 or ×4?"
@@ -26499,8 +26613,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p10",
-     "name": "Layer 154",
+     "id": "Lmv52dnc00",
+     "name": "Layer 376",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -26516,8 +26630,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -26625,7 +26739,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Adding or multiplying: which wins?"
@@ -26993,8 +27109,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p10",
-     "name": "Layer 156",
+     "id": "Lmv52dnc00",
+     "name": "Layer 378",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -27010,8 +27126,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -27119,7 +27235,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How small can the pieces get?"
@@ -27486,8 +27604,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p10",
-     "name": "Layer 158",
+     "id": "Lmv52dnc10",
+     "name": "Layer 380",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -27503,8 +27621,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -27612,7 +27730,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How many balls per escape fills the screen?"
@@ -27975,8 +28095,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p10",
-     "name": "Layer 160",
+     "id": "Lmv52dnc10",
+     "name": "Layer 382",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -27992,8 +28112,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -28101,7 +28221,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What happens when every touch makes a ball?"
@@ -28472,8 +28594,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p10",
-     "name": "Layer 162",
+     "id": "Lmv52dnc10",
+     "name": "Layer 384",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -28489,8 +28611,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -28598,7 +28720,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How fast can cells fill a box?"
@@ -28961,8 +29085,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p30",
-     "name": "Layer 164",
+     "id": "Lmv52dnc10",
+     "name": "Layer 386",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -28978,8 +29102,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -29087,7 +29211,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Where will most balls land?"
@@ -29453,8 +29579,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p30",
-     "name": "Layer 166",
+     "id": "Lmv52dnc10",
+     "name": "Layer 388",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -29470,8 +29596,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -29579,7 +29705,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Which pyramid fills up first?"
@@ -29948,8 +30076,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p30",
-     "name": "Layer 168",
+     "id": "Lmv52dnc10",
+     "name": "Layer 390",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -29965,8 +30093,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -30074,7 +30202,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How long until it is full?"
@@ -30442,8 +30572,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p30",
-     "name": "Layer 170",
+     "id": "Lmv52dnc10",
+     "name": "Layer 392",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -30459,8 +30589,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -30568,7 +30698,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can you predict one ball?"
@@ -30936,8 +31068,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p30",
-     "name": "Layer 172",
+     "id": "Lmv52dnc10",
+     "name": "Layer 394",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -30953,8 +31085,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -31062,7 +31194,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How many cuts to make 64 pieces?"
@@ -31431,8 +31565,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p30",
-     "name": "Layer 174",
+     "id": "Lmv52dnc10",
+     "name": "Layer 396",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -31448,8 +31582,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -31557,7 +31691,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How many circles fit?"
@@ -31924,8 +32060,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p40",
-     "name": "Layer 176",
+     "id": "Lmv52dnc10",
+     "name": "Layer 398",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -31941,8 +32077,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -32050,7 +32186,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How many sides make a circle?"
@@ -32413,8 +32551,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p40",
-     "name": "Layer 178",
+     "id": "Lmv52dnc10",
+     "name": "Layer 400",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -32430,8 +32568,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -32539,7 +32677,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How long until it is too small?"
@@ -32906,8 +33046,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p40",
-     "name": "Layer 180",
+     "id": "Lmv52dnc10",
+     "name": "Layer 402",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -32923,8 +33063,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -33032,7 +33172,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Which angle fills the table?"
@@ -33395,8 +33537,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p60",
-     "name": "Layer 182",
+     "id": "Lmv52dnc10",
+     "name": "Layer 404",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -33412,8 +33554,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -33521,7 +33663,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Which colour takes over?"
@@ -33887,8 +34031,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p60",
-     "name": "Layer 184",
+     "id": "Lmv52dnc10",
+     "name": "Layer 406",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -33904,8 +34048,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -34013,7 +34157,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "When does it jam?"
@@ -34377,8 +34523,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p60",
-     "name": "Layer 186",
+     "id": "Lmv52dnc10",
+     "name": "Layer 408",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -34394,8 +34540,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -34503,7 +34649,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can random steps build a coral?"
@@ -34867,8 +35015,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p60",
-     "name": "Layer 188",
+     "id": "Lmv52dnc10",
+     "name": "Layer 410",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -34884,8 +35032,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -34993,7 +35141,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How does a crystal grow?"
@@ -35359,8 +35509,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p70",
-     "name": "Layer 190",
+     "id": "Lmv52dnc20",
+     "name": "Layer 412",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -35376,8 +35526,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -35485,7 +35635,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What does each ping do?"
@@ -35851,8 +36003,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p70",
-     "name": "Layer 192",
+     "id": "Lmv52dnc20",
+     "name": "Layer 414",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -35868,8 +36020,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -35977,7 +36129,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can random jumps draw a perfect shape?"
@@ -36350,8 +36504,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p70",
-     "name": "Layer 194",
+     "id": "Lmv52dnc20",
+     "name": "Layer 416",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -36367,8 +36521,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -36476,7 +36630,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Why do sunflowers use 137.5°?"
@@ -36845,8 +37001,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p70",
-     "name": "Layer 196",
+     "id": "Lmv52dnc20",
+     "name": "Layer 418",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -36862,8 +37018,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -36971,7 +37127,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Will they line up again?"
@@ -37340,8 +37498,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p80",
-     "name": "Layer 198",
+     "id": "Lmv52dnc20",
+     "name": "Layer 420",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -37357,8 +37515,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -37466,7 +37624,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Why is DNA a twisted ladder?"
@@ -37833,8 +37993,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p80",
-     "name": "Layer 200",
+     "id": "Lmv52dnc20",
+     "name": "Layer 422",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -37850,8 +38010,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -37959,7 +38119,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Which sort is the fastest?"
@@ -38330,8 +38492,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p80",
-     "name": "Layer 202",
+     "id": "Lmv52dnc20",
+     "name": "Layer 424",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -38347,8 +38509,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -38456,7 +38618,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can you hear 3 against 4?"
@@ -38825,8 +38989,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p90",
-     "name": "Layer 204",
+     "id": "Lmv52dnc20",
+     "name": "Layer 426",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -38842,8 +39006,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -38951,7 +39115,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What does a musical interval look like?"
@@ -39329,8 +39495,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p90",
-     "name": "Layer 206",
+     "id": "Lmv52dnc20",
+     "name": "Layer 428",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -39346,8 +39512,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -39455,7 +39621,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What shape do Venus and Earth draw?"
@@ -39824,8 +39992,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p90",
-     "name": "Layer 208",
+     "id": "Lmv52dnc20",
+     "name": "Layer 430",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -39841,8 +40009,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -39950,7 +40118,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How many branches after 10 splits?"
@@ -40320,8 +40490,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p90",
-     "name": "Layer 210",
+     "id": "Lmv52dnc20",
+     "name": "Layer 432",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -40337,8 +40507,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -40446,7 +40616,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What does ×2 look like?"
@@ -40818,8 +40990,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8p90",
-     "name": "Layer 212",
+     "id": "Lmv52dnc20",
+     "name": "Layer 434",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -40835,8 +41007,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -40944,7 +41116,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What does a wheel in a wheel draw?"
@@ -41313,8 +41487,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8pb0",
-     "name": "Layer 214",
+     "id": "Lmv52dnc20",
+     "name": "Layer 436",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -41330,8 +41504,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -41439,7 +41613,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Who wins rock, paper, scissors?"
@@ -41805,8 +41981,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8pb0",
-     "name": "Layer 216",
+     "id": "Lmv52dnc20",
+     "name": "Layer 438",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -41822,8 +41998,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -41931,7 +42107,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can the hunters wipe out the flowers?"
@@ -42301,8 +42479,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8pb0",
-     "name": "Layer 218",
+     "id": "Lmv52dnc20",
+     "name": "Layer 440",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -42318,8 +42496,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -42427,7 +42605,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "How many pieces after 20 seconds?"
@@ -42797,8 +42977,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8pb0",
-     "name": "Layer 220",
+     "id": "Lmv52dnc20",
+     "name": "Layer 442",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -42814,8 +42994,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -42923,7 +43103,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "Can you hit it without touching a knife?"
@@ -43289,8 +43471,8 @@
    },
    "layers": [
     {
-     "id": "Lmv51o8pb0",
-     "name": "Layer 222",
+     "id": "Lmv52dnc40",
+     "name": "Layer 444",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -43306,8 +43488,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -43415,7 +43597,9 @@
      "flash": true,
      "impact": true
     },
-    "outro": 0.6
+    "outro": 0.6,
+    "loop": false,
+    "loopBlend": 0.8
    },
    "hook": {
     "text": "What will the formula draw?"

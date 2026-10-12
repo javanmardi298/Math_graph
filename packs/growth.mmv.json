@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p60",
+          "id": "Lmv52dnbu0",
           "name": "Layer 182",
           "enabled": true,
           "type": "function",
@@ -153,7 +153,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Which colour takes over?"
@@ -518,7 +520,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p60",
+          "id": "Lmv52dnbu0",
           "name": "Layer 184",
           "enabled": true,
           "type": "function",
@@ -644,7 +646,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "When does it jam?"
@@ -1007,7 +1011,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p60",
+          "id": "Lmv52dnbu0",
           "name": "Layer 186",
           "enabled": true,
           "type": "function",
@@ -1133,7 +1137,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can random steps build a coral?"
@@ -1496,7 +1502,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p60",
+          "id": "Lmv52dnbu0",
           "name": "Layer 188",
           "enabled": true,
           "type": "function",
@@ -1622,7 +1628,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How does a crystal grow?"

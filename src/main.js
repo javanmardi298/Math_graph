@@ -13,7 +13,7 @@
  * no animation loop, and window.__mmv renders exact frames on demand.
  */
 import { store } from './state.js';
-import { BUILTIN_PRESETS } from './presets.js';
+import { DEFAULT_PRESET } from './presets.js';
 import { CompiledLayer } from './math/layers.js';
 import { gridAt, barsToSeconds } from './math/rhythm.js';
 import { layerTiming as seqTiming } from './math/sequence.js';
@@ -1594,14 +1594,14 @@ function boot() {
   document.querySelectorAll('.build-id').forEach((el) => { el.textContent = `Build ${BUILD}`; });
   $('loading').hidden = true;
   if (RENDER_MODE) {
-    store.load(BUILTIN_PRESETS[0]);
+    store.load(DEFAULT_PRESET);
     installRenderApi();
     return;
   }
   let saved = null;
   try { saved = JSON.parse(localStorage.getItem(SESSION_KEY)); } catch { /* ignore */ }
   if (saved?.layers?.length) store.load(saved);
-  else store.load(BUILTIN_PRESETS[0]);
+  else store.load(DEFAULT_PRESET);
   // Small screens start with panels tucked away.
   if (window.innerWidth < 900) { togglePanel('left'); togglePanel('right'); }
   updateTransportUI();

@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p70",
+          "id": "Lmv52dnbu0",
           "name": "Layer 190",
           "enabled": true,
           "type": "function",
@@ -153,7 +153,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What does each ping do?"
@@ -518,7 +520,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p70",
+          "id": "Lmv52dnbu0",
           "name": "Layer 192",
           "enabled": true,
           "type": "function",
@@ -644,7 +646,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can random jumps draw a perfect shape?"
@@ -1016,7 +1020,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p70",
+          "id": "Lmv52dnbu0",
           "name": "Layer 194",
           "enabled": true,
           "type": "function",
@@ -1142,7 +1146,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Why do sunflowers use 137.5°?"
@@ -1510,7 +1516,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p70",
+          "id": "Lmv52dnbu0",
           "name": "Layer 196",
           "enabled": true,
           "type": "function",
@@ -1636,7 +1642,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Will they line up again?"
@@ -2004,7 +2012,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p80",
+          "id": "Lmv52dnbu0",
           "name": "Layer 198",
           "enabled": true,
           "type": "function",
@@ -2130,7 +2138,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Why is DNA a twisted ladder?"
@@ -2496,7 +2506,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p80",
+          "id": "Lmv52dnbu0",
           "name": "Layer 200",
           "enabled": true,
           "type": "function",
@@ -2622,7 +2632,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Which sort is the fastest?"
@@ -2992,7 +3004,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p80",
+          "id": "Lmv52dnbu0",
           "name": "Layer 202",
           "enabled": true,
           "type": "function",
@@ -3118,7 +3130,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can you hear 3 against 4?"

@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oj0",
+          "id": "Lmv52dnbc0",
           "name": "Layer 18",
           "enabled": true,
           "type": "function",
@@ -153,7 +153,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Why does a string play these notes?"
@@ -518,7 +520,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oj0",
+          "id": "Lmv52dnbc0",
           "name": "Layer 20",
           "enabled": true,
           "type": "function",
@@ -644,7 +646,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What is a wavelength?"
@@ -1010,7 +1014,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oj0",
+          "id": "Lmv52dnbc0",
           "name": "Layer 22",
           "enabled": true,
           "type": "function",
@@ -1136,7 +1140,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can circles draw a square?"
@@ -1504,7 +1510,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oj0",
+          "id": "Lmv52dnbc0",
           "name": "Layer 24",
           "enabled": true,
           "type": "function",
@@ -1630,7 +1636,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How do musicians tune by ear?"
@@ -1995,7 +2003,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oj0",
+          "id": "Lmv52dnbc0",
           "name": "Layer 26",
           "enabled": true,
           "type": "function",
@@ -2121,7 +2129,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Which interval sounds the sweetest?"
@@ -2486,7 +2496,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oj0",
+          "id": "Lmv52dnbd0",
           "name": "Layer 28",
           "enabled": true,
           "type": "function",
@@ -2612,7 +2622,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Why does a siren change pitch?"

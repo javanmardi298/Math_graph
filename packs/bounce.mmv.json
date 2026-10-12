@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p40",
+          "id": "Lmv52dnbs0",
           "name": "Layer 176",
           "enabled": true,
           "type": "function",
@@ -153,7 +153,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How many sides make a circle?"
@@ -515,7 +517,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p40",
+          "id": "Lmv52dnbs0",
           "name": "Layer 178",
           "enabled": true,
           "type": "function",
@@ -641,7 +643,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How long until it is too small?"
@@ -1007,7 +1011,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p40",
+          "id": "Lmv52dnbs0",
           "name": "Layer 180",
           "enabled": true,
           "type": "function",
@@ -1133,7 +1137,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Which angle fills the table?"

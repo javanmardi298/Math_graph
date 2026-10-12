@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8of0",
+          "id": "Lmv52dnba0",
           "name": "Layer 2",
           "enabled": true,
           "type": "function",
@@ -153,7 +153,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What is a wave, really?"
@@ -520,7 +522,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8of0",
+          "id": "Lmv52dnba0",
           "name": "Layer 4",
           "enabled": true,
           "type": "function",
@@ -646,7 +648,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Why do instruments sound different?"
@@ -1015,7 +1019,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8og0",
+          "id": "Lmv52dnba0",
           "name": "Layer 6",
           "enabled": true,
           "type": "function",
@@ -1141,7 +1145,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can circles draw any shape?"
@@ -1509,7 +1515,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8og0",
+          "id": "Lmv52dnba0",
           "name": "Layer 8",
           "enabled": true,
           "type": "function",
@@ -1635,7 +1641,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What happens when two waves meet?"
@@ -2004,7 +2012,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oh0",
+          "id": "Lmv52dnba0",
           "name": "Layer 10",
           "enabled": true,
           "type": "function",
@@ -2130,7 +2138,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Why do some notes sound good together?"
@@ -2495,7 +2505,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oh0",
+          "id": "Lmv52dnba0",
           "name": "Layer 12",
           "enabled": true,
           "type": "function",
@@ -2621,7 +2631,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Why does a siren change its pitch?"
@@ -2894,7 +2906,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oh0",
+          "id": "Lmv52dnba0",
           "name": "Layer 14",
           "enabled": true,
           "type": "function",
@@ -3020,7 +3032,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can electricity make a magnet?"
@@ -3387,7 +3401,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oh0",
+          "id": "Lmv52dnba0",
           "name": "Layer 16",
           "enabled": true,
           "type": "function",
@@ -3513,7 +3527,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What do numbers look like on a circle?"

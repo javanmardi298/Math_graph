@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import { CircleSim, defaultCircle, eventsUntil, formulaLine, CIRCLE_RULES, ruleGroups } from '../src/circle/sim.js';
 import { SCENES, sceneParams } from '../src/circle/scenes.js';
 import { speedAt, worldFor, pixelFrame } from '../src/circle/layout.js';
-import { LAB_PRESETS } from '../src/circle/presets-lab.js';
+import { LAB_PRESETS } from '../presets-src/circle-lab.js';
 import { beats, RPS_NAMES, formulaError, pretty } from '../src/circle/battles.js';
 import { circleSchedule, visibleAt, headlineAt } from '../src/circle/stack.js';
-import { STACK_PRESETS } from '../src/circle/presets-stack.js';
+import { STACK_PRESETS } from '../presets-src/circle-stories.js';
 
 const cfg = (rule, lab = {}, extra = {}) => ({ ...defaultCircle(), rule, lab: { [rule]: lab }, ...extra });
 const env = { duration: 30, bpm: 120, ratio: 9 / 16 };
@@ -202,7 +202,7 @@ test('formula options: odd harmonics in a half-open tube, steered beams, wires a
 });
 
 test('lesson packs: every circle simulation has a lesson; steps are known, captioned, importable', async () => {
-  const { PACKS } = await import('../src/lessons/index.js');
+  const { PACKS } = await import('../presets-src/lessons/index.js');
   const { normalize } = await import('../src/state.js');
   const { isPreset } = await import('../src/library.js');
   const { tryCompile } = await import('../src/math/parser.js');
@@ -283,7 +283,7 @@ test('calculus and fractals: integral, Taylor, curves, zoom', async () => {
 });
 
 test('formula presets: sound of a graph, guess the shape (hidden first), A or B', async () => {
-  const { SOUND_PRESETS } = await import('../src/presets-sound.js');
+  const { SOUND_PRESETS } = await import('../presets-src/sound.js');
   const { normalize } = await import('../src/state.js');
   const { tryCompile } = await import('../src/math/parser.js');
   assert.ok(SOUND_PRESETS.length >= 12);
@@ -307,4 +307,25 @@ test('seamless loop: the video starts B in, and its last B seconds lead back to 
   assert.ok(Math.abs(frameEffects(T, 18.5).loopMix - 0.5) < 1e-9);
   const plain = shortsTiming({ hook: { enabled: false }, outro: 0.6 }, 20);
   assert.ok(!plain.loop && plain.total === 20.6);
+});
+
+test('preset catalog: JSON files are up to date, every shelf known, every preset loads', async () => {
+  const { execFileSync } = await import('node:child_process');
+  execFileSync(process.execPath, ['scripts/build-presets.mjs', '--check'], { stdio: 'pipe' }); // throws when stale
+  const { readFileSync } = await import('node:fs');
+  const { normalize } = await import('../src/state.js');
+  const index = JSON.parse(readFileSync('presets/index.json', 'utf8'));
+  assert.ok(index.shelves.length >= 15 && index.presets >= 170);
+  const names = new Set();
+  for (const sh of index.shelves) {
+    const data = JSON.parse(readFileSync(`presets/${sh.file}`, 'utf8'));
+    assert.equal(data.presets.length, sh.count, sh.id);
+    for (const p of data.presets) {
+      if (sh.id !== 'start') { assert.ok(!names.has(p.name), `duplicate ${p.name}`); names.add(p.name); }
+      const st = normalize(p);
+      if (st.mode === 'circle') for (const l of [st.circle, ...st.circle.layers.map((x) => x.cfg)]) assert.ok(CIRCLE_RULES[l.rule], `${p.name}: ${l.rule}`);
+    }
+  }
+  assert.equal(names.size, index.presets);
+  for (const pk of index.packs) assert.equal(JSON.parse(readFileSync(`presets/${pk.file}`, 'utf8')).presets.length, pk.count);
 });

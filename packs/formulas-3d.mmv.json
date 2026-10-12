@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oq0",
+          "id": "Lmv52dnbi0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -59,7 +59,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oq1",
+          "id": "Lmv52dnbi1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -91,7 +91,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oq2",
+          "id": "Lmv52dnbi2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -217,7 +217,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How do you turn a circle into a spring?"
@@ -438,7 +440,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oq0",
+          "id": "Lmv52dnbi0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -470,7 +472,7 @@
           "samples": 64
         },
         {
-          "id": "Lmv51o8oq1",
+          "id": "Lmv52dnbi1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -502,7 +504,7 @@
           "samples": 64
         },
         {
-          "id": "Lmv51o8oq2",
+          "id": "Lmv52dnbi2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -628,7 +630,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What does a formula of x and y look like?"
@@ -849,7 +853,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oq0",
+          "id": "Lmv52dnbi0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -881,7 +885,7 @@
           "samples": 64
         },
         {
-          "id": "Lmv51o8oq1",
+          "id": "Lmv52dnbi1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -913,7 +917,7 @@
           "samples": 64
         },
         {
-          "id": "Lmv51o8oq2",
+          "id": "Lmv52dnbi2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -1039,7 +1043,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can you guess the shape from the formula?"
@@ -1260,7 +1266,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oq0",
+          "id": "Lmv52dnbj0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -1292,7 +1298,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oq1",
+          "id": "Lmv52dnbj1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -1324,7 +1330,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oq2",
+          "id": "Lmv52dnbj2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -1450,7 +1456,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can a formula tie a knot?"
@@ -1671,7 +1679,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oq0",
+          "id": "Lmv52dnbj0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -1703,7 +1711,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oq1",
+          "id": "Lmv52dnbj1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -1735,7 +1743,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oq2",
+          "id": "Lmv52dnbj2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -1861,7 +1869,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What happens with three frequencies?"

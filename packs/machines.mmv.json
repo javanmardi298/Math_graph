@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p90",
+          "id": "Lmv52dnbv0",
           "name": "Layer 204",
           "enabled": true,
           "type": "function",
@@ -153,7 +153,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What does a musical interval look like?"
@@ -530,7 +532,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p90",
+          "id": "Lmv52dnbv0",
           "name": "Layer 206",
           "enabled": true,
           "type": "function",
@@ -656,7 +658,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What shape do Venus and Earth draw?"
@@ -1024,7 +1028,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p90",
+          "id": "Lmv52dnbv0",
           "name": "Layer 208",
           "enabled": true,
           "type": "function",
@@ -1150,7 +1154,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How many branches after 10 splits?"
@@ -1519,7 +1525,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p90",
+          "id": "Lmv52dnbv0",
           "name": "Layer 210",
           "enabled": true,
           "type": "function",
@@ -1645,7 +1651,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What does ×2 look like?"
@@ -2016,7 +2024,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p90",
+          "id": "Lmv52dnbw0",
           "name": "Layer 212",
           "enabled": true,
           "type": "function",
@@ -2142,7 +2150,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What does a wheel in a wheel draw?"

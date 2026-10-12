@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8ok0",
+          "id": "Lmv52dnbd0",
           "name": "Layer 30",
           "enabled": true,
           "type": "function",
@@ -153,7 +153,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What does a note look like?"
@@ -526,7 +528,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8ol0",
+          "id": "Lmv52dnbd0",
           "name": "Layer 32",
           "enabled": true,
           "type": "function",
@@ -652,7 +654,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can you see a sound wave?"
@@ -1023,7 +1027,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8ol0",
+          "id": "Lmv52dnbe0",
           "name": "Layer 34",
           "enabled": true,
           "type": "function",
@@ -1149,7 +1153,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Where do two waves cancel?"
@@ -1522,7 +1528,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8ol0",
+          "id": "Lmv52dnbe0",
           "name": "Layer 36",
           "enabled": true,
           "type": "function",
@@ -1648,7 +1654,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can you see a magnetic field?"

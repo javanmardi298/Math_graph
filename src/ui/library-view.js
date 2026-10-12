@@ -7,7 +7,7 @@
  * No prompt()/confirm(): they don't work inside the claude.ai viewer, so renames,
  * moves and deletions are done inline (deletions need a second click).
  */
-import { BUILTIN_PRESETS, CATEGORY_ORDER } from '../presets.js';
+import { loadAllShelves, loadCatalog, loadPack } from '../presets.js';
 import { CIRCLE_RULES } from '../circle/sim.js';
 import {
   readLibrary, loadLibrary, saveLibrary, makeItem, uniqueName, describe, readPresetFiles,
@@ -15,7 +15,6 @@ import {
 } from '../library.js';
 import { h } from './controls.js';
 import { normalize } from '../state.js';
-import { PACKS, collectionOf } from '../lessons/index.js';
 
 const FAV_KEY = 'mmv.favorites.v1';
 const PAGE = 100;
@@ -36,7 +35,11 @@ export class LibraryView {
     this.backend = 'local';
     this.favs = readFavs();
     // built-in presets sit on shelves (categories); your own ones in their collections
-    this.builtins = BUILTIN_PRESETS.map((p) => ({ id: `b:${p.name}`, name: p.name, collection: p.$category || 'Built-in', builtin: true, savedAt: 0, preset: p }));
+    // built-in presets are JSON files outside the app (presets/): fetched once, here
+    this.builtins = [];
+    this.shelfOrder = [];
+    this.packs = [];
+    this.catalogState = 'loading'; // loading | ready | failed
     this.filter = { q: '', source: 'all', aspect: 'any', mode: 'any', collection: '*', sort: 'shelf' };
     this.collapsed = new Set();
     this.selected = new Set();
@@ -47,12 +50,29 @@ export class LibraryView {
     this.activeId = null;
     this.build();
     this.render();
+    this.loadBuiltins();
     loadLibrary().then(({ items, backend }) => {
       this.items = items;
       this.backend = backend;
       this.render();
       this.updateQuota();
     });
+  }
+
+  /** Fetch the catalog and every shelf (small JSON files), then show them. */
+  loadBuiltins() {
+    this.catalogState = 'loading';
+    Promise.all([loadCatalog(), loadAllShelves()]).then(([cat, shelves]) => {
+      this.shelfOrder = cat.shelves.map((s) => s.name);
+      // a preset can sit on two shelves ("Start here" and its own): the id says which
+      this.builtins = shelves.flatMap(({ shelf, presets }) => presets.map((p) => ({
+        id: shelf.id === 'start' ? `b:★:${p.name}` : `b:${p.name}`, name: p.name, collection: shelf.name, builtin: true, savedAt: 0, preset: p,
+      })));
+      this.packs = cat.packs.map((p) => ({ ...p, load: () => loadPack(p.id) }));
+      this.catalogState = 'ready';
+      this.renderPacks();
+      this.render();
+    }).catch(() => { this.catalogState = 'failed'; this.render(); });
   }
 
   updateQuota() {
@@ -77,7 +97,7 @@ export class LibraryView {
   byId(id) { return this.all().find((x) => x.id === id); }
   collections() { return [...new Set(this.items.map((x) => x.collection).filter(Boolean))].sort((a, b) => a.localeCompare(b)); }
   shelves() {
-    const order = (c) => { const i = CATEGORY_ORDER.indexOf(c); return i < 0 ? 999 : i; };
+    const order = (c) => { const i = this.shelfOrder.indexOf(c); return i < 0 ? 999 : i; };
     return [...new Set(this.builtins.map((x) => x.collection))].sort((a, b) => order(a) - order(b) || a.localeCompare(b));
   }
   shelfOf(x) { return x.builtin ? x.collection : x.collection || 'My presets'; }
@@ -160,14 +180,11 @@ export class LibraryView {
       this.list, this.more, this.count,
       h('details.group', { open: true }, h('summary', {}, 'Save current setup'),
         h('div.group-body', {}, this.saveName, h('div.row', {}, this.saveColl, save), this.collList)),
-      h('details.group', {}, h('summary', {}, `Lesson packs (${PACKS.length})`),
+      h('details.group', {}, this.packTitle = h('summary', {}, 'Lesson packs'),
         h('div.group-body', {},
           h('p.hint', {}, 'Step-by-step vertical lessons, one idea per step. They are not in the built-in list: add the packs you want and they appear in your presets, each pack in its own collection.'),
-          h('div.lib-packs', {}, PACKS.map((p) => h('div.lib-pack', {},
-            h('div.lib-pack-text', {}, h('strong', {}, p.name), h('span.hint', {}, p.about)),
-            h('button.btn.ghost.small', { type: 'button', title: 'Load its first lesson to watch it now', onclick: () => this.tryPack(p) }, '▶'),
-            h('button.btn.small', { type: 'button', onclick: () => this.addPacks([p]) }, '＋ Add')))),
-          h('button.btn', { type: 'button', onclick: () => this.addPacks(PACKS) }, '＋ Add all lesson packs'))),
+          this.packList = h('div.lib-packs', {}, h('p.hint', {}, 'Loading…')),
+          h('button.btn', { type: 'button', onclick: () => this.addPacks(this.packs) }, '＋ Add all lesson packs'))),
       h('details.group', { open: true }, h('summary', {}, 'Import & export'),
         h('div.group-body', {},
           h('button.btn', { type: 'button', onclick: () => this.fileIn.click() }, '⇪ Import preset files…'), this.fileIn,
@@ -210,7 +227,7 @@ export class LibraryView {
       : 'You have no saved presets yet. Save the current setup below, or import preset files.')]));
     this.more.hidden = list.length <= this.limit;
     this.more.textContent = `Show ${Math.min(PAGE, list.length - this.limit)} more (${list.length - this.limit} hidden)`;
-    this.count.textContent = `${list.length} of ${this.all().length} presets`;
+    this.count.textContent = `${list.length} of ${this.all().length} presets${this.catalogState === 'loading' ? ' · loading the built-in ones…' : this.catalogState === 'failed' ? ' · built-in presets could not be loaded (offline?)' : ''}`;
 
     // Bulk bar
     for (const id of [...this.selected]) if (!this.byId(id)) this.selected.delete(id);
@@ -387,12 +404,21 @@ export class LibraryView {
     this.render();
   }
 
+  renderPacks() {
+    this.packTitle.textContent = `Lesson packs (${this.packs.length})`;
+    this.packList.replaceChildren(...this.packs.map((p) => h('div.lib-pack', {},
+      h('div.lib-pack-text', {}, h('strong', {}, p.name), h('span.hint', {}, `${p.about} · ${p.count} lessons`)),
+      h('button.btn.ghost.small', { type: 'button', title: 'Load its first lesson to watch it now', onclick: () => this.tryPack(p) }, '▶'),
+      h('button.btn.small', { type: 'button', onclick: () => this.addPacks([p]) }, '＋ Add'))));
+  }
+
   /** Copy lesson packs into my presets, each in its own collection (once per preset). */
   async addPacks(packs) {
+    if (!packs.length) { this.actions.toast(this.catalogState === 'failed' ? 'The lesson packs could not be loaded (offline?).' : 'The lesson packs are still loading…'); return; }
     let added = [];
     try {
       for (const pack of packs) {
-        const coll = collectionOf(pack);
+        const coll = pack.collection;
         const have = new Set(this.items.filter((i) => i.collection === coll).map((i) => i.name));
         const list = await pack.load();
         added = added.concat(list.filter((p) => !have.has(p.name)).map((p) => makeItem(normalize(p), { name: p.name, collection: coll })));
@@ -404,7 +430,7 @@ export class LibraryView {
     if (!added.length) { this.actions.toast(packs.length === 1 ? 'This pack is already in your presets.' : 'All lesson packs are already in your presets.'); return; }
     this.items = [...added, ...this.items];
     this.persist();
-    Object.assign(this.filter, { source: 'mine', q: '', collection: packs.length === 1 ? collectionOf(packs[0]) : '*', sort: 'recent' });
+    Object.assign(this.filter, { source: 'mine', q: '', collection: packs.length === 1 ? packs[0].collection : '*', sort: 'recent' });
     this.search.value = '';
     this.render();
     this.actions.toast(`Added ${added.length} lesson${added.length === 1 ? '' : 's'}.`);

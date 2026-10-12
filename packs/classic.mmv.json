@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oz0",
+          "id": "Lmv52dnbo0",
           "name": "Layer 140",
           "enabled": true,
           "type": "function",
@@ -153,7 +153,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Which jumps close into a shape?"
@@ -509,7 +511,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oz0",
+          "id": "Lmv52dnbo0",
           "name": "Layer 142",
           "enabled": true,
           "type": "function",
@@ -635,7 +637,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What does gravity do to a bounce?"
@@ -991,7 +995,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oz0",
+          "id": "Lmv52dnbo0",
           "name": "Layer 144",
           "enabled": true,
           "type": "function",
@@ -1117,7 +1121,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How fast does doubling grow?"
@@ -1473,7 +1479,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oz0",
+          "id": "Lmv52dnbo0",
           "name": "Layer 146",
           "enabled": true,
           "type": "function",
@@ -1599,7 +1605,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Why do the notes get faster?"
@@ -1955,7 +1963,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oz0",
+          "id": "Lmv52dnbo0",
           "name": "Layer 148",
           "enabled": true,
           "type": "function",
@@ -2081,7 +2089,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can the ball get out?"
@@ -2437,7 +2447,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oz0",
+          "id": "Lmv52dnbo0",
           "name": "Layer 150",
           "enabled": true,
           "type": "function",
@@ -2563,7 +2573,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Will they ever line up again?"

@@ -55,6 +55,9 @@ for (const f of srcFiles) {
   files[local] = local;
 }
 for (const f of walk('vendor').filter((x) => /\.(m?js)$/.test(x))) files[f.replace(/\\/g, '/')] = f.replace(/\\/g, '/');
+// The preset catalog (JSON, fetched on demand with ?v=<build> so new builds are never stale)
+const presetFiles = walk('presets').filter((x) => x.endsWith('.json')).map((f) => f.replace(/\\/g, '/'));
+for (const f of presetFiles) files[f] = f;
 
 mkdirSync('dist', { recursive: true });
 writeFileSync('dist/artifact.html', html);
@@ -68,6 +71,11 @@ const own = Object.keys(files).filter((k) => k.startsWith(`${prefix}/`)).map((k)
 record = record.filter((r) => r.build !== build);
 const keep = record.slice(-1), drop = record.slice(0, -1);
 const publish = Object.fromEntries(Object.entries(files).filter(([k]) => !k.startsWith('vendor/')));
+const PRESET_RECORD = 'scripts/artifact-presets.json';
+let oldPresets = [];
+try { oldPresets = JSON.parse(readFileSync(PRESET_RECORD, 'utf8')); } catch { /* first time */ }
+for (const f of oldPresets) if (!presetFiles.includes(f)) publish[f] = null;
+writeFileSync(PRESET_RECORD, `${JSON.stringify(presetFiles, null, 1)}\n`);
 for (const r of drop) for (const f of r.files) publish[`src-${r.build}/${f}`] = null;
 // One publish call takes at most 255 entries: new files first, removals in later parts.
 const entries = Object.entries(publish).sort(([, a], [, b]) => (a === null) - (b === null));

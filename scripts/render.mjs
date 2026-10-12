@@ -51,9 +51,12 @@ if (!pw) fail('Playwright is missing. Run: npm install && npx playwright install
 let preset = null;
 if (a.preset) preset = JSON.parse(await readFile(a.preset, 'utf8'));
 if (a.builtin) {
-  const { BUILTIN_PRESETS } = await import('../src/presets.js');
-  preset = BUILTIN_PRESETS.find((p) => p.name.toLowerCase() === a.builtin.toLowerCase());
-  if (!preset) fail(`No built-in preset called "${a.builtin}". Try: ${BUILTIN_PRESETS.map((p) => p.name).join(', ')}`);
+  // built-in presets are the JSON shelves in presets/ (made by scripts/build-presets.mjs)
+  const index = JSON.parse(await readFile(new URL('../presets/index.json', import.meta.url), 'utf8'));
+  const all = [];
+  for (const sh of index.shelves) all.push(...JSON.parse(await readFile(new URL(`../presets/${sh.file}`, import.meta.url), 'utf8')).presets);
+  preset = all.find((p) => p.name.toLowerCase() === a.builtin.toLowerCase());
+  if (!preset) fail(`No built-in preset called "${a.builtin}". Try: ${[...new Set(all.map((p) => p.name))].join(', ')}`);
 }
 
 const server = await startServer(0);

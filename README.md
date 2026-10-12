@@ -100,12 +100,33 @@ fractions of the frame, so the layout is identical at 720p and 4K, and in export
 | Timeline | Scrub with audio, 0.1×–5× speed, loop, length, a mini-map of every layer's pitch |
 | Export | Frame-perfect MP4 (H.264 + AAC, 720p–4K, 24/30/60 fps, optional motion blur, text and captions burned in) rendered with the GPU and hardware encoder; live capture; command-line batch render; WAV (rendered offline, includes drums and animated effects); MIDI (one track per layer plus a GM drum track); PNG snapshot; preset `.json` |
 | Text | Shorts/Reels **safe-zone guide** in the layout editor on vertical videos (captions default just above the area YouTube covers); movable, resizable title, subtitle, formula list and analyzer; unlimited text boxes (Persian supported) with fonts, glow, background and timed fades; edit directly on the video |
-| Presets | 21 built-ins. Landscape: Bass Drop, Twin Harmony, Lissajous 3D, Astroid Wave, Rose Garden, Neon Terrain, Staircase Arp, Helix Ascent, Chaos Bells, Four on the Floor, Morphing Bloom. **Vertical 9:16 for Shorts/Reels**: Heartbeat, Butterfly, Golden Spiral, Infinity Loop, Sine Ladder, Fourier Square, Rose Mandala, Bouncing Ball, Heart, DNA Helix. **Preset library** for hundreds of presets: one searchable list (name, collection, formula), filters (built-in / mine / favourites, 16:9 / 9:16, 2D / 3D), collections, favourites, sort, multi-select export/delete/move. Import any preset file the app exports (`.json` single or bundle, a `.zip` of them, or older exports; many files at once or drag & drop); name clashes get “(2)” instead of overwriting; one-click backup of all your presets. Stored in IndexedDB (thousands of presets; older localStorage libraries move over automatically). Auto-saved session |
+| Presets | 172 built-ins on 20 shelves (★ Start here, Sound of math, Math, Physics, Stories, Satisfying, Formulas) plus 16 lesson packs (92 step-by-step lessons). They are **data, not code**: JSON files in `presets/`, loaded on demand (see *Presets as data* below). **Preset library**: one searchable list (name, collection, formula), filters (built-in / mine / favourites, 16:9 / 9:16, 2D / 3D), collections, favourites, sort, multi-select export/delete/move. Import any preset file the app exports (`.json` single or bundle, a `.zip` of them); name clashes get “(2)” instead of overwriting; one-click backup. Stored in IndexedDB. Auto-saved session |
 | UX | Day/night theme, collapsible panels, cinema mode (hide UI), frame presets 16:9 / 9:16 / 1:1 / 4:5, keyboard shortcuts, phone layout |
 
 ### Keyboard
 
 `Space` play/pause · `R` record · `K` camera keyframe · `Home` rewind · `← →` jump 1 s · `M` 2D/3D · `T` day/night · `H` hide UI · `F` full screen · `[` `]` panels · `?` help
+
+
+## Presets as data
+
+Built-in presets are not part of the app. They live as small JSON files that the app
+fetches the first time the library needs them:
+
+```
+presets-src/            authoring: preset lists written in JS (helpers, shared settings)
+  catalog.js            shelves, “Start here” picks, which file goes where
+  lessons/              the lesson packs
+presets/                generated, loaded by the app (never edit by hand)
+  index.json            shelves, counts, names, lesson packs
+  shelves/<id>.json     one shelf
+  lessons/<id>.json     one lesson pack
+packs/<id>.mmv.json     the lesson packs as importable files (Library → Import)
+```
+
+After changing anything in `presets-src/`, run `node scripts/build-presets.mjs` (the tests fail
+when `presets/` is stale). Adding presets therefore never makes the app bigger or slower to start;
+the app itself ships only the preset it opens with.
 
 ## Project structure
 
@@ -114,7 +135,8 @@ index.html              app shell (top bar, panels, stage, timeline, dialogs)
 src/
   main.js               clock, frame loop, wiring, exports, shortcuts
   state.js              single source of truth + layer model
-  presets.js            built-in presets
+  presets.js            loads the preset catalog (presets/*.json) on demand
+  brand.js              channel watermark + end card (saved in the browser)
   library.js            preset library storage + preset file import/export
   styles.css            glassmorphism UI, dark + light themes, responsive
   math/
@@ -147,7 +169,6 @@ src/
     sim.js              Circle Lab simulations (deterministic, fixed step)
     view.js             Circle Lab renderer (Canvas 2D: ink trails, glow, sparks)
     sound.js            hit → note mapping, melodies, note thinning
-    presets.js          12 Circle Lab presets with hooks and YouTube texts
     recorder.js         MediaRecorder live capture
     webm-duration.js    writes the missing duration into Chrome's WebM recordings
     midi.js             Standard MIDI File writer

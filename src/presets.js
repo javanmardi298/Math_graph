@@ -1,342 +1,59 @@
 /**
- * Built-in presets. Each one is a partial state snapshot merged over the defaults,
- * so a preset only lists what it changes.
+ * Built-in presets live outside the app, as JSON files in presets/ (made from
+ * presets-src/ by scripts/build-presets.mjs). The app ships only the preset it opens
+ * with; the catalog and each shelf are fetched the first time they are needed, so new
+ * presets never make the app bigger or slower to start.
+ *
+ *   presets/index.json          shelves (name, section, count, preset names), lesson packs
+ *   presets/shelves/<id>.json   one shelf's presets
+ *   presets/lessons/<id>.json   one lesson pack
  */
 
-import { CIRCLE_PRESETS } from './circle/presets.js';
-import { LAB_PRESETS } from './circle/presets-lab.js';
-import { STACK_PRESETS } from './circle/presets-stack.js';
-import { TOPIC_PRESETS } from './circle/presets-topics.js';
-import { SOUND_PRESETS } from './presets-sound.js';
-import { SCENES } from './circle/scenes.js';
+/** The preset the app opens with the very first time (kept here so it starts offline too). */
+export const DEFAULT_PRESET = {
+  name: 'Bass Drop', mode: '2d', transport: { duration: 16 }, view: { xMin: 0, xMax: 8, yMin: -3, yMax: 3 },
+  layers: [{ name: 'Kick decay', type: 'function', exprs: { y: '3 * exp(-12 * mod(x, 0.5)) - 1.5' }, color: '#22e4ff', colorMode: 'pitch', wave: 'sawtooth', width: 5, volume: 0.7 }],
+  visual: { drawMode: 'trace', bloom: { strength: 1.3 }, marker: { shape: 'circle' } },
+  audio: { noteLow: 28, noteHigh: 64, scale: 'continuous', glide: 8, distortion: 0.35, filter: { type: 'lowpass', cutoff: 2400, q: 4 }, reverb: { mix: 0.15 }, delay: { mix: 0.1 } },
+};
 
-// Circle Lab presets shown as built-ins (the full set is in circle/presets.js).
-export const BUILTIN_PRESETS = [
-  {
-    name: 'Bass Drop',
-    mode: '2d',
-    transport: { duration: 16 },
-    view: { xMin: 0, xMax: 8, yMin: -3, yMax: 3 },
-    layers: [{
-      name: 'Kick decay', type: 'function', exprs: { y: '3 * exp(-12 * mod(x, 0.5)) - 1.5' },
-      color: '#22e4ff', colorMode: 'pitch', wave: 'sawtooth', width: 5, volume: 0.7,
-    }],
-    visual: { drawMode: 'trace', bloom: { strength: 1.3 }, marker: { shape: 'circle' } },
-    audio: { noteLow: 28, noteHigh: 64, scale: 'continuous', glide: 8, distortion: 0.35,
-      filter: { type: 'lowpass', cutoff: 2400, q: 4 }, reverb: { mix: 0.15 }, delay: { mix: 0.1 } },
-  },
-  {
-    name: 'Twin Harmony',
-    mode: '2d',
-    transport: { duration: 20 },
-    view: { xMin: 0, xMax: 10, yMin: -4, yMax: 4 },
-    layers: [
-      { name: 'Melody', type: 'function', exprs: { y: '2.5 sin(1.5x) + 0.6 sin(6x)' }, color: '#22e4ff', wave: 'triangle', volume: 0.6 },
-      { name: 'Counter', type: 'function', exprs: { y: '-2 cos(x) - 1' }, color: '#ff3d9a', wave: 'sine', volume: 0.5, octave: -1, style: 'dashed' },
-    ],
-    visual: { drawMode: 'trace' },
-    audio: { scale: 'pentatonic', root: 2, articulation: 'pluck', reverb: { mix: 0.35, decay: 3.5 }, delay: { mix: 0.25 } },
-  },
-  {
-    name: 'Lissajous 3D',
-    mode: '3d',
-    transport: { duration: 24 },
-    view: { xMin: -4, xMax: 4, yMin: -4, yMax: 4 },
-    layers: [{
-      name: 'Knot', type: 'parametric', range: { min: 0, max: Math.PI * 2 },
-      exprs: { x: '3 sin(3s + t*0.2)', y: '3 sin(4s)', z: '3 sin(5s + pi/4)' },
-      colorMode: 'rainbow', width: 4, wave: 'sine', zMap: 'pan', samples: 1600,
-    }],
-    visual: { drawMode: 'ghost', trail: { count: 220 }, fog: { enabled: true, density: 0.03 } },
-    camera: { autoRotate: true, rotateSpeed: 0.7 },
-    audio: { scale: 'dorian', root: 9, noteLow: 45, noteHigh: 81, reverb: { mix: 0.4, decay: 4 } },
-  },
-  {
-    name: 'Astroid Wave',
-    mode: '2d',
-    transport: { duration: 18 },
-    view: { xMin: -4, xMax: 4, yMin: -4, yMax: 4 },
-    layers: [{
-      name: 'Astroid', type: 'parametric', range: { min: 0, max: Math.PI * 4 },
-      exprs: { x: '3.2 cos(s)^3', y: '3.2 sin(s)^3 + 0.25 sin(12s)', z: '0' },
-      colorMode: 'gradient', color: '#ffd23d', color2: '#ff3d9a', width: 4, wave: 'square', volume: 0.35,
-    }],
-    visual: { drawMode: 'trace', marker: { shape: 'star', size: 34 } },
-    audio: { scale: 'minorPentatonic', root: 4, filter: { cutoff: 3200, q: 1.5 }, delay: { mix: 0.3, time: 0.375 } },
-  },
-  {
-    name: 'Rose Garden',
-    mode: '2d',
-    transport: { duration: 20 },
-    view: { xMin: -4, xMax: 4, yMin: -4, yMax: 4 },
-    layers: [
-      { name: 'Rose', type: 'polar', range: { min: 0, max: Math.PI * 2 }, exprs: { r: '3 cos(4theta)' },
-        colorMode: 'rainbow', width: 3, wave: 'triangle', samples: 1400 },
-      { name: 'Halo', type: 'polar', range: { min: 0, max: Math.PI * 2 }, exprs: { r: '3.4 + 0.2 sin(16theta + t)' },
-        color: '#8cff5a', width: 2, style: 'dots', wave: 'sine', volume: 0.25, octave: -1 },
-    ],
-    visual: { drawMode: 'ghost' },
-    audio: { scale: 'major', root: 7, articulation: 'pluck', reverb: { mix: 0.45, decay: 4.5 } },
-  },
-  {
-    name: 'Neon Terrain',
-    mode: '3d',
-    transport: { duration: 20 },
-    view: { xMin: -5, xMax: 5, yMin: -3, yMax: 3 },
-    layers: [{
-      name: 'Terrain', type: 'surface',
-      exprs: { f: '1.4 sin(x + t) cos(0.8y) + 0.4 cos(2x - y)', path: '2.5 sin(0.9x)' },
-      colorMode: 'pitch', color: '#22e4ff', color2: '#ff3d9a', wave: 'sawtooth', volume: 0.4, samples: 64,
-    }],
-    visual: { fog: { enabled: true, density: 0.03 }, bloom: { strength: 0.7, threshold: 0.1 } },
-    camera: { autoRotate: true, rotateSpeed: 0.5 },
-    audio: { scale: 'minor', root: 0, filter: { cutoff: 2600, q: 2 }, reverb: { mix: 0.3 } },
-  },
-  {
-    name: 'Staircase Arp',
-    mode: '2d',
-    transport: { duration: 16 },
-    view: { xMin: 0, xMax: 8, yMin: -4, yMax: 4 },
-    layers: [
-      { name: 'Arp', type: 'function', exprs: { y: 'floor(mod(4x, 8)) - 3.5' }, color: '#ffd23d', wave: 'square', volume: 0.3, width: 4 },
-      { name: 'Bass', type: 'function', exprs: { y: '-3 + 0.5 square(x/2)' }, color: '#ff3d9a', wave: 'sawtooth', volume: 0.45, octave: -1 },
-    ],
-    visual: { drawMode: 'trace', marker: { shape: 'square' } },
-    audio: { scale: 'minorPentatonic', root: 9, articulation: 'pluck', glide: 5, delay: { mix: 0.3, time: 0.25, feedback: 0.4 } },
-  },
-  {
-    name: 'Helix Ascent',
-    mode: '3d',
-    transport: { duration: 24 },
-    view: { xMin: -4, xMax: 4, yMin: -4, yMax: 4 },
-    layers: [
-      { name: 'Strand A', type: 'parametric', range: { min: 0, max: Math.PI * 6 },
-        exprs: { x: '2.5 cos(s)', y: 's/2.4 - 3.9', z: '2.5 sin(s)' }, colorMode: 'gradient', color: '#22e4ff', color2: '#8cff5a', wave: 'triangle', zMap: 'pan' },
-      { name: 'Strand B', type: 'parametric', range: { min: 0, max: Math.PI * 6 },
-        exprs: { x: '2.5 cos(s + pi)', y: 's/2.4 - 3.9', z: '2.5 sin(s + pi)' }, colorMode: 'gradient', color: '#ff3d9a', color2: '#ffd23d', wave: 'sine', zMap: 'pan', octave: 1, volume: 0.35 },
-    ],
-    visual: { drawMode: 'trace', dof: { enabled: false } },
-    camera: { autoRotate: true, rotateSpeed: 1.2 },
-    audio: { scale: 'major', root: 5, reverb: { mix: 0.4 } },
-  },
-  {
-    name: 'Chaos Bells',
-    mode: '2d',
-    transport: { duration: 14 },
-    view: { xMin: 0, xMax: 7, yMin: -4, yMax: 4 },
-    layers: [{
-      name: 'Chirp', type: 'function', exprs: { y: '3 sin(a * x^2) * exp(-0.15x)' },
-      colorMode: 'rainbow', wave: 'sine', width: 3, style: 'line', volume: 0.55,
-    }],
-    params: { a: 1.6 },
-    visual: { drawMode: 'trace', motionBlur: { enabled: true, amount: 0.7 } },
-    audio: { scale: 'hirajoshi', root: 4, articulation: 'pluck', reverb: { mix: 0.5, decay: 5 } },
-  },
-  {
-    name: 'Four on the Floor',
-    mode: '2d',
-    transport: { duration: 15.484, bpm: 124 }, // 8 bars
-    view: { xMin: 0, xMax: 8, yMin: -4, yMax: 4 },
-    layers: [
-      { name: 'Lead', type: 'function', exprs: { y: '2.5 sin(1.3x) + 1.2 sin(3.1x)' }, color: '#22e4ff', colorMode: 'pitch', color2: '#ffd23d', wave: 'square', volume: 0.32, width: 4 },
-      { name: 'Bass', type: 'function', exprs: { y: '-2.6 + 0.8 square(x/2) + 0.3 sin(x)' }, color: '#ff3d9a', wave: 'sawtooth', volume: 0.42, octave: -1, style: 'dashed' },
-    ],
-    visual: { drawMode: 'ghost', bloom: { strength: 1 } },
-    audio: { scale: 'minorPentatonic', root: 9, articulation: 'pluck', glide: 6, filter: { cutoff: 4200, q: 2 }, delay: { mix: 0.2, time: 0.242 }, reverb: { mix: 0.2 } },
-    rhythm: { enabled: true, division: '1/16', gate: 0.55, swing: 0.15, showGrid: true },
-    drums: { enabled: true, source: 0, volume: 0.85, kick: 'beat', snare: 'off', hat: 'offbeat', clap: 'peak', sensitivity: 0.12, pulse: true },
-  },
-  {
-    name: 'Morphing Bloom',
-    mode: '2d',
-    transport: { duration: 20 },
-    view: { xMin: -4, xMax: 4, yMin: -4, yMax: 4 },
-    params: { a: 3 },
-    layers: [{
-      name: 'Bloom', type: 'polar', range: { min: 0, max: Math.PI * 2 }, exprs: { r: '1.6 + 1.6 sin(a theta) cos(theta + t/4)' },
-      color: '#22e4ff', color2: '#ff3d9a', colorMode: 'gradient', width: 4, wave: 'triangle', samples: 1600,
-    }],
-    visual: { drawMode: 'ghost', trail: { count: 220 } },
-    audio: { scale: 'major', root: 2, reverb: { mix: 0.45, decay: 4 } },
-    keyframes: {
-      tracks: {
-        'params.a': [{ time: 0, value: 3, ease: 'smooth' }, { time: 7, value: 5, ease: 'smooth' }, { time: 14, value: 8, ease: 'smooth' }, { time: 20, value: 3, ease: 'smooth' }],
-        'visual.bloom.strength': [{ time: 0, value: 0.6, ease: 'smooth' }, { time: 10, value: 1.7, ease: 'smooth' }, { time: 20, value: 0.6, ease: 'smooth' }],
-        'layer.0.color': [{ time: 0, value: '#22e4ff', ease: 'linear' }, { time: 10, value: '#ffd23d', ease: 'linear' }, { time: 20, value: '#22e4ff', ease: 'linear' }],
-        'camera.pose': [
-          { time: 0, value: { mode: '2d', p: [0, 0, 50], t: [0, 0, 0], zoom: 1 }, ease: 'smooth' },
-          { time: 10, value: { mode: '2d', p: [0.6, 0.4, 50], t: [0.6, 0.4, 0], zoom: 1.7 }, ease: 'smooth' },
-          { time: 20, value: { mode: '2d', p: [0, 0, 50], t: [0, 0, 0], zoom: 1 }, ease: 'smooth' },
-        ],
-        'audio.filter.cutoff': [{ time: 0, value: 1200, ease: 'smooth' }, { time: 10, value: 9000, ease: 'smooth' }, { time: 20, value: 1200, ease: 'smooth' }],
-      },
-    },
-  },
+const BASE = new URL('../presets/', import.meta.url);
+// a new build gets fresh copies (the artifact page sets MMV_BUILD); local runs always fetch
+const bust = () => (globalThis.MMV_BUILD ? `?v=${globalThis.MMV_BUILD}` : `?t=${Date.now()}`);
+const cache = new Map();
 
-  /* ---------------------------------------------------------------------
-   * Vertical 9:16 presets for YouTube Shorts / Instagram Reels / TikTok.
-   * Short (12–24 s), one clear idea each, readable on a phone.
-   * ------------------------------------------------------------------- */
-  {
-    name: 'Heartbeat',
-    mode: '2d',
-    transport: { duration: 12, bpm: 75 },
-    view: { xMin: 0, xMax: 4, yMin: -3.5, yMax: 3.5 },
-    layers: [{
-      name: 'ECG', type: 'function',
-      exprs: { y: '3.2 gauss(mod(x,1) - 0.5, 0.025) - 0.9 gauss(mod(x,1) - 0.56, 0.03) + 0.5 gauss(mod(x,1) - 0.78, 0.07) - 1' },
-      color: '#ff3d5e', color2: '#ffd23d', colorMode: 'pitch', width: 5, wave: 'sine', volume: 0.55, samples: 1600,
-    }],
-    visual: { aspect: '9:16', drawMode: 'trace', background: '#07020a', bloom: { strength: 1.4 }, trail: { count: 260 } },
-    audio: { scale: 'minor', root: 9, noteLow: 40, noteHigh: 76, glide: 4, reverb: { mix: 0.3 } },
-    drums: { enabled: true, kick: 'peak', snare: 'off', hat: 'off', clap: 'off', sensitivity: 0.3, volume: 0.9 },
-  },
-  {
-    name: 'Butterfly',
-    mode: '2d',
-    transport: { duration: 24 },
-    view: { xMin: -3.5, xMax: 3.5, yMin: -4.5, yMax: 4.5 },
-    layers: [{
-      name: 'Wings', type: 'polar', range: { min: 0, max: 12 * Math.PI },
-      exprs: { r: '0.9 (exp(sin(theta)) - 2cos(4theta) + sin((2theta - pi)/24)^5)' },
-      colorMode: 'rainbow', width: 3, wave: 'triangle', volume: 0.5, samples: 3000,
-    }],
-    visual: { aspect: '9:16', drawMode: 'trace', marker: { shape: 'diamond', size: 22 } },
-    audio: { scale: 'pentatonic', root: 7, articulation: 'pluck', reverb: { mix: 0.45, decay: 4 }, delay: { mix: 0.2 } },
-  },
-  {
-    name: 'Golden Spiral',
-    mode: '2d',
-    transport: { duration: 18 },
-    view: { xMin: -4, xMax: 4, yMin: -4.5, yMax: 4.5 },
-    layers: [{
-      name: 'Spiral', type: 'parametric', range: { min: 0, max: 6 * Math.PI },
-      exprs: { x: '0.2 exp(0.15s) cos(s)', y: '0.2 exp(0.15s) sin(s)', z: '0' },
-      colorMode: 'gradient', color: '#ffd23d', color2: '#ff3d9a', width: 5, wave: 'sine', volume: 0.55, samples: 1500,
-    }],
-    visual: { aspect: '9:16', drawMode: 'trace', background: '#0b0503', gridColor: '#2b140c', axesColor: '#8a4a2c', marker: { shape: 'star', size: 30 } },
-    audio: { scale: 'major', root: 0, glide: 40, reverb: { mix: 0.4, decay: 3.5 } },
-  },
-  {
-    name: 'Infinity Loop',
-    mode: '2d',
-    transport: { duration: 16 },
-    view: { xMin: -3, xMax: 3, yMin: -4.5, yMax: 4.5 },
-    layers: [{
-      name: 'Eight', type: 'parametric', range: { min: 0, max: 2 * Math.PI },
-      exprs: { x: '2.3 sin(2s)', y: '3.7 sin(s)', z: '0' },
-      color: '#22e4ff', width: 6, wave: 'sine', volume: 0.55, samples: 1200,
-    }],
-    visual: { aspect: '9:16', drawMode: 'ghost', marker: { shape: 'ring', size: 34 }, trail: { count: 300, size: 8 } },
-    audio: { scale: 'dorian', root: 2, glide: 60, delay: { mix: 0.3, time: 0.375 }, reverb: { mix: 0.35 } },
-  },
-  {
-    name: 'Sine Ladder',
-    mode: '2d',
-    transport: { duration: 16, bpm: 120 },
-    view: { xMin: 0, xMax: 4, yMin: -4, yMax: 4 },
-    sequence: { enabled: true, past: 'ghost' },
-    layers: [
-      { name: '1st harmonic', type: 'function', exprs: { y: '3 sin(pi x/2)' }, color: '#22e4ff', width: 5, wave: 'triangle', volume: 0.5 },
-      { name: '2nd harmonic', type: 'function', exprs: { y: '3 sin(pi x)' }, color: '#8cff5a', width: 5, wave: 'triangle', volume: 0.5 },
-      { name: '3rd harmonic', type: 'function', exprs: { y: '3 sin(3pi x/2)' }, color: '#ffd23d', width: 5, wave: 'triangle', volume: 0.5 },
-      { name: '4th harmonic', type: 'function', exprs: { y: '3 sin(2pi x)' }, color: '#ff3d9a', width: 5, wave: 'triangle', volume: 0.5 },
-    ],
-    visual: { aspect: '9:16', drawMode: 'trace' },
-    audio: { scale: 'pentatonic', root: 0, articulation: 'pluck', reverb: { mix: 0.3 } },
-    rhythm: { enabled: true, division: '1/8', gate: 0.7 },
-    drums: { enabled: true, kick: 'beat', hat: 'offbeat', snare: 'off', clap: 'off', volume: 0.6 },
-  },
-  {
-    name: 'Fourier Square',
-    mode: '2d',
-    transport: { duration: 20, bpm: 96 },
-    view: { xMin: 0, xMax: 4, yMin: -4, yMax: 4 },
-    sequence: { enabled: true, past: 'ghost' },
-    layers: [
-      { name: '1 term', type: 'function', exprs: { y: '3 sin(pi x)' }, color: '#22e4ff', width: 4, wave: 'sine', volume: 0.5, samples: 1500 },
-      { name: '2 terms', type: 'function', exprs: { y: '3 (sin(pi x) + sin(3pi x)/3)' }, color: '#8cff5a', width: 4, wave: 'sine', volume: 0.5, samples: 1500 },
-      { name: '3 terms', type: 'function', exprs: { y: '3 (sin(pi x) + sin(3pi x)/3 + sin(5pi x)/5)' }, color: '#ffd23d', width: 4, wave: 'sine', volume: 0.5, samples: 1500 },
-      { name: '6 terms', type: 'function', exprs: { y: '3 (sin(pi x) + sin(3pi x)/3 + sin(5pi x)/5 + sin(7pi x)/7 + sin(9pi x)/9 + sin(11pi x)/11)' }, color: '#ff3d9a', width: 4, wave: 'square', volume: 0.35, samples: 1500 },
-    ],
-    visual: { aspect: '9:16', drawMode: 'trace' },
-    audio: { scale: 'minor', root: 5, articulation: 'pluck', reverb: { mix: 0.3 } },
-    rhythm: { enabled: true, division: '1/16', gate: 0.6 },
-  },
-  {
-    name: 'Rose Mandala',
-    mode: '2d',
-    transport: { duration: 20 },
-    view: { xMin: -3.5, xMax: 3.5, yMin: -4.5, yMax: 4.5 },
-    sequence: { enabled: true, past: 'keep' },
-    layers: [
-      { name: '4 petals', type: 'polar', range: { min: 0, max: 2 * Math.PI }, exprs: { r: '3 cos(2theta)' }, color: '#22e4ff', width: 3, wave: 'triangle', volume: 0.45, samples: 1400 },
-      { name: '3 petals', type: 'polar', range: { min: 0, max: 2 * Math.PI }, exprs: { r: '3 cos(3theta)' }, color: '#ff3d9a', width: 3, wave: 'triangle', volume: 0.45, samples: 1400 },
-      { name: '5 petals', type: 'polar', range: { min: 0, max: 2 * Math.PI }, exprs: { r: '3 cos(5theta)' }, color: '#ffd23d', width: 3, wave: 'triangle', volume: 0.45, samples: 1400 },
-      { name: '7 petals', type: 'polar', range: { min: 0, max: 2 * Math.PI }, exprs: { r: '3 cos(7theta)' }, color: '#8cff5a', width: 3, wave: 'triangle', volume: 0.45, samples: 1400 },
-    ],
-    visual: { aspect: '9:16', drawMode: 'trace', marker: { shape: 'star', size: 26 } },
-    audio: { scale: 'major', root: 4, articulation: 'pluck', reverb: { mix: 0.5, decay: 5 } },
-  },
-  {
-    name: 'Bouncing Ball',
-    mode: '2d',
-    transport: { duration: 12, bpm: 90 },
-    view: { xMin: 0, xMax: 4, yMin: -4, yMax: 4 },
-    layers: [{
-      name: 'Ball', type: 'function', exprs: { y: '7 |cos(1.5pi x)| exp(-0.3x) - 3.6' },
-      color: '#ffd23d', color2: '#ff3d5e', colorMode: 'pitch', width: 3, style: 'dots', wave: 'triangle', volume: 0.5, samples: 1200,
-    }],
-    visual: { aspect: '9:16', drawMode: 'trace', marker: { shape: 'circle', size: 44, cursorLine: false }, trail: { count: 200, size: 9 } },
-    audio: { scale: 'major', root: 0, glide: 15 },
-    drums: { enabled: true, kick: 'valley', snare: 'off', hat: 'off', clap: 'off', sensitivity: 0.2, volume: 0.9 },
-  },
-  {
-    name: 'Heart',
-    mode: '2d',
-    transport: { duration: 12 },
-    view: { xMin: -3.2, xMax: 3.2, yMin: -4, yMax: 4 },
-    layers: [{
-      name: 'Heart', type: 'parametric', range: { min: 0, max: 2 * Math.PI },
-      exprs: { x: '2.6 sin(s)^3', y: '0.17 (13cos(s) - 5cos(2s) - 2cos(3s) - cos(4s)) + 0.4', z: '0' },
-      colorMode: 'gradient', color: '#ff3d9a', color2: '#ff3d5e', width: 6, wave: 'triangle', volume: 0.55, samples: 1200,
-    }],
-    visual: { aspect: '9:16', drawMode: 'trace', background: '#0d0208', gridColor: '#2a0b1c', axesColor: '#7a2a52', marker: { shape: 'diamond', size: 28 }, trail: { count: 260 } },
-    audio: { scale: 'major', root: 5, glide: 50, reverb: { mix: 0.45, decay: 4 } },
-  },
-  {
-    name: 'DNA Helix',
-    mode: '3d',
-    transport: { duration: 20 },
-    view: { xMin: -2.5, xMax: 2.5, yMin: -4.5, yMax: 4.5 },
-    layers: [
-      { name: 'Strand A', type: 'parametric', range: { min: 0, max: 4 * Math.PI },
-        exprs: { x: '1.4 cos(s)', y: '0.6s - 3.8', z: '1.4 sin(s)' }, colorMode: 'gradient', color: '#22e4ff', color2: '#8cff5a', width: 5, wave: 'sine', zMap: 'pan', volume: 0.5 },
-      { name: 'Strand B', type: 'parametric', range: { min: 0, max: 4 * Math.PI },
-        exprs: { x: '1.4 cos(s + pi)', y: '0.6s - 3.8', z: '1.4 sin(s + pi)' }, colorMode: 'gradient', color: '#ff3d9a', color2: '#ffd23d', width: 5, wave: 'triangle', zMap: 'pan', volume: 0.4, octave: 1 },
-    ],
-    visual: { aspect: '9:16', drawMode: 'trace', showGrid: false, fog: { enabled: true, density: 0.03 } },
-    camera: { autoRotate: true, rotateSpeed: 1.6, fov: 50 },
-    audio: { scale: 'major', root: 2, articulation: 'pluck', reverb: { mix: 0.4 } },
-    rhythm: { enabled: true, division: '1/8', gate: 0.8 },
-  },
-  ...CIRCLE_PRESETS,
-  ...LAB_PRESETS,
-  ...TOPIC_PRESETS,
-  ...SOUND_PRESETS,
-  ...STACK_PRESETS,
-].map((p) => ({ ...p, $category: p.$category || categoryOf(p) }));
-
-/** Library shelf of a built-in preset. */
-export function categoryOf(p) {
-  if (p.mode === 'circle') {
-    if (p.circle?.layers?.length) return 'Circle · Stories & split screens';
-    const sc = SCENES[p.circle?.rule];
-    return `Circle · ${sc ? sc.group : 'Classic circle'}`;
+/** Fetch one JSON file of the catalog (once). */
+function get(path) {
+  if (!cache.has(path)) {
+    cache.set(path, fetch(new URL(path, BASE).href + bust()).then((r) => {
+      if (!r.ok) throw new Error(`${path}: ${r.status}`);
+      return r.json();
+    }).catch((err) => { cache.delete(path); throw err; }));
   }
-  return p.mode === '3d' ? 'Formulas · 3D' : 'Formulas · 2D';
+  return cache.get(path);
 }
 
-/** Shelf order in the library. */
-export const CATEGORY_ORDER = ['Circle · Stories & split screens', 'Circle · Classic circle', 'Circle · Multiply & split', 'Circle · Fill the screen', 'Circle · Battles & formulas',
-  'Circle · Battles & growth', 'Circle · Vibration & waves', 'Circle · Waves & sound', 'Circle · Fourier & curves', 'Circle · Calculus & trig', 'Circle · Pi', 'Circle · Fractals', 'Circle · Patterns & rhythm', 'Circle · Drawing machines', 'Circle · Bounce & draw', 'Formulas · Sound of a graph', 'Formulas · Guess & compare', 'Formulas · 2D', 'Formulas · 3D'];
+/** { shelves: [{id, name, section, count, file, names}], packs: [{id, name, about, collection, count, file}] } */
+export const loadCatalog = () => get('index.json');
+
+/** The presets of one shelf, each tagged with its shelf name ($category). */
+export async function loadShelf(id) {
+  const cat = await loadCatalog();
+  const shelf = cat.shelves.find((s) => s.id === id);
+  if (!shelf) return [];
+  const data = await get(shelf.file);
+  return data.presets.map((p) => ({ ...p, $category: shelf.name, $shelf: shelf.id }));
+}
+
+/** Every shelf at once (the library's search and lists): [{shelf, presets}] in catalog order. */
+export async function loadAllShelves() {
+  const cat = await loadCatalog();
+  return Promise.all(cat.shelves.map(async (s) => ({ shelf: s, presets: await loadShelf(s.id) })));
+}
+
+/** The lessons of one pack. */
+export async function loadPack(id) {
+  const cat = await loadCatalog();
+  const pack = cat.packs.find((p) => p.id === id);
+  return pack ? (await get(pack.file)).presets : [];
+}

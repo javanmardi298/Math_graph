@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p30",
+          "id": "Lmv52dnbq0",
           "name": "Layer 164",
           "enabled": true,
           "type": "function",
@@ -153,7 +153,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Where will most balls land?"
@@ -518,7 +520,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p30",
+          "id": "Lmv52dnbq0",
           "name": "Layer 166",
           "enabled": true,
           "type": "function",
@@ -644,7 +646,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Which pyramid fills up first?"
@@ -1012,7 +1016,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p30",
+          "id": "Lmv52dnbq0",
           "name": "Layer 168",
           "enabled": true,
           "type": "function",
@@ -1138,7 +1142,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How long until it is full?"
@@ -1505,7 +1511,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p30",
+          "id": "Lmv52dnbq0",
           "name": "Layer 170",
           "enabled": true,
           "type": "function",
@@ -1631,7 +1637,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can you predict one ball?"
@@ -1998,7 +2006,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p30",
+          "id": "Lmv52dnbq0",
           "name": "Layer 172",
           "enabled": true,
           "type": "function",
@@ -2124,7 +2132,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How many cuts to make 64 pieces?"
@@ -2492,7 +2502,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p30",
+          "id": "Lmv52dnbq0",
           "name": "Layer 174",
           "enabled": true,
           "type": "function",
@@ -2618,7 +2628,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How many circles fit?"

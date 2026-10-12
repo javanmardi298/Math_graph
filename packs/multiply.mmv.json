@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p10",
+          "id": "Lmv52dnbp0",
           "name": "Layer 152",
           "enabled": true,
           "type": "function",
@@ -153,7 +153,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Which grows faster: ×2, ×3 or ×4?"
@@ -519,7 +521,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p10",
+          "id": "Lmv52dnbp0",
           "name": "Layer 154",
           "enabled": true,
           "type": "function",
@@ -645,7 +647,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Adding or multiplying: which wins?"
@@ -1012,7 +1016,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p10",
+          "id": "Lmv52dnbp0",
           "name": "Layer 156",
           "enabled": true,
           "type": "function",
@@ -1138,7 +1142,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How small can the pieces get?"
@@ -1504,7 +1510,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p10",
+          "id": "Lmv52dnbp0",
           "name": "Layer 158",
           "enabled": true,
           "type": "function",
@@ -1630,7 +1636,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How many balls per escape fills the screen?"
@@ -1992,7 +2000,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p10",
+          "id": "Lmv52dnbp0",
           "name": "Layer 160",
           "enabled": true,
           "type": "function",
@@ -2118,7 +2126,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What happens when every touch makes a ball?"
@@ -2488,7 +2498,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8p10",
+          "id": "Lmv52dnbp0",
           "name": "Layer 162",
           "enabled": true,
           "type": "function",
@@ -2614,7 +2624,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How fast can cells fill a box?"

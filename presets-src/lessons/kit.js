@@ -6,7 +6,7 @@
  *   circleLesson  one Circle Lab simulation, played 2–4 times with different settings
  *   mathLesson    2D / 3D formula layers played one after another, a caption per step
  */
-import { Y, S } from '../circle/presets-stack.js';
+import { Y, S } from '../circle-stories.js';
 
 const TAGS = 'math, physics, learn, education, science, satisfying, shorts';
 

@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8ou0",
+          "id": "Lmv52dnbm0",
           "name": "Layer 124",
           "enabled": true,
           "type": "function",
@@ -153,7 +153,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How did Archimedes find π?"
@@ -518,7 +520,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8ov0",
+          "id": "Lmv52dnbm0",
           "name": "Layer 126",
           "enabled": true,
           "type": "function",
@@ -644,7 +646,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can random dots find π?"
@@ -1012,7 +1016,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8ov0",
+          "id": "Lmv52dnbm0",
           "name": "Layer 128",
           "enabled": true,
           "type": "function",
@@ -1138,7 +1142,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can needles on a floor find π?"
@@ -1506,7 +1512,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8ov0",
+          "id": "Lmv52dnbm0",
           "name": "Layer 130",
           "enabled": true,
           "type": "function",
@@ -1632,7 +1638,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Which formula finds π fastest?"
@@ -2000,7 +2008,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8ov0",
+          "id": "Lmv52dnbm0",
           "name": "Layer 132",
           "enabled": true,
           "type": "function",
@@ -2126,7 +2134,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Do the digits of π have a pattern?"

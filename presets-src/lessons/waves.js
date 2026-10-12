@@ -3,7 +3,7 @@
  * through an idea with several simulations.
  */
 import { circleLesson as L } from './kit.js';
-import { Y, S as story } from '../circle/presets-stack.js';
+import { Y, S as story } from '../circle-stories.js';
 
 const TAGS = 'math, physics, waves, sound, education, learn, science, satisfying, shorts';
 const opts = (o) => ({ duration: 33, bpm: 100, tags: TAGS, ...o });

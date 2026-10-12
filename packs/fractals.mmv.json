@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8ow0",
+          "id": "Lmv52dnbm0",
           "name": "Layer 134",
           "enabled": true,
           "type": "function",
@@ -153,7 +153,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What is the Mandelbrot set?"
@@ -521,7 +523,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8ow0",
+          "id": "Lmv52dnbm0",
           "name": "Layer 136",
           "enabled": true,
           "type": "function",
@@ -647,7 +649,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "One number shapes a whole fractal"
@@ -1018,7 +1022,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8ow0",
+          "id": "Lmv52dnbm0",
           "name": "Layer 138",
           "enabled": true,
           "type": "function",
@@ -1144,7 +1148,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can one rule make infinite detail?"

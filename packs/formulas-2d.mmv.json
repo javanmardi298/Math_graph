@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8on0",
+          "id": "Lmv52dnbg0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -59,7 +59,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8on1",
+          "id": "Lmv52dnbg1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -91,7 +91,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8on2",
+          "id": "Lmv52dnbg2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -217,7 +217,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What does the number in front do?"
@@ -438,7 +440,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8on0",
+          "id": "Lmv52dnbg0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -470,7 +472,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8on1",
+          "id": "Lmv52dnbg1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -502,7 +504,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8on2",
+          "id": "Lmv52dnbg2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -628,7 +630,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What does the number inside do?"
@@ -849,7 +853,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oo0",
+          "id": "Lmv52dnbg0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -881,7 +885,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo1",
+          "id": "Lmv52dnbg1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -913,7 +917,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo2",
+          "id": "Lmv52dnbg2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -1039,7 +1043,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Is cosine just a moved sine?"
@@ -1260,7 +1266,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oo0",
+          "id": "Lmv52dnbg0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -1292,7 +1298,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo1",
+          "id": "Lmv52dnbg1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -1324,7 +1330,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo2",
+          "id": "Lmv52dnbg2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -1450,7 +1456,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What do two waves make together?"
@@ -1671,7 +1679,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oo0",
+          "id": "Lmv52dnbg0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -1703,7 +1711,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo1",
+          "id": "Lmv52dnbg1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -1735,7 +1743,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo2",
+          "id": "Lmv52dnbg2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -1861,7 +1869,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Can smooth waves make sharp corners?"
@@ -2082,7 +2092,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oo0",
+          "id": "Lmv52dnbh0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -2114,7 +2124,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo1",
+          "id": "Lmv52dnbh1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -2146,7 +2156,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo2",
+          "id": "Lmv52dnbh2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -2272,7 +2282,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What does the slope sound like?"
@@ -2493,7 +2505,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oo0",
+          "id": "Lmv52dnbh0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -2525,7 +2537,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo1",
+          "id": "Lmv52dnbh1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -2557,7 +2569,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo2",
+          "id": "Lmv52dnbh2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -2683,7 +2695,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How do you move a parabola?"
@@ -2904,7 +2918,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oo0",
+          "id": "Lmv52dnbh0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -2936,7 +2950,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo1",
+          "id": "Lmv52dnbh1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -2968,7 +2982,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo2",
+          "id": "Lmv52dnbh2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -3094,7 +3108,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Why do plucked notes fade?"
@@ -3315,7 +3331,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oo0",
+          "id": "Lmv52dnbh0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -3347,7 +3363,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo1",
+          "id": "Lmv52dnbh1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -3379,7 +3395,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo2",
+          "id": "Lmv52dnbh2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -3505,7 +3521,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What do the bars | | do?"
@@ -3726,7 +3744,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oo0",
+          "id": "Lmv52dnbh0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -3758,7 +3776,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo1",
+          "id": "Lmv52dnbh1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -3790,7 +3808,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo2",
+          "id": "Lmv52dnbh2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -3916,7 +3934,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What does a graph sound like?"
@@ -4137,7 +4157,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oo0",
+          "id": "Lmv52dnbh0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -4169,7 +4189,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo1",
+          "id": "Lmv52dnbh1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -4201,7 +4221,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo2",
+          "id": "Lmv52dnbh2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -4327,7 +4347,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "Where do synth sounds come from?"
@@ -4548,7 +4570,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oo0",
+          "id": "Lmv52dnbh0",
           "name": "Step 1",
           "enabled": true,
           "type": "polar",
@@ -4580,7 +4602,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo1",
+          "id": "Lmv52dnbh1",
           "name": "Step 2",
           "enabled": true,
           "type": "polar",
@@ -4612,7 +4634,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo2",
+          "id": "Lmv52dnbh2",
           "name": "Step 3",
           "enabled": true,
           "type": "polar",
@@ -4738,7 +4760,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What if distance depends on the angle?"
@@ -4959,7 +4983,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oo0",
+          "id": "Lmv52dnbh0",
           "name": "Step 1",
           "enabled": true,
           "type": "polar",
@@ -4991,7 +5015,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo1",
+          "id": "Lmv52dnbh1",
           "name": "Step 2",
           "enabled": true,
           "type": "polar",
@@ -5023,7 +5047,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo2",
+          "id": "Lmv52dnbh2",
           "name": "Step 3",
           "enabled": true,
           "type": "polar",
@@ -5149,7 +5173,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "How many petals does cos 2θ have?"
@@ -5370,7 +5396,7 @@
       },
       "layers": [
         {
-          "id": "Lmv51o8oo0",
+          "id": "Lmv52dnbh0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -5402,7 +5428,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo1",
+          "id": "Lmv52dnbh1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -5434,7 +5460,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv51o8oo2",
+          "id": "Lmv52dnbh2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -5560,7 +5586,9 @@
           "flash": true,
           "impact": true
         },
-        "outro": 0.6
+        "outro": 0.6,
+        "loop": false,
+        "loopBlend": 0.8
       },
       "hook": {
         "text": "What if x and y both follow a formula?"
