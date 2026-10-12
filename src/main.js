@@ -159,6 +159,8 @@ if (SAFE_GPU) {
 }
 
 const audio = new AudioEngine();
+/** The audio settings plus the tempo (the pump effect ducks on the beat). */
+const audioSettings = () => ({ ...structuredClone(store.state.audio), bpm: store.state.transport.bpm });
 const recorder = new Recorder();
 const scanner = new DrumScanner();
 /** @type {Map<string, CompiledLayer>} */
@@ -276,7 +278,7 @@ function applyKeyframesAt(time, effects = true) {
     if (l?.enabled && compiled.get(l.id)) viz.rebuildLayer(l.id, compiled.get(l.id), evalCtx(time));
   }
   if (changed.has('visual') || changed.has('camera') || [...changed].some((c) => c.startsWith('layer:'))) viz.applySettings();
-  if (changed.has('audio')) audio.applySettings(store.state.audio);
+  if (changed.has('audio') || changed.has('transport')) audio.applySettings(audioSettings());
   if (changed.has('pose')) viz.setPose(values.get('camera.pose'));
   if (changed.size && !RENDER_MODE) refreshControlsSoon();
 }
@@ -416,7 +418,7 @@ function applyAll() {
   viz.applySettings();
   viz.buildGrid();
   viz.setMarkerImage(store.state.visual.marker.image);
-  audio.applySettings(store.state.audio);
+  audio.applySettings(audioSettings());
   applyDrumVolume();
   rebuildAll();
   applyTheme();
@@ -498,11 +500,12 @@ store.on((path) => {
       viz.applySettings();
       break;
     case 'audio':
-      audio.applySettings(store.state.audio);
+      audio.applySettings(audioSettings());
       break;
     case 'transport':
       if (second === 'duration') { updateTimelineCurves(); panels.renderSequence(); }
       if (second === 'duration' || second === 'bpm') { viz.buildGrid(); timeline.draw(); }
+      if (second === 'bpm') audio.applySettings(audioSettings()); // the pump follows the tempo
       break;
     case 'rhythm':
       viz.buildGrid();
@@ -554,7 +557,7 @@ async function ensureAudio() {
   } catch (err) {
     toast(`Audio could not start: ${err.message}`);
   }
-  audio.applySettings(store.state.audio);
+  audio.applySettings(audioSettings());
   audio.syncLayers(store.state.layers);
   applyDrumVolume();
 }
@@ -878,7 +881,7 @@ async function renderWavBuffer() {
   const audioAnimated = tracks.some((p) => p.startsWith('audio.'));
   try {
     return await AudioEngine.renderOffline({
-      settings: structuredClone(a),
+      settings: { ...structuredClone(a), bpm: store.state.transport.bpm },
       layers: enabled,
       duration: dur,
       glide: a.glide,
@@ -886,7 +889,7 @@ async function renderWavBuffer() {
       drumEvents,
       drumVolume: drums.enabled ? drums.volume : 0,
       frameAt: (time) => { applyKeyframesAt(time, false); return voicesAt(time); },
-      settingsAt: audioAnimated ? (time) => { applyKeyframesAt(time, false); return structuredClone(store.state.audio); } : null,
+      settingsAt: audioAnimated ? (time) => { applyKeyframesAt(time, false); return audioSettings(); } : null,
     });
   } finally {
     applyKeyframesAt(clock.pos, true);
@@ -923,7 +926,7 @@ async function renderCircleWav() {
   }
   notes.sort((x, y) => x.t - y.t);
   return AudioEngine.renderNotesOffline({
-    settings: structuredClone(a), duration: dur, notes, instrument: c.sound.instrument, length: c.sound.length, volume: c.sound.volume,
+    settings: { ...structuredClone(a), bpm: store.state.transport.bpm }, duration: dur, notes, instrument: c.sound.instrument, length: c.sound.length, volume: c.sound.volume,
     drumEvents, drumVolume: drums.enabled || hitDrums ? drums.volume : 0,
   });
 }

@@ -2,7 +2,8 @@
  * Builds the preset catalog the app loads at run time (nothing about presets is
  * compiled into the app):
  *
- *   presets/index.json            shelves (name, section, count) and lesson packs
+ *   presets/index.json            shelves (name, section, count), lesson packs, sound presets
+ *   presets/sounds.json           sound presets for the Sound tab (sound settings only)
  *   presets/shelves/<id>.json     the presets of one shelf (partial states)
  *   presets/lessons/<id>.json     the lessons of one pack
  *   packs/<id>.mmv.json           the same lesson packs as importable files (full states)
@@ -12,6 +13,7 @@
  *   node scripts/build-presets.mjs           write the files
  *   node scripts/build-presets.mjs --check   fail if presets/ is out of date
  */
+import { SOUND_PRESETS, SOUND_GROUPS } from '../presets-src/sounds.js';
 import { readFile, writeFile, mkdir, readdir, rm } from 'node:fs/promises';
 import { SHELVES, START_HERE, ALL_PRESETS, DEFAULT_NAME, shelfOf } from '../presets-src/catalog.js';
 import { PACKS, collectionOf } from '../presets-src/lessons/index.js';
@@ -57,7 +59,10 @@ for (const pack of PACKS) {
 const allLessons = [];
 for (const pack of PACKS) for (const p of await pack.load()) allLessons.push({ ...normalize(p), $collection: collectionOf(pack) });
 out.set('packs/all-lessons.mmv.json', JSON.stringify({ $format: 'math-melody-presets', version: 1, presets: allLessons }, null, 1));
-out.set('presets/index.json', json({ $format: 'math-melody-catalog', version: 1, default: DEFAULT_NAME, presets: ALL_PRESETS.length, shelves, packs }));
+// sound presets (Sound tab): sound settings only, no drawing
+out.set('presets/sounds.json', json({ $format: 'math-melody-sounds', version: 1, groups: SOUND_GROUPS, presets: SOUND_PRESETS }));
+const sounds = { file: 'sounds.json', count: SOUND_PRESETS.length };
+out.set('presets/index.json', json({ $format: 'math-melody-catalog', version: 1, default: DEFAULT_NAME, presets: ALL_PRESETS.length, shelves, packs, sounds }));
 
 if (check) {
   const stale = [];

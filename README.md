@@ -93,7 +93,7 @@ fractions of the frame, so the layout is identical at 720p and 4K, and in export
 | Circle Lab (◎) | A separate mode for the “satisfying” circle genre, drawn with Canvas 2D (no WebGL): **chord walker** (jump a fixed fraction of a turn: rational steps close into star polygons, irrational ones such as 1/φ² never close), **bouncing balls** (gravity, bounciness, speed-up per bounce), **split on every bounce** (1 → 2 → 4 … up to 512), **grow on every bounce**, **escape the rings** (spinning rings with gaps) and **polyrhythm arcs**. Every hit plays a note: by where it lands on the circle, the next note of a melody (Ode to Joy, Für Elise, Twinkle, Greensleeves, Bach, Pachelbel, Grieg, or your own notes), a rising scale or one note per ball, with any of the 35 sounds and an optional drum per hit. Neon palettes, trails that build into the pattern (or fade), comet tails, sparks, ring pulses, counters and the rule as a formula line. Deterministic (same settings → same video), so live play, WAV, video and batch exports match. 12 presets with hooks and YouTube texts |
 | Camera | Auto-rotate, follow, field of view, plus **moves with the music**: follow the pen (close-up tracking shots, adjustable smoothness for a slow-motion feel), beat punch zoom on kicks/snares, roll; all keyframable together with camera position/zoom for pull-back reveals |
 | Visuals | 2D (orthographic) and 3D (orbit camera); trace, ghost or full drawing; solid, gradient, rainbow or pitch colouring; solid, dashed or dotted lines; neon bloom, particle trails, motion blur, fog, depth of field; playhead shapes or your own image; 6 colour palettes |
-| Sound | Web Audio synth with **35 sounds per layer** in a grouped list with preview: basic waves; house & deep house (chord stab, garage chord, deep organ, house piano, deep bass, dub chord); techno & acid (303 squelch, acid square, techno stab, reese, FM bass); psychedelic & trance (rolling psy bass, psychedelic lead, supersaw, wobble, squelchy FM, space arp); pads (warm, glass, choir, drone); keys & bells (e-piano, FM bell, marimba, kalimba, music box, pluck, harp); retro (chiptune, vibrato lead, flute). A safety limiter keeps exports from clipping; scale quantising (major, minor, pentatonic, blues, dorian, hirajoshi…) in any key; glide; legato or pluck articulation; filter, distortion, delay, reverb; spectrum or waveform analyzer |
+| Sound | Web Audio synth with **35 sounds per layer** in a grouped list with preview: basic waves; house & deep house (chord stab, garage chord, deep organ, house piano, deep bass, dub chord); techno & acid (303 squelch, acid square, techno stab, reese, FM bass); psychedelic & trance (rolling psy bass, psychedelic lead, supersaw, wobble, squelchy FM, space arp); pads (warm, glass, choir, drone); keys & bells (e-piano, FM bell, marimba, kalimba, music box, pluck, harp); retro (chiptune, vibrato lead, flute). A safety limiter keeps exports from clipping. **115 scales** in any key, grouped: modes, psychedelic & microtonal (whole tone, octatonic, Messiaen, overtone series, just intonation, quarter tones, 19-EDO, Bohlen–Pierce, Wendy Carlos alpha/beta), Arabic & Turkish maqamat with quarter tones, Persian dastgah, Indian ragas, Japanese, Chinese, gamelan pelog/slendro, Thai, Ethiopian qenet and other African tunings, flamenco, klezmer and European folk; tuning A4 = 440/432/444/415 Hz; glide; legato or pluck; filter with **wah** (LFO), drive, **lo-fi** bit crush, **chorus / flanger / phaser**, **tremolo**, **auto-pan**, **pump** (sidechain duck on the beat), **drone** (tanpura-like root + fifth), delay with **ping-pong**, reverb with brightness and pre-delay; **185 sound presets** in 16 groups with ◀ ▶ stepping, 🎲, Default and Undo; spectrum or waveform analyzer |
 | Beat grid | BPM, note value (1/4 … 1/32, triplets), gate (note length), swing; the pitch is held per step so any curve becomes a rhythmic melody; beat lines on the graph and bars on the timeline; "fit length to N bars" |
 | Drums | Synthesized kick, snare, hi-hat and clap (no samples). Each one fires on curve peaks, valleys, crossings of the middle, or on beats, off-beats, steps or bars of a source layer. Hits flash the glow and send out rings |
 | Keyframes | Animate parameters a–d, glow, playhead and particle size, motion blur, background colour, camera position/FOV/rotation, master volume, filter, reverb and delay, plus each layer's colours, volume, thickness and pan. Smooth, linear or hold easing; auto-key; keys shown on the timeline; `K` adds a camera key |
@@ -117,10 +117,12 @@ fetches the first time the library needs them:
 presets-src/            authoring: preset lists written in JS (helpers, shared settings)
   catalog.js            shelves, “Start here” picks, which file goes where
   lessons/              the lesson packs
+  sounds.js             the sound presets of the Sound tab (sound settings only)
 presets/                generated, loaded by the app (never edit by hand)
-  index.json            shelves, counts, names, lesson packs
+  index.json            shelves, counts, names, lesson packs, sound presets
   shelves/<id>.json     one shelf
   lessons/<id>.json     one lesson pack
+  sounds.json           185 sound presets
 packs/<id>.mmv.json     the lesson packs as importable files (Library → Import)
 ```
 
@@ -189,6 +191,7 @@ src/
     layout-editor.js    drag/resize overlay elements directly on the video
     library-view.js     Presets tab (catalog shelves, my presets, lesson packs)
     daily-view.js       Daily tab (posting plan, queue, ideas)
+    sound-presets-view.js  sound presets picker (Sound tab)
   daily/
     remix.js            new presets from existing ones + YouTube words from templates
     planner.js          weekday themes, daily picks, repeat checks, CSV

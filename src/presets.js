@@ -7,6 +7,7 @@
  *   presets/index.json          shelves (name, section, count, preset names), lesson packs
  *   presets/shelves/<id>.json   one shelf's presets
  *   presets/lessons/<id>.json   one lesson pack
+ *   presets/sounds.json         sound presets (Sound tab)
  */
 
 /** The preset the app opens with the very first time (kept here so it starts offline too). */
@@ -57,3 +58,6 @@ export async function loadPack(id) {
   const pack = cat.packs.find((p) => p.id === id);
   return pack ? (await get(pack.file)).presets : [];
 }
+
+/** Sound presets: { groups: [name], presets: [{name, group, about, instrument, audio}] }. */
+export const loadSounds = () => get('sounds.json');

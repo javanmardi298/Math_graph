@@ -90,10 +90,17 @@ export function defaultState() {
       root: 0,
       glide: 25,
       articulation: 'legato', // legato | pluck
-      filter: { type: 'lowpass', cutoff: 9000, q: 0.8 },
+      tuning: 440, // A4 in Hz (432 = the "calm" tuning some channels use)
+      // lfo: wah, the cutoff swings by this fraction at lfoRate Hz
+      filter: { type: 'lowpass', cutoff: 9000, q: 0.8, lfo: 0, lfoRate: 0.5 },
       distortion: 0,
-      delay: { time: 0.28, feedback: 0.3, mix: 0.15 },
-      reverb: { decay: 2.6, mix: 0.25 },
+      crush: 0, // lo-fi bit reduction 0..1
+      mod: { type: 'off', rate: 0.6, depth: 0.5, mix: 0.5 }, // off | chorus | flanger | phaser
+      motion: { tremolo: 0, tremoloRate: 5, autopan: 0, panRate: 0.25 },
+      pump: { amount: 0, rate: 1 }, // sidechain duck every `rate` beats at the project tempo
+      drone: { volume: 0, octave: 2, fifth: true, bright: 0.4 }, // root (+ fifth) held under everything
+      delay: { time: 0.28, feedback: 0.3, mix: 0.15, pingpong: false },
+      reverb: { decay: 2.6, mix: 0.25, tone: 1, preDelay: 0 }, // tone: 1 = bright (classic), 0 = dark hall
     },
     // Export. fileName '' = use the project name. subframes > 1 = real motion blur
     // (each video frame averages several sub-frames, like a film camera's shutter).
@@ -146,7 +153,7 @@ function setPath(obj, path, value) {
 }
 
 /** Deep-merge a (possibly partial or older) snapshot over defaults. */
-function mergeDeep(base, patch) {
+export function mergeDeep(base, patch) {
   if (Array.isArray(patch)) return patch;
   if (patch && typeof patch === 'object' && base && typeof base === 'object' && !Array.isArray(base)) {
     const out = { ...base };

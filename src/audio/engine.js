@@ -2,9 +2,11 @@
  * Real-time synth built directly on the Web Audio API (no samples, no libraries).
  *
  *   voice per layer:  Instrument (oscillators/FM/LFO → filter) → Amp → StereoPanner ┐
- *                                                     ├→ Bus → Filter → Drive ┬→ Dry ─────────┐
- *                                                     │                       ├→ Delay(+fb) ──┤→ Compressor → Master → Analyser → speakers
- *                                                                             └→ Reverb ──────┘                     └→ MediaStream (video recording)
+ *   drone (root + fifth) ────────────────────────────────────────────────────────────┤
+ *     Bus → Filter (± LFO wah) → Drive → Lo-fi crush → Modulation (chorus / flanger / phaser)
+ *       → Tremolo → Auto-pan → Pump (sidechain duck) ┬→ Dry ──────────────────┐
+ *                                                    ├→ Delay(+fb) or ping-pong ┤→ Compressor → Master → Analyser → speakers
+ *                                                    └→ Pre-delay → Reverb ───┘                     └→ MediaStream (video recording)
  *   drums:            DrumKit ────────────────────────────────────────────────────┬──────────────→ Compressor
  *                                                                                 └→ Reverb (small send)
  *
@@ -58,12 +60,106 @@ export class AudioEngine {
     this.analyser.fftSize = 2048;
     this.analyser.smoothingTimeConstant = 0.78;
 
-    this.bus.connect(this.filter).connect(this.drive);
-    this.drive.connect(this.dry).connect(this.comp);
-    this.drive.connect(this.delay);
+    // colour + movement between the drive and the effect sends
+    this.crush = ctx.createWaveShaper();
+    this.modIn = ctx.createGain();
+    this.modDry = ctx.createGain();
+    this.trem = ctx.createGain();
+    this.autopan = ctx.createStereoPanner();
+    this.pump = ctx.createGain();
+    this.bus.connect(this.filter).connect(this.drive).connect(this.crush).connect(this.modIn);
+    this.modIn.connect(this.modDry).connect(this.trem);
+    this.trem.connect(this.autopan).connect(this.pump);
+    // chorus / flanger: two short delays swept in opposite directions, spread left and right
+    this.chorusWet = ctx.createGain();
+    this.chorusWet.gain.value = 0;
+    this.chorusFb = ctx.createGain();
+    this.chorusFb.gain.value = 0;
+    this.chorusDepth = ctx.createGain();
+    this.chorusDepthInv = ctx.createGain();
+    const lfoC = this.lfo(ctx, 0.6);
+    this.chorusLfo = lfoC;
+    lfoC.connect(this.chorusDepth);
+    lfoC.connect(this.chorusDepthInv);
+    this.chorusDelays = [-0.85, 0.85].map((panAt, i) => {
+      const d = ctx.createDelay(0.1);
+      d.delayTime.value = 0.012;
+      (i ? this.chorusDepthInv : this.chorusDepth).connect(d.delayTime);
+      const pan = ctx.createStereoPanner();
+      pan.pan.value = panAt;
+      this.modIn.connect(d);
+      d.connect(pan).connect(this.chorusWet);
+      d.connect(this.chorusFb).connect(d);
+      return d;
+    });
+    this.chorusWet.connect(this.trem);
+    // phaser: four all-pass filters swept together
+    this.phaserWet = ctx.createGain();
+    this.phaserWet.gain.value = 0;
+    this.phaserDepth = ctx.createGain();
+    this.phaserLfo = this.lfo(ctx, 0.4);
+    this.phaserLfo.connect(this.phaserDepth);
+    let node = this.modIn;
+    for (let i = 0; i < 4; i++) {
+      const ap = ctx.createBiquadFilter();
+      ap.type = 'allpass';
+      ap.frequency.value = 700;
+      ap.Q.value = 0.7;
+      this.phaserDepth.connect(ap.frequency);
+      node.connect(ap);
+      node = ap;
+    }
+    node.connect(this.phaserWet).connect(this.trem);
+    // tremolo, auto-pan, filter wah and the pump are LFOs on a gain / pan / cutoff
+    this.tremDepth = ctx.createGain();
+    this.tremLfo = this.lfo(ctx, 5);
+    this.tremLfo.connect(this.tremDepth).connect(this.trem.gain);
+    this.panDepth = ctx.createGain();
+    this.panLfo = this.lfo(ctx, 0.25);
+    this.panLfo.connect(this.panDepth).connect(this.autopan.pan);
+    this.filterDepth = ctx.createGain();
+    this.filterLfo = this.lfo(ctx, 0.5);
+    this.filterLfo.connect(this.filterDepth).connect(this.filter.frequency);
+    this.pumpDepth = ctx.createGain();
+    const beat = 60 / (this.settings?.bpm || 120) * (this.settings?.pump?.rate || 1);
+    this.pumpLfo = this.lfo(ctx, 1 / beat, 'sawtooth', beat / 2); // starts half a cycle late: ducks on the beat
+    this.pumpLfo.connect(this.pumpDepth).connect(this.pump.gain);
+
+    this.pump.connect(this.dry).connect(this.comp);
+    this.pump.connect(this.delay);
     this.delay.connect(this.delayFb).connect(this.delay);
     this.delay.connect(this.delayWet).connect(this.comp);
-    this.drive.connect(this.reverb).connect(this.reverbWet).connect(this.comp);
+    // ping-pong delay: left, then right, then left …
+    this.ppIn = ctx.createGain();
+    this.ppIn.gain.value = 0;
+    this.ppL = ctx.createDelay(2);
+    this.ppR = ctx.createDelay(2);
+    this.ppFb = ctx.createGain();
+    const merge = ctx.createChannelMerger(2);
+    this.pump.connect(this.ppIn).connect(this.ppL);
+    this.ppL.connect(merge, 0, 0);
+    this.ppL.connect(this.ppR);
+    this.ppR.connect(merge, 0, 1);
+    this.ppR.connect(this.ppFb).connect(this.ppL);
+    merge.connect(this.comp);
+    this.preDelay = ctx.createDelay(1);
+    this.pump.connect(this.preDelay).connect(this.reverb).connect(this.reverbWet).connect(this.comp);
+    // drone: root + fifth (+ an octave below), like a tanpura or a synth pad under the melody
+    this.droneGain = ctx.createGain();
+    this.droneGain.gain.value = 0;
+    this.droneFilter = ctx.createBiquadFilter();
+    this.droneFilter.type = 'lowpass';
+    this.droneFilter.frequency.value = 1400;
+    this.droneOsc = [['sawtooth', 0, 0.45], ['sawtooth', 7, 0.3], ['sine', -12, 0.6], ['triangle', 12, 0.12]].map(([type, semi, gain]) => {
+      const o = ctx.createOscillator();
+      o.type = type;
+      const g = ctx.createGain();
+      g.gain.value = gain;
+      o.connect(g).connect(this.droneFilter);
+      o.start();
+      return { o, g, semi, base: gain };
+    });
+    this.droneFilter.connect(this.droneGain).connect(this.bus);
     this.comp.connect(this.master);
     // Drums skip the synth filter/drive so they stay punchy, with a little reverb.
     this.drumBus = ctx.createGain();
@@ -98,6 +194,20 @@ export class AudioEngine {
     return !!this.ctx;
   }
 
+  /** A running low-frequency oscillator. */
+  lfo(ctx, hz, type = 'sine', delay = 0) {
+    const o = ctx.createOscillator();
+    o.type = type;
+    o.frequency.value = hz;
+    o.start(ctx.currentTime + delay);
+    return o;
+  }
+
+  /** Frequency of a (fractional) MIDI note with the chosen tuning (A4 = 440 Hz by default). */
+  freq(midi) {
+    return midiToFreq(midi) * ((this.settings?.tuning || 440) / 440);
+  }
+
   /** The audio track for MediaRecorder. */
   get stream() {
     return this.streamDest?.stream ?? null;
@@ -128,13 +238,76 @@ export class AudioEngine {
     }
     this.delay.delayTime.setTargetAtTime(a.delay.time, t, 0.05);
     this.delayFb.gain.setTargetAtTime(Math.min(a.delay.feedback, 0.92), t, tc);
-    this.delayWet.gain.setTargetAtTime(a.delay.mix, t, tc);
     this.reverbWet.gain.setTargetAtTime(a.reverb.mix, t, tc);
     this.dry.gain.setTargetAtTime(1 - a.reverb.mix * 0.4, t, tc);
-    if (this.reverbDecay !== a.reverb.decay) {
+    const tone = a.reverb.tone ?? 1;
+    if (this.reverbDecay !== a.reverb.decay || this.reverbTone !== tone) {
       this.reverbDecay = a.reverb.decay;
-      this.reverb.buffer = makeImpulse(this.ctx, a.reverb.decay);
+      this.reverbTone = tone;
+      this.reverb.buffer = makeImpulse(this.ctx, a.reverb.decay, tone);
     }
+    this.preDelay.delayTime.setTargetAtTime(a.reverb.preDelay ?? 0, t, 0.05);
+    // ping-pong replaces the plain delay
+    const pp = !!a.delay.pingpong;
+    this.delayWet.gain.setTargetAtTime(pp ? 0 : a.delay.mix, t, tc);
+    this.ppIn.gain.setTargetAtTime(pp ? a.delay.mix : 0, t, tc);
+    this.ppL.delayTime.setTargetAtTime(a.delay.time, t, 0.05);
+    this.ppR.delayTime.setTargetAtTime(a.delay.time, t, 0.05);
+    this.ppFb.gain.setTargetAtTime(Math.min(a.delay.feedback, 0.9), t, tc);
+    // filter wah (LFO on the cutoff)
+    const f = a.filter;
+    this.filterLfo.frequency.setTargetAtTime(f.lfoRate ?? 0.5, t, tc);
+    this.filterDepth.gain.setTargetAtTime((f.lfo ?? 0) * f.cutoff * 0.85, t, tc);
+    // lo-fi: fewer bits
+    const crush = a.crush ?? 0;
+    if (this.crushAmount !== crush) {
+      this.crushAmount = crush;
+      this.crush.curve = crush > 0.001 ? makeCrushCurve(crush) : null;
+    }
+    // modulation
+    const m = a.mod || {};
+    const type = m.type || 'off', mix = m.mix ?? 0.5, depth = m.depth ?? 0.5, rate = m.rate ?? 0.6;
+    const chorus = type === 'chorus' || type === 'flanger';
+    this.modDry.gain.setTargetAtTime(type === 'off' ? 1 : 1 - mix * 0.5, t, tc);
+    this.chorusWet.gain.setTargetAtTime(chorus ? mix : 0, t, tc);
+    this.phaserWet.gain.setTargetAtTime(type === 'phaser' ? mix : 0, t, tc);
+    this.chorusLfo.frequency.setTargetAtTime(rate, t, tc);
+    this.phaserLfo.frequency.setTargetAtTime(rate, t, tc);
+    const base = type === 'flanger' ? 0.004 : 0.014;
+    const swing = (type === 'flanger' ? 0.0032 : 0.006) * depth;
+    for (const d of this.chorusDelays) d.delayTime.setTargetAtTime(base, t, 0.05);
+    this.chorusDepth.gain.setTargetAtTime(chorus ? swing : 0, t, tc);
+    this.chorusDepthInv.gain.setTargetAtTime(chorus ? -swing : 0, t, tc);
+    this.chorusFb.gain.setTargetAtTime(type === 'flanger' ? 0.55 * depth + 0.2 : 0, t, tc);
+    this.phaserDepth.gain.setTargetAtTime(type === 'phaser' ? 650 * depth : 0, t, tc);
+    // tremolo and auto-pan
+    const mo = a.motion || {};
+    const trem = Math.min(1, mo.tremolo ?? 0);
+    this.trem.gain.setTargetAtTime(1 - trem / 2, t, tc);
+    this.tremDepth.gain.setTargetAtTime(trem / 2, t, tc);
+    this.tremLfo.frequency.setTargetAtTime(mo.tremoloRate ?? 5, t, tc);
+    this.panDepth.gain.setTargetAtTime(Math.min(1, mo.autopan ?? 0), t, tc);
+    this.panLfo.frequency.setTargetAtTime(mo.panRate ?? 0.25, t, tc);
+    // pump: duck on every beat (or every 2 / ½ beats) at the project tempo
+    const pu = a.pump || {};
+    const amt = Math.min(0.95, pu.amount ?? 0);
+    this.pump.gain.setTargetAtTime(1 - amt / 2, t, tc);
+    this.pumpDepth.gain.setTargetAtTime(amt / 2, t, tc);
+    this.pumpLfo.frequency.setTargetAtTime((a.bpm || 120) / 60 / (pu.rate || 1), t, tc);
+    // drone pitch (its level follows play/pause in update())
+    const dr = a.drone || {};
+    const root = 12 * ((dr.octave ?? 2) + 1) + (a.root || 0);
+    for (const d of this.droneOsc) {
+      d.o.frequency.setTargetAtTime(this.freq(root + d.semi), t, 0.05);
+      d.g.gain.setTargetAtTime(d.semi === 7 && dr.fifth === false ? 0 : d.base, t, tc);
+    }
+    this.droneFilter.frequency.setTargetAtTime(400 + 2600 * (dr.bright ?? 0.4), t, tc);
+    this.droneLevel = Math.min(1, dr.volume ?? 0) * 0.32;
+  }
+
+  /** Drone on while playing, off when paused. */
+  droneOn(on, t) {
+    this.droneGain.gain.setTargetAtTime(on ? this.droneLevel || 0 : 0, t, on ? 0.4 : 0.15);
   }
 
   /** Drum volume (0..1). */
@@ -176,17 +349,25 @@ export class AudioEngine {
     const t = at ?? this.ctx.currentTime;
     const live = at == null;
     const glide = Math.max(opts.glide, 4) / 1000 / 3; // time constant: ~95% reached after `glide` ms
+    const fine = this.settings?.scale && this.settings.scale !== 'continuous';
+    const droneNow = !!opts.playing && this.droneLevel > 0;
+    if (droneNow !== this.droneActive || (droneNow && this.droneSetLevel !== this.droneLevel)) {
+      this.droneOn(droneNow, t);
+      this.droneActive = droneNow;
+      this.droneSetLevel = this.droneLevel;
+    }
     for (const f of frames) {
       const v = this.voices.get(f.id);
       if (!v) continue;
       const audible = opts.playing && f.midi != null && f.gain > 0;
-      if (f.midi != null) v.setFreq(midiToFreq(f.midi), t, glide);
+      if (f.midi != null) v.setFreq(this.freq(f.midi), t, glide);
       v.pan.pan.setTargetAtTime(Math.max(-1, Math.min(1, f.pan)), t, 0.03);
       const level = audible ? f.gain * v.gainScale : 0;
       const mode = v.inst.mode || opts.articulation;
       if (mode === 'pluck' && audible) {
         // Retrigger the instrument's envelopes every time the (rounded) note or beat step changes.
-        const note = f.step == null ? Math.round(f.midi) : `${Math.round(f.midi)}@${f.step}`;
+        const n = fine ? Math.round(f.midi * 4) : Math.round(f.midi); // in a scale, a quarter tone is a new note
+        const note = f.step == null ? n : `${n}@${f.step}`;
         if (note !== v.lastNote) {
           v.trigger(level, t, live);
           v.lastNote = note;
@@ -229,6 +410,7 @@ export class AudioEngine {
     }
     for (const e of drumEvents) if (e.time < duration) eng.drum(e.kind, e.vel, e.time);
     for (const v of eng.voices.values()) { v.amp.gain.cancelScheduledValues(duration); v.amp.gain.setTargetAtTime(0, duration, 0.03); }
+    eng.droneOn(false, duration);
     return ctx.startRendering();
   }
 
@@ -245,7 +427,7 @@ export class AudioEngine {
     if (!v) { v = new Voice(this.ctx, id, this.bus); pool.voices[pool.next] = v; }
     pool.next = (pool.next + 1) % 12;
     const t = at ?? this.ctx.currentTime;
-    v.setFreq(midiToFreq(midi), t, 0.001);
+    v.setFreq(this.freq(midi), t, 0.001);
     v.trigger(vel * 1.6 * v.gainScale, t, at == null);
     v.amp.gain.setTargetAtTime(0, t + Math.max(0.05, length), 0.08);
   }
@@ -257,7 +439,7 @@ export class AudioEngine {
     const t0 = this.ctx.currentTime + 0.02;
     [0, 3, 7, 12, 7].forEach((semi, i) => {
       const t = t0 + i * 0.22;
-      v.setFreq(midiToFreq(root + semi), t, 0.005);
+      v.setFreq(this.freq(root + semi), t, 0.005);
       v.trigger(0.55 * v.gainScale, t, false);
     });
     v.amp.gain.setTargetAtTime(0, t0 + 1.25, 0.08);
@@ -278,6 +460,7 @@ export class AudioEngine {
     // a note may carry its own instrument / length / volume (Circle Lab layers)
     for (const n of notes) if (n.t < duration) eng.playNote(n.instrument || instrument, n.midi, n.vel * (n.volume ?? volume), n.t, n.length ?? length);
     for (const e of drumEvents) if (e.time < duration) eng.drum(e.kind, e.vel, e.time);
+    if (eng.droneLevel > 0) { eng.droneOn(true, 0); eng.droneOn(false, duration); }
     return ctx.startRendering();
   }
 
@@ -290,6 +473,8 @@ export class AudioEngine {
       v.amp.gain.setTargetAtTime(0, t, 0.03);
       v.lastNote = null;
     }
+    this.droneOn(false, t);
+    this.droneActive = false;
   }
 
   spectrum() {
@@ -317,14 +502,35 @@ function makeDriveCurve(amount) {
   return curve;
 }
 
-/** Synthetic stereo reverb tail: exponentially decaying noise. */
-function makeImpulse(ctx, seconds) {
+/** Lo-fi: a staircase curve (fewer bits); amount 0..1 → 12 … 3 bits. */
+function makeCrushCurve(amount) {
+  const levels = 2 ** Math.round(12 - amount * 9);
+  const n = 8192;
+  const curve = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    const x = (i / (n - 1)) * 2 - 1;
+    curve[i] = Math.round(x * levels / 2) / (levels / 2);
+  }
+  return curve;
+}
+
+/**
+ * Synthetic stereo reverb tail: exponentially decaying noise. tone 0..1: 0 = dark
+ * (the tail is low-passed, like a big soft hall), 1 = bright (a metal plate).
+ */
+function makeImpulse(ctx, seconds, tone = 1) {
   const rate = ctx.sampleRate;
   const len = Math.max(1, Math.floor(rate * seconds));
   const buf = ctx.createBuffer(2, len, rate);
+  const c = 0.04 + 0.96 * tone ** 1.5; // one-pole low-pass coefficient
+  const norm = Math.min(4, 1 / Math.sqrt(c / (2 - c))); // same loudness, darker or brighter
   for (let ch = 0; ch < 2; ch++) {
     const d = buf.getChannelData(ch);
-    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3.2);
+    let y = 0;
+    for (let i = 0; i < len; i++) {
+      y += c * ((Math.random() * 2 - 1) - y);
+      d[i] = y * norm * Math.pow(1 - i / len, 3.2);
+    }
   }
   return buf;
 }

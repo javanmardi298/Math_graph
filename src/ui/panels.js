@@ -4,10 +4,11 @@
  *   right — inspector tabs: Circle · Look · FX · Sound · Rhythm · Animate · Text · Camera · Presets · Daily · Export
  */
 import { store, createLayer, LAYER_TYPES } from '../state.js';
-import { SCALE_LABELS, NOTE_NAMES, noteName } from '../math/music.js';
+import { SCALE_LABELS, SCALE_GROUPS, NOTE_NAMES, noteName } from '../math/music.js';
 import { compile, FUNCTIONS } from '../math/parser.js';
 import { LibraryView } from './library-view.js';
 import { DailyView } from './daily-view.js';
+import { SoundPresetView } from './sound-presets-view.js';
 import { getBrand, setBrand } from '../brand.js';
 
 /** Binding for a channel-branding field (saved in this browser, redraws the frame). */
@@ -380,37 +381,86 @@ export class Panels {
   soundTab() {
     const p = bindPath;
     const noteFmt = (v) => `${noteName(v)} (${v})`;
+    const pct = (v) => (v ? `${Math.round(v * 100)}%` : 'Off');
+    const hz = (v) => `${v < 1 ? v.toFixed(2) : v.toFixed(1)} Hz`;
+    // 115 scales, in groups (world music, psychedelic, microtonal …)
+    const scale = select('Scale', p('audio.scale'), {});
+    const sel = scale.querySelector('select');
+    sel.classList.add('scale-select');
+    sel.replaceChildren(...SCALE_GROUPS.map(([g, keys]) => h('optgroup', { label: g }, keys.map((k) => h('option', { value: k }, SCALE_LABELS[k])))));
+    sel.value = store.get('audio.scale');
+    this.soundPresets = new SoundPresetView({ toast: this.actions.toast, loadInstrument: (id) => this.applyInstrumentEverywhere(id) });
     return h('section.tab', {},
+      this.soundPresets.el,
       group('Output', [
         slider('Master volume', p('audio.master'), { min: 0, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
       ]),
       group('Pitch mapping', [
         slider('Lowest note (y min)', p('audio.noteLow'), { min: 21, max: 96, step: 1, fmt: noteFmt }),
         slider('Highest note (y max)', p('audio.noteHigh'), { min: 24, max: 108, step: 1, fmt: noteFmt }),
-        select('Scale', p('audio.scale'), SCALE_LABELS),
+        scale,
         select('Key', p('audio.root'), NOTE_NAMES.map((n, i) => [i, n])),
+        select('Tuning (A4)', p('audio.tuning'), [[440, '440 Hz · standard'], [432, '432 Hz · “calm”'], [444, '444 Hz · bright'], [415, '415 Hz · baroque'], [466, '466 Hz · high']]),
         slider('Glide', p('audio.glide'), { min: 0, max: 400, step: 1, unit: ' ms' }),
         h('div.ctl', {}, h('span.ctl-label', {}, 'Articulation'), segmented(p('audio.articulation'), [['legato', 'Legato', 'Continuous tone'], ['pluck', 'Pluck', 'New attack on every note change']], { label: 'Articulation' })),
-      ], { hint: 'Pick a scale so any curve stays in key. Continuous = pure glissando.' }),
+      ], { hint: 'Pick a scale so any curve stays in key: 115 scales from the modes to Arabic maqamat, Persian dastgah, Indian ragas, Japanese, Chinese, gamelan, Ethiopian and psychedelic/microtonal ones. Continuous = pure glissando.' }),
+      group('Drone (tanpura / pad)', [
+        slider('Volume', p('audio.drone.volume'), { min: 0, max: 1, step: 0.01, fmt: pct }),
+        select('Octave', p('audio.drone.octave'), [[1, 'Low (C2)'], [2, 'Middle (C3)'], [3, 'High (C4)']]),
+        toggle('Add the fifth', p('audio.drone.fifth')),
+        slider('Brightness', p('audio.drone.bright'), { min: 0, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
+      ], { open: false, hint: 'Holds the key note (and its fifth) under the melody while playing, like a tanpura in Indian music or a pad. Great with ragas and maqamat.' }),
       group('Filter', [
         select('Type', p('audio.filter.type'), { lowpass: 'Low-pass', highpass: 'High-pass', bandpass: 'Band-pass', notch: 'Notch' }),
         slider('Cutoff', {
           get: () => Math.log10(store.get('audio.filter.cutoff')),
           set: (v) => store.set('audio.filter.cutoff', Math.round(10 ** v)),
-        }, { min: 1.3, max: 4.3, step: 0.001, fmt: (v) => { const hz = 10 ** v; return hz >= 1000 ? `${(hz / 1000).toFixed(1)} kHz` : `${Math.round(hz)} Hz`; } }),
+        }, { min: 1.3, max: 4.3, step: 0.001, fmt: (v) => { const f = 10 ** v; return f >= 1000 ? `${(f / 1000).toFixed(1)} kHz` : `${Math.round(f)} Hz`; } }),
         slider('Resonance', p('audio.filter.q'), { min: 0.1, max: 18, step: 0.1 }),
+        slider('Wah (filter sweep)', p('audio.filter.lfo'), { min: 0, max: 1, step: 0.01, fmt: pct }),
+        slider('Wah speed', p('audio.filter.lfoRate'), { min: 0.05, max: 8, step: 0.05, fmt: hz }),
       ]),
-      group('Distortion', [slider('Drive', p('audio.distortion'), { min: 0, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` })]),
+      group('Drive & lo-fi', [
+        slider('Drive', p('audio.distortion'), { min: 0, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
+        slider('Lo-fi (bit crush)', p('audio.crush'), { min: 0, max: 1, step: 0.01, fmt: pct }),
+      ]),
+      group('Modulation', [
+        h('div.ctl', {}, h('span.ctl-label', {}, 'Effect'), segmented(p('audio.mod.type'), [['off', 'Off'], ['chorus', 'Chorus', 'Wide and shimmering'], ['flanger', 'Flanger', 'Jet-plane sweep'], ['phaser', 'Phaser', 'Swirling, psychedelic']], { label: 'Modulation effect' })),
+        slider('Speed', p('audio.mod.rate'), { min: 0.05, max: 6, step: 0.05, fmt: hz }),
+        slider('Depth', p('audio.mod.depth'), { min: 0, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
+        slider('Mix', p('audio.mod.mix'), { min: 0, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
+      ], { open: false }),
+      group('Movement', [
+        slider('Tremolo', p('audio.motion.tremolo'), { min: 0, max: 1, step: 0.01, fmt: pct }),
+        slider('Tremolo speed', p('audio.motion.tremoloRate'), { min: 0.5, max: 16, step: 0.1, fmt: hz }),
+        slider('Auto-pan (left ↔ right)', p('audio.motion.autopan'), { min: 0, max: 1, step: 0.01, fmt: pct }),
+        slider('Pan speed', p('audio.motion.panRate'), { min: 0.05, max: 4, step: 0.05, fmt: hz }),
+        slider('Pump (sidechain)', p('audio.pump.amount'), { min: 0, max: 0.95, step: 0.01, fmt: pct }),
+        select('Pump every', p('audio.pump.rate'), [[0.5, '½ beat'], [1, 'Beat'], [2, '2 beats']]),
+      ], { open: false, hint: 'Pump ducks the sound on every beat of the project tempo (Rhythm tab), the “breathing” EDM effect. Auto-pan is best on headphones.' }),
       group('Delay', [
         slider('Time', p('audio.delay.time'), { min: 0.02, max: 1.5, step: 0.005, unit: ' s' }),
         slider('Feedback', p('audio.delay.feedback'), { min: 0, max: 0.9, step: 0.01 }),
         slider('Mix', p('audio.delay.mix'), { min: 0, max: 1, step: 0.01 }),
+        toggle('Ping-pong (left, right, left …)', p('audio.delay.pingpong')),
       ]),
       group('Reverb', [
         slider('Decay', p('audio.reverb.decay'), { min: 0.3, max: 8, step: 0.1, unit: ' s' }),
         slider('Mix', p('audio.reverb.mix'), { min: 0, max: 1, step: 0.01 }),
+        slider('Brightness', p('audio.reverb.tone'), { min: 0, max: 1, step: 0.01, fmt: (v) => (v < 0.3 ? 'Dark hall' : v > 0.8 ? 'Bright plate' : 'Warm room') }),
+        slider('Pre-delay', p('audio.reverb.preDelay'), { min: 0, max: 0.25, step: 0.005, fmt: (v) => `${Math.round(v * 1000)} ms` }),
       ]),
     );
+  }
+
+  /** Set one instrument on every formula layer and on the Circle Lab (sound presets with an instrument). */
+  applyInstrumentEverywhere(id) {
+    for (const l of store.state.layers) l.wave = id;
+    store.state.circle.sound.instrument = id;
+    for (const c of store.state.circle.layers || []) if (c.cfg?.sound) c.cfg.sound.instrument = id;
+    store.emit('layers');
+    store.emit('circle');
+    refreshAll();
   }
 
   cameraTab() {
@@ -1080,6 +1130,7 @@ export class Panels {
     this.circleEdit = Math.min(this.circleEdit || 0, store.state.circle.layers?.length || 0);
     this.renderCircle();
     this.renderCircleLayers();
+    this.soundPresets?.forget();
     refreshAll();
     this.updateYtCount?.();
     this.renderLayers();

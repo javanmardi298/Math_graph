@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv52dnba0",
+          "id": "Lmv59dmag0",
           "name": "Layer 2",
           "enabled": true,
           "type": "function",
@@ -122,20 +122,49 @@
         "root": 9,
         "glide": 25,
         "articulation": "legato",
+        "tuning": 440,
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
-          "q": 0.8
+          "q": 0.8,
+          "lfo": 0,
+          "lfoRate": 0.5
         },
         "distortion": 0,
+        "crush": 0,
+        "mod": {
+          "type": "off",
+          "rate": 0.6,
+          "depth": 0.5,
+          "mix": 0.5
+        },
+        "motion": {
+          "tremolo": 0,
+          "tremoloRate": 5,
+          "autopan": 0,
+          "panRate": 0.25
+        },
+        "pump": {
+          "amount": 0,
+          "rate": 1
+        },
+        "drone": {
+          "volume": 0,
+          "octave": 2,
+          "fifth": true,
+          "bright": 0.4
+        },
         "delay": {
           "time": 0.375,
           "feedback": 0.3,
-          "mix": 0.16
+          "mix": 0.16,
+          "pingpong": false
         },
         "reverb": {
           "decay": 3.5,
-          "mix": 0.35
+          "mix": 0.35,
+          "tone": 1,
+          "preDelay": 0
         }
       },
       "record": {
@@ -522,7 +551,7 @@
       },
       "layers": [
         {
-          "id": "Lmv52dnba0",
+          "id": "Lmv59dmag0",
           "name": "Layer 4",
           "enabled": true,
           "type": "function",
@@ -617,20 +646,49 @@
         "root": 9,
         "glide": 25,
         "articulation": "legato",
+        "tuning": 440,
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
-          "q": 0.8
+          "q": 0.8,
+          "lfo": 0,
+          "lfoRate": 0.5
         },
         "distortion": 0,
+        "crush": 0,
+        "mod": {
+          "type": "off",
+          "rate": 0.6,
+          "depth": 0.5,
+          "mix": 0.5
+        },
+        "motion": {
+          "tremolo": 0,
+          "tremoloRate": 5,
+          "autopan": 0,
+          "panRate": 0.25
+        },
+        "pump": {
+          "amount": 0,
+          "rate": 1
+        },
+        "drone": {
+          "volume": 0,
+          "octave": 2,
+          "fifth": true,
+          "bright": 0.4
+        },
         "delay": {
           "time": 0.375,
           "feedback": 0.3,
-          "mix": 0.16
+          "mix": 0.16,
+          "pingpong": false
         },
         "reverb": {
           "decay": 3.5,
-          "mix": 0.35
+          "mix": 0.35,
+          "tone": 1,
+          "preDelay": 0
         }
       },
       "record": {
@@ -1019,7 +1077,7 @@
       },
       "layers": [
         {
-          "id": "Lmv52dnba0",
+          "id": "Lmv59dmah0",
           "name": "Layer 6",
           "enabled": true,
           "type": "function",
@@ -1114,20 +1172,49 @@
         "root": 9,
         "glide": 25,
         "articulation": "legato",
+        "tuning": 440,
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
-          "q": 0.8
+          "q": 0.8,
+          "lfo": 0,
+          "lfoRate": 0.5
         },
         "distortion": 0,
+        "crush": 0,
+        "mod": {
+          "type": "off",
+          "rate": 0.6,
+          "depth": 0.5,
+          "mix": 0.5
+        },
+        "motion": {
+          "tremolo": 0,
+          "tremoloRate": 5,
+          "autopan": 0,
+          "panRate": 0.25
+        },
+        "pump": {
+          "amount": 0,
+          "rate": 1
+        },
+        "drone": {
+          "volume": 0,
+          "octave": 2,
+          "fifth": true,
+          "bright": 0.4
+        },
         "delay": {
           "time": 0.375,
           "feedback": 0.3,
-          "mix": 0.16
+          "mix": 0.16,
+          "pingpong": false
         },
         "reverb": {
           "decay": 3.5,
-          "mix": 0.35
+          "mix": 0.35,
+          "tone": 1,
+          "preDelay": 0
         }
       },
       "record": {
@@ -1515,7 +1602,7 @@
       },
       "layers": [
         {
-          "id": "Lmv52dnba0",
+          "id": "Lmv59dmah0",
           "name": "Layer 8",
           "enabled": true,
           "type": "function",
@@ -1610,20 +1697,49 @@
         "root": 9,
         "glide": 25,
         "articulation": "legato",
+        "tuning": 440,
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
-          "q": 0.8
+          "q": 0.8,
+          "lfo": 0,
+          "lfoRate": 0.5
         },
         "distortion": 0,
+        "crush": 0,
+        "mod": {
+          "type": "off",
+          "rate": 0.6,
+          "depth": 0.5,
+          "mix": 0.5
+        },
+        "motion": {
+          "tremolo": 0,
+          "tremoloRate": 5,
+          "autopan": 0,
+          "panRate": 0.25
+        },
+        "pump": {
+          "amount": 0,
+          "rate": 1
+        },
+        "drone": {
+          "volume": 0,
+          "octave": 2,
+          "fifth": true,
+          "bright": 0.4
+        },
         "delay": {
           "time": 0.375,
           "feedback": 0.3,
-          "mix": 0.16
+          "mix": 0.16,
+          "pingpong": false
         },
         "reverb": {
           "decay": 3.5,
-          "mix": 0.35
+          "mix": 0.35,
+          "tone": 1,
+          "preDelay": 0
         }
       },
       "record": {
@@ -2012,7 +2128,7 @@
       },
       "layers": [
         {
-          "id": "Lmv52dnba0",
+          "id": "Lmv59dmah0",
           "name": "Layer 10",
           "enabled": true,
           "type": "function",
@@ -2107,20 +2223,49 @@
         "root": 9,
         "glide": 25,
         "articulation": "legato",
+        "tuning": 440,
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
-          "q": 0.8
+          "q": 0.8,
+          "lfo": 0,
+          "lfoRate": 0.5
         },
         "distortion": 0,
+        "crush": 0,
+        "mod": {
+          "type": "off",
+          "rate": 0.6,
+          "depth": 0.5,
+          "mix": 0.5
+        },
+        "motion": {
+          "tremolo": 0,
+          "tremoloRate": 5,
+          "autopan": 0,
+          "panRate": 0.25
+        },
+        "pump": {
+          "amount": 0,
+          "rate": 1
+        },
+        "drone": {
+          "volume": 0,
+          "octave": 2,
+          "fifth": true,
+          "bright": 0.4
+        },
         "delay": {
           "time": 0.375,
           "feedback": 0.3,
-          "mix": 0.16
+          "mix": 0.16,
+          "pingpong": false
         },
         "reverb": {
           "decay": 3.5,
-          "mix": 0.35
+          "mix": 0.35,
+          "tone": 1,
+          "preDelay": 0
         }
       },
       "record": {
@@ -2505,7 +2650,7 @@
       },
       "layers": [
         {
-          "id": "Lmv52dnba0",
+          "id": "Lmv59dmah0",
           "name": "Layer 12",
           "enabled": true,
           "type": "function",
@@ -2600,20 +2745,49 @@
         "root": 9,
         "glide": 25,
         "articulation": "legato",
+        "tuning": 440,
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
-          "q": 0.8
+          "q": 0.8,
+          "lfo": 0,
+          "lfoRate": 0.5
         },
         "distortion": 0,
+        "crush": 0,
+        "mod": {
+          "type": "off",
+          "rate": 0.6,
+          "depth": 0.5,
+          "mix": 0.5
+        },
+        "motion": {
+          "tremolo": 0,
+          "tremoloRate": 5,
+          "autopan": 0,
+          "panRate": 0.25
+        },
+        "pump": {
+          "amount": 0,
+          "rate": 1
+        },
+        "drone": {
+          "volume": 0,
+          "octave": 2,
+          "fifth": true,
+          "bright": 0.4
+        },
         "delay": {
           "time": 0.375,
           "feedback": 0.3,
-          "mix": 0.16
+          "mix": 0.16,
+          "pingpong": false
         },
         "reverb": {
           "decay": 3.5,
-          "mix": 0.35
+          "mix": 0.35,
+          "tone": 1,
+          "preDelay": 0
         }
       },
       "record": {
@@ -2906,7 +3080,7 @@
       },
       "layers": [
         {
-          "id": "Lmv52dnba0",
+          "id": "Lmv59dmah0",
           "name": "Layer 14",
           "enabled": true,
           "type": "function",
@@ -3001,20 +3175,49 @@
         "root": 9,
         "glide": 25,
         "articulation": "legato",
+        "tuning": 440,
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
-          "q": 0.8
+          "q": 0.8,
+          "lfo": 0,
+          "lfoRate": 0.5
         },
         "distortion": 0,
+        "crush": 0,
+        "mod": {
+          "type": "off",
+          "rate": 0.6,
+          "depth": 0.5,
+          "mix": 0.5
+        },
+        "motion": {
+          "tremolo": 0,
+          "tremoloRate": 5,
+          "autopan": 0,
+          "panRate": 0.25
+        },
+        "pump": {
+          "amount": 0,
+          "rate": 1
+        },
+        "drone": {
+          "volume": 0,
+          "octave": 2,
+          "fifth": true,
+          "bright": 0.4
+        },
         "delay": {
           "time": 0.375,
           "feedback": 0.3,
-          "mix": 0.16
+          "mix": 0.16,
+          "pingpong": false
         },
         "reverb": {
           "decay": 3.5,
-          "mix": 0.35
+          "mix": 0.35,
+          "tone": 1,
+          "preDelay": 0
         }
       },
       "record": {
@@ -3401,7 +3604,7 @@
       },
       "layers": [
         {
-          "id": "Lmv52dnba0",
+          "id": "Lmv59dmai0",
           "name": "Layer 16",
           "enabled": true,
           "type": "function",
@@ -3496,20 +3699,49 @@
         "root": 9,
         "glide": 25,
         "articulation": "legato",
+        "tuning": 440,
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
-          "q": 0.8
+          "q": 0.8,
+          "lfo": 0,
+          "lfoRate": 0.5
         },
         "distortion": 0,
+        "crush": 0,
+        "mod": {
+          "type": "off",
+          "rate": 0.6,
+          "depth": 0.5,
+          "mix": 0.5
+        },
+        "motion": {
+          "tremolo": 0,
+          "tremoloRate": 5,
+          "autopan": 0,
+          "panRate": 0.25
+        },
+        "pump": {
+          "amount": 0,
+          "rate": 1
+        },
+        "drone": {
+          "volume": 0,
+          "octave": 2,
+          "fifth": true,
+          "bright": 0.4
+        },
         "delay": {
           "time": 0.375,
           "feedback": 0.3,
-          "mix": 0.16
+          "mix": 0.16,
+          "pingpong": false
         },
         "reverb": {
           "decay": 3.5,
-          "mix": 0.35
+          "mix": 0.35,
+          "tone": 1,
+          "preDelay": 0
         }
       },
       "record": {

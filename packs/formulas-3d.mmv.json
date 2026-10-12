@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv52dnbi0",
+          "id": "Lmv59dmaq0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -59,7 +59,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv52dnbi1",
+          "id": "Lmv59dmaq1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -91,7 +91,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv52dnbi2",
+          "id": "Lmv59dmaq2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -186,20 +186,49 @@
         "root": 2,
         "glide": 25,
         "articulation": "pluck",
+        "tuning": 440,
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
-          "q": 0.8
+          "q": 0.8,
+          "lfo": 0,
+          "lfoRate": 0.5
         },
         "distortion": 0,
+        "crush": 0,
+        "mod": {
+          "type": "off",
+          "rate": 0.6,
+          "depth": 0.5,
+          "mix": 0.5
+        },
+        "motion": {
+          "tremolo": 0,
+          "tremoloRate": 5,
+          "autopan": 0,
+          "panRate": 0.25
+        },
+        "pump": {
+          "amount": 0,
+          "rate": 1
+        },
+        "drone": {
+          "volume": 0,
+          "octave": 2,
+          "fifth": true,
+          "bright": 0.4
+        },
         "delay": {
           "time": 0.28,
           "feedback": 0.3,
-          "mix": 0.15
+          "mix": 0.15,
+          "pingpong": false
         },
         "reverb": {
           "decay": 3,
-          "mix": 0.3
+          "mix": 0.3,
+          "tone": 1,
+          "preDelay": 0
         }
       },
       "record": {
@@ -440,7 +469,7 @@
       },
       "layers": [
         {
-          "id": "Lmv52dnbi0",
+          "id": "Lmv59dmaq0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -472,7 +501,7 @@
           "samples": 64
         },
         {
-          "id": "Lmv52dnbi1",
+          "id": "Lmv59dmaq1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -504,7 +533,7 @@
           "samples": 64
         },
         {
-          "id": "Lmv52dnbi2",
+          "id": "Lmv59dmaq2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -599,20 +628,49 @@
         "root": 2,
         "glide": 25,
         "articulation": "pluck",
+        "tuning": 440,
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
-          "q": 0.8
+          "q": 0.8,
+          "lfo": 0,
+          "lfoRate": 0.5
         },
         "distortion": 0,
+        "crush": 0,
+        "mod": {
+          "type": "off",
+          "rate": 0.6,
+          "depth": 0.5,
+          "mix": 0.5
+        },
+        "motion": {
+          "tremolo": 0,
+          "tremoloRate": 5,
+          "autopan": 0,
+          "panRate": 0.25
+        },
+        "pump": {
+          "amount": 0,
+          "rate": 1
+        },
+        "drone": {
+          "volume": 0,
+          "octave": 2,
+          "fifth": true,
+          "bright": 0.4
+        },
         "delay": {
           "time": 0.28,
           "feedback": 0.3,
-          "mix": 0.15
+          "mix": 0.15,
+          "pingpong": false
         },
         "reverb": {
           "decay": 3,
-          "mix": 0.3
+          "mix": 0.3,
+          "tone": 1,
+          "preDelay": 0
         }
       },
       "record": {
@@ -853,7 +911,7 @@
       },
       "layers": [
         {
-          "id": "Lmv52dnbi0",
+          "id": "Lmv59dmaq0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -885,7 +943,7 @@
           "samples": 64
         },
         {
-          "id": "Lmv52dnbi1",
+          "id": "Lmv59dmaq1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -917,7 +975,7 @@
           "samples": 64
         },
         {
-          "id": "Lmv52dnbi2",
+          "id": "Lmv59dmaq2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -1012,20 +1070,49 @@
         "root": 2,
         "glide": 25,
         "articulation": "pluck",
+        "tuning": 440,
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
-          "q": 0.8
+          "q": 0.8,
+          "lfo": 0,
+          "lfoRate": 0.5
         },
         "distortion": 0,
+        "crush": 0,
+        "mod": {
+          "type": "off",
+          "rate": 0.6,
+          "depth": 0.5,
+          "mix": 0.5
+        },
+        "motion": {
+          "tremolo": 0,
+          "tremoloRate": 5,
+          "autopan": 0,
+          "panRate": 0.25
+        },
+        "pump": {
+          "amount": 0,
+          "rate": 1
+        },
+        "drone": {
+          "volume": 0,
+          "octave": 2,
+          "fifth": true,
+          "bright": 0.4
+        },
         "delay": {
           "time": 0.28,
           "feedback": 0.3,
-          "mix": 0.15
+          "mix": 0.15,
+          "pingpong": false
         },
         "reverb": {
           "decay": 3,
-          "mix": 0.3
+          "mix": 0.3,
+          "tone": 1,
+          "preDelay": 0
         }
       },
       "record": {
@@ -1266,7 +1353,7 @@
       },
       "layers": [
         {
-          "id": "Lmv52dnbj0",
+          "id": "Lmv59dmaq0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -1298,7 +1385,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv52dnbj1",
+          "id": "Lmv59dmaq1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -1330,7 +1417,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv52dnbj2",
+          "id": "Lmv59dmaq2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -1425,20 +1512,49 @@
         "root": 2,
         "glide": 25,
         "articulation": "pluck",
+        "tuning": 440,
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
-          "q": 0.8
+          "q": 0.8,
+          "lfo": 0,
+          "lfoRate": 0.5
         },
         "distortion": 0,
+        "crush": 0,
+        "mod": {
+          "type": "off",
+          "rate": 0.6,
+          "depth": 0.5,
+          "mix": 0.5
+        },
+        "motion": {
+          "tremolo": 0,
+          "tremoloRate": 5,
+          "autopan": 0,
+          "panRate": 0.25
+        },
+        "pump": {
+          "amount": 0,
+          "rate": 1
+        },
+        "drone": {
+          "volume": 0,
+          "octave": 2,
+          "fifth": true,
+          "bright": 0.4
+        },
         "delay": {
           "time": 0.28,
           "feedback": 0.3,
-          "mix": 0.15
+          "mix": 0.15,
+          "pingpong": false
         },
         "reverb": {
           "decay": 3,
-          "mix": 0.3
+          "mix": 0.3,
+          "tone": 1,
+          "preDelay": 0
         }
       },
       "record": {
@@ -1679,7 +1795,7 @@
       },
       "layers": [
         {
-          "id": "Lmv52dnbj0",
+          "id": "Lmv59dmaq0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -1711,7 +1827,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv52dnbj1",
+          "id": "Lmv59dmaq1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -1743,7 +1859,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv52dnbj2",
+          "id": "Lmv59dmaq2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -1838,20 +1954,49 @@
         "root": 2,
         "glide": 25,
         "articulation": "pluck",
+        "tuning": 440,
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
-          "q": 0.8
+          "q": 0.8,
+          "lfo": 0,
+          "lfoRate": 0.5
         },
         "distortion": 0,
+        "crush": 0,
+        "mod": {
+          "type": "off",
+          "rate": 0.6,
+          "depth": 0.5,
+          "mix": 0.5
+        },
+        "motion": {
+          "tremolo": 0,
+          "tremoloRate": 5,
+          "autopan": 0,
+          "panRate": 0.25
+        },
+        "pump": {
+          "amount": 0,
+          "rate": 1
+        },
+        "drone": {
+          "volume": 0,
+          "octave": 2,
+          "fifth": true,
+          "bright": 0.4
+        },
         "delay": {
           "time": 0.28,
           "feedback": 0.3,
-          "mix": 0.15
+          "mix": 0.15,
+          "pingpong": false
         },
         "reverb": {
           "decay": 3,
-          "mix": 0.3
+          "mix": 0.3,
+          "tone": 1,
+          "preDelay": 0
         }
       },
       "record": {
