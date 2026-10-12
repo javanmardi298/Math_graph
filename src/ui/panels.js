@@ -1,12 +1,13 @@
 /**
  * Builds the two side panels:
  *   left  — formula layers, live parameters a–d, formula cheatsheet
- *   right — inspector tabs: Look · FX · Sound · Rhythm · Animate · Camera · Presets · Export
+ *   right — inspector tabs: Circle · Look · FX · Sound · Rhythm · Animate · Text · Camera · Presets · Daily · Export
  */
 import { store, createLayer, LAYER_TYPES } from '../state.js';
 import { SCALE_LABELS, NOTE_NAMES, noteName } from '../math/music.js';
 import { compile, FUNCTIONS } from '../math/parser.js';
 import { LibraryView } from './library-view.js';
+import { DailyView } from './daily-view.js';
 import { getBrand, setBrand } from '../brand.js';
 
 /** Binding for a channel-branding field (saved in this browser, redraws the frame). */
@@ -279,6 +280,7 @@ export class Panels {
       ['text', 'Text', this.textTab()],
       ['camera', 'Camera', this.cameraTab()],
       ['presets', 'Presets', this.presetsTab()],
+      ['daily', '📅 Daily', this.dailyTab()],
       ['export', 'Export', this.exportTab()],
     ];
     const bar = document.getElementById('tabbar');
@@ -437,8 +439,21 @@ export class Panels {
       snapshot: () => store.snapshot(),
       download,
       renderVideos: (items) => this.actions.renderBatch(items),
+      addToDaily: (x) => this.daily?.enqueue(x.name, x.preset, x.preset.$shelf || ''),
     });
     return this.library.el;
+  }
+
+  dailyTab() {
+    this.daily = new DailyView({
+      loadPreset: (p) => this.actions.loadPreset(p),
+      toast: this.actions.toast,
+      snapshot: () => store.snapshot(),
+      download,
+      renderVideos: (items) => this.actions.renderBatch(items),
+      savePreset: (preset, o) => this.library.addPreset(preset, o),
+    });
+    return this.daily.el;
   }
 
   /* ------------------------------------------------------------- circle lab */

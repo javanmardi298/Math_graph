@@ -308,6 +308,7 @@ export class LibraryView {
     const menu = h('div.lib-menu', {},
       act('Load', () => this.load(x)),
       act('Render video', () => this.renderItems([x])),
+      ...(this.actions.addToDaily ? [act('Add to Daily', () => { this.openMenu = null; this.actions.addToDaily({ name: x.name, preset: clean(x.preset) }); this.render(); })] : []),
       act('Export', () => this.exportItems([x])),
       act('Duplicate', () => this.duplicate(x)),
       ...(x.builtin ? [] : [
@@ -384,6 +385,15 @@ export class LibraryView {
     this.items.unshift(item);
     this.openMenu = null;
     if (this.persist()) this.actions.toast(`Saved “${item.name}” to your presets.`);
+    this.render();
+  }
+
+  /** Save a preset made elsewhere (the Daily tab) into my presets. */
+  addPreset(preset, { name, collection = '' }) {
+    const taken = new Set(this.items.map((i) => i.name));
+    const item = makeItem(normalize(clean(preset)), { name: uniqueName(name || preset.name || 'My preset', taken), collection });
+    this.items.unshift(item);
+    if (this.persist()) this.actions.toast(`Saved “${item.name}” to your presets${collection ? ` (${collection})` : ''}.`);
     this.render();
   }
 

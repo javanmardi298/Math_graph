@@ -1333,10 +1333,12 @@ const fileSafe = (s) => (String(s || 'video').replace(/[\\/:*?"<>|\u0000-\u001f]
  * folder under exports/ too, so nothing is lost if the browser closes).
  * @param {{name:string, preset:object}[]} entries
  */
+/** Render presets to videos as one zip; returns the names of the videos that were made. */
 async function renderBatch(entries) {
-  if (exporting.busy || !entries.length) return;
+  const rendered = [];
+  if (exporting.busy || !entries.length) return rendered;
   const enc = await pickEncoder();
-  if (!enc) return;
+  if (!enc) return rendered;
   const { server } = enc;
   const original = store.snapshot();
   const record = structuredClone(original.record); // the Export tab's settings apply to every video
@@ -1368,6 +1370,7 @@ async function renderBatch(entries) {
           if (batch) await addBatchFile(batch.id, `${base}.txt`, txt);
           else files.push({ name: `${base}.mp4`, data: new Uint8Array(await r.blob.arrayBuffer()) }, { name: `${base}.txt`, data: textEnc.encode(txt) });
           done.push({ file: `${base}.mp4`, ...meta, preset: store.snapshot() });
+          rendered.push(e.name || e.preset.name);
         } catch (err) {
           if (err.message === 'cancelled') break;
           if (err.message === 'graphics context lost') throw err;
@@ -1403,11 +1406,13 @@ async function renderBatch(entries) {
       exportFailed(err);
       if (!$('fatal').hidden) return;
       toast(`Batch export stopped: ${err.message}${batch ? ` (finished videos are in ${batch.dir})` : ''}`, 10000);
+      if (!batch) rendered.length = 0; // the zip never reached the user
     } finally {
       store.load(original);
       seek(0);
     }
   });
+  return rendered;
 }
 
 /* ------------------------------------------------------------- UI wiring */

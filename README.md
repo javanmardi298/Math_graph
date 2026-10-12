@@ -128,6 +128,33 @@ After changing anything in `presets-src/`, run `node scripts/build-presets.mjs` 
 when `presets/` is stale). Adding presets therefore never makes the app bigger or slower to start;
 the app itself ships only the preset it opens with.
 
+## Daily plan (📅 Daily tab)
+
+A posting plan that fills itself: every day gets 3 Shorts (1–5, your choice), each with
+the preset, a title, description, tags, the opening hook, a question to pin as the first
+comment and a posting time. No AI model is needed: picks and remixes are deterministic.
+
+- **Weekday themes**: Mon Fourier · Tue Sound · Wed π & calculus · Thu Fractals ·
+  Fri Physics · Sat Satisfying · Sun Quiz / A or B. Each day has three slots (a topic,
+  a sound one, an easy watch) that pick from the matching shelves.
+- **No repeats**: a preset that was planned or uploaded in the last 21 days (setting)
+  is not picked again. A preset that was never posted goes out as it is; one that was
+  posted before comes back as a **remix**: a new subject (shape, curve, flag, word,
+  function, fractal spot, plate …), colours, instrument, and words from templates.
+- **Cards**: ▶ Load, 🎬 Render (a whole day in one zip), 🎲 swap, copy each field or
+  everything, edit any text, status Planned → Rendered → Uploaded / Skip, 🔥 streak.
+- **Queue**: your own presets go out first ("＋ Add current setup", or "Add to Daily" in a
+  preset's ⋯ menu in the Presets tab).
+- **✨ Ideas**: six new remixes of the catalog (or of what is loaded now), to load,
+  queue or save to your presets.
+- **Exports**: a day's texts (.txt), the week as CSV for scheduling, a backup of the plan.
+- ⤢ opens the tab wide, with the cards side by side.
+
+Code: `src/daily/remix.js` (remix engine and title templates), `src/daily/planner.js`
+(themes, picks, repeat checks), `src/daily/store.js` (kept in this browser,
+`mmv.daily.v1`), `src/ui/daily-view.js` (the tab). To add a format or a subject, add to
+the lists at the top of `remix.js` (e.g. `CURVES`, `WORDS`, `TITLE`, `PINNED`).
+
 ## Project structure
 
 ```
@@ -160,6 +187,12 @@ src/
     timeline.js         scrubber with pitch mini-map
     overlay.js          title, formulas, analyzer, text boxes (same code on screen and in videos)
     layout-editor.js    drag/resize overlay elements directly on the video
+    library-view.js     Presets tab (catalog shelves, my presets, lesson packs)
+    daily-view.js       Daily tab (posting plan, queue, ideas)
+  daily/
+    remix.js            new presets from existing ones + YouTube words from templates
+    planner.js          weekday themes, daily picks, repeat checks, CSV
+    store.js            the plan in this browser (mmv.daily.v1)
   export/
     video-render.js     frame-perfect MP4 export (WebCodecs + mp4-muxer)
     ffmpeg-render.js    frame-perfect MP4 export through the local server's ffmpeg (+ batch folders)
