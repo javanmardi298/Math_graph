@@ -1,6 +1,6 @@
 [
  {
-  "build": "46cc9f1378",
+  "build": "04b01684c7",
   "files": [
    "anim/keyframes.js",
    "audio/buffer-analyser.js",
@@ -54,11 +54,12 @@
    "ui/library-view.js",
    "ui/overlay.js",
    "ui/panels.js",
+   "ui/sound-presets-view.js",
    "ui/timeline.js"
   ]
  },
  {
-  "build": "04b01684c7",
+  "build": "e73aef7a85",
   "files": [
    "anim/keyframes.js",
    "audio/buffer-analyser.js",
@@ -105,6 +106,7 @@
    "math/sequence.js",
    "presets.js",
    "render/visualizer.js",
+   "shorts-prefs.js",
    "state.js",
    "ui/controls.js",
    "ui/daily-view.js",
