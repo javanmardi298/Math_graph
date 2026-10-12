@@ -6,6 +6,8 @@
 import { CIRCLE_PRESETS } from './circle/presets.js';
 import { LAB_PRESETS } from './circle/presets-lab.js';
 import { STACK_PRESETS } from './circle/presets-stack.js';
+import { TOPIC_PRESETS } from './circle/presets-topics.js';
+import { SOUND_PRESETS } from './presets-sound.js';
 import { SCENES } from './circle/scenes.js';
 
 // Circle Lab presets shown as built-ins (the full set is in circle/presets.js).
@@ -320,6 +322,8 @@ export const BUILTIN_PRESETS = [
   },
   ...CIRCLE_PRESETS,
   ...LAB_PRESETS,
+  ...TOPIC_PRESETS,
+  ...SOUND_PRESETS,
   ...STACK_PRESETS,
 ].map((p) => ({ ...p, $category: p.$category || categoryOf(p) }));
 
@@ -335,4 +339,4 @@ export function categoryOf(p) {
 
 /** Shelf order in the library. */
 export const CATEGORY_ORDER = ['Circle · Stories & split screens', 'Circle · Classic circle', 'Circle · Multiply & split', 'Circle · Fill the screen', 'Circle · Battles & formulas',
-  'Circle · Battles & growth', 'Circle · Vibration & waves', 'Circle · Waves & sound', 'Circle · Patterns & rhythm', 'Circle · Drawing machines', 'Circle · Bounce & draw', 'Formulas · 2D', 'Formulas · 3D'];
+  'Circle · Battles & growth', 'Circle · Vibration & waves', 'Circle · Waves & sound', 'Circle · Fourier & curves', 'Circle · Calculus & trig', 'Circle · Pi', 'Circle · Fractals', 'Circle · Patterns & rhythm', 'Circle · Drawing machines', 'Circle · Bounce & draw', 'Formulas · Sound of a graph', 'Formulas · Guess & compare', 'Formulas · 2D', 'Formulas · 3D'];

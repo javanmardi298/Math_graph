@@ -27,8 +27,8 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhfq0",
-          "name": "Layer 188",
+          "id": "Lmv51o8pb0",
+          "name": "Layer 214",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -44,8 +44,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#8cff5a",
-          "color2": "#22e4ff",
+          "color": "#ff3d9a",
+          "color2": "#ffd23d",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -101,6 +101,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -517,8 +518,8 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhfq0",
-          "name": "Layer 190",
+          "id": "Lmv51o8pb0",
+          "name": "Layer 216",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -534,8 +535,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#ff3d9a",
-          "color2": "#ffd23d",
+          "color": "#8cff5a",
+          "color2": "#22e4ff",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -591,6 +592,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -1011,8 +1013,8 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhfq0",
-          "name": "Layer 192",
+          "id": "Lmv51o8pb0",
+          "name": "Layer 218",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -1028,8 +1030,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#8cff5a",
-          "color2": "#22e4ff",
+          "color": "#ff3d9a",
+          "color2": "#ffd23d",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -1085,6 +1087,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -1505,8 +1508,8 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhfq0",
-          "name": "Layer 194",
+          "id": "Lmv51o8pb0",
+          "name": "Layer 220",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -1522,8 +1525,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#ff3d9a",
-          "color2": "#ffd23d",
+          "color": "#8cff5a",
+          "color2": "#22e4ff",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -1579,6 +1582,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -1995,8 +1999,8 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhfq0",
-          "name": "Layer 196",
+          "id": "Lmv51o8pb0",
+          "name": "Layer 222",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -2012,8 +2016,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#8cff5a",
-          "color2": "#22e4ff",
+          "color": "#ff3d9a",
+          "color2": "#ffd23d",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -2069,6 +2073,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {

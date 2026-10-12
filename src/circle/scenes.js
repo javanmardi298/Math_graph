@@ -17,6 +17,10 @@ import { drawScissors } from './icons.js';
 import { BATTLES } from './battles.js';
 import { CYMATICS } from './cymatics.js';
 import { WAVES } from './waves.js';
+import { FOURIER_DRAW } from './fourier-draw.js';
+import { CALCULUS } from './calculus.js';
+import { PI_SCENES } from './pi.js';
+import { FRACTALS } from './fractals.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -1128,6 +1132,10 @@ export const SCENES = {
   ...BATTLES,
   ...CYMATICS,
   ...WAVES,
+  ...FOURIER_DRAW,
+  ...CALCULUS,
+  ...PI_SCENES,
+  ...FRACTALS,
 };
 
 /** Settings of a scene: its defaults, overridden by what the user / preset set. */

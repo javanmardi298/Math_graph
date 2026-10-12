@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhdr0",
+          "id": "Lmv51o8oj0",
           "name": "Layer 18",
           "enabled": true,
           "type": "function",
@@ -101,6 +101,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -517,7 +518,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhdr0",
+          "id": "Lmv51o8oj0",
           "name": "Layer 20",
           "enabled": true,
           "type": "function",
@@ -591,6 +592,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -1008,7 +1010,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhdr0",
+          "id": "Lmv51o8oj0",
           "name": "Layer 22",
           "enabled": true,
           "type": "function",
@@ -1082,6 +1084,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -1501,7 +1504,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhdr0",
+          "id": "Lmv51o8oj0",
           "name": "Layer 24",
           "enabled": true,
           "type": "function",
@@ -1575,6 +1578,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -1991,7 +1995,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhds0",
+          "id": "Lmv51o8oj0",
           "name": "Layer 26",
           "enabled": true,
           "type": "function",
@@ -2065,6 +2069,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -2481,7 +2486,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhds0",
+          "id": "Lmv51o8oj0",
           "name": "Layer 28",
           "enabled": true,
           "type": "function",
@@ -2555,6 +2560,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {

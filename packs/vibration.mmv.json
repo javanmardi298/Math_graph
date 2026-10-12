@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhdw0",
+          "id": "Lmv51o8ok0",
           "name": "Layer 30",
           "enabled": true,
           "type": "function",
@@ -101,6 +101,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -525,7 +526,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhdw0",
+          "id": "Lmv51o8ol0",
           "name": "Layer 32",
           "enabled": true,
           "type": "function",
@@ -599,6 +600,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -1021,7 +1023,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhdw0",
+          "id": "Lmv51o8ol0",
           "name": "Layer 34",
           "enabled": true,
           "type": "function",
@@ -1095,6 +1097,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -1519,7 +1522,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhdw0",
+          "id": "Lmv51o8ol0",
           "name": "Layer 36",
           "enabled": true,
           "type": "function",
@@ -1593,6 +1596,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {

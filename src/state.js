@@ -76,6 +76,7 @@ export function defaultState() {
       caption: true,
       showNotes: false, // note names in the caption and the top bar
       analyzer: 'off', // spectrum | wave | off
+      hideUntil: 0, // seconds: hide the curves (not the sound) until then, for guess-the-shape videos
       aspect: '16:9', // fill | 16:9 | 9:16 | 1:1 | 4:5
     },
     // punch: zoom bump on every kick (0..1); track: how closely the camera follows the

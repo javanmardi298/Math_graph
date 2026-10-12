@@ -1,0 +1,2477 @@
+{
+  "$format": "math-melody-presets",
+  "version": 1,
+  "$collection": "Lessons · Pi",
+  "presets": [
+    {
+      "name": "Lesson · Archimedes and π",
+      "mode": "circle",
+      "theme": "dark",
+      "transport": {
+        "duration": 30,
+        "speed": 1,
+        "loop": true,
+        "bpm": 110
+      },
+      "view": {
+        "xMin": 0,
+        "xMax": 8,
+        "yMin": -4,
+        "yMax": 4
+      },
+      "params": {
+        "a": 1,
+        "b": 1,
+        "c": 1,
+        "d": 1
+      },
+      "layers": [
+        {
+          "id": "Lmv51o8ou0",
+          "name": "Layer 124",
+          "enabled": true,
+          "type": "function",
+          "exprs": {
+            "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+            "z": "0",
+            "x": "0",
+            "r": "1",
+            "f": "0",
+            "path": "0"
+          },
+          "range": {
+            "min": 0,
+            "max": 6.283185307179586
+          },
+          "colorMode": "solid",
+          "color": "#8cff5a",
+          "color2": "#22e4ff",
+          "width": 4,
+          "style": "line",
+          "wave": "sine",
+          "volume": 0.6,
+          "octave": 0,
+          "pan": 0,
+          "zMap": "volume",
+          "mute": false,
+          "solo": false,
+          "withPrev": false,
+          "samples": 900
+        }
+      ],
+      "visual": {
+        "background": "#04050a",
+        "gridColor": "#1d2440",
+        "axesColor": "#4a5784",
+        "showGrid": true,
+        "showAxes": true,
+        "showLabels": true,
+        "drawMode": "trace",
+        "bloom": {
+          "enabled": true,
+          "strength": 1.1,
+          "radius": 0.5,
+          "threshold": 0.05
+        },
+        "trail": {
+          "enabled": true,
+          "count": 160,
+          "size": 6
+        },
+        "marker": {
+          "shape": "circle",
+          "size": 26,
+          "image": null,
+          "cursorLine": true,
+          "smoothing": 0.35
+        },
+        "fog": {
+          "enabled": false,
+          "density": 0.04
+        },
+        "dof": {
+          "enabled": false,
+          "focus": 14,
+          "aperture": 0.6
+        },
+        "motionBlur": {
+          "enabled": false,
+          "amount": 0.75
+        },
+        "caption": true,
+        "showNotes": false,
+        "analyzer": "off",
+        "hideUntil": 0,
+        "aspect": "9:16"
+      },
+      "camera": {
+        "autoRotate": false,
+        "rotateSpeed": 0.8,
+        "fov": 45,
+        "follow": false,
+        "punch": 0,
+        "track": 0,
+        "trackSpeed": 0.06,
+        "roll": 0
+      },
+      "audio": {
+        "master": 0.7,
+        "noteLow": 50,
+        "noteHigh": 86,
+        "scale": "minorPentatonic",
+        "root": 9,
+        "glide": 25,
+        "articulation": "legato",
+        "filter": {
+          "type": "lowpass",
+          "cutoff": 9000,
+          "q": 0.8
+        },
+        "distortion": 0,
+        "delay": {
+          "time": 0.375,
+          "feedback": 0.3,
+          "mix": 0.16
+        },
+        "reverb": {
+          "decay": 3.5,
+          "mix": 0.35
+        }
+      },
+      "record": {
+        "resolution": "1080p",
+        "fps": 60,
+        "fromStart": true,
+        "fileName": "",
+        "quality": "high",
+        "subframes": 1,
+        "gpuEncoder": false,
+        "engine": "auto",
+        "hook": {
+          "enabled": false,
+          "teaser": 0.8,
+          "flash": true,
+          "impact": true
+        },
+        "outro": 0.6
+      },
+      "hook": {
+        "text": "How did Archimedes find π?"
+      },
+      "circle": {
+        "rule": "archimedes",
+        "seed": 7,
+        "chord": {
+          "step": "1/phi^2",
+          "walkers": 1,
+          "speed": 1.8,
+          "speedGain": 1,
+          "start": 90
+        },
+        "physics": {
+          "balls": 1,
+          "speed": 1.4,
+          "angle": 62,
+          "gravity": 0,
+          "restitution": 1,
+          "speedGain": 1,
+          "maxSpeed": 4.5,
+          "size": 0.035
+        },
+        "split": {
+          "angle": 14,
+          "max": 128
+        },
+        "grow": {
+          "amount": 0.006,
+          "until": 0.92
+        },
+        "escape": {
+          "rings": 6,
+          "inner": 0.32,
+          "gap": 34,
+          "spin": 0.9
+        },
+        "poly": {
+          "dots": 12,
+          "base": 24,
+          "cycle": 60
+        },
+        "look": {
+          "palette": "gold",
+          "trail": "lines",
+          "trailWidth": 1.6,
+          "glow": 1,
+          "ringWidth": 5,
+          "ballSize": 1,
+          "sparks": true,
+          "ringPulse": true,
+          "comet": true,
+          "counter": true,
+          "background": "#060814",
+          "zoom": 1,
+          "dx": 0,
+          "dy": 0,
+          "bloom": 1,
+          "ambience": true
+        },
+        "sound": {
+          "instrument": "bell",
+          "pitch": "angle",
+          "melody": "ode",
+          "notes": "",
+          "drum": "off",
+          "length": 0.35,
+          "volume": 0.7,
+          "maxRate": 22
+        },
+        "text": {
+          "formula": "Hexagons inside and outside: 3 < π < 3.47",
+          "counter": "",
+          "show": "caption"
+        },
+        "speed": {
+          "from": 1,
+          "to": 1,
+          "curve": "linear",
+          "pulse": 0
+        },
+        "lab": {
+          "archimedes": {
+            "sides": "6",
+            "every": 30
+          }
+        },
+        "layers": [
+          {
+            "id": "C2",
+            "enabled": true,
+            "withPrev": false,
+            "cfg": {
+              "rule": "archimedes",
+              "seed": 7,
+              "chord": {
+                "step": "1/phi^2",
+                "walkers": 1,
+                "speed": 1.8,
+                "speedGain": 1,
+                "start": 90
+              },
+              "physics": {
+                "balls": 1,
+                "speed": 1.4,
+                "angle": 62,
+                "gravity": 0,
+                "restitution": 1,
+                "speedGain": 1,
+                "maxSpeed": 4.5,
+                "size": 0.035
+              },
+              "split": {
+                "angle": 14,
+                "max": 128
+              },
+              "grow": {
+                "amount": 0.006,
+                "until": 0.92
+              },
+              "escape": {
+                "rings": 6,
+                "inner": 0.32,
+                "gap": 34,
+                "spin": 0.9
+              },
+              "poly": {
+                "dots": 12,
+                "base": 24,
+                "cycle": 60
+              },
+              "look": {
+                "palette": "gold",
+                "trail": "lines",
+                "trailWidth": 1.6,
+                "glow": 1,
+                "ringWidth": 5,
+                "ballSize": 1,
+                "sparks": true,
+                "ringPulse": true,
+                "comet": true,
+                "counter": true,
+                "background": "#060814",
+                "zoom": 1,
+                "dx": 0,
+                "dy": 0,
+                "bloom": 1,
+                "ambience": true
+              },
+              "sound": {
+                "instrument": "bell",
+                "pitch": "angle",
+                "melody": "ode",
+                "notes": "",
+                "drum": "off",
+                "length": 0.35,
+                "volume": 0.7,
+                "maxRate": 22
+              },
+              "text": {
+                "formula": "Double the sides: the gap shrinks",
+                "counter": "",
+                "show": "caption"
+              },
+              "speed": {
+                "from": 1,
+                "to": 1,
+                "curve": "linear",
+                "pulse": 0
+              },
+              "lab": {
+                "archimedes": {
+                  "sides": "12 24",
+                  "every": 8
+                }
+              },
+              "layers": [],
+              "combine": "sequence"
+            }
+          },
+          {
+            "id": "C3",
+            "enabled": true,
+            "withPrev": false,
+            "cfg": {
+              "rule": "archimedes",
+              "seed": 7,
+              "chord": {
+                "step": "1/phi^2",
+                "walkers": 1,
+                "speed": 1.8,
+                "speedGain": 1,
+                "start": 90
+              },
+              "physics": {
+                "balls": 1,
+                "speed": 1.4,
+                "angle": 62,
+                "gravity": 0,
+                "restitution": 1,
+                "speedGain": 1,
+                "maxSpeed": 4.5,
+                "size": 0.035
+              },
+              "split": {
+                "angle": 14,
+                "max": 128
+              },
+              "grow": {
+                "amount": 0.006,
+                "until": 0.92
+              },
+              "escape": {
+                "rings": 6,
+                "inner": 0.32,
+                "gap": 34,
+                "spin": 0.9
+              },
+              "poly": {
+                "dots": 12,
+                "base": 24,
+                "cycle": 60
+              },
+              "look": {
+                "palette": "gold",
+                "trail": "lines",
+                "trailWidth": 1.6,
+                "glow": 1,
+                "ringWidth": 5,
+                "ballSize": 1,
+                "sparks": true,
+                "ringPulse": true,
+                "comet": true,
+                "counter": true,
+                "background": "#060814",
+                "zoom": 1,
+                "dx": 0,
+                "dy": 0,
+                "bloom": 1,
+                "ambience": true
+              },
+              "sound": {
+                "instrument": "bell",
+                "pitch": "angle",
+                "melody": "ode",
+                "notes": "",
+                "drum": "off",
+                "length": 0.35,
+                "volume": 0.7,
+                "maxRate": 22
+              },
+              "text": {
+                "formula": "96 sides: π ≈ 3.14",
+                "counter": "",
+                "show": "caption"
+              },
+              "speed": {
+                "from": 1,
+                "to": 1,
+                "curve": "linear",
+                "pulse": 0
+              },
+              "lab": {
+                "archimedes": {
+                  "sides": "48 96",
+                  "every": 8
+                }
+              },
+              "layers": [],
+              "combine": "sequence"
+            }
+          }
+        ],
+        "combine": "sequence"
+      },
+      "youtube": {
+        "title": "Pi animation: how Archimedes trapped π 🥧 #shorts",
+        "description": "A polygon inside the circle is shorter than the circle, one outside is longer. Doubling the sides again and again, Archimedes squeezed π to 3.14.\n\n#satisfying #simulation #shorts",
+        "tags": "pi animation, archimedes, pi, math animation, math visualization, learn math, mathematics, education, shorts"
+      },
+      "overlay": {
+        "layout": 4,
+        "title": {
+          "enabled": false,
+          "text": "",
+          "subtitle": false,
+          "subtitleText": "",
+          "x": null,
+          "y": null,
+          "size": 1,
+          "color": ""
+        },
+        "formulas": {
+          "enabled": true,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "name": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1,
+          "color": ""
+        },
+        "analyzer": {
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "texts": []
+      },
+      "sequence": {
+        "enabled": false,
+        "past": "ghost"
+      },
+      "rhythm": {
+        "enabled": false,
+        "division": "1/8",
+        "gate": 0.8,
+        "swing": 0,
+        "showGrid": true
+      },
+      "drums": {
+        "enabled": false,
+        "source": 0,
+        "volume": 0.8,
+        "kick": "valley",
+        "snare": "peak",
+        "hat": "step",
+        "clap": "off",
+        "sensitivity": 0.08,
+        "pulse": true
+      },
+      "keyframes": {
+        "tracks": {},
+        "autoKey": false
+      }
+    },
+    {
+      "name": "Lesson · π From Randomness",
+      "mode": "circle",
+      "theme": "dark",
+      "transport": {
+        "duration": 30,
+        "speed": 1,
+        "loop": true,
+        "bpm": 110
+      },
+      "view": {
+        "xMin": 0,
+        "xMax": 8,
+        "yMin": -4,
+        "yMax": 4
+      },
+      "params": {
+        "a": 1,
+        "b": 1,
+        "c": 1,
+        "d": 1
+      },
+      "layers": [
+        {
+          "id": "Lmv51o8ov0",
+          "name": "Layer 126",
+          "enabled": true,
+          "type": "function",
+          "exprs": {
+            "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+            "z": "0",
+            "x": "0",
+            "r": "1",
+            "f": "0",
+            "path": "0"
+          },
+          "range": {
+            "min": 0,
+            "max": 6.283185307179586
+          },
+          "colorMode": "solid",
+          "color": "#ff3d9a",
+          "color2": "#ffd23d",
+          "width": 4,
+          "style": "line",
+          "wave": "sine",
+          "volume": 0.6,
+          "octave": 0,
+          "pan": 0,
+          "zMap": "volume",
+          "mute": false,
+          "solo": false,
+          "withPrev": false,
+          "samples": 900
+        }
+      ],
+      "visual": {
+        "background": "#04050a",
+        "gridColor": "#1d2440",
+        "axesColor": "#4a5784",
+        "showGrid": true,
+        "showAxes": true,
+        "showLabels": true,
+        "drawMode": "trace",
+        "bloom": {
+          "enabled": true,
+          "strength": 1.1,
+          "radius": 0.5,
+          "threshold": 0.05
+        },
+        "trail": {
+          "enabled": true,
+          "count": 160,
+          "size": 6
+        },
+        "marker": {
+          "shape": "circle",
+          "size": 26,
+          "image": null,
+          "cursorLine": true,
+          "smoothing": 0.35
+        },
+        "fog": {
+          "enabled": false,
+          "density": 0.04
+        },
+        "dof": {
+          "enabled": false,
+          "focus": 14,
+          "aperture": 0.6
+        },
+        "motionBlur": {
+          "enabled": false,
+          "amount": 0.75
+        },
+        "caption": true,
+        "showNotes": false,
+        "analyzer": "off",
+        "hideUntil": 0,
+        "aspect": "9:16"
+      },
+      "camera": {
+        "autoRotate": false,
+        "rotateSpeed": 0.8,
+        "fov": 45,
+        "follow": false,
+        "punch": 0,
+        "track": 0,
+        "trackSpeed": 0.06,
+        "roll": 0
+      },
+      "audio": {
+        "master": 0.7,
+        "noteLow": 50,
+        "noteHigh": 86,
+        "scale": "minorPentatonic",
+        "root": 9,
+        "glide": 25,
+        "articulation": "legato",
+        "filter": {
+          "type": "lowpass",
+          "cutoff": 9000,
+          "q": 0.8
+        },
+        "distortion": 0,
+        "delay": {
+          "time": 0.375,
+          "feedback": 0.3,
+          "mix": 0.16
+        },
+        "reverb": {
+          "decay": 3.5,
+          "mix": 0.35
+        }
+      },
+      "record": {
+        "resolution": "1080p",
+        "fps": 60,
+        "fromStart": true,
+        "fileName": "",
+        "quality": "high",
+        "subframes": 1,
+        "gpuEncoder": false,
+        "engine": "auto",
+        "hook": {
+          "enabled": false,
+          "teaser": 0.8,
+          "flash": true,
+          "impact": true
+        },
+        "outro": 0.6
+      },
+      "hook": {
+        "text": "Can random dots find π?"
+      },
+      "circle": {
+        "rule": "montecarlo",
+        "seed": 7,
+        "chord": {
+          "step": "1/phi^2",
+          "walkers": 1,
+          "speed": 1.8,
+          "speedGain": 1,
+          "start": 90
+        },
+        "physics": {
+          "balls": 1,
+          "speed": 1.4,
+          "angle": 62,
+          "gravity": 0,
+          "restitution": 1,
+          "speedGain": 1,
+          "maxSpeed": 4.5,
+          "size": 0.035
+        },
+        "split": {
+          "angle": 14,
+          "max": 128
+        },
+        "grow": {
+          "amount": 0.006,
+          "until": 0.92
+        },
+        "escape": {
+          "rings": 6,
+          "inner": 0.32,
+          "gap": 34,
+          "spin": 0.9
+        },
+        "poly": {
+          "dots": 12,
+          "base": 24,
+          "cycle": 60
+        },
+        "look": {
+          "palette": "ocean",
+          "trail": "lines",
+          "trailWidth": 1.6,
+          "glow": 1,
+          "ringWidth": 5,
+          "ballSize": 1,
+          "sparks": true,
+          "ringPulse": true,
+          "comet": true,
+          "counter": true,
+          "background": "#060814",
+          "zoom": 1,
+          "dx": 0,
+          "dy": 0,
+          "bloom": 1,
+          "ambience": true
+        },
+        "sound": {
+          "instrument": "kalimba",
+          "pitch": "angle",
+          "melody": "ode",
+          "notes": "",
+          "drum": "off",
+          "length": 0.35,
+          "volume": 0.7,
+          "maxRate": 22
+        },
+        "text": {
+          "formula": "Random dots: some land in the circle",
+          "counter": "",
+          "show": "caption"
+        },
+        "speed": {
+          "from": 1,
+          "to": 1,
+          "curve": "linear",
+          "pulse": 0
+        },
+        "lab": {
+          "montecarlo": {
+            "rate0": 3,
+            "accel": 1.15,
+            "max": 300
+          }
+        },
+        "layers": [
+          {
+            "id": "C2",
+            "enabled": true,
+            "withPrev": false,
+            "cfg": {
+              "rule": "montecarlo",
+              "seed": 7,
+              "chord": {
+                "step": "1/phi^2",
+                "walkers": 1,
+                "speed": 1.8,
+                "speedGain": 1,
+                "start": 90
+              },
+              "physics": {
+                "balls": 1,
+                "speed": 1.4,
+                "angle": 62,
+                "gravity": 0,
+                "restitution": 1,
+                "speedGain": 1,
+                "maxSpeed": 4.5,
+                "size": 0.035
+              },
+              "split": {
+                "angle": 14,
+                "max": 128
+              },
+              "grow": {
+                "amount": 0.006,
+                "until": 0.92
+              },
+              "escape": {
+                "rings": 6,
+                "inner": 0.32,
+                "gap": 34,
+                "spin": 0.9
+              },
+              "poly": {
+                "dots": 12,
+                "base": 24,
+                "cycle": 60
+              },
+              "look": {
+                "palette": "ocean",
+                "trail": "lines",
+                "trailWidth": 1.6,
+                "glow": 1,
+                "ringWidth": 5,
+                "ballSize": 1,
+                "sparks": true,
+                "ringPulse": true,
+                "comet": true,
+                "counter": true,
+                "background": "#060814",
+                "zoom": 1,
+                "dx": 0,
+                "dy": 0,
+                "bloom": 1,
+                "ambience": true
+              },
+              "sound": {
+                "instrument": "kalimba",
+                "pitch": "angle",
+                "melody": "ode",
+                "notes": "",
+                "drum": "off",
+                "length": 0.35,
+                "volume": 0.7,
+                "maxRate": 22
+              },
+              "text": {
+                "formula": "inside ÷ all ≈ π/4",
+                "counter": "",
+                "show": "caption"
+              },
+              "speed": {
+                "from": 1,
+                "to": 1,
+                "curve": "linear",
+                "pulse": 0
+              },
+              "lab": {
+                "montecarlo": {
+                  "rate0": 20,
+                  "accel": 1.35,
+                  "max": 5000
+                }
+              },
+              "layers": [],
+              "combine": "sequence"
+            }
+          },
+          {
+            "id": "C3",
+            "enabled": true,
+            "withPrev": false,
+            "cfg": {
+              "rule": "montecarlo",
+              "seed": 7,
+              "chord": {
+                "step": "1/phi^2",
+                "walkers": 1,
+                "speed": 1.8,
+                "speedGain": 1,
+                "start": 90
+              },
+              "physics": {
+                "balls": 1,
+                "speed": 1.4,
+                "angle": 62,
+                "gravity": 0,
+                "restitution": 1,
+                "speedGain": 1,
+                "maxSpeed": 4.5,
+                "size": 0.035
+              },
+              "split": {
+                "angle": 14,
+                "max": 128
+              },
+              "grow": {
+                "amount": 0.006,
+                "until": 0.92
+              },
+              "escape": {
+                "rings": 6,
+                "inner": 0.32,
+                "gap": 34,
+                "spin": 0.9
+              },
+              "poly": {
+                "dots": 12,
+                "base": 24,
+                "cycle": 60
+              },
+              "look": {
+                "palette": "ocean",
+                "trail": "lines",
+                "trailWidth": 1.6,
+                "glow": 1,
+                "ringWidth": 5,
+                "ballSize": 1,
+                "sparks": true,
+                "ringPulse": true,
+                "comet": true,
+                "counter": true,
+                "background": "#060814",
+                "zoom": 1,
+                "dx": 0,
+                "dy": 0,
+                "bloom": 1,
+                "ambience": true
+              },
+              "sound": {
+                "instrument": "kalimba",
+                "pitch": "angle",
+                "melody": "ode",
+                "notes": "",
+                "drum": "off",
+                "length": 0.35,
+                "volume": 0.7,
+                "maxRate": 22
+              },
+              "text": {
+                "formula": "More dots, more correct digits",
+                "counter": "",
+                "show": "caption"
+              },
+              "speed": {
+                "from": 1,
+                "to": 1,
+                "curve": "linear",
+                "pulse": 0
+              },
+              "lab": {
+                "montecarlo": {
+                  "rate0": 200,
+                  "accel": 1.4,
+                  "max": 40000
+                }
+              },
+              "layers": [],
+              "combine": "sequence"
+            }
+          }
+        ],
+        "combine": "sequence"
+      },
+      "youtube": {
+        "title": "Pi animation: π from random dots 🎯 #shorts",
+        "description": "The circle covers π/4 of the square, so π/4 of random dots land inside. Count them and you get π, slowly: ten times more dots for each new digit.\n\n#satisfying #simulation #shorts",
+        "tags": "pi animation, monte carlo, probability, math animation, math visualization, learn math, mathematics, education, shorts"
+      },
+      "overlay": {
+        "layout": 4,
+        "title": {
+          "enabled": false,
+          "text": "",
+          "subtitle": false,
+          "subtitleText": "",
+          "x": null,
+          "y": null,
+          "size": 1,
+          "color": ""
+        },
+        "formulas": {
+          "enabled": true,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "name": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1,
+          "color": ""
+        },
+        "analyzer": {
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "texts": []
+      },
+      "sequence": {
+        "enabled": false,
+        "past": "ghost"
+      },
+      "rhythm": {
+        "enabled": false,
+        "division": "1/8",
+        "gate": 0.8,
+        "swing": 0,
+        "showGrid": true
+      },
+      "drums": {
+        "enabled": false,
+        "source": 0,
+        "volume": 0.8,
+        "kick": "valley",
+        "snare": "peak",
+        "hat": "step",
+        "clap": "off",
+        "sensitivity": 0.08,
+        "pulse": true
+      },
+      "keyframes": {
+        "tracks": {},
+        "autoKey": false
+      }
+    },
+    {
+      "name": "Lesson · Buffon's Needle",
+      "mode": "circle",
+      "theme": "dark",
+      "transport": {
+        "duration": 30,
+        "speed": 1,
+        "loop": true,
+        "bpm": 110
+      },
+      "view": {
+        "xMin": 0,
+        "xMax": 8,
+        "yMin": -4,
+        "yMax": 4
+      },
+      "params": {
+        "a": 1,
+        "b": 1,
+        "c": 1,
+        "d": 1
+      },
+      "layers": [
+        {
+          "id": "Lmv51o8ov0",
+          "name": "Layer 128",
+          "enabled": true,
+          "type": "function",
+          "exprs": {
+            "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+            "z": "0",
+            "x": "0",
+            "r": "1",
+            "f": "0",
+            "path": "0"
+          },
+          "range": {
+            "min": 0,
+            "max": 6.283185307179586
+          },
+          "colorMode": "solid",
+          "color": "#8cff5a",
+          "color2": "#22e4ff",
+          "width": 4,
+          "style": "line",
+          "wave": "sine",
+          "volume": 0.6,
+          "octave": 0,
+          "pan": 0,
+          "zMap": "volume",
+          "mute": false,
+          "solo": false,
+          "withPrev": false,
+          "samples": 900
+        }
+      ],
+      "visual": {
+        "background": "#04050a",
+        "gridColor": "#1d2440",
+        "axesColor": "#4a5784",
+        "showGrid": true,
+        "showAxes": true,
+        "showLabels": true,
+        "drawMode": "trace",
+        "bloom": {
+          "enabled": true,
+          "strength": 1.1,
+          "radius": 0.5,
+          "threshold": 0.05
+        },
+        "trail": {
+          "enabled": true,
+          "count": 160,
+          "size": 6
+        },
+        "marker": {
+          "shape": "circle",
+          "size": 26,
+          "image": null,
+          "cursorLine": true,
+          "smoothing": 0.35
+        },
+        "fog": {
+          "enabled": false,
+          "density": 0.04
+        },
+        "dof": {
+          "enabled": false,
+          "focus": 14,
+          "aperture": 0.6
+        },
+        "motionBlur": {
+          "enabled": false,
+          "amount": 0.75
+        },
+        "caption": true,
+        "showNotes": false,
+        "analyzer": "off",
+        "hideUntil": 0,
+        "aspect": "9:16"
+      },
+      "camera": {
+        "autoRotate": false,
+        "rotateSpeed": 0.8,
+        "fov": 45,
+        "follow": false,
+        "punch": 0,
+        "track": 0,
+        "trackSpeed": 0.06,
+        "roll": 0
+      },
+      "audio": {
+        "master": 0.7,
+        "noteLow": 50,
+        "noteHigh": 86,
+        "scale": "minorPentatonic",
+        "root": 9,
+        "glide": 25,
+        "articulation": "legato",
+        "filter": {
+          "type": "lowpass",
+          "cutoff": 9000,
+          "q": 0.8
+        },
+        "distortion": 0,
+        "delay": {
+          "time": 0.375,
+          "feedback": 0.3,
+          "mix": 0.16
+        },
+        "reverb": {
+          "decay": 3.5,
+          "mix": 0.35
+        }
+      },
+      "record": {
+        "resolution": "1080p",
+        "fps": 60,
+        "fromStart": true,
+        "fileName": "",
+        "quality": "high",
+        "subframes": 1,
+        "gpuEncoder": false,
+        "engine": "auto",
+        "hook": {
+          "enabled": false,
+          "teaser": 0.8,
+          "flash": true,
+          "impact": true
+        },
+        "outro": 0.6
+      },
+      "hook": {
+        "text": "Can needles on a floor find π?"
+      },
+      "circle": {
+        "rule": "buffon",
+        "seed": 7,
+        "chord": {
+          "step": "1/phi^2",
+          "walkers": 1,
+          "speed": 1.8,
+          "speedGain": 1,
+          "start": 90
+        },
+        "physics": {
+          "balls": 1,
+          "speed": 1.4,
+          "angle": 62,
+          "gravity": 0,
+          "restitution": 1,
+          "speedGain": 1,
+          "maxSpeed": 4.5,
+          "size": 0.035
+        },
+        "split": {
+          "angle": 14,
+          "max": 128
+        },
+        "grow": {
+          "amount": 0.006,
+          "until": 0.92
+        },
+        "escape": {
+          "rings": 6,
+          "inner": 0.32,
+          "gap": 34,
+          "spin": 0.9
+        },
+        "poly": {
+          "dots": 12,
+          "base": 24,
+          "cycle": 60
+        },
+        "look": {
+          "palette": "candy",
+          "trail": "lines",
+          "trailWidth": 1.6,
+          "glow": 1,
+          "ringWidth": 5,
+          "ballSize": 1,
+          "sparks": true,
+          "ringPulse": true,
+          "comet": true,
+          "counter": true,
+          "background": "#060814",
+          "zoom": 1,
+          "dx": 0,
+          "dy": 0,
+          "bloom": 1,
+          "ambience": true
+        },
+        "sound": {
+          "instrument": "marimba",
+          "pitch": "angle",
+          "melody": "ode",
+          "notes": "",
+          "drum": "off",
+          "length": 0.35,
+          "volume": 0.7,
+          "maxRate": 22
+        },
+        "text": {
+          "formula": "Drop needles as long as the gap",
+          "counter": "",
+          "show": "caption"
+        },
+        "speed": {
+          "from": 1,
+          "to": 1,
+          "curve": "linear",
+          "pulse": 0
+        },
+        "lab": {
+          "buffon": {
+            "rate0": 1.5,
+            "accel": 1.1,
+            "max": 40
+          }
+        },
+        "layers": [
+          {
+            "id": "C2",
+            "enabled": true,
+            "withPrev": false,
+            "cfg": {
+              "rule": "buffon",
+              "seed": 7,
+              "chord": {
+                "step": "1/phi^2",
+                "walkers": 1,
+                "speed": 1.8,
+                "speedGain": 1,
+                "start": 90
+              },
+              "physics": {
+                "balls": 1,
+                "speed": 1.4,
+                "angle": 62,
+                "gravity": 0,
+                "restitution": 1,
+                "speedGain": 1,
+                "maxSpeed": 4.5,
+                "size": 0.035
+              },
+              "split": {
+                "angle": 14,
+                "max": 128
+              },
+              "grow": {
+                "amount": 0.006,
+                "until": 0.92
+              },
+              "escape": {
+                "rings": 6,
+                "inner": 0.32,
+                "gap": 34,
+                "spin": 0.9
+              },
+              "poly": {
+                "dots": 12,
+                "base": 24,
+                "cycle": 60
+              },
+              "look": {
+                "palette": "candy",
+                "trail": "lines",
+                "trailWidth": 1.6,
+                "glow": 1,
+                "ringWidth": 5,
+                "ballSize": 1,
+                "sparks": true,
+                "ringPulse": true,
+                "comet": true,
+                "counter": true,
+                "background": "#060814",
+                "zoom": 1,
+                "dx": 0,
+                "dy": 0,
+                "bloom": 1,
+                "ambience": true
+              },
+              "sound": {
+                "instrument": "marimba",
+                "pitch": "angle",
+                "melody": "ode",
+                "notes": "",
+                "drum": "off",
+                "length": 0.35,
+                "volume": 0.7,
+                "maxRate": 22
+              },
+              "text": {
+                "formula": "Count the ones that cross a line",
+                "counter": "",
+                "show": "caption"
+              },
+              "speed": {
+                "from": 1,
+                "to": 1,
+                "curve": "linear",
+                "pulse": 0
+              },
+              "lab": {
+                "buffon": {
+                  "rate0": 10,
+                  "accel": 1.3,
+                  "max": 600
+                }
+              },
+              "layers": [],
+              "combine": "sequence"
+            }
+          },
+          {
+            "id": "C3",
+            "enabled": true,
+            "withPrev": false,
+            "cfg": {
+              "rule": "buffon",
+              "seed": 7,
+              "chord": {
+                "step": "1/phi^2",
+                "walkers": 1,
+                "speed": 1.8,
+                "speedGain": 1,
+                "start": 90
+              },
+              "physics": {
+                "balls": 1,
+                "speed": 1.4,
+                "angle": 62,
+                "gravity": 0,
+                "restitution": 1,
+                "speedGain": 1,
+                "maxSpeed": 4.5,
+                "size": 0.035
+              },
+              "split": {
+                "angle": 14,
+                "max": 128
+              },
+              "grow": {
+                "amount": 0.006,
+                "until": 0.92
+              },
+              "escape": {
+                "rings": 6,
+                "inner": 0.32,
+                "gap": 34,
+                "spin": 0.9
+              },
+              "poly": {
+                "dots": 12,
+                "base": 24,
+                "cycle": 60
+              },
+              "look": {
+                "palette": "candy",
+                "trail": "lines",
+                "trailWidth": 1.6,
+                "glow": 1,
+                "ringWidth": 5,
+                "ballSize": 1,
+                "sparks": true,
+                "ringPulse": true,
+                "comet": true,
+                "counter": true,
+                "background": "#060814",
+                "zoom": 1,
+                "dx": 0,
+                "dy": 0,
+                "bloom": 1,
+                "ambience": true
+              },
+              "sound": {
+                "instrument": "marimba",
+                "pitch": "angle",
+                "melody": "ode",
+                "notes": "",
+                "drum": "off",
+                "length": 0.35,
+                "volume": 0.7,
+                "maxRate": 22
+              },
+              "text": {
+                "formula": "π ≈ 2 × needles ÷ crossings",
+                "counter": "",
+                "show": "caption"
+              },
+              "speed": {
+                "from": 1,
+                "to": 1,
+                "curve": "linear",
+                "pulse": 0
+              },
+              "lab": {
+                "buffon": {
+                  "rate0": 60,
+                  "accel": 1.3,
+                  "max": 3000
+                }
+              },
+              "layers": [],
+              "combine": "sequence"
+            }
+          }
+        ],
+        "combine": "sequence"
+      },
+      "youtube": {
+        "title": "Buffon's needle: find π by dropping needles 🪡 #shorts",
+        "description": "A needle as long as the gap between lines crosses a line with probability 2/π. Drop enough of them and count: π appears from chance.\n\n#satisfying #simulation #shorts",
+        "tags": "pi animation, buffon's needle, probability, math animation, math visualization, learn math, mathematics, education, shorts"
+      },
+      "overlay": {
+        "layout": 4,
+        "title": {
+          "enabled": false,
+          "text": "",
+          "subtitle": false,
+          "subtitleText": "",
+          "x": null,
+          "y": null,
+          "size": 1,
+          "color": ""
+        },
+        "formulas": {
+          "enabled": true,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "name": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1,
+          "color": ""
+        },
+        "analyzer": {
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "texts": []
+      },
+      "sequence": {
+        "enabled": false,
+        "past": "ghost"
+      },
+      "rhythm": {
+        "enabled": false,
+        "division": "1/8",
+        "gate": 0.8,
+        "swing": 0,
+        "showGrid": true
+      },
+      "drums": {
+        "enabled": false,
+        "source": 0,
+        "volume": 0.8,
+        "kick": "valley",
+        "snare": "peak",
+        "hat": "step",
+        "clap": "off",
+        "sensitivity": 0.08,
+        "pulse": true
+      },
+      "keyframes": {
+        "tracks": {},
+        "autoKey": false
+      }
+    },
+    {
+      "name": "Lesson · Series for π",
+      "mode": "circle",
+      "theme": "dark",
+      "transport": {
+        "duration": 30,
+        "speed": 1,
+        "loop": true,
+        "bpm": 110
+      },
+      "view": {
+        "xMin": 0,
+        "xMax": 8,
+        "yMin": -4,
+        "yMax": 4
+      },
+      "params": {
+        "a": 1,
+        "b": 1,
+        "c": 1,
+        "d": 1
+      },
+      "layers": [
+        {
+          "id": "Lmv51o8ov0",
+          "name": "Layer 130",
+          "enabled": true,
+          "type": "function",
+          "exprs": {
+            "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+            "z": "0",
+            "x": "0",
+            "r": "1",
+            "f": "0",
+            "path": "0"
+          },
+          "range": {
+            "min": 0,
+            "max": 6.283185307179586
+          },
+          "colorMode": "solid",
+          "color": "#ff3d9a",
+          "color2": "#ffd23d",
+          "width": 4,
+          "style": "line",
+          "wave": "sine",
+          "volume": 0.6,
+          "octave": 0,
+          "pan": 0,
+          "zMap": "volume",
+          "mute": false,
+          "solo": false,
+          "withPrev": false,
+          "samples": 900
+        }
+      ],
+      "visual": {
+        "background": "#04050a",
+        "gridColor": "#1d2440",
+        "axesColor": "#4a5784",
+        "showGrid": true,
+        "showAxes": true,
+        "showLabels": true,
+        "drawMode": "trace",
+        "bloom": {
+          "enabled": true,
+          "strength": 1.1,
+          "radius": 0.5,
+          "threshold": 0.05
+        },
+        "trail": {
+          "enabled": true,
+          "count": 160,
+          "size": 6
+        },
+        "marker": {
+          "shape": "circle",
+          "size": 26,
+          "image": null,
+          "cursorLine": true,
+          "smoothing": 0.35
+        },
+        "fog": {
+          "enabled": false,
+          "density": 0.04
+        },
+        "dof": {
+          "enabled": false,
+          "focus": 14,
+          "aperture": 0.6
+        },
+        "motionBlur": {
+          "enabled": false,
+          "amount": 0.75
+        },
+        "caption": true,
+        "showNotes": false,
+        "analyzer": "off",
+        "hideUntil": 0,
+        "aspect": "9:16"
+      },
+      "camera": {
+        "autoRotate": false,
+        "rotateSpeed": 0.8,
+        "fov": 45,
+        "follow": false,
+        "punch": 0,
+        "track": 0,
+        "trackSpeed": 0.06,
+        "roll": 0
+      },
+      "audio": {
+        "master": 0.7,
+        "noteLow": 50,
+        "noteHigh": 86,
+        "scale": "minorPentatonic",
+        "root": 9,
+        "glide": 25,
+        "articulation": "legato",
+        "filter": {
+          "type": "lowpass",
+          "cutoff": 9000,
+          "q": 0.8
+        },
+        "distortion": 0,
+        "delay": {
+          "time": 0.375,
+          "feedback": 0.3,
+          "mix": 0.16
+        },
+        "reverb": {
+          "decay": 3.5,
+          "mix": 0.35
+        }
+      },
+      "record": {
+        "resolution": "1080p",
+        "fps": 60,
+        "fromStart": true,
+        "fileName": "",
+        "quality": "high",
+        "subframes": 1,
+        "gpuEncoder": false,
+        "engine": "auto",
+        "hook": {
+          "enabled": false,
+          "teaser": 0.8,
+          "flash": true,
+          "impact": true
+        },
+        "outro": 0.6
+      },
+      "hook": {
+        "text": "Which formula finds π fastest?"
+      },
+      "circle": {
+        "rule": "series",
+        "seed": 7,
+        "chord": {
+          "step": "1/phi^2",
+          "walkers": 1,
+          "speed": 1.8,
+          "speedGain": 1,
+          "start": 90
+        },
+        "physics": {
+          "balls": 1,
+          "speed": 1.4,
+          "angle": 62,
+          "gravity": 0,
+          "restitution": 1,
+          "speedGain": 1,
+          "maxSpeed": 4.5,
+          "size": 0.035
+        },
+        "split": {
+          "angle": 14,
+          "max": 128
+        },
+        "grow": {
+          "amount": 0.006,
+          "until": 0.92
+        },
+        "escape": {
+          "rings": 6,
+          "inner": 0.32,
+          "gap": 34,
+          "spin": 0.9
+        },
+        "poly": {
+          "dots": 12,
+          "base": 24,
+          "cycle": 60
+        },
+        "look": {
+          "palette": "gold",
+          "trail": "lines",
+          "trailWidth": 1.6,
+          "glow": 1,
+          "ringWidth": 5,
+          "ballSize": 1,
+          "sparks": true,
+          "ringPulse": true,
+          "comet": true,
+          "counter": true,
+          "background": "#060814",
+          "zoom": 1,
+          "dx": 0,
+          "dy": 0,
+          "bloom": 1,
+          "ambience": true
+        },
+        "sound": {
+          "instrument": "marimba",
+          "pitch": "angle",
+          "melody": "ode",
+          "notes": "",
+          "drum": "off",
+          "length": 0.35,
+          "volume": 0.7,
+          "maxRate": 22
+        },
+        "text": {
+          "formula": "Leibniz: 4(1 − 1/3 + 1/5 − …) is slow",
+          "counter": "",
+          "show": "caption"
+        },
+        "speed": {
+          "from": 1,
+          "to": 1,
+          "curve": "linear",
+          "pulse": 0
+        },
+        "lab": {
+          "series": {
+            "kind": "leibniz",
+            "terms": 40,
+            "per": 0.25
+          }
+        },
+        "layers": [
+          {
+            "id": "C2",
+            "enabled": true,
+            "withPrev": false,
+            "cfg": {
+              "rule": "series",
+              "seed": 7,
+              "chord": {
+                "step": "1/phi^2",
+                "walkers": 1,
+                "speed": 1.8,
+                "speedGain": 1,
+                "start": 90
+              },
+              "physics": {
+                "balls": 1,
+                "speed": 1.4,
+                "angle": 62,
+                "gravity": 0,
+                "restitution": 1,
+                "speedGain": 1,
+                "maxSpeed": 4.5,
+                "size": 0.035
+              },
+              "split": {
+                "angle": 14,
+                "max": 128
+              },
+              "grow": {
+                "amount": 0.006,
+                "until": 0.92
+              },
+              "escape": {
+                "rings": 6,
+                "inner": 0.32,
+                "gap": 34,
+                "spin": 0.9
+              },
+              "poly": {
+                "dots": 12,
+                "base": 24,
+                "cycle": 60
+              },
+              "look": {
+                "palette": "gold",
+                "trail": "lines",
+                "trailWidth": 1.6,
+                "glow": 1,
+                "ringWidth": 5,
+                "ballSize": 1,
+                "sparks": true,
+                "ringPulse": true,
+                "comet": true,
+                "counter": true,
+                "background": "#060814",
+                "zoom": 1,
+                "dx": 0,
+                "dy": 0,
+                "bloom": 1,
+                "ambience": true
+              },
+              "sound": {
+                "instrument": "marimba",
+                "pitch": "angle",
+                "melody": "ode",
+                "notes": "",
+                "drum": "off",
+                "length": 0.35,
+                "volume": 0.7,
+                "maxRate": 22
+              },
+              "text": {
+                "formula": "Nilakantha: much faster",
+                "counter": "",
+                "show": "caption"
+              },
+              "speed": {
+                "from": 1,
+                "to": 1,
+                "curve": "linear",
+                "pulse": 0
+              },
+              "lab": {
+                "series": {
+                  "kind": "nilakantha",
+                  "terms": 20,
+                  "per": 0.5
+                }
+              },
+              "layers": [],
+              "combine": "sequence"
+            }
+          },
+          {
+            "id": "C3",
+            "enabled": true,
+            "withPrev": false,
+            "cfg": {
+              "rule": "series",
+              "seed": 7,
+              "chord": {
+                "step": "1/phi^2",
+                "walkers": 1,
+                "speed": 1.8,
+                "speedGain": 1,
+                "start": 90
+              },
+              "physics": {
+                "balls": 1,
+                "speed": 1.4,
+                "angle": 62,
+                "gravity": 0,
+                "restitution": 1,
+                "speedGain": 1,
+                "maxSpeed": 4.5,
+                "size": 0.035
+              },
+              "split": {
+                "angle": 14,
+                "max": 128
+              },
+              "grow": {
+                "amount": 0.006,
+                "until": 0.92
+              },
+              "escape": {
+                "rings": 6,
+                "inner": 0.32,
+                "gap": 34,
+                "spin": 0.9
+              },
+              "poly": {
+                "dots": 12,
+                "base": 24,
+                "cycle": 60
+              },
+              "look": {
+                "palette": "gold",
+                "trail": "lines",
+                "trailWidth": 1.6,
+                "glow": 1,
+                "ringWidth": 5,
+                "ballSize": 1,
+                "sparks": true,
+                "ringPulse": true,
+                "comet": true,
+                "counter": true,
+                "background": "#060814",
+                "zoom": 1,
+                "dx": 0,
+                "dy": 0,
+                "bloom": 1,
+                "ambience": true
+              },
+              "sound": {
+                "instrument": "marimba",
+                "pitch": "angle",
+                "melody": "ode",
+                "notes": "",
+                "drum": "off",
+                "length": 0.35,
+                "volume": 0.7,
+                "maxRate": 22
+              },
+              "text": {
+                "formula": "Wallis: a product, not a sum",
+                "counter": "",
+                "show": "caption"
+              },
+              "speed": {
+                "from": 1,
+                "to": 1,
+                "curve": "linear",
+                "pulse": 0
+              },
+              "lab": {
+                "series": {
+                  "kind": "wallis",
+                  "terms": 40,
+                  "per": 0.25
+                }
+              },
+              "layers": [],
+              "combine": "sequence"
+            }
+          }
+        ],
+        "combine": "sequence"
+      },
+      "youtube": {
+        "title": "Three formulas for π, and how fast they get there 🥧 #shorts",
+        "description": "Leibniz needs hundreds of terms for two digits. Nilakantha gets five digits in twenty terms. Wallis multiplies instead of adding.\n\n#satisfying #simulation #shorts",
+        "tags": "pi animation, leibniz series, infinite series, math animation, math visualization, learn math, mathematics, education, shorts"
+      },
+      "overlay": {
+        "layout": 4,
+        "title": {
+          "enabled": false,
+          "text": "",
+          "subtitle": false,
+          "subtitleText": "",
+          "x": null,
+          "y": null,
+          "size": 1,
+          "color": ""
+        },
+        "formulas": {
+          "enabled": true,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "name": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1,
+          "color": ""
+        },
+        "analyzer": {
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "texts": []
+      },
+      "sequence": {
+        "enabled": false,
+        "past": "ghost"
+      },
+      "rhythm": {
+        "enabled": false,
+        "division": "1/8",
+        "gate": 0.8,
+        "swing": 0,
+        "showGrid": true
+      },
+      "drums": {
+        "enabled": false,
+        "source": 0,
+        "volume": 0.8,
+        "kick": "valley",
+        "snare": "peak",
+        "hat": "step",
+        "clap": "off",
+        "sensitivity": 0.08,
+        "pulse": true
+      },
+      "keyframes": {
+        "tracks": {},
+        "autoKey": false
+      }
+    },
+    {
+      "name": "Lesson · The Digits of π",
+      "mode": "circle",
+      "theme": "dark",
+      "transport": {
+        "duration": 30,
+        "speed": 1,
+        "loop": true,
+        "bpm": 110
+      },
+      "view": {
+        "xMin": 0,
+        "xMax": 8,
+        "yMin": -4,
+        "yMax": 4
+      },
+      "params": {
+        "a": 1,
+        "b": 1,
+        "c": 1,
+        "d": 1
+      },
+      "layers": [
+        {
+          "id": "Lmv51o8ov0",
+          "name": "Layer 132",
+          "enabled": true,
+          "type": "function",
+          "exprs": {
+            "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+            "z": "0",
+            "x": "0",
+            "r": "1",
+            "f": "0",
+            "path": "0"
+          },
+          "range": {
+            "min": 0,
+            "max": 6.283185307179586
+          },
+          "colorMode": "solid",
+          "color": "#8cff5a",
+          "color2": "#22e4ff",
+          "width": 4,
+          "style": "line",
+          "wave": "sine",
+          "volume": 0.6,
+          "octave": 0,
+          "pan": 0,
+          "zMap": "volume",
+          "mute": false,
+          "solo": false,
+          "withPrev": false,
+          "samples": 900
+        }
+      ],
+      "visual": {
+        "background": "#04050a",
+        "gridColor": "#1d2440",
+        "axesColor": "#4a5784",
+        "showGrid": true,
+        "showAxes": true,
+        "showLabels": true,
+        "drawMode": "trace",
+        "bloom": {
+          "enabled": true,
+          "strength": 1.1,
+          "radius": 0.5,
+          "threshold": 0.05
+        },
+        "trail": {
+          "enabled": true,
+          "count": 160,
+          "size": 6
+        },
+        "marker": {
+          "shape": "circle",
+          "size": 26,
+          "image": null,
+          "cursorLine": true,
+          "smoothing": 0.35
+        },
+        "fog": {
+          "enabled": false,
+          "density": 0.04
+        },
+        "dof": {
+          "enabled": false,
+          "focus": 14,
+          "aperture": 0.6
+        },
+        "motionBlur": {
+          "enabled": false,
+          "amount": 0.75
+        },
+        "caption": true,
+        "showNotes": false,
+        "analyzer": "off",
+        "hideUntil": 0,
+        "aspect": "9:16"
+      },
+      "camera": {
+        "autoRotate": false,
+        "rotateSpeed": 0.8,
+        "fov": 45,
+        "follow": false,
+        "punch": 0,
+        "track": 0,
+        "trackSpeed": 0.06,
+        "roll": 0
+      },
+      "audio": {
+        "master": 0.7,
+        "noteLow": 50,
+        "noteHigh": 86,
+        "scale": "minorPentatonic",
+        "root": 9,
+        "glide": 25,
+        "articulation": "legato",
+        "filter": {
+          "type": "lowpass",
+          "cutoff": 9000,
+          "q": 0.8
+        },
+        "distortion": 0,
+        "delay": {
+          "time": 0.375,
+          "feedback": 0.3,
+          "mix": 0.16
+        },
+        "reverb": {
+          "decay": 3.5,
+          "mix": 0.35
+        }
+      },
+      "record": {
+        "resolution": "1080p",
+        "fps": 60,
+        "fromStart": true,
+        "fileName": "",
+        "quality": "high",
+        "subframes": 1,
+        "gpuEncoder": false,
+        "engine": "auto",
+        "hook": {
+          "enabled": false,
+          "teaser": 0.8,
+          "flash": true,
+          "impact": true
+        },
+        "outro": 0.6
+      },
+      "hook": {
+        "text": "Do the digits of π have a pattern?"
+      },
+      "circle": {
+        "rule": "pidigits",
+        "seed": 7,
+        "chord": {
+          "step": "1/phi^2",
+          "walkers": 1,
+          "speed": 1.8,
+          "speedGain": 1,
+          "start": 90
+        },
+        "physics": {
+          "balls": 1,
+          "speed": 1.4,
+          "angle": 62,
+          "gravity": 0,
+          "restitution": 1,
+          "speedGain": 1,
+          "maxSpeed": 4.5,
+          "size": 0.035
+        },
+        "split": {
+          "angle": 14,
+          "max": 128
+        },
+        "grow": {
+          "amount": 0.006,
+          "until": 0.92
+        },
+        "escape": {
+          "rings": 6,
+          "inner": 0.32,
+          "gap": 34,
+          "spin": 0.9
+        },
+        "poly": {
+          "dots": 12,
+          "base": 24,
+          "cycle": 60
+        },
+        "look": {
+          "palette": "rainbow",
+          "trail": "lines",
+          "trailWidth": 1.6,
+          "glow": 1,
+          "ringWidth": 5,
+          "ballSize": 1,
+          "sparks": true,
+          "ringPulse": true,
+          "comet": true,
+          "counter": true,
+          "background": "#060814",
+          "zoom": 1,
+          "dx": 0,
+          "dy": 0,
+          "bloom": 1,
+          "ambience": true
+        },
+        "sound": {
+          "instrument": "kalimba",
+          "pitch": "angle",
+          "melody": "ode",
+          "notes": "",
+          "drum": "off",
+          "length": 0.35,
+          "volume": 0.7,
+          "maxRate": 22
+        },
+        "text": {
+          "formula": "3.14159… every digit a colour and a note",
+          "counter": "",
+          "show": "caption"
+        },
+        "speed": {
+          "from": 1,
+          "to": 1,
+          "curve": "linear",
+          "pulse": 0
+        },
+        "lab": {
+          "pidigits": {
+            "mode": "grid",
+            "rate0": 3,
+            "accel": 1.1,
+            "max": 200
+          }
+        },
+        "layers": [
+          {
+            "id": "C2",
+            "enabled": true,
+            "withPrev": false,
+            "cfg": {
+              "rule": "pidigits",
+              "seed": 7,
+              "chord": {
+                "step": "1/phi^2",
+                "walkers": 1,
+                "speed": 1.8,
+                "speedGain": 1,
+                "start": 90
+              },
+              "physics": {
+                "balls": 1,
+                "speed": 1.4,
+                "angle": 62,
+                "gravity": 0,
+                "restitution": 1,
+                "speedGain": 1,
+                "maxSpeed": 4.5,
+                "size": 0.035
+              },
+              "split": {
+                "angle": 14,
+                "max": 128
+              },
+              "grow": {
+                "amount": 0.006,
+                "until": 0.92
+              },
+              "escape": {
+                "rings": 6,
+                "inner": 0.32,
+                "gap": 34,
+                "spin": 0.9
+              },
+              "poly": {
+                "dots": 12,
+                "base": 24,
+                "cycle": 60
+              },
+              "look": {
+                "palette": "rainbow",
+                "trail": "lines",
+                "trailWidth": 1.6,
+                "glow": 1,
+                "ringWidth": 5,
+                "ballSize": 1,
+                "sparks": true,
+                "ringPulse": true,
+                "comet": true,
+                "counter": true,
+                "background": "#060814",
+                "zoom": 1,
+                "dx": 0,
+                "dy": 0,
+                "bloom": 1,
+                "ambience": true
+              },
+              "sound": {
+                "instrument": "kalimba",
+                "pitch": "angle",
+                "melody": "ode",
+                "notes": "",
+                "drum": "off",
+                "length": 0.35,
+                "volume": 0.7,
+                "maxRate": 22
+              },
+              "text": {
+                "formula": "Every digit a direction: a random walk",
+                "counter": "",
+                "show": "caption"
+              },
+              "speed": {
+                "from": 1,
+                "to": 1,
+                "curve": "linear",
+                "pulse": 0
+              },
+              "lab": {
+                "pidigits": {
+                  "mode": "walk",
+                  "rate0": 10,
+                  "accel": 1.3,
+                  "max": 1200
+                }
+              },
+              "layers": [],
+              "combine": "sequence"
+            }
+          },
+          {
+            "id": "C3",
+            "enabled": true,
+            "withPrev": false,
+            "cfg": {
+              "rule": "pidigits",
+              "seed": 7,
+              "chord": {
+                "step": "1/phi^2",
+                "walkers": 1,
+                "speed": 1.8,
+                "speedGain": 1,
+                "start": 90
+              },
+              "physics": {
+                "balls": 1,
+                "speed": 1.4,
+                "angle": 62,
+                "gravity": 0,
+                "restitution": 1,
+                "speedGain": 1,
+                "maxSpeed": 4.5,
+                "size": 0.035
+              },
+              "split": {
+                "angle": 14,
+                "max": 128
+              },
+              "grow": {
+                "amount": 0.006,
+                "until": 0.92
+              },
+              "escape": {
+                "rings": 6,
+                "inner": 0.32,
+                "gap": 34,
+                "spin": 0.9
+              },
+              "poly": {
+                "dots": 12,
+                "base": 24,
+                "cycle": 60
+              },
+              "look": {
+                "palette": "rainbow",
+                "trail": "lines",
+                "trailWidth": 1.6,
+                "glow": 1,
+                "ringWidth": 5,
+                "ballSize": 1,
+                "sparks": true,
+                "ringPulse": true,
+                "comet": true,
+                "counter": true,
+                "background": "#060814",
+                "zoom": 1,
+                "dx": 0,
+                "dy": 0,
+                "bloom": 1,
+                "ambience": true
+              },
+              "sound": {
+                "instrument": "kalimba",
+                "pitch": "angle",
+                "melody": "ode",
+                "notes": "",
+                "drum": "off",
+                "length": 0.35,
+                "volume": 0.7,
+                "maxRate": 22
+              },
+              "text": {
+                "formula": "Every digit joined to the next",
+                "counter": "",
+                "show": "caption"
+              },
+              "speed": {
+                "from": 1,
+                "to": 1,
+                "curve": "linear",
+                "pulse": 0
+              },
+              "lab": {
+                "pidigits": {
+                  "mode": "chords",
+                  "rate0": 20,
+                  "accel": 1.35,
+                  "max": 2000
+                }
+              },
+              "layers": [],
+              "combine": "sequence"
+            }
+          }
+        ],
+        "combine": "sequence"
+      },
+      "youtube": {
+        "title": "Pi visualized three ways: colours, a walk, a circle 🌈 #shorts",
+        "description": "The digits of π never repeat. As colours, as a walk and as chords around a circle, they look random, and every digit shows up about equally often.\n\n#satisfying #simulation #shorts",
+        "tags": "pi animation, digits of pi, math animation, math visualization, learn math, mathematics, education, shorts"
+      },
+      "overlay": {
+        "layout": 4,
+        "title": {
+          "enabled": false,
+          "text": "",
+          "subtitle": false,
+          "subtitleText": "",
+          "x": null,
+          "y": null,
+          "size": 1,
+          "color": ""
+        },
+        "formulas": {
+          "enabled": true,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "name": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1,
+          "color": ""
+        },
+        "analyzer": {
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "texts": []
+      },
+      "sequence": {
+        "enabled": false,
+        "past": "ghost"
+      },
+      "rhythm": {
+        "enabled": false,
+        "division": "1/8",
+        "gate": 0.8,
+        "swing": 0,
+        "showGrid": true
+      },
+      "drums": {
+        "enabled": false,
+        "source": 0,
+        "volume": 0.8,
+        "kick": "valley",
+        "snare": "peak",
+        "hat": "step",
+        "clap": "off",
+        "sensitivity": 0.08,
+        "pulse": true
+      },
+      "keyframes": {
+        "tracks": {},
+        "autoKey": false
+      }
+    }
+  ]
+}

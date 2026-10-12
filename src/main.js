@@ -187,6 +187,8 @@ const evalCtx = (t = clock.pos) => ({ t, params: store.state.params, view: store
 const duration = () => Math.max(0.5, store.state.transport.duration);
 
 /** Where `layer` is at timeline time `time` (see math/sequence.js). */
+/** Guess-the-shape: drawing (and formulas) hidden before visual.hideUntil seconds. */
+const hiddenAt = (time) => store.state.mode !== 'circle' && time < (store.state.visual.hideUntil || 0);
 const layerTiming = (layer, time) =>
   seqTiming(store.state.layers, layer, time, duration(), store.state.sequence.enabled);
 
@@ -608,7 +610,8 @@ function renderScene(time, { dt, now, playing, snap }) {
     const c = compiled.get(l.id);
     if (!c || !l.enabled) continue;
     const { u, phase } = layerTiming(l, time);
-    items.push({ id: l.id, u, phase, point: c.at(u, ctx, { x: 0, y: 0, z: 0 }), compiled: c });
+    // "Guess the shape": the curves stay hidden (the sound plays) until the reveal time
+    items.push({ id: l.id, u, phase: hiddenAt(time) ? 'future' : phase, point: c.at(u, ctx, { x: 0, y: 0, z: 0 }), compiled: c });
   }
   const frames = voicesAt(time);
   for (const f of frames) notes.set(f.id, f.gain > 0 ? f.midi : null);
@@ -714,7 +717,7 @@ function overlayData(analysis = null, time = clock.pos) {
     layers: store.state.layers,
     time,
     notes: (clock.playing || clock.scrubbing || exportingNow || RENDER_MODE) && store.state.visual.showNotes ? notes : new Map(),
-    phases: new Map(store.state.layers.map((l) => [l.id, layerTiming(l, time).phase])),
+    phases: new Map(store.state.layers.map((l) => [l.id, hiddenAt(time) ? 'future' : layerTiming(l, time).phase])),
     spectrum: analysis ? analysis.spectrum : audio.spectrum(),
     waveform: analysis ? analysis.waveform : audio.waveform(),
     ui: { fg: light ? '#1a1c26' : '#eef2ff', accent: '#22e4ff', accent2: light ? '#e0245e' : '#ff3d9a', light },

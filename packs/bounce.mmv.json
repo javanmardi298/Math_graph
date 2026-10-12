@@ -27,8 +27,8 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhf40",
-          "name": "Layer 150",
+          "id": "Lmv51o8p40",
+          "name": "Layer 176",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -44,8 +44,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#ff3d9a",
-          "color2": "#ffd23d",
+          "color": "#8cff5a",
+          "color2": "#22e4ff",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -101,6 +101,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -514,8 +515,8 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhf40",
-          "name": "Layer 152",
+          "id": "Lmv51o8p40",
+          "name": "Layer 178",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -531,8 +532,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#8cff5a",
-          "color2": "#22e4ff",
+          "color": "#ff3d9a",
+          "color2": "#ffd23d",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -588,6 +589,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -1005,8 +1007,8 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhf40",
-          "name": "Layer 154",
+          "id": "Lmv51o8p40",
+          "name": "Layer 180",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -1022,8 +1024,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#ff3d9a",
-          "color2": "#ffd23d",
+          "color": "#8cff5a",
+          "color2": "#22e4ff",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -1079,6 +1081,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {

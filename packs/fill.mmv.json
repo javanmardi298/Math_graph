@@ -27,8 +27,8 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhez0",
-          "name": "Layer 138",
+          "id": "Lmv51o8p30",
+          "name": "Layer 164",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -44,8 +44,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#ff3d9a",
-          "color2": "#ffd23d",
+          "color": "#8cff5a",
+          "color2": "#22e4ff",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -101,6 +101,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -517,8 +518,8 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhez0",
-          "name": "Layer 140",
+          "id": "Lmv51o8p30",
+          "name": "Layer 166",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -534,8 +535,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#8cff5a",
-          "color2": "#22e4ff",
+          "color": "#ff3d9a",
+          "color2": "#ffd23d",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -591,6 +592,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -1010,8 +1012,8 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhez0",
-          "name": "Layer 142",
+          "id": "Lmv51o8p30",
+          "name": "Layer 168",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -1027,8 +1029,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#ff3d9a",
-          "color2": "#ffd23d",
+          "color": "#8cff5a",
+          "color2": "#22e4ff",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -1084,6 +1086,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -1502,8 +1505,8 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhez0",
-          "name": "Layer 144",
+          "id": "Lmv51o8p30",
+          "name": "Layer 170",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -1519,8 +1522,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#8cff5a",
-          "color2": "#22e4ff",
+          "color": "#ff3d9a",
+          "color2": "#ffd23d",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -1576,6 +1579,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -1994,8 +1998,8 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhez0",
-          "name": "Layer 146",
+          "id": "Lmv51o8p30",
+          "name": "Layer 172",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -2011,8 +2015,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#ff3d9a",
-          "color2": "#ffd23d",
+          "color": "#8cff5a",
+          "color2": "#22e4ff",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -2068,6 +2072,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -2487,8 +2492,8 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhez0",
-          "name": "Layer 148",
+          "id": "Lmv51o8p30",
+          "name": "Layer 174",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -2504,8 +2509,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#8cff5a",
-          "color2": "#22e4ff",
+          "color": "#ff3d9a",
+          "color2": "#ffd23d",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -2561,6 +2566,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {

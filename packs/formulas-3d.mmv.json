@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhe40",
+          "id": "Lmv51o8oq0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -59,7 +59,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3ihhe41",
+          "id": "Lmv51o8oq1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -91,7 +91,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3ihhe42",
+          "id": "Lmv51o8oq2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -165,6 +165,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -437,7 +438,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhe40",
+          "id": "Lmv51o8oq0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -469,7 +470,7 @@
           "samples": 64
         },
         {
-          "id": "Lmv3ihhe41",
+          "id": "Lmv51o8oq1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -501,7 +502,7 @@
           "samples": 64
         },
         {
-          "id": "Lmv3ihhe42",
+          "id": "Lmv51o8oq2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -575,6 +576,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -847,7 +849,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhe40",
+          "id": "Lmv51o8oq0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -879,7 +881,7 @@
           "samples": 64
         },
         {
-          "id": "Lmv3ihhe41",
+          "id": "Lmv51o8oq1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -911,7 +913,7 @@
           "samples": 64
         },
         {
-          "id": "Lmv3ihhe42",
+          "id": "Lmv51o8oq2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -985,6 +987,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -1257,7 +1260,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhe40",
+          "id": "Lmv51o8oq0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -1289,7 +1292,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3ihhe41",
+          "id": "Lmv51o8oq1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -1321,7 +1324,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3ihhe42",
+          "id": "Lmv51o8oq2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -1395,6 +1398,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {
@@ -1667,7 +1671,7 @@
       },
       "layers": [
         {
-          "id": "Lmv3ihhe40",
+          "id": "Lmv51o8oq0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -1699,7 +1703,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3ihhe41",
+          "id": "Lmv51o8oq1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -1731,7 +1735,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv3ihhe42",
+          "id": "Lmv51o8oq2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -1805,6 +1809,7 @@
         "caption": true,
         "showNotes": false,
         "analyzer": "off",
+        "hideUntil": 0,
         "aspect": "9:16"
       },
       "camera": {

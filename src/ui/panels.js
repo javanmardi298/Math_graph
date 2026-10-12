@@ -313,6 +313,7 @@ export class Panels {
           number('x min', p('view.xMin'), { step: 0.5 }), number('x max', p('view.xMax'), { step: 0.5 }),
           number('y min', p('view.yMin'), { step: 0.5 }), number('y max', p('view.yMax'), { step: 0.5 })),
         h('div.ctl', {}, h('span.ctl-label', {}, 'Drawing'), segmented(p('visual.drawMode'), [['trace', 'Trace', 'Draw the curve as the playhead moves'], ['ghost', 'Ghost', 'Faint full curve, bright trace'], ['full', 'Full', 'Whole curve always visible']], { label: 'Drawing mode' })),
+        slider('Hide the drawing for (guess the shape)', p('visual.hideUntil'), { min: 0, max: 20, step: 0.5, fmt: (v) => (v ? `${v} s` : 'off') }),
         select('Frame', p('visual.aspect'), { fill: 'Fill window', '16:9': '16:9 · YouTube', '9:16': '9:16 · Shorts / Reels', '1:1': '1:1 · Square', '4:5': '4:5 · Portrait post' }),
       ], { hint: 'x is time, y is pitch. In 3D, z sets volume or stereo pan.' }),
       group('Colours', [

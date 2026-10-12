@@ -26,7 +26,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdm0",
+     "id": "Lmv51o8of0",
      "name": "Layer 2",
      "enabled": true,
      "type": "function",
@@ -100,6 +100,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -519,7 +520,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdn0",
+     "id": "Lmv51o8of0",
      "name": "Layer 4",
      "enabled": true,
      "type": "function",
@@ -593,6 +594,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -1014,7 +1016,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdn0",
+     "id": "Lmv51o8og0",
      "name": "Layer 6",
      "enabled": true,
      "type": "function",
@@ -1088,6 +1090,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -1508,7 +1511,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdn0",
+     "id": "Lmv51o8og0",
      "name": "Layer 8",
      "enabled": true,
      "type": "function",
@@ -1582,6 +1585,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -2003,7 +2007,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdn0",
+     "id": "Lmv51o8oh0",
      "name": "Layer 10",
      "enabled": true,
      "type": "function",
@@ -2077,6 +2081,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -2494,7 +2499,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdo0",
+     "id": "Lmv51o8oh0",
      "name": "Layer 12",
      "enabled": true,
      "type": "function",
@@ -2568,6 +2573,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -2893,7 +2899,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdo0",
+     "id": "Lmv51o8oh0",
      "name": "Layer 14",
      "enabled": true,
      "type": "function",
@@ -2967,6 +2973,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -3386,7 +3393,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdo0",
+     "id": "Lmv51o8oh0",
      "name": "Layer 16",
      "enabled": true,
      "type": "function",
@@ -3460,6 +3467,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -3875,7 +3883,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdr0",
+     "id": "Lmv51o8oj0",
      "name": "Layer 18",
      "enabled": true,
      "type": "function",
@@ -3949,6 +3957,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -4366,7 +4375,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdr0",
+     "id": "Lmv51o8oj0",
      "name": "Layer 20",
      "enabled": true,
      "type": "function",
@@ -4440,6 +4449,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -4858,7 +4868,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdr0",
+     "id": "Lmv51o8oj0",
      "name": "Layer 22",
      "enabled": true,
      "type": "function",
@@ -4932,6 +4942,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -5352,7 +5363,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdr0",
+     "id": "Lmv51o8oj0",
      "name": "Layer 24",
      "enabled": true,
      "type": "function",
@@ -5426,6 +5437,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -5843,7 +5855,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhds0",
+     "id": "Lmv51o8oj0",
      "name": "Layer 26",
      "enabled": true,
      "type": "function",
@@ -5917,6 +5929,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -6334,7 +6347,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhds0",
+     "id": "Lmv51o8oj0",
      "name": "Layer 28",
      "enabled": true,
      "type": "function",
@@ -6408,6 +6421,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -6825,7 +6839,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdw0",
+     "id": "Lmv51o8ok0",
      "name": "Layer 30",
      "enabled": true,
      "type": "function",
@@ -6899,6 +6913,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -7324,7 +7339,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdw0",
+     "id": "Lmv51o8ol0",
      "name": "Layer 32",
      "enabled": true,
      "type": "function",
@@ -7398,6 +7413,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -7821,7 +7837,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdw0",
+     "id": "Lmv51o8ol0",
      "name": "Layer 34",
      "enabled": true,
      "type": "function",
@@ -7895,6 +7911,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -8320,7 +8337,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhdw0",
+     "id": "Lmv51o8ol0",
      "name": "Layer 36",
      "enabled": true,
      "type": "function",
@@ -8394,6 +8411,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -8814,7 +8832,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe00",
+     "id": "Lmv51o8on0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -8846,7 +8864,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe01",
+     "id": "Lmv51o8on1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -8878,7 +8896,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe02",
+     "id": "Lmv51o8on2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -8952,6 +8970,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -9225,7 +9244,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe00",
+     "id": "Lmv51o8on0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -9257,7 +9276,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe01",
+     "id": "Lmv51o8on1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -9289,7 +9308,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe02",
+     "id": "Lmv51o8on2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -9363,6 +9382,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -9636,7 +9656,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe00",
+     "id": "Lmv51o8oo0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -9668,7 +9688,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe01",
+     "id": "Lmv51o8oo1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -9700,7 +9720,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe02",
+     "id": "Lmv51o8oo2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -9774,6 +9794,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -10047,7 +10068,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe00",
+     "id": "Lmv51o8oo0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -10079,7 +10100,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe01",
+     "id": "Lmv51o8oo1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -10111,7 +10132,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe02",
+     "id": "Lmv51o8oo2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -10185,6 +10206,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -10458,7 +10480,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe00",
+     "id": "Lmv51o8oo0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -10490,7 +10512,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe01",
+     "id": "Lmv51o8oo1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -10522,7 +10544,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe02",
+     "id": "Lmv51o8oo2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -10596,6 +10618,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -10869,7 +10892,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe00",
+     "id": "Lmv51o8oo0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -10901,7 +10924,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe01",
+     "id": "Lmv51o8oo1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -10933,7 +10956,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe02",
+     "id": "Lmv51o8oo2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -11007,6 +11030,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -11280,7 +11304,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe00",
+     "id": "Lmv51o8oo0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -11312,7 +11336,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe01",
+     "id": "Lmv51o8oo1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -11344,7 +11368,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe02",
+     "id": "Lmv51o8oo2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -11418,6 +11442,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -11691,7 +11716,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe00",
+     "id": "Lmv51o8oo0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -11723,7 +11748,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe01",
+     "id": "Lmv51o8oo1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -11755,7 +11780,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe02",
+     "id": "Lmv51o8oo2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -11829,6 +11854,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -12102,7 +12128,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe00",
+     "id": "Lmv51o8oo0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -12134,7 +12160,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe01",
+     "id": "Lmv51o8oo1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -12166,7 +12192,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe02",
+     "id": "Lmv51o8oo2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -12240,6 +12266,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -12513,7 +12540,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe00",
+     "id": "Lmv51o8oo0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -12545,7 +12572,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe01",
+     "id": "Lmv51o8oo1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -12577,7 +12604,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe02",
+     "id": "Lmv51o8oo2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -12651,6 +12678,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -12924,7 +12952,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe00",
+     "id": "Lmv51o8oo0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -12956,7 +12984,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe01",
+     "id": "Lmv51o8oo1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -12988,7 +13016,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe02",
+     "id": "Lmv51o8oo2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -13062,6 +13090,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -13335,7 +13364,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe10",
+     "id": "Lmv51o8oo0",
      "name": "Step 1",
      "enabled": true,
      "type": "polar",
@@ -13367,7 +13396,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe11",
+     "id": "Lmv51o8oo1",
      "name": "Step 2",
      "enabled": true,
      "type": "polar",
@@ -13399,7 +13428,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe12",
+     "id": "Lmv51o8oo2",
      "name": "Step 3",
      "enabled": true,
      "type": "polar",
@@ -13473,6 +13502,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -13746,7 +13776,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe10",
+     "id": "Lmv51o8oo0",
      "name": "Step 1",
      "enabled": true,
      "type": "polar",
@@ -13778,7 +13808,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe11",
+     "id": "Lmv51o8oo1",
      "name": "Step 2",
      "enabled": true,
      "type": "polar",
@@ -13810,7 +13840,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe12",
+     "id": "Lmv51o8oo2",
      "name": "Step 3",
      "enabled": true,
      "type": "polar",
@@ -13884,6 +13914,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -14157,7 +14188,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe10",
+     "id": "Lmv51o8oo0",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -14189,7 +14220,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe11",
+     "id": "Lmv51o8oo1",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -14221,7 +14252,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe12",
+     "id": "Lmv51o8oo2",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -14295,6 +14326,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -14568,7 +14600,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe40",
+     "id": "Lmv51o8oq0",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -14600,7 +14632,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe41",
+     "id": "Lmv51o8oq1",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -14632,7 +14664,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe42",
+     "id": "Lmv51o8oq2",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -14706,6 +14738,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -14979,7 +15012,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe40",
+     "id": "Lmv51o8oq0",
      "name": "Step 1",
      "enabled": true,
      "type": "surface",
@@ -15011,7 +15044,7 @@
      "samples": 64
     },
     {
-     "id": "Lmv3ihhe41",
+     "id": "Lmv51o8oq1",
      "name": "Step 2",
      "enabled": true,
      "type": "surface",
@@ -15043,7 +15076,7 @@
      "samples": 64
     },
     {
-     "id": "Lmv3ihhe42",
+     "id": "Lmv51o8oq2",
      "name": "Step 3",
      "enabled": true,
      "type": "surface",
@@ -15117,6 +15150,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -15390,7 +15424,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe40",
+     "id": "Lmv51o8oq0",
      "name": "Step 1",
      "enabled": true,
      "type": "surface",
@@ -15422,7 +15456,7 @@
      "samples": 64
     },
     {
-     "id": "Lmv3ihhe41",
+     "id": "Lmv51o8oq1",
      "name": "Step 2",
      "enabled": true,
      "type": "surface",
@@ -15454,7 +15488,7 @@
      "samples": 64
     },
     {
-     "id": "Lmv3ihhe42",
+     "id": "Lmv51o8oq2",
      "name": "Step 3",
      "enabled": true,
      "type": "surface",
@@ -15528,6 +15562,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -15801,7 +15836,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe40",
+     "id": "Lmv51o8oq0",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -15833,7 +15868,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe41",
+     "id": "Lmv51o8oq1",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -15865,7 +15900,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe42",
+     "id": "Lmv51o8oq2",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -15939,6 +15974,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -16212,7 +16248,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe40",
+     "id": "Lmv51o8oq0",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -16244,7 +16280,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe41",
+     "id": "Lmv51o8oq1",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -16276,7 +16312,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmv3ihhe42",
+     "id": "Lmv51o8oq2",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -16350,6 +16386,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -16600,7 +16637,7 @@
    "$collection": "Lessons · Formulas 3D"
   },
   {
-   "name": "Lesson · Jumping Around a Circle",
+   "name": "Lesson · Fourier Drawing",
    "mode": "circle",
    "theme": "dark",
    "transport": {
@@ -16623,7 +16660,7 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe90",
+     "id": "Lmv51o8ot0",
      "name": "Layer 114",
      "enabled": true,
      "type": "function",
@@ -16697,6 +16734,6455 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
+    "aspect": "9:16"
+   },
+   "camera": {
+    "autoRotate": false,
+    "rotateSpeed": 0.8,
+    "fov": 45,
+    "follow": false,
+    "punch": 0,
+    "track": 0,
+    "trackSpeed": 0.06,
+    "roll": 0
+   },
+   "audio": {
+    "master": 0.7,
+    "noteLow": 50,
+    "noteHigh": 86,
+    "scale": "minorPentatonic",
+    "root": 9,
+    "glide": 25,
+    "articulation": "legato",
+    "filter": {
+     "type": "lowpass",
+     "cutoff": 9000,
+     "q": 0.8
+    },
+    "distortion": 0,
+    "delay": {
+     "time": 0.375,
+     "feedback": 0.3,
+     "mix": 0.16
+    },
+    "reverb": {
+     "decay": 3.5,
+     "mix": 0.35
+    }
+   },
+   "record": {
+    "resolution": "1080p",
+    "fps": 60,
+    "fromStart": true,
+    "fileName": "",
+    "quality": "high",
+    "subframes": 1,
+    "gpuEncoder": false,
+    "engine": "auto",
+    "hook": {
+     "enabled": false,
+     "teaser": 0.8,
+     "flash": true,
+     "impact": true
+    },
+    "outro": 0.6
+   },
+   "hook": {
+    "text": "Can circles draw anything?"
+   },
+   "circle": {
+    "rule": "fdraw",
+    "seed": 7,
+    "chord": {
+     "step": "1/phi^2",
+     "walkers": 1,
+     "speed": 1.8,
+     "speedGain": 1,
+     "start": 90
+    },
+    "physics": {
+     "balls": 1,
+     "speed": 1.4,
+     "angle": 62,
+     "gravity": 0,
+     "restitution": 1,
+     "speedGain": 1,
+     "maxSpeed": 4.5,
+     "size": 0.035
+    },
+    "split": {
+     "angle": 14,
+     "max": 128
+    },
+    "grow": {
+     "amount": 0.006,
+     "until": 0.92
+    },
+    "escape": {
+     "rings": 6,
+     "inner": 0.32,
+     "gap": 34,
+     "spin": 0.9
+    },
+    "poly": {
+     "dots": 12,
+     "base": 24,
+     "cycle": 60
+    },
+    "look": {
+     "palette": "candy",
+     "trail": "lines",
+     "trailWidth": 1.6,
+     "glow": 1,
+     "ringWidth": 5,
+     "ballSize": 1,
+     "sparks": true,
+     "ringPulse": true,
+     "comet": true,
+     "counter": true,
+     "background": "#060814",
+     "zoom": 1,
+     "dx": 0,
+     "dy": 0,
+     "bloom": 1,
+     "ambience": true
+    },
+    "sound": {
+     "instrument": "harp",
+     "pitch": "angle",
+     "melody": "ode",
+     "notes": "",
+     "drum": "off",
+     "length": 0.35,
+     "volume": 0.7,
+     "maxRate": 22
+    },
+    "text": {
+     "formula": "One circle draws a circle…",
+     "counter": "",
+     "show": "caption"
+    },
+    "speed": {
+     "from": 1,
+     "to": 1,
+     "curve": "linear",
+     "pulse": 0
+    },
+    "lab": {
+     "fdraw": {
+      "shape": "heart",
+      "rounds": "1 2",
+      "period": 4.5
+     }
+    },
+    "layers": [
+     {
+      "id": "C2",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "fdraw",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "candy",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "harp",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "…add circles: a heart appears",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "fdraw": {
+         "shape": "heart",
+         "rounds": "4 12",
+         "period": 4.5
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     },
+     {
+      "id": "C3",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "fdraw",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "candy",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "harp",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "Enough circles draw anything",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "fdraw": {
+         "shape": "cat",
+         "rounds": "10 250",
+         "period": 4.5
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     }
+    ],
+    "combine": "sequence"
+   },
+   "youtube": {
+    "title": "Fourier animation: how circles draw any shape ❤️🐱 #shorts",
+    "description": "Each spinning circle is one frequency. One circle draws a circle; a few draw a heart; 250 draw a cat. That is the Fourier series in two dimensions.\n\n#satisfying #simulation #shorts",
+    "tags": "fourier animation, fourier series, epicycles, math animation, math visualization, learn math, mathematics, education, shorts"
+   },
+   "overlay": {
+    "layout": 4,
+    "title": {
+     "enabled": false,
+     "text": "",
+     "subtitle": false,
+     "subtitleText": "",
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "formulas": {
+     "enabled": true,
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "name": {
+     "enabled": false,
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "analyzer": {
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "texts": []
+   },
+   "sequence": {
+    "enabled": false,
+    "past": "ghost"
+   },
+   "rhythm": {
+    "enabled": false,
+    "division": "1/8",
+    "gate": 0.8,
+    "swing": 0,
+    "showGrid": true
+   },
+   "drums": {
+    "enabled": false,
+    "source": 0,
+    "volume": 0.8,
+    "kick": "valley",
+    "snare": "peak",
+    "hat": "step",
+    "clap": "off",
+    "sensitivity": 0.08,
+    "pulse": true
+   },
+   "keyframes": {
+    "tracks": {},
+    "autoKey": false
+   },
+   "$collection": "Lessons · Fourier & calculus"
+  },
+  {
+   "name": "Lesson · What Is a Derivative?",
+   "mode": "circle",
+   "theme": "dark",
+   "transport": {
+    "duration": 30,
+    "speed": 1,
+    "loop": true,
+    "bpm": 110
+   },
+   "view": {
+    "xMin": 0,
+    "xMax": 8,
+    "yMin": -4,
+    "yMax": 4
+   },
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 1,
+    "d": 1
+   },
+   "layers": [
+    {
+     "id": "Lmv51o8ot0",
+     "name": "Layer 116",
+     "enabled": true,
+     "type": "function",
+     "exprs": {
+      "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+      "z": "0",
+      "x": "0",
+      "r": "1",
+      "f": "0",
+      "path": "0"
+     },
+     "range": {
+      "min": 0,
+      "max": 6.283185307179586
+     },
+     "colorMode": "solid",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
+     "width": 4,
+     "style": "line",
+     "wave": "sine",
+     "volume": 0.6,
+     "octave": 0,
+     "pan": 0,
+     "zMap": "volume",
+     "mute": false,
+     "solo": false,
+     "withPrev": false,
+     "samples": 900
+    }
+   ],
+   "visual": {
+    "background": "#04050a",
+    "gridColor": "#1d2440",
+    "axesColor": "#4a5784",
+    "showGrid": true,
+    "showAxes": true,
+    "showLabels": true,
+    "drawMode": "trace",
+    "bloom": {
+     "enabled": true,
+     "strength": 1.1,
+     "radius": 0.5,
+     "threshold": 0.05
+    },
+    "trail": {
+     "enabled": true,
+     "count": 160,
+     "size": 6
+    },
+    "marker": {
+     "shape": "circle",
+     "size": 26,
+     "image": null,
+     "cursorLine": true,
+     "smoothing": 0.35
+    },
+    "fog": {
+     "enabled": false,
+     "density": 0.04
+    },
+    "dof": {
+     "enabled": false,
+     "focus": 14,
+     "aperture": 0.6
+    },
+    "motionBlur": {
+     "enabled": false,
+     "amount": 0.75
+    },
+    "caption": true,
+    "showNotes": false,
+    "analyzer": "off",
+    "hideUntil": 0,
+    "aspect": "9:16"
+   },
+   "camera": {
+    "autoRotate": false,
+    "rotateSpeed": 0.8,
+    "fov": 45,
+    "follow": false,
+    "punch": 0,
+    "track": 0,
+    "trackSpeed": 0.06,
+    "roll": 0
+   },
+   "audio": {
+    "master": 0.7,
+    "noteLow": 50,
+    "noteHigh": 86,
+    "scale": "minorPentatonic",
+    "root": 9,
+    "glide": 25,
+    "articulation": "legato",
+    "filter": {
+     "type": "lowpass",
+     "cutoff": 9000,
+     "q": 0.8
+    },
+    "distortion": 0,
+    "delay": {
+     "time": 0.375,
+     "feedback": 0.3,
+     "mix": 0.16
+    },
+    "reverb": {
+     "decay": 3.5,
+     "mix": 0.35
+    }
+   },
+   "record": {
+    "resolution": "1080p",
+    "fps": 60,
+    "fromStart": true,
+    "fileName": "",
+    "quality": "high",
+    "subframes": 1,
+    "gpuEncoder": false,
+    "engine": "auto",
+    "hook": {
+     "enabled": false,
+     "teaser": 0.8,
+     "flash": true,
+     "impact": true
+    },
+    "outro": 0.6
+   },
+   "hook": {
+    "text": "What is a derivative, really?"
+   },
+   "circle": {
+    "rule": "tangent",
+    "seed": 7,
+    "chord": {
+     "step": "1/phi^2",
+     "walkers": 1,
+     "speed": 1.8,
+     "speedGain": 1,
+     "start": 90
+    },
+    "physics": {
+     "balls": 1,
+     "speed": 1.4,
+     "angle": 62,
+     "gravity": 0,
+     "restitution": 1,
+     "speedGain": 1,
+     "maxSpeed": 4.5,
+     "size": 0.035
+    },
+    "split": {
+     "angle": 14,
+     "max": 128
+    },
+    "grow": {
+     "amount": 0.006,
+     "until": 0.92
+    },
+    "escape": {
+     "rings": 6,
+     "inner": 0.32,
+     "gap": 34,
+     "spin": 0.9
+    },
+    "poly": {
+     "dots": 12,
+     "base": 24,
+     "cycle": 60
+    },
+    "look": {
+     "palette": "neon",
+     "trail": "lines",
+     "trailWidth": 1.6,
+     "glow": 1,
+     "ringWidth": 5,
+     "ballSize": 1,
+     "sparks": true,
+     "ringPulse": true,
+     "comet": true,
+     "counter": true,
+     "background": "#060814",
+     "zoom": 1,
+     "dx": 0,
+     "dy": 0,
+     "bloom": 1,
+     "ambience": true
+    },
+    "sound": {
+     "instrument": "synth-pluck",
+     "pitch": "angle",
+     "melody": "ode",
+     "notes": "",
+     "drum": "off",
+     "length": 0.35,
+     "volume": 0.6,
+     "maxRate": 22
+    },
+    "text": {
+     "formula": "A straight line: the same slope everywhere",
+     "counter": "",
+     "show": "caption"
+    },
+    "speed": {
+     "from": 1,
+     "to": 1,
+     "curve": "linear",
+     "pulse": 0
+    },
+    "lab": {
+     "tangent": {
+      "f": "0.5*x",
+      "sweep": 8,
+      "deriv": false
+     }
+    },
+    "layers": [
+     {
+      "id": "C2",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "tangent",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "neon",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "synth-pluck",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.6,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "A parabola: the slope grows steadily",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "tangent": {
+         "f": "0.25*x^2 - 2",
+         "sweep": 8
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     },
+     {
+      "id": "C3",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "tangent",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "neon",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "synth-pluck",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.6,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "The slope of sin x is cos x",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "tangent": {
+         "f": "sin(x)",
+         "sweep": 8
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     }
+    ],
+    "combine": "sequence"
+   },
+   "youtube": {
+    "title": "Derivative animation: what the slope really means 📈 #shorts",
+    "description": "The derivative is the slope of the tangent line at every point. A line has one slope, a parabola’s slope grows in a straight line, and the slope of sin x draws cos x.\n\n#satisfying #simulation #shorts",
+    "tags": "derivative, calculus, math animation, math visualization, learn math, mathematics, education, shorts"
+   },
+   "overlay": {
+    "layout": 4,
+    "title": {
+     "enabled": false,
+     "text": "",
+     "subtitle": false,
+     "subtitleText": "",
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "formulas": {
+     "enabled": true,
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "name": {
+     "enabled": false,
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "analyzer": {
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "texts": []
+   },
+   "sequence": {
+    "enabled": false,
+    "past": "ghost"
+   },
+   "rhythm": {
+    "enabled": false,
+    "division": "1/8",
+    "gate": 0.8,
+    "swing": 0,
+    "showGrid": true
+   },
+   "drums": {
+    "enabled": false,
+    "source": 0,
+    "volume": 0.8,
+    "kick": "valley",
+    "snare": "peak",
+    "hat": "step",
+    "clap": "off",
+    "sensitivity": 0.08,
+    "pulse": true
+   },
+   "keyframes": {
+    "tracks": {},
+    "autoKey": false
+   },
+   "$collection": "Lessons · Fourier & calculus"
+  },
+  {
+   "name": "Lesson · What Is an Integral?",
+   "mode": "circle",
+   "theme": "dark",
+   "transport": {
+    "duration": 30,
+    "speed": 1,
+    "loop": true,
+    "bpm": 110
+   },
+   "view": {
+    "xMin": 0,
+    "xMax": 8,
+    "yMin": -4,
+    "yMax": 4
+   },
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 1,
+    "d": 1
+   },
+   "layers": [
+    {
+     "id": "Lmv51o8ot0",
+     "name": "Layer 118",
+     "enabled": true,
+     "type": "function",
+     "exprs": {
+      "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+      "z": "0",
+      "x": "0",
+      "r": "1",
+      "f": "0",
+      "path": "0"
+     },
+     "range": {
+      "min": 0,
+      "max": 6.283185307179586
+     },
+     "colorMode": "solid",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
+     "width": 4,
+     "style": "line",
+     "wave": "sine",
+     "volume": 0.6,
+     "octave": 0,
+     "pan": 0,
+     "zMap": "volume",
+     "mute": false,
+     "solo": false,
+     "withPrev": false,
+     "samples": 900
+    }
+   ],
+   "visual": {
+    "background": "#04050a",
+    "gridColor": "#1d2440",
+    "axesColor": "#4a5784",
+    "showGrid": true,
+    "showAxes": true,
+    "showLabels": true,
+    "drawMode": "trace",
+    "bloom": {
+     "enabled": true,
+     "strength": 1.1,
+     "radius": 0.5,
+     "threshold": 0.05
+    },
+    "trail": {
+     "enabled": true,
+     "count": 160,
+     "size": 6
+    },
+    "marker": {
+     "shape": "circle",
+     "size": 26,
+     "image": null,
+     "cursorLine": true,
+     "smoothing": 0.35
+    },
+    "fog": {
+     "enabled": false,
+     "density": 0.04
+    },
+    "dof": {
+     "enabled": false,
+     "focus": 14,
+     "aperture": 0.6
+    },
+    "motionBlur": {
+     "enabled": false,
+     "amount": 0.75
+    },
+    "caption": true,
+    "showNotes": false,
+    "analyzer": "off",
+    "hideUntil": 0,
+    "aspect": "9:16"
+   },
+   "camera": {
+    "autoRotate": false,
+    "rotateSpeed": 0.8,
+    "fov": 45,
+    "follow": false,
+    "punch": 0,
+    "track": 0,
+    "trackSpeed": 0.06,
+    "roll": 0
+   },
+   "audio": {
+    "master": 0.7,
+    "noteLow": 50,
+    "noteHigh": 86,
+    "scale": "minorPentatonic",
+    "root": 9,
+    "glide": 25,
+    "articulation": "legato",
+    "filter": {
+     "type": "lowpass",
+     "cutoff": 9000,
+     "q": 0.8
+    },
+    "distortion": 0,
+    "delay": {
+     "time": 0.375,
+     "feedback": 0.3,
+     "mix": 0.16
+    },
+    "reverb": {
+     "decay": 3.5,
+     "mix": 0.35
+    }
+   },
+   "record": {
+    "resolution": "1080p",
+    "fps": 60,
+    "fromStart": true,
+    "fileName": "",
+    "quality": "high",
+    "subframes": 1,
+    "gpuEncoder": false,
+    "engine": "auto",
+    "hook": {
+     "enabled": false,
+     "teaser": 0.8,
+     "flash": true,
+     "impact": true
+    },
+    "outro": 0.6
+   },
+   "hook": {
+    "text": "How do you measure a curved area?"
+   },
+   "circle": {
+    "rule": "riemann",
+    "seed": 7,
+    "chord": {
+     "step": "1/phi^2",
+     "walkers": 1,
+     "speed": 1.8,
+     "speedGain": 1,
+     "start": 90
+    },
+    "physics": {
+     "balls": 1,
+     "speed": 1.4,
+     "angle": 62,
+     "gravity": 0,
+     "restitution": 1,
+     "speedGain": 1,
+     "maxSpeed": 4.5,
+     "size": 0.035
+    },
+    "split": {
+     "angle": 14,
+     "max": 128
+    },
+    "grow": {
+     "amount": 0.006,
+     "until": 0.92
+    },
+    "escape": {
+     "rings": 6,
+     "inner": 0.32,
+     "gap": 34,
+     "spin": 0.9
+    },
+    "poly": {
+     "dots": 12,
+     "base": 24,
+     "cycle": 60
+    },
+    "look": {
+     "palette": "ocean",
+     "trail": "lines",
+     "trailWidth": 1.6,
+     "glow": 1,
+     "ringWidth": 5,
+     "ballSize": 1,
+     "sparks": true,
+     "ringPulse": true,
+     "comet": true,
+     "counter": true,
+     "background": "#060814",
+     "zoom": 1,
+     "dx": 0,
+     "dy": 0,
+     "bloom": 1,
+     "ambience": true
+    },
+    "sound": {
+     "instrument": "marimba",
+     "pitch": "angle",
+     "melody": "ode",
+     "notes": "",
+     "drum": "off",
+     "length": 0.35,
+     "volume": 0.7,
+     "maxRate": 22
+    },
+    "text": {
+     "formula": "A flat line: area = height × width",
+     "counter": "",
+     "show": "caption"
+    },
+    "speed": {
+     "from": 1,
+     "to": 1,
+     "curve": "linear",
+     "pulse": 0
+    },
+    "lab": {
+     "riemann": {
+      "f": "2",
+      "a": -2,
+      "b": 2,
+      "steps": "1 4",
+      "every": 6,
+      "xmin": -3,
+      "xmax": 3,
+      "ymin": -1,
+      "ymax": 4
+     }
+    },
+    "layers": [
+     {
+      "id": "C2",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "riemann",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "ocean",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "marimba",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "A slope: rectangles get close…",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "riemann": {
+         "f": "0.5*x + 2",
+         "a": -2,
+         "b": 2,
+         "steps": "2 8 32",
+         "every": 4,
+         "xmin": -3,
+         "xmax": 3,
+         "ymin": -1,
+         "ymax": 4
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     },
+     {
+      "id": "C3",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "riemann",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "ocean",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "marimba",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "…infinitely thin ones give the integral",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "riemann": {
+         "f": "1 + sin(x) + 0.1*x^2",
+         "a": -3,
+         "b": 3,
+         "steps": "4 16 64 128",
+         "every": 3
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     }
+    ],
+    "combine": "sequence"
+   },
+   "youtube": {
+    "title": "Integral animation: area under a curve 📊 #shorts",
+    "description": "Cut the area into rectangles and add them up. Thinner rectangles, smaller error: in the limit you get the exact area, the integral.\n\n#satisfying #simulation #shorts",
+    "tags": "integral, riemann sum, calculus, math animation, math visualization, learn math, mathematics, education, shorts"
+   },
+   "overlay": {
+    "layout": 4,
+    "title": {
+     "enabled": false,
+     "text": "",
+     "subtitle": false,
+     "subtitleText": "",
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "formulas": {
+     "enabled": true,
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "name": {
+     "enabled": false,
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "analyzer": {
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "texts": []
+   },
+   "sequence": {
+    "enabled": false,
+    "past": "ghost"
+   },
+   "rhythm": {
+    "enabled": false,
+    "division": "1/8",
+    "gate": 0.8,
+    "swing": 0,
+    "showGrid": true
+   },
+   "drums": {
+    "enabled": false,
+    "source": 0,
+    "volume": 0.8,
+    "kick": "valley",
+    "snare": "peak",
+    "hat": "step",
+    "clap": "off",
+    "sensitivity": 0.08,
+    "pulse": true
+   },
+   "keyframes": {
+    "tracks": {},
+    "autoKey": false
+   },
+   "$collection": "Lessons · Fourier & calculus"
+  },
+  {
+   "name": "Lesson · Taylor Series",
+   "mode": "circle",
+   "theme": "dark",
+   "transport": {
+    "duration": 30,
+    "speed": 1,
+    "loop": true,
+    "bpm": 110
+   },
+   "view": {
+    "xMin": 0,
+    "xMax": 8,
+    "yMin": -4,
+    "yMax": 4
+   },
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 1,
+    "d": 1
+   },
+   "layers": [
+    {
+     "id": "Lmv51o8ot0",
+     "name": "Layer 120",
+     "enabled": true,
+     "type": "function",
+     "exprs": {
+      "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+      "z": "0",
+      "x": "0",
+      "r": "1",
+      "f": "0",
+      "path": "0"
+     },
+     "range": {
+      "min": 0,
+      "max": 6.283185307179586
+     },
+     "colorMode": "solid",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
+     "width": 4,
+     "style": "line",
+     "wave": "sine",
+     "volume": 0.6,
+     "octave": 0,
+     "pan": 0,
+     "zMap": "volume",
+     "mute": false,
+     "solo": false,
+     "withPrev": false,
+     "samples": 900
+    }
+   ],
+   "visual": {
+    "background": "#04050a",
+    "gridColor": "#1d2440",
+    "axesColor": "#4a5784",
+    "showGrid": true,
+    "showAxes": true,
+    "showLabels": true,
+    "drawMode": "trace",
+    "bloom": {
+     "enabled": true,
+     "strength": 1.1,
+     "radius": 0.5,
+     "threshold": 0.05
+    },
+    "trail": {
+     "enabled": true,
+     "count": 160,
+     "size": 6
+    },
+    "marker": {
+     "shape": "circle",
+     "size": 26,
+     "image": null,
+     "cursorLine": true,
+     "smoothing": 0.35
+    },
+    "fog": {
+     "enabled": false,
+     "density": 0.04
+    },
+    "dof": {
+     "enabled": false,
+     "focus": 14,
+     "aperture": 0.6
+    },
+    "motionBlur": {
+     "enabled": false,
+     "amount": 0.75
+    },
+    "caption": true,
+    "showNotes": false,
+    "analyzer": "off",
+    "hideUntil": 0,
+    "aspect": "9:16"
+   },
+   "camera": {
+    "autoRotate": false,
+    "rotateSpeed": 0.8,
+    "fov": 45,
+    "follow": false,
+    "punch": 0,
+    "track": 0,
+    "trackSpeed": 0.06,
+    "roll": 0
+   },
+   "audio": {
+    "master": 0.7,
+    "noteLow": 50,
+    "noteHigh": 86,
+    "scale": "minorPentatonic",
+    "root": 9,
+    "glide": 25,
+    "articulation": "legato",
+    "filter": {
+     "type": "lowpass",
+     "cutoff": 9000,
+     "q": 0.8
+    },
+    "distortion": 0,
+    "delay": {
+     "time": 0.375,
+     "feedback": 0.3,
+     "mix": 0.16
+    },
+    "reverb": {
+     "decay": 3.5,
+     "mix": 0.35
+    }
+   },
+   "record": {
+    "resolution": "1080p",
+    "fps": 60,
+    "fromStart": true,
+    "fileName": "",
+    "quality": "high",
+    "subframes": 1,
+    "gpuEncoder": false,
+    "engine": "auto",
+    "hook": {
+     "enabled": false,
+     "teaser": 0.8,
+     "flash": true,
+     "impact": true
+    },
+    "outro": 0.6
+   },
+   "hook": {
+    "text": "How does a calculator know sin and cos?"
+   },
+   "circle": {
+    "rule": "taylor",
+    "seed": 7,
+    "chord": {
+     "step": "1/phi^2",
+     "walkers": 1,
+     "speed": 1.8,
+     "speedGain": 1,
+     "start": 90
+    },
+    "physics": {
+     "balls": 1,
+     "speed": 1.4,
+     "angle": 62,
+     "gravity": 0,
+     "restitution": 1,
+     "speedGain": 1,
+     "maxSpeed": 4.5,
+     "size": 0.035
+    },
+    "split": {
+     "angle": 14,
+     "max": 128
+    },
+    "grow": {
+     "amount": 0.006,
+     "until": 0.92
+    },
+    "escape": {
+     "rings": 6,
+     "inner": 0.32,
+     "gap": 34,
+     "spin": 0.9
+    },
+    "poly": {
+     "dots": 12,
+     "base": 24,
+     "cycle": 60
+    },
+    "look": {
+     "palette": "aurora",
+     "trail": "lines",
+     "trailWidth": 1.6,
+     "glow": 1,
+     "ringWidth": 5,
+     "ballSize": 1,
+     "sparks": true,
+     "ringPulse": true,
+     "comet": true,
+     "counter": true,
+     "background": "#060814",
+     "zoom": 1,
+     "dx": 0,
+     "dy": 0,
+     "bloom": 1,
+     "ambience": true
+    },
+    "sound": {
+     "instrument": "e-piano",
+     "pitch": "angle",
+     "melody": "ode",
+     "notes": "",
+     "drum": "off",
+     "length": 0.35,
+     "volume": 0.7,
+     "maxRate": 22
+    },
+    "text": {
+     "formula": "1 − x²/2 + x⁴/24 … becomes cos x",
+     "counter": "",
+     "show": "caption"
+    },
+    "speed": {
+     "from": 1,
+     "to": 1,
+     "curve": "linear",
+     "pulse": 0
+    },
+    "lab": {
+     "taylor": {
+      "fn": "cos",
+      "terms": 4,
+      "every": 2
+     }
+    },
+    "layers": [
+     {
+      "id": "C2",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "taylor",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "aurora",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "e-piano",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "1 + x + x²/2 + … becomes eˣ",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "taylor": {
+         "fn": "exp",
+         "terms": 6,
+         "every": 1.5
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     },
+     {
+      "id": "C3",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "taylor",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "aurora",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "e-piano",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "ln(1 + x) only works between −1 and 1",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "taylor": {
+         "fn": "ln",
+         "terms": 8,
+         "every": 1
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     }
+    ],
+    "combine": "sequence"
+   },
+   "youtube": {
+    "title": "Taylor series animation: polynomials that become curves 〰️ #shorts",
+    "description": "Adding powers of x, each with the right size, rebuilds cos x and eˣ. For ln(1 + x) it only works between −1 and 1: the radius of convergence.\n\n#satisfying #simulation #shorts",
+    "tags": "taylor series, calculus, math animation, math visualization, learn math, mathematics, education, shorts"
+   },
+   "overlay": {
+    "layout": 4,
+    "title": {
+     "enabled": false,
+     "text": "",
+     "subtitle": false,
+     "subtitleText": "",
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "formulas": {
+     "enabled": true,
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "name": {
+     "enabled": false,
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "analyzer": {
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "texts": []
+   },
+   "sequence": {
+    "enabled": false,
+    "past": "ghost"
+   },
+   "rhythm": {
+    "enabled": false,
+    "division": "1/8",
+    "gate": 0.8,
+    "swing": 0,
+    "showGrid": true
+   },
+   "drums": {
+    "enabled": false,
+    "source": 0,
+    "volume": 0.8,
+    "kick": "valley",
+    "snare": "peak",
+    "hat": "step",
+    "clap": "off",
+    "sensitivity": 0.08,
+    "pulse": true
+   },
+   "keyframes": {
+    "tracks": {},
+    "autoKey": false
+   },
+   "$collection": "Lessons · Fourier & calculus"
+  },
+  {
+   "name": "Lesson · The Unit Circle",
+   "mode": "circle",
+   "theme": "dark",
+   "transport": {
+    "duration": 30,
+    "speed": 1,
+    "loop": true,
+    "bpm": 110
+   },
+   "view": {
+    "xMin": 0,
+    "xMax": 8,
+    "yMin": -4,
+    "yMax": 4
+   },
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 1,
+    "d": 1
+   },
+   "layers": [
+    {
+     "id": "Lmv51o8ot0",
+     "name": "Layer 122",
+     "enabled": true,
+     "type": "function",
+     "exprs": {
+      "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+      "z": "0",
+      "x": "0",
+      "r": "1",
+      "f": "0",
+      "path": "0"
+     },
+     "range": {
+      "min": 0,
+      "max": 6.283185307179586
+     },
+     "colorMode": "solid",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
+     "width": 4,
+     "style": "line",
+     "wave": "sine",
+     "volume": 0.6,
+     "octave": 0,
+     "pan": 0,
+     "zMap": "volume",
+     "mute": false,
+     "solo": false,
+     "withPrev": false,
+     "samples": 900
+    }
+   ],
+   "visual": {
+    "background": "#04050a",
+    "gridColor": "#1d2440",
+    "axesColor": "#4a5784",
+    "showGrid": true,
+    "showAxes": true,
+    "showLabels": true,
+    "drawMode": "trace",
+    "bloom": {
+     "enabled": true,
+     "strength": 1.1,
+     "radius": 0.5,
+     "threshold": 0.05
+    },
+    "trail": {
+     "enabled": true,
+     "count": 160,
+     "size": 6
+    },
+    "marker": {
+     "shape": "circle",
+     "size": 26,
+     "image": null,
+     "cursorLine": true,
+     "smoothing": 0.35
+    },
+    "fog": {
+     "enabled": false,
+     "density": 0.04
+    },
+    "dof": {
+     "enabled": false,
+     "focus": 14,
+     "aperture": 0.6
+    },
+    "motionBlur": {
+     "enabled": false,
+     "amount": 0.75
+    },
+    "caption": true,
+    "showNotes": false,
+    "analyzer": "off",
+    "hideUntil": 0,
+    "aspect": "9:16"
+   },
+   "camera": {
+    "autoRotate": false,
+    "rotateSpeed": 0.8,
+    "fov": 45,
+    "follow": false,
+    "punch": 0,
+    "track": 0,
+    "trackSpeed": 0.06,
+    "roll": 0
+   },
+   "audio": {
+    "master": 0.7,
+    "noteLow": 50,
+    "noteHigh": 86,
+    "scale": "minorPentatonic",
+    "root": 9,
+    "glide": 25,
+    "articulation": "legato",
+    "filter": {
+     "type": "lowpass",
+     "cutoff": 9000,
+     "q": 0.8
+    },
+    "distortion": 0,
+    "delay": {
+     "time": 0.375,
+     "feedback": 0.3,
+     "mix": 0.16
+    },
+    "reverb": {
+     "decay": 3.5,
+     "mix": 0.35
+    }
+   },
+   "record": {
+    "resolution": "1080p",
+    "fps": 60,
+    "fromStart": true,
+    "fileName": "",
+    "quality": "high",
+    "subframes": 1,
+    "gpuEncoder": false,
+    "engine": "auto",
+    "hook": {
+     "enabled": false,
+     "teaser": 0.8,
+     "flash": true,
+     "impact": true
+    },
+    "outro": 0.6
+   },
+   "hook": {
+    "text": "Where do sine and cosine come from?"
+   },
+   "circle": {
+    "rule": "unitcircle",
+    "seed": 7,
+    "chord": {
+     "step": "1/phi^2",
+     "walkers": 1,
+     "speed": 1.8,
+     "speedGain": 1,
+     "start": 90
+    },
+    "physics": {
+     "balls": 1,
+     "speed": 1.4,
+     "angle": 62,
+     "gravity": 0,
+     "restitution": 1,
+     "speedGain": 1,
+     "maxSpeed": 4.5,
+     "size": 0.035
+    },
+    "split": {
+     "angle": 14,
+     "max": 128
+    },
+    "grow": {
+     "amount": 0.006,
+     "until": 0.92
+    },
+    "escape": {
+     "rings": 6,
+     "inner": 0.32,
+     "gap": 34,
+     "spin": 0.9
+    },
+    "poly": {
+     "dots": 12,
+     "base": 24,
+     "cycle": 60
+    },
+    "look": {
+     "palette": "neon",
+     "trail": "lines",
+     "trailWidth": 1.6,
+     "glow": 1,
+     "ringWidth": 5,
+     "ballSize": 1,
+     "sparks": true,
+     "ringPulse": true,
+     "comet": true,
+     "counter": true,
+     "background": "#060814",
+     "zoom": 1,
+     "dx": 0,
+     "dy": 0,
+     "bloom": 1,
+     "ambience": true
+    },
+    "sound": {
+     "instrument": "harp",
+     "pitch": "angle",
+     "melody": "ode",
+     "notes": "",
+     "drum": "off",
+     "length": 0.35,
+     "volume": 0.7,
+     "maxRate": 22
+    },
+    "text": {
+     "formula": "The height of the point: sin θ",
+     "counter": "",
+     "show": "caption"
+    },
+    "speed": {
+     "from": 1,
+     "to": 1,
+     "curve": "linear",
+     "pulse": 0
+    },
+    "lab": {
+     "unitcircle": {
+      "speed": 0.12,
+      "show": "sin"
+     }
+    },
+    "layers": [
+     {
+      "id": "C2",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "unitcircle",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "neon",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "harp",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "How far right it is: cos θ",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "unitcircle": {
+         "speed": 0.12,
+         "show": "cos"
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     },
+     {
+      "id": "C3",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "unitcircle",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "neon",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "harp",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "Both together, plus tan θ",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "unitcircle": {
+         "speed": 0.12,
+         "show": "both",
+         "tan": true
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     }
+    ],
+    "combine": "sequence"
+   },
+   "youtube": {
+    "title": "Unit circle animation: sin, cos and tan explained 🔄 #shorts",
+    "description": "A point turns on a circle of radius 1. Its height is sin θ, its sideways position is cos θ, and the slope of the radius is tan θ.\n\n#satisfying #simulation #shorts",
+    "tags": "unit circle, trigonometry, sine, cosine, math animation, math visualization, learn math, mathematics, education, shorts"
+   },
+   "overlay": {
+    "layout": 4,
+    "title": {
+     "enabled": false,
+     "text": "",
+     "subtitle": false,
+     "subtitleText": "",
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "formulas": {
+     "enabled": true,
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "name": {
+     "enabled": false,
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "analyzer": {
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "texts": []
+   },
+   "sequence": {
+    "enabled": false,
+    "past": "ghost"
+   },
+   "rhythm": {
+    "enabled": false,
+    "division": "1/8",
+    "gate": 0.8,
+    "swing": 0,
+    "showGrid": true
+   },
+   "drums": {
+    "enabled": false,
+    "source": 0,
+    "volume": 0.8,
+    "kick": "valley",
+    "snare": "peak",
+    "hat": "step",
+    "clap": "off",
+    "sensitivity": 0.08,
+    "pulse": true
+   },
+   "keyframes": {
+    "tracks": {},
+    "autoKey": false
+   },
+   "$collection": "Lessons · Fourier & calculus"
+  },
+  {
+   "name": "Lesson · Archimedes and π",
+   "mode": "circle",
+   "theme": "dark",
+   "transport": {
+    "duration": 30,
+    "speed": 1,
+    "loop": true,
+    "bpm": 110
+   },
+   "view": {
+    "xMin": 0,
+    "xMax": 8,
+    "yMin": -4,
+    "yMax": 4
+   },
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 1,
+    "d": 1
+   },
+   "layers": [
+    {
+     "id": "Lmv51o8ou0",
+     "name": "Layer 124",
+     "enabled": true,
+     "type": "function",
+     "exprs": {
+      "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+      "z": "0",
+      "x": "0",
+      "r": "1",
+      "f": "0",
+      "path": "0"
+     },
+     "range": {
+      "min": 0,
+      "max": 6.283185307179586
+     },
+     "colorMode": "solid",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
+     "width": 4,
+     "style": "line",
+     "wave": "sine",
+     "volume": 0.6,
+     "octave": 0,
+     "pan": 0,
+     "zMap": "volume",
+     "mute": false,
+     "solo": false,
+     "withPrev": false,
+     "samples": 900
+    }
+   ],
+   "visual": {
+    "background": "#04050a",
+    "gridColor": "#1d2440",
+    "axesColor": "#4a5784",
+    "showGrid": true,
+    "showAxes": true,
+    "showLabels": true,
+    "drawMode": "trace",
+    "bloom": {
+     "enabled": true,
+     "strength": 1.1,
+     "radius": 0.5,
+     "threshold": 0.05
+    },
+    "trail": {
+     "enabled": true,
+     "count": 160,
+     "size": 6
+    },
+    "marker": {
+     "shape": "circle",
+     "size": 26,
+     "image": null,
+     "cursorLine": true,
+     "smoothing": 0.35
+    },
+    "fog": {
+     "enabled": false,
+     "density": 0.04
+    },
+    "dof": {
+     "enabled": false,
+     "focus": 14,
+     "aperture": 0.6
+    },
+    "motionBlur": {
+     "enabled": false,
+     "amount": 0.75
+    },
+    "caption": true,
+    "showNotes": false,
+    "analyzer": "off",
+    "hideUntil": 0,
+    "aspect": "9:16"
+   },
+   "camera": {
+    "autoRotate": false,
+    "rotateSpeed": 0.8,
+    "fov": 45,
+    "follow": false,
+    "punch": 0,
+    "track": 0,
+    "trackSpeed": 0.06,
+    "roll": 0
+   },
+   "audio": {
+    "master": 0.7,
+    "noteLow": 50,
+    "noteHigh": 86,
+    "scale": "minorPentatonic",
+    "root": 9,
+    "glide": 25,
+    "articulation": "legato",
+    "filter": {
+     "type": "lowpass",
+     "cutoff": 9000,
+     "q": 0.8
+    },
+    "distortion": 0,
+    "delay": {
+     "time": 0.375,
+     "feedback": 0.3,
+     "mix": 0.16
+    },
+    "reverb": {
+     "decay": 3.5,
+     "mix": 0.35
+    }
+   },
+   "record": {
+    "resolution": "1080p",
+    "fps": 60,
+    "fromStart": true,
+    "fileName": "",
+    "quality": "high",
+    "subframes": 1,
+    "gpuEncoder": false,
+    "engine": "auto",
+    "hook": {
+     "enabled": false,
+     "teaser": 0.8,
+     "flash": true,
+     "impact": true
+    },
+    "outro": 0.6
+   },
+   "hook": {
+    "text": "How did Archimedes find π?"
+   },
+   "circle": {
+    "rule": "archimedes",
+    "seed": 7,
+    "chord": {
+     "step": "1/phi^2",
+     "walkers": 1,
+     "speed": 1.8,
+     "speedGain": 1,
+     "start": 90
+    },
+    "physics": {
+     "balls": 1,
+     "speed": 1.4,
+     "angle": 62,
+     "gravity": 0,
+     "restitution": 1,
+     "speedGain": 1,
+     "maxSpeed": 4.5,
+     "size": 0.035
+    },
+    "split": {
+     "angle": 14,
+     "max": 128
+    },
+    "grow": {
+     "amount": 0.006,
+     "until": 0.92
+    },
+    "escape": {
+     "rings": 6,
+     "inner": 0.32,
+     "gap": 34,
+     "spin": 0.9
+    },
+    "poly": {
+     "dots": 12,
+     "base": 24,
+     "cycle": 60
+    },
+    "look": {
+     "palette": "gold",
+     "trail": "lines",
+     "trailWidth": 1.6,
+     "glow": 1,
+     "ringWidth": 5,
+     "ballSize": 1,
+     "sparks": true,
+     "ringPulse": true,
+     "comet": true,
+     "counter": true,
+     "background": "#060814",
+     "zoom": 1,
+     "dx": 0,
+     "dy": 0,
+     "bloom": 1,
+     "ambience": true
+    },
+    "sound": {
+     "instrument": "bell",
+     "pitch": "angle",
+     "melody": "ode",
+     "notes": "",
+     "drum": "off",
+     "length": 0.35,
+     "volume": 0.7,
+     "maxRate": 22
+    },
+    "text": {
+     "formula": "Hexagons inside and outside: 3 < π < 3.47",
+     "counter": "",
+     "show": "caption"
+    },
+    "speed": {
+     "from": 1,
+     "to": 1,
+     "curve": "linear",
+     "pulse": 0
+    },
+    "lab": {
+     "archimedes": {
+      "sides": "6",
+      "every": 30
+     }
+    },
+    "layers": [
+     {
+      "id": "C2",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "archimedes",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "gold",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "bell",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "Double the sides: the gap shrinks",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "archimedes": {
+         "sides": "12 24",
+         "every": 8
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     },
+     {
+      "id": "C3",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "archimedes",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "gold",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "bell",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "96 sides: π ≈ 3.14",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "archimedes": {
+         "sides": "48 96",
+         "every": 8
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     }
+    ],
+    "combine": "sequence"
+   },
+   "youtube": {
+    "title": "Pi animation: how Archimedes trapped π 🥧 #shorts",
+    "description": "A polygon inside the circle is shorter than the circle, one outside is longer. Doubling the sides again and again, Archimedes squeezed π to 3.14.\n\n#satisfying #simulation #shorts",
+    "tags": "pi animation, archimedes, pi, math animation, math visualization, learn math, mathematics, education, shorts"
+   },
+   "overlay": {
+    "layout": 4,
+    "title": {
+     "enabled": false,
+     "text": "",
+     "subtitle": false,
+     "subtitleText": "",
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "formulas": {
+     "enabled": true,
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "name": {
+     "enabled": false,
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "analyzer": {
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "texts": []
+   },
+   "sequence": {
+    "enabled": false,
+    "past": "ghost"
+   },
+   "rhythm": {
+    "enabled": false,
+    "division": "1/8",
+    "gate": 0.8,
+    "swing": 0,
+    "showGrid": true
+   },
+   "drums": {
+    "enabled": false,
+    "source": 0,
+    "volume": 0.8,
+    "kick": "valley",
+    "snare": "peak",
+    "hat": "step",
+    "clap": "off",
+    "sensitivity": 0.08,
+    "pulse": true
+   },
+   "keyframes": {
+    "tracks": {},
+    "autoKey": false
+   },
+   "$collection": "Lessons · Pi"
+  },
+  {
+   "name": "Lesson · π From Randomness",
+   "mode": "circle",
+   "theme": "dark",
+   "transport": {
+    "duration": 30,
+    "speed": 1,
+    "loop": true,
+    "bpm": 110
+   },
+   "view": {
+    "xMin": 0,
+    "xMax": 8,
+    "yMin": -4,
+    "yMax": 4
+   },
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 1,
+    "d": 1
+   },
+   "layers": [
+    {
+     "id": "Lmv51o8ov0",
+     "name": "Layer 126",
+     "enabled": true,
+     "type": "function",
+     "exprs": {
+      "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+      "z": "0",
+      "x": "0",
+      "r": "1",
+      "f": "0",
+      "path": "0"
+     },
+     "range": {
+      "min": 0,
+      "max": 6.283185307179586
+     },
+     "colorMode": "solid",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
+     "width": 4,
+     "style": "line",
+     "wave": "sine",
+     "volume": 0.6,
+     "octave": 0,
+     "pan": 0,
+     "zMap": "volume",
+     "mute": false,
+     "solo": false,
+     "withPrev": false,
+     "samples": 900
+    }
+   ],
+   "visual": {
+    "background": "#04050a",
+    "gridColor": "#1d2440",
+    "axesColor": "#4a5784",
+    "showGrid": true,
+    "showAxes": true,
+    "showLabels": true,
+    "drawMode": "trace",
+    "bloom": {
+     "enabled": true,
+     "strength": 1.1,
+     "radius": 0.5,
+     "threshold": 0.05
+    },
+    "trail": {
+     "enabled": true,
+     "count": 160,
+     "size": 6
+    },
+    "marker": {
+     "shape": "circle",
+     "size": 26,
+     "image": null,
+     "cursorLine": true,
+     "smoothing": 0.35
+    },
+    "fog": {
+     "enabled": false,
+     "density": 0.04
+    },
+    "dof": {
+     "enabled": false,
+     "focus": 14,
+     "aperture": 0.6
+    },
+    "motionBlur": {
+     "enabled": false,
+     "amount": 0.75
+    },
+    "caption": true,
+    "showNotes": false,
+    "analyzer": "off",
+    "hideUntil": 0,
+    "aspect": "9:16"
+   },
+   "camera": {
+    "autoRotate": false,
+    "rotateSpeed": 0.8,
+    "fov": 45,
+    "follow": false,
+    "punch": 0,
+    "track": 0,
+    "trackSpeed": 0.06,
+    "roll": 0
+   },
+   "audio": {
+    "master": 0.7,
+    "noteLow": 50,
+    "noteHigh": 86,
+    "scale": "minorPentatonic",
+    "root": 9,
+    "glide": 25,
+    "articulation": "legato",
+    "filter": {
+     "type": "lowpass",
+     "cutoff": 9000,
+     "q": 0.8
+    },
+    "distortion": 0,
+    "delay": {
+     "time": 0.375,
+     "feedback": 0.3,
+     "mix": 0.16
+    },
+    "reverb": {
+     "decay": 3.5,
+     "mix": 0.35
+    }
+   },
+   "record": {
+    "resolution": "1080p",
+    "fps": 60,
+    "fromStart": true,
+    "fileName": "",
+    "quality": "high",
+    "subframes": 1,
+    "gpuEncoder": false,
+    "engine": "auto",
+    "hook": {
+     "enabled": false,
+     "teaser": 0.8,
+     "flash": true,
+     "impact": true
+    },
+    "outro": 0.6
+   },
+   "hook": {
+    "text": "Can random dots find π?"
+   },
+   "circle": {
+    "rule": "montecarlo",
+    "seed": 7,
+    "chord": {
+     "step": "1/phi^2",
+     "walkers": 1,
+     "speed": 1.8,
+     "speedGain": 1,
+     "start": 90
+    },
+    "physics": {
+     "balls": 1,
+     "speed": 1.4,
+     "angle": 62,
+     "gravity": 0,
+     "restitution": 1,
+     "speedGain": 1,
+     "maxSpeed": 4.5,
+     "size": 0.035
+    },
+    "split": {
+     "angle": 14,
+     "max": 128
+    },
+    "grow": {
+     "amount": 0.006,
+     "until": 0.92
+    },
+    "escape": {
+     "rings": 6,
+     "inner": 0.32,
+     "gap": 34,
+     "spin": 0.9
+    },
+    "poly": {
+     "dots": 12,
+     "base": 24,
+     "cycle": 60
+    },
+    "look": {
+     "palette": "ocean",
+     "trail": "lines",
+     "trailWidth": 1.6,
+     "glow": 1,
+     "ringWidth": 5,
+     "ballSize": 1,
+     "sparks": true,
+     "ringPulse": true,
+     "comet": true,
+     "counter": true,
+     "background": "#060814",
+     "zoom": 1,
+     "dx": 0,
+     "dy": 0,
+     "bloom": 1,
+     "ambience": true
+    },
+    "sound": {
+     "instrument": "kalimba",
+     "pitch": "angle",
+     "melody": "ode",
+     "notes": "",
+     "drum": "off",
+     "length": 0.35,
+     "volume": 0.7,
+     "maxRate": 22
+    },
+    "text": {
+     "formula": "Random dots: some land in the circle",
+     "counter": "",
+     "show": "caption"
+    },
+    "speed": {
+     "from": 1,
+     "to": 1,
+     "curve": "linear",
+     "pulse": 0
+    },
+    "lab": {
+     "montecarlo": {
+      "rate0": 3,
+      "accel": 1.15,
+      "max": 300
+     }
+    },
+    "layers": [
+     {
+      "id": "C2",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "montecarlo",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "ocean",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "kalimba",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "inside ÷ all ≈ π/4",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "montecarlo": {
+         "rate0": 20,
+         "accel": 1.35,
+         "max": 5000
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     },
+     {
+      "id": "C3",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "montecarlo",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "ocean",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "kalimba",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "More dots, more correct digits",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "montecarlo": {
+         "rate0": 200,
+         "accel": 1.4,
+         "max": 40000
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     }
+    ],
+    "combine": "sequence"
+   },
+   "youtube": {
+    "title": "Pi animation: π from random dots 🎯 #shorts",
+    "description": "The circle covers π/4 of the square, so π/4 of random dots land inside. Count them and you get π, slowly: ten times more dots for each new digit.\n\n#satisfying #simulation #shorts",
+    "tags": "pi animation, monte carlo, probability, math animation, math visualization, learn math, mathematics, education, shorts"
+   },
+   "overlay": {
+    "layout": 4,
+    "title": {
+     "enabled": false,
+     "text": "",
+     "subtitle": false,
+     "subtitleText": "",
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "formulas": {
+     "enabled": true,
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "name": {
+     "enabled": false,
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "analyzer": {
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "texts": []
+   },
+   "sequence": {
+    "enabled": false,
+    "past": "ghost"
+   },
+   "rhythm": {
+    "enabled": false,
+    "division": "1/8",
+    "gate": 0.8,
+    "swing": 0,
+    "showGrid": true
+   },
+   "drums": {
+    "enabled": false,
+    "source": 0,
+    "volume": 0.8,
+    "kick": "valley",
+    "snare": "peak",
+    "hat": "step",
+    "clap": "off",
+    "sensitivity": 0.08,
+    "pulse": true
+   },
+   "keyframes": {
+    "tracks": {},
+    "autoKey": false
+   },
+   "$collection": "Lessons · Pi"
+  },
+  {
+   "name": "Lesson · Buffon's Needle",
+   "mode": "circle",
+   "theme": "dark",
+   "transport": {
+    "duration": 30,
+    "speed": 1,
+    "loop": true,
+    "bpm": 110
+   },
+   "view": {
+    "xMin": 0,
+    "xMax": 8,
+    "yMin": -4,
+    "yMax": 4
+   },
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 1,
+    "d": 1
+   },
+   "layers": [
+    {
+     "id": "Lmv51o8ov0",
+     "name": "Layer 128",
+     "enabled": true,
+     "type": "function",
+     "exprs": {
+      "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+      "z": "0",
+      "x": "0",
+      "r": "1",
+      "f": "0",
+      "path": "0"
+     },
+     "range": {
+      "min": 0,
+      "max": 6.283185307179586
+     },
+     "colorMode": "solid",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
+     "width": 4,
+     "style": "line",
+     "wave": "sine",
+     "volume": 0.6,
+     "octave": 0,
+     "pan": 0,
+     "zMap": "volume",
+     "mute": false,
+     "solo": false,
+     "withPrev": false,
+     "samples": 900
+    }
+   ],
+   "visual": {
+    "background": "#04050a",
+    "gridColor": "#1d2440",
+    "axesColor": "#4a5784",
+    "showGrid": true,
+    "showAxes": true,
+    "showLabels": true,
+    "drawMode": "trace",
+    "bloom": {
+     "enabled": true,
+     "strength": 1.1,
+     "radius": 0.5,
+     "threshold": 0.05
+    },
+    "trail": {
+     "enabled": true,
+     "count": 160,
+     "size": 6
+    },
+    "marker": {
+     "shape": "circle",
+     "size": 26,
+     "image": null,
+     "cursorLine": true,
+     "smoothing": 0.35
+    },
+    "fog": {
+     "enabled": false,
+     "density": 0.04
+    },
+    "dof": {
+     "enabled": false,
+     "focus": 14,
+     "aperture": 0.6
+    },
+    "motionBlur": {
+     "enabled": false,
+     "amount": 0.75
+    },
+    "caption": true,
+    "showNotes": false,
+    "analyzer": "off",
+    "hideUntil": 0,
+    "aspect": "9:16"
+   },
+   "camera": {
+    "autoRotate": false,
+    "rotateSpeed": 0.8,
+    "fov": 45,
+    "follow": false,
+    "punch": 0,
+    "track": 0,
+    "trackSpeed": 0.06,
+    "roll": 0
+   },
+   "audio": {
+    "master": 0.7,
+    "noteLow": 50,
+    "noteHigh": 86,
+    "scale": "minorPentatonic",
+    "root": 9,
+    "glide": 25,
+    "articulation": "legato",
+    "filter": {
+     "type": "lowpass",
+     "cutoff": 9000,
+     "q": 0.8
+    },
+    "distortion": 0,
+    "delay": {
+     "time": 0.375,
+     "feedback": 0.3,
+     "mix": 0.16
+    },
+    "reverb": {
+     "decay": 3.5,
+     "mix": 0.35
+    }
+   },
+   "record": {
+    "resolution": "1080p",
+    "fps": 60,
+    "fromStart": true,
+    "fileName": "",
+    "quality": "high",
+    "subframes": 1,
+    "gpuEncoder": false,
+    "engine": "auto",
+    "hook": {
+     "enabled": false,
+     "teaser": 0.8,
+     "flash": true,
+     "impact": true
+    },
+    "outro": 0.6
+   },
+   "hook": {
+    "text": "Can needles on a floor find π?"
+   },
+   "circle": {
+    "rule": "buffon",
+    "seed": 7,
+    "chord": {
+     "step": "1/phi^2",
+     "walkers": 1,
+     "speed": 1.8,
+     "speedGain": 1,
+     "start": 90
+    },
+    "physics": {
+     "balls": 1,
+     "speed": 1.4,
+     "angle": 62,
+     "gravity": 0,
+     "restitution": 1,
+     "speedGain": 1,
+     "maxSpeed": 4.5,
+     "size": 0.035
+    },
+    "split": {
+     "angle": 14,
+     "max": 128
+    },
+    "grow": {
+     "amount": 0.006,
+     "until": 0.92
+    },
+    "escape": {
+     "rings": 6,
+     "inner": 0.32,
+     "gap": 34,
+     "spin": 0.9
+    },
+    "poly": {
+     "dots": 12,
+     "base": 24,
+     "cycle": 60
+    },
+    "look": {
+     "palette": "candy",
+     "trail": "lines",
+     "trailWidth": 1.6,
+     "glow": 1,
+     "ringWidth": 5,
+     "ballSize": 1,
+     "sparks": true,
+     "ringPulse": true,
+     "comet": true,
+     "counter": true,
+     "background": "#060814",
+     "zoom": 1,
+     "dx": 0,
+     "dy": 0,
+     "bloom": 1,
+     "ambience": true
+    },
+    "sound": {
+     "instrument": "marimba",
+     "pitch": "angle",
+     "melody": "ode",
+     "notes": "",
+     "drum": "off",
+     "length": 0.35,
+     "volume": 0.7,
+     "maxRate": 22
+    },
+    "text": {
+     "formula": "Drop needles as long as the gap",
+     "counter": "",
+     "show": "caption"
+    },
+    "speed": {
+     "from": 1,
+     "to": 1,
+     "curve": "linear",
+     "pulse": 0
+    },
+    "lab": {
+     "buffon": {
+      "rate0": 1.5,
+      "accel": 1.1,
+      "max": 40
+     }
+    },
+    "layers": [
+     {
+      "id": "C2",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "buffon",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "candy",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "marimba",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "Count the ones that cross a line",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "buffon": {
+         "rate0": 10,
+         "accel": 1.3,
+         "max": 600
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     },
+     {
+      "id": "C3",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "buffon",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "candy",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "marimba",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "π ≈ 2 × needles ÷ crossings",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "buffon": {
+         "rate0": 60,
+         "accel": 1.3,
+         "max": 3000
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     }
+    ],
+    "combine": "sequence"
+   },
+   "youtube": {
+    "title": "Buffon's needle: find π by dropping needles 🪡 #shorts",
+    "description": "A needle as long as the gap between lines crosses a line with probability 2/π. Drop enough of them and count: π appears from chance.\n\n#satisfying #simulation #shorts",
+    "tags": "pi animation, buffon's needle, probability, math animation, math visualization, learn math, mathematics, education, shorts"
+   },
+   "overlay": {
+    "layout": 4,
+    "title": {
+     "enabled": false,
+     "text": "",
+     "subtitle": false,
+     "subtitleText": "",
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "formulas": {
+     "enabled": true,
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "name": {
+     "enabled": false,
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "analyzer": {
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "texts": []
+   },
+   "sequence": {
+    "enabled": false,
+    "past": "ghost"
+   },
+   "rhythm": {
+    "enabled": false,
+    "division": "1/8",
+    "gate": 0.8,
+    "swing": 0,
+    "showGrid": true
+   },
+   "drums": {
+    "enabled": false,
+    "source": 0,
+    "volume": 0.8,
+    "kick": "valley",
+    "snare": "peak",
+    "hat": "step",
+    "clap": "off",
+    "sensitivity": 0.08,
+    "pulse": true
+   },
+   "keyframes": {
+    "tracks": {},
+    "autoKey": false
+   },
+   "$collection": "Lessons · Pi"
+  },
+  {
+   "name": "Lesson · Series for π",
+   "mode": "circle",
+   "theme": "dark",
+   "transport": {
+    "duration": 30,
+    "speed": 1,
+    "loop": true,
+    "bpm": 110
+   },
+   "view": {
+    "xMin": 0,
+    "xMax": 8,
+    "yMin": -4,
+    "yMax": 4
+   },
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 1,
+    "d": 1
+   },
+   "layers": [
+    {
+     "id": "Lmv51o8ov0",
+     "name": "Layer 130",
+     "enabled": true,
+     "type": "function",
+     "exprs": {
+      "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+      "z": "0",
+      "x": "0",
+      "r": "1",
+      "f": "0",
+      "path": "0"
+     },
+     "range": {
+      "min": 0,
+      "max": 6.283185307179586
+     },
+     "colorMode": "solid",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
+     "width": 4,
+     "style": "line",
+     "wave": "sine",
+     "volume": 0.6,
+     "octave": 0,
+     "pan": 0,
+     "zMap": "volume",
+     "mute": false,
+     "solo": false,
+     "withPrev": false,
+     "samples": 900
+    }
+   ],
+   "visual": {
+    "background": "#04050a",
+    "gridColor": "#1d2440",
+    "axesColor": "#4a5784",
+    "showGrid": true,
+    "showAxes": true,
+    "showLabels": true,
+    "drawMode": "trace",
+    "bloom": {
+     "enabled": true,
+     "strength": 1.1,
+     "radius": 0.5,
+     "threshold": 0.05
+    },
+    "trail": {
+     "enabled": true,
+     "count": 160,
+     "size": 6
+    },
+    "marker": {
+     "shape": "circle",
+     "size": 26,
+     "image": null,
+     "cursorLine": true,
+     "smoothing": 0.35
+    },
+    "fog": {
+     "enabled": false,
+     "density": 0.04
+    },
+    "dof": {
+     "enabled": false,
+     "focus": 14,
+     "aperture": 0.6
+    },
+    "motionBlur": {
+     "enabled": false,
+     "amount": 0.75
+    },
+    "caption": true,
+    "showNotes": false,
+    "analyzer": "off",
+    "hideUntil": 0,
+    "aspect": "9:16"
+   },
+   "camera": {
+    "autoRotate": false,
+    "rotateSpeed": 0.8,
+    "fov": 45,
+    "follow": false,
+    "punch": 0,
+    "track": 0,
+    "trackSpeed": 0.06,
+    "roll": 0
+   },
+   "audio": {
+    "master": 0.7,
+    "noteLow": 50,
+    "noteHigh": 86,
+    "scale": "minorPentatonic",
+    "root": 9,
+    "glide": 25,
+    "articulation": "legato",
+    "filter": {
+     "type": "lowpass",
+     "cutoff": 9000,
+     "q": 0.8
+    },
+    "distortion": 0,
+    "delay": {
+     "time": 0.375,
+     "feedback": 0.3,
+     "mix": 0.16
+    },
+    "reverb": {
+     "decay": 3.5,
+     "mix": 0.35
+    }
+   },
+   "record": {
+    "resolution": "1080p",
+    "fps": 60,
+    "fromStart": true,
+    "fileName": "",
+    "quality": "high",
+    "subframes": 1,
+    "gpuEncoder": false,
+    "engine": "auto",
+    "hook": {
+     "enabled": false,
+     "teaser": 0.8,
+     "flash": true,
+     "impact": true
+    },
+    "outro": 0.6
+   },
+   "hook": {
+    "text": "Which formula finds π fastest?"
+   },
+   "circle": {
+    "rule": "series",
+    "seed": 7,
+    "chord": {
+     "step": "1/phi^2",
+     "walkers": 1,
+     "speed": 1.8,
+     "speedGain": 1,
+     "start": 90
+    },
+    "physics": {
+     "balls": 1,
+     "speed": 1.4,
+     "angle": 62,
+     "gravity": 0,
+     "restitution": 1,
+     "speedGain": 1,
+     "maxSpeed": 4.5,
+     "size": 0.035
+    },
+    "split": {
+     "angle": 14,
+     "max": 128
+    },
+    "grow": {
+     "amount": 0.006,
+     "until": 0.92
+    },
+    "escape": {
+     "rings": 6,
+     "inner": 0.32,
+     "gap": 34,
+     "spin": 0.9
+    },
+    "poly": {
+     "dots": 12,
+     "base": 24,
+     "cycle": 60
+    },
+    "look": {
+     "palette": "gold",
+     "trail": "lines",
+     "trailWidth": 1.6,
+     "glow": 1,
+     "ringWidth": 5,
+     "ballSize": 1,
+     "sparks": true,
+     "ringPulse": true,
+     "comet": true,
+     "counter": true,
+     "background": "#060814",
+     "zoom": 1,
+     "dx": 0,
+     "dy": 0,
+     "bloom": 1,
+     "ambience": true
+    },
+    "sound": {
+     "instrument": "marimba",
+     "pitch": "angle",
+     "melody": "ode",
+     "notes": "",
+     "drum": "off",
+     "length": 0.35,
+     "volume": 0.7,
+     "maxRate": 22
+    },
+    "text": {
+     "formula": "Leibniz: 4(1 − 1/3 + 1/5 − …) is slow",
+     "counter": "",
+     "show": "caption"
+    },
+    "speed": {
+     "from": 1,
+     "to": 1,
+     "curve": "linear",
+     "pulse": 0
+    },
+    "lab": {
+     "series": {
+      "kind": "leibniz",
+      "terms": 40,
+      "per": 0.25
+     }
+    },
+    "layers": [
+     {
+      "id": "C2",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "series",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "gold",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "marimba",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "Nilakantha: much faster",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "series": {
+         "kind": "nilakantha",
+         "terms": 20,
+         "per": 0.5
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     },
+     {
+      "id": "C3",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "series",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "gold",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "marimba",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "Wallis: a product, not a sum",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "series": {
+         "kind": "wallis",
+         "terms": 40,
+         "per": 0.25
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     }
+    ],
+    "combine": "sequence"
+   },
+   "youtube": {
+    "title": "Three formulas for π, and how fast they get there 🥧 #shorts",
+    "description": "Leibniz needs hundreds of terms for two digits. Nilakantha gets five digits in twenty terms. Wallis multiplies instead of adding.\n\n#satisfying #simulation #shorts",
+    "tags": "pi animation, leibniz series, infinite series, math animation, math visualization, learn math, mathematics, education, shorts"
+   },
+   "overlay": {
+    "layout": 4,
+    "title": {
+     "enabled": false,
+     "text": "",
+     "subtitle": false,
+     "subtitleText": "",
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "formulas": {
+     "enabled": true,
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "name": {
+     "enabled": false,
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "analyzer": {
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "texts": []
+   },
+   "sequence": {
+    "enabled": false,
+    "past": "ghost"
+   },
+   "rhythm": {
+    "enabled": false,
+    "division": "1/8",
+    "gate": 0.8,
+    "swing": 0,
+    "showGrid": true
+   },
+   "drums": {
+    "enabled": false,
+    "source": 0,
+    "volume": 0.8,
+    "kick": "valley",
+    "snare": "peak",
+    "hat": "step",
+    "clap": "off",
+    "sensitivity": 0.08,
+    "pulse": true
+   },
+   "keyframes": {
+    "tracks": {},
+    "autoKey": false
+   },
+   "$collection": "Lessons · Pi"
+  },
+  {
+   "name": "Lesson · The Digits of π",
+   "mode": "circle",
+   "theme": "dark",
+   "transport": {
+    "duration": 30,
+    "speed": 1,
+    "loop": true,
+    "bpm": 110
+   },
+   "view": {
+    "xMin": 0,
+    "xMax": 8,
+    "yMin": -4,
+    "yMax": 4
+   },
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 1,
+    "d": 1
+   },
+   "layers": [
+    {
+     "id": "Lmv51o8ov0",
+     "name": "Layer 132",
+     "enabled": true,
+     "type": "function",
+     "exprs": {
+      "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+      "z": "0",
+      "x": "0",
+      "r": "1",
+      "f": "0",
+      "path": "0"
+     },
+     "range": {
+      "min": 0,
+      "max": 6.283185307179586
+     },
+     "colorMode": "solid",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
+     "width": 4,
+     "style": "line",
+     "wave": "sine",
+     "volume": 0.6,
+     "octave": 0,
+     "pan": 0,
+     "zMap": "volume",
+     "mute": false,
+     "solo": false,
+     "withPrev": false,
+     "samples": 900
+    }
+   ],
+   "visual": {
+    "background": "#04050a",
+    "gridColor": "#1d2440",
+    "axesColor": "#4a5784",
+    "showGrid": true,
+    "showAxes": true,
+    "showLabels": true,
+    "drawMode": "trace",
+    "bloom": {
+     "enabled": true,
+     "strength": 1.1,
+     "radius": 0.5,
+     "threshold": 0.05
+    },
+    "trail": {
+     "enabled": true,
+     "count": 160,
+     "size": 6
+    },
+    "marker": {
+     "shape": "circle",
+     "size": 26,
+     "image": null,
+     "cursorLine": true,
+     "smoothing": 0.35
+    },
+    "fog": {
+     "enabled": false,
+     "density": 0.04
+    },
+    "dof": {
+     "enabled": false,
+     "focus": 14,
+     "aperture": 0.6
+    },
+    "motionBlur": {
+     "enabled": false,
+     "amount": 0.75
+    },
+    "caption": true,
+    "showNotes": false,
+    "analyzer": "off",
+    "hideUntil": 0,
+    "aspect": "9:16"
+   },
+   "camera": {
+    "autoRotate": false,
+    "rotateSpeed": 0.8,
+    "fov": 45,
+    "follow": false,
+    "punch": 0,
+    "track": 0,
+    "trackSpeed": 0.06,
+    "roll": 0
+   },
+   "audio": {
+    "master": 0.7,
+    "noteLow": 50,
+    "noteHigh": 86,
+    "scale": "minorPentatonic",
+    "root": 9,
+    "glide": 25,
+    "articulation": "legato",
+    "filter": {
+     "type": "lowpass",
+     "cutoff": 9000,
+     "q": 0.8
+    },
+    "distortion": 0,
+    "delay": {
+     "time": 0.375,
+     "feedback": 0.3,
+     "mix": 0.16
+    },
+    "reverb": {
+     "decay": 3.5,
+     "mix": 0.35
+    }
+   },
+   "record": {
+    "resolution": "1080p",
+    "fps": 60,
+    "fromStart": true,
+    "fileName": "",
+    "quality": "high",
+    "subframes": 1,
+    "gpuEncoder": false,
+    "engine": "auto",
+    "hook": {
+     "enabled": false,
+     "teaser": 0.8,
+     "flash": true,
+     "impact": true
+    },
+    "outro": 0.6
+   },
+   "hook": {
+    "text": "Do the digits of π have a pattern?"
+   },
+   "circle": {
+    "rule": "pidigits",
+    "seed": 7,
+    "chord": {
+     "step": "1/phi^2",
+     "walkers": 1,
+     "speed": 1.8,
+     "speedGain": 1,
+     "start": 90
+    },
+    "physics": {
+     "balls": 1,
+     "speed": 1.4,
+     "angle": 62,
+     "gravity": 0,
+     "restitution": 1,
+     "speedGain": 1,
+     "maxSpeed": 4.5,
+     "size": 0.035
+    },
+    "split": {
+     "angle": 14,
+     "max": 128
+    },
+    "grow": {
+     "amount": 0.006,
+     "until": 0.92
+    },
+    "escape": {
+     "rings": 6,
+     "inner": 0.32,
+     "gap": 34,
+     "spin": 0.9
+    },
+    "poly": {
+     "dots": 12,
+     "base": 24,
+     "cycle": 60
+    },
+    "look": {
+     "palette": "rainbow",
+     "trail": "lines",
+     "trailWidth": 1.6,
+     "glow": 1,
+     "ringWidth": 5,
+     "ballSize": 1,
+     "sparks": true,
+     "ringPulse": true,
+     "comet": true,
+     "counter": true,
+     "background": "#060814",
+     "zoom": 1,
+     "dx": 0,
+     "dy": 0,
+     "bloom": 1,
+     "ambience": true
+    },
+    "sound": {
+     "instrument": "kalimba",
+     "pitch": "angle",
+     "melody": "ode",
+     "notes": "",
+     "drum": "off",
+     "length": 0.35,
+     "volume": 0.7,
+     "maxRate": 22
+    },
+    "text": {
+     "formula": "3.14159… every digit a colour and a note",
+     "counter": "",
+     "show": "caption"
+    },
+    "speed": {
+     "from": 1,
+     "to": 1,
+     "curve": "linear",
+     "pulse": 0
+    },
+    "lab": {
+     "pidigits": {
+      "mode": "grid",
+      "rate0": 3,
+      "accel": 1.1,
+      "max": 200
+     }
+    },
+    "layers": [
+     {
+      "id": "C2",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "pidigits",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "rainbow",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "kalimba",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "Every digit a direction: a random walk",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "pidigits": {
+         "mode": "walk",
+         "rate0": 10,
+         "accel": 1.3,
+         "max": 1200
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     },
+     {
+      "id": "C3",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "pidigits",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "rainbow",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "kalimba",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "Every digit joined to the next",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "pidigits": {
+         "mode": "chords",
+         "rate0": 20,
+         "accel": 1.35,
+         "max": 2000
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     }
+    ],
+    "combine": "sequence"
+   },
+   "youtube": {
+    "title": "Pi visualized three ways: colours, a walk, a circle 🌈 #shorts",
+    "description": "The digits of π never repeat. As colours, as a walk and as chords around a circle, they look random, and every digit shows up about equally often.\n\n#satisfying #simulation #shorts",
+    "tags": "pi animation, digits of pi, math animation, math visualization, learn math, mathematics, education, shorts"
+   },
+   "overlay": {
+    "layout": 4,
+    "title": {
+     "enabled": false,
+     "text": "",
+     "subtitle": false,
+     "subtitleText": "",
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "formulas": {
+     "enabled": true,
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "name": {
+     "enabled": false,
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "analyzer": {
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "texts": []
+   },
+   "sequence": {
+    "enabled": false,
+    "past": "ghost"
+   },
+   "rhythm": {
+    "enabled": false,
+    "division": "1/8",
+    "gate": 0.8,
+    "swing": 0,
+    "showGrid": true
+   },
+   "drums": {
+    "enabled": false,
+    "source": 0,
+    "volume": 0.8,
+    "kick": "valley",
+    "snare": "peak",
+    "hat": "step",
+    "clap": "off",
+    "sensitivity": 0.08,
+    "pulse": true
+   },
+   "keyframes": {
+    "tracks": {},
+    "autoKey": false
+   },
+   "$collection": "Lessons · Pi"
+  },
+  {
+   "name": "Lesson · The Mandelbrot Set",
+   "mode": "circle",
+   "theme": "dark",
+   "transport": {
+    "duration": 30,
+    "speed": 1,
+    "loop": true,
+    "bpm": 90
+   },
+   "view": {
+    "xMin": 0,
+    "xMax": 8,
+    "yMin": -4,
+    "yMax": 4
+   },
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 1,
+    "d": 1
+   },
+   "layers": [
+    {
+     "id": "Lmv51o8ow0",
+     "name": "Layer 134",
+     "enabled": true,
+     "type": "function",
+     "exprs": {
+      "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+      "z": "0",
+      "x": "0",
+      "r": "1",
+      "f": "0",
+      "path": "0"
+     },
+     "range": {
+      "min": 0,
+      "max": 6.283185307179586
+     },
+     "colorMode": "solid",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
+     "width": 4,
+     "style": "line",
+     "wave": "sine",
+     "volume": 0.6,
+     "octave": 0,
+     "pan": 0,
+     "zMap": "volume",
+     "mute": false,
+     "solo": false,
+     "withPrev": false,
+     "samples": 900
+    }
+   ],
+   "visual": {
+    "background": "#04050a",
+    "gridColor": "#1d2440",
+    "axesColor": "#4a5784",
+    "showGrid": true,
+    "showAxes": true,
+    "showLabels": true,
+    "drawMode": "trace",
+    "bloom": {
+     "enabled": true,
+     "strength": 1.1,
+     "radius": 0.5,
+     "threshold": 0.05
+    },
+    "trail": {
+     "enabled": true,
+     "count": 160,
+     "size": 6
+    },
+    "marker": {
+     "shape": "circle",
+     "size": 26,
+     "image": null,
+     "cursorLine": true,
+     "smoothing": 0.35
+    },
+    "fog": {
+     "enabled": false,
+     "density": 0.04
+    },
+    "dof": {
+     "enabled": false,
+     "focus": 14,
+     "aperture": 0.6
+    },
+    "motionBlur": {
+     "enabled": false,
+     "amount": 0.75
+    },
+    "caption": true,
+    "showNotes": false,
+    "analyzer": "off",
+    "hideUntil": 0,
+    "aspect": "9:16"
+   },
+   "camera": {
+    "autoRotate": false,
+    "rotateSpeed": 0.8,
+    "fov": 45,
+    "follow": false,
+    "punch": 0,
+    "track": 0,
+    "trackSpeed": 0.06,
+    "roll": 0
+   },
+   "audio": {
+    "master": 0.7,
+    "noteLow": 50,
+    "noteHigh": 86,
+    "scale": "minorPentatonic",
+    "root": 9,
+    "glide": 25,
+    "articulation": "legato",
+    "filter": {
+     "type": "lowpass",
+     "cutoff": 9000,
+     "q": 0.8
+    },
+    "distortion": 0,
+    "delay": {
+     "time": 0.375,
+     "feedback": 0.3,
+     "mix": 0.16
+    },
+    "reverb": {
+     "decay": 3.5,
+     "mix": 0.35
+    }
+   },
+   "record": {
+    "resolution": "1080p",
+    "fps": 60,
+    "fromStart": true,
+    "fileName": "",
+    "quality": "high",
+    "subframes": 1,
+    "gpuEncoder": false,
+    "engine": "auto",
+    "hook": {
+     "enabled": false,
+     "teaser": 0.8,
+     "flash": true,
+     "impact": true
+    },
+    "outro": 0.6
+   },
+   "hook": {
+    "text": "What is the Mandelbrot set?"
+   },
+   "circle": {
+    "rule": "mandel",
+    "seed": 7,
+    "chord": {
+     "step": "1/phi^2",
+     "walkers": 1,
+     "speed": 1.8,
+     "speedGain": 1,
+     "start": 90
+    },
+    "physics": {
+     "balls": 1,
+     "speed": 1.4,
+     "angle": 62,
+     "gravity": 0,
+     "restitution": 1,
+     "speedGain": 1,
+     "maxSpeed": 4.5,
+     "size": 0.035
+    },
+    "split": {
+     "angle": 14,
+     "max": 128
+    },
+    "grow": {
+     "amount": 0.006,
+     "until": 0.92
+    },
+    "escape": {
+     "rings": 6,
+     "inner": 0.32,
+     "gap": 34,
+     "spin": 0.9
+    },
+    "poly": {
+     "dots": 12,
+     "base": 24,
+     "cycle": 60
+    },
+    "look": {
+     "palette": "fire",
+     "trail": "lines",
+     "trailWidth": 1.6,
+     "glow": 1,
+     "ringWidth": 5,
+     "ballSize": 1,
+     "sparks": true,
+     "ringPulse": true,
+     "comet": true,
+     "counter": true,
+     "background": "#060814",
+     "zoom": 1,
+     "dx": 0,
+     "dy": 0,
+     "bloom": 1,
+     "ambience": true
+    },
+    "sound": {
+     "instrument": "glass-pad",
+     "pitch": "angle",
+     "melody": "ode",
+     "notes": "",
+     "drum": "off",
+     "length": 1,
+     "volume": 0.7,
+     "maxRate": 22
+    },
+    "text": {
+     "formula": "z → z² + c: does it run away?",
+     "counter": "",
+     "show": "caption"
+    },
+    "speed": {
+     "from": 1,
+     "to": 1,
+     "curve": "linear",
+     "pulse": 0
+    },
+    "lab": {
+     "mandel": {
+      "spot": "seahorse",
+      "depth": 1,
+      "colors": "fire"
+     }
+    },
+    "layers": [
+     {
+      "id": "C2",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "mandel",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "fire",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "glass-pad",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 1,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "Zoom in: more detail…",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "mandel": {
+         "spot": "seahorse",
+         "depth": 4,
+         "colors": "fire"
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     },
+     {
+      "id": "C3",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "mandel",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "fire",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "glass-pad",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 1,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "…and tiny copies of the whole set",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "mandel": {
+         "spot": "needle",
+         "depth": 1.5,
+         "colors": "neon"
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     }
+    ],
+    "combine": "sequence"
+   },
+   "youtube": {
+    "title": "Fractal zoom: what the Mandelbrot set is 🔥 #shorts",
+    "description": "For each point c, repeat z → z² + c from z = 0. If z stays small, c is in the set (black). Zoom in and the edge never gets simpler, with small copies of the whole set.\n\n#satisfying #simulation #shorts",
+    "tags": "fractal zoom, mandelbrot, fractals, math animation, math visualization, learn math, mathematics, education, shorts"
+   },
+   "overlay": {
+    "layout": 4,
+    "title": {
+     "enabled": false,
+     "text": "",
+     "subtitle": false,
+     "subtitleText": "",
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "formulas": {
+     "enabled": true,
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "name": {
+     "enabled": false,
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "analyzer": {
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "texts": []
+   },
+   "sequence": {
+    "enabled": false,
+    "past": "ghost"
+   },
+   "rhythm": {
+    "enabled": false,
+    "division": "1/8",
+    "gate": 0.8,
+    "swing": 0,
+    "showGrid": true
+   },
+   "drums": {
+    "enabled": false,
+    "source": 0,
+    "volume": 0.8,
+    "kick": "valley",
+    "snare": "peak",
+    "hat": "step",
+    "clap": "off",
+    "sensitivity": 0.08,
+    "pulse": true
+   },
+   "keyframes": {
+    "tracks": {},
+    "autoKey": false
+   },
+   "$collection": "Lessons · Fractals"
+  },
+  {
+   "name": "Lesson · Julia Sets",
+   "mode": "circle",
+   "theme": "dark",
+   "transport": {
+    "duration": 30,
+    "speed": 1,
+    "loop": true,
+    "bpm": 80
+   },
+   "view": {
+    "xMin": 0,
+    "xMax": 8,
+    "yMin": -4,
+    "yMax": 4
+   },
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 1,
+    "d": 1
+   },
+   "layers": [
+    {
+     "id": "Lmv51o8ow0",
+     "name": "Layer 136",
+     "enabled": true,
+     "type": "function",
+     "exprs": {
+      "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+      "z": "0",
+      "x": "0",
+      "r": "1",
+      "f": "0",
+      "path": "0"
+     },
+     "range": {
+      "min": 0,
+      "max": 6.283185307179586
+     },
+     "colorMode": "solid",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
+     "width": 4,
+     "style": "line",
+     "wave": "sine",
+     "volume": 0.6,
+     "octave": 0,
+     "pan": 0,
+     "zMap": "volume",
+     "mute": false,
+     "solo": false,
+     "withPrev": false,
+     "samples": 900
+    }
+   ],
+   "visual": {
+    "background": "#04050a",
+    "gridColor": "#1d2440",
+    "axesColor": "#4a5784",
+    "showGrid": true,
+    "showAxes": true,
+    "showLabels": true,
+    "drawMode": "trace",
+    "bloom": {
+     "enabled": true,
+     "strength": 1.1,
+     "radius": 0.5,
+     "threshold": 0.05
+    },
+    "trail": {
+     "enabled": true,
+     "count": 160,
+     "size": 6
+    },
+    "marker": {
+     "shape": "circle",
+     "size": 26,
+     "image": null,
+     "cursorLine": true,
+     "smoothing": 0.35
+    },
+    "fog": {
+     "enabled": false,
+     "density": 0.04
+    },
+    "dof": {
+     "enabled": false,
+     "focus": 14,
+     "aperture": 0.6
+    },
+    "motionBlur": {
+     "enabled": false,
+     "amount": 0.75
+    },
+    "caption": true,
+    "showNotes": false,
+    "analyzer": "off",
+    "hideUntil": 0,
+    "aspect": "9:16"
+   },
+   "camera": {
+    "autoRotate": false,
+    "rotateSpeed": 0.8,
+    "fov": 45,
+    "follow": false,
+    "punch": 0,
+    "track": 0,
+    "trackSpeed": 0.06,
+    "roll": 0
+   },
+   "audio": {
+    "master": 0.7,
+    "noteLow": 50,
+    "noteHigh": 86,
+    "scale": "minorPentatonic",
+    "root": 9,
+    "glide": 25,
+    "articulation": "legato",
+    "filter": {
+     "type": "lowpass",
+     "cutoff": 9000,
+     "q": 0.8
+    },
+    "distortion": 0,
+    "delay": {
+     "time": 0.375,
+     "feedback": 0.3,
+     "mix": 0.16
+    },
+    "reverb": {
+     "decay": 3.5,
+     "mix": 0.35
+    }
+   },
+   "record": {
+    "resolution": "1080p",
+    "fps": 60,
+    "fromStart": true,
+    "fileName": "",
+    "quality": "high",
+    "subframes": 1,
+    "gpuEncoder": false,
+    "engine": "auto",
+    "hook": {
+     "enabled": false,
+     "teaser": 0.8,
+     "flash": true,
+     "impact": true
+    },
+    "outro": 0.6
+   },
+   "hook": {
+    "text": "One number shapes a whole fractal"
+   },
+   "circle": {
+    "rule": "mandel",
+    "seed": 7,
+    "chord": {
+     "step": "1/phi^2",
+     "walkers": 1,
+     "speed": 1.8,
+     "speedGain": 1,
+     "start": 90
+    },
+    "physics": {
+     "balls": 1,
+     "speed": 1.4,
+     "angle": 62,
+     "gravity": 0,
+     "restitution": 1,
+     "speedGain": 1,
+     "maxSpeed": 4.5,
+     "size": 0.035
+    },
+    "split": {
+     "angle": 14,
+     "max": 128
+    },
+    "grow": {
+     "amount": 0.006,
+     "until": 0.92
+    },
+    "escape": {
+     "rings": 6,
+     "inner": 0.32,
+     "gap": 34,
+     "spin": 0.9
+    },
+    "poly": {
+     "dots": 12,
+     "base": 24,
+     "cycle": 60
+    },
+    "look": {
+     "palette": "ocean",
+     "trail": "lines",
+     "trailWidth": 1.6,
+     "glow": 1,
+     "ringWidth": 5,
+     "ballSize": 1,
+     "sparks": true,
+     "ringPulse": true,
+     "comet": true,
+     "counter": true,
+     "background": "#060814",
+     "zoom": 1,
+     "dx": 0,
+     "dy": 0,
+     "bloom": 1,
+     "ambience": true
+    },
+    "sound": {
+     "instrument": "glass-pad",
+     "pitch": "angle",
+     "melody": "ode",
+     "notes": "",
+     "drum": "off",
+     "length": 1.2,
+     "volume": 0.7,
+     "maxRate": 22
+    },
+    "text": {
+     "formula": "Small c: a round, solid shape",
+     "counter": "",
+     "show": "caption"
+    },
+    "speed": {
+     "from": 1,
+     "to": 1,
+     "curve": "linear",
+     "pulse": 0
+    },
+    "lab": {
+     "mandel": {
+      "set": "julia",
+      "juliaR": 0.35,
+      "juliaSpeed": 0.01,
+      "colors": "ocean"
+     }
+    },
+    "layers": [
+     {
+      "id": "C2",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "mandel",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "ocean",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "glass-pad",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 1.2,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "Near the edge: lace and spirals",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "mandel": {
+         "set": "julia",
+         "juliaR": 0.7885,
+         "juliaSpeed": 0.02,
+         "colors": "ocean"
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     },
+     {
+      "id": "C3",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "mandel",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "ocean",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "glass-pad",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 1.2,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "Too big: it breaks into dust",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "mandel": {
+         "set": "julia",
+         "juliaR": 1,
+         "juliaSpeed": 0.03,
+         "colors": "neon"
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     }
+    ],
+    "combine": "sequence"
+   },
+   "youtube": {
+    "title": "Julia set animation: one number, three worlds 🌀 #shorts",
+    "description": "Same formula z → z² + c, now with c fixed and the start point varying. Small c gives a solid blob, c near the Mandelbrot edge gives lace, larger c breaks it into dust.\n\n#satisfying #simulation #shorts",
+    "tags": "julia set, fractals, math animation, math visualization, learn math, mathematics, education, shorts"
+   },
+   "overlay": {
+    "layout": 4,
+    "title": {
+     "enabled": false,
+     "text": "",
+     "subtitle": false,
+     "subtitleText": "",
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "formulas": {
+     "enabled": true,
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "name": {
+     "enabled": false,
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "analyzer": {
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "texts": []
+   },
+   "sequence": {
+    "enabled": false,
+    "past": "ghost"
+   },
+   "rhythm": {
+    "enabled": false,
+    "division": "1/8",
+    "gate": 0.8,
+    "swing": 0,
+    "showGrid": true
+   },
+   "drums": {
+    "enabled": false,
+    "source": 0,
+    "volume": 0.8,
+    "kick": "valley",
+    "snare": "peak",
+    "hat": "step",
+    "clap": "off",
+    "sensitivity": 0.08,
+    "pulse": true
+   },
+   "keyframes": {
+    "tracks": {},
+    "autoKey": false
+   },
+   "$collection": "Lessons · Fractals"
+  },
+  {
+   "name": "Lesson · Fractal Curves",
+   "mode": "circle",
+   "theme": "dark",
+   "transport": {
+    "duration": 30,
+    "speed": 1,
+    "loop": true,
+    "bpm": 110
+   },
+   "view": {
+    "xMin": 0,
+    "xMax": 8,
+    "yMin": -4,
+    "yMax": 4
+   },
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 1,
+    "d": 1
+   },
+   "layers": [
+    {
+     "id": "Lmv51o8ow0",
+     "name": "Layer 138",
+     "enabled": true,
+     "type": "function",
+     "exprs": {
+      "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+      "z": "0",
+      "x": "0",
+      "r": "1",
+      "f": "0",
+      "path": "0"
+     },
+     "range": {
+      "min": 0,
+      "max": 6.283185307179586
+     },
+     "colorMode": "solid",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
+     "width": 4,
+     "style": "line",
+     "wave": "sine",
+     "volume": 0.6,
+     "octave": 0,
+     "pan": 0,
+     "zMap": "volume",
+     "mute": false,
+     "solo": false,
+     "withPrev": false,
+     "samples": 900
+    }
+   ],
+   "visual": {
+    "background": "#04050a",
+    "gridColor": "#1d2440",
+    "axesColor": "#4a5784",
+    "showGrid": true,
+    "showAxes": true,
+    "showLabels": true,
+    "drawMode": "trace",
+    "bloom": {
+     "enabled": true,
+     "strength": 1.1,
+     "radius": 0.5,
+     "threshold": 0.05
+    },
+    "trail": {
+     "enabled": true,
+     "count": 160,
+     "size": 6
+    },
+    "marker": {
+     "shape": "circle",
+     "size": 26,
+     "image": null,
+     "cursorLine": true,
+     "smoothing": 0.35
+    },
+    "fog": {
+     "enabled": false,
+     "density": 0.04
+    },
+    "dof": {
+     "enabled": false,
+     "focus": 14,
+     "aperture": 0.6
+    },
+    "motionBlur": {
+     "enabled": false,
+     "amount": 0.75
+    },
+    "caption": true,
+    "showNotes": false,
+    "analyzer": "off",
+    "hideUntil": 0,
+    "aspect": "9:16"
+   },
+   "camera": {
+    "autoRotate": false,
+    "rotateSpeed": 0.8,
+    "fov": 45,
+    "follow": false,
+    "punch": 0,
+    "track": 0,
+    "trackSpeed": 0.06,
+    "roll": 0
+   },
+   "audio": {
+    "master": 0.7,
+    "noteLow": 50,
+    "noteHigh": 86,
+    "scale": "minorPentatonic",
+    "root": 9,
+    "glide": 25,
+    "articulation": "legato",
+    "filter": {
+     "type": "lowpass",
+     "cutoff": 9000,
+     "q": 0.8
+    },
+    "distortion": 0,
+    "delay": {
+     "time": 0.375,
+     "feedback": 0.3,
+     "mix": 0.16
+    },
+    "reverb": {
+     "decay": 3.5,
+     "mix": 0.35
+    }
+   },
+   "record": {
+    "resolution": "1080p",
+    "fps": 60,
+    "fromStart": true,
+    "fileName": "",
+    "quality": "high",
+    "subframes": 1,
+    "gpuEncoder": false,
+    "engine": "auto",
+    "hook": {
+     "enabled": false,
+     "teaser": 0.8,
+     "flash": true,
+     "impact": true
+    },
+    "outro": 0.6
+   },
+   "hook": {
+    "text": "Can one rule make infinite detail?"
+   },
+   "circle": {
+    "rule": "lsystem",
+    "seed": 7,
+    "chord": {
+     "step": "1/phi^2",
+     "walkers": 1,
+     "speed": 1.8,
+     "speedGain": 1,
+     "start": 90
+    },
+    "physics": {
+     "balls": 1,
+     "speed": 1.4,
+     "angle": 62,
+     "gravity": 0,
+     "restitution": 1,
+     "speedGain": 1,
+     "maxSpeed": 4.5,
+     "size": 0.035
+    },
+    "split": {
+     "angle": 14,
+     "max": 128
+    },
+    "grow": {
+     "amount": 0.006,
+     "until": 0.92
+    },
+    "escape": {
+     "rings": 6,
+     "inner": 0.32,
+     "gap": 34,
+     "spin": 0.9
+    },
+    "poly": {
+     "dots": 12,
+     "base": 24,
+     "cycle": 60
+    },
+    "look": {
+     "palette": "aurora",
+     "trail": "lines",
+     "trailWidth": 1.6,
+     "glow": 1,
+     "ringWidth": 5,
+     "ballSize": 1,
+     "sparks": true,
+     "ringPulse": true,
+     "comet": true,
+     "counter": true,
+     "background": "#060814",
+     "zoom": 1,
+     "dx": 0,
+     "dy": 0,
+     "bloom": 1,
+     "ambience": true
+    },
+    "sound": {
+     "instrument": "kalimba",
+     "pitch": "angle",
+     "melody": "ode",
+     "notes": "",
+     "drum": "off",
+     "length": 0.35,
+     "volume": 0.7,
+     "maxRate": 22
+    },
+    "text": {
+     "formula": "Koch: every line → 4 smaller lines",
+     "counter": "",
+     "show": "caption"
+    },
+    "speed": {
+     "from": 1,
+     "to": 1,
+     "curve": "linear",
+     "pulse": 0
+    },
+    "lab": {
+     "lsystem": {
+      "curve": "koch",
+      "steps": "0 1 2 3",
+      "every": 3
+     }
+    },
+    "layers": [
+     {
+      "id": "C2",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "lsystem",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "aurora",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "kalimba",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "Dragon: fold a paper strip again and again",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "lsystem": {
+         "curve": "dragon",
+         "steps": "2 6 10 13",
+         "every": 3
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     },
+     {
+      "id": "C3",
+      "enabled": true,
+      "withPrev": false,
+      "cfg": {
+       "rule": "lsystem",
+       "seed": 7,
+       "chord": {
+        "step": "1/phi^2",
+        "walkers": 1,
+        "speed": 1.8,
+        "speedGain": 1,
+        "start": 90
+       },
+       "physics": {
+        "balls": 1,
+        "speed": 1.4,
+        "angle": 62,
+        "gravity": 0,
+        "restitution": 1,
+        "speedGain": 1,
+        "maxSpeed": 4.5,
+        "size": 0.035
+       },
+       "split": {
+        "angle": 14,
+        "max": 128
+       },
+       "grow": {
+        "amount": 0.006,
+        "until": 0.92
+       },
+       "escape": {
+        "rings": 6,
+        "inner": 0.32,
+        "gap": 34,
+        "spin": 0.9
+       },
+       "poly": {
+        "dots": 12,
+        "base": 24,
+        "cycle": 60
+       },
+       "look": {
+        "palette": "aurora",
+        "trail": "lines",
+        "trailWidth": 1.6,
+        "glow": 1,
+        "ringWidth": 5,
+        "ballSize": 1,
+        "sparks": true,
+        "ringPulse": true,
+        "comet": true,
+        "counter": true,
+        "background": "#060814",
+        "zoom": 1,
+        "dx": 0,
+        "dy": 0,
+        "bloom": 1,
+        "ambience": true
+       },
+       "sound": {
+        "instrument": "kalimba",
+        "pitch": "angle",
+        "melody": "ode",
+        "notes": "",
+        "drum": "off",
+        "length": 0.35,
+        "volume": 0.7,
+        "maxRate": 22
+       },
+       "text": {
+        "formula": "Hilbert: one line that fills a square",
+        "counter": "",
+        "show": "caption"
+       },
+       "speed": {
+        "from": 1,
+        "to": 1,
+        "curve": "linear",
+        "pulse": 0
+       },
+       "lab": {
+        "lsystem": {
+         "curve": "hilbert",
+         "steps": "1 3 5",
+         "every": 4
+        }
+       },
+       "layers": [],
+       "combine": "sequence"
+      }
+     }
+    ],
+    "combine": "sequence"
+   },
+   "youtube": {
+    "title": "Fractal curves: Koch, dragon and Hilbert in 30 s ❄️🐉 #shorts",
+    "description": "A single replacement rule, repeated, makes a snowflake with an infinitely long edge, the paper-folding dragon, and a line that fills a whole square.\n\n#satisfying #simulation #shorts",
+    "tags": "fractals, koch snowflake, dragon curve, hilbert curve, math animation, math visualization, learn math, mathematics, education, shorts"
+   },
+   "overlay": {
+    "layout": 4,
+    "title": {
+     "enabled": false,
+     "text": "",
+     "subtitle": false,
+     "subtitleText": "",
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "formulas": {
+     "enabled": true,
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "name": {
+     "enabled": false,
+     "x": null,
+     "y": null,
+     "size": 1,
+     "color": ""
+    },
+    "analyzer": {
+     "x": null,
+     "y": null,
+     "size": 1
+    },
+    "texts": []
+   },
+   "sequence": {
+    "enabled": false,
+    "past": "ghost"
+   },
+   "rhythm": {
+    "enabled": false,
+    "division": "1/8",
+    "gate": 0.8,
+    "swing": 0,
+    "showGrid": true
+   },
+   "drums": {
+    "enabled": false,
+    "source": 0,
+    "volume": 0.8,
+    "kick": "valley",
+    "snare": "peak",
+    "hat": "step",
+    "clap": "off",
+    "sensitivity": 0.08,
+    "pulse": true
+   },
+   "keyframes": {
+    "tracks": {},
+    "autoKey": false
+   },
+   "$collection": "Lessons · Fractals"
+  },
+  {
+   "name": "Lesson · Jumping Around a Circle",
+   "mode": "circle",
+   "theme": "dark",
+   "transport": {
+    "duration": 30,
+    "speed": 1,
+    "loop": true,
+    "bpm": 110
+   },
+   "view": {
+    "xMin": 0,
+    "xMax": 8,
+    "yMin": -4,
+    "yMax": 4
+   },
+   "params": {
+    "a": 1,
+    "b": 1,
+    "c": 1,
+    "d": 1
+   },
+   "layers": [
+    {
+     "id": "Lmv51o8oz0",
+     "name": "Layer 140",
+     "enabled": true,
+     "type": "function",
+     "exprs": {
+      "y": "3 * exp(-12 * mod(x, 0.5)) - 1.5",
+      "z": "0",
+      "x": "0",
+      "r": "1",
+      "f": "0",
+      "path": "0"
+     },
+     "range": {
+      "min": 0,
+      "max": 6.283185307179586
+     },
+     "colorMode": "solid",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
+     "width": 4,
+     "style": "line",
+     "wave": "sine",
+     "volume": 0.6,
+     "octave": 0,
+     "pan": 0,
+     "zMap": "volume",
+     "mute": false,
+     "solo": false,
+     "withPrev": false,
+     "samples": 900
+    }
+   ],
+   "visual": {
+    "background": "#04050a",
+    "gridColor": "#1d2440",
+    "axesColor": "#4a5784",
+    "showGrid": true,
+    "showAxes": true,
+    "showLabels": true,
+    "drawMode": "trace",
+    "bloom": {
+     "enabled": true,
+     "strength": 1.1,
+     "radius": 0.5,
+     "threshold": 0.05
+    },
+    "trail": {
+     "enabled": true,
+     "count": 160,
+     "size": 6
+    },
+    "marker": {
+     "shape": "circle",
+     "size": 26,
+     "image": null,
+     "cursorLine": true,
+     "smoothing": 0.35
+    },
+    "fog": {
+     "enabled": false,
+     "density": 0.04
+    },
+    "dof": {
+     "enabled": false,
+     "focus": 14,
+     "aperture": 0.6
+    },
+    "motionBlur": {
+     "enabled": false,
+     "amount": 0.75
+    },
+    "caption": true,
+    "showNotes": false,
+    "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -17105,8 +23591,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe90",
-     "name": "Layer 116",
+     "id": "Lmv51o8oz0",
+     "name": "Layer 142",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -17122,8 +23608,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -17179,6 +23665,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -17587,8 +24074,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhe90",
-     "name": "Layer 118",
+     "id": "Lmv51o8oz0",
+     "name": "Layer 144",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -17604,8 +24091,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -17661,6 +24148,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -18069,8 +24557,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhea0",
-     "name": "Layer 120",
+     "id": "Lmv51o8oz0",
+     "name": "Layer 146",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -18086,8 +24574,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -18143,6 +24631,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -18551,8 +25040,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhea0",
-     "name": "Layer 122",
+     "id": "Lmv51o8oz0",
+     "name": "Layer 148",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -18568,8 +25057,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -18625,6 +25114,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -19033,8 +25523,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhea0",
-     "name": "Layer 124",
+     "id": "Lmv51o8oz0",
+     "name": "Layer 150",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -19050,8 +25540,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -19107,6 +25597,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -19515,8 +26006,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhev0",
-     "name": "Layer 126",
+     "id": "Lmv51o8p10",
+     "name": "Layer 152",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -19532,8 +26023,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -19589,6 +26080,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -20007,8 +26499,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhev0",
-     "name": "Layer 128",
+     "id": "Lmv51o8p10",
+     "name": "Layer 154",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -20024,8 +26516,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -20081,6 +26573,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -20500,8 +26993,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhew0",
-     "name": "Layer 130",
+     "id": "Lmv51o8p10",
+     "name": "Layer 156",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -20517,8 +27010,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -20574,6 +27067,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -20992,8 +27486,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhew0",
-     "name": "Layer 132",
+     "id": "Lmv51o8p10",
+     "name": "Layer 158",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -21009,8 +27503,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -21066,6 +27560,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -21480,8 +27975,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhew0",
-     "name": "Layer 134",
+     "id": "Lmv51o8p10",
+     "name": "Layer 160",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -21497,8 +27992,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -21554,6 +28049,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -21976,8 +28472,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhew0",
-     "name": "Layer 136",
+     "id": "Lmv51o8p10",
+     "name": "Layer 162",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -21993,8 +28489,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -22050,6 +28546,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -22464,8 +28961,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhez0",
-     "name": "Layer 138",
+     "id": "Lmv51o8p30",
+     "name": "Layer 164",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -22481,8 +28978,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -22538,6 +29035,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -22955,8 +29453,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhez0",
-     "name": "Layer 140",
+     "id": "Lmv51o8p30",
+     "name": "Layer 166",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -22972,8 +29470,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -23029,6 +29527,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -23449,8 +29948,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhez0",
-     "name": "Layer 142",
+     "id": "Lmv51o8p30",
+     "name": "Layer 168",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -23466,8 +29965,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -23523,6 +30022,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -23942,8 +30442,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhez0",
-     "name": "Layer 144",
+     "id": "Lmv51o8p30",
+     "name": "Layer 170",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -23959,8 +30459,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -24016,6 +30516,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -24435,8 +30936,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhez0",
-     "name": "Layer 146",
+     "id": "Lmv51o8p30",
+     "name": "Layer 172",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -24452,8 +30953,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -24509,6 +31010,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -24929,8 +31431,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhez0",
-     "name": "Layer 148",
+     "id": "Lmv51o8p30",
+     "name": "Layer 174",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -24946,8 +31448,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -25003,6 +31505,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -25421,8 +31924,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhf40",
-     "name": "Layer 150",
+     "id": "Lmv51o8p40",
+     "name": "Layer 176",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -25438,8 +31941,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -25495,6 +31998,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -25909,8 +32413,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhf40",
-     "name": "Layer 152",
+     "id": "Lmv51o8p40",
+     "name": "Layer 178",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -25926,8 +32430,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -25983,6 +32487,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -26401,8 +32906,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhf40",
-     "name": "Layer 154",
+     "id": "Lmv51o8p40",
+     "name": "Layer 180",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -26418,8 +32923,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -26475,6 +32980,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -26889,8 +33395,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhf60",
-     "name": "Layer 156",
+     "id": "Lmv51o8p60",
+     "name": "Layer 182",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -26906,8 +33412,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -26963,6 +33469,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -27380,8 +33887,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhf60",
-     "name": "Layer 158",
+     "id": "Lmv51o8p60",
+     "name": "Layer 184",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -27397,8 +33904,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -27454,6 +33961,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -27869,8 +34377,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhf60",
-     "name": "Layer 160",
+     "id": "Lmv51o8p60",
+     "name": "Layer 186",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -27886,8 +34394,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -27943,6 +34451,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -28358,8 +34867,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhf70",
-     "name": "Layer 162",
+     "id": "Lmv51o8p60",
+     "name": "Layer 188",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -28375,8 +34884,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -28432,6 +34941,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -28849,8 +35359,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhf80",
-     "name": "Layer 164",
+     "id": "Lmv51o8p70",
+     "name": "Layer 190",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -28866,8 +35376,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -28923,6 +35433,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -29340,8 +35851,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhf80",
-     "name": "Layer 166",
+     "id": "Lmv51o8p70",
+     "name": "Layer 192",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -29357,8 +35868,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -29414,6 +35925,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -29838,8 +36350,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhf80",
-     "name": "Layer 168",
+     "id": "Lmv51o8p70",
+     "name": "Layer 194",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -29855,8 +36367,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -29912,6 +36424,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -30332,8 +36845,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhf80",
-     "name": "Layer 170",
+     "id": "Lmv51o8p70",
+     "name": "Layer 196",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -30349,8 +36862,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -30406,6 +36919,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -30826,8 +37340,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhf80",
-     "name": "Layer 172",
+     "id": "Lmv51o8p80",
+     "name": "Layer 198",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -30843,8 +37357,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -30900,6 +37414,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -31318,8 +37833,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhf80",
-     "name": "Layer 174",
+     "id": "Lmv51o8p80",
+     "name": "Layer 200",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -31335,8 +37850,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -31392,6 +37907,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -31814,8 +38330,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhf80",
-     "name": "Layer 176",
+     "id": "Lmv51o8p80",
+     "name": "Layer 202",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -31831,8 +38347,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -31888,6 +38404,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -32308,8 +38825,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhfc0",
-     "name": "Layer 178",
+     "id": "Lmv51o8p90",
+     "name": "Layer 204",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -32325,8 +38842,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -32382,6 +38899,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -32811,8 +39329,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhfc0",
-     "name": "Layer 180",
+     "id": "Lmv51o8p90",
+     "name": "Layer 206",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -32828,8 +39346,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -32885,6 +39403,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -33305,8 +39824,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhfc0",
-     "name": "Layer 182",
+     "id": "Lmv51o8p90",
+     "name": "Layer 208",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -33322,8 +39841,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -33379,6 +39898,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -33800,8 +40320,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhfc0",
-     "name": "Layer 184",
+     "id": "Lmv51o8p90",
+     "name": "Layer 210",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -33817,8 +40337,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -33874,6 +40394,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -34297,8 +40818,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhfc0",
-     "name": "Layer 186",
+     "id": "Lmv51o8p90",
+     "name": "Layer 212",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -34314,8 +40835,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -34371,6 +40892,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -34791,8 +41313,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhfq0",
-     "name": "Layer 188",
+     "id": "Lmv51o8pb0",
+     "name": "Layer 214",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -34808,8 +41330,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -34865,6 +41387,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -35282,8 +41805,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhfq0",
-     "name": "Layer 190",
+     "id": "Lmv51o8pb0",
+     "name": "Layer 216",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -35299,8 +41822,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -35356,6 +41879,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -35777,8 +42301,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhfq0",
-     "name": "Layer 192",
+     "id": "Lmv51o8pb0",
+     "name": "Layer 218",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -35794,8 +42318,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -35851,6 +42375,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -36272,8 +42797,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhfq0",
-     "name": "Layer 194",
+     "id": "Lmv51o8pb0",
+     "name": "Layer 220",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -36289,8 +42814,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ff3d9a",
-     "color2": "#ffd23d",
+     "color": "#8cff5a",
+     "color2": "#22e4ff",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -36346,6 +42871,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {
@@ -36763,8 +43289,8 @@
    },
    "layers": [
     {
-     "id": "Lmv3ihhfq0",
-     "name": "Layer 196",
+     "id": "Lmv51o8pb0",
+     "name": "Layer 222",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -36780,8 +43306,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#8cff5a",
-     "color2": "#22e4ff",
+     "color": "#ff3d9a",
+     "color2": "#ffd23d",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -36837,6 +43363,7 @@
     "caption": true,
     "showNotes": false,
     "analyzer": "off",
+    "hideUntil": 0,
     "aspect": "9:16"
    },
    "camera": {

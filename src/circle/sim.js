@@ -391,6 +391,12 @@ const CAPTIONS = {
   filings: 'An invisible field, made visible',
   string: 'A string only sings whole waves', travel: 'Higher note, shorter wave', fourier: 'Circles on circles draw any wave',
   beats: 'Two close notes make a wobble', scope: 'Two notes draw one shape', doppler: 'Moving sound squeezes its waves',
+  fdraw: 'Spinning circles can draw anything',
+  tangent: 'The slope at every point', riemann: 'More rectangles, closer to the true area', taylor: 'A polynomial learns a curve',
+  unitcircle: 'A turning point draws sine and cosine',
+  archimedes: 'How Archimedes trapped π', montecarlo: 'Random dots find π', buffon: 'Drop needles, find π',
+  series: 'An endless sum that equals π', pidigits: 'The digits of π, made visible',
+  mandel: (P) => (P.set === 'julia' ? 'One formula, endless shapes' : 'Zooming forever into one formula'), lsystem: 'One rule, repeated forever',
 };
 
 /**

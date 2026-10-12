@@ -228,3 +228,66 @@ test('lesson packs: every circle simulation has a lesson; steps are known, capti
   const missing = Object.keys(CIRCLE_RULES).filter((r) => !taught.has(r));
   assert.deepEqual(missing, [], 'simulations without a lesson');
 });
+
+test('Fourier drawing: the circles retrace the shape; SVG paths and formulas work', async () => {
+  const { shapeSamples, epicycles, svgPoints } = await import('../src/circle/fourier-draw.js');
+  for (const shape of ['cat', 'pi', 'heart', 'note', 'star', 'butterfly', 'infinity', 'flower']) {
+    const s = shapeSamples({ shape }), C = epicycles(s);
+    // all circles together put the pen back on the samples
+    let err = 0;
+    for (const n of [0, 100, 300]) {
+      const th = (2 * Math.PI * n) / s.length;
+      let x = 0, y = 0;
+      for (const [k, r, p] of C) { x += r * Math.cos(k * th + p); y += r * Math.sin(k * th + p); }
+      err = Math.max(err, Math.hypot(x - s[n][0], y - s[n][1]));
+    }
+    assert.ok(err < 0.05, `${shape}: ${err}`);
+    assert.ok(C[0][0] === 0 && C[1][1] >= C[2][1], `${shape}: centre first, then biggest`);
+  }
+  assert.equal(svgPoints('M 0 0 L 10 0 L 10 10 Z').length, 4);
+  assert.ok(svgPoints('M10 10 c 5 0 10 5 10 10 s -5 10 -10 10 q -10 0 -10 -10 z').length > 30);
+  assert.equal(shapeSamples({ shape: 'formula', x: 'cos(s)', y: 'sin(s)' }).length, 512);
+  assert.equal(shapeSamples({ shape: 'svg', svg: 'nonsense' }).length, 512, 'falls back to a heart');
+});
+
+test('pi: the digits, the bounds and the estimates are right', async () => {
+  const { piDigits } = await import('../src/circle/pi.js');
+  assert.equal(piDigits(50), '314159265358979323846264338327950288419716939937510');
+  const mc = new CircleSim(cfg('montecarlo', { max: 20000, rate0: 2000, accel: 1.5 }), env);
+  mc.advance(10);
+  assert.ok(Math.abs((4 * mc.sc.cum[20000]) / 20000 - Math.PI) < 0.05);
+  const bf = new CircleSim(cfg('buffon', { max: 6000, rate0: 2000 }), env);
+  bf.advance(5);
+  assert.ok(Math.abs((2 * 6000) / bf.sc.cumc[6000] - Math.PI) < 0.15);
+  const se = new CircleSim(cfg('series', { kind: 'nilakantha', terms: 50 }), env);
+  assert.ok(Math.abs(se.sc.vals.at(-1) - Math.PI) < 1e-5);
+});
+
+test('calculus and fractals: integral, Taylor, curves, zoom', async () => {
+  const { lpoints } = await import('../src/circle/fractals.js');
+  assert.equal(lpoints('koch', 2).length, 3 * 16 + 1);
+  assert.equal(lpoints('dragon', 10).length, 1025);
+  assert.equal(lpoints('hilbert', 3).length, 64);
+  const r = new CircleSim(cfg('riemann', { f: 'x^2', a: 0, b: 3 }), env);
+  assert.ok(Math.abs(r.sc.exact - 9) < 1e-6);
+  assert.ok(Math.abs(SCENES.riemann.sum(r.sc, { a: 0, b: 3, rule: 'mid' }, 512) - 9) < 1e-3);
+  const t = new CircleSim(cfg('taylor', { fn: 'sin', terms: 8 }), env);
+  assert.ok(Math.abs(SCENES.taylor.poly(t.sc, 2, 7) - Math.sin(2)) < 1e-8);
+  const m = new CircleSim(cfg('mandel', { depth: 6, wait: 1 }), env);
+  m.advance(29.5);
+  assert.ok(SCENES.mandel.zoom(m, m.P) > 1e5);
+});
+
+test('formula presets: sound of a graph, guess the shape (hidden first), A or B', async () => {
+  const { SOUND_PRESETS } = await import('../src/presets-sound.js');
+  const { normalize } = await import('../src/state.js');
+  const { tryCompile } = await import('../src/math/parser.js');
+  assert.ok(SOUND_PRESETS.length >= 12);
+  for (const p of SOUND_PRESETS) {
+    const s = normalize(p);
+    assert.equal(s.visual.aspect, '9:16', p.name);
+    assert.ok(p.youtube.tags && p.youtube.title.length <= 100, p.name);
+    for (const l of s.layers) for (const v of Object.values(l.exprs)) assert.ok(tryCompile(v, ['x', 's', 'theta', 't', 'a', 'b', 'c', 'd']).ok, `${p.name}: ${v}`);
+    if (/^Guess/.test(p.name)) assert.ok(s.visual.hideUntil > 0 && s.overlay.texts.length >= 2, p.name);
+  }
+});

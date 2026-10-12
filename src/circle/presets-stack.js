@@ -74,4 +74,16 @@ export const STACK_PRESETS = [
       Y('chladni', { plate: 'circle', every: 3, wait: 0.3, modes: '2,1 0,2 2,2 4,1', grain: 'glow', shake: 0.8 }, { look: { palette: 'aurora' }, sound: { instrument: 'glass-pad', length: 1.2 }, text: '…on a round plate…' }),
       Y('ripple', { every: 3, wait: 0.3, steps: '2:0.25 3:0.22 5:0.2' }, { look: { palette: 'ocean' }, sound: { instrument: 'glass-pad' }, text: '…and in water' })],
     { duration: 40, bpm: 100, hook: 'What does sound look like?', title: 'What sound looks like, 4 ways 🔊', desc: 'Dust in a tube, sand on a square plate, sand on a round plate, waves in water: four ways to see the shape of sound.', tags: 'cymatics, chladni, sound, vibration, physics, satisfying, shorts' }),
+  S('Which Series Finds π First?', Y('series', { kind: 'leibniz', terms: 120, per: 0.25 }, { look: { palette: 'gold', zoom: 0.5, dy: 0.62 }, sound: { instrument: 'marimba' }, text: 'Top: Leibniz' }),
+    [Y('series', { kind: 'nilakantha', terms: 120, per: 0.25 }, { look: { palette: 'aurora', zoom: 0.5, dy: -0.62 }, sound: { instrument: 'kalimba', volume: 0.5 }, text: 'Bottom: Nilakantha' })],
+    { combine: 'together', bpm: 100, hook: 'Top or bottom: which finds π first?', title: 'Two formulas race to π: which wins? 🥧', desc: 'Top: Leibniz, 4(1 − 1/3 + 1/5 − …). Bottom: Nilakantha, 3 + 4/(2·3·4) − 4/(4·5·6) + … Both add one term at a time. Guess the winner, then watch the correct digits light up. Comment top or bottom!', tags: 'pi animation, pi, leibniz series, math race, math animation, shorts' }),
+
+  S('Monte Carlo vs Buffon', Y('montecarlo', { max: 12000 }, { look: { palette: 'ocean', zoom: 0.5, dy: 0.62 }, sound: { instrument: 'kalimba' } }),
+    [Y('buffon', { max: 1500 }, { look: { palette: 'candy', zoom: 0.5, dy: -0.62 }, sound: { instrument: 'marimba', volume: 0.5 } })],
+    { combine: 'together', bpm: 100, hook: 'Dots or needles: which finds π first?', title: 'Random dots vs dropped needles: who finds π first? 🎯🪡', desc: 'Top: random dots in a square. Bottom: needles dropped on lines. Both estimate π by pure chance. Which one gets closer? Comment dots or needles!', tags: 'pi animation, monte carlo, buffon needle, probability, math animation, shorts' }),
+
+  S('Fourier: Heart, Note, Cat', Y('fdraw', { shape: 'heart', rounds: '2 6 40', period: 3.2 }, { look: { palette: 'candy' }, sound: { instrument: 'music-box' }, text: 'A heart…' }),
+    [Y('fdraw', { shape: 'note', rounds: '4 20 120', period: 3.2 }, { look: { palette: 'neon' }, sound: { instrument: 'e-piano' }, text: '…a music note…' }),
+      Y('fdraw', { shape: 'cat', rounds: '6 30 250', period: 3.2 }, { look: { palette: 'aurora' }, sound: { instrument: 'harp' }, text: '…and a cat' })],
+    { duration: 33, bpm: 110, hook: 'Spinning circles can draw anything', title: 'Fourier animation: circles draw a heart, a note and a cat ❤️🎵🐱', desc: 'Every drawing here is made only of spinning circles added tip to tip. More circles, more detail. Which one surprised you most?', tags: 'fourier animation, fourier series, epicycles, math animation, shorts' }),
 ];
