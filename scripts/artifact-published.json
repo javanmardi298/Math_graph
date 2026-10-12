@@ -1,6 +1,6 @@
 [
  {
-  "build": "cdc43b4afc",
+  "build": "083db3a9d7",
   "files": [
    "anim/keyframes.js",
    "audio/buffer-analyser.js",
@@ -58,7 +58,7 @@
   ]
  },
  {
-  "build": "083db3a9d7",
+  "build": "c657c8739b",
   "files": [
    "anim/keyframes.js",
    "audio/buffer-analyser.js",
@@ -68,13 +68,18 @@
    "audio/instruments.js",
    "audio/sonify.js",
    "circle/battles.js",
+   "circle/calculus.js",
    "circle/cymatics.js",
+   "circle/fourier-draw.js",
+   "circle/fractals.js",
    "circle/icons.js",
    "circle/lab.js",
    "circle/layout.js",
    "circle/palettes.js",
+   "circle/pi.js",
    "circle/presets-lab.js",
    "circle/presets-stack.js",
+   "circle/presets-topics.js",
    "circle/presets.js",
    "circle/scenes.js",
    "circle/sim.js",
@@ -96,6 +101,7 @@
    "lessons/formulas.js",
    "lessons/index.js",
    "lessons/kit.js",
+   "lessons/topics.js",
    "lessons/waves.js",
    "library.js",
    "main.js",
@@ -104,6 +110,7 @@
    "math/parser.js",
    "math/rhythm.js",
    "math/sequence.js",
+   "presets-sound.js",
    "presets.js",
    "render/visualizer.js",
    "state.js",
