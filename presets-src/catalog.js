@@ -7,6 +7,7 @@
  *   node scripts/build-presets.mjs
  * and it appears in the library. To add a shelf: add it to SHELVES.
  */
+import { LENGTHS, withLength } from './lengths.js';
 import { SCENES } from '../src/circle/scenes.js';
 import { FORMULA_PRESETS } from './formulas.js';
 import { CIRCLE_PRESETS } from './circle-classic.js';
@@ -67,7 +68,10 @@ export const START_HERE = [
 ];
 
 /** Every built-in preset, in source order. */
-export const ALL_PRESETS = [...FORMULA_PRESETS, ...CIRCLE_PRESETS, ...LAB_PRESETS, ...TOPIC_PRESETS, ...SOUND_PRESETS, ...STACK_PRESETS];
+const SOURCES = [...FORMULA_PRESETS, ...CIRCLE_PRESETS, ...LAB_PRESETS, ...TOPIC_PRESETS, ...SOUND_PRESETS, ...STACK_PRESETS];
+// a typo in lengths.js must not pass silently
+for (const n of Object.keys(LENGTHS)) if (!SOURCES.some((p) => p.name === n)) throw new Error(`lengths.js: no preset called "${n}"`);
+export const ALL_PRESETS = SOURCES.map(withLength);
 
 /** The preset the app opens with when nothing was saved (shipped inside the app). */
 export const DEFAULT_NAME = 'Bass Drop';

@@ -10,6 +10,10 @@ import { LibraryView } from './library-view.js';
 import { DailyView } from './daily-view.js';
 import { SoundPresetView } from './sound-presets-view.js';
 import { getBrand, setBrand } from '../brand.js';
+import { saveShorts } from '../shorts-prefs.js';
+
+/** Binding for a Shorts hook / fade-out field: saved for the whole channel, not for this preset. */
+const shortsBind = (path) => ({ get: () => store.get(path), set: (v) => { store.set(path, v); saveShorts(store.state.record); } });
 
 /** Binding for a channel-branding field (saved in this browser, redraws the frame). */
 const brandBind = (key) => ({ get: () => getBrand()[key], set: (v) => { setBrand({ [key]: v }); store.emit('overlay'); } });
@@ -844,12 +848,44 @@ export class Panels {
     ], { open: false, hint: 'Saved with the preset; never drawn into the video. Every exported video (and every video in a batch) gets a .txt with these, and batches also get one CSV of all of them.' });
   }
 
+  /** The one place to export anything: pick what to make, press the one button. */
   exportTab() {
     const p = bindPath;
     const live = this.actions.videoFormat();
     const smooth = this.actions.canRenderVideo();
+    const KINDS = [['video', 'Video · MP4'], ['wav', 'Audio · WAV'], ['midi', 'MIDI · notes'], ['png', 'Image · PNG'], ['live', 'Live capture · real time']];
+    let kind = 'video';
+    try { kind = localStorage.getItem('mmv.exportAs') || 'video'; } catch { /* storage blocked */ }
+    if (!KINDS.some(([k]) => k === kind)) kind = 'video';
+    this.exportRecording = false;
+    const btn = h('button.btn.export-btn', { type: 'button', onclick: () => this.runExport(kind) });
+    const hint = h('p.hint');
+    const fromStart = toggle('Capture one full pass from the start', p('record.fromStart'));
+    const bpm = number('MIDI tempo (BPM)', p('transport.bpm'), { min: 30, max: 300 });
+    const HINTS = {
+      video: smooth
+        ? 'Renders every frame at its exact time: a smooth, constant-frame-rate MP4 (H.264 + AAC) that plays and seeks everywhere. With “npm start” and ffmpeg installed, ffmpeg does the encoding. The Frame (16:9, 9:16…) comes from the Look tab; size, quality and the Shorts hook are below.'
+        : 'This browser has no video encoder (WebCodecs). Use Chrome or Edge, or Live capture.',
+      wav: 'Renders the full timeline offline: faster than real time, with no dropped frames, drums and animated effects included.',
+      midi: 'One track per layer, notes snapped to your scale (quarter tones are rounded to the nearest semitone). Open it in any DAW.',
+      png: 'Saves the picture on the stage right now.',
+      live: live ? `Records what plays on screen as ${live.ext.toUpperCase()} (shortcut R). Quality depends on how fast your computer draws; “Video · MP4” gives the best result.` : 'Live capture is not supported in this browser.',
+    };
+    const refresh = () => {
+      btn.textContent = { video: '⬇ Export video (MP4)', wav: '⬇ Export audio (WAV)', midi: '⬇ Export MIDI', png: '⬇ Save image (PNG)', live: this.exportRecording ? '■ Stop recording' : '● Start recording' }[kind];
+      btn.classList.toggle('is-recording', kind === 'live' && this.exportRecording);
+      hint.textContent = HINTS[kind];
+      fromStart.hidden = kind !== 'live';
+      bpm.hidden = kind !== 'midi';
+    };
+    this.refreshExport = refresh;
+    refresh();
     return h('section.tab', {},
-      group('Video', [
+      group('Export', [
+        select('Make', { get: () => kind, set: (v) => { kind = v; try { localStorage.setItem('mmv.exportAs', v); } catch { /* ignore */ } refresh(); } }, KINDS),
+        fromStart, bpm, btn, hint,
+      ]),
+      group('Video settings', [
         text('File name', p('record.fileName'), { placeholder: 'Same as the project name' }),
         select('Resolution', p('record.resolution'), { '720p': '720p', '1080p': '1080p · Full HD', '1440p': '1440p · 2K', '2160p': '2160p · 4K' }),
         select('Frame rate', p('record.fps'), [[24, '24 fps · film'], [30, '30 fps'], [60, '60 fps · smoothest']]),
@@ -857,41 +893,34 @@ export class Panels {
         select('Motion blur', p('record.subframes'), [[1, 'Off · fastest'], [2, 'Natural · 2 sub-frames'], [4, 'Cinematic · 4 sub-frames']]),
         select('Encoder', p('record.engine'), { auto: 'Automatic · ffmpeg when available', ffmpeg: 'ffmpeg on this computer (npm start)', browser: 'Browser (WebCodecs)' }),
         toggle('Browser encoder: use the GPU (faster, unstable on some drivers)', p('record.gpuEncoder')),
-        h('button.btn.export-btn', { type: 'button', onclick: () => this.actions.exportVideo() }, '⬇ Export video (MP4)'),
-        h('p.hint', {}, smooth
-          ? 'Renders every frame at its exact time: a smooth, constant-frame-rate MP4 (H.264 + AAC) that plays and seeks everywhere. With “npm start” and ffmpeg installed, ffmpeg does the encoding (most reliable: the browser’s encoder is not used). The Frame (16:9, 9:16…) comes from the Look tab.'
-          : 'This browser has no video encoder (WebCodecs). Use Chrome or Edge, or Live capture below.'),
-      ]),
+      ], { open: false }),
       group('Shorts: hook & ending', [
-        toggle('Hook in the first seconds', p('record.hook.enabled')),
+        toggle('Hook in the first seconds', shortsBind('record.hook.enabled')),
         text('Hook line', p('hook.text'), { placeholder: 'Empty: the YouTube title (without hashtags)' }),
-        slider('Teaser of the finished picture', p('record.hook.teaser'), { min: 0, max: 2, step: 0.1, fmt: (v) => (v ? `${v.toFixed(1)} s` : 'Off') }),
-        toggle('Flash at the cut', p('record.hook.flash')),
-        toggle('Whoosh + boom sound', p('record.hook.impact')),
-        slider('Fade to black at the end', p('record.outro'), { min: 0, max: 2, step: 0.1, fmt: (v) => (v ? `${v.toFixed(1)} s` : 'Off') }),
+        slider('Teaser of the finished picture', shortsBind('record.hook.teaser'), { min: 0, max: 2, step: 0.1, fmt: (v) => (v ? `${v.toFixed(1)} s` : 'Off') }),
+        toggle('Flash at the cut', shortsBind('record.hook.flash')),
+        toggle('Whoosh + boom sound', shortsBind('record.hook.impact')),
+        slider('Fade to black at the end', shortsBind('record.outro'), { min: 0, max: 2, step: 0.1, fmt: (v) => (v ? `${v.toFixed(1)} s` : 'Off') }),
         toggle('Seamless loop: the end dissolves into the start (no hook, no fade)', p('record.loop')),
         slider('Loop crossfade', p('record.loopBlend'), { min: 0.2, max: 2, step: 0.1, fmt: (v) => `${v.toFixed(1)} s` }),
         h('button.btn.ghost.small', { type: 'button', onclick: () => this.actions.previewShorts?.() }, '▶ Preview start & end'),
-      ], { hint: 'Viewers decide in the first 1–2 seconds. The video opens on the finished picture with a big hook line (readable with the sound off), then a flash and a boom cut to the drawing from zero. At the end the picture and sound fade to black instead of stopping abruptly. Applies to every exported video, batches included; the hook line is saved with the preset.' }),
+      ], { hint: 'Viewers decide in the first 1–2 seconds. The video opens on the finished picture with a big hook line (readable with the sound off), then a flash and a boom cut to the drawing from zero. At the end the picture and sound fade to black instead of stopping abruptly. These settings are kept for the whole channel (in this browser): every preset you load and every video you export gets them, batches included. Only the hook line itself is saved with the preset.' }),
       this.youtubeGroup(),
-      group('Live capture · real time', [
-        toggle('Capture one full pass from the start', p('record.fromStart')),
-        h('button.btn.record-btn', { type: 'button', onclick: () => this.actions.toggleRecord() }, h('span.rec-dot'), 'Start recording'),
-        h('p.hint', {}, live ? `Records what plays on screen as ${live.ext.toUpperCase()} (shortcut R). Quality depends on how fast your computer draws; use Export video for the best result.` : 'Live capture is not supported in this browser.'),
-      ], { open: false }),
-      group('Audio & MIDI', [
-        h('button.btn', { type: 'button', onclick: () => this.actions.exportWav() }, 'Export WAV'),
-        h('p.hint', {}, 'Renders the full timeline offline: faster than real time, with no dropped frames.'),
-        number('MIDI tempo (BPM)', p('transport.bpm'), { min: 30, max: 300 }),
-        h('button.btn', { type: 'button', onclick: () => this.actions.exportMidi() }, 'Export MIDI'),
-        h('p.hint', {}, 'One track per layer, notes snapped to your scale. Open it in any DAW.'),
-      ]),
-      group('Image', [
-        h('button.btn', { type: 'button', onclick: () => this.actions.snapshot() }, 'Save PNG snapshot'),
-      ]),
       h('p.hint.note', {}, 'Files download to your computer. In the claude.ai viewer you confirm each save, and WAV/MIDI arrive inside a .zip.'),
       h('p.hint.note.build-id'),
     );
+  }
+
+  /** The Export button: do what “Make” says. */
+  runExport(kind) {
+    const a = this.actions;
+    ({ video: a.exportVideo, wav: a.exportWav, midi: a.exportMidi, png: a.snapshot, live: a.toggleRecord }[kind])?.();
+  }
+
+  /** Live capture started or stopped (main.js): the Export button shows it. */
+  setRecording(on) {
+    this.exportRecording = on;
+    this.refreshExport?.();
   }
 
   /* -------------------------------------------------------------- text */

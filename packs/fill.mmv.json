@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmaz0",
+          "id": "Lmv5fe0420",
           "name": "Layer 164",
           "enabled": true,
           "type": "function",
@@ -177,7 +177,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -549,7 +549,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmaz0",
+          "id": "Lmv5fe0430",
           "name": "Layer 166",
           "enabled": true,
           "type": "function",
@@ -699,7 +699,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -1074,7 +1074,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmaz0",
+          "id": "Lmv5fe0430",
           "name": "Layer 168",
           "enabled": true,
           "type": "function",
@@ -1224,7 +1224,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -1598,7 +1598,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmaz0",
+          "id": "Lmv5fe0430",
           "name": "Layer 170",
           "enabled": true,
           "type": "function",
@@ -1748,7 +1748,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -2122,7 +2122,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmaz0",
+          "id": "Lmv5fe0430",
           "name": "Layer 172",
           "enabled": true,
           "type": "function",
@@ -2272,7 +2272,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -2647,7 +2647,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmaz0",
+          "id": "Lmv5fe0430",
           "name": "Layer 174",
           "enabled": true,
           "type": "function",
@@ -2797,7 +2797,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true

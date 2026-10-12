@@ -16,8 +16,10 @@ const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 /* ============================================================== mandelbrot */
 
 export const SPOTS = {
-  seahorse: [-0.743643887037151, 0.13182590420533],
-  spiral: [-0.761574, -0.0847596],
+  // centres found by following the boundary of the set down to ×10⁹ (a plain 6-digit point
+  // leaves the boundary around ×10⁵ and the picture turns into one flat colour)
+  seahorse: [-0.7429476736060684, 0.13128137344313265],
+  spiral: [-0.7613868094161869, -0.08491442689113037],
   lightning: [-0.170337, -1.06506],
   needle: [-1.7548776662466927, 0], // centre of the biggest copy of the set on the real axis
   custom: null,
@@ -43,7 +45,7 @@ function lut(name) {
 
 const mandel = {
   label: 'Mandelbrot zoom and Julia sets', group: 'Fractals',
-  defaults: { set: 'mandelbrot', spot: 'seahorse', cx: -0.743643887037151, cy: 0.13182590420533, depth: 6, wait: 1, colors: 'fire', res: 300, juliaR: 0.7885, juliaSpeed: 0.05, notes: 2 },
+  defaults: { set: 'mandelbrot', spot: 'seahorse', cx: -0.7429476736060684, cy: 0.13128137344313265, depth: 6, wait: 1, colors: 'fire', res: 300, juliaR: 0.7885, juliaSpeed: 0.05, notes: 2 },
   controls: [
     ['set', 'Fractal', 's', { mandelbrot: 'Mandelbrot zoom', julia: 'Julia set (c turns round)' }],
     ['spot', 'Zoom into', 's', { seahorse: 'Seahorse valley', spiral: 'A spiral', lightning: 'Lightning', needle: 'A tiny copy of the whole set', custom: 'My point' }],
@@ -84,7 +86,7 @@ const mandel = {
     } else {
       const z = this.zoom(S, P), [cx, cy] = this.centre(P);
       scale = 3.2 / z / W; x0 = cx - (W / 2) * scale; y0 = cy + (H / 2) * scale;
-      maxIt = Math.round(clamp(90 + 70 * Math.log10(z), 90, 1200));
+      maxIt = Math.round(clamp(150 + 110 * Math.log10(z), 150, 1500)); // enough for the boundary to stay visible at ×10⁹
     }
     const LOG2 = Math.log(2);
     for (let j = 0; j < H; j++) {

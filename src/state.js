@@ -3,6 +3,7 @@
  * object and listens for changes, so presets are just snapshots of it.
  */
 
+import { applyShorts } from './shorts-prefs.js';
 import { defaultCircle } from './circle/sim.js';
 
 let nextId = 1;
@@ -110,7 +111,7 @@ export function defaultState() {
     // outro: seconds of fade to black at the end. Both apply to every exported video.
     record: {
       resolution: '1080p', fps: 60, fromStart: true, fileName: '', quality: 'high', subframes: 1, gpuEncoder: false, engine: 'auto',
-      hook: { enabled: false, teaser: 0.8, flash: true, impact: true }, outro: 0.6, loop: false, loopBlend: 0.8,
+      hook: { enabled: true, teaser: 0.8, flash: true, impact: true }, outro: 0.6, loop: false, loopBlend: 0.8,
     },
     // The hook line shown over the first ~2 s of a video ('' = the YouTube title without hashtags).
     hook: { text: '' },
@@ -183,15 +184,15 @@ function applyLayout3(st) {
   st.overlay.layout = 3;
 }
 
-/** Layout 4: the Shorts opening hook (teaser + flash) is off unless a preset asks for it. */
+/** Layout 4 (older): the hook was off unless a preset asked for it. It is now a channel-wide setting (shorts-prefs.js). */
 function applyLayout4(st) {
-  st.record.hook.enabled = false;
   st.overlay.layout = 4;
 }
 
 class Store {
   constructor() {
     this.state = defaultState();
+    applyShorts(this.state.record);
     this.listeners = new Set();
   }
   /** Subscribe to changes. fn(path) — path is "*" when everything changed (preset load). */
@@ -212,6 +213,7 @@ class Store {
   /** Replace the whole state from a preset/snapshot (missing keys fall back to defaults). */
   load(snapshot) {
     const merged = normalize(snapshot);
+    applyShorts(merged.record); // the hook and fade-out follow the channel setting, not the preset
     this.state = merged;
     this.emit('*');
   }

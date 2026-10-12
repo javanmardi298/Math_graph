@@ -159,6 +159,8 @@ if (SAFE_GPU) {
 }
 
 const audio = new AudioEngine();
+audio.onRecover = () => audio.syncLayers(store.state.layers); // after a rebuild the layers need new voices
+if (new URLSearchParams(location.search).has('debug')) window.__audio = audio;
 /** The audio settings plus the tempo (the pump effect ducks on the beat). */
 const audioSettings = () => ({ ...structuredClone(store.state.audio), bpm: store.state.transport.bpm });
 const recorder = new Recorder();
@@ -787,7 +789,7 @@ async function startRecording() {
     return toast(err.message, 6000);
   }
   document.body.classList.add('recording');
-  document.querySelectorAll('.record-btn').forEach((b) => { b.lastChild.textContent = 'Stop recording'; });
+  panels.setRecording(true);
   toast(`Recording ${size.w}×${size.h} at ${fps} fps${fromStart ? ' · stops after one pass' : ''}. Press R to stop.`);
 }
 
@@ -798,7 +800,7 @@ async function stopRecording() {
   viz.setFixedSize(null);
   clock.autoStop = false;
   document.body.classList.remove('recording');
-  document.querySelectorAll('.record-btn').forEach((b) => { b.lastChild.textContent = 'Start recording'; });
+  panels.setRecording(false);
   applyStageAspect();
   if (!res || !res.blob.size) return toast('Recording came out empty. Try a different browser.');
   // Live recordings come out with uneven frame timing and (in Chrome) no duration, so
@@ -1472,11 +1474,9 @@ $('edit-layout-btn').addEventListener('click', () => setLayoutEditing(!layoutEdi
 $('mode-slot').append(segmented(bindPath('mode'), [['2d', '2D', '2D graph (M)'], ['3d', '3D', '3D space (M)'], ['circle', '◎', 'Circle Lab: bouncing balls, chords and polyrhythms with a note on every hit']], { label: 'View mode' }));
 $('play-btn').addEventListener('click', togglePlay);
 $('rewind-btn').addEventListener('click', () => seek(0));
-$('topbar-record').addEventListener('click', exportVideo);
 $('theme-btn').addEventListener('click', () => toggleTheme());
 $('cinema-btn').addEventListener('click', () => document.body.classList.toggle('cinema'));
 $('help-btn').addEventListener('click', () => $('help-dialog').showModal());
-$('snapshot-btn').addEventListener('click', snapshot);
 $('fullscreen-btn').addEventListener('click', () => {
   const p = document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
   p?.catch?.(() => toast('Full screen is not available here.'));

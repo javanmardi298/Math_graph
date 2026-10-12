@@ -231,7 +231,7 @@ input[role="switch"]:checked::after { transform: translateX(15px); background: v
 .btn.small { padding: 5px 10px; font-size: 12px; }
 .btn.ghost { background: transparent; border-color: var(--line); }
 .btn.record-btn { border-color: color-mix(in srgb, var(--rec) 55%, transparent); background: color-mix(in srgb, var(--rec) 12%, transparent); }
-body.recording .btn.record-btn { background: var(--rec); color: #fff; }
+body.recording .btn.export-btn.is-recording { background: var(--rec); border-color: var(--rec); color: #fff; box-shadow: none; }
 .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .row > input { flex: 1; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; }
@@ -366,7 +366,7 @@ body.cinema .cinema-hint {
   .panel { position: fixed; top: 62px; bottom: 112px; z-index: 20; width: min(340px, calc(100vw - 32px)); box-shadow: var(--shadow); background: var(--glass-hi); }
   .panel-left { left: 16px; }
   .panel-right { right: 16px; }
-  .brand-name, .project-name, #snapshot-btn, #fullscreen-btn { display: none; }
+  .brand-name, .project-name, #fullscreen-btn { display: none; }
   .rec-btn { font-size: 0; gap: 0; padding: 0 10px; }
   body.recording .rec-btn .rec-time { font-size: 11px; margin-left: 6px; }
   .timeline { grid-template-columns: minmax(0, 1fr); gap: 6px; }

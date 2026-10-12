@@ -305,6 +305,36 @@ export class AudioEngine {
     this.droneLevel = Math.min(1, dr.volume ?? 0) * 0.32;
   }
 
+  /**
+   * Safety net, once a second: a NaN that gets into a feedback loop (delay, filter) never
+   * leaves it and silences everything until the page is reloaded. If the output has one,
+   * throw the effects chain away and build it again.
+   */
+  checkHealth() {
+    if (!this.ctx || !this.analyser || this.ctx.state !== 'running') return;
+    const now = this.ctx.currentTime;
+    if (now - (this.lastHealth ?? 0) < 1) return;
+    this.lastHealth = now;
+    this.floatData ||= new Float32Array(this.analyser.fftSize);
+    this.analyser.getFloatTimeDomainData(this.floatData);
+    for (let i = 0; i < this.floatData.length; i += 4) if (!Number.isFinite(this.floatData[i])) { this.recover(); return; }
+  }
+
+  /** Rebuild the effects and voices on the same context. */
+  recover() {
+    const ctx = this.ctx, t = ctx.currentTime;
+    console.warn('Audio: non-finite samples in the output; rebuilding the effects chain.');
+    try { this.post.disconnect(); this.limiter.disconnect(); this.master.disconnect(); this.comp.disconnect(); this.analyser.disconnect(); } catch { /* already gone */ }
+    for (const v of this.voices.values()) { v.stop(t); v.dispose(); }
+    for (const pool of this.notePools?.values() || []) for (const v of pool.voices) if (v) { v.stop(t); v.dispose(); }
+    for (const o of [this.chorusLfo, this.phaserLfo, this.tremLfo, this.panLfo, this.filterLfo, this.pumpLfo, ...this.droneOsc.map((d) => d.o)]) { try { o.stop(); } catch { /* not started */ } }
+    this.voices = new Map();
+    this.notePools = null;
+    this.droneActive = false;
+    this.build(ctx);
+    this.onRecover?.();
+  }
+
   /** Drone on while playing, off when paused. */
   droneOn(on, t) {
     this.droneGain.gain.setTargetAtTime(on ? this.droneLevel || 0 : 0, t, on ? 0.4 : 0.15);
@@ -326,12 +356,12 @@ export class AudioEngine {
     const t = this.ctx.currentTime;
     const ids = new Set(layers.map((l) => l.id));
     for (const [id, v] of this.voices) {
-      if (!ids.has(id)) { v.stop(t); this.voices.delete(id); }
+      if (!ids.has(id)) { v.stop(t); v.dispose(); this.voices.delete(id); }
     }
     for (const l of layers) {
       const v = this.voices.get(l.id);
       if (v && v.id === l.wave) continue;
-      if (v) v.stop(t); // the sound changed: build the new instrument
+      if (v) { v.stop(t); v.dispose(); } // the sound changed: build the new instrument
       const nv = new Voice(this.ctx, l.wave, this.bus);
       nv.lastNote = null;
       this.voices.set(l.id, nv);
@@ -349,6 +379,7 @@ export class AudioEngine {
     const t = at ?? this.ctx.currentTime;
     const live = at == null;
     const glide = Math.max(opts.glide, 4) / 1000 / 3; // time constant: ~95% reached after `glide` ms
+    if (live) { this.sweepNotes(); this.checkHealth(); }
     const fine = this.settings?.scale && this.settings.scale !== 'continuous';
     const droneNow = !!opts.playing && this.droneLevel > 0;
     if (droneNow !== this.droneActive || (droneNow && this.droneSetLevel !== this.droneLevel)) {
@@ -427,9 +458,33 @@ export class AudioEngine {
     if (!v) { v = new Voice(this.ctx, id, this.bus); pool.voices[pool.next] = v; }
     pool.next = (pool.next + 1) % 12;
     const t = at ?? this.ctx.currentTime;
+    v.until = t + Math.max(0.05, length) + 1.5; // rings out by then (release included)
     v.setFreq(this.freq(midi), t, 0.001);
     v.trigger(vel * 1.6 * v.gainScale, t, at == null);
     v.amp.gain.setTargetAtTime(0, t + Math.max(0.05, length), 0.08);
+    if (at == null) this.sweepNotes();
+  }
+
+  /**
+   * Free note voices that have been silent for a few seconds. Every voice keeps its
+   * oscillators, filters and gains running whether or not it sounds, so a pool per
+   * instrument that is never freed piles up as you try sounds (hundreds of oscillators
+   * after a few dozen sound presets) until the audio thread stalls and the sound
+   * stops until the page is reloaded. A freed voice is simply built again when needed.
+   */
+  sweepNotes(force = false) {
+    if (!this.notePools || !this.ctx) return;
+    const now = this.ctx.currentTime;
+    if (!force && now - (this.lastSweep ?? 0) < 1) return;
+    this.lastSweep = now;
+    for (const [id, pool] of this.notePools) {
+      let alive = 0;
+      pool.voices.forEach((v, i) => {
+        if (!v) return;
+        if (v.until != null && v.until < now - 2.5) { v.stop(now); v.dispose(); pool.voices[i] = null; } else alive++;
+      });
+      if (!alive) this.notePools.delete(id);
+    }
   }
 
   /** Play a short arpeggio with an instrument so it can be heard before choosing it. */

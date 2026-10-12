@@ -196,7 +196,7 @@ function remixSubject(rule, lab, r, format) {
   }
   if (rule === 'mandel') {
     if (r() < 0.3) { lab.set = 'julia'; lab.juliaR = +r.range(0.7, 0.8).toFixed(4); lab.colors = r.pick(['ocean', 'neon', 'gold', 'rainbow']); return 'a Julia set'; }
-    const [id, name] = r.pick(SPOTS.slice(0, 3)); lab.set = 'mandelbrot'; lab.spot = id; lab.depth = r.int(6, 9); lab.colors = r.pick(['fire', 'ocean', 'neon', 'gold', 'rainbow']); return name;
+    const [id, name] = r.pick(SPOTS.slice(0, 3)); lab.set = 'mandelbrot'; lab.spot = id; lab.depth = r.int(6, 8); lab.colors = r.pick(['fire', 'ocean', 'neon', 'gold', 'rainbow']); return name;
   }
   if (rule === 'lsystem') { const [id, name] = r.pick(CURVES_L); lab.curve = id; lab.steps = { koch: '0 1 2 3 4 5', dragon: '1 3 5 7 9 11 13', hilbert: '1 2 3 4 5 6', arrowhead: '1 2 3 4 5 6 7', gosper: '0 1 2 3 4', levy: '1 3 5 7 9 11 13' }[id]; return name; }
   if (rule === 'tangent') { const [f, name] = r.pick(TANGENT_F); lab.f = f; return name; }

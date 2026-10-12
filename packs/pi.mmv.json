@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmat0",
+          "id": "Lmv5fe03x0",
           "name": "Layer 124",
           "enabled": true,
           "type": "function",
@@ -177,7 +177,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -549,7 +549,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmat0",
+          "id": "Lmv5fe03x0",
           "name": "Layer 126",
           "enabled": true,
           "type": "function",
@@ -699,7 +699,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -1074,7 +1074,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmat0",
+          "id": "Lmv5fe03x0",
           "name": "Layer 128",
           "enabled": true,
           "type": "function",
@@ -1224,7 +1224,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -1599,7 +1599,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmat0",
+          "id": "Lmv5fe03x0",
           "name": "Layer 130",
           "enabled": true,
           "type": "function",
@@ -1749,7 +1749,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -2124,7 +2124,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmat0",
+          "id": "Lmv5fe03x0",
           "name": "Layer 132",
           "enabled": true,
           "type": "function",
@@ -2274,7 +2274,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true

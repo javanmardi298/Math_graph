@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmb00",
+          "id": "Lmv5fe0430",
           "name": "Layer 176",
           "enabled": true,
           "type": "function",
@@ -177,7 +177,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -546,7 +546,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmb00",
+          "id": "Lmv5fe0430",
           "name": "Layer 178",
           "enabled": true,
           "type": "function",
@@ -696,7 +696,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -1069,7 +1069,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmb00",
+          "id": "Lmv5fe0440",
           "name": "Layer 180",
           "enabled": true,
           "type": "function",
@@ -1219,7 +1219,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true

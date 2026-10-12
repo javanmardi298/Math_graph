@@ -269,6 +269,11 @@ export class Voice {
     this.amp.gain.setTargetAtTime(0, t, 0.02);
     for (const n of this.nodes) n.stop(t + 0.25);
   }
+
+  /** Cut the voice out of the audio graph once it has faded (so it can be collected). */
+  dispose() {
+    setTimeout(() => { try { this.amp.disconnect(); this.pan.disconnect(); this.filter?.disconnect(); } catch { /* already gone */ } }, 400);
+  }
 }
 
 /** Freeze a parameter at its current value before scheduling a new envelope. */

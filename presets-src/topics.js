@@ -135,9 +135,9 @@ export const TOPIC_PRESETS = [
     look: { palette: 'fire' }, sound: { instrument: 'glass-pad', length: 1 }, duration: 30, bpm: 90,
     hook: 'Zooming 100,000,000 times into one formula', title: 'Fractal zoom: 100 million times into the Mandelbrot set 🔥', desc: 'Every pixel asks one question: does z → z² + c run away? Zoom 10⁸ times into seahorse valley and it never stops making new shapes.', tags: FRACTAL_TAGS,
   }),
-  P('Fractal Zoom: Lightning', 'mandel', { spot: 'lightning', depth: 7, colors: 'neon' }, {
+  P('Fractal Zoom: Lightning', 'mandel', { spot: 'lightning', depth: 6, colors: 'neon' }, {
     look: { palette: 'neon' }, sound: { instrument: 'glass-pad', length: 1 }, bpm: 90,
-    hook: 'Lightning hidden inside a formula', title: 'Fractal zoom: lightning inside the Mandelbrot set ⚡', desc: 'A zoom into the lightning branches of the Mandelbrot set, ten million times closer.', tags: FRACTAL_TAGS,
+    hook: 'Lightning hidden inside a formula', title: 'Fractal zoom: lightning inside the Mandelbrot set ⚡', desc: 'A zoom into the lightning branches of the Mandelbrot set, a million times closer.', tags: FRACTAL_TAGS,
   }),
   P('Julia Set Morph', 'mandel', { set: 'julia', colors: 'ocean', juliaSpeed: 0.04 }, {
     look: { palette: 'ocean' }, sound: { instrument: 'glass-pad', length: 1.2 }, bpm: 80,

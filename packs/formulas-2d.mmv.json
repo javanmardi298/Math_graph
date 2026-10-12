@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dman0",
+          "id": "Lmv5fe03s0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -59,7 +59,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dman1",
+          "id": "Lmv5fe03s1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -91,7 +91,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dman2",
+          "id": "Lmv5fe03s2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -241,7 +241,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -469,7 +469,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dman0",
+          "id": "Lmv5fe03s0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -501,7 +501,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dman1",
+          "id": "Lmv5fe03s1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -533,7 +533,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dman2",
+          "id": "Lmv5fe03s2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -683,7 +683,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -911,7 +911,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dman0",
+          "id": "Lmv5fe03s0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -943,7 +943,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dman1",
+          "id": "Lmv5fe03s1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -975,7 +975,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dman2",
+          "id": "Lmv5fe03s2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -1125,7 +1125,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -1353,7 +1353,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmao0",
+          "id": "Lmv5fe03s0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -1385,7 +1385,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmao1",
+          "id": "Lmv5fe03s1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -1417,7 +1417,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmao2",
+          "id": "Lmv5fe03s2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -1567,7 +1567,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -1795,7 +1795,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmao0",
+          "id": "Lmv5fe03s0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -1827,7 +1827,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmao1",
+          "id": "Lmv5fe03s1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -1859,7 +1859,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmao2",
+          "id": "Lmv5fe03s2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -2009,7 +2009,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -2237,7 +2237,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmao0",
+          "id": "Lmv5fe03s0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -2269,7 +2269,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmao1",
+          "id": "Lmv5fe03s1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -2301,7 +2301,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmao2",
+          "id": "Lmv5fe03s2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -2451,7 +2451,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -2679,7 +2679,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmao0",
+          "id": "Lmv5fe03s0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -2711,7 +2711,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmao1",
+          "id": "Lmv5fe03s1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -2743,7 +2743,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmao2",
+          "id": "Lmv5fe03s2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -2893,7 +2893,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -3121,7 +3121,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmao0",
+          "id": "Lmv5fe03s0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -3153,7 +3153,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmao1",
+          "id": "Lmv5fe03s1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -3185,7 +3185,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmao2",
+          "id": "Lmv5fe03s2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -3335,7 +3335,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -3563,7 +3563,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmao0",
+          "id": "Lmv5fe03s0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -3595,7 +3595,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmao1",
+          "id": "Lmv5fe03s1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -3627,7 +3627,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmao2",
+          "id": "Lmv5fe03s2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -3777,7 +3777,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -4005,7 +4005,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmap0",
+          "id": "Lmv5fe03s0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -4037,7 +4037,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmap1",
+          "id": "Lmv5fe03s1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -4069,7 +4069,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmap2",
+          "id": "Lmv5fe03s2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -4219,7 +4219,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -4447,7 +4447,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmap0",
+          "id": "Lmv5fe03t0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -4479,7 +4479,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmap1",
+          "id": "Lmv5fe03t1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -4511,7 +4511,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmap2",
+          "id": "Lmv5fe03t2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -4661,7 +4661,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -4889,7 +4889,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmap0",
+          "id": "Lmv5fe03t0",
           "name": "Step 1",
           "enabled": true,
           "type": "polar",
@@ -4921,7 +4921,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmap1",
+          "id": "Lmv5fe03t1",
           "name": "Step 2",
           "enabled": true,
           "type": "polar",
@@ -4953,7 +4953,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmap2",
+          "id": "Lmv5fe03t2",
           "name": "Step 3",
           "enabled": true,
           "type": "polar",
@@ -5103,7 +5103,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -5331,7 +5331,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmap0",
+          "id": "Lmv5fe03t0",
           "name": "Step 1",
           "enabled": true,
           "type": "polar",
@@ -5363,7 +5363,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmap1",
+          "id": "Lmv5fe03t1",
           "name": "Step 2",
           "enabled": true,
           "type": "polar",
@@ -5395,7 +5395,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmap2",
+          "id": "Lmv5fe03t2",
           "name": "Step 3",
           "enabled": true,
           "type": "polar",
@@ -5545,7 +5545,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
@@ -5773,7 +5773,7 @@
       },
       "layers": [
         {
-          "id": "Lmv59dmap0",
+          "id": "Lmv5fe03t0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -5805,7 +5805,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmap1",
+          "id": "Lmv5fe03t1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -5837,7 +5837,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmv59dmap2",
+          "id": "Lmv5fe03t2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -5987,7 +5987,7 @@
         "gpuEncoder": false,
         "engine": "auto",
         "hook": {
-          "enabled": false,
+          "enabled": true,
           "teaser": 0.8,
           "flash": true,
           "impact": true
