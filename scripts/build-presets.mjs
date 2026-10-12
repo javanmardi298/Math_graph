@@ -48,6 +48,8 @@ for (const [id, name, section] of SHELVES) {
   out.set(`presets/shelves/${id}.json`, json({ id, name, presets: list }));
   shelves.push({ id, name, section, count: list.length, file: `shelves/${id}.json`, names: list.map((p) => p.name) });
 }
+// the showcase as one importable file (Library → Import), next to the lesson packs
+out.set('packs/sound-showcase.mmv.json', bundleFile(byShelf.get('sound-showcase').map(normalize)).replace('"presets":', '"$collection": "Sound showcase",\n  "presets":'));
 const packs = [];
 for (const pack of PACKS) {
   const list = await pack.load();

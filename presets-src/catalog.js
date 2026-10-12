@@ -15,6 +15,7 @@ import { LAB_PRESETS } from './circle-lab.js';
 import { TOPIC_PRESETS } from './topics.js';
 import { SOUND_PRESETS } from './sound.js';
 import { STACK_PRESETS } from './circle-stories.js';
+import { SHOWCASE_PRESETS } from './sound-showcase.js';
 
 /** Shelves in library order: [id, name, section]. */
 export const SHELVES = [
@@ -22,6 +23,7 @@ export const SHELVES = [
   ['sound-graph', 'Sound · What does it sound like?', 'Sound of math'],
   ['sound-quiz', 'Sound · Guess the shape & A or B', 'Sound of math'],
   ['sound-waves', 'Sound · Waves, notes & intervals', 'Sound of math'],
+  ['sound-showcase', 'Sound · Showcase (50 sounds, on a spectrum)', 'Sound of math'],
   ['math-fourier', 'Math · Fourier, names & flags', 'Math'],
   ['math-pi', 'Math · Pi', 'Math'],
   ['math-calculus', 'Math · Calculus & trig', 'Math'],
@@ -48,7 +50,7 @@ const GROUP_SHELF = {
   Pi: 'math-pi', Fractals: 'math-fractals',
 };
 /** Older explicit categories → shelf. */
-const CATEGORY_SHELF = { 'Formulas · Sound of a graph': 'sound-graph', 'Formulas · Guess & compare': 'sound-quiz' };
+const CATEGORY_SHELF = { 'Formulas · Sound of a graph': 'sound-graph', 'Formulas · Guess & compare': 'sound-quiz', 'Sound · Showcase': 'sound-showcase' };
 
 /** The shelf of a preset. */
 export function shelfOf(p) {
@@ -68,7 +70,7 @@ export const START_HERE = [
 ];
 
 /** Every built-in preset, in source order. */
-const SOURCES = [...FORMULA_PRESETS, ...CIRCLE_PRESETS, ...LAB_PRESETS, ...TOPIC_PRESETS, ...SOUND_PRESETS, ...STACK_PRESETS];
+const SOURCES = [...FORMULA_PRESETS, ...CIRCLE_PRESETS, ...LAB_PRESETS, ...TOPIC_PRESETS, ...SOUND_PRESETS, ...STACK_PRESETS, ...SHOWCASE_PRESETS];
 // a typo in lengths.js must not pass silently
 for (const n of Object.keys(LENGTHS)) if (!SOURCES.some((p) => p.name === n)) throw new Error(`lengths.js: no preset called "${n}"`);
 export const ALL_PRESETS = SOURCES.map(withLength);
