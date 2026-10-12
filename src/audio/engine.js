@@ -73,8 +73,6 @@ export class AudioEngine {
     // chorus / flanger: two short delays swept in opposite directions, spread left and right
     this.chorusWet = ctx.createGain();
     this.chorusWet.gain.value = 0;
-    this.chorusFb = ctx.createGain();
-    this.chorusFb.gain.value = 0;
     this.chorusDepth = ctx.createGain();
     this.chorusDepthInv = ctx.createGain();
     const lfoC = this.lfo(ctx, 0.6);
@@ -89,7 +87,9 @@ export class AudioEngine {
       pan.pan.value = panAt;
       this.modIn.connect(d);
       d.connect(pan).connect(this.chorusWet);
-      d.connect(this.chorusFb).connect(d);
+      d.fb = ctx.createGain(); // each delay feeds back only into itself (flanger)
+      d.fb.gain.value = 0;
+      d.connect(d.fb).connect(d);
       return d;
     });
     this.chorusWet.connect(this.trem);
@@ -278,7 +278,7 @@ export class AudioEngine {
     for (const d of this.chorusDelays) d.delayTime.setTargetAtTime(base, t, 0.05);
     this.chorusDepth.gain.setTargetAtTime(chorus ? swing : 0, t, tc);
     this.chorusDepthInv.gain.setTargetAtTime(chorus ? -swing : 0, t, tc);
-    this.chorusFb.gain.setTargetAtTime(type === 'flanger' ? 0.55 * depth + 0.2 : 0, t, tc);
+    for (const d of this.chorusDelays) d.fb.gain.setTargetAtTime(type === 'flanger' ? 0.4 * depth + 0.2 : 0, t, tc);
     this.phaserDepth.gain.setTargetAtTime(type === 'phaser' ? 650 * depth : 0, t, tc);
     // tremolo and auto-pan
     const mo = a.motion || {};
