@@ -1111,6 +1111,11 @@ class FrameComposer {
     // Text: formulas/captions with the timeline, except during the teaser (only the hook line).
     if (m.phase !== 'teaser') drawOverlay(g, out.width, out.height, overlayData(this.analyser?.at(vt) ?? { spectrum: null, waveform: null }, m.time));
     if (T.on) drawHook(g, out.width, out.height, this.hookText, vt, T.hookEnd, FONTS.display);
+    // Seamless loop: keep the first frame, and dissolve into it at the end
+    if (T.loop) {
+      if (i === 0) { this.first ||= document.createElement('canvas'); this.first.width = out.width; this.first.height = out.height; this.first.getContext('2d').drawImage(out, 0, 0); }
+      else if (fx.loopMix > 0 && this.first) { g.globalAlpha = fx.loopMix; g.drawImage(this.first, 0, 0); g.globalAlpha = 1; }
+    }
     if (fx.flash > 0) { g.fillStyle = `rgba(255,255,255,${fx.flash})`; g.fillRect(0, 0, out.width, out.height); }
     if (fx.black > 0) { g.fillStyle = `rgba(0,0,0,${fx.black})`; g.fillRect(0, 0, out.width, out.height); }
     return out;
@@ -1126,7 +1131,7 @@ async function prepareComposition({ width, height, fps, subframes }) {
   const teaserAt = isCircle() && store.state.circle.rule === 'escape' && !store.state.circle.layers?.length ? 0.05 : undefined;
   const T = shortsTiming(store.state.record, duration(), { teaserAt });
   const main = await renderWavBuffer();
-  const buf = T.on || T.outro ? shortsAudio(main, T) : main;
+  const buf = T.on || T.outro || T.loop ? shortsAudio(main, T) : main;
   const comp = new FrameComposer({
     width, height, fps, subframes, timing: T, hookText: hookTextFor(store.state),
     analyser: new BufferAnalyser(buf), hits: drumEventsFull(),

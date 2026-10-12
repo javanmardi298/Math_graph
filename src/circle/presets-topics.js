@@ -45,6 +45,43 @@ export const TOPIC_PRESETS = [
     hook: 'Guess what they draw before it’s done!', title: 'Guess what these spinning circles draw 🤔', desc: 'No outline, no hints. The circles start drawing; can you guess the shape before the last round? Comment your guess and the second you knew.', tags: FOURIER_TAGS,
   }),
 
+  P('Fourier Draws Batman', 'fdraw', { shape: 'batman', rounds: '4 15 60 300', period: 6.5 }, {
+    look: { palette: 'gold' }, sound: { instrument: 'synth-pluck' },
+    hook: 'Can math draw the Batman logo?', title: 'Fourier animation: 300 circles draw the Batman logo 🦇', desc: 'Spinning circles, each at its own speed, trace the bat symbol. With 4 circles it is a blob, with 300 it is the logo. Which superhero should the circles draw next? Comment!', tags: `${FOURIER_TAGS}, batman, batman equation`,
+  }),
+  P('Circles Write MathWaves', 'fdraw', { shape: 'text', text: 'MATHWAVES', rounds: '10 40 150 500', period: 6.5, size: 1 }, {
+    look: { palette: 'neon' }, sound: { instrument: 'e-piano' },
+    hook: 'Spinning circles can even write', title: 'Fourier animation: circles write words ✍️', desc: 'Every letter is one line, and all the lines are drawn by one chain of spinning circles. Type any word or name in the Shape settings. Want your name next? Comment it!', tags: `${FOURIER_TAGS}, your name, handwriting`,
+  }),
+  P('Your Name in Circles', 'fdraw', { shape: 'text', text: 'YOUR NAME', rounds: '10 40 150 500', period: 6.5, size: 1 }, {
+    look: { palette: 'candy' }, sound: { instrument: 'music-box' },
+    hook: 'Comment your name, I’ll draw it with circles', title: 'I draw your name with spinning circles ✍️ (comment it!)', desc: 'Your name, drawn by Fourier circles. Comment your name and it might be the next video!', tags: `${FOURIER_TAGS}, your name, name art`,
+  }),
+  P('I Love Math', 'fdraw', { shape: 'text', text: 'I ♥ MATH', rounds: '8 30 120 400', period: 6.5, size: 1 }, {
+    look: { palette: 'candy' }, sound: { instrument: 'harp' },
+    hook: 'Circles that love math', title: 'Spinning circles write I ♥ MATH', desc: 'One chain of spinning circles writes the whole sentence, heart included.', tags: FOURIER_TAGS,
+  }),
+  P('Flag of Japan in Circles', 'fdraw', { flag: 'japan', rounds: '1 2 4', period: 7 }, {
+    look: { palette: 'mono' }, sound: { instrument: 'kalimba' },
+    hook: 'How many circles to draw this flag?', title: 'Drawing the flag of Japan 🇯🇵 with spinning circles', desc: 'The easiest flag for Fourier: one circle is already a circle. Which flag should be next? Comment!', tags: `${FOURIER_TAGS}, flags, flag of japan, flags drawn by math`,
+  }),
+  P('Flag of Canada in Circles', 'fdraw', { flag: 'canada', rounds: '6 25 100 400', period: 6.5 }, {
+    look: { palette: 'mono' }, sound: { instrument: 'marimba' },
+    hook: 'Can circles draw a maple leaf?', title: 'Drawing the flag of Canada 🇨🇦 with spinning circles', desc: 'A maple leaf from 400 spinning circles, then filled with red. Which flag next? Comment!', tags: `${FOURIER_TAGS}, flags, flag of canada, flags drawn by math`,
+  }),
+  P('Flag of Switzerland in Circles', 'fdraw', { flag: 'switzerland', rounds: '2 6 20 80', period: 6.5 }, {
+    look: { palette: 'mono' }, sound: { instrument: 'bell' },
+    hook: 'Can round circles draw sharp corners?', title: 'Drawing the Swiss flag 🇨🇭 with spinning circles', desc: 'Sharp corners are the hardest thing for circles. Watch the cross get sharper with every round.', tags: `${FOURIER_TAGS}, flags, flag of switzerland, flags drawn by math`,
+  }),
+  P('Flag of Türkiye in Circles', 'fdraw', { flag: 'turkey', rounds: '5 20 80 300', period: 6.5 }, {
+    look: { palette: 'mono' }, sound: { instrument: 'harp' },
+    hook: 'A crescent and a star, from circles', title: 'Drawing the flag of Türkiye 🇹🇷 with spinning circles', desc: 'The crescent and the star, drawn as one line by spinning circles. Which flag next? Comment!', tags: `${FOURIER_TAGS}, flags, flag of turkey, flags drawn by math`,
+  }),
+  P('Flag of Vietnam in Circles', 'fdraw', { flag: 'vietnam', rounds: '2 5 15 60', period: 6.5 }, {
+    look: { palette: 'mono' }, sound: { instrument: 'kalimba' },
+    hook: 'How many circles make a star?', title: 'Drawing the flag of Vietnam 🇻🇳 with spinning circles', desc: 'Five points, ten corners: the star needs more circles than you think.', tags: `${FOURIER_TAGS}, flags, flag of vietnam, flags drawn by math`,
+  }),
+
   /* --------------------------------------------------------------- calculus */
   P('The Sound of a Derivative', 'tangent', { f: 'sin(x) + 0.3*x', sweep: 12 }, {
     look: { palette: 'neon' }, sound: { instrument: 'synth-pluck', volume: 0.6 },

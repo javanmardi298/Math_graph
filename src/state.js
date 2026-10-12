@@ -103,7 +103,7 @@ export function defaultState() {
     // outro: seconds of fade to black at the end. Both apply to every exported video.
     record: {
       resolution: '1080p', fps: 60, fromStart: true, fileName: '', quality: 'high', subframes: 1, gpuEncoder: false, engine: 'auto',
-      hook: { enabled: false, teaser: 0.8, flash: true, impact: true }, outro: 0.6,
+      hook: { enabled: false, teaser: 0.8, flash: true, impact: true }, outro: 0.6, loop: false, loopBlend: 0.8,
     },
     // The hook line shown over the first ~2 s of a video ('' = the YouTube title without hashtags).
     hook: { text: '' },

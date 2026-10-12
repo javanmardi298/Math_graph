@@ -8,6 +8,7 @@
  * place in a 4K export. A position of null means "automatic" (the default layout).
  */
 import { noteName } from '../math/music.js';
+import { getBrand, endCardAlpha } from '../brand.js';
 
 const LABEL = { function: ['y'], parametric: ['x', 'y', 'z'], polar: ['r'], surface: ['f'] };
 
@@ -279,6 +280,36 @@ export function drawOverlay(g, w, h, d) {
     g.direction = 'ltr';
   }
 
+  drawBrand(g, w, h, k, state, d.time ?? 0, ui);
   g.restore();
   return rects;
+}
+
+/** Channel watermark (bottom left, just above the Shorts captions) and the end card. */
+function drawBrand(g, w, h, k, state, t, ui) {
+  const b = getBrand();
+  if (!b.enabled) return;
+  g.save();
+  if (b.watermark?.trim()) {
+    g.globalAlpha = 0.55; g.fillStyle = '#ffffff'; g.textAlign = 'left'; g.textBaseline = 'middle';
+    g.font = `700 ${24 * k}px ${FONTS.display}`;
+    g.fillText(b.watermark.trim(), w * 0.05, h * 0.745); // just above the Shorts caption area
+  }
+  const a = endCardAlpha(b, t, state.transport?.duration ?? 0);
+  if (a > 0) {
+    const main = b.endCard.trim(), sub = (b.endSub || '').trim();
+    const fPx = 54 * k, sPx = 30 * k;
+    g.font = `800 ${fPx}px ${FONTS.display}`;
+    const tw = Math.min(w * 0.86, Math.max(g.measureText(main).width, sub ? (g.font = `600 ${sPx}px ${FONTS.display}`, g.measureText(sub).width) : 0));
+    const bw = tw + fPx * 1.2, bh = fPx * 1.9 + (sub ? sPx * 1.4 : 0);
+    const cx = w / 2, cy = h * 0.46;
+    g.globalAlpha = a * 0.78; g.fillStyle = 'rgba(0,0,0,0.75)';
+    roundRect(g, cx - bw / 2, cy - bh / 2, bw, bh, fPx * 0.4); g.fill();
+    g.globalAlpha = a; g.fillStyle = '#ffffff'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.direction = isRtl(main) ? 'rtl' : 'ltr';
+    g.font = `800 ${fPx}px ${FONTS.display}`;
+    g.fillText(main, cx, cy - (sub ? sPx * 0.7 : 0), w * 0.86);
+    if (sub) { g.globalAlpha = a * 0.85; g.font = `600 ${sPx}px ${FONTS.display}`; g.fillStyle = ui.accent || '#22e4ff'; g.fillText(sub, cx, cy + fPx * 0.55, w * 0.86); }
+  }
+  g.restore();
 }

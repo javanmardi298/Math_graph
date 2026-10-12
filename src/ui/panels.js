@@ -7,6 +7,10 @@ import { store, createLayer, LAYER_TYPES } from '../state.js';
 import { SCALE_LABELS, NOTE_NAMES, noteName } from '../math/music.js';
 import { compile, FUNCTIONS } from '../math/parser.js';
 import { LibraryView } from './library-view.js';
+import { getBrand, setBrand } from '../brand.js';
+
+/** Binding for a channel-branding field (saved in this browser, redraws the frame). */
+const brandBind = (key) => ({ get: () => getBrand()[key], set: (v) => { setBrand({ [key]: v }); store.emit('overlay'); } });
 import { download } from '../export/recorder.js';
 import { suggestYoutube, youtubeFor, youtubeText, youtubeProblems, TITLE_MAX } from '../export/youtube.js';
 import { DIVISIONS } from '../math/rhythm.js';
@@ -800,6 +804,8 @@ export class Panels {
         toggle('Flash at the cut', p('record.hook.flash')),
         toggle('Whoosh + boom sound', p('record.hook.impact')),
         slider('Fade to black at the end', p('record.outro'), { min: 0, max: 2, step: 0.1, fmt: (v) => (v ? `${v.toFixed(1)} s` : 'Off') }),
+        toggle('Seamless loop: the end dissolves into the start (no hook, no fade)', p('record.loop')),
+        slider('Loop crossfade', p('record.loopBlend'), { min: 0.2, max: 2, step: 0.1, fmt: (v) => `${v.toFixed(1)} s` }),
         h('button.btn.ghost.small', { type: 'button', onclick: () => this.actions.previewShorts?.() }, '▶ Preview start & end'),
       ], { hint: 'Viewers decide in the first 1–2 seconds. The video opens on the finished picture with a big hook line (readable with the sound off), then a flash and a boom cut to the drawing from zero. At the end the picture and sound fade to black instead of stopping abruptly. Applies to every exported video, batches included; the hook line is saved with the preset.' }),
       this.youtubeGroup(),
@@ -867,6 +873,13 @@ export class Panels {
         slider('Size', p('overlay.analyzer.size'), { min: 0.3, max: 5, step: 0.05, fmt: (v) => `${Math.round(v * 100)}%` }),
         reset('analyzer'),
       ]),
+      group('Channel branding (every video)', [
+        toggle('Show my branding', brandBind('enabled')),
+        text('Watermark (e.g. @MathWaves)', brandBind('watermark'), { placeholder: '@MathWaves' }),
+        text('End card', brandBind('endCard'), { placeholder: 'Follow for more math sounds 🔔' }),
+        text('End card, second line', brandBind('endSub'), { placeholder: 'New video every day' }),
+        slider('End card for the last', brandBind('endSeconds'), { min: 0, max: 6, step: 0.5, fmt: (v) => (v ? `${v} s` : 'Off') }),
+      ], { open: false, hint: 'Saved in this browser, not in presets: every preset you load or export gets the same watermark and end card.' }),
       group('Text boxes', [
         h('button.btn', { type: 'button', onclick: () => this.addText() }, '+ Add text'),
         this.textList,

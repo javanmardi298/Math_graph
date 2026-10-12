@@ -231,7 +231,7 @@ test('lesson packs: every circle simulation has a lesson; steps are known, capti
 
 test('Fourier drawing: the circles retrace the shape; SVG paths and formulas work', async () => {
   const { shapeSamples, epicycles, svgPoints } = await import('../src/circle/fourier-draw.js');
-  for (const shape of ['cat', 'pi', 'heart', 'note', 'star', 'butterfly', 'infinity', 'flower']) {
+  for (const shape of ['cat', 'pi', 'heart', 'note', 'star', 'butterfly', 'infinity', 'flower', 'batman', 'leaf', 'crescentstar']) {
     const s = shapeSamples({ shape }), C = epicycles(s);
     // all circles together put the pen back on the samples
     let err = 0;
@@ -246,8 +246,12 @@ test('Fourier drawing: the circles retrace the shape; SVG paths and formulas wor
   }
   assert.equal(svgPoints('M 0 0 L 10 0 L 10 10 Z').length, 4);
   assert.ok(svgPoints('M10 10 c 5 0 10 5 10 10 s -5 10 -10 10 q -10 0 -10 -10 z').length > 30);
-  assert.equal(shapeSamples({ shape: 'formula', x: 'cos(s)', y: 'sin(s)' }).length, 512);
-  assert.equal(shapeSamples({ shape: 'svg', svg: 'nonsense' }).length, 512, 'falls back to a heart');
+  assert.equal(shapeSamples({ shape: 'formula', x: 'cos(s)', y: 'sin(s)' }).length, 1024);
+  assert.equal(shapeSamples({ shape: 'svg', svg: 'nonsense' }).length, 1024, 'falls back to a heart');
+  for (const shape of ['batman', 'leaf', 'cross', 'crescent', 'crescentstar', 'circle']) assert.equal(shapeSamples({ shape }).length, 1024, shape);
+  const { textPoints, FLAGS } = await import('../src/circle/fourier-draw.js');
+  assert.ok(textPoints('Math 2026 ♥').length > 100 && textPoints('').length === 0);
+  for (const f of Object.keys(FLAGS)) assert.equal(shapeSamples({ shape: 'cat', flag: f }).length, 1024, f);
 });
 
 test('pi: the digits, the bounds and the estimates are right', async () => {
@@ -290,4 +294,17 @@ test('formula presets: sound of a graph, guess the shape (hidden first), A or B'
     for (const l of s.layers) for (const v of Object.values(l.exprs)) assert.ok(tryCompile(v, ['x', 's', 'theta', 't', 'a', 'b', 'c', 'd']).ok, `${p.name}: ${v}`);
     if (/^Guess/.test(p.name)) assert.ok(s.visual.hideUntil > 0 && s.overlay.texts.length >= 2, p.name);
   }
+});
+
+test('seamless loop: the video starts B in, and its last B seconds lead back to the start', async () => {
+  const { shortsTiming, mapVideoTime, frameEffects } = await import('../src/export/shorts.js');
+  const T = shortsTiming({ loop: true, loopBlend: 1, hook: { enabled: true }, outro: 0.6 }, 20);
+  assert.equal(T.total, 19);
+  assert.ok(!T.on && !T.outro);
+  assert.equal(mapVideoTime(T, 0).time, 1);
+  assert.equal(mapVideoTime(T, 19).time, 20);
+  assert.equal(frameEffects(T, 17.5).loopMix, 0);
+  assert.ok(Math.abs(frameEffects(T, 18.5).loopMix - 0.5) < 1e-9);
+  const plain = shortsTiming({ hook: { enabled: false }, outro: 0.6 }, 20);
+  assert.ok(!plain.loop && plain.total === 20.6);
 });

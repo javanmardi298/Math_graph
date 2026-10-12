@@ -86,4 +86,9 @@ export const STACK_PRESETS = [
     [Y('fdraw', { shape: 'note', rounds: '4 20 120', period: 3.2 }, { look: { palette: 'neon' }, sound: { instrument: 'e-piano' }, text: '…a music note…' }),
       Y('fdraw', { shape: 'cat', rounds: '6 30 250', period: 3.2 }, { look: { palette: 'aurora' }, sound: { instrument: 'harp' }, text: '…and a cat' })],
     { duration: 33, bpm: 110, hook: 'Spinning circles can draw anything', title: 'Fourier animation: circles draw a heart, a note and a cat ❤️🎵🐱', desc: 'Every drawing here is made only of spinning circles added tip to tip. More circles, more detail. Which one surprised you most?', tags: 'fourier animation, fourier series, epicycles, math animation, shorts' }),
+  S('Flags Drawn by Math', Y('fdraw', { flag: 'japan', rounds: '1 3', period: 3.5 }, { look: { palette: 'mono' }, sound: { instrument: 'kalimba' }, text: 'Japan: 1 circle' }),
+    [Y('fdraw', { flag: 'switzerland', rounds: '4 60', period: 3.5 }, { look: { palette: 'mono' }, sound: { instrument: 'bell' }, text: 'Switzerland: 60 circles' }),
+      Y('fdraw', { flag: 'turkey', rounds: '15 250', period: 3.5 }, { look: { palette: 'mono' }, sound: { instrument: 'harp' }, text: 'Türkiye: 250 circles' }),
+      Y('fdraw', { flag: 'canada', rounds: '20 400', period: 3.5 }, { look: { palette: 'mono' }, sound: { instrument: 'marimba' }, text: 'Canada: 400 circles' })],
+    { duration: 34, bpm: 110, hook: 'Which flag is hardest for circles?', title: 'Flags drawn by spinning circles: which is hardest? 🇯🇵🇨🇭🇹🇷🇨🇦', desc: 'Japan needs one circle. Switzerland needs sharp corners. Türkiye needs two shapes in one line. Canada\u2019s maple leaf needs the most. Which flag should be next? Comment!', tags: 'flags drawn by math, flags, fourier animation, epicycles, math animation, shorts' }),
 ];

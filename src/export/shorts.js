@@ -9,12 +9,21 @@
  *   [outro]  the last frame fades to black and the sound fades out, so the video
  *            doesn't stop abruptly (and a replay starts from a calm frame)
  *
+ * Or a seamless loop (record.loop): no teaser and no fade. The video starts B seconds in
+ * and its last B seconds dissolve into its own first frame while the sound crossfades
+ * into the timeline's first B seconds, so when Shorts replays it there is no visible or
+ * audible seam: more rewatches.
+ *
  * Everything here is pure (no DOM besides the canvas passed in), so the same timing
  * drives the browser export, the ffmpeg export, batches and the command-line render.
  */
 
 /** Seconds of each part for a timeline of `duration`. */
 export function shortsTiming(record, duration, { teaserAt } = {}) {
+  if (record.loop) {
+    const B = Math.max(0.2, Math.min(3, record.loopBlend ?? 0.8, duration / 3));
+    return { on: false, teaser: 0, outro: 0, duration, loop: B, teaserAt: 0, total: Math.round((duration - B) * 1e6) / 1e6, hookEnd: 0, flash: false, impact: false };
+  }
   const hook = record.hook || {};
   const on = hook.enabled !== false;
   const teaser = on ? Math.max(0, Math.min(3, hook.teaser ?? 0.8)) : 0;
@@ -34,6 +43,7 @@ export function shortsTiming(record, duration, { teaserAt } = {}) {
  * @returns {{phase:'teaser'|'main'|'outro', time:number, k:number}} k = progress inside the phase (0..1)
  */
 export function mapVideoTime(T, vt) {
+  if (T.loop) return { phase: 'main', time: Math.min(T.duration, vt + T.loop), k: vt / T.total };
   if (vt < T.teaser) return { phase: 'teaser', time: T.teaserAt ?? Math.max(0, T.duration - 1e-3), k: vt / T.teaser };
   const t = vt - T.teaser;
   if (t < T.duration) return { phase: 'main', time: t, k: t / T.duration };
@@ -106,6 +116,9 @@ export function drawHook(g, w, h, text, vt, end, font) {
 export function frameEffects(T, vt) {
   const m = mapVideoTime(T, vt);
   let scale = 1, flash = 0, black = 0;
+  // loop: how much of the first frame shows (0 → 1 over the last B seconds)
+  const loopMix = T.loop ? clamp01((vt - (T.total - T.loop)) / T.loop) : 0;
+  if (T.loop) return { scale, flash, black, loopMix };
   if (m.phase === 'teaser') scale = 1.16 - 0.12 * (1 - (1 - m.k) ** 2); // slow push-out
   if (T.on && m.phase === 'main') {
     const since = vt - T.teaser;
@@ -113,7 +126,7 @@ export function frameEffects(T, vt) {
     if (since < 0.5) scale = 1 + 0.1 * (1 - since / 0.5) ** 3; // punch-in at the cut
   }
   if (m.phase === 'outro') black = clamp01(m.k / 0.55);
-  return { scale, flash, black };
+  return { scale, flash, black, loopMix: 0 };
 }
 
 /* ------------------------------------------------------------------ sound */
@@ -131,6 +144,7 @@ function noiseGen(seed = 1) {
  * @returns {AudioBuffer}
  */
 export function shortsAudio(main, T) {
+  if (T.loop) return loopAudio(main, T);
   const sr = main.sampleRate;
   const total = Math.ceil(T.total * sr);
   const out = new AudioBuffer({ length: Math.max(1, total), numberOfChannels: 2, sampleRate: sr });
@@ -173,6 +187,28 @@ export function shortsAudio(main, T) {
     }
     // Keep the sum below full scale
     for (const d of [L, R]) for (let i = 0; i < Math.min(total, off + len); i++) d[i] = Math.tanh(d[i] * 1.1) / 1.1;
+  }
+  return out;
+}
+
+/**
+ * Seamless loop: timeline audio from B seconds on; over the last B seconds it crossfades
+ * (equal power) into the timeline's first B seconds, which lead straight into the
+ * video's first sample. Replayed, the sound never jumps.
+ */
+export function loopAudio(main, T) {
+  const sr = main.sampleRate, B = Math.round(T.loop * sr), total = Math.max(1, Math.round(T.total * sr));
+  const out = new AudioBuffer({ length: total, numberOfChannels: 2, sampleRate: sr });
+  for (let c = 0; c < 2; c++) {
+    const src = main.getChannelData(Math.min(c, main.numberOfChannels - 1)), dst = out.getChannelData(c);
+    const at = (i) => (i >= 0 && i < src.length ? src[i] : 0);
+    for (let i = 0; i < total; i++) {
+      const t = i + B; // timeline sample
+      const j = i - (total - B); // position in the crossfade
+      if (j < 0) { dst[i] = at(t); continue; }
+      const w = j / B;
+      dst[i] = at(t) * Math.cos((w * Math.PI) / 2) + at(j) * Math.sin((w * Math.PI) / 2);
+    }
   }
   return out;
 }
