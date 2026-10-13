@@ -44,6 +44,8 @@ export function createLayer(overrides = {}) {
     solo: false,
     withPrev: false, // in "one after another": play together with the layer above
     caption: '', // the formula text shown on the video ('' = automatic); Shift+Enter breaks a line
+    captionStart: 0, captionEnd: 0, // when that text is on screen (seconds; 0 = from the start / to the end)
+    start: 0, end: 0, // when the layer plays (seconds; 0 = from the start / to the end of the video)
     samples: 900,
     ...overrides,
   };
@@ -127,7 +129,7 @@ export function defaultState() {
       // layout 2: formulas top left, preset name top centre; title, subtitle, notes and analyzer off.
       layout: 4,
       title: { enabled: false, text: '', subtitle: false, subtitleText: '', x: null, y: null, size: 1, color: '' },
-      formulas: { enabled: true, x: null, y: null, size: 1, fit: true }, // fit: shrink to stay inside the frame
+      formulas: { enabled: true, x: null, y: null, size: 1, fit: true, start: 0, end: 0 }, // fit: shrink to stay inside the frame
       name: { enabled: true, x: null, y: null, size: 1, color: '' },
       analyzer: { x: null, y: null, size: 1 },
       texts: [],
@@ -231,7 +233,7 @@ export function normalize(snapshot) {
   if ((snapshot.overlay?.layout ?? 1) < 4) applyLayout4(merged);
   // Circle layers: each one a complete circle setting (older or partial ones get the defaults)
   merged.circle.layers = (merged.circle.layers || []).map((l, i) => ({
-    id: l.id || `C${i + 1}`, enabled: l.enabled !== false, withPrev: !!l.withPrev, cfg: mergeDeep(defaultCircle(), { ...(l.cfg || {}), layers: [] }),
+    id: l.id || `C${i + 1}`, enabled: l.enabled !== false, withPrev: !!l.withPrev, start: +l.start || 0, end: +l.end || 0, cfg: mergeDeep(defaultCircle(), { ...(l.cfg || {}), layers: [] }),
   }));
   merged.layers = (merged.layers || []).map((l) => createLayer({ ...l, id: undefined, exprs: { ...l.exprs } }));
   merged.layers.forEach((l, i) => { l.id = `L${Date.now().toString(36)}${i}`; });

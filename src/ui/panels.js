@@ -33,7 +33,7 @@ const brandBind = (key) => ({ get: () => getBrand()[key], set: (v) => { setBrand
 import { download } from '../export/recorder.js';
 import { suggestYoutube, youtubeFor, youtubeText, youtubeProblems, TITLE_MAX } from '../export/youtube.js';
 import { DIVISIONS } from '../math/rhythm.js';
-import { layerGroups } from '../math/sequence.js';
+import { layerGroups, hasWindow } from '../math/sequence.js';
 import { CIRCLE_RULES, chordStep, ruleGroups } from '../circle/sim.js';
 import { SCENES, sceneParams } from '../circle/scenes.js';
 import { formulaError } from '../circle/battles.js';
@@ -145,7 +145,9 @@ export class Panels {
       sync();
       box.addEventListener('input', () => { l.caption = box.value === formulaAuto(l) ? '' : box.value; store.emit('overlay'); });
       const auto = h('button.btn.ghost.small', { type: 'button', title: 'Show the layer’s own formula again', onclick: () => { l.caption = ''; box.value = formulaAuto(l); store.emit('overlay'); } }, 'Automatic');
-      return h('div.formula-edit', {}, h('div.formula-edit-top', {}, h('span.hint', {}, l.name), auto), box);
+      const capTime = (key) => ({ get: () => l[key] || 0, set: (v) => { l[key] = Math.max(0, +v || 0); store.emit('overlay'); } });
+      const when = h('div.grid2', {}, number('Show from (s)', capTime('captionStart'), { min: 0, max: 600, step: 0.5 }), number('until (s)', capTime('captionEnd'), { min: 0, max: 600, step: 0.5 }));
+      return h('div.formula-edit', {}, h('div.formula-edit-top', {}, h('span.hint', {}, l.name), auto), box, when);
     }));
   }
 
@@ -224,6 +226,16 @@ export class Panels {
       slider('Detail', bindObj(l, 'samples', `${ev}.exprs`), l.type === 'surface' ? { min: 16, max: 128, step: 1, fmt: (v) => `${v}²` } : { min: 100, max: 3000, step: 50, fmt: (v) => `${v} pts` }),
     ], { open: false }));
 
+    // Time: when this layer plays (each layer can have its own window)
+    const timeBind = (key) => ({
+      get: () => l[key] || 0,
+      set: (v) => { l[key] = Math.max(0, Math.min(store.state.transport.duration, +v || 0)); store.emit('sequence'); },
+    });
+    card.append(group('Time', [
+      h('div.grid2', {}, number('Starts at (s)', timeBind('start'), { min: 0, max: 600, step: 0.5 }), number('Ends at (s)', timeBind('end'), { min: 0, max: 600, step: 0.5 })),
+      h('button.btn.ghost.small', { type: 'button', onclick: () => { l.start = 0; l.end = 0; store.emit('sequence'); refreshAll(); } }, 'Whole video'),
+    ], { open: !!(l.start || l.end), hint: '0 and 0 = plays for the whole video. A layer with its own times plays between them, whatever the other layers do (it takes no step in “one after another”).' }));
+
     // Sound
     const vol = slider('Volume', bindObj(l, 'volume', `${ev}.sound`), { min: 0, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` });
     card.append(group('Sound', [
@@ -242,7 +254,7 @@ export class Panels {
   renderSequence() {
     if (!this.seqInfo) return;
     const on = store.state.sequence.enabled;
-    this.seqPast.hidden = !on;
+    this.seqPast.hidden = !(on || store.state.layers.some(hasWindow)); // layers with their own times also finish
     this.seqInfo.hidden = !on;
     this.layerList?.classList.toggle('seq-on', on);
     if (on) {
@@ -605,6 +617,12 @@ export class Panels {
         number('Random seed', P('seed'), { min: 1, max: 9999 }),
         h('button.btn.ghost.small', { type: 'button', title: 'Another variation of the same simulation', onclick: () => { store.set(`${base}.seed`, 1 + Math.floor(Math.random() * 9999)); refreshAll(); } }, '🎲 New variation')),
     ], { hint: 'Everything is deterministic: the same settings always give the same video and sound. A new seed gives another variation.' }));
+    // when this layer plays (layer 1 is state.circle itself, the others live in circle.layers)
+    const timePath = (key) => (idx ? `circle.layers.${idx - 1}.${key}` : `circle.${key}`);
+    const timeBind = (key) => ({ get: () => store.get(timePath(key)) || 0, set: (v) => { store.set(timePath(key), Math.max(0, Math.min(store.state.transport.duration, +v || 0))); } });
+    parts.push(group(idx ? `Layer ${idx + 1}: time` : 'Time', [
+      h('div.grid2', {}, number('Starts at (s)', timeBind('start'), { min: 0, max: 600, step: 0.5 }), number('Ends at (s)', timeBind('end'), { min: 0, max: 600, step: 0.5 })),
+    ], { open: !!(store.get(timePath('start')) || store.get(timePath('end'))), hint: '0 and 0 = plays for the whole video. A layer with its own times starts and stops there (it fades in and out) whatever the other layers do.' }));
 
     const scene = SCENES[L.rule];
     if (scene) {
@@ -1000,6 +1018,8 @@ export class Panels {
       group('Formulas', [
         toggle('Show formulas', p('overlay.formulas.enabled')),
         this.formulaTexts,
+        h('div.grid2', {}, number('All formulas: from (s)', p('overlay.formulas.start'), { min: 0, max: 600, step: 0.5 }), number('until (s)', p('overlay.formulas.end'), { min: 0, max: 600, step: 0.5 })),
+        h('p.hint', {}, 'Times in seconds; 0 = from the start / until the end. Each formula can also have its own times above.'),
         toggle('Shrink to fit the frame', p('overlay.formulas.fit')),
         toggle('Show note names', p('visual.showNotes')),
         slider('Size', p('overlay.formulas.size'), { min: 0.3, max: 5, step: 0.05, fmt: (v) => `${Math.round(v * 100)}%` }),

@@ -31,3 +31,22 @@ test('linked layers share a step; any number can chain', async () => {
   // the first layer can't link to anything above it
   assert.equal(layerGroups([L('x', true), L('y')]).length, 2);
 });
+
+test('a layer with its own time window plays in it, whatever the others do', async () => {
+  const { layerTiming, layerGroups, hasWindow } = await import('../src/math/sequence.js');
+  const L = (name, o = {}) => ({ name, enabled: true, withPrev: false, start: 0, end: 0, ...o });
+  const a = L('a'), b = L('b', { start: 4, end: 10 }), c = L('c', { start: 15 });
+  const layers = [a, b, c];
+  assert.ok(!hasWindow(a) && hasWindow(b) && hasWindow(c));
+  // together
+  assert.deepEqual(layerTiming(layers, b, 2, 20, false), { u: 0, phase: 'future' });
+  assert.equal(layerTiming(layers, b, 7, 20, false).u, 0.5);
+  assert.deepEqual(layerTiming(layers, b, 12, 20, false), { u: 1, phase: 'past' });
+  assert.equal(layerTiming(layers, c, 17.5, 20, false).u, 0.5);
+  assert.equal(layerTiming(layers, c, 20, 20, false).phase, 'active', 'no end: stays to the last frame');
+  assert.equal(layerTiming(layers, a, 12, 20, false).phase, 'active');
+  // in a sequence the timed layers take no step: the others share the whole video
+  assert.equal(layerGroups(layers).length, 1);
+  assert.equal(layerTiming(layers, a, 19, 20, true).phase, 'active');
+  assert.equal(layerTiming(layers, b, 7, 20, true).u, 0.5);
+});

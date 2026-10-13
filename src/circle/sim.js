@@ -46,6 +46,7 @@ export function ruleGroups() {
 /** Default settings (state.circle). */
 export function defaultCircle() {
   return {
+    start: 0, end: 0, // when this (the first) layer plays: seconds, 0 = from the start / to the end of the video
     rule: 'chord',
     seed: 7,
     chord: { step: '1/phi^2', walkers: 1, speed: 1.8, speedGain: 1, start: 90 },

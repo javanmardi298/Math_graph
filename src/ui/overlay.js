@@ -136,7 +136,10 @@ export function drawOverlay(g, w, h, d) {
   /* -------------------------------------------------------------- formulas */
   if (o.formulas.enabled && legacyCaption && !d.circle) {
     const s = o.formulas.size;
-    const layers = d.layers.filter((l) => l.enabled && phases.get(l.id) !== 'future');
+    // each formula's text can have its own times, and all of them together too (fading at the edges)
+    const all = textAlpha({ start: o.formulas.start, end: o.formulas.end }, d.time ?? 0);
+    const alphaOf = (l) => all * textAlpha({ start: l.captionStart, end: l.captionEnd }, d.time ?? 0);
+    const layers = all > 0 ? d.layers.filter((l) => l.enabled && phases.get(l.id) !== 'future' && alphaOf(l) > 0) : [];
     const x = o.formulas.x == null ? 36 * k : o.formulas.x * w;
     // Leave room for an automatically placed analyzer in the same (top) corner.
     const sharesCorner = ana && o.analyzer.x == null && o.formulas.x == null && portrait;
@@ -165,7 +168,7 @@ export function drawOverlay(g, w, h, d) {
     let bw = 0, row = 0;
     for (const b of laid) {
       g.font = `500 ${b.fs}px ${FONTS.mono}`;
-      const dim = phases.get(b.l.id) === 'past' ? 0.38 : 1;
+      const dim = (phases.get(b.l.id) === 'past' ? 0.38 : 1) * alphaOf(b.l);
       const first = y + (row + 0.72) * b.lineH;
       g.globalAlpha = dim;
       g.fillStyle = b.l.color;
@@ -179,7 +182,7 @@ export function drawOverlay(g, w, h, d) {
         g.fillText(text, x + b.indent, base);
         const tw = g.measureText(text).width;
         let extra = 0;
-        if (i === b.lines.length - 1 && b.note != null && dim === 1) {
+        if (i === b.lines.length - 1 && b.note != null && dim > 0.99) {
           g.fillStyle = b.l.color;
           g.fillText(b.noteText, x + b.indent + tw, base);
           extra = g.measureText(b.noteText).width;
@@ -214,7 +217,8 @@ export function drawOverlay(g, w, h, d) {
 
   /* ---------------------------------------------------- circle lab text */
   // The rule as a formula (e.g. "angle = 1/φ² turn") and a counter, centred under the name.
-  if (d.circle && o.formulas.enabled && (d.circle.formula || d.circle.stats)) {
+  const circleAlpha = textAlpha({ start: o.formulas.start, end: o.formulas.end }, d.time ?? 0);
+  if (d.circle && o.formulas.enabled && circleAlpha > 0 && (d.circle.formula || d.circle.stats)) {
     const s = o.formulas.size;
     // light and readable: one short line, a small counter under it
     let fs = 40 * k * s;
@@ -235,7 +239,7 @@ export function drawOverlay(g, w, h, d) {
     if (d.circle.formula) {
       g.font = `500 ${fs}px ${FONTS.display}`;
       g.fillStyle = ui.fg;
-      g.globalAlpha = 0.92;
+      g.globalAlpha = 0.92 * circleAlpha;
       g.shadowColor = 'rgba(0,0,0,0.6)';
       g.shadowBlur = fs * 0.3;
       g.fillText(d.circle.formula, cx, y + fs);
@@ -244,7 +248,7 @@ export function drawOverlay(g, w, h, d) {
     }
     if (d.circle.stats) {
       g.font = `500 ${ss}px ${FONTS.mono}`;
-      g.globalAlpha = 0.5;
+      g.globalAlpha = 0.5 * circleAlpha;
       g.fillText(d.circle.stats, cx, y + ss);
       y += ss * 1.4;
     }

@@ -34,7 +34,7 @@ import { renderVideo, canRenderVideo } from './export/video-render.js';
 import { renderWithFfmpeg, ffmpegServer, createBatch, addBatchFile, zipBatch } from './export/ffmpeg-render.js';
 import { youtubeFor, youtubeText, youtubeCsv } from './export/youtube.js';
 import { makeZip } from './export/zip.js';
-import { bundleFile } from './library.js';
+import { bundleFile, singleFile } from './library.js';
 import { fixWebmDuration } from './export/webm-duration.js';
 import { shortsTiming, mapVideoTime, frameEffects, drawHook, hookTextFor, shortsAudio } from './export/shorts.js';
 import { FONTS } from './ui/overlay.js';
@@ -867,6 +867,14 @@ function showResult(src, filename, kind, sizeBytes, note = '') {
   yt.onclick = () => {
     const base = $('result-name').value.trim().replace(/[\\/:*?"<>|]+/g, '-') || fileBase();
     download(new Blob([youtubeText(youtubeFor(store.state), base + ext)], { type: 'text/plain' }), `${base}.txt`);
+  };
+  // The whole preset behind this export (what the Presets tab calls “Export current setup”).
+  const pre = $('result-preset');
+  pre.hidden = kind === 'zip'; // a batch zip already contains presets.mmv.json
+  pre.onclick = () => {
+    const snap = store.snapshot();
+    const base = (snap.name || 'preset').replace(/[\\/:*?"<>|]+/g, '-').trim().slice(0, 80) || 'preset';
+    download(new Blob([singleFile(snap)], { type: 'application/json' }), `${base}.mmv.json`);
   };
   dlg.onclose = () => { if (isBlob) setTimeout(() => URL.revokeObjectURL(url), 1000); };
   dlg.showModal();

@@ -329,3 +329,20 @@ test('preset catalog: JSON files are up to date, every shelf known, every preset
   assert.equal(names.size, index.presets);
   for (const pk of index.packs) assert.equal(JSON.parse(readFileSync(`presets/${pk.file}`, 'utf8')).presets.length, pk.count);
 });
+
+test('circle layers can have their own time windows', () => {
+  const mk = (id, o = {}) => ({ id, enabled: true, withPrev: false, start: 0, end: 0, cfg: { rule: 'chord' }, ...o });
+  const c = { rule: 'chord', start: 0, end: 0, combine: 'together', layers: [mk('a', { start: 5, end: 12 }), mk('b', { start: 15 })] };
+  const sch = circleSchedule(c, 20);
+  const by = Object.fromEntries(sch.map((s) => [s.layer.id, s]));
+  assert.deepEqual([by.main.start, by.main.end], [0, 20]);
+  assert.deepEqual([by.a.start, by.a.end], [5, 12]);
+  assert.deepEqual([by.b.start, by.b.end], [15, 20]);
+  assert.equal(visibleAt(sch, 3).some((s) => s.layer.id === 'a'), false, 'not there yet');
+  assert.equal(visibleAt(sch, 8).find((s) => s.layer.id === 'a').local, 3);
+  assert.equal(visibleAt(sch, 13).some((s) => s.layer.id === 'a'), false, 'faded out after its end');
+  assert.equal(visibleAt(sch, 19).find((s) => s.layer.id === 'b').local, 4);
+  // one after another: the timed layers do not take a step
+  const seq = circleSchedule({ ...c, combine: 'sequence', layers: [mk('x'), ...c.layers] }, 20);
+  assert.equal(seq.filter((s) => s.group >= 0 && !['a', 'b'].includes(s.layer.id)).map((s) => s.end - s.start).every((v) => v === 10), true);
+});

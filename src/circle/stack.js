@@ -12,13 +12,13 @@
  * where cfg is a complete circle setting (rule, settings, sound, palette, position …).
  * Pure: shared by the view, the soundtrack and the tests.
  */
-import { layerGroups } from '../math/sequence.js';
+import { layerGroups, hasWindow } from '../math/sequence.js';
 
 export const FADE = 0.45; // seconds of cross-fade between steps
 
 /** Every layer, the first one being state.circle itself. */
 export function circleLayers(c) {
-  return [{ id: 'main', enabled: true, withPrev: false, cfg: c }, ...(c.layers || [])];
+  return [{ id: 'main', enabled: true, withPrev: false, start: c.start || 0, end: c.end || 0, cfg: c }, ...(c.layers || [])];
 }
 
 /**
@@ -27,10 +27,18 @@ export function circleLayers(c) {
  */
 export function circleSchedule(c, duration) {
   const all = circleLayers(c).filter((l) => l.enabled !== false && l.cfg);
-  if (c.combine !== 'sequence' || all.length < 2) return all.map((layer) => ({ layer, start: 0, end: duration, group: 0, groups: 1 }));
-  const groups = layerGroups(all);
+  // layers with a time window of their own play in it, whatever the others do
+  const timed = all.filter(hasWindow).map((layer) => {
+    const start = Math.min(Math.max(0, layer.start || 0), duration);
+    const explicitEnd = layer.end > start && layer.end < duration;
+    // an explicit end makes the layer fade out there; without one it stays to the end
+    return { layer, start, end: explicitEnd ? layer.end : duration, group: 0, groups: explicitEnd ? 2 : 1 };
+  });
+  const rest = all.filter((l) => !hasWindow(l));
+  if (c.combine !== 'sequence' || rest.length < 2) return [...rest.map((layer) => ({ layer, start: 0, end: duration, group: 0, groups: 1 })), ...timed];
+  const groups = layerGroups(rest);
   const seg = duration / groups.length;
-  return groups.flatMap((g, j) => g.map((layer) => ({ layer, start: j * seg, end: (j + 1) * seg, group: j, groups: groups.length })));
+  return [...groups.flatMap((g, j) => g.map((layer) => ({ layer, start: j * seg, end: (j + 1) * seg, group: j, groups: groups.length }))), ...timed];
 }
 
 /**
