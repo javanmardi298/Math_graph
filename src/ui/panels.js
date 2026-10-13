@@ -11,6 +11,19 @@ import { DailyView } from './daily-view.js';
 import { SoundPresetView } from './sound-presets-view.js';
 import { getBrand, setBrand } from '../brand.js';
 import { saveShorts } from '../shorts-prefs.js';
+import { CAMERA_MOVE_DEFAULTS } from '../camera-moves.js';
+
+/** One-click camera styles: [label, settings, tip]. */
+const CAMERA_STYLES = [
+  ['Still', {}, 'No moves'],
+  ['Slow push-in', { push: 0.45 }, 'Creeps closer over the whole video'],
+  ['Pull-out reveal', { push: -0.6 }, 'Starts close, ends wide'],
+  ['Floating', { drift: 0.6, sway: 0.25 }, 'A lazy, dreamy drift'],
+  ['Breathing', { breathe: 0.6, push: 0.15 }, 'A soft zoom pulse on every beat'],
+  ['Handheld', { shake: 0.7, drift: 0.2 }, 'Slight camera-in-hand feel'],
+  ['Orbit spin', { spin: 4, push: 0.2 }, 'Turns slowly while pushing in'],
+  ['Dramatic', { push: 0.8, sway: 0.4, breathe: 0.3 }, 'Big push-in with a tilt and a pulse'],
+];
 
 /** Binding for a Shorts hook / fade-out field: saved for the whole channel, not for this preset. */
 const shortsBind = (path) => ({ get: () => store.get(path), set: (v) => { store.set(path, v); saveShorts(store.state.record); } });
@@ -32,7 +45,7 @@ import { DRUM_KINDS, DRUM_LABELS, TRIGGERS } from '../audio/drum-scanner.js';
 import { animatable, describe, removeKey, EASES } from '../anim/keyframes.js';
 import { INSTRUMENTS, INSTRUMENT_GROUPS } from '../audio/instruments.js';
 import { h, bindPath, bindObj, slider, color, select, toggle, segmented, number, text, group, disposeTree, refreshAll } from './controls.js';
-import { FONT_LABELS } from './overlay.js';
+import { FONT_LABELS, formulaAuto } from './overlay.js';
 
 const MAX_LAYERS = 8;
 
@@ -116,6 +129,24 @@ export class Panels {
     const layers = store.state.layers;
     layers.forEach((l, i) => this.layerList.append(this.layerCard(l, i, layers.length)));
     document.getElementById('add-layer').disabled = layers.length >= MAX_LAYERS;
+    this.renderFormulaTexts();
+  }
+
+  /**
+   * The formula text as it appears on the video, one editable box per layer. Long formulas
+   * wrap on their own; Enter or Shift+Enter starts a new line. “Automatic” goes back to
+   * the layer's own formula.
+   */
+  renderFormulaTexts() {
+    if (!this.formulaTexts) return;
+    this.formulaTexts.replaceChildren(...store.state.layers.map((l) => {
+      const box = h('textarea.formula-box', { rows: 2, spellcheck: 'false', dir: 'ltr', 'aria-label': `Formula text of ${l.name}`, style: `border-left:3px solid ${l.color}` });
+      const sync = () => { if (document.activeElement !== box) box.value = l.caption?.trim() ? l.caption : formulaAuto(l); };
+      sync();
+      box.addEventListener('input', () => { l.caption = box.value === formulaAuto(l) ? '' : box.value; store.emit('overlay'); });
+      const auto = h('button.btn.ghost.small', { type: 'button', title: 'Show the layer’s own formula again', onclick: () => { l.caption = ''; box.value = formulaAuto(l); store.emit('overlay'); } }, 'Automatic');
+      return h('div.formula-edit', {}, h('div.formula-edit-top', {}, h('span.hint', {}, l.name), auto), box);
+    }));
   }
 
   layerCard(l, index, total) {
@@ -483,6 +514,20 @@ export class Panels {
         slider('Beat punch zoom', p('camera.punch'), { min: 0, max: 1, step: 0.01, fmt: (v) => (v ? `${Math.round(v * 100)}%` : 'Off') }),
         slider('Roll', p('camera.roll'), { min: -45, max: 45, step: 0.5, unit: '°' }),
       ], { hint: 'Follow the pen + a zoomed-in camera (scroll, or a camera keyframe with K) gives tracking shots; punch zooms in on kicks and snares (Rhythm tab drums with “pulse” on). All of these can be keyframed in the Animate tab for dramatic reveals.' }),
+      group('Camera moves', [
+        h('div.chips', {}, CAMERA_STYLES.map(([label, cfg, tip]) => h('button.chip', { type: 'button', title: tip, onclick: () => {
+          store.state.camera = { ...store.state.camera, ...CAMERA_MOVE_DEFAULTS, ...cfg };
+          store.emit('camera');
+          refreshAll();
+        } }, label))),
+        slider('Zoom', p('camera.zoom'), { min: 0.4, max: 4, step: 0.01, fmt: (v) => `×${(+v).toFixed(2)}` }),
+        slider('Push-in / pull-out', p('camera.push'), { min: -1, max: 1, step: 0.01, fmt: (v) => (v > 0.005 ? `push-in ${Math.round(v * 100)}%` : v < -0.005 ? `pull-out ${Math.round(-v * 100)}%` : 'Off') }),
+        slider('Beat breathing', p('camera.breathe'), { min: 0, max: 1, step: 0.01, fmt: (v) => (v ? `${Math.round(v * 100)}%` : 'Off') }),
+        slider('Drift (floating)', p('camera.drift'), { min: 0, max: 1, step: 0.01, fmt: (v) => (v ? `${Math.round(v * 100)}%` : 'Off') }),
+        slider('Handheld shake', p('camera.shake'), { min: 0, max: 1, step: 0.01, fmt: (v) => (v ? `${Math.round(v * 100)}%` : 'Off') }),
+        slider('Tilt sway', p('camera.sway'), { min: 0, max: 1, step: 0.01, fmt: (v) => (v ? `${Math.round(v * 100)}%` : 'Off') }),
+        slider('Spin', p('camera.spin'), { min: -30, max: 30, step: 0.5, fmt: (v) => (v ? `${v}°/s` : 'Off') }),
+      ], { hint: 'Moves that play by themselves on top of your camera, in 2D, 3D and the Circle Lab, and in every export. Pick a style to start, then adjust. Push-in grows slowly over the whole video; breathing pulses with the tempo (Rhythm tab).' }),
     );
   }
 
@@ -935,6 +980,8 @@ export class Panels {
     } }, 'Reset position & size');
     this.layoutBtn = h('button.btn', { type: 'button', 'aria-pressed': 'false', onclick: () => this.actions.setLayoutEditing(this.layoutBtn.getAttribute('aria-pressed') !== 'true') }, '✥ Edit on the video');
     this.textList = h('div.text-list');
+    this.formulaTexts = h('div.formula-texts');
+    this.renderFormulaTexts();
     this.titleSlot = null;
     const titleText = text('Title text', p('overlay.title.text'), { placeholder: 'Same as the project name' });
     this.titleInput = titleText.querySelector('input');
@@ -952,6 +999,8 @@ export class Panels {
       ]),
       group('Formulas', [
         toggle('Show formulas', p('overlay.formulas.enabled')),
+        this.formulaTexts,
+        toggle('Shrink to fit the frame', p('overlay.formulas.fit')),
         toggle('Show note names', p('visual.showNotes')),
         slider('Size', p('overlay.formulas.size'), { min: 0.3, max: 5, step: 0.05, fmt: (v) => `${Math.round(v * 100)}%` }),
         reset('formulas'),

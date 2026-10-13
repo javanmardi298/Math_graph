@@ -11,6 +11,7 @@
  * jumping back replays it from its start. Permanent trails and dots are drawn once onto
  * the layer's "ink" canvas, so hundreds of thousands of them cost nothing per frame.
  */
+import { cameraMove } from '../camera-moves.js';
 import { CircleSim, DT } from './sim.js';
 import { pixelFrame } from './layout.js';
 import { PALETTES, CIRCLE_PALETTES, frac, hexA, paletteOf } from './palettes.js';
@@ -89,7 +90,7 @@ export class CircleView {
    * (only when moving forward), per layer, for live sound: [{ id, cfg, events }].
    * @param {{snap?:boolean, width:number, height:number, env?:{duration:number,bpm:number,ratio:number}}} o
    */
-  renderAt(time, c, { snap = false, width, height, env = {} } = {}) {
+  renderAt(time, c, { snap = false, width, height, env = {}, camera = null, progress = 0, bpm = 120 } = {}) {
     this.ensureSize(width, height);
     const envKey = `${env.duration}|${env.bpm}|${env.ratio}`;
     if (c !== this.c || envKey !== this.envKey) { this.c = c; this.envKey = envKey; this.dirty = true; }
@@ -120,6 +121,7 @@ export class CircleView {
       if (fresh.length) out.push({ id: s.layer.id, cfg, events: fresh });
     }
     this.paint(time, c, shown);
+    if (camera) this.cameraMove(camera, { time, progress, bpm });
     return out;
   }
 
@@ -244,6 +246,30 @@ export class CircleView {
     g.drawImage(this.glow, 0, 0, w, h);
     g.globalAlpha = 1;
     g.globalCompositeOperation = 'source-over';
+  }
+
+  /** Camera moves (zoom, push, drift, shake, sway, spin): the finished frame is redrawn moved. */
+  cameraMove(cam, at) {
+    const mv = cameraMove(cam, at);
+    const roll = ((cam.roll || 0) + mv.roll) * Math.PI / 180;
+    if (!mv.active && !roll) return;
+    const { canvas: cv, g } = this, { width: w, height: h } = cv;
+    const sc = this.moved || (this.moved = document.createElement('canvas'));
+    if (sc.width !== w || sc.height !== h) { sc.width = w; sc.height = h; }
+    const sg = sc.getContext('2d');
+    sg.globalCompositeOperation = 'copy';
+    sg.drawImage(cv, 0, 0);
+    g.save();
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    g.globalCompositeOperation = 'source-over';
+    g.globalAlpha = 1;
+    g.fillStyle = this.c?.look?.background || '#000';
+    g.fillRect(0, 0, w, h);
+    g.translate(w / 2 + mv.dx * w, h / 2 + mv.dy * h);
+    g.rotate(roll);
+    g.scale(mv.zoom, mv.zoom);
+    g.drawImage(sc, -w / 2, -h / 2);
+    g.restore();
   }
 
   paint(time, c, shown) {

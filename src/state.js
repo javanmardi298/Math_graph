@@ -43,6 +43,7 @@ export function createLayer(overrides = {}) {
     mute: false,
     solo: false,
     withPrev: false, // in "one after another": play together with the layer above
+    caption: '', // the formula text shown on the video ('' = automatic); Shift+Enter breaks a line
     samples: 900,
     ...overrides,
   };
@@ -82,7 +83,7 @@ export function defaultState() {
     },
     // punch: zoom bump on every kick (0..1); track: how closely the camera follows the
     // drawing pen (0..1, both modes); roll: tilt in degrees. All three can be keyframed.
-    camera: { autoRotate: false, rotateSpeed: 0.8, fov: 45, follow: false, punch: 0, track: 0, trackSpeed: 0.06, roll: 0 },
+    camera: { autoRotate: false, rotateSpeed: 0.8, fov: 45, follow: false, punch: 0, track: 0, trackSpeed: 0.06, roll: 0, zoom: 1, push: 0, breathe: 0, drift: 0, shake: 0, sway: 0, spin: 0 },
     audio: {
       master: 0.7,
       noteLow: 36,
@@ -126,7 +127,7 @@ export function defaultState() {
       // layout 2: formulas top left, preset name top centre; title, subtitle, notes and analyzer off.
       layout: 4,
       title: { enabled: false, text: '', subtitle: false, subtitleText: '', x: null, y: null, size: 1, color: '' },
-      formulas: { enabled: true, x: null, y: null, size: 1 },
+      formulas: { enabled: true, x: null, y: null, size: 1, fit: true }, // fit: shrink to stay inside the frame
       name: { enabled: true, x: null, y: null, size: 1, color: '' },
       analyzer: { x: null, y: null, size: 1 },
       texts: [],

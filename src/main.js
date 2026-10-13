@@ -189,6 +189,8 @@ function toast(msg, ms = 3200) {
 
 const evalCtx = (t = clock.pos) => ({ t, params: store.state.params, view: store.state.view });
 const duration = () => Math.max(0.5, store.state.transport.duration);
+/** Playback speed (the Speed slider; saved with the preset): exports play the timeline at this speed too. */
+const playbackSpeed = () => Math.min(5, Math.max(0.1, store.state.transport.speed || 1));
 
 /** Where `layer` is at timeline time `time` (see math/sequence.js). */
 /** Guess-the-shape: drawing (and formulas) hidden before visual.hideUntil seconds. */
@@ -460,7 +462,7 @@ store.on((path) => {
       } else {
         const layer = store.state.layers.find((l) => l.id === second);
         if (!layer) break;
-        if (third === 'exprs' || third === 'look') { rebuildLayer(layer); viz.restyle(); updateTimelineCurves(); }
+        if (third === 'exprs' || third === 'look') { rebuildLayer(layer); viz.restyle(); updateTimelineCurves(); if (third === 'exprs') panels.renderFormulaTexts?.(); }
         if (third === 'wave') audio.syncLayers(store.state.layers);
         if (third === 'mute') updateTimelineCurves();
         if (third === 'name') panels.renderKeyframes();
@@ -620,7 +622,7 @@ function renderScene(time, { dt, now, playing, snap }) {
   }
   const frames = voicesAt(time);
   for (const f of frames) notes.set(f.id, f.gain > 0 ? f.midi : null);
-  viz.render(items, ctx, { dt, now, snap, playing, pastMode: store.state.sequence.past, cameraLocked: hasPoseTrack() && (playing || RENDER_MODE) });
+  viz.render(items, ctx, { dt, now, snap, playing, time, progress: time / duration(), bpm: store.state.transport.bpm, pastMode: store.state.sequence.past, cameraLocked: hasPoseTrack() && (playing || RENDER_MODE) });
   return frames;
 }
 
@@ -636,7 +638,7 @@ function circleText() {
 
 /** Circle Lab frame: draw the simulation; while playing live, every hit plays its note. */
 function renderCircle(time, { playing, snap }) {
-  const groups = circle.renderAt(time, store.state.circle, { snap, width: viz.canvas.width, height: viz.canvas.height, env: circleEnv() });
+  const groups = circle.renderAt(time, store.state.circle, { snap, width: viz.canvas.width, height: viz.canvas.height, env: circleEnv(), camera: store.state.camera, progress: time / duration(), bpm: store.state.transport.bpm });
   if (snap) circleRuns = new Map();
   if (playing && groups.length && !exporting.busy && !RENDER_MODE && audio.ready) {
     for (const { id, cfg, events } of groups) {
@@ -886,6 +888,7 @@ async function renderWavBuffer() {
       settings: { ...structuredClone(a), bpm: store.state.transport.bpm },
       layers: enabled,
       duration: dur,
+      speed: playbackSpeed(),
       glide: a.glide,
       articulation: a.articulation,
       drumEvents,
@@ -915,20 +918,21 @@ function circleNoteTracks() {
 /** Circle Lab soundtrack: replay the simulation, one note per (thinned) hit, plus drums. */
 async function renderCircleWav() {
   const { circle: c, audio: a, drums } = store.state;
-  const dur = duration();
+  const sp = playbackSpeed();
+  const dur = duration() / sp; // video seconds
   const notes = [];
-  const drumEvents = drumEventsFull();
+  const drumEvents = drumEventsFull().map((e) => ({ ...e, time: e.time / sp }));
   let hitDrums = false;
   for (const { cfg, notes: ns } of circleNoteTracks()) {
     const snd = cfg.sound;
     for (const n of ns) {
-      notes.push({ ...n, instrument: snd.instrument, length: snd.length, volume: snd.volume });
-      if (snd.drum && snd.drum !== 'off') { hitDrums = true; drumEvents.push({ kind: snd.drum, time: n.t, vel: n.vel * 0.45 }); }
+      notes.push({ ...n, t: n.t / sp, instrument: snd.instrument, length: Math.max(0.05, snd.length / sp), volume: snd.volume });
+      if (snd.drum && snd.drum !== 'off') { hitDrums = true; drumEvents.push({ kind: snd.drum, time: n.t / sp, vel: n.vel * 0.45 }); }
     }
   }
   notes.sort((x, y) => x.t - y.t);
   return AudioEngine.renderNotesOffline({
-    settings: { ...structuredClone(a), bpm: store.state.transport.bpm }, duration: dur, notes, instrument: c.sound.instrument, length: c.sound.length, volume: c.sound.volume,
+    settings: { ...structuredClone(a), bpm: store.state.transport.bpm }, duration: dur, notes, instrument: c.sound.instrument, length: Math.max(0.05, c.sound.length / sp), volume: c.sound.volume,
     drumEvents, drumVolume: drums.enabled || hitDrums ? drums.volume : 0,
   });
 }
@@ -1134,7 +1138,7 @@ class FrameComposer {
 async function prepareComposition({ width, height, fps, subframes }) {
   // Escape: the finished picture is an empty screen, so the teaser shows the start instead.
   const teaserAt = isCircle() && store.state.circle.rule === 'escape' && !store.state.circle.layers?.length ? 0.05 : undefined;
-  const T = shortsTiming(store.state.record, duration(), { teaserAt });
+  const T = shortsTiming(store.state.record, duration(), { teaserAt, speed: playbackSpeed() });
   const main = await renderWavBuffer();
   const buf = T.on || T.outro || T.loop ? shortsAudio(main, T) : main;
   const comp = new FrameComposer({

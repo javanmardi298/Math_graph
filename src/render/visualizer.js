@@ -19,6 +19,7 @@ import { BokehPass } from 'three/addons/postprocessing/BokehPass.js';
 import { AfterimagePass } from 'three/addons/postprocessing/AfterimagePass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js';
+import { cameraMove } from '../camera-moves.js';
 
 const TRAIL_MAX = 400;
 const tmpColor = new THREE.Color();
@@ -889,28 +890,39 @@ export class Visualizer {
       else this.trackPt.lerp(goal, 1 - Math.pow(1 - Math.min(0.9, c.trackSpeed ?? 0.06), f.dt * 60));
     }
     const punch = (c.punch || 0) * this.punch;
-    const roll = THREE.MathUtils.degToRad(c.roll || 0);
-    if (!track && punch < 1e-4 && !roll) { this.composer.render(f.dt); return; }
+    const mv = cameraMove(c, { time: f.time ?? 0, progress: f.progress ?? 0, bpm: f.bpm ?? 120 });
+    const roll = THREE.MathUtils.degToRad((c.roll || 0) + mv.roll);
+    if (!track && punch < 1e-4 && !roll && !mv.active) { this.composer.render(f.dt); return; }
 
     const is3d = this.state.mode === '3d';
     const cam = this.camera;
     const target = (is3d ? this.perspControls : this.orthoControls).target;
     const saved = { p: cam.position.clone(), q: cam.quaternion.clone(), zoom: cam.zoom, fov: cam.fov };
+    const factor = mv.zoom * (1 + 0.14 * punch); // the zoom of this frame, relative to the user's camera
     const off = new THREE.Vector3();
     if (track && this.trackPt) off.copy(this.trackPt).sub(target).multiplyScalar(track);
     if (!is3d) off.z = 0;
+    // drift and shake: fractions of the visible frame, along the camera's own right and up
+    if (mv.dx || mv.dy) {
+      cam.updateMatrixWorld();
+      const right = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0), up = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 1);
+      let halfH, halfW;
+      if (is3d) { halfH = cam.position.distanceTo(target) * Math.tan(THREE.MathUtils.degToRad(saved.fov) / 2) / factor; halfW = halfH * cam.aspect; }
+      else { halfH = (cam.top - cam.bottom) / 2 / (saved.zoom * factor); halfW = (cam.right - cam.left) / 2 / (saved.zoom * factor); }
+      off.addScaledVector(right, mv.dx * 2 * halfW).addScaledVector(up, mv.dy * 2 * halfH);
+    }
     cam.position.add(off);
     cam.lookAt(tmpVec.copy(target).add(off));
     if (roll) cam.rotateZ(roll);
-    if (punch > 1e-4) {
-      if (is3d) cam.fov = saved.fov / (1 + 0.14 * punch);
-      else cam.zoom = saved.zoom * (1 + 0.14 * punch);
+    if (factor !== 1) {
+      if (is3d) cam.fov = saved.fov / factor;
+      else cam.zoom = saved.zoom * factor;
       cam.updateProjectionMatrix();
     }
     this.composer.render(f.dt);
     cam.position.copy(saved.p);
     cam.quaternion.copy(saved.q);
-    if (punch > 1e-4) {
+    if (factor !== 1) {
       if (is3d) cam.fov = saved.fov; else cam.zoom = saved.zoom;
       cam.updateProjectionMatrix();
     }

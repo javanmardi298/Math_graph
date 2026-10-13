@@ -18,19 +18,25 @@
  * drives the browser export, the ffmpeg export, batches and the command-line render.
  */
 
-/** Seconds of each part for a timeline of `duration`. */
-export function shortsTiming(record, duration, { teaserAt } = {}) {
+/**
+ * Seconds of each part for a timeline of `timeline` seconds played at `speed` (the video's
+ * main part lasts timeline / speed; `duration` below is that length in video seconds, and
+ * `tlDuration` the timeline length that `mapVideoTime` maps it to).
+ */
+export function shortsTiming(record, timeline, { teaserAt, speed = 1 } = {}) {
+  const sp = Math.min(5, Math.max(0.1, speed || 1));
+  const duration = timeline / sp;
   if (record.loop) {
     const B = Math.max(0.2, Math.min(3, record.loopBlend ?? 0.8, duration / 3));
-    return { on: false, teaser: 0, outro: 0, duration, loop: B, teaserAt: 0, total: Math.round((duration - B) * 1e6) / 1e6, hookEnd: 0, flash: false, impact: false };
+    return { on: false, teaser: 0, outro: 0, duration, tlDuration: timeline, speed: sp, loop: B, teaserAt: 0, total: Math.round((duration - B) * 1e6) / 1e6, hookEnd: 0, flash: false, impact: false };
   }
   const hook = record.hook || {};
   const on = hook.enabled !== false;
   const teaser = on ? Math.max(0, Math.min(3, hook.teaser ?? 0.8)) : 0;
   const outro = Math.max(0, Math.min(3, record.outro ?? 0.6));
   return {
-    on, teaser, outro, duration,
-    teaserAt: teaserAt ?? Math.max(0, duration - 1e-3), // which moment the teaser shows (default: the finished picture)
+    on, teaser, outro, duration, tlDuration: timeline, speed: sp,
+    teaserAt: teaserAt ?? Math.max(0, timeline - 1e-3), // which timeline moment the teaser shows (default: the finished picture)
     total: Math.round((teaser + duration + outro) * 1e6) / 1e6,
     hookEnd: on ? Math.max(2, teaser + 1.4) : 0, // the hook line stays this long (video time)
     flash: on && hook.flash !== false,
@@ -43,11 +49,12 @@ export function shortsTiming(record, duration, { teaserAt } = {}) {
  * @returns {{phase:'teaser'|'main'|'outro', time:number, k:number}} k = progress inside the phase (0..1)
  */
 export function mapVideoTime(T, vt) {
-  if (T.loop) return { phase: 'main', time: Math.min(T.duration, vt + T.loop), k: vt / T.total };
-  if (vt < T.teaser) return { phase: 'teaser', time: T.teaserAt ?? Math.max(0, T.duration - 1e-3), k: vt / T.teaser };
+  const sp = T.speed || 1, tl = T.tlDuration ?? T.duration;
+  if (T.loop) return { phase: 'main', time: Math.min(tl, (vt + T.loop) * sp), k: vt / T.total };
+  if (vt < T.teaser) return { phase: 'teaser', time: T.teaserAt ?? Math.max(0, tl - 1e-3), k: vt / T.teaser };
   const t = vt - T.teaser;
-  if (t < T.duration) return { phase: 'main', time: t, k: t / T.duration };
-  return { phase: 'outro', time: T.duration, k: T.outro ? Math.min(1, (t - T.duration) / T.outro) : 1 };
+  if (t < T.duration) return { phase: 'main', time: t * sp, k: t / T.duration };
+  return { phase: 'outro', time: tl, k: T.outro ? Math.min(1, (t - T.duration) / T.outro) : 1 };
 }
 
 /** The hook line: the preset's own, else its YouTube title without hashtags, else its name. */

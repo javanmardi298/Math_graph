@@ -422,7 +422,8 @@ export class AudioEngine {
    * @param {{kind:string,time:number,vel:number}[]} [o.drumEvents] drum hits to schedule
    * @param {number} [o.drumVolume]
    */
-  static async renderOffline({ settings, layers, duration, frameAt, settingsAt, drumEvents = [], drumVolume = 0.8, glide, articulation, sampleRate = 48000 }) {
+  static async renderOffline({ settings, layers, duration: timeline, speed = 1, frameAt, settingsAt, drumEvents = [], drumVolume = 0.8, glide, articulation, sampleRate = 48000 }) {
+    const duration = timeline / speed; // video seconds: at speed 2 the timeline plays in half the time
     const tail = settings.reverb.decay + 0.5;
     const ctx = new OfflineAudioContext(2, Math.ceil((duration + tail) * sampleRate), sampleRate);
     const eng = new AudioEngine();
@@ -434,12 +435,12 @@ export class AudioEngine {
     let nextSettings = 0;
     for (let time = 0; time < duration; time += step) {
       if (settingsAt && time >= nextSettings) {
-        eng.applySettings(settingsAt(time), time);
+        eng.applySettings(settingsAt(time * speed), time);
         nextSettings = time + 1 / 60;
       }
-      eng.update(frameAt(time), { playing: true, glide, articulation }, time);
+      eng.update(frameAt(time * speed), { playing: true, glide, articulation }, time);
     }
-    for (const e of drumEvents) if (e.time < duration) eng.drum(e.kind, e.vel, e.time);
+    for (const e of drumEvents) if (e.time / speed < duration) eng.drum(e.kind, e.vel, e.time / speed);
     for (const v of eng.voices.values()) { v.amp.gain.cancelScheduledValues(duration); v.amp.gain.setTargetAtTime(0, duration, 0.03); }
     eng.droneOn(false, duration);
     return ctx.startRendering();

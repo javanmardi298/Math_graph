@@ -9,6 +9,7 @@
  */
 import { noteName } from '../math/music.js';
 import { getBrand, endCardAlpha } from '../brand.js';
+import { SHORTS_SAFE_BOTTOM } from '../state.js';
 
 const LABEL = { function: ['y'], parametric: ['x', 'y', 'z'], polar: ['r'], surface: ['f'] };
 
@@ -49,6 +50,38 @@ export function textAlpha(tb, t) {
  * @returns {{title:object|null, formulas:object|null, analyzer:object|null, texts:{id:string, rect:object, visible:boolean}[]}}
  *          element rectangles in canvas pixels, for the layout editor
  */
+/** The formula text of a layer as shown on the video: its own caption, else the automatic one. */
+export const formulaAuto = (l) => {
+  // one line per coordinate; a z that is just 0 is not worth showing
+  const keys = (l.type === 'function' ? ['y', 'z'] : LABEL[l.type]).filter((key) => key !== 'z' || l.exprs.z.trim() !== '0');
+  return keys.map((key) => `${key === 'f' ? 'h' : key} = ${l.exprs[key]}`).join('\n');
+};
+export const formulaText = (l) => (l.caption && l.caption.trim() ? l.caption : formulaAuto(l));
+
+/**
+ * Break text into lines no wider than `room` with the current font. Lines you typed stay
+ * (\n); a long line breaks after a space or an operator, and a token that is wider than
+ * the room by itself is split by character.
+ */
+export function wrapText(g, text, room) {
+  const out = [];
+  for (const para of String(text).split('\n')) {
+    const tokens = para.match(/[^\s+\-*/,;=)]*[\s+\-*/,;=)]+|[^\s+\-*/,;=)]+/g) || [''];
+    let line = '';
+    for (const tok of tokens) {
+      if (line && g.measureText((line + tok).trimEnd()).width > room) { out.push(line.trimEnd()); line = ''; }
+      line += tok;
+      while (g.measureText(line.trimEnd()).width > room && line.length > 1) { // one token wider than the room
+        let n = line.length - 1;
+        while (n > 1 && g.measureText(line.slice(0, n)).width > room) n--;
+        out.push(line.slice(0, n)); line = line.slice(n);
+      }
+    }
+    out.push(line.trimEnd());
+  }
+  return out.length ? out : [''];
+}
+
 export function drawOverlay(g, w, h, d) {
   const { state } = d;
   const k = Math.min(w, h) / 1000; // scale with the shorter side so 9:16 looks like 16:9
@@ -103,46 +136,60 @@ export function drawOverlay(g, w, h, d) {
   /* -------------------------------------------------------------- formulas */
   if (o.formulas.enabled && legacyCaption && !d.circle) {
     const s = o.formulas.size;
-    const fs = 20 * k * s, lineH = 32 * k * s;
-    const lines = d.layers.filter((l) => l.enabled && phases.get(l.id) !== 'future');
+    const layers = d.layers.filter((l) => l.enabled && phases.get(l.id) !== 'future');
     const x = o.formulas.x == null ? 36 * k : o.formulas.x * w;
     // Leave room for an automatically placed analyzer in the same (top) corner.
     const sharesCorner = ana && o.analyzer.x == null && o.formulas.x == null && portrait;
     const maxW = Math.max(80 * k, (sharesCorner ? ana.x - 30 * k : w - 24 * k) - x);
-    const bh = lines.length * lineH;
     // Automatic place: top left, under an automatically placed title.
     const autoTop = rects.title && o.title.y == null ? rects.title.y + rects.title.h + 14 * k : 26 * k;
     const y = o.formulas.y == null ? autoTop : o.formulas.y * h;
-    g.font = `500 ${fs}px ${FONTS.mono}`;
-    let bw = 0;
-    lines.forEach((l, i) => {
-      const keys = l.type === 'function' && l.exprs.z.trim() !== '0' ? ['y', 'z'] : LABEL[l.type];
+    // Long formulas wrap onto more lines (Shift+Enter in the text box breaks a line yourself);
+    // if the block still does not fit between its top and the bottom of the frame (above the
+    // Shorts caption area on vertical videos) the text is shrunk, never cut off.
+    const bottom = (portrait ? SHORTS_SAFE_BOTTOM * h : h - 20 * k) - 8 * k;
+    const blocks = (fit) => layers.map((l) => {
+      const fs = 20 * k * s * fit;
+      g.font = `500 ${fs}px ${FONTS.mono}`;
       const note = d.notes.get(l.id);
       const noteText = note != null ? `  ♪ ${noteName(note)}` : '';
-      let text = keys.map((key) => `${key === 'f' ? 'h' : key} = ${l.exprs[key]}`).join('   ');
-      const room = maxW - 24 * k * s - g.measureText(noteText).width;
-      if (g.measureText(text).width > room) {
-        while (text.length > 4 && g.measureText(`${text}…`).width > room) text = text.slice(0, -1);
-        text += '…';
-      }
-      const base = y + (i + 0.72) * lineH;
-      const dim = phases.get(l.id) === 'past' ? 0.38 : 1;
-      g.globalAlpha = dim;
-      g.fillStyle = l.color;
-      g.beginPath();
-      g.arc(x + 6 * k * s, base - fs * 0.35, 6 * k * s, 0, Math.PI * 2);
-      g.fill();
-      g.fillStyle = ui.fg;
-      g.globalAlpha = 0.9 * dim;
-      g.fillText(text, x + 24 * k * s, base);
-      const tw = g.measureText(text).width;
-      if (note != null && dim === 1) {
-        g.fillStyle = l.color;
-        g.fillText(noteText, x + 24 * k * s + tw, base);
-      }
-      bw = Math.max(bw, 24 * k * s + tw + (note != null ? g.measureText(noteText).width : 0));
+      const indent = 24 * k * s * fit;
+      const lines = wrapText(g, formulaText(l), maxW - indent - g.measureText(noteText).width);
+      return { l, lines, note, noteText, fs, lineH: 32 * k * s * fit, indent };
     });
-    rects.formulas = { x, y, w: Math.max(bw, 120 * k * s), h: Math.max(bh, lineH) };
+    let fit = 1, laid = blocks(fit);
+    const height = (bs) => bs.reduce((t, b) => t + b.lines.length * b.lineH, 0);
+    if (o.formulas.fit !== false) {
+      while (fit > 0.45 && y + height(laid) > bottom) { fit -= 0.05; laid = blocks(fit); }
+    }
+    let bw = 0, row = 0;
+    for (const b of laid) {
+      g.font = `500 ${b.fs}px ${FONTS.mono}`;
+      const dim = phases.get(b.l.id) === 'past' ? 0.38 : 1;
+      const first = y + (row + 0.72) * b.lineH;
+      g.globalAlpha = dim;
+      g.fillStyle = b.l.color;
+      g.beginPath();
+      g.arc(x + 6 * k * s * fit, first - b.fs * 0.35, 6 * k * s * fit, 0, Math.PI * 2);
+      g.fill();
+      b.lines.forEach((text, i) => {
+        const base = y + (row + i + 0.72) * b.lineH;
+        g.fillStyle = ui.fg;
+        g.globalAlpha = 0.9 * dim;
+        g.fillText(text, x + b.indent, base);
+        const tw = g.measureText(text).width;
+        let extra = 0;
+        if (i === b.lines.length - 1 && b.note != null && dim === 1) {
+          g.fillStyle = b.l.color;
+          g.fillText(b.noteText, x + b.indent + tw, base);
+          extra = g.measureText(b.noteText).width;
+        }
+        bw = Math.max(bw, b.indent + tw + extra);
+      });
+      row += b.lines.length;
+    }
+    const bh = height(laid);
+    rects.formulas = { x, y, w: Math.max(bw, 120 * k * s), h: Math.max(bh, 32 * k * s) };
   }
 
   /* ----------------------------------------------------------- preset name */
@@ -295,7 +342,8 @@ function drawBrand(g, w, h, k, state, t, ui) {
     g.font = `700 ${24 * k}px ${FONTS.display}`;
     g.fillText(b.watermark.trim(), w * 0.05, h * 0.745); // just above the Shorts caption area
   }
-  const a = endCardAlpha(b, t, state.transport?.duration ?? 0);
+  const sp = Math.max(0.1, state.transport?.speed || 1); // the end card lasts so many seconds of VIDEO
+  const a = endCardAlpha(b, t / sp, (state.transport?.duration ?? 0) / sp);
   if (a > 0) {
     const main = b.endCard.trim(), sub = (b.endSub || '').trim();
     const fPx = 54 * k, sPx = 30 * k;
