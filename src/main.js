@@ -725,6 +725,7 @@ function overlayData(analysis = null, time = clock.pos) {
     time,
     notes: (clock.playing || clock.scrubbing || exportingNow || RENDER_MODE) && store.state.visual.showNotes ? notes : new Map(),
     phases: new Map(store.state.layers.map((l) => [l.id, hiddenAt(time) ? 'future' : layerTiming(l, time).phase])),
+    guessing: hiddenAt(time),
     spectrum: analysis ? analysis.spectrum : audio.spectrum(),
     waveform: analysis ? analysis.waveform : audio.waveform(),
     ui: { fg: light ? '#1a1c26' : '#eef2ff', accent: '#22e4ff', accent2: light ? '#e0245e' : '#ff3d9a', light },
