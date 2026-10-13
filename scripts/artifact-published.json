@@ -1,6 +1,6 @@
 [
  {
-  "build": "04b01684c7",
+  "build": "e73aef7a85",
   "files": [
    "anim/keyframes.js",
    "audio/buffer-analyser.js",
@@ -47,6 +47,7 @@
    "math/sequence.js",
    "presets.js",
    "render/visualizer.js",
+   "shorts-prefs.js",
    "state.js",
    "ui/controls.js",
    "ui/daily-view.js",
@@ -59,7 +60,7 @@
   ]
  },
  {
-  "build": "e73aef7a85",
+  "build": "9f41af70df",
   "files": [
    "anim/keyframes.js",
    "audio/buffer-analyser.js",
@@ -69,6 +70,7 @@
    "audio/instruments.js",
    "audio/sonify.js",
    "brand.js",
+   "camera-moves.js",
    "circle/battles.js",
    "circle/calculus.js",
    "circle/cymatics.js",
