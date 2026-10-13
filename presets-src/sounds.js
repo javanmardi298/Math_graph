@@ -2,14 +2,18 @@
  * Sound presets: ready-made sound settings for the Sound tab (scale, key, tuning,
  * instrument, filter, drive, lo-fi, modulation, movement, pump, drone, delay, reverb).
  * A sound preset changes only the sound, never the drawing, so any curve or Circle
- * Lab scene can be tried with any of them. Built into presets/sounds.json.
+ * Lab scene can be tried with any of them. Built into presets/sounds.json. The note range
+ * of each (its register) and its paired melody come from sound-registers.js.
  *
  * Each entry: S(group, name, about, instrument, options). Options are short names:
- *   scale, root, lo/hi (note range), glide, art ('pluck' | 'legato'), tuning,
+ *   scale, root, glide, art ('pluck' | 'legato'), tuning,
  *   filter: F(type, cutoff, q, wah, wahRate), drive, crush, mod: M(type, rate, depth, mix),
  *   motion: V(tremolo, rate, autopan, panRate), pump: [amount, beats], drone: D(volume, octave, fifth, bright),
  *   delay: E(time, feedback, mix, pingpong), reverb: R(decay, mix, tone, preDelay)
  */
+import { registerOf, melodyOf, SOUND_SHAPES } from './sound-registers.js';
+export { SOUND_SHAPES };
+
 const F = (type, cutoff, q = 0.8, lfo = 0, lfoRate = 0.5) => ({ type, cutoff, q, lfo, lfoRate });
 const M = (type, rate, depth, mix) => ({ type, rate, depth, mix });
 const V = (tremolo, tremoloRate = 5, autopan = 0, panRate = 0.25) => ({ tremolo, tremoloRate, autopan, panRate });
@@ -21,7 +25,7 @@ const LIST = [];
 function S(group, name, about, instrument, o = {}) {
   const pluck = (o.art || 'pluck') === 'pluck';
   const audio = {
-    scale: o.scale || 'major', root: o.root ?? 0, noteLow: o.lo ?? 48, noteHigh: o.hi ?? 86,
+    scale: o.scale || 'major', root: o.root ?? 0, noteLow: 48, noteHigh: 72, // replaced by the register below
     glide: o.glide ?? (pluck ? 12 : 60), articulation: o.art || 'pluck', tuning: o.tuning || 440,
     filter: o.filter || F('lowpass', 12000), distortion: o.drive || 0, crush: o.crush || 0,
     mod: o.mod || M('off', 0.6, 0.5, 0.5), motion: o.motion || V(0), pump: o.pump ? { amount: o.pump[0], rate: o.pump[1] ?? 1 } : { amount: 0, rate: 1 },
@@ -263,6 +267,17 @@ S(G16, 'Silk Pad', 'A soft pad that never hurts the ears.', 'warm-pad', { art: '
 S(G16, 'Sand Pluck', 'Soft, sandy plucks.', 'synth-pluck', { scale: 'minorPentatonic', filter: F('lowpass', 2200, 2), reverb: R(1.5, 0.2, 0.4) });
 S(G16, 'Rain on Leaves', 'Drops falling left and right.', 'kalimba', { scale: 'minorPentatonic', lo: 60, hi: 96, delay: E(0.22, 0.35, 0.2, true), reverb: R(2.5, 0.3, 0.5) });
 S(G16, 'Calm Breath', 'Pentatonic tones that slowly breathe.', 'sine', { scale: 'pentatonic', art: 'legato', glide: 90, motion: V(0.35, 0.5), reverb: R(4, 0.4, 0.5) });
+
+// register and paired melody for every sound (see sound-registers.js)
+const perGroup = new Map();
+for (const e of LIST) {
+  const k = perGroup.get(e.group) || 0;
+  perGroup.set(e.group, k + 1);
+  e.register = registerOf(e);
+  e.audio.noteLow = e.register[0];
+  e.audio.noteHigh = e.register[1];
+  e.melody = melodyOf(e, k);
+}
 
 export const SOUND_PRESETS = LIST;
 export const SOUND_GROUPS = [...new Set(LIST.map((s) => s.group))];

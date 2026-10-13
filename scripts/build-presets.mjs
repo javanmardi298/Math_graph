@@ -13,7 +13,7 @@
  *   node scripts/build-presets.mjs           write the files
  *   node scripts/build-presets.mjs --check   fail if presets/ is out of date
  */
-import { SOUND_PRESETS, SOUND_GROUPS } from '../presets-src/sounds.js';
+import { SOUND_PRESETS, SOUND_GROUPS, SOUND_SHAPES } from '../presets-src/sounds.js';
 import { readFile, writeFile, mkdir, readdir, rm } from 'node:fs/promises';
 import { SHELVES, START_HERE, ALL_PRESETS, DEFAULT_NAME, shelfOf } from '../presets-src/catalog.js';
 import { PACKS, collectionOf } from '../presets-src/lessons/index.js';
@@ -50,6 +50,7 @@ for (const [id, name, section] of SHELVES) {
 }
 // the showcase as one importable file (Library → Import), next to the lesson packs
 out.set('packs/sound-showcase.mmv.json', bundleFile(byShelf.get('sound-showcase').map(normalize)).replace('"presets":', '"$collection": "Sound showcase",\n  "presets":'));
+out.set('packs/sound-shapes.mmv.json', bundleFile(byShelf.get('sound-shapes').map(normalize)).replace('"presets":', '"$collection": "Sound · Shapes in moods",\n  "presets":'));
 const packs = [];
 for (const pack of PACKS) {
   const list = await pack.load();
@@ -62,7 +63,7 @@ const allLessons = [];
 for (const pack of PACKS) for (const p of await pack.load()) allLessons.push({ ...normalize(p), $collection: collectionOf(pack) });
 out.set('packs/all-lessons.mmv.json', JSON.stringify({ $format: 'math-melody-presets', version: 1, presets: allLessons }, null, 1));
 // sound presets (Sound tab): sound settings only, no drawing
-out.set('presets/sounds.json', json({ $format: 'math-melody-sounds', version: 1, groups: SOUND_GROUPS, presets: SOUND_PRESETS }));
+out.set('presets/sounds.json', json({ $format: 'math-melody-sounds', version: 1, groups: SOUND_GROUPS, shapes: SOUND_SHAPES, presets: SOUND_PRESETS }));
 const sounds = { file: 'sounds.json', count: SOUND_PRESETS.length };
 out.set('presets/index.json', json({ $format: 'math-melody-catalog', version: 1, default: DEFAULT_NAME, presets: ALL_PRESETS.length, shelves, packs, sounds }));
 

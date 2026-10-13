@@ -431,8 +431,8 @@ export class Panels {
         slider('Master volume', p('audio.master'), { min: 0, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
       ]),
       group('Pitch mapping', [
-        slider('Lowest note (y min)', p('audio.noteLow'), { min: 21, max: 96, step: 1, fmt: noteFmt }),
-        slider('Highest note (y max)', p('audio.noteHigh'), { min: 24, max: 108, step: 1, fmt: noteFmt }),
+        slider('Lowest note (y min)', p('audio.noteLow'), { min: 0, max: 100, step: 1, fmt: noteFmt }),
+        slider('Highest note (y max)', p('audio.noteHigh'), { min: 12, max: 127, step: 1, fmt: noteFmt }),
         scale,
         select('Key', p('audio.root'), NOTE_NAMES.map((n, i) => [i, n])),
         select('Tuning (A4)', p('audio.tuning'), [[440, '440 Hz · standard'], [432, '432 Hz · “calm”'], [444, '444 Hz · bright'], [415, '415 Hz · baroque'], [466, '466 Hz · high']]),

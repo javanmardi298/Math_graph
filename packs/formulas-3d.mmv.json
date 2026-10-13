@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv5fim740",
+          "id": "Lmv6ynw0m0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -45,7 +45,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#8cff5a",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -56,10 +56,11 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 1400
         },
         {
-          "id": "Lmv5fim741",
+          "id": "Lmv6ynw0m1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -77,7 +78,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#22e4ff",
+          "color2": "#8cff5a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -88,10 +89,11 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 1400
         },
         {
-          "id": "Lmv5fim742",
+          "id": "Lmv6ynw0m2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -109,7 +111,7 @@
           },
           "colorMode": "solid",
           "color": "#ffd23d",
-          "color2": "#ff3d9a",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -120,6 +122,7 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 1400
         }
       ],
@@ -176,7 +179,14 @@
         "punch": 0,
         "track": 0,
         "trackSpeed": 0.06,
-        "roll": 0
+        "roll": 0,
+        "zoom": 1,
+        "push": 0,
+        "breathe": 0,
+        "drift": 0,
+        "shake": 0,
+        "sway": 0,
+        "spin": 0
       },
       "audio": {
         "master": 0.95,
@@ -356,7 +366,8 @@
           "enabled": true,
           "x": 0.06,
           "y": 0.15,
-          "size": 1.5
+          "size": 1.5,
+          "fit": true
         },
         "name": {
           "enabled": false,
@@ -469,7 +480,7 @@
       },
       "layers": [
         {
-          "id": "Lmv5fim740",
+          "id": "Lmv6ynw0m0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -498,10 +509,11 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 64
         },
         {
-          "id": "Lmv5fim741",
+          "id": "Lmv6ynw0m1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -530,10 +542,11 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 64
         },
         {
-          "id": "Lmv5fim742",
+          "id": "Lmv6ynw0m2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -562,6 +575,7 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 64
         }
       ],
@@ -618,7 +632,14 @@
         "punch": 0,
         "track": 0,
         "trackSpeed": 0.06,
-        "roll": 0
+        "roll": 0,
+        "zoom": 1,
+        "push": 0,
+        "breathe": 0,
+        "drift": 0,
+        "shake": 0,
+        "sway": 0,
+        "spin": 0
       },
       "audio": {
         "master": 1,
@@ -798,7 +819,8 @@
           "enabled": true,
           "x": 0.06,
           "y": 0.15,
-          "size": 1.5
+          "size": 1.5,
+          "fit": true
         },
         "name": {
           "enabled": false,
@@ -911,7 +933,7 @@
       },
       "layers": [
         {
-          "id": "Lmv5fim740",
+          "id": "Lmv6ynw0m0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -940,10 +962,11 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 64
         },
         {
-          "id": "Lmv5fim741",
+          "id": "Lmv6ynw0m1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -972,10 +995,11 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 64
         },
         {
-          "id": "Lmv5fim742",
+          "id": "Lmv6ynw0m2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -1004,6 +1028,7 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 64
         }
       ],
@@ -1060,7 +1085,14 @@
         "punch": 0,
         "track": 0,
         "trackSpeed": 0.06,
-        "roll": 0
+        "roll": 0,
+        "zoom": 1,
+        "push": 0,
+        "breathe": 0,
+        "drift": 0,
+        "shake": 0,
+        "sway": 0,
+        "spin": 0
       },
       "audio": {
         "master": 1,
@@ -1240,7 +1272,8 @@
           "enabled": true,
           "x": 0.06,
           "y": 0.15,
-          "size": 1.5
+          "size": 1.5,
+          "fit": true
         },
         "name": {
           "enabled": false,
@@ -1353,7 +1386,7 @@
       },
       "layers": [
         {
-          "id": "Lmv5fim740",
+          "id": "Lmv6ynw0m0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -1371,7 +1404,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#8cff5a",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -1382,10 +1415,11 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 1400
         },
         {
-          "id": "Lmv5fim741",
+          "id": "Lmv6ynw0m1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -1403,7 +1437,7 @@
           },
           "colorMode": "rainbow",
           "color": "#8cff5a",
-          "color2": "#22e4ff",
+          "color2": "#8cff5a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -1414,10 +1448,11 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 1400
         },
         {
-          "id": "Lmv5fim742",
+          "id": "Lmv6ynw0m2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -1435,7 +1470,7 @@
           },
           "colorMode": "rainbow",
           "color": "#ffd23d",
-          "color2": "#ff3d9a",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -1446,6 +1481,7 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 2000
         }
       ],
@@ -1502,7 +1538,14 @@
         "punch": 0,
         "track": 0,
         "trackSpeed": 0.06,
-        "roll": 0
+        "roll": 0,
+        "zoom": 1,
+        "push": 0,
+        "breathe": 0,
+        "drift": 0,
+        "shake": 0,
+        "sway": 0,
+        "spin": 0
       },
       "audio": {
         "master": 0.95,
@@ -1682,7 +1725,8 @@
           "enabled": true,
           "x": 0.06,
           "y": 0.15,
-          "size": 1.5
+          "size": 1.5,
+          "fit": true
         },
         "name": {
           "enabled": false,
@@ -1795,7 +1839,7 @@
       },
       "layers": [
         {
-          "id": "Lmv5fim740",
+          "id": "Lmv6ynw0m0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -1813,7 +1857,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#8cff5a",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -1824,10 +1868,11 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 1400
         },
         {
-          "id": "Lmv5fim741",
+          "id": "Lmv6ynw0m1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -1845,7 +1890,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#22e4ff",
+          "color2": "#8cff5a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -1856,10 +1901,11 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 1400
         },
         {
-          "id": "Lmv5fim742",
+          "id": "Lmv6ynw0m2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -1877,7 +1923,7 @@
           },
           "colorMode": "rainbow",
           "color": "#ffd23d",
-          "color2": "#ff3d9a",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -1888,6 +1934,7 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 2000
         }
       ],
@@ -1944,7 +1991,14 @@
         "punch": 0,
         "track": 0,
         "trackSpeed": 0.06,
-        "roll": 0
+        "roll": 0,
+        "zoom": 1,
+        "push": 0,
+        "breathe": 0,
+        "drift": 0,
+        "shake": 0,
+        "sway": 0,
+        "spin": 0
       },
       "audio": {
         "master": 0.95,
@@ -2124,7 +2178,8 @@
           "enabled": true,
           "x": 0.06,
           "y": 0.15,
-          "size": 1.5
+          "size": 1.5,
+          "fit": true
         },
         "name": {
           "enabled": false,

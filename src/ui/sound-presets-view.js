@@ -8,14 +8,22 @@
  *   🎲   a random one
  *   Default  the app's standard sound
  *   Undo     back to the sound before the last change (several steps)
+ *
+ * Every sound also knows its register (the notes it sounds best in, e.g. C3–C5) and a
+ * melody: a shape whose lowest and highest points play exactly the lowest and highest note
+ * of that register. “Also set its melody curve” (2D mode) replaces the first layer's formula,
+ * the view, tempo, speed and length with that pairing, so the sound is heard at its best.
  */
 import { store, defaultState, mergeDeep } from '../state.js';
+import { noteName } from '../math/music.js';
 import { loadSounds } from '../presets.js';
 import { h, group, refreshAll } from './controls.js';
 
 const INST_KEY = 'mmv.soundpreset.instrument';
-const readFlag = () => { try { return localStorage.getItem(INST_KEY) !== '0'; } catch { return true; } };
-const writeFlag = (on) => { try { localStorage.setItem(INST_KEY, on ? '1' : '0'); } catch { /* storage blocked */ } };
+const MELODY_KEY = 'mmv.soundpreset.melody';
+const readFlag = (key) => { try { return localStorage.getItem(key) !== '0'; } catch { return true; } };
+const writeFlag = (key, on) => { try { localStorage.setItem(key, on ? '1' : '0'); } catch { /* storage blocked */ } };
+const range = (p) => `${noteName(p.register[0])}–${noteName(p.register[1])}`;
 
 export class SoundPresetView {
   /** @param {{toast:(m:string)=>void, loadInstrument:(id:string)=>void}} actions */
@@ -26,7 +34,9 @@ export class SoundPresetView {
     this.filter = { q: '', group: '*' };
     this.current = null;
     this.undo = [];
-    this.withInstrument = readFlag();
+    this.shapes = {};
+    this.withInstrument = readFlag(INST_KEY);
+    this.withMelody = readFlag(MELODY_KEY);
     this.list = h('div.snd-list', { role: 'listbox', 'aria-label': 'Sound presets' });
     this.now = h('span.snd-now', {}, 'Loading…');
     this.groupSel = h('select.snd-group', { 'aria-label': 'Group', onchange: () => { this.filter.group = this.groupSel.value; this.render(); } });
@@ -34,7 +44,10 @@ export class SoundPresetView {
     this.search.addEventListener('input', () => { this.filter.q = this.search.value; this.render(); });
     const inst = h('input', { type: 'checkbox', role: 'switch', id: 'snd-inst' });
     inst.checked = this.withInstrument;
-    inst.addEventListener('change', () => { this.withInstrument = inst.checked; writeFlag(inst.checked); });
+    inst.addEventListener('change', () => { this.withInstrument = inst.checked; writeFlag(INST_KEY, inst.checked); });
+    const mel = h('input', { type: 'checkbox', role: 'switch', id: 'snd-mel' });
+    mel.checked = this.withMelody;
+    mel.addEventListener('change', () => { this.withMelody = mel.checked; writeFlag(MELODY_KEY, mel.checked); });
     const btn = (label, title, fn, cls = '.ghost') => h(`button.btn.small${cls}`, { type: 'button', title, onclick: fn }, label);
     this.undoBtn = btn('↶ Undo', 'Back to the sound before the last change', () => this.back());
     this.el = group('🎛 Sound presets', [
@@ -48,6 +61,7 @@ export class SoundPresetView {
       h('div.snd-filters', {}, this.search, this.groupSel),
       this.list,
       h('div.ctl.ctl-toggle', {}, h('label', { for: 'snd-inst' }, 'Also change the instrument'), inst),
+      h('div.ctl.ctl-toggle', {}, h('label', { for: 'snd-mel', title: 'In 2D mode: the first layer becomes the sound’s own shape, framed and tuned so it plays the sound’s best register' }, 'Also set its melody curve (2D)'), mel),
     ], { hint: 'One click changes the whole sound: scale, key, tuning, filter, drive, modulation, drone, delay and reverb. Press play and step through them with ◀ ▶. Everything stays editable below.' });
     this.el.classList.add('snd-presets');
     this.load();
@@ -57,6 +71,7 @@ export class SoundPresetView {
     try {
       const data = await loadSounds();
       this.presets = data.presets;
+      this.shapes = data.shapes || {};
       this.groups = data.groups;
       this.groupSel.replaceChildren(h('option', { value: '*' }, `All groups (${this.presets.length})`),
         ...this.groups.map((g) => h('option', { value: g }, `${g} (${this.presets.filter((p) => p.group === g).length})`)));
@@ -70,7 +85,7 @@ export class SoundPresetView {
   visible() {
     const q = this.filter.q.trim().toLowerCase();
     return this.presets.filter((p) => (this.filter.group === '*' || p.group === this.filter.group)
-      && (!q || q.split(/\s+/).every((w) => `${p.name} ${p.group} ${p.about} ${p.instrument} ${p.audio.scale} ${p.audio.mod.type} ${p.audio.tuning}`.toLowerCase().includes(w))));
+      && (!q || q.split(/\s+/).every((w) => `${p.name} ${p.group} ${p.about} ${p.instrument} ${p.audio.scale} ${p.audio.mod.type} ${p.audio.tuning} ${p.register ? range(p) : ''} ${p.melody?.shape || ''}`.toLowerCase().includes(w))));
   }
 
   render() {
@@ -80,7 +95,7 @@ export class SoundPresetView {
     for (const p of list) {
       if (this.filter.group === '*' && p.group !== last) { rows.push(h('div.snd-head', {}, p.group)); last = p.group; }
       const row = h('button.snd-row', { type: 'button', role: 'option', 'aria-selected': String(this.current === p.name), title: p.about, onclick: () => this.apply(p) },
-        h('span.snd-name', {}, p.name), h('span.snd-about', {}, p.about));
+        h('span.snd-name', {}, p.name, p.register ? h('span.snd-range', { title: 'Best register: the notes this sound plays in' }, range(p)) : null), h('span.snd-about', {}, p.about));
       rows.push(row);
     }
     if (!rows.length && this.presets.length) rows.push(h('p.hint', {}, 'No sound preset matches.'));
@@ -91,7 +106,12 @@ export class SoundPresetView {
 
   /** Remember the sound as it is now (for Undo). */
   remember() {
-    this.undo.push({ audio: structuredClone(store.state.audio), waves: store.state.layers.map((l) => l.wave), circle: store.state.circle.sound.instrument, current: this.current });
+    const st = store.state;
+    this.undo.push({
+      audio: structuredClone(st.audio), waves: st.layers.map((l) => l.wave), circle: st.circle.sound.instrument, current: this.current,
+      layer0: st.layers[0] ? structuredClone(st.layers[0]) : null, view: structuredClone(st.view), rhythm: structuredClone(st.rhythm),
+      transport: { bpm: st.transport.bpm, speed: st.transport.speed, duration: st.transport.duration },
+    });
     if (this.undo.length > 30) this.undo.shift();
   }
 
@@ -107,9 +127,28 @@ export class SoundPresetView {
     this.remember();
     this.setAudio(p.audio);
     if (this.withInstrument && p.instrument) this.actions.loadInstrument(p.instrument);
+    if (this.withMelody && p.melody && store.state.mode === '2d') this.applyMelody(p);
     this.current = p.name;
     this.render();
     this.list.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: 'nearest' });
+  }
+
+  /** The sound's own shape as the first layer, framed and fitted to its register (2D). */
+  applyMelody(p) {
+    const m = p.melody, sh = this.shapes[m.shape], st = store.state, layer = st.layers[0];
+    if (!sh || !layer) return;
+    layer.type = sh.type;
+    layer.exprs = { ...layer.exprs, ...sh.exprs };
+    layer.range = { ...sh.range };
+    layer.samples = sh.samples;
+    layer.caption = '';
+    st.view = { ...m.view };
+    Object.assign(st.transport, { bpm: m.bpm, speed: m.speed, duration: m.duration });
+    Object.assign(st.rhythm, { enabled: false, ...m.rhythm });
+    st.audio.noteLow = m.noteLow;
+    st.audio.noteHigh = m.noteHigh;
+    this.keep = true;
+    try { store.emit('*'); } finally { this.keep = false; } // everything changed: rebuild the curve, the grid, the controls
   }
 
   step(n) {
@@ -135,6 +174,13 @@ export class SoundPresetView {
   back() {
     const u = this.undo.pop();
     if (!u) return;
+    const st = store.state;
+    if (u.layer0 && st.layers[0]) {
+      Object.assign(st.layers[0], u.layer0, { id: st.layers[0].id });
+      st.view = u.view; st.rhythm = u.rhythm; Object.assign(st.transport, u.transport);
+      this.keep = true;
+      try { store.emit('*'); } finally { this.keep = false; }
+    }
     this.setAudio(u.audio);
     store.state.layers.forEach((l, i) => { if (u.waves[i]) l.wave = u.waves[i]; });
     store.state.circle.sound.instrument = u.circle;
@@ -146,6 +192,7 @@ export class SoundPresetView {
 
   /** A preset was loaded: the current sound is no longer a sound preset. */
   forget() {
+    if (this.keep) return; // a melody applied by this view refreshes the panels itself
     this.current = null;
     this.render();
   }

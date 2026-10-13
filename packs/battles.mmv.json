@@ -27,8 +27,8 @@
       },
       "layers": [
         {
-          "id": "Lmv5fim7h0",
-          "name": "Layer 314",
+          "id": "Lmv6ynw100",
+          "name": "Layer 425",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -44,8 +44,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#ff3d9a",
-          "color2": "#ffd23d",
+          "color": "#22e4ff",
+          "color2": "#ff3d9a",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -56,6 +56,7 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 900
         }
       ],
@@ -112,7 +113,14 @@
         "punch": 0,
         "track": 0,
         "trackSpeed": 0.06,
-        "roll": 0
+        "roll": 0,
+        "zoom": 1,
+        "push": 0,
+        "breathe": 0,
+        "drift": 0,
+        "shake": 0,
+        "sway": 0,
+        "spin": 0
       },
       "audio": {
         "master": 0.7,
@@ -482,7 +490,8 @@
           "enabled": true,
           "x": null,
           "y": null,
-          "size": 1
+          "size": 1,
+          "fit": true
         },
         "name": {
           "enabled": false,
@@ -549,8 +558,8 @@
       },
       "layers": [
         {
-          "id": "Lmv5fim7h0",
-          "name": "Layer 316",
+          "id": "Lmv6ynw100",
+          "name": "Layer 427",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -566,8 +575,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#8cff5a",
-          "color2": "#22e4ff",
+          "color": "#ffd23d",
+          "color2": "#8cff5a",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -578,6 +587,7 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 900
         }
       ],
@@ -634,7 +644,14 @@
         "punch": 0,
         "track": 0,
         "trackSpeed": 0.06,
-        "roll": 0
+        "roll": 0,
+        "zoom": 1,
+        "push": 0,
+        "breathe": 0,
+        "drift": 0,
+        "shake": 0,
+        "sway": 0,
+        "spin": 0
       },
       "audio": {
         "master": 0.7,
@@ -1008,7 +1025,8 @@
           "enabled": true,
           "x": null,
           "y": null,
-          "size": 1
+          "size": 1,
+          "fit": true
         },
         "name": {
           "enabled": false,
@@ -1075,8 +1093,8 @@
       },
       "layers": [
         {
-          "id": "Lmv5fim7i0",
-          "name": "Layer 318",
+          "id": "Lmv6ynw100",
+          "name": "Layer 429",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -1092,8 +1110,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#ff3d9a",
-          "color2": "#ffd23d",
+          "color": "#22e4ff",
+          "color2": "#ff3d9a",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -1104,6 +1122,7 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 900
         }
       ],
@@ -1160,7 +1179,14 @@
         "punch": 0,
         "track": 0,
         "trackSpeed": 0.06,
-        "roll": 0
+        "roll": 0,
+        "zoom": 1,
+        "push": 0,
+        "breathe": 0,
+        "drift": 0,
+        "shake": 0,
+        "sway": 0,
+        "spin": 0
       },
       "audio": {
         "master": 0.7,
@@ -1534,7 +1560,8 @@
           "enabled": true,
           "x": null,
           "y": null,
-          "size": 1
+          "size": 1,
+          "fit": true
         },
         "name": {
           "enabled": false,
@@ -1601,8 +1628,8 @@
       },
       "layers": [
         {
-          "id": "Lmv5fim7i0",
-          "name": "Layer 320",
+          "id": "Lmv6ynw100",
+          "name": "Layer 431",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -1618,8 +1645,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#8cff5a",
-          "color2": "#22e4ff",
+          "color": "#ffd23d",
+          "color2": "#8cff5a",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -1630,6 +1657,7 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 900
         }
       ],
@@ -1686,7 +1714,14 @@
         "punch": 0,
         "track": 0,
         "trackSpeed": 0.06,
-        "roll": 0
+        "roll": 0,
+        "zoom": 1,
+        "push": 0,
+        "breathe": 0,
+        "drift": 0,
+        "shake": 0,
+        "sway": 0,
+        "spin": 0
       },
       "audio": {
         "master": 0.7,
@@ -2056,7 +2091,8 @@
           "enabled": true,
           "x": null,
           "y": null,
-          "size": 1
+          "size": 1,
+          "fit": true
         },
         "name": {
           "enabled": false,
@@ -2123,8 +2159,8 @@
       },
       "layers": [
         {
-          "id": "Lmv5fim7i0",
-          "name": "Layer 322",
+          "id": "Lmv6ynw100",
+          "name": "Layer 433",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -2140,8 +2176,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#ff3d9a",
-          "color2": "#ffd23d",
+          "color": "#22e4ff",
+          "color2": "#ff3d9a",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -2152,6 +2188,7 @@
           "mute": false,
           "solo": false,
           "withPrev": false,
+          "caption": "",
           "samples": 900
         }
       ],
@@ -2208,7 +2245,14 @@
         "punch": 0,
         "track": 0,
         "trackSpeed": 0.06,
-        "roll": 0
+        "roll": 0,
+        "zoom": 1,
+        "push": 0,
+        "breathe": 0,
+        "drift": 0,
+        "shake": 0,
+        "sway": 0,
+        "spin": 0
       },
       "audio": {
         "master": 0.7,
@@ -2584,7 +2628,8 @@
           "enabled": true,
           "x": null,
           "y": null,
-          "size": 1
+          "size": 1,
+          "fit": true
         },
         "name": {
           "enabled": false,

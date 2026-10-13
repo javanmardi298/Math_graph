@@ -661,3 +661,4 @@ body.mode-circle .circle-layers { display: flex; flex-direction: column; gap: 10
   width: 100%; box-sizing: border-box; resize: vertical; min-height: 44px; background: var(--field-hi); border: 1px solid var(--line);
   border-radius: 7px; padding: 6px 8px; color: var(--fg); font: 12.5px/1.45 var(--f-mono);
 }
+.snd-range { margin-left: 8px; padding: 1px 6px; border-radius: 99px; border: 1px solid var(--line); font: 600 10px var(--f-mono); color: var(--accent); letter-spacing: 0.02em; }

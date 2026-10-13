@@ -53,3 +53,38 @@ test('the built catalog has the sound presets', () => {
   assert.equal(idx.sounds.count, SOUND_PRESETS.length);
   assert.equal(data.presets.length, SOUND_PRESETS.length);
 });
+
+test('every sound has a register on its tonic and a melody whose notes stay inside it', async () => {
+  const { CompiledLayer } = await import('../src/math/layers.js');
+  const { createLayer } = await import('../src/state.js');
+  const { yToMidi, SCALES, SCALE_PERIOD } = await import('../src/math/music.js');
+  const data = JSON.parse(readFileSync(new URL('../presets/sounds.json', import.meta.url), 'utf8'));
+  const ctx = { t: 0, params: { a: 1, b: 1, c: 1, d: 1 }, view: { xMin: 0, xMax: 1 } };
+  for (const s of data.presets) {
+    const [lo, hi] = s.register;
+    assert.ok(hi - lo >= 24 && hi - lo <= 36, `${s.name}: register spans ${hi - lo} semitones`);
+    assert.ok(lo >= 24 && hi <= 108, `${s.name}: ${lo}–${hi}`);
+    assert.equal(((lo - s.audio.root) % 12 + 12) % 12, 0, `${s.name}: the register begins on the tonic`);
+    assert.equal(s.audio.noteLow, lo);
+    assert.equal(s.audio.noteHigh, hi);
+    const m = s.melody, sh = data.shapes[m.shape];
+    assert.ok(sh, `${s.name}: shape ${m.shape}`);
+    const c = new CompiledLayer(createLayer({ type: sh.type, exprs: sh.exprs, range: sh.range }));
+    assert.ok(c.ok, `${s.name}: shape compiles`);
+    const map = { yMin: m.view.yMin, yMax: m.view.yMax, noteLow: m.noteLow, noteHigh: m.noteHigh, scale: s.audio.scale, root: s.audio.root };
+    const p = { x: 0, y: 0, z: 0 };
+    let min = Infinity, max = -Infinity, rawMin = Infinity, rawMax = -Infinity;
+    for (let i = 0; i <= 600; i++) {
+      c.at(i / 600, ctx, p);
+      assert.ok(p.x >= m.view.xMin && p.x <= m.view.xMax && p.y >= m.view.yMin && p.y <= m.view.yMax, `${s.name}: the shape is inside the frame`);
+      const note = yToMidi(p.y, map);
+      min = Math.min(min, note); max = Math.max(max, note);
+      const raw = yToMidi(p.y, { ...map, scale: 'continuous' });
+      rawMin = Math.min(rawMin, raw); rawMax = Math.max(rawMax, raw);
+    }
+    assert.ok(Math.abs(rawMin - lo) < 0.05 && Math.abs(rawMax - hi) < 0.05, `${s.name}: the drawing spans ${rawMin.toFixed(2)}–${rawMax.toFixed(2)}, wanted ${lo}–${hi}`);
+    const slack = SCALES[s.audio.scale] ? Math.max(1.5, SCALE_PERIOD[s.audio.scale] / 6) : 0.01; // snapping to a sparse scale may step a little past the edge
+    assert.ok(min >= lo - slack && max <= hi + slack, `${s.name}: notes ${min}–${max} vs ${lo}–${hi}`);
+    assert.ok(m.speed >= 0.5 && m.speed <= 1.5 && m.duration >= 12 && m.duration <= 30);
+  }
+});

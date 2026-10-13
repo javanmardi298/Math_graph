@@ -15,7 +15,7 @@ const T = (text, start, end = 0, { y = 0.7, size = 0.62, color = '#ffffff' } = {
   id: `t${Math.round(start * 10)}-${text.length}`, text, x: 0.5, y, size, color, font: 'display', align: 'center', bold: true, box: true, glow: false, start, end,
 });
 
-const G = (name, layers, { mode = '2d', view, duration = 16, bpm = 100, hook, title, desc, tags, texts = [], hideUntil = 0, sequence = false, past = 'ghost', audio = {}, visual = {}, camera = {}, category = 'Formulas · Sound of a graph', formulas = true } = {}) => ({
+const G = (name, layers, { mode = '2d', view, duration = 16, bpm = 100, hook, title, desc, tags, texts = [], hideUntil = 0, sequence = false, past = 'ghost', audio = {}, visual = {}, camera = {}, category = 'Formulas · Sound of a graph', formulas = true, formulaSize = 1.3 } = {}) => ({
   name, mode, $category: category,
   transport: { duration, bpm },
   view,
@@ -24,7 +24,7 @@ const G = (name, layers, { mode = '2d', view, duration = 16, bpm = 100, hook, ti
   visual: { aspect: '9:16', drawMode: 'trace', hideUntil, marker: { shape: 'circle', size: 30 }, trail: { count: 220 }, ...visual },
   camera,
   audio: { master: 0.95, scale: 'continuous', glide: 35, noteLow: 45, noteHigh: 84, articulation: 'legato', reverb: { mix: 0.3, decay: 3 }, delay: { mix: 0.12 }, ...audio },
-  overlay: { layout: 4, name: { enabled: false }, formulas: { enabled: formulas, x: 0.06, y: 0.15, size: 1.3 }, texts },
+  overlay: { layout: 4, name: { enabled: false }, formulas: { enabled: formulas, x: 0.06, y: 0.15, size: formulaSize }, texts },
   hook: { text: hook },
   youtube: { title: `${title} #shorts`, description: `${desc}\n\n#math #mathanimation #shorts`, tags },
 });
@@ -49,8 +49,13 @@ export const SOUND_PRESETS = [
     hook: 'What does a heart sound like?', title: 'What does a heart ❤️ sound like? (math)', desc: 'x = 16 sin³ t, y = 13 cos t − 5 cos 2t − 2 cos 3t − cos 4t: the heart curve. Its height is the pitch, so you hear the shape as it is drawn.', tags: SOUND_TAGS,
     texts: [T('Comment what it sounds like 👇', 10, 0, { y: 0.7 })],
   }),
-  G('What Does a Butterfly Sound Like?', [{ ...BUTTERFLY, name: 'Butterfly', colorMode: 'rainbow' }], {
-    view: { xMin: -3.2, xMax: 3.2, yMin: -4.8, yMax: 6.6 }, duration: 20,
+  // tuned by ear: Iwato on a glass pad, a long dark reverb, a slow flanger, warm colours, soft glow,
+  // a register low enough to be mysterious (F#2–E4), the curve cut to the two turns it needs
+  G('What Does a Butterfly Sound Like?', [{ ...BUTTERFLY, range: { min: 0, max: 4 * Math.PI }, name: 'Butterfly', wave: 'glass-pad', color: '#ff7a2f', color2: '#ff75c6', colorMode: 'gradient' }], {
+    view: { xMin: -3.2, xMax: 3.2, yMin: -4.8, yMax: 6.6 }, duration: 18, formulaSize: 0.75,
+    visual: { background: '#0b0503', gridColor: '#2b140c', axesColor: '#8a4a2c', bloom: { enabled: true, strength: 0.47, radius: 0.22, threshold: 0.13 }, marker: { shape: 'circle', size: 30, smoothing: 0.35 } },
+    camera: { track: 0.12, trackSpeed: 0.17 },
+    audio: { scale: 'iwato', glide: 60, noteLow: 39, noteHigh: 74, filter: { type: 'lowpass', cutoff: 10593, q: 0.8 }, mod: { type: 'flanger', rate: 0.1, depth: 0.7, mix: 0.5 }, delay: { time: 0.3, feedback: 0.25, mix: 0.1 }, reverb: { decay: 7, mix: 0.5, tone: 0.3 } },
     hook: 'What does a butterfly sound like?', title: 'What does the butterfly curve 🦋 sound like?', desc: 'The butterfly curve by Temple Fay, drawn and played: the higher the pen, the higher the note.', tags: SOUND_TAGS,
   }),
   G('What Does Infinity Sound Like?', [{ ...INFINITY, name: 'Infinity', color: '#8cff5a', color2: '#22e4ff' }], {
