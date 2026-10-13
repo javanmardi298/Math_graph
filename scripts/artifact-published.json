@@ -1,6 +1,6 @@
 [
  {
-  "build": "e73aef7a85",
+  "build": "9f41af70df",
   "files": [
    "anim/keyframes.js",
    "audio/buffer-analyser.js",
@@ -10,6 +10,7 @@
    "audio/instruments.js",
    "audio/sonify.js",
    "brand.js",
+   "camera-moves.js",
    "circle/battles.js",
    "circle/calculus.js",
    "circle/cymatics.js",
@@ -60,7 +61,7 @@
   ]
  },
  {
-  "build": "9f41af70df",
+  "build": "d12abf9e9e",
   "files": [
    "anim/keyframes.js",
    "audio/buffer-analyser.js",
