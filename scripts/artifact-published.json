@@ -1,6 +1,6 @@
 [
  {
-  "build": "d12abf9e9e",
+  "build": "94a527ca30",
   "files": [
    "anim/keyframes.js",
    "audio/buffer-analyser.js",
@@ -61,9 +61,11 @@
   ]
  },
  {
-  "build": "94a527ca30",
+  "build": "9eaf09d423",
   "files": [
    "anim/keyframes.js",
+   "anim/selection.js",
+   "anim/timewarp.js",
    "audio/buffer-analyser.js",
    "audio/drum-scanner.js",
    "audio/drums.js",
