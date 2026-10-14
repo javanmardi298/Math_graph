@@ -949,6 +949,21 @@ function showResult(src, filename, kind, sizeBytes, note = '') {
     const base = (snap.name || 'preset').replace(/[\\/:*?"<>|]+/g, '-').trim().slice(0, 80) || 'preset';
     download(new Blob([singleFile(snap)], { type: 'application/json' }), `${base}.mmv.json`);
   };
+  // One .zip with the file, the YouTube text and the preset (tick what you want; all three by default).
+  $('result-zip-box').hidden = kind === 'zip'; // a batch zip already holds everything
+  $('zip-file-label').textContent = { video: 'Video', audio: 'Audio', image: 'Image' }[kind] || 'The file';
+  $('zip-yt-wrap').hidden = kind !== 'video';
+  for (const id of ['zip-file', 'zip-yt', 'zip-preset']) $(id).checked = true;
+  $('result-zip').onclick = async () => {
+    const base = $('result-name').value.trim().replace(/[\\/:*?"<>|]+/g, '-') || fileBase();
+    const files = [];
+    const bytesOf = async (blob) => new Uint8Array(await blob.arrayBuffer());
+    if ($('zip-file').checked) files.push({ name: base + ext, data: await bytesOf(isBlob ? src : await (await fetch(url)).blob()) });
+    if (kind === 'video' && $('zip-yt').checked) files.push({ name: `${base}.txt`, data: new TextEncoder().encode(youtubeText(youtubeFor(store.state), base + ext)) });
+    if ($('zip-preset').checked) files.push({ name: `${base}.mmv.json`, data: new TextEncoder().encode(singleFile(store.snapshot())) });
+    if (!files.length) return toast('Tick at least one item for the .zip.');
+    download(new Blob([makeZip(files)], { type: 'application/zip' }), `${base}.zip`);
+  };
   dlg.onclose = () => { if (isBlob) setTimeout(() => URL.revokeObjectURL(url), 1000); };
   dlg.showModal();
 }

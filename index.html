@@ -135,6 +135,13 @@
   <div id="result-media" class="result-media"></div>
   <div class="file-row"><label class="ctl-label" for="result-name">File name</label><input id="result-name" spellcheck="false"><span id="result-ext" class="hint"></span></div>
   <p id="result-info" class="hint"></p>
+  <div class="result-zip" id="result-zip-box">
+    <span class="ctl-label">One .zip with</span>
+    <label class="lane-chip"><input type="checkbox" id="zip-file" checked><span id="zip-file-label">The file</span></label>
+    <label class="lane-chip" id="zip-yt-wrap"><input type="checkbox" id="zip-yt" checked>YouTube text</label>
+    <label class="lane-chip"><input type="checkbox" id="zip-preset" checked>Preset (.mmv.json)</label>
+    <button class="btn" id="result-zip" type="button" title="Download the ticked items together in one .zip">Download .zip</button>
+  </div>
   <div class="row">
     <button class="btn" id="result-download" type="button">Download</button>
     <button class="btn ghost" id="result-youtube" type="button" hidden title="Title, description and tags for YouTube Shorts, as a .txt next to the video">YouTube text (.txt)</button>

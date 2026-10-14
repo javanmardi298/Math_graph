@@ -681,3 +681,4 @@ body.mode-circle .circle-layers { display: flex; flex-direction: column; gap: 10
 .key-row input[type="color"] { height: 26px; padding: 0 2px; }
 .key-row .key-del { border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 15px; }
 .key-row .key-del:hover { color: #ff5d7a; }
+.result-zip { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 4px 0 10px; }
