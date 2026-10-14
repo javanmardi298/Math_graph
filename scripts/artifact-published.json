@@ -1,8 +1,10 @@
 [
  {
-  "build": "94a527ca30",
+  "build": "9eaf09d423",
   "files": [
    "anim/keyframes.js",
+   "anim/selection.js",
+   "anim/timewarp.js",
    "audio/buffer-analyser.js",
    "audio/drum-scanner.js",
    "audio/drums.js",
@@ -61,7 +63,7 @@
   ]
  },
  {
-  "build": "9eaf09d423",
+  "build": "8512f51e00",
   "files": [
    "anim/keyframes.js",
    "anim/selection.js",
