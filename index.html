@@ -121,6 +121,10 @@
       <div id="speed-slot"></div>
       <div id="duration-slot"></div>
       <div id="loop-slot"></div>
+      <div class="key-ctl">
+        <button class="btn small ghost" id="key-mode" type="button" aria-pressed="false" title="Key mode: while it is on, every change you make is recorded as a key at the playhead (only what you changed). Off: changes apply to the whole video.">● Key mode</button>
+        <button class="btn small ghost" id="key-add" type="button" title="Add a full keyframe at the playhead: camera, speed, sound, look, formula and layers (Shift+K)">◆ Keyframe</button>
+      </div>
     </div>
   </footer>
 </div>
@@ -162,7 +166,7 @@
     <tr><td><kbd>Home</kbd></td><td>Back to start</td><td><kbd>← →</kbd></td><td>Jump 1 s</td></tr>
     <tr><td><kbd>M</kbd></td><td>2D ↔ 3D</td><td><kbd>T</kbd></td><td>Day / night</td></tr>
     <tr><td><kbd>H</kbd></td><td>Hide interface</td><td><kbd>F</kbd></td><td>Full screen</td></tr>
-    <tr><td><kbd>[</kbd> <kbd>]</kbd></td><td>Toggle panels</td><td><kbd>K</kbd></td><td>Camera keyframe</td></tr>
+    <tr><td><kbd>[</kbd> <kbd>]</kbd></td><td>Toggle panels</td><td><kbd>K</kbd></td><td>Camera key · <kbd>Shift</kbd>+<kbd>K</kbd> full keyframe · <kbd>,</kbd> <kbd>.</kbd> previous / next keyframe</td></tr>
     <tr><td><kbd>?</kbd></td><td>This help</td><td></td><td></td></tr>
   </table>
   <p class="hint">Drag the timeline to scrub and hear the curve. Everything runs in your browser: no uploads, no account, works offline.</p>

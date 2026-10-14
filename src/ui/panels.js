@@ -42,7 +42,8 @@ import { newLayer } from '../circle/stack.js';
 import { CIRCLE_PALETTES } from '../circle/view.js';
 import { MELODIES } from '../circle/sound.js';
 import { DRUM_KINDS, DRUM_LABELS, TRIGGERS } from '../audio/drum-scanner.js';
-import { animatable, describe, removeKey, EASES } from '../anim/keyframes.js';
+import { animatable, describe, removeKey, EASES, LANES, laneOf, keyframeTimes, pathsAt, moveKeyframe, deleteKeyframe, copyKeyframe, setEaseAt } from '../anim/keyframes.js';
+import { selection, select as selectKey, clearSelection, onSelect } from '../anim/selection.js';
 import { INSTRUMENTS, INSTRUMENT_GROUPS } from '../audio/instruments.js';
 import { h, bindPath, bindObj, slider, color, select, toggle, segmented, number, text, group, disposeTree, refreshAll } from './controls.js';
 import { FONT_LABELS, formulaAuto } from './overlay.js';
@@ -1161,23 +1162,121 @@ export class Panels {
   animateTab() {
     this.keyPropSlot = h('div.ctl.ctl-select');
     this.keyTracks = h('div.tracks');
+    this.keyInspector = h('div.key-inspector');
     this.keyEase = 'smooth';
+    this.keyLanes = new Set(LANES);
     const ease = h('select#key-ease', {}, Object.entries(EASES).map(([v, t]) => h('option', { value: v }, t)));
     ease.addEventListener('change', () => { this.keyEase = ease.value; });
+    const laneChips = h('div.lane-chips', {}, LANES.map((lane) => {
+      const id = `lane-${lane}`;
+      const box = h('input', { type: 'checkbox', id, checked: true });
+      box.addEventListener('change', () => { if (box.checked) this.keyLanes.add(lane); else this.keyLanes.delete(lane); });
+      return h('label.lane-chip', { for: id }, box, lane);
+    }));
     const tab = h('section.tab', {},
-      group('Add keyframe', [
-        this.keyPropSlot,
-        h('div.ctl.ctl-select', {}, h('label', { for: 'key-ease' }, 'Ease out of key'), ease),
+      group('Record', [
+        toggle('● Key mode', bindPath('keyframes.autoKey')),
+        h('p.hint', {}, 'On: while paused, every change you make (a slider, the scale, an instrument, a colour, the speed …) is recorded as a key at the playhead: only what you changed. Off: changes apply to the whole video. The same switch is on the timeline.'),
+        h('div.lane-wrap', {}, h('span.ctl-label', {}, 'A full keyframe holds'), laneChips),
         h('div.row', {},
-          h('button.btn', { type: 'button', onclick: () => this.actions.addKey(this.keyPath, this.keyEase) }, '◆ Add key at playhead'),
+          h('button.btn', { type: 'button', title: 'Shortcut: Shift+K', onclick: () => this.actions.addKeyframeAt(this.actions.playheadTime(), [...this.keyLanes], this.keyEase) }, '◆ Full keyframe at playhead'),
           h('button.btn.ghost', { type: 'button', title: 'Shortcut: K', onclick: () => this.actions.addKey('camera.pose', this.keyEase) }, 'Camera key (K)')),
-        toggle('Auto-key while paused', bindPath('keyframes.autoKey')),
-      ], { hint: 'Move the playhead, set a value, add a key. Between keys the value glides. With auto-key on, moving an animatable slider while paused records a key by itself.' }),
-      group('Tracks', [this.keyTracks]),
+        h('div.ctl.ctl-select', {}, h('label', { for: 'key-ease' }, 'Ease out of new keys'), ease),
+      ], { hint: 'Move the playhead, set the look and sound you want, add a keyframe; go further, change things, add the next. Between keyframes everything glides (names and switches, like the scale or an instrument, change at the next key). Drag a diamond on the timeline to move it; double-click a row to add one; Delete removes it.' }),
+      group('Selected keyframe', [this.keyInspector]),
+      group('Playback speed over time', [
+        h('p.hint', {}, 'Speed is a normal animatable value: add a keyframe in the Speed lane (or move the Speed slider with Key mode on) to slow down for the climax and speed through the rest. Exports follow the same speed curve, picture and sound.'),
+        h('div.row', {}, h('button.btn.ghost', { type: 'button', onclick: () => this.actions.addKey('transport.speed', this.keyEase) }, '◆ Speed key at playhead')),
+      ], { open: false }),
+      group('One property', [
+        this.keyPropSlot,
+        h('div.row', {}, h('button.btn.ghost', { type: 'button', onclick: () => this.actions.addKey(this.keyPath, this.keyEase) }, '◆ Add key for this property')),
+      ], { open: false, hint: 'Pick any single property and key it at the playhead.' }),
+      group('Tracks', [this.keyTracks], { open: false }),
     );
+    onSelect(() => this.scheduleKeyRender());
     this.renderKeyframes();
     return tab;
   }
+
+  scheduleKeyRender() {
+    if (this.keyRender) return;
+    this.keyRender = requestAnimationFrame(() => { this.keyRender = 0; this.renderKeyframes(); });
+  }
+
+  /** The editor for the selected keyframe: time, ease, every value at that moment. */
+  renderInspector() {
+    if (!this.keyInspector) return;
+    const state = store.state, tracks = state.keyframes.tracks;
+    const { time, lane } = selection;
+    const kids = [];
+    const paths = time == null ? [] : pathsAt(tracks, time, lane);
+    const times = keyframeTimes(tracks, 'all');
+    const nav = h('div.row', {},
+      h('button.btn.small.ghost', { type: 'button', title: 'Previous keyframe (,)', onclick: () => this.actions.jumpKeyframe(-1) }, '◀ Prev'),
+      h('button.btn.small.ghost', { type: 'button', title: 'Next keyframe (.)', onclick: () => this.actions.jumpKeyframe(1) }, 'Next ▶'),
+      h('span.hint', {}, `${times.length} keyframe${times.length === 1 ? '' : 's'}`));
+    kids.push(nav);
+    if (time == null || !paths.length) {
+      kids.push(h('p.hint', {}, times.length ? 'Click a diamond on the timeline (or use Prev / Next) to edit that keyframe.' : 'No keyframes yet. Turn on Key mode and change something, or add a full keyframe above.'));
+      this.keyInspector.replaceChildren(...kids);
+      return;
+    }
+    const dur = state.transport.duration;
+    const timeBox = h('input', { type: 'number', min: 0, max: dur, step: 0.05, value: time.toFixed(2), 'aria-label': 'Keyframe time (seconds)' });
+    timeBox.addEventListener('change', () => {
+      const to = moveKeyframe(tracks, time, Math.min(dur, Math.max(0, +timeBox.value || 0)), lane, dur);
+      selectKey(to, lane);
+      this.actions.keyframesChanged();
+    });
+    const easeSel = h('select', { 'aria-label': 'Ease out of this keyframe' }, Object.entries(EASES).map(([v, t]) => h('option', { value: v }, t)));
+    easeSel.value = tracks[paths[0]].find((k) => Math.abs(k.time - time) <= 0.03)?.ease || 'smooth';
+    easeSel.addEventListener('change', () => { setEaseAt(tracks, time, easeSel.value, lane); this.actions.keyframesChanged(); });
+    kids.push(
+      h('div.key-head', {}, h('strong', {}, `${lane === 'all' ? 'Keyframe' : lane + ' keyframe'} at`), timeBox, h('span.hint', {}, 's')),
+      h('div.ctl.ctl-select', {}, h('label', {}, 'Ease out of it'), easeSel),
+      h('div.row', {},
+        h('button.btn.small.ghost', { type: 'button', title: 'Move the playhead onto it', onclick: () => this.actions.seekTo(time) }, 'Go to'),
+        h('button.btn.small.ghost', { type: 'button', title: 'Copy this keyframe to the playhead', onclick: () => { copyKeyframe(tracks, time, this.actions.playheadTime(), lane); selectKey(+this.actions.playheadTime().toFixed(4), lane); this.actions.keyframesChanged(); } }, 'Duplicate to playhead'),
+        h('button.btn.small.ghost', { type: 'button', title: 'Re-capture everything in these lanes from how the project looks and sounds now', onclick: () => this.actions.addKeyframeAt(time, lane === 'all' ? [...this.keyLanes] : [lane], easeSel.value) }, 'Re-capture now'),
+        h('button.btn.small.ghost.danger', { type: 'button', onclick: () => { deleteKeyframe(tracks, time, lane); clearSelection(); this.actions.keyframesChanged(); } }, 'Delete')));
+    // values, grouped by lane
+    const byLane = new Map();
+    for (const path of paths) {
+      const d = describe(state, path);
+      const key = tracks[path].find((k) => Math.abs(k.time - time) <= 0.03);
+      if (!d || !key) continue;
+      const ln = laneOf(path);
+      if (!byLane.has(ln)) byLane.set(ln, []);
+      byLane.get(ln).push(this.keyValueRow(d, key, path));
+    }
+    for (const [ln, rows] of byLane) kids.push(h('div.key-lane', {}, h('div.key-lane-title', {}, ln), ...rows));
+    this.keyInspector.replaceChildren(...kids);
+  }
+
+  /** One editable value of a keyframe. */
+  keyValueRow(d, key, path) {
+    const changed = () => { this.actions.keyframesChanged(); };
+    let input;
+    if (d.kind === 'color') {
+      input = h('input', { type: 'color', value: key.value, 'aria-label': d.label });
+      input.addEventListener('input', () => { key.value = input.value; changed(); });
+    } else if (d.kind === 'choice') {
+      const label = (v) => (v === true ? 'On' : v === false ? 'Off' : d.path.endsWith('.wave') ? (INSTRUMENTS[v]?.label || v) : d.path === 'audio.scale' ? (SCALE_LABELS[v] || v) : String(v));
+      input = h('select', { 'aria-label': d.label }, d.options.map((o, i) => h('option', { value: i }, label(o))));
+      input.value = String(Math.max(0, d.options.indexOf(key.value)));
+      input.addEventListener('change', () => { key.value = d.options[+input.value]; changed(); });
+    } else if (d.kind === 'pose') {
+      input = h('button.btn.small.ghost', { type: 'button', title: 'Store the camera view as it is now', onclick: () => { key.value = structuredClone(this.actions.currentPose()); changed(); } }, 'Set from view');
+    } else {
+      input = h('input', { type: 'number', min: d.min, max: d.max, step: (d.max - d.min) / 200 >= 1 ? 1 : 0.01, value: +(+key.value).toFixed(3), 'aria-label': d.label });
+      input.addEventListener('change', () => { key.value = Math.min(d.max, Math.max(d.min, +input.value || 0)); changed(); });
+    }
+    return h('div.key-row', {}, h('span.key-label', {}, (d.group.startsWith('Layer') ? d.group.split(' · ')[0] + ' · ' : '') + d.label), input,
+      h('button.key-del', { type: 'button', title: 'Remove this value from the keyframe', 'aria-label': 'Remove', onclick: () => { const i = this.keyIndex(path, key); if (i >= 0) removeKey(store.state.keyframes.tracks, path, i); this.actions.keyframesChanged(); } }, '×'));
+  }
+
+  keyIndex(path, key) { return (store.state.keyframes.tracks[path] || []).indexOf(key); }
 
   renderKeyframes() {
     if (!this.keyTracks) return;
@@ -1195,23 +1294,24 @@ export class Panels {
     sel.value = this.keyPath;
     sel.addEventListener('change', () => { this.keyPath = sel.value; });
     this.keyPropSlot.replaceChildren(h('label', { for: 'key-prop' }, 'Property'), sel);
+    this.renderInspector();
 
     // Track list
     const tracks = state.keyframes.tracks;
     const paths = Object.keys(tracks);
     if (!paths.length) {
-      this.keyTracks.replaceChildren(h('p.hint', {}, 'No animation yet. Example: put the playhead at 0 s, add a key for Parameter a, move to 8 s, change a, add another key.'));
+      this.keyTracks.replaceChildren(h('p.hint', {}, 'No animation yet. Example: put the playhead at 0 s, add a full keyframe, move to 8 s, change the scale and the camera zoom with Key mode on.'));
       return;
     }
-    const fmtVal = (v) => (typeof v === 'number' ? +v.toFixed(2) : typeof v === 'string' ? v : 'view');
-    const nextEase = { smooth: 'linear', linear: 'hold', hold: 'smooth' };
-    const easeMark = { smooth: '∿', linear: '／', hold: '⌐' };
+    const fmtVal = (v) => (typeof v === 'number' ? +v.toFixed(2) : typeof v === 'string' ? v : typeof v === 'boolean' ? (v ? 'on' : 'off') : 'view');
+    const nextEase = Object.fromEntries(Object.keys(EASES).map((k, i, all) => [k, all[(i + 1) % all.length]]));
+    const easeMark = { smooth: '∿', linear: '／', hold: '⌐', in: '◜', out: '◞' };
     this.keyTracks.replaceChildren(...paths.map((path) => {
       const d = describe(state, path);
       const keys = tracks[path];
       const chips = keys.map((k, i) => h('span.key-chip', {},
-        typeof k.value === 'string' ? h('i.key-swatch', { style: `background:${k.value}` }) : null,
-        h('button.key-time', { type: 'button', title: 'Jump to this key', onclick: () => this.actions.seekTo(k.time) }, `${k.time.toFixed(2)}s · ${fmtVal(k.value)}`),
+        typeof k.value === 'string' && k.value[0] === '#' ? h('i.key-swatch', { style: `background:${k.value}` }) : null,
+        h('button.key-time', { type: 'button', title: 'Jump to this key', onclick: () => { selectKey(k.time, laneOf(path)); this.actions.seekTo(k.time); } }, `${k.time.toFixed(2)}s · ${fmtVal(k.value)}`),
         h('button.key-ease', { type: 'button', title: `Ease: ${EASES[k.ease || 'smooth']} (click to change)`, onclick: () => { k.ease = nextEase[k.ease || 'smooth']; this.actions.keyframesChanged(); } }, easeMark[k.ease || 'smooth']),
         h('button.key-del', { type: 'button', title: 'Delete key', 'aria-label': 'Delete key', onclick: () => { removeKey(tracks, path, i); this.actions.keyframesChanged(); } }, '×')));
       return h('div.track', {},

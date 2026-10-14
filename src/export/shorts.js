@@ -23,19 +23,19 @@
  * main part lasts timeline / speed; `duration` below is that length in video seconds, and
  * `tlDuration` the timeline length that `mapVideoTime` maps it to).
  */
-export function shortsTiming(record, timeline, { teaserAt, speed = 1 } = {}) {
+export function shortsTiming(record, timeline, { teaserAt, speed = 1, warp = null } = {}) {
   const sp = Math.min(5, Math.max(0.1, speed || 1));
-  const duration = timeline / sp;
+  const duration = warp ? warp.total : timeline / sp; // a speed track makes the main part longer or shorter
   if (record.loop) {
     const B = Math.max(0.2, Math.min(3, record.loopBlend ?? 0.8, duration / 3));
-    return { on: false, teaser: 0, outro: 0, duration, tlDuration: timeline, speed: sp, loop: B, teaserAt: 0, total: Math.round((duration - B) * 1e6) / 1e6, hookEnd: 0, flash: false, impact: false };
+    return { on: false, teaser: 0, outro: 0, duration, tlDuration: timeline, speed: sp, warp, loop: B, teaserAt: 0, total: Math.round((duration - B) * 1e6) / 1e6, hookEnd: 0, flash: false, impact: false };
   }
   const hook = record.hook || {};
   const on = hook.enabled !== false;
   const teaser = on ? Math.max(0, Math.min(3, hook.teaser ?? 0.8)) : 0;
   const outro = Math.max(0, Math.min(3, record.outro ?? 0.6));
   return {
-    on, teaser, outro, duration, tlDuration: timeline, speed: sp,
+    on, teaser, outro, duration, tlDuration: timeline, speed: sp, warp,
     teaserAt: teaserAt ?? Math.max(0, timeline - 1e-3), // which timeline moment the teaser shows (default: the finished picture)
     total: Math.round((teaser + duration + outro) * 1e6) / 1e6,
     hookEnd: on ? Math.max(2, teaser + 1.4) : 0, // the hook line stays this long (video time)
@@ -50,10 +50,11 @@ export function shortsTiming(record, timeline, { teaserAt, speed = 1 } = {}) {
  */
 export function mapVideoTime(T, vt) {
   const sp = T.speed || 1, tl = T.tlDuration ?? T.duration;
-  if (T.loop) return { phase: 'main', time: Math.min(tl, (vt + T.loop) * sp), k: vt / T.total };
+  const tlOf = (r) => (T.warp ? T.warp.timeline(r) : r * sp);
+  if (T.loop) return { phase: 'main', time: Math.min(tl, tlOf(vt + T.loop)), k: vt / T.total };
   if (vt < T.teaser) return { phase: 'teaser', time: T.teaserAt ?? Math.max(0, tl - 1e-3), k: vt / T.teaser };
   const t = vt - T.teaser;
-  if (t < T.duration) return { phase: 'main', time: t * sp, k: t / T.duration };
+  if (t < T.duration) return { phase: 'main', time: tlOf(t), k: t / T.duration };
   return { phase: 'outro', time: tl, k: T.outro ? Math.min(1, (t - T.duration) / T.outro) : 1 };
 }
 

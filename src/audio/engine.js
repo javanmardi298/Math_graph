@@ -351,9 +351,9 @@ export class AudioEngine {
   }
 
   /** Keep one voice per layer; create/remove voices to match the layer list and their sounds. */
-  syncLayers(layers) {
+  syncLayers(layers, at = null) {
     if (!this.ctx) return;
-    const t = this.ctx.currentTime;
+    const t = at ?? this.ctx.currentTime;
     const ids = new Set(layers.map((l) => l.id));
     for (const [id, v] of this.voices) {
       if (!ids.has(id)) { v.stop(t); v.dispose(); this.voices.delete(id); }
@@ -416,14 +416,18 @@ export class AudioEngine {
    * @param {object} o
    * @param {object} o.settings audio settings at time 0
    * @param {object[]} o.layers enabled layers
-   * @param {number} o.duration seconds
+   * @param {number} o.duration seconds (timeline)
+   * @param {object} [o.warp] speed over time (anim/timewarp.js); without it `speed` is a constant
    * @param {(time:number)=>object[]} o.frameAt voice frames at a time (see update())
    * @param {(time:number)=>object} [o.settingsAt] animated audio settings (keyframes), sampled at 60 Hz
    * @param {{kind:string,time:number,vel:number}[]} [o.drumEvents] drum hits to schedule
    * @param {number} [o.drumVolume]
    */
-  static async renderOffline({ settings, layers, duration: timeline, speed = 1, frameAt, settingsAt, drumEvents = [], drumVolume = 0.8, glide, articulation, sampleRate = 48000 }) {
-    const duration = timeline / speed; // video seconds: at speed 2 the timeline plays in half the time
+  static async renderOffline({ settings, layers, duration: timeline, speed = 1, warp = null, frameAt, settingsAt, drumEvents = [], drumVolume = 0.8, glide, articulation, sampleRate = 48000 }) {
+    // video seconds: at speed 2 the timeline plays in half the time; a speed track bends it (anim/timewarp.js)
+    const duration = warp ? warp.total : timeline / speed;
+    const tlAt = (r) => (warp ? warp.timeline(r) : r * speed);
+    const realAt = (t) => (warp ? warp.real(t) : t / speed);
     const tail = settings.reverb.decay + 0.5;
     const ctx = new OfflineAudioContext(2, Math.ceil((duration + tail) * sampleRate), sampleRate);
     const eng = new AudioEngine();
@@ -435,12 +439,15 @@ export class AudioEngine {
     let nextSettings = 0;
     for (let time = 0; time < duration; time += step) {
       if (settingsAt && time >= nextSettings) {
-        eng.applySettings(settingsAt(time * speed), time);
+        eng.applySettings(settingsAt(tlAt(time)), time);
         nextSettings = time + 1 / 60;
       }
-      eng.update(frameAt(time * speed), { playing: true, glide, articulation }, time);
+      const frames = frameAt(tlAt(time));
+      // an instrument keyframe swaps a layer's sound along the way
+      if (layers.some((l) => eng.voices.get(l.id)?.id !== l.wave)) eng.syncLayers(layers, time);
+      eng.update(frames, { playing: true, glide, articulation }, time);
     }
-    for (const e of drumEvents) if (e.time / speed < duration) eng.drum(e.kind, e.vel, e.time / speed);
+    for (const e of drumEvents) { const r = realAt(e.time); if (r < duration) eng.drum(e.kind, e.vel, r); }
     for (const v of eng.voices.values()) { v.amp.gain.cancelScheduledValues(duration); v.amp.gain.setTargetAtTime(0, duration, 0.03); }
     eng.droneOn(false, duration);
     return ctx.startRendering();

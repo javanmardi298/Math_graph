@@ -22,7 +22,9 @@ import { instrumentOf } from './audio/instruments.js';
 import { voiceFrame, hasSolo } from './audio/sonify.js';
 import { DrumScanner } from './audio/drum-scanner.js';
 import { BufferAnalyser } from './audio/buffer-analyser.js';
-import { valuesAt, applyValues, upsertKey, readValue, describe } from './anim/keyframes.js';
+import { valuesAt, applyValues, upsertKey, readValue, describe, animatable, toKeyPath, snapshotValues, addKeyframe, keyframeTimes, LANES } from './anim/keyframes.js';
+import { makeWarp } from './anim/timewarp.js';
+import { select } from './anim/selection.js';
 import { noteName, midiToFreq } from './math/music.js';
 import { Visualizer } from './render/visualizer.js';
 import { Panels, PALETTES } from './ui/panels.js';
@@ -191,6 +193,9 @@ const evalCtx = (t = clock.pos) => ({ t, params: store.state.params, view: store
 const duration = () => Math.max(0.5, store.state.transport.duration);
 /** Playback speed (the Speed slider; saved with the preset): exports play the timeline at this speed too. */
 const playbackSpeed = () => Math.min(5, Math.max(0.1, store.state.transport.speed || 1));
+const activeTracks = () => store.state.keyframes.tracks;
+/** Speed over time: timeline seconds ↔ video seconds (a speed keyframe track makes the speed vary). */
+const timeWarp = () => makeWarp(duration(), playbackSpeed(), activeTracks()['transport.speed']);
 
 /** Where `layer` is at timeline time `time` (see math/sequence.js). */
 /** Guess-the-shape: drawing (and formulas) hidden before visual.hideUntil seconds. */
@@ -258,8 +263,8 @@ function updateTimelineCurves() {
 /* ------------------------------------------------------------- keyframes */
 
 let applyingKeys = false;
-const hasTracks = () => Object.keys(store.state.keyframes.tracks).length > 0;
-const hasPoseTrack = () => !!store.state.keyframes.tracks['camera.pose']?.length;
+const hasTracks = () => Object.keys(activeTracks()).length > 0;
+const hasPoseTrack = () => !!activeTracks()['camera.pose']?.length;
 
 /**
  * Write every animated value for `time` into the state.
@@ -269,7 +274,7 @@ const hasPoseTrack = () => !!store.state.keyframes.tracks['camera.pose']?.length
 function applyKeyframesAt(time, effects = true) {
   if (!hasTracks()) return;
   applyingKeys = true;
-  const values = valuesAt(store.state.keyframes.tracks, time);
+  const values = valuesAt(activeTracks(), time);
   const changed = applyValues(store.state, values);
   applyingKeys = false;
   if (!effects) return;
@@ -281,6 +286,7 @@ function applyKeyframesAt(time, effects = true) {
     const l = store.state.layers[+c.slice(6)];
     if (l?.enabled && compiled.get(l.id)) viz.rebuildLayer(l.id, compiled.get(l.id), evalCtx(time));
   }
+  if ([...changed].some((c) => c.startsWith('layer:'))) audio.syncLayers(store.state.layers); // an instrument keyframe
   if (changed.has('visual') || changed.has('camera') || [...changed].some((c) => c.startsWith('layer:'))) viz.applySettings();
   if (changed.has('audio') || changed.has('transport')) audio.applySettings(audioSettings());
   if (changed.has('pose')) viz.setPose(values.get('camera.pose'));
@@ -298,15 +304,49 @@ function addKey(path, ease = 'smooth') {
   const value = path === 'camera.pose' ? viz.getPose() : readValue(store.state, path);
   if (value === undefined) return toast('That property no longer exists.');
   upsertKey(store.state.keyframes.tracks, path, clock.pos, value, ease);
+  select(+clock.pos.toFixed(4), 'all');
   keyframesChanged();
   toast(`Key added for ${describe(store.state, path)?.label || path} at ${clock.pos.toFixed(2)} s.`);
 }
 
-function keyframesChanged() {
-  panels.renderKeyframes();
-  timeline.draw();
+/**
+ * A full keyframe at `time`: the current value of everything in the chosen lanes
+ * (Camera, Speed, Sound, Look, Formula, Layers), so one moment holds a whole look and sound.
+ */
+function addKeyframeAt(time, lanes = LANES, ease = 'smooth') {
+  const want = lanes === 'all' ? LANES : [].concat(lanes);
+  const t = +Math.min(duration(), Math.max(0, time)).toFixed(4);
+  // values at that time, not at the playhead
+  const here = clock.pos;
+  const values = snapshotValues(store.state, want, { 'camera.pose': viz.getPose() });
+  if (Math.abs(t - here) > 1e-6) {
+    // the animated properties would read their value at the playhead: evaluate them at `t` instead
+    for (const [path, v] of valuesAt(store.state.keyframes.tracks, t)) if (path in values) values[path] = v;
+  }
+  addKeyframe(store.state.keyframes.tracks, t, values, ease);
+  select(t, want.length === LANES.length ? 'all' : want[0]);
+  keyframesChanged();
+  toast(`Keyframe at ${t.toFixed(2)} s: ${Object.keys(values).length} values (${want.join(', ')}).`);
+}
+
+/** Jump the playhead to the previous / next keyframe. */
+function jumpKeyframe(dir) {
+  const times = keyframeTimes(store.state.keyframes.tracks, 'all');
+  const eps = 0.02;
+  const t = dir > 0 ? times.find((x) => x > clock.pos + eps) : [...times].reverse().find((x) => x < clock.pos - eps);
+  if (t == null) return toast(dir > 0 ? 'No keyframe after the playhead.' : 'No keyframe before the playhead.');
+  select(t, 'all');
+  seek(t / duration());
+}
+
+let keyRaf = 0;
+/** Redraw everything that shows keyframes (batched, so dragging a slider in Key mode stays smooth). */
+function keyframesChanged(final = true) {
   clock.keyTime = null; // re-apply on the next frame
-  saveSession();
+  timeline.draw();
+  if (final) saveSession();
+  if (keyRaf) return;
+  keyRaf = requestAnimationFrame(() => { keyRaf = 0; panels.renderKeyframes(); timeline.draw(); });
 }
 
 /** Run `fn` with keyframes evaluated at arbitrary times, then restore the playhead's values. */
@@ -442,15 +482,47 @@ function applyCircleMode() {
   $('gl-host').style.visibility = on ? 'hidden' : '';
 }
 
+/* ---- Key mode: what was this control before the change? (so the first key can pin the old value at 0 s) */
+const keyBase = new Map();
+function rememberKeyBase() {
+  keyBase.clear();
+  for (const a of animatable(store.state)) if (a.kind !== 'pose') keyBase.set(a.path, readValue(store.state, a.path));
+}
+let hintAt = 0;
+function recordChange(storePath) {
+  const kp = toKeyPath(store.state, storePath);
+  const info = kp && describe(store.state, kp);
+  if (!info || info.kind === 'pose') return;
+  const now = readValue(store.state, kp);
+  const before = keyBase.has(kp) ? keyBase.get(kp) : now;
+  keyBase.set(kp, now);
+  const tracks = store.state.keyframes.tracks;
+  if (!store.state.keyframes.autoKey) {
+    // Animated and Key mode off: the animation wins on the next frame. Say so once in a while.
+    if (tracks[kp]?.length && performance.now() - hintAt > 4000) {
+      hintAt = performance.now();
+      toast(`“${info.label}” is animated: turn on Key mode (● Key) to change it at the playhead, or clear its track in the Animate tab.`, 5000);
+    }
+    return;
+  }
+  if (clock.playing) {
+    if (performance.now() - hintAt > 4000) { hintAt = performance.now(); toast('Pause to record keys (Key mode records at the playhead).', 3000); }
+    return;
+  }
+  // first key of a property after 0 s: pin the value it had before, so earlier moments are unchanged
+  if (!tracks[kp]?.length && clock.pos > 0.05 && before !== now && before !== undefined) upsertKey(tracks, kp, 0, before);
+  upsertKey(tracks, kp, clock.pos, now);
+  select(+clock.pos.toFixed(4), 'all');
+  keyframesChanged(false);
+}
+
 store.on((path) => {
-  if (path === '*') { applyAll(); panels.refresh(); clock.snap = true; saveSession(); return; }
+  if (path === '*') { applyAll(); panels.refresh(); rememberKeyBase(); clock.snap = true; saveSession(); return; }
   const [root, second, third] = path.split('.');
 
-  // Auto-key: changing an animatable control while paused records a key at the playhead.
-  if (!applyingKeys && store.state.keyframes.autoKey && !clock.playing && describe(store.state, path)) {
-    upsertKey(store.state.keyframes.tracks, path, clock.pos, readValue(store.state, path));
-    keyframesChanged();
-  }
+  // Key mode: a change to an animatable control is recorded as a key at the playhead
+  // (only that property); with Key mode off the change is global, as always.
+  if (!applyingKeys) recordChange(path);
 
   switch (root) {
     case 'layers': {
@@ -890,7 +962,7 @@ async function renderWavBuffer() {
   const enabled = layers.filter((l) => l.enabled);
   const dur = duration();
   const drumEvents = drumEventsFull();
-  const tracks = Object.keys(store.state.keyframes.tracks);
+  const tracks = Object.keys(activeTracks());
   const audioAnimated = tracks.some((p) => p.startsWith('audio.'));
   try {
     return await AudioEngine.renderOffline({
@@ -898,6 +970,7 @@ async function renderWavBuffer() {
       layers: enabled,
       duration: dur,
       speed: playbackSpeed(),
+      warp: timeWarp(),
       glide: a.glide,
       articulation: a.articulation,
       drumEvents,
@@ -927,21 +1000,23 @@ function circleNoteTracks() {
 /** Circle Lab soundtrack: replay the simulation, one note per (thinned) hit, plus drums. */
 async function renderCircleWav() {
   const { circle: c, audio: a, drums } = store.state;
-  const sp = playbackSpeed();
-  const dur = duration() / sp; // video seconds
+  const warp = timeWarp(); // plain division, or the speed keyframes bending the timeline
+  const dur = warp.total; // video seconds
   const notes = [];
-  const drumEvents = drumEventsFull().map((e) => ({ ...e, time: e.time / sp }));
+  const drumEvents = drumEventsFull().map((e) => ({ ...e, time: warp.real(e.time) }));
   let hitDrums = false;
   for (const { cfg, notes: ns } of circleNoteTracks()) {
     const snd = cfg.sound;
     for (const n of ns) {
-      notes.push({ ...n, t: n.t / sp, instrument: snd.instrument, length: Math.max(0.05, snd.length / sp), volume: snd.volume });
-      if (snd.drum && snd.drum !== 'off') { hitDrums = true; drumEvents.push({ kind: snd.drum, time: n.t / sp, vel: n.vel * 0.45 }); }
+      const sp = warp.speedAt(n.t);
+      notes.push({ ...n, t: warp.real(n.t), instrument: snd.instrument, length: Math.max(0.05, snd.length / sp), volume: snd.volume });
+      if (snd.drum && snd.drum !== 'off') { hitDrums = true; drumEvents.push({ kind: snd.drum, time: warp.real(n.t), vel: n.vel * 0.45 }); }
     }
   }
   notes.sort((x, y) => x.t - y.t);
+  const sp0 = warp.speedAt(0);
   return AudioEngine.renderNotesOffline({
-    settings: { ...structuredClone(a), bpm: store.state.transport.bpm }, duration: dur, notes, instrument: c.sound.instrument, length: Math.max(0.05, c.sound.length / sp), volume: c.sound.volume,
+    settings: { ...structuredClone(a), bpm: store.state.transport.bpm }, duration: dur, notes, instrument: c.sound.instrument, length: Math.max(0.05, c.sound.length / sp0), volume: c.sound.volume,
     drumEvents, drumVolume: drums.enabled || hitDrums ? drums.volume : 0,
   });
 }
@@ -1147,7 +1222,7 @@ class FrameComposer {
 async function prepareComposition({ width, height, fps, subframes }) {
   // Escape: the finished picture is an empty screen, so the teaser shows the start instead.
   const teaserAt = isCircle() && store.state.circle.rule === 'escape' && !store.state.circle.layers?.length ? 0.05 : undefined;
-  const T = shortsTiming(store.state.record, duration(), { teaserAt, speed: playbackSpeed() });
+  const T = shortsTiming(store.state.record, duration(), { teaserAt, speed: playbackSpeed(), warp: timeWarp() });
   const main = await renderWavBuffer();
   const buf = T.on || T.outro || T.loop ? shortsAudio(main, T) : main;
   const comp = new FrameComposer({
@@ -1442,6 +1517,8 @@ const timeline = new Timeline({
     if (on && !audio.ready) await ensureAudio();
     if (!on && !clock.playing) audio.silence();
   },
+  keysChanged: (final) => keyframesChanged(final),
+  addKeyframeAt: (time, lane) => addKeyframeAt(time, lane === 'all' ? LANES : [lane]),
 });
 
 const panels = new Panels({
@@ -1456,7 +1533,10 @@ const panels = new Panels({
   snapshot,
   videoFormat: pickFormat,
   addKey,
+  addKeyframeAt,
+  jumpKeyframe,
   keyframesChanged,
+  currentPose: () => viz.getPose(),
   seekTo: (time) => { seek(time / duration()); },
   playheadTime: () => clock.pos,
   fitToBars,
@@ -1522,6 +1602,14 @@ function toggleTheme() {
 $('speed-slot').append(slider('Speed', bindPath('transport.speed'), { min: 0.1, max: 5, step: 0.05, fmt: (v) => `${(+v).toFixed(2)}×` }));
 $('duration-slot').append(number('Length (s)', bindPath('transport.duration'), { min: 1, max: 600, step: 1 }));
 $('loop-slot').append(toggle('Loop', bindPath('transport.loop')));
+// Keyframes: Key mode records every change as a key at the playhead; ◆ adds a full keyframe (all lanes)
+const keyModeBtn = $('key-mode');
+const syncKeyMode = () => { const on = !!store.state.keyframes.autoKey; keyModeBtn.setAttribute('aria-pressed', String(on)); keyModeBtn.classList.toggle('is-on', on); };
+keyModeBtn.addEventListener('click', () => { store.state.keyframes.autoKey = !store.state.keyframes.autoKey; syncKeyMode(); refreshAll(); panels.renderKeyframes(); saveSession(); toast(store.state.keyframes.autoKey ? 'Key mode on: while paused, every change you make is recorded as a key at the playhead.' : 'Key mode off: changes apply to the whole video again.', 4500); });
+$('key-add').addEventListener('click', () => addKeyframeAt(clock.pos, LANES));
+store.on((path) => { if (path === '*' || path === 'keyframes.autoKey') syncKeyMode(); });
+syncKeyMode();
+rememberKeyBase();
 
 // Keyboard shortcuts
 window.addEventListener('keydown', (e) => {
@@ -1532,7 +1620,9 @@ window.addEventListener('keydown', (e) => {
   switch (e.key) {
     case ' ': e.preventDefault(); togglePlay(); break;
     case 'r': case 'R': toggleRecord(); break;
-    case 'k': case 'K': addKey('camera.pose'); break;
+    case 'k': case 'K': if (e.shiftKey) addKeyframeAt(clock.pos, LANES); else addKey('camera.pose'); break;
+    case ',': jumpKeyframe(-1); break;
+    case '.': jumpKeyframe(1); break;
     case 'Home': case '0': seek(0); break;
     case 'ArrowLeft': if (e.target === document.body) { seek((clock.pos - 1) / dur); e.preventDefault(); } break;
     case 'ArrowRight': if (e.target === document.body) { seek((clock.pos + 1) / dur); e.preventDefault(); } break;
