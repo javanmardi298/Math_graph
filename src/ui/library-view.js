@@ -187,8 +187,14 @@ export class LibraryView {
           h('button.btn', { type: 'button', onclick: () => this.addPacks(this.packs) }, '＋ Add all lesson packs'))),
       h('details.group', { open: true }, h('summary', {}, 'Import & export'),
         h('div.group-body', {},
-          h('button.btn', { type: 'button', onclick: () => this.fileIn.click() }, '⇪ Import preset files…'), this.fileIn,
+          h('button.btn', { type: 'button', onclick: () => this.pickFiles() }, '⇪ Import preset files…'), this.fileIn,
           h('p.hint', {}, 'Choose one or many .json preset files or a .zip of them, or drop them on this tab. Same-named presets are kept and renamed, never overwritten.'),
+          this.pickHint = h('p.hint.lib-pick-hint', { hidden: true }, 'No file window opened? Some viewers (for example inside claude.ai) block file pickers. Paste the preset text below instead.'),
+          this.paste = h('details.lib-paste', {}, h('summary', {}, 'Or paste preset text (.mmv.json)'),
+            h('div.group-body', {},
+              this.pasteBox = h('textarea.lib-paste-box', { rows: 5, spellcheck: false, placeholder: 'Open the .mmv.json file in any text editor, copy everything and paste it here', 'aria-label': 'Preset JSON' }),
+              h('div.row', {}, h('button.btn', { type: 'button', onclick: () => this.importPasted() }, 'Import pasted preset'),
+                h('button.btn.ghost', { type: 'button', onclick: () => { this.pasteBox.value = ''; } }, 'Clear')))),
           h('div.row', {},
             h('button.btn.ghost', { type: 'button', onclick: () => this.exportCurrent() }, 'Export current setup'),
             h('button.btn.ghost', { type: 'button', onclick: () => this.exportBackup() }, 'Back up all my presets')),
@@ -449,6 +455,30 @@ export class LibraryView {
   /** Watch the first lesson of a pack without adding anything. */
   async tryPack(pack) {
     try { const [first] = await pack.load(); if (first) this.actions.loadPreset(first); } catch (err) { this.actions.toast(`Could not load the lessons (${err.message}).`); }
+  }
+
+  /** Open the file window; if the viewer blocks it (nothing opens), offer the paste box instead. */
+  pickFiles() {
+    let opened = false;
+    const seen = () => { opened = true; };
+    window.addEventListener('blur', seen, { once: true });
+    this.fileIn.addEventListener('cancel', seen, { once: true });
+    try { this.fileIn.click(); } catch { opened = false; }
+    setTimeout(() => {
+      window.removeEventListener('blur', seen);
+      if (opened) return;
+      this.pickHint.hidden = false;
+      this.paste.open = true;
+      this.pasteBox.focus();
+    }, 1200);
+  }
+
+  /** Import preset text pasted into the box (same reader as files: one preset, a bundle, or a pack). */
+  async importPasted() {
+    const text = this.pasteBox.value.trim();
+    if (!text) return this.actions.toast('Paste the preset text first.');
+    await this.importFiles([new File([text], 'pasted.mmv.json', { type: 'application/json' })]);
+    if (!this.report.textContent.includes('Nothing imported')) this.pasteBox.value = '';
   }
 
   async importFiles(files) {

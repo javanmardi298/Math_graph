@@ -682,3 +682,5 @@ body.mode-circle .circle-layers { display: flex; flex-direction: column; gap: 10
 .key-row .key-del { border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 15px; }
 .key-row .key-del:hover { color: #ff5d7a; }
 .result-zip { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 4px 0 10px; }
+.lib-paste-box { width: 100%; box-sizing: border-box; font: 12px var(--f-mono); resize: vertical; background: var(--field); color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 8px; }
+.lib-pick-hint { color: var(--accent-2); }
