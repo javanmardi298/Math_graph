@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0v0",
+          "id": "Lmvc7grng0",
           "name": "Layer 375",
           "enabled": true,
           "type": "function",
@@ -57,6 +57,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -198,6 +202,8 @@
         "text": "Where will most balls land?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "galton",
         "seed": 7,
         "chord": {
@@ -286,7 +292,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "galton",
               "seed": 7,
               "chord": {
@@ -378,7 +388,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "galton",
               "seed": 7,
               "chord": {
@@ -491,7 +505,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -558,7 +574,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0v0",
+          "id": "Lmvc7grnh0",
           "name": "Layer 377",
           "enabled": true,
           "type": "function",
@@ -588,6 +604,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -729,6 +749,8 @@
         "text": "Which pyramid fills up first?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "pyramid",
         "seed": 7,
         "chord": {
@@ -818,7 +840,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "pyramid",
               "seed": 7,
               "chord": {
@@ -911,7 +937,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "pyramid",
               "seed": 7,
               "chord": {
@@ -1025,7 +1055,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1092,7 +1124,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0v0",
+          "id": "Lmvc7grnh0",
           "name": "Layer 379",
           "enabled": true,
           "type": "function",
@@ -1122,6 +1154,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1263,6 +1299,8 @@
         "text": "How long until it is full?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "beatfill",
         "seed": 7,
         "chord": {
@@ -1351,7 +1389,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "beatfill",
               "seed": 7,
               "chord": {
@@ -1443,7 +1485,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "beatfill",
               "seed": 7,
               "chord": {
@@ -1558,7 +1604,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1625,7 +1673,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0v0",
+          "id": "Lmvc7grnh0",
           "name": "Layer 381",
           "enabled": true,
           "type": "function",
@@ -1655,6 +1703,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1796,6 +1848,8 @@
         "text": "Can you predict one ball?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "pachinko",
         "seed": 7,
         "chord": {
@@ -1885,7 +1939,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "pachinko",
               "seed": 7,
               "chord": {
@@ -1977,7 +2035,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "pachinko",
               "seed": 7,
               "chord": {
@@ -2091,7 +2153,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -2158,7 +2222,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0v0",
+          "id": "Lmvc7grnh0",
           "name": "Layer 383",
           "enabled": true,
           "type": "function",
@@ -2188,6 +2252,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -2329,6 +2397,8 @@
         "text": "How many cuts to make 64 pieces?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "paper",
         "seed": 7,
         "chord": {
@@ -2418,7 +2488,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "paper",
               "seed": 7,
               "chord": {
@@ -2511,7 +2585,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "paper",
               "seed": 7,
               "chord": {
@@ -2625,7 +2703,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -2692,7 +2772,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0v0",
+          "id": "Lmvc7grnh0",
           "name": "Layer 385",
           "enabled": true,
           "type": "function",
@@ -2722,6 +2802,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -2863,6 +2947,8 @@
         "text": "How many circles fit?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "packing",
         "seed": 7,
         "chord": {
@@ -2951,7 +3037,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "packing",
               "seed": 7,
               "chord": {
@@ -3043,7 +3133,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "packing",
               "seed": 7,
               "chord": {
@@ -3157,7 +3251,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,

@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw100",
+          "id": "Lmvc7grp50",
           "name": "Layer 425",
           "enabled": true,
           "type": "function",
@@ -57,6 +57,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -198,6 +202,8 @@
         "text": "Who wins rock, paper, scissors?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "rps",
         "seed": 13,
         "chord": {
@@ -286,7 +292,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "rps",
               "seed": 13,
               "chord": {
@@ -378,7 +388,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "rps",
               "seed": 13,
               "chord": {
@@ -491,7 +505,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -558,7 +574,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw100",
+          "id": "Lmvc7grp50",
           "name": "Layer 427",
           "enabled": true,
           "type": "function",
@@ -588,6 +604,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -729,6 +749,8 @@
         "text": "Can the hunters wipe out the flowers?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "predator",
         "seed": 7,
         "chord": {
@@ -818,7 +840,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "predator",
               "seed": 7,
               "chord": {
@@ -911,7 +937,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "predator",
               "seed": 7,
               "chord": {
@@ -1026,7 +1056,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1093,7 +1125,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw100",
+          "id": "Lmvc7grp50",
           "name": "Layer 429",
           "enabled": true,
           "type": "function",
@@ -1123,6 +1155,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1264,6 +1300,8 @@
         "text": "How many pieces after 20 seconds?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "slicer",
         "seed": 7,
         "chord": {
@@ -1353,7 +1391,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "slicer",
               "seed": 7,
               "chord": {
@@ -1446,7 +1488,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "slicer",
               "seed": 7,
               "chord": {
@@ -1561,7 +1607,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1628,7 +1676,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw100",
+          "id": "Lmvc7grp50",
           "name": "Layer 431",
           "enabled": true,
           "type": "function",
@@ -1658,6 +1706,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1799,6 +1851,8 @@
         "text": "Can you hit it without touching a knife?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "knives",
         "seed": 7,
         "chord": {
@@ -1887,7 +1941,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "knives",
               "seed": 7,
               "chord": {
@@ -1979,7 +2037,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "knives",
               "seed": 7,
               "chord": {
@@ -2092,7 +2154,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -2159,7 +2223,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw100",
+          "id": "Lmvc7grp50",
           "name": "Layer 433",
           "enabled": true,
           "type": "function",
@@ -2189,6 +2253,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -2330,6 +2398,8 @@
         "text": "What will the formula draw?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "popper",
         "seed": 7,
         "chord": {
@@ -2420,7 +2490,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "popper",
               "seed": 7,
               "chord": {
@@ -2514,7 +2588,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "popper",
               "seed": 7,
               "chord": {
@@ -2629,7 +2707,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,

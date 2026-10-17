@@ -4,7 +4,7 @@
  *   right — inspector tabs: Circle · Look · FX · Sound · Rhythm · Animate · Text · Camera · Presets · Daily · Export
  */
 import { store, createLayer, LAYER_TYPES } from '../state.js';
-import { SCALE_LABELS, SCALE_GROUPS, NOTE_NAMES, noteName } from '../math/music.js';
+import { SCALE_LABELS, SCALE_GROUPS, NOTE_NAMES, noteName, scaleNotesBetween } from '../math/music.js';
 import { compile, FUNCTIONS } from '../math/parser.js';
 import { LibraryView } from './library-view.js';
 import { DailyView } from './daily-view.js';
@@ -426,6 +426,37 @@ export class Panels {
     );
   }
 
+  /** “Fit the notes to the curve”: pick the lowest and highest note you want the drawing to play. */
+  fitNotesBox() {
+    const readout = h('p.hint.note-readout', {}, 'Press Measure to see which notes the curve plays.');
+    const lo = h('select', { 'aria-label': 'Lowest note of the curve' });
+    const hi = h('select', { 'aria-label': 'Highest note of the curve' });
+    // only notes of the current scale (any note for a continuous glide), C1 to C7
+    const fill = () => {
+      const { scale, root } = store.state.audio;
+      const notes = scale === 'continuous' ? Array.from({ length: 73 }, (_, i) => 24 + i) : scaleNotesBetween(scale, root, 24, 96);
+      for (const [sel, def] of [[lo, +sel0(lo, 48)], [hi, +sel0(hi, 71)]]) {
+        sel.replaceChildren(...notes.map((n) => h('option', { value: n }, `${noteName(n)} (${n})`)));
+        sel.value = String(notes.reduce((a, b) => (Math.abs(b - def) < Math.abs(a - def) ? b : a), notes[0]));
+      }
+    };
+    const sel0 = (sel, d) => (sel.value !== '' ? sel.value : d);
+    const show = (m) => {
+      if (!m) { readout.textContent = 'Nothing sounds yet (no active layer, or it is flat).'; return; }
+      readout.textContent = `The curve plays ${noteName(m.low)} (lowest) to ${noteName(m.high)} (highest): graph y from ${m.y0.toFixed(2)} to ${m.y1.toFixed(2)}.`;
+      lo.value = String(Math.round(m.low)); hi.value = String(Math.round(m.high));
+    };
+    fill();
+    lo.addEventListener('focus', fill); hi.addEventListener('focus', fill);
+    return h('div.ctl.fit-notes', {},
+      h('span.ctl-label', {}, 'Fit the notes to the curve'),
+      readout,
+      h('div.row', {}, h('label', {}, 'Lowest ', lo), h('label', {}, 'Highest ', hi)),
+      h('div.row', {},
+        h('button.btn.small', { type: 'button', title: 'Set the note range so the lowest point of the drawing plays the lowest note and the highest point the highest note', onclick: () => { const m = this.actions.fitNotes(+lo.value, +hi.value); if (m) { show(m); refreshAll(); } } }, 'Fit notes to the curve'),
+        h('button.btn.small.ghost', { type: 'button', title: 'Show the lowest and highest note the curve really plays', onclick: () => { fill(); show(this.actions.measureCurve()); } }, 'Measure')));
+  }
+
   soundTab() {
     const p = bindPath;
     const noteFmt = (v) => `${noteName(v)} (${v})`;
@@ -446,6 +477,7 @@ export class Panels {
       group('Pitch mapping', [
         slider('Lowest note (y min)', p('audio.noteLow'), { min: 0, max: 100, step: 1, fmt: noteFmt }),
         slider('Highest note (y max)', p('audio.noteHigh'), { min: 12, max: 127, step: 1, fmt: noteFmt }),
+        this.fitNotesBox(),
         scale,
         select('Key', p('audio.root'), NOTE_NAMES.map((n, i) => [i, n])),
         select('Tuning (A4)', p('audio.tuning'), [[440, '440 Hz · standard'], [432, '432 Hz · “calm”'], [444, '444 Hz · bright'], [415, '415 Hz · baroque'], [466, '466 Hz · high']]),

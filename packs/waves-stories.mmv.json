@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0f0",
+          "id": "Lmvc7gric0",
           "name": "Layer 213",
           "enabled": true,
           "type": "function",
@@ -57,6 +57,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -198,6 +202,8 @@
         "text": "What is a wave, really?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "travel",
         "seed": 7,
         "chord": {
@@ -287,7 +293,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "travel",
               "seed": 7,
               "chord": {
@@ -380,7 +390,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "string",
               "seed": 7,
               "chord": {
@@ -493,7 +507,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -560,7 +576,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0f0",
+          "id": "Lmvc7gric0",
           "name": "Layer 215",
           "enabled": true,
           "type": "function",
@@ -590,6 +606,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -731,6 +751,8 @@
         "text": "Why do instruments sound different?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "string",
         "seed": 7,
         "chord": {
@@ -819,7 +841,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "tubes",
               "seed": 7,
               "chord": {
@@ -913,7 +939,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "tubes",
               "seed": 7,
               "chord": {
@@ -1028,7 +1058,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1095,7 +1127,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0f0",
+          "id": "Lmvc7gric0",
           "name": "Layer 217",
           "enabled": true,
           "type": "function",
@@ -1125,6 +1157,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1266,6 +1302,8 @@
         "text": "Can circles draw any shape?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "fourier",
         "seed": 7,
         "chord": {
@@ -1355,7 +1393,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "fourier",
               "seed": 7,
               "chord": {
@@ -1448,7 +1490,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "fourier",
               "seed": 7,
               "chord": {
@@ -1562,7 +1608,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1629,7 +1677,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0f0",
+          "id": "Lmvc7gric0",
           "name": "Layer 219",
           "enabled": true,
           "type": "function",
@@ -1659,6 +1707,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1800,6 +1852,8 @@
         "text": "What happens when two waves meet?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "beats",
         "seed": 7,
         "chord": {
@@ -1888,7 +1942,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "ripple",
               "seed": 7,
               "chord": {
@@ -1983,7 +2041,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "ripple",
               "seed": 7,
               "chord": {
@@ -2097,7 +2159,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -2164,7 +2228,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0g0",
+          "id": "Lmvc7gric0",
           "name": "Layer 221",
           "enabled": true,
           "type": "function",
@@ -2194,6 +2258,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -2335,6 +2403,8 @@
         "text": "Why do some notes sound good together?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "scope",
         "seed": 7,
         "chord": {
@@ -2423,7 +2493,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "scope",
               "seed": 7,
               "chord": {
@@ -2515,7 +2589,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "scope",
               "seed": 7,
               "chord": {
@@ -2628,7 +2706,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -2695,7 +2775,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0g0",
+          "id": "Lmvc7gric0",
           "name": "Layer 223",
           "enabled": true,
           "type": "function",
@@ -2725,6 +2805,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -2866,6 +2950,8 @@
         "text": "Why does a siren change its pitch?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "doppler",
         "seed": 7,
         "chord": {
@@ -2954,7 +3040,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "doppler",
               "seed": 7,
               "chord": {
@@ -3067,7 +3157,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -3134,7 +3226,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0g0",
+          "id": "Lmvc7gric0",
           "name": "Layer 225",
           "enabled": true,
           "type": "function",
@@ -3164,6 +3256,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -3305,6 +3401,8 @@
         "text": "Can electricity make a magnet?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "filings",
         "seed": 7,
         "chord": {
@@ -3393,7 +3491,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "filings",
               "seed": 7,
               "chord": {
@@ -3486,7 +3588,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "filings",
               "seed": 7,
               "chord": {
@@ -3600,7 +3706,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -3667,7 +3775,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0g0",
+          "id": "Lmvc7gric0",
           "name": "Layer 227",
           "enabled": true,
           "type": "function",
@@ -3697,6 +3805,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -3838,6 +3950,8 @@
         "text": "What do numbers look like on a circle?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "times",
         "seed": 7,
         "chord": {
@@ -3927,7 +4041,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "chord",
               "seed": 7,
               "chord": {
@@ -4016,7 +4134,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "phyllo",
               "seed": 7,
               "chord": {
@@ -4129,7 +4251,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,

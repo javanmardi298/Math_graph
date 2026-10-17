@@ -67,7 +67,11 @@ export const SOUND_PRESETS = [
     hook: 'What does a spiral sound like?', title: 'What does a spiral 🌀 sound like?', desc: 'r = 0.15·θ: the further it turns, the further out it goes, so its wobble in pitch gets wider and wider.', tags: SOUND_TAGS,
   }),
   G('What Does a Rose Sound Like?', [{ ...polar('2.8 cos(4theta)'), name: 'Rose', color: '#ff3d9a', color2: '#ffd23d' }], {
-    view: SQUARE, duration: 14, visual: { marker: { shape: 'star', size: 26 } },
+    // tuned: C minor pentatonic; the petals' lowest point plays C3 and the highest Bb4 (the top note of the scale
+    // below B4): the note range is fitted to the curve (y -2.8 … 2.8 in a window of -5.7 … 5.7). The camera follows the pen gently.
+    view: SQUARE, duration: 16, visual: { marker: { shape: 'star', size: 26 } },
+    camera: { track: 0.12, trackSpeed: 0.17 },
+    audio: { scale: 'minorPentatonic', noteLow: 36.61, noteHigh: 81.39 },
     hook: 'What does a flower sound like?', title: 'What does a math rose 🌹 sound like?', desc: 'r = cos 4θ draws a rose with 8 petals. Each petal is a rise and fall in pitch.', tags: SOUND_TAGS,
   }),
   G('What Does the Golden Spiral Sound Like?', [{ ...polar('0.08 phi^(2theta/pi)', 4 * Math.PI, { samples: 2400 }), name: 'Golden spiral', color: '#ffd23d', color2: '#ff9d3d' }], {

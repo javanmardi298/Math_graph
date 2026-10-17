@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0i0",
+          "id": "Lmvc7grif0",
           "name": "Layer 241",
           "enabled": true,
           "type": "function",
@@ -57,6 +57,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -198,6 +202,8 @@
         "text": "What does a note look like?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chladni",
         "seed": 7,
         "chord": {
@@ -288,7 +294,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "chladni",
               "seed": 7,
               "chord": {
@@ -382,7 +392,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "chladni",
               "seed": 7,
               "chord": {
@@ -499,7 +513,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -566,7 +582,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0i0",
+          "id": "Lmvc7grif0",
           "name": "Layer 243",
           "enabled": true,
           "type": "function",
@@ -596,6 +612,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -737,6 +757,8 @@
         "text": "Can you see a sound wave?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "tubes",
         "seed": 7,
         "chord": {
@@ -827,7 +849,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "tubes",
               "seed": 7,
               "chord": {
@@ -921,7 +947,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "tubes",
               "seed": 7,
               "chord": {
@@ -1036,7 +1066,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1103,7 +1135,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0i0",
+          "id": "Lmvc7grif0",
           "name": "Layer 245",
           "enabled": true,
           "type": "function",
@@ -1133,6 +1165,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1274,6 +1310,8 @@
         "text": "Where do two waves cancel?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "ripple",
         "seed": 7,
         "chord": {
@@ -1363,7 +1401,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "ripple",
               "seed": 7,
               "chord": {
@@ -1458,7 +1500,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "ripple",
               "seed": 7,
               "chord": {
@@ -1575,7 +1621,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1642,7 +1690,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0i0",
+          "id": "Lmvc7grif0",
           "name": "Layer 247",
           "enabled": true,
           "type": "function",
@@ -1672,6 +1720,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1813,6 +1865,8 @@
         "text": "Can you see a magnetic field?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "filings",
         "seed": 7,
         "chord": {
@@ -1902,7 +1956,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "filings",
               "seed": 7,
               "chord": {
@@ -1995,7 +2053,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "filings",
               "seed": 7,
               "chord": {
@@ -2109,7 +2171,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,

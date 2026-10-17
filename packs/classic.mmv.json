@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0t0",
+          "id": "Lmvc7grne0",
           "name": "Layer 351",
           "enabled": true,
           "type": "function",
@@ -57,6 +57,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -198,6 +202,8 @@
         "text": "Which jumps close into a shape?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -283,7 +289,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "chord",
               "seed": 7,
               "chord": {
@@ -372,7 +382,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "chord",
               "seed": 7,
               "chord": {
@@ -482,7 +496,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -549,7 +565,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0t0",
+          "id": "Lmvc7grne0",
           "name": "Layer 353",
           "enabled": true,
           "type": "function",
@@ -579,6 +595,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -720,6 +740,8 @@
         "text": "What does gravity do to a bounce?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "bounce",
         "seed": 7,
         "chord": {
@@ -805,7 +827,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "bounce",
               "seed": 7,
               "chord": {
@@ -894,7 +920,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "bounce",
               "seed": 7,
               "chord": {
@@ -1004,7 +1034,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1071,7 +1103,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0t0",
+          "id": "Lmvc7grne0",
           "name": "Layer 355",
           "enabled": true,
           "type": "function",
@@ -1101,6 +1133,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1242,6 +1278,8 @@
         "text": "How fast does doubling grow?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "split",
         "seed": 7,
         "chord": {
@@ -1327,7 +1365,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "split",
               "seed": 7,
               "chord": {
@@ -1416,7 +1458,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "split",
               "seed": 7,
               "chord": {
@@ -1526,7 +1572,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1593,7 +1641,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0t0",
+          "id": "Lmvc7grne0",
           "name": "Layer 357",
           "enabled": true,
           "type": "function",
@@ -1623,6 +1671,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1764,6 +1816,8 @@
         "text": "Why do the notes get faster?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "grow",
         "seed": 7,
         "chord": {
@@ -1849,7 +1903,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "grow",
               "seed": 7,
               "chord": {
@@ -1938,7 +1996,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "grow",
               "seed": 7,
               "chord": {
@@ -2048,7 +2110,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -2115,7 +2179,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0t0",
+          "id": "Lmvc7grne0",
           "name": "Layer 359",
           "enabled": true,
           "type": "function",
@@ -2145,6 +2209,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -2286,6 +2354,8 @@
         "text": "Can the ball get out?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "escape",
         "seed": 7,
         "chord": {
@@ -2371,7 +2441,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "escape",
               "seed": 7,
               "chord": {
@@ -2460,7 +2534,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "escape",
               "seed": 7,
               "chord": {
@@ -2570,7 +2648,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -2637,7 +2717,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0t0",
+          "id": "Lmvc7grne0",
           "name": "Layer 361",
           "enabled": true,
           "type": "function",
@@ -2667,6 +2747,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -2808,6 +2892,8 @@
         "text": "Will they ever line up again?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "polyrhythm",
         "seed": 7,
         "chord": {
@@ -2893,7 +2979,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "polyrhythm",
               "seed": 7,
               "chord": {
@@ -2982,7 +3072,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "polyrhythm",
               "seed": 7,
               "chord": {
@@ -3092,7 +3186,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,

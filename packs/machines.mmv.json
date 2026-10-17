@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0z0",
+          "id": "Lmvc7grp40",
           "name": "Layer 415",
           "enabled": true,
           "type": "function",
@@ -57,6 +57,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -198,6 +202,8 @@
         "text": "What does a musical interval look like?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "harmono",
         "seed": 7,
         "chord": {
@@ -290,7 +296,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "harmono",
               "seed": 7,
               "chord": {
@@ -386,7 +396,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "harmono",
               "seed": 7,
               "chord": {
@@ -503,7 +517,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -570,7 +586,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0z0",
+          "id": "Lmvc7grp40",
           "name": "Layer 417",
           "enabled": true,
           "type": "function",
@@ -600,6 +616,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -741,6 +761,8 @@
         "text": "What shape do Venus and Earth draw?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "orbits",
         "seed": 7,
         "chord": {
@@ -830,7 +852,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "orbits",
               "seed": 7,
               "chord": {
@@ -923,7 +949,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "orbits",
               "seed": 7,
               "chord": {
@@ -1037,7 +1067,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1104,7 +1136,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0z0",
+          "id": "Lmvc7grp40",
           "name": "Layer 419",
           "enabled": true,
           "type": "function",
@@ -1134,6 +1166,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1275,6 +1311,8 @@
         "text": "How many branches after 10 splits?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "tree",
         "seed": 7,
         "chord": {
@@ -1364,7 +1402,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "tree",
               "seed": 7,
               "chord": {
@@ -1457,7 +1499,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "tree",
               "seed": 7,
               "chord": {
@@ -1572,7 +1618,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1639,7 +1687,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0z0",
+          "id": "Lmvc7grp40",
           "name": "Layer 421",
           "enabled": true,
           "type": "function",
@@ -1669,6 +1717,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1810,6 +1862,8 @@
         "text": "What does ×2 look like?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "times",
         "seed": 7,
         "chord": {
@@ -1900,7 +1954,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "times",
               "seed": 7,
               "chord": {
@@ -1994,7 +2052,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "times",
               "seed": 7,
               "chord": {
@@ -2109,7 +2171,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -2176,7 +2240,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0z0",
+          "id": "Lmvc7grp40",
           "name": "Layer 423",
           "enabled": true,
           "type": "function",
@@ -2206,6 +2270,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -2347,6 +2415,8 @@
         "text": "What does a wheel in a wheel draw?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "spiro",
         "seed": 7,
         "chord": {
@@ -2436,7 +2506,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "spiro",
               "seed": 7,
               "chord": {
@@ -2529,7 +2603,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "spiro",
               "seed": 7,
               "chord": {
@@ -2643,7 +2721,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,

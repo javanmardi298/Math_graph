@@ -26,7 +26,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp60",
      "name": "Layer 435",
      "enabled": true,
      "type": "function",
@@ -56,6 +56,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -197,6 +201,8 @@
     "text": "What is a wave, really?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "travel",
     "seed": 7,
     "chord": {
@@ -286,7 +292,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "travel",
        "seed": 7,
        "chord": {
@@ -379,7 +389,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "string",
        "seed": 7,
        "chord": {
@@ -492,7 +506,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -560,7 +576,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp60",
      "name": "Layer 437",
      "enabled": true,
      "type": "function",
@@ -590,6 +606,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -731,6 +751,8 @@
     "text": "Why do instruments sound different?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "string",
     "seed": 7,
     "chord": {
@@ -819,7 +841,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "tubes",
        "seed": 7,
        "chord": {
@@ -913,7 +939,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "tubes",
        "seed": 7,
        "chord": {
@@ -1028,7 +1058,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -1096,7 +1128,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp60",
      "name": "Layer 439",
      "enabled": true,
      "type": "function",
@@ -1126,6 +1158,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -1267,6 +1303,8 @@
     "text": "Can circles draw any shape?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "fourier",
     "seed": 7,
     "chord": {
@@ -1356,7 +1394,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "fourier",
        "seed": 7,
        "chord": {
@@ -1449,7 +1491,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "fourier",
        "seed": 7,
        "chord": {
@@ -1563,7 +1609,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -1631,7 +1679,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp60",
      "name": "Layer 441",
      "enabled": true,
      "type": "function",
@@ -1661,6 +1709,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -1802,6 +1854,8 @@
     "text": "What happens when two waves meet?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "beats",
     "seed": 7,
     "chord": {
@@ -1890,7 +1944,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "ripple",
        "seed": 7,
        "chord": {
@@ -1985,7 +2043,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "ripple",
        "seed": 7,
        "chord": {
@@ -2099,7 +2161,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -2167,7 +2231,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp60",
      "name": "Layer 443",
      "enabled": true,
      "type": "function",
@@ -2197,6 +2261,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -2338,6 +2406,8 @@
     "text": "Why do some notes sound good together?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "scope",
     "seed": 7,
     "chord": {
@@ -2426,7 +2496,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "scope",
        "seed": 7,
        "chord": {
@@ -2518,7 +2592,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "scope",
        "seed": 7,
        "chord": {
@@ -2631,7 +2709,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -2699,7 +2779,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp60",
      "name": "Layer 445",
      "enabled": true,
      "type": "function",
@@ -2729,6 +2809,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -2870,6 +2954,8 @@
     "text": "Why does a siren change its pitch?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "doppler",
     "seed": 7,
     "chord": {
@@ -2958,7 +3044,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "doppler",
        "seed": 7,
        "chord": {
@@ -3071,7 +3161,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -3139,7 +3231,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp60",
      "name": "Layer 447",
      "enabled": true,
      "type": "function",
@@ -3169,6 +3261,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -3310,6 +3406,8 @@
     "text": "Can electricity make a magnet?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "filings",
     "seed": 7,
     "chord": {
@@ -3398,7 +3496,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "filings",
        "seed": 7,
        "chord": {
@@ -3491,7 +3593,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "filings",
        "seed": 7,
        "chord": {
@@ -3605,7 +3711,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -3673,7 +3781,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp60",
      "name": "Layer 449",
      "enabled": true,
      "type": "function",
@@ -3703,6 +3811,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -3844,6 +3956,8 @@
     "text": "What do numbers look like on a circle?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "times",
     "seed": 7,
     "chord": {
@@ -3933,7 +4047,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "chord",
        "seed": 7,
        "chord": {
@@ -4022,7 +4140,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "phyllo",
        "seed": 7,
        "chord": {
@@ -4135,7 +4257,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -4203,7 +4327,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp70",
      "name": "Layer 451",
      "enabled": true,
      "type": "function",
@@ -4233,6 +4357,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -4374,6 +4502,8 @@
     "text": "Why does a string play these notes?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "string",
     "seed": 7,
     "chord": {
@@ -4462,7 +4592,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "string",
        "seed": 7,
        "chord": {
@@ -4554,7 +4688,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "string",
        "seed": 7,
        "chord": {
@@ -4667,7 +4805,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -4735,7 +4875,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp70",
      "name": "Layer 453",
      "enabled": true,
      "type": "function",
@@ -4765,6 +4905,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -4906,6 +5050,8 @@
     "text": "What is a wavelength?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "travel",
     "seed": 7,
     "chord": {
@@ -4994,7 +5140,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "travel",
        "seed": 7,
        "chord": {
@@ -5086,7 +5236,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "travel",
        "seed": 7,
        "chord": {
@@ -5200,7 +5354,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -5268,7 +5424,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp70",
      "name": "Layer 455",
      "enabled": true,
      "type": "function",
@@ -5298,6 +5454,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -5439,6 +5599,8 @@
     "text": "Can circles draw a square?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "fourier",
     "seed": 7,
     "chord": {
@@ -5528,7 +5690,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "fourier",
        "seed": 7,
        "chord": {
@@ -5621,7 +5787,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "fourier",
        "seed": 7,
        "chord": {
@@ -5735,7 +5905,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -5803,7 +5975,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp70",
      "name": "Layer 457",
      "enabled": true,
      "type": "function",
@@ -5833,6 +6005,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -5974,6 +6150,8 @@
     "text": "How do musicians tune by ear?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "beats",
     "seed": 7,
     "chord": {
@@ -6062,7 +6240,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "beats",
        "seed": 7,
        "chord": {
@@ -6154,7 +6336,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "beats",
        "seed": 7,
        "chord": {
@@ -6267,7 +6453,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -6335,7 +6523,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp70",
      "name": "Layer 459",
      "enabled": true,
      "type": "function",
@@ -6365,6 +6553,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -6506,6 +6698,8 @@
     "text": "Which interval sounds the sweetest?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "scope",
     "seed": 7,
     "chord": {
@@ -6594,7 +6788,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "scope",
        "seed": 7,
        "chord": {
@@ -6686,7 +6884,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "scope",
        "seed": 7,
        "chord": {
@@ -6799,7 +7001,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -6867,7 +7071,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp70",
      "name": "Layer 461",
      "enabled": true,
      "type": "function",
@@ -6897,6 +7101,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -7038,6 +7246,8 @@
     "text": "Why does a siren change pitch?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "doppler",
     "seed": 7,
     "chord": {
@@ -7126,7 +7336,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "doppler",
        "seed": 7,
        "chord": {
@@ -7218,7 +7432,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "doppler",
        "seed": 7,
        "chord": {
@@ -7331,7 +7549,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -7399,7 +7619,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp70",
      "name": "Layer 463",
      "enabled": true,
      "type": "function",
@@ -7429,6 +7649,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -7570,6 +7794,8 @@
     "text": "What does a note look like?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chladni",
     "seed": 7,
     "chord": {
@@ -7660,7 +7886,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "chladni",
        "seed": 7,
        "chord": {
@@ -7754,7 +7984,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "chladni",
        "seed": 7,
        "chord": {
@@ -7871,7 +8105,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -7939,7 +8175,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp70",
      "name": "Layer 465",
      "enabled": true,
      "type": "function",
@@ -7969,6 +8205,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -8110,6 +8350,8 @@
     "text": "Can you see a sound wave?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "tubes",
     "seed": 7,
     "chord": {
@@ -8200,7 +8442,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "tubes",
        "seed": 7,
        "chord": {
@@ -8294,7 +8540,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "tubes",
        "seed": 7,
        "chord": {
@@ -8409,7 +8659,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -8477,7 +8729,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp70",
      "name": "Layer 467",
      "enabled": true,
      "type": "function",
@@ -8507,6 +8759,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -8648,6 +8904,8 @@
     "text": "Where do two waves cancel?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "ripple",
     "seed": 7,
     "chord": {
@@ -8737,7 +8995,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "ripple",
        "seed": 7,
        "chord": {
@@ -8832,7 +9094,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "ripple",
        "seed": 7,
        "chord": {
@@ -8949,7 +9215,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -9017,7 +9285,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw110",
+     "id": "Lmvc7grp70",
      "name": "Layer 469",
      "enabled": true,
      "type": "function",
@@ -9047,6 +9315,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -9188,6 +9460,8 @@
     "text": "Can you see a magnetic field?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "filings",
     "seed": 7,
     "chord": {
@@ -9277,7 +9551,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "filings",
        "seed": 7,
        "chord": {
@@ -9370,7 +9648,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "filings",
        "seed": 7,
        "chord": {
@@ -9484,7 +9766,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -9552,7 +9836,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp70",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -9582,10 +9866,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp71",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -9615,10 +9903,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp72",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -9648,6 +9940,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     }
    ],
@@ -9789,6 +10085,8 @@
     "text": "What does the number in front do?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -9892,7 +10190,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -10006,7 +10306,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp70",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -10036,10 +10336,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp71",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -10069,10 +10373,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp72",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -10102,6 +10410,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     }
    ],
@@ -10243,6 +10555,8 @@
     "text": "What does the number inside do?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -10346,7 +10660,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -10460,7 +10776,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp70",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -10490,10 +10806,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp71",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -10523,10 +10843,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp72",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -10556,6 +10880,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     }
    ],
@@ -10697,6 +11025,8 @@
     "text": "Is cosine just a moved sine?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -10800,7 +11130,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -10914,7 +11246,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp70",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -10944,10 +11276,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp71",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -10977,10 +11313,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp72",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -11010,6 +11350,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     }
    ],
@@ -11151,6 +11495,8 @@
     "text": "What do two waves make together?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -11254,7 +11600,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -11368,7 +11716,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp70",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -11398,10 +11746,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp71",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -11431,10 +11783,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp72",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -11464,6 +11820,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     }
    ],
@@ -11605,6 +11965,8 @@
     "text": "Can smooth waves make sharp corners?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -11708,7 +12070,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -11822,7 +12186,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp70",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -11852,10 +12216,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp71",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -11885,10 +12253,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp72",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -11918,6 +12290,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     }
    ],
@@ -12059,6 +12435,8 @@
     "text": "What does the slope sound like?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -12162,7 +12540,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -12276,7 +12656,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp70",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -12306,10 +12686,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp71",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -12339,10 +12723,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp72",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -12372,6 +12760,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     }
    ],
@@ -12513,6 +12905,8 @@
     "text": "How do you move a parabola?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -12616,7 +13010,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -12730,7 +13126,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp70",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -12760,10 +13156,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp71",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -12793,10 +13193,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp72",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -12826,6 +13230,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     }
    ],
@@ -12967,6 +13375,8 @@
     "text": "Why do plucked notes fade?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -13070,7 +13480,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -13184,7 +13596,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp80",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -13214,10 +13626,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp81",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -13247,10 +13663,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp82",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -13280,6 +13700,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     }
    ],
@@ -13421,6 +13845,8 @@
     "text": "What do the bars | | do?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -13524,7 +13950,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -13638,7 +14066,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp80",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -13668,10 +14096,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp81",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -13701,10 +14133,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp82",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -13734,6 +14170,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     }
    ],
@@ -13875,6 +14315,8 @@
     "text": "What does a graph sound like?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -13978,7 +14420,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -14092,7 +14536,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp80",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -14122,10 +14566,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp81",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -14155,10 +14603,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp82",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -14188,6 +14640,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     }
    ],
@@ -14329,6 +14785,8 @@
     "text": "Where do synth sounds come from?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -14432,7 +14890,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -14546,7 +15006,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp80",
      "name": "Step 1",
      "enabled": true,
      "type": "polar",
@@ -14576,10 +15036,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp81",
      "name": "Step 2",
      "enabled": true,
      "type": "polar",
@@ -14609,10 +15073,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp82",
      "name": "Step 3",
      "enabled": true,
      "type": "polar",
@@ -14642,6 +15110,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     }
    ],
@@ -14783,6 +15255,8 @@
     "text": "What if distance depends on the angle?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -14886,7 +15360,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -15000,7 +15476,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp80",
      "name": "Step 1",
      "enabled": true,
      "type": "polar",
@@ -15030,10 +15506,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp81",
      "name": "Step 2",
      "enabled": true,
      "type": "polar",
@@ -15063,10 +15543,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp82",
      "name": "Step 3",
      "enabled": true,
      "type": "polar",
@@ -15096,6 +15580,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     }
    ],
@@ -15237,6 +15725,8 @@
     "text": "How many petals does cos 2θ have?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -15340,7 +15830,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -15454,7 +15946,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp80",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -15484,10 +15976,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp81",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -15517,10 +16013,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp82",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -15550,6 +16050,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     }
    ],
@@ -15691,6 +16195,8 @@
     "text": "What if x and y both follow a formula?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -15794,7 +16300,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -15908,7 +16416,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp80",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -15938,10 +16446,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp81",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -15971,10 +16483,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp82",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -16004,6 +16520,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     }
    ],
@@ -16145,6 +16665,8 @@
     "text": "How do you turn a circle into a spring?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -16248,7 +16770,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -16362,7 +16886,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp80",
      "name": "Step 1",
      "enabled": true,
      "type": "surface",
@@ -16392,10 +16916,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 64
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp81",
      "name": "Step 2",
      "enabled": true,
      "type": "surface",
@@ -16425,10 +16953,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 64
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp82",
      "name": "Step 3",
      "enabled": true,
      "type": "surface",
@@ -16458,6 +16990,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 64
     }
    ],
@@ -16599,6 +17135,8 @@
     "text": "What does a formula of x and y look like?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -16702,7 +17240,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -16816,7 +17356,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw120",
+     "id": "Lmvc7grp80",
      "name": "Step 1",
      "enabled": true,
      "type": "surface",
@@ -16846,10 +17386,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 64
     },
     {
-     "id": "Lmv6ynw121",
+     "id": "Lmvc7grp81",
      "name": "Step 2",
      "enabled": true,
      "type": "surface",
@@ -16879,10 +17423,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 64
     },
     {
-     "id": "Lmv6ynw122",
+     "id": "Lmvc7grp82",
      "name": "Step 3",
      "enabled": true,
      "type": "surface",
@@ -16912,6 +17460,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 64
     }
    ],
@@ -17053,6 +17605,8 @@
     "text": "Can you guess the shape from the formula?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -17156,7 +17710,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -17270,7 +17826,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw140",
+     "id": "Lmvc7grp80",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -17300,10 +17856,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw141",
+     "id": "Lmvc7grp81",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -17333,10 +17893,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw142",
+     "id": "Lmvc7grp82",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -17366,6 +17930,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 2000
     }
    ],
@@ -17507,6 +18075,8 @@
     "text": "Can a formula tie a knot?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -17610,7 +18180,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -17724,7 +18296,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw140",
+     "id": "Lmvc7grp80",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -17754,10 +18326,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw141",
+     "id": "Lmvc7grp81",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -17787,10 +18363,14 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 1400
     },
     {
-     "id": "Lmv6ynw142",
+     "id": "Lmvc7grp82",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -17820,6 +18400,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 2000
     }
    ],
@@ -17961,6 +18545,8 @@
     "text": "What happens with three frequencies?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -18064,7 +18650,9 @@
      "x": 0.06,
      "y": 0.15,
      "size": 1.5,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -18178,7 +18766,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp80",
      "name": "Layer 547",
      "enabled": true,
      "type": "function",
@@ -18208,6 +18796,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -18349,6 +18941,8 @@
     "text": "Can circles draw anything?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "fdraw",
     "seed": 7,
     "chord": {
@@ -18438,7 +19032,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "fdraw",
        "seed": 7,
        "chord": {
@@ -18531,7 +19129,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "fdraw",
        "seed": 7,
        "chord": {
@@ -18645,7 +19247,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -18713,7 +19317,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp80",
      "name": "Layer 549",
      "enabled": true,
      "type": "function",
@@ -18743,6 +19347,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -18884,6 +19492,8 @@
     "text": "What is a derivative, really?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "tangent",
     "seed": 7,
     "chord": {
@@ -18973,7 +19583,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "tangent",
        "seed": 7,
        "chord": {
@@ -19065,7 +19679,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "tangent",
        "seed": 7,
        "chord": {
@@ -19178,7 +19796,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -19246,7 +19866,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp80",
      "name": "Layer 551",
      "enabled": true,
      "type": "function",
@@ -19276,6 +19896,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -19417,6 +20041,8 @@
     "text": "How do you measure a curved area?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "riemann",
     "seed": 7,
     "chord": {
@@ -19512,7 +20138,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "riemann",
        "seed": 7,
        "chord": {
@@ -19611,7 +20241,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "riemann",
        "seed": 7,
        "chord": {
@@ -19727,7 +20361,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -19795,7 +20431,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp80",
      "name": "Layer 553",
      "enabled": true,
      "type": "function",
@@ -19825,6 +20461,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -19966,6 +20606,8 @@
     "text": "How does a calculator know sin and cos?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "taylor",
     "seed": 7,
     "chord": {
@@ -20055,7 +20697,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "taylor",
        "seed": 7,
        "chord": {
@@ -20148,7 +20794,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "taylor",
        "seed": 7,
        "chord": {
@@ -20262,7 +20912,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -20330,7 +20982,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp80",
      "name": "Layer 555",
      "enabled": true,
      "type": "function",
@@ -20360,6 +21012,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -20501,6 +21157,8 @@
     "text": "Where do sine and cosine come from?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "unitcircle",
     "seed": 7,
     "chord": {
@@ -20589,7 +21247,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "unitcircle",
        "seed": 7,
        "chord": {
@@ -20681,7 +21343,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "unitcircle",
        "seed": 7,
        "chord": {
@@ -20795,7 +21461,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -20863,7 +21531,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp80",
      "name": "Layer 557",
      "enabled": true,
      "type": "function",
@@ -20893,6 +21561,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -21034,6 +21706,8 @@
     "text": "How did Archimedes find π?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "archimedes",
     "seed": 7,
     "chord": {
@@ -21122,7 +21796,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "archimedes",
        "seed": 7,
        "chord": {
@@ -21214,7 +21892,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "archimedes",
        "seed": 7,
        "chord": {
@@ -21327,7 +22009,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -21395,7 +22079,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp80",
      "name": "Layer 559",
      "enabled": true,
      "type": "function",
@@ -21425,6 +22109,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -21566,6 +22254,8 @@
     "text": "Can random dots find π?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "montecarlo",
     "seed": 7,
     "chord": {
@@ -21655,7 +22345,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "montecarlo",
        "seed": 7,
        "chord": {
@@ -21748,7 +22442,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "montecarlo",
        "seed": 7,
        "chord": {
@@ -21862,7 +22560,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -21930,7 +22630,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp80",
      "name": "Layer 561",
      "enabled": true,
      "type": "function",
@@ -21960,6 +22660,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -22101,6 +22805,8 @@
     "text": "Can needles on a floor find π?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "buffon",
     "seed": 7,
     "chord": {
@@ -22190,7 +22896,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "buffon",
        "seed": 7,
        "chord": {
@@ -22283,7 +22993,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "buffon",
        "seed": 7,
        "chord": {
@@ -22397,7 +23111,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -22465,7 +23181,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp90",
      "name": "Layer 563",
      "enabled": true,
      "type": "function",
@@ -22495,6 +23211,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -22636,6 +23356,8 @@
     "text": "Which formula finds π fastest?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "series",
     "seed": 7,
     "chord": {
@@ -22725,7 +23447,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "series",
        "seed": 7,
        "chord": {
@@ -22818,7 +23544,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "series",
        "seed": 7,
        "chord": {
@@ -22932,7 +23662,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -23000,7 +23732,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp90",
      "name": "Layer 565",
      "enabled": true,
      "type": "function",
@@ -23030,6 +23762,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -23171,6 +23907,8 @@
     "text": "Do the digits of π have a pattern?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "pidigits",
     "seed": 7,
     "chord": {
@@ -23261,7 +23999,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "pidigits",
        "seed": 7,
        "chord": {
@@ -23355,7 +24097,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "pidigits",
        "seed": 7,
        "chord": {
@@ -23470,7 +24216,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -23538,7 +24286,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp90",
      "name": "Layer 567",
      "enabled": true,
      "type": "function",
@@ -23568,6 +24316,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -23709,6 +24461,8 @@
     "text": "What is the Mandelbrot set?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "mandel",
     "seed": 7,
     "chord": {
@@ -23798,7 +24552,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "mandel",
        "seed": 7,
        "chord": {
@@ -23891,7 +24649,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "mandel",
        "seed": 7,
        "chord": {
@@ -24005,7 +24767,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -24073,7 +24837,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp90",
      "name": "Layer 569",
      "enabled": true,
      "type": "function",
@@ -24103,6 +24867,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -24244,6 +25012,8 @@
     "text": "One number shapes a whole fractal"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "mandel",
     "seed": 7,
     "chord": {
@@ -24334,7 +25104,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "mandel",
        "seed": 7,
        "chord": {
@@ -24428,7 +25202,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "mandel",
        "seed": 7,
        "chord": {
@@ -24543,7 +25321,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -24611,7 +25391,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp90",
      "name": "Layer 571",
      "enabled": true,
      "type": "function",
@@ -24641,6 +25421,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -24782,6 +25566,8 @@
     "text": "Can one rule make infinite detail?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "lsystem",
     "seed": 7,
     "chord": {
@@ -24871,7 +25657,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "lsystem",
        "seed": 7,
        "chord": {
@@ -24964,7 +25754,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "lsystem",
        "seed": 7,
        "chord": {
@@ -25078,7 +25872,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -25146,7 +25942,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp90",
      "name": "Layer 573",
      "enabled": true,
      "type": "function",
@@ -25176,6 +25972,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -25317,6 +26117,8 @@
     "text": "Which jumps close into a shape?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chord",
     "seed": 7,
     "chord": {
@@ -25402,7 +26204,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "chord",
        "seed": 7,
        "chord": {
@@ -25491,7 +26297,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "chord",
        "seed": 7,
        "chord": {
@@ -25601,7 +26411,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -25669,7 +26481,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp90",
      "name": "Layer 575",
      "enabled": true,
      "type": "function",
@@ -25699,6 +26511,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -25840,6 +26656,8 @@
     "text": "What does gravity do to a bounce?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "bounce",
     "seed": 7,
     "chord": {
@@ -25925,7 +26743,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "bounce",
        "seed": 7,
        "chord": {
@@ -26014,7 +26836,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "bounce",
        "seed": 7,
        "chord": {
@@ -26124,7 +26950,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -26192,7 +27020,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp90",
      "name": "Layer 577",
      "enabled": true,
      "type": "function",
@@ -26222,6 +27050,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -26363,6 +27195,8 @@
     "text": "How fast does doubling grow?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "split",
     "seed": 7,
     "chord": {
@@ -26448,7 +27282,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "split",
        "seed": 7,
        "chord": {
@@ -26537,7 +27375,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "split",
        "seed": 7,
        "chord": {
@@ -26647,7 +27489,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -26715,7 +27559,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw150",
+     "id": "Lmvc7grp90",
      "name": "Layer 579",
      "enabled": true,
      "type": "function",
@@ -26745,6 +27589,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -26886,6 +27734,8 @@
     "text": "Why do the notes get faster?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "grow",
     "seed": 7,
     "chord": {
@@ -26971,7 +27821,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "grow",
        "seed": 7,
        "chord": {
@@ -27060,7 +27914,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "grow",
        "seed": 7,
        "chord": {
@@ -27170,7 +28028,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -27238,7 +28098,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grp90",
      "name": "Layer 581",
      "enabled": true,
      "type": "function",
@@ -27268,6 +28128,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -27409,6 +28273,8 @@
     "text": "Can the ball get out?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "escape",
     "seed": 7,
     "chord": {
@@ -27494,7 +28360,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "escape",
        "seed": 7,
        "chord": {
@@ -27583,7 +28453,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "escape",
        "seed": 7,
        "chord": {
@@ -27693,7 +28567,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -27761,7 +28637,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grp90",
      "name": "Layer 583",
      "enabled": true,
      "type": "function",
@@ -27791,6 +28667,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -27932,6 +28812,8 @@
     "text": "Will they ever line up again?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "polyrhythm",
     "seed": 7,
     "chord": {
@@ -28017,7 +28899,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "polyrhythm",
        "seed": 7,
        "chord": {
@@ -28106,7 +28992,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "polyrhythm",
        "seed": 7,
        "chord": {
@@ -28216,7 +29106,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -28284,7 +29176,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grp90",
      "name": "Layer 585",
      "enabled": true,
      "type": "function",
@@ -28314,6 +29206,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -28455,6 +29351,8 @@
     "text": "Which grows faster: ×2, ×3 or ×4?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "triple",
     "seed": 7,
     "chord": {
@@ -28543,7 +29441,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "triple",
        "seed": 7,
        "chord": {
@@ -28635,7 +29537,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "triple",
        "seed": 7,
        "chord": {
@@ -28749,7 +29655,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -28817,7 +29725,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grp90",
      "name": "Layer 587",
      "enabled": true,
      "type": "function",
@@ -28847,6 +29755,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -28988,6 +29900,8 @@
     "text": "Adding or multiplying: which wins?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "boxcore",
     "seed": 7,
     "chord": {
@@ -29076,7 +29990,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "boxcore",
        "seed": 7,
        "chord": {
@@ -29169,7 +30087,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "boxcore",
        "seed": 7,
        "chord": {
@@ -29283,7 +30205,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -29351,7 +30275,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grp90",
      "name": "Layer 589",
      "enabled": true,
      "type": "function",
@@ -29381,6 +30305,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -29522,6 +30450,8 @@
     "text": "How small can the pieces get?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "shatter",
     "seed": 7,
     "chord": {
@@ -29610,7 +30540,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "shatter",
        "seed": 7,
        "chord": {
@@ -29702,7 +30636,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "shatter",
        "seed": 7,
        "chord": {
@@ -29816,7 +30754,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -29884,7 +30824,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grp90",
      "name": "Layer 591",
      "enabled": true,
      "type": "function",
@@ -29914,6 +30854,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -30055,6 +30999,8 @@
     "text": "How many balls per escape fills the screen?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "escapeplus",
     "seed": 7,
     "chord": {
@@ -30142,7 +31088,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "escapeplus",
        "seed": 7,
        "chord": {
@@ -30233,7 +31183,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "escapeplus",
        "seed": 7,
        "chord": {
@@ -30345,7 +31299,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -30413,7 +31369,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grp90",
      "name": "Layer 593",
      "enabled": true,
      "type": "function",
@@ -30443,6 +31399,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -30584,6 +31544,8 @@
     "text": "What happens when every touch makes a ball?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chain",
     "seed": 7,
     "chord": {
@@ -30673,7 +31635,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "chain",
        "seed": 7,
        "chord": {
@@ -30767,7 +31733,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "chain",
        "seed": 7,
        "chord": {
@@ -30882,7 +31852,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -30950,7 +31922,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grp90",
      "name": "Layer 595",
      "enabled": true,
      "type": "function",
@@ -30980,6 +31952,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -31121,6 +32097,8 @@
     "text": "How fast can cells fill a box?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "mitosis",
     "seed": 7,
     "chord": {
@@ -31208,7 +32186,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "mitosis",
        "seed": 7,
        "chord": {
@@ -31299,7 +32281,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "mitosis",
        "seed": 7,
        "chord": {
@@ -31411,7 +32397,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -31479,7 +32467,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grpa0",
      "name": "Layer 597",
      "enabled": true,
      "type": "function",
@@ -31509,6 +32497,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -31650,6 +32642,8 @@
     "text": "Where will most balls land?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "galton",
     "seed": 7,
     "chord": {
@@ -31738,7 +32732,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "galton",
        "seed": 7,
        "chord": {
@@ -31830,7 +32828,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "galton",
        "seed": 7,
        "chord": {
@@ -31943,7 +32945,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -32011,7 +33015,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grpa0",
      "name": "Layer 599",
      "enabled": true,
      "type": "function",
@@ -32041,6 +33045,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -32182,6 +33190,8 @@
     "text": "Which pyramid fills up first?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "pyramid",
     "seed": 7,
     "chord": {
@@ -32271,7 +33281,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "pyramid",
        "seed": 7,
        "chord": {
@@ -32364,7 +33378,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "pyramid",
        "seed": 7,
        "chord": {
@@ -32478,7 +33496,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -32546,7 +33566,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grpa0",
      "name": "Layer 601",
      "enabled": true,
      "type": "function",
@@ -32576,6 +33596,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -32717,6 +33741,8 @@
     "text": "How long until it is full?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "beatfill",
     "seed": 7,
     "chord": {
@@ -32805,7 +33831,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "beatfill",
        "seed": 7,
        "chord": {
@@ -32897,7 +33927,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "beatfill",
        "seed": 7,
        "chord": {
@@ -33012,7 +34046,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -33080,7 +34116,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grpa0",
      "name": "Layer 603",
      "enabled": true,
      "type": "function",
@@ -33110,6 +34146,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -33251,6 +34291,8 @@
     "text": "Can you predict one ball?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "pachinko",
     "seed": 7,
     "chord": {
@@ -33340,7 +34382,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "pachinko",
        "seed": 7,
        "chord": {
@@ -33432,7 +34478,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "pachinko",
        "seed": 7,
        "chord": {
@@ -33546,7 +34596,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -33614,7 +34666,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grpa0",
      "name": "Layer 605",
      "enabled": true,
      "type": "function",
@@ -33644,6 +34696,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -33785,6 +34841,8 @@
     "text": "How many cuts to make 64 pieces?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "paper",
     "seed": 7,
     "chord": {
@@ -33874,7 +34932,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "paper",
        "seed": 7,
        "chord": {
@@ -33967,7 +35029,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "paper",
        "seed": 7,
        "chord": {
@@ -34081,7 +35147,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -34149,7 +35217,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grpa0",
      "name": "Layer 607",
      "enabled": true,
      "type": "function",
@@ -34179,6 +35247,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -34320,6 +35392,8 @@
     "text": "How many circles fit?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "packing",
     "seed": 7,
     "chord": {
@@ -34408,7 +35482,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "packing",
        "seed": 7,
        "chord": {
@@ -34500,7 +35578,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "packing",
        "seed": 7,
        "chord": {
@@ -34614,7 +35696,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -34682,7 +35766,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grpa0",
      "name": "Layer 609",
      "enabled": true,
      "type": "function",
@@ -34712,6 +35796,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -34853,6 +35941,8 @@
     "text": "How many sides make a circle?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "hexagon",
     "seed": 7,
     "chord": {
@@ -34940,7 +36030,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "hexagon",
        "seed": 7,
        "chord": {
@@ -35031,7 +36125,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "hexagon",
        "seed": 7,
        "chord": {
@@ -35143,7 +36241,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -35211,7 +36311,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grpa0",
      "name": "Layer 611",
      "enabled": true,
      "type": "function",
@@ -35241,6 +36341,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -35382,6 +36486,8 @@
     "text": "How long until it is too small?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "shrink",
     "seed": 7,
     "chord": {
@@ -35470,7 +36576,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "shrink",
        "seed": 7,
        "chord": {
@@ -35562,7 +36672,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "shrink",
        "seed": 7,
        "chord": {
@@ -35676,7 +36790,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -35744,7 +36860,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grpa0",
      "name": "Layer 613",
      "enabled": true,
      "type": "function",
@@ -35774,6 +36890,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -35915,6 +37035,8 @@
     "text": "Which angle fills the table?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "billiard",
     "seed": 7,
     "chord": {
@@ -36002,7 +37124,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "billiard",
        "seed": 7,
        "chord": {
@@ -36093,7 +37219,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "billiard",
        "seed": 7,
        "chord": {
@@ -36205,7 +37335,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -36273,7 +37405,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grpa0",
      "name": "Layer 615",
      "enabled": true,
      "type": "function",
@@ -36303,6 +37435,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -36444,6 +37580,8 @@
     "text": "Which colour takes over?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "colorwar",
     "seed": 11,
     "chord": {
@@ -36532,7 +37670,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "colorwar",
        "seed": 11,
        "chord": {
@@ -36624,7 +37766,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "colorwar",
        "seed": 11,
        "chord": {
@@ -36737,7 +37883,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -36805,7 +37953,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grpa0",
      "name": "Layer 617",
      "enabled": true,
      "type": "function",
@@ -36835,6 +37983,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -36976,6 +38128,8 @@
     "text": "When does it jam?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "growpack",
     "seed": 7,
     "chord": {
@@ -37063,7 +38217,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "growpack",
        "seed": 7,
        "chord": {
@@ -37154,7 +38312,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "growpack",
        "seed": 7,
        "chord": {
@@ -37267,7 +38429,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -37335,7 +38499,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw160",
+     "id": "Lmvc7grpa0",
      "name": "Layer 619",
      "enabled": true,
      "type": "function",
@@ -37365,6 +38529,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -37506,6 +38674,8 @@
     "text": "Can random steps build a coral?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "coral",
     "seed": 7,
     "chord": {
@@ -37593,7 +38763,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "coral",
        "seed": 7,
        "chord": {
@@ -37684,7 +38858,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "coral",
        "seed": 7,
        "chord": {
@@ -37797,7 +38975,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -37865,7 +39045,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpa0",
      "name": "Layer 621",
      "enabled": true,
      "type": "function",
@@ -37895,6 +39075,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -38036,6 +39220,8 @@
     "text": "How does a crystal grow?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "snowflake",
     "seed": 7,
     "chord": {
@@ -38124,7 +39310,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "snowflake",
        "seed": 7,
        "chord": {
@@ -38216,7 +39406,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "snowflake",
        "seed": 7,
        "chord": {
@@ -38329,7 +39523,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -38397,7 +39593,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpa0",
      "name": "Layer 623",
      "enabled": true,
      "type": "function",
@@ -38427,6 +39623,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -38568,6 +39768,8 @@
     "text": "What does each ping do?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "radar",
     "seed": 7,
     "chord": {
@@ -38656,7 +39858,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "radar",
        "seed": 7,
        "chord": {
@@ -38748,7 +39954,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "radar",
        "seed": 7,
        "chord": {
@@ -38861,7 +40071,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -38929,7 +40141,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpa0",
      "name": "Layer 625",
      "enabled": true,
      "type": "function",
@@ -38959,6 +40171,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -39100,6 +40316,8 @@
     "text": "Can random jumps draw a perfect shape?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "chaos",
     "seed": 7,
     "chord": {
@@ -39190,7 +40408,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "chaos",
        "seed": 7,
        "chord": {
@@ -39285,7 +40507,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "chaos",
        "seed": 7,
        "chord": {
@@ -39400,7 +40626,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -39468,7 +40696,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpa0",
      "name": "Layer 627",
      "enabled": true,
      "type": "function",
@@ -39498,6 +40726,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -39639,6 +40871,8 @@
     "text": "Why do sunflowers use 137.5°?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "phyllo",
     "seed": 7,
     "chord": {
@@ -39728,7 +40962,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "phyllo",
        "seed": 7,
        "chord": {
@@ -39821,7 +41059,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "phyllo",
        "seed": 7,
        "chord": {
@@ -39935,7 +41177,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -40003,7 +41247,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpa0",
      "name": "Layer 629",
      "enabled": true,
      "type": "function",
@@ -40033,6 +41277,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -40174,6 +41422,8 @@
     "text": "Will they line up again?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "pendulum",
     "seed": 7,
     "chord": {
@@ -40263,7 +41513,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "pendulum",
        "seed": 7,
        "chord": {
@@ -40356,7 +41610,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "pendulum",
        "seed": 7,
        "chord": {
@@ -40470,7 +41728,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -40538,7 +41798,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpa0",
      "name": "Layer 631",
      "enabled": true,
      "type": "function",
@@ -40568,6 +41828,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -40709,6 +41973,8 @@
     "text": "Why is DNA a twisted ladder?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "dna",
     "seed": 7,
     "chord": {
@@ -40797,7 +42063,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "dna",
        "seed": 7,
        "chord": {
@@ -40889,7 +42159,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "dna",
        "seed": 7,
        "chord": {
@@ -41003,7 +42277,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -41071,7 +42347,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpa0",
      "name": "Layer 633",
      "enabled": true,
      "type": "function",
@@ -41101,6 +42377,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -41242,6 +42522,8 @@
     "text": "Which sort is the fastest?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "sorting",
     "seed": 7,
     "chord": {
@@ -41332,7 +42614,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "sorting",
        "seed": 7,
        "chord": {
@@ -41426,7 +42712,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "sorting",
        "seed": 7,
        "chord": {
@@ -41540,7 +42830,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -41608,7 +42900,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpa0",
      "name": "Layer 635",
      "enabled": true,
      "type": "function",
@@ -41638,6 +42930,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -41779,6 +43075,8 @@
     "text": "Can you hear 3 against 4?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "polygons",
     "seed": 7,
     "chord": {
@@ -41868,7 +43166,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "polygons",
        "seed": 7,
        "chord": {
@@ -41961,7 +43263,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "polygons",
        "seed": 7,
        "chord": {
@@ -42075,7 +43381,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -42143,7 +43451,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpa0",
      "name": "Layer 637",
      "enabled": true,
      "type": "function",
@@ -42173,6 +43481,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -42314,6 +43626,8 @@
     "text": "What does a musical interval look like?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "harmono",
     "seed": 7,
     "chord": {
@@ -42406,7 +43720,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "harmono",
        "seed": 7,
        "chord": {
@@ -42502,7 +43820,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "harmono",
        "seed": 7,
        "chord": {
@@ -42619,7 +43941,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -42687,7 +44011,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpb0",
      "name": "Layer 639",
      "enabled": true,
      "type": "function",
@@ -42717,6 +44041,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -42858,6 +44186,8 @@
     "text": "What shape do Venus and Earth draw?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "orbits",
     "seed": 7,
     "chord": {
@@ -42947,7 +44277,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "orbits",
        "seed": 7,
        "chord": {
@@ -43040,7 +44374,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "orbits",
        "seed": 7,
        "chord": {
@@ -43154,7 +44492,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -43222,7 +44562,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpb0",
      "name": "Layer 641",
      "enabled": true,
      "type": "function",
@@ -43252,6 +44592,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -43393,6 +44737,8 @@
     "text": "How many branches after 10 splits?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "tree",
     "seed": 7,
     "chord": {
@@ -43482,7 +44828,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "tree",
        "seed": 7,
        "chord": {
@@ -43575,7 +44925,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "tree",
        "seed": 7,
        "chord": {
@@ -43690,7 +45044,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -43758,7 +45114,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpb0",
      "name": "Layer 643",
      "enabled": true,
      "type": "function",
@@ -43788,6 +45144,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -43929,6 +45289,8 @@
     "text": "What does ×2 look like?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "times",
     "seed": 7,
     "chord": {
@@ -44019,7 +45381,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "times",
        "seed": 7,
        "chord": {
@@ -44113,7 +45479,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "times",
        "seed": 7,
        "chord": {
@@ -44228,7 +45598,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -44296,7 +45668,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpb0",
      "name": "Layer 645",
      "enabled": true,
      "type": "function",
@@ -44326,6 +45698,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -44467,6 +45843,8 @@
     "text": "What does a wheel in a wheel draw?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "spiro",
     "seed": 7,
     "chord": {
@@ -44556,7 +45934,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "spiro",
        "seed": 7,
        "chord": {
@@ -44649,7 +46031,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "spiro",
        "seed": 7,
        "chord": {
@@ -44763,7 +46149,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -44831,7 +46219,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpb0",
      "name": "Layer 647",
      "enabled": true,
      "type": "function",
@@ -44861,6 +46249,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -45002,6 +46394,8 @@
     "text": "Who wins rock, paper, scissors?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "rps",
     "seed": 13,
     "chord": {
@@ -45090,7 +46484,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "rps",
        "seed": 13,
        "chord": {
@@ -45182,7 +46580,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "rps",
        "seed": 13,
        "chord": {
@@ -45295,7 +46697,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -45363,7 +46767,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpb0",
      "name": "Layer 649",
      "enabled": true,
      "type": "function",
@@ -45393,6 +46797,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -45534,6 +46942,8 @@
     "text": "Can the hunters wipe out the flowers?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "predator",
     "seed": 7,
     "chord": {
@@ -45623,7 +47033,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "predator",
        "seed": 7,
        "chord": {
@@ -45716,7 +47130,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "predator",
        "seed": 7,
        "chord": {
@@ -45831,7 +47249,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -45899,7 +47319,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpb0",
      "name": "Layer 651",
      "enabled": true,
      "type": "function",
@@ -45929,6 +47349,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -46070,6 +47494,8 @@
     "text": "How many pieces after 20 seconds?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "slicer",
     "seed": 7,
     "chord": {
@@ -46159,7 +47585,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "slicer",
        "seed": 7,
        "chord": {
@@ -46252,7 +47682,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "slicer",
        "seed": 7,
        "chord": {
@@ -46367,7 +47801,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -46435,7 +47871,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpb0",
      "name": "Layer 653",
      "enabled": true,
      "type": "function",
@@ -46465,6 +47901,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -46606,6 +48046,8 @@
     "text": "Can you hit it without touching a knife?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "knives",
     "seed": 7,
     "chord": {
@@ -46694,7 +48136,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "knives",
        "seed": 7,
        "chord": {
@@ -46786,7 +48232,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "knives",
        "seed": 7,
        "chord": {
@@ -46899,7 +48349,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,
@@ -46967,7 +48419,7 @@
    },
    "layers": [
     {
-     "id": "Lmv6ynw170",
+     "id": "Lmvc7grpb0",
      "name": "Layer 655",
      "enabled": true,
      "type": "function",
@@ -46997,6 +48449,10 @@
      "solo": false,
      "withPrev": false,
      "caption": "",
+     "captionStart": 0,
+     "captionEnd": 0,
+     "start": 0,
+     "end": 0,
      "samples": 900
     }
    ],
@@ -47138,6 +48594,8 @@
     "text": "What will the formula draw?"
    },
    "circle": {
+    "start": 0,
+    "end": 0,
     "rule": "popper",
     "seed": 7,
     "chord": {
@@ -47228,7 +48686,11 @@
       "id": "C2",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "popper",
        "seed": 7,
        "chord": {
@@ -47322,7 +48784,11 @@
       "id": "C3",
       "enabled": true,
       "withPrev": false,
+      "start": 0,
+      "end": 0,
       "cfg": {
+       "start": 0,
+       "end": 0,
        "rule": "popper",
        "seed": 7,
        "chord": {
@@ -47437,7 +48903,9 @@
      "x": null,
      "y": null,
      "size": 1,
-     "fit": true
+     "fit": true,
+     "start": 0,
+     "end": 0
     },
     "name": {
      "enabled": false,

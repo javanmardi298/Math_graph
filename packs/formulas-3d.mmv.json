@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0m0",
+          "id": "Lmvc7grn50",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -57,10 +57,14 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1400
         },
         {
-          "id": "Lmv6ynw0m1",
+          "id": "Lmvc7grn51",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -90,10 +94,14 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1400
         },
         {
-          "id": "Lmv6ynw0m2",
+          "id": "Lmvc7grn52",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -123,6 +131,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1400
         }
       ],
@@ -264,6 +276,8 @@
         "text": "How do you turn a circle into a spring?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -367,7 +381,9 @@
           "x": 0.06,
           "y": 0.15,
           "size": 1.5,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -480,7 +496,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0m0",
+          "id": "Lmvc7grn60",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -510,10 +526,14 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 64
         },
         {
-          "id": "Lmv6ynw0m1",
+          "id": "Lmvc7grn61",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -543,10 +563,14 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 64
         },
         {
-          "id": "Lmv6ynw0m2",
+          "id": "Lmvc7grn62",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -576,6 +600,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 64
         }
       ],
@@ -717,6 +745,8 @@
         "text": "What does a formula of x and y look like?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -820,7 +850,9 @@
           "x": 0.06,
           "y": 0.15,
           "size": 1.5,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -933,7 +965,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0m0",
+          "id": "Lmvc7grn60",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -963,10 +995,14 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 64
         },
         {
-          "id": "Lmv6ynw0m1",
+          "id": "Lmvc7grn61",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -996,10 +1032,14 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 64
         },
         {
-          "id": "Lmv6ynw0m2",
+          "id": "Lmvc7grn62",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -1029,6 +1069,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 64
         }
       ],
@@ -1170,6 +1214,8 @@
         "text": "Can you guess the shape from the formula?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -1273,7 +1319,9 @@
           "x": 0.06,
           "y": 0.15,
           "size": 1.5,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1386,7 +1434,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0m0",
+          "id": "Lmvc7grn60",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -1416,10 +1464,14 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1400
         },
         {
-          "id": "Lmv6ynw0m1",
+          "id": "Lmvc7grn61",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -1449,10 +1501,14 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1400
         },
         {
-          "id": "Lmv6ynw0m2",
+          "id": "Lmvc7grn62",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -1482,6 +1538,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 2000
         }
       ],
@@ -1623,6 +1683,8 @@
         "text": "Can a formula tie a knot?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -1726,7 +1788,9 @@
           "x": 0.06,
           "y": 0.15,
           "size": 1.5,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1839,7 +1903,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0m0",
+          "id": "Lmvc7grn60",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -1869,10 +1933,14 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1400
         },
         {
-          "id": "Lmv6ynw0m1",
+          "id": "Lmvc7grn61",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -1902,10 +1970,14 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1400
         },
         {
-          "id": "Lmv6ynw0m2",
+          "id": "Lmvc7grn62",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -1935,6 +2007,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 2000
         }
       ],
@@ -2076,6 +2152,8 @@
         "text": "What happens with three frequencies?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -2179,7 +2257,9 @@
           "x": 0.06,
           "y": 0.15,
           "size": 1.5,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,

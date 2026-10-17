@@ -684,3 +684,7 @@ body.mode-circle .circle-layers { display: flex; flex-direction: column; gap: 10
 .result-zip { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 4px 0 10px; }
 .lib-paste-box { width: 100%; box-sizing: border-box; font: 12px var(--f-mono); resize: vertical; background: var(--field); color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 8px; }
 .lib-pick-hint { color: var(--accent-2); }
+.fit-notes { display: flex; flex-direction: column; gap: 6px; padding: 8px; border: 1px dashed var(--line); border-radius: 10px; }
+.fit-notes .row label { display: flex; align-items: center; gap: 6px; font-size: 12.5px; flex: 1; }
+.fit-notes select { flex: 1; min-width: 0; }
+.note-readout { margin: 0; }

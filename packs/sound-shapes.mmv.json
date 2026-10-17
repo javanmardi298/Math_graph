@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw080",
+          "id": "Lmvc7gri40",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -57,6 +57,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -198,6 +202,8 @@
         "text": "What does a heart sound like in Raga Yaman?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -301,7 +307,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -368,7 +376,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw080",
+          "id": "Lmvc7gri40",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -398,6 +406,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -539,6 +551,8 @@
         "text": "What does a heart sound like in Dastgah Homayoun?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -642,7 +656,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -709,7 +725,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw080",
+          "id": "Lmvc7gri40",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -739,6 +755,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -880,6 +900,8 @@
         "text": "What does a heart sound like in the Lydian scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -983,7 +1005,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1050,7 +1074,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw080",
+          "id": "Lmvc7gri40",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -1080,6 +1104,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -1221,6 +1249,8 @@
         "text": "What does a heart sound like in the Major scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -1324,7 +1354,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1391,7 +1423,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw080",
+          "id": "Lmvc7gri40",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -1421,6 +1453,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 4000
         }
       ],
@@ -1562,6 +1598,8 @@
         "text": "What does a butterfly sound like in the Hirajoshi scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -1665,7 +1703,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1732,7 +1772,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw080",
+          "id": "Lmvc7gri40",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -1762,6 +1802,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 4000
         }
       ],
@@ -1903,6 +1947,8 @@
         "text": "What does a butterfly sound like in the Phrygian dominant scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -2006,7 +2052,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -2073,7 +2121,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri40",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -2103,6 +2151,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 4000
         }
       ],
@@ -2244,6 +2296,8 @@
         "text": "What does a butterfly sound like in the Pelog scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -2347,7 +2401,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -2414,7 +2470,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri40",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -2444,6 +2500,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -2585,6 +2645,8 @@
         "text": "What does a infinity sign sound like in Maqam Bayati?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -2688,7 +2750,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -2755,7 +2819,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri40",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -2785,6 +2849,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -2926,6 +2994,8 @@
         "text": "What does a infinity sign sound like in the Lydian scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -3029,7 +3099,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -3096,7 +3168,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri40",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -3126,6 +3198,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -3267,6 +3343,8 @@
         "text": "What does a infinity sign sound like in Raga Bhupali?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -3370,7 +3448,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -3437,7 +3517,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri40",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -3467,6 +3547,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -3608,6 +3692,8 @@
         "text": "What does a star sound like in the Slendro scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -3711,7 +3797,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -3778,7 +3866,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri40",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -3808,6 +3896,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -3949,6 +4041,8 @@
         "text": "What does a star sound like in the Natural minor scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -4052,7 +4146,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -4119,7 +4215,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri40",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -4149,6 +4245,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -4290,6 +4390,8 @@
         "text": "What does a star sound like in the Minor pentatonic scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -4393,7 +4495,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -4460,7 +4564,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri40",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -4490,6 +4594,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 2400
         }
       ],
@@ -4631,6 +4739,8 @@
         "text": "What does a spiral sound like in Raga Malkauns?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -4734,7 +4844,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -4801,7 +4913,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri40",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -4831,6 +4943,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 2400
         }
       ],
@@ -4972,6 +5088,8 @@
         "text": "What does a spiral sound like in the Harmonic series scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -5075,7 +5193,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -5142,7 +5262,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri40",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -5172,6 +5292,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 2400
         }
       ],
@@ -5313,6 +5437,8 @@
         "text": "What does a spiral sound like in the Chromatic scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -5416,7 +5542,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -5483,7 +5611,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri40",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -5513,6 +5641,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 2400
         }
       ],
@@ -5654,6 +5786,8 @@
         "text": "What does a golden spiral sound like in the Bohlen–Pierce scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -5757,7 +5891,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -5824,7 +5960,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri50",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -5854,6 +5990,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 2400
         }
       ],
@@ -5995,6 +6135,8 @@
         "text": "What does a golden spiral sound like in the Harmonic series scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -6098,7 +6240,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -6165,7 +6309,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri50",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -6195,6 +6339,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 2400
         }
       ],
@@ -6336,6 +6484,8 @@
         "text": "What does a golden spiral sound like in the Insen scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -6439,7 +6589,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -6506,7 +6658,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri50",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -6536,6 +6688,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -6677,6 +6833,8 @@
         "text": "What does a flower sound like in the Major pentatonic scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -6780,7 +6938,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -6847,7 +7007,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri50",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -6877,6 +7037,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -7018,6 +7182,8 @@
         "text": "What does a flower sound like in Raga Hindol?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -7121,7 +7287,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -7188,7 +7356,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri50",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -7218,6 +7386,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -7359,6 +7531,8 @@
         "text": "What does a flower sound like in the Mbira Nyamaropa scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -7462,7 +7636,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -7529,7 +7705,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri50",
           "name": "Three-leaf Clover",
           "enabled": true,
           "type": "polar",
@@ -7559,6 +7735,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -7700,6 +7880,8 @@
         "text": "What does a three-leaf clover sound like in the Celtic / Scottish pentatonic scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -7803,7 +7985,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -7870,7 +8054,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri50",
           "name": "Three-leaf Clover",
           "enabled": true,
           "type": "polar",
@@ -7900,6 +8084,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -8041,6 +8229,8 @@
         "text": "What does a three-leaf clover sound like in Raga Megh?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -8144,7 +8334,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -8211,7 +8403,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri50",
           "name": "Five-petal Rose",
           "enabled": true,
           "type": "polar",
@@ -8241,6 +8433,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 2400
         }
       ],
@@ -8382,6 +8578,8 @@
         "text": "What does a five-petal rose sound like in Maqam Saba?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -8485,7 +8683,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -8552,7 +8752,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri50",
           "name": "Five-petal Rose",
           "enabled": true,
           "type": "polar",
@@ -8582,6 +8782,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 2400
         }
       ],
@@ -8723,6 +8927,8 @@
         "text": "What does a five-petal rose sound like in the Spanish gypsy / flamenco scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -8826,7 +9032,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -8893,7 +9101,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri50",
           "name": "Cardioid",
           "enabled": true,
           "type": "polar",
@@ -8923,6 +9131,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -9064,6 +9276,8 @@
         "text": "What does a cardioid sound like in Maqam Hijaz?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -9167,7 +9381,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -9234,7 +9450,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri50",
           "name": "Cardioid",
           "enabled": true,
           "type": "polar",
@@ -9264,6 +9480,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -9405,6 +9625,8 @@
         "text": "What does a cardioid sound like in the Ahava Rabbah scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -9508,7 +9730,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -9575,7 +9799,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw090",
+          "id": "Lmvc7gri50",
           "name": "Figure Eight",
           "enabled": true,
           "type": "parametric",
@@ -9605,6 +9829,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -9746,6 +9974,8 @@
         "text": "What does a figure eight sound like in the Dorian scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -9849,7 +10079,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -9916,7 +10148,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri50",
           "name": "Figure Eight",
           "enabled": true,
           "type": "parametric",
@@ -9946,6 +10178,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -10087,6 +10323,8 @@
         "text": "What does a figure eight sound like in the Tizita minor scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -10190,7 +10428,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -10257,7 +10497,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri50",
           "name": "Pretzel",
           "enabled": true,
           "type": "parametric",
@@ -10287,6 +10527,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -10428,6 +10672,8 @@
         "text": "What does a pretzel sound like in the Kora Sauta scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -10531,7 +10777,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -10598,7 +10846,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri50",
           "name": "Pretzel",
           "enabled": true,
           "type": "parametric",
@@ -10628,6 +10876,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -10769,6 +11021,8 @@
         "text": "What does a pretzel sound like in the Wendy Carlos alpha scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -10872,7 +11126,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -10939,7 +11195,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri50",
           "name": "Gear",
           "enabled": true,
           "type": "polar",
@@ -10969,6 +11225,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 3000
         }
       ],
@@ -11110,6 +11370,8 @@
         "text": "What does a gear sound like in the Major scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -11213,7 +11475,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -11280,7 +11544,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri50",
           "name": "Gear",
           "enabled": true,
           "type": "polar",
@@ -11310,6 +11574,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 3000
         }
       ],
@@ -11451,6 +11719,8 @@
         "text": "What does a gear sound like in the Natural minor scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -11554,7 +11824,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -11621,7 +11893,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri50",
           "name": "Crown",
           "enabled": true,
           "type": "polar",
@@ -11651,6 +11923,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 2400
         }
       ],
@@ -11792,6 +12068,8 @@
         "text": "What does a crown sound like in the Harmonic minor scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -11895,7 +12173,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -11962,7 +12242,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri50",
           "name": "Crown",
           "enabled": true,
           "type": "polar",
@@ -11992,6 +12272,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 2400
         }
       ],
@@ -12133,6 +12417,8 @@
         "text": "What does a crown sound like in the Phrygian dominant scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -12236,7 +12522,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -12303,7 +12591,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri50",
           "name": "Trefoil Knot",
           "enabled": true,
           "type": "parametric",
@@ -12333,6 +12621,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -12474,6 +12766,8 @@
         "text": "What does a trefoil knot sound like in the Prometheus scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -12577,7 +12871,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -12644,7 +12940,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri50",
           "name": "Trefoil Knot",
           "enabled": true,
           "type": "parametric",
@@ -12674,6 +12970,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -12815,6 +13115,8 @@
         "text": "What does a trefoil knot sound like in the Quarter-tone chromatic scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -12918,7 +13220,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -12985,7 +13289,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri50",
           "name": "Spirograph",
           "enabled": true,
           "type": "parametric",
@@ -13015,6 +13319,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 3000
         }
       ],
@@ -13156,6 +13464,8 @@
         "text": "What does a spirograph sound like in the Whole tone scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -13259,7 +13569,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -13326,7 +13638,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri50",
           "name": "Spirograph",
           "enabled": true,
           "type": "parametric",
@@ -13356,6 +13668,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 3000
         }
       ],
@@ -13497,6 +13813,8 @@
         "text": "What does a spirograph sound like in Avaz Dashti?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -13600,7 +13918,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -13667,7 +13987,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri50",
           "name": "Nephroid",
           "enabled": true,
           "type": "parametric",
@@ -13697,6 +14017,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -13838,6 +14162,8 @@
         "text": "What does a nephroid sound like in the Lydian scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -13941,7 +14267,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -14008,7 +14336,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri50",
           "name": "Nephroid",
           "enabled": true,
           "type": "parametric",
@@ -14038,6 +14366,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -14179,6 +14511,8 @@
         "text": "What does a nephroid sound like in Dastgah Shur?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -14282,7 +14616,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -14349,7 +14685,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri50",
           "name": "Looped Limaçon",
           "enabled": true,
           "type": "polar",
@@ -14379,6 +14715,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -14520,6 +14860,8 @@
         "text": "What does a looped limaçon sound like in the Minor pentatonic scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -14623,7 +14965,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -14690,7 +15034,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri60",
           "name": "Looped Limaçon",
           "enabled": true,
           "type": "polar",
@@ -14720,6 +15064,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 1600
         }
       ],
@@ -14861,6 +15209,8 @@
         "text": "What does a looped limaçon sound like in Maqam Rast?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -14964,7 +15314,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -15031,7 +15383,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri60",
           "name": "Lissajous Knot",
           "enabled": true,
           "type": "parametric",
@@ -15061,6 +15413,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 2400
         }
       ],
@@ -15202,6 +15558,8 @@
         "text": "What does a lissajous knot sound like in the Natural minor scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -15305,7 +15663,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -15372,7 +15732,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0a0",
+          "id": "Lmvc7gri60",
           "name": "Lissajous Knot",
           "enabled": true,
           "type": "parametric",
@@ -15402,6 +15762,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 2400
         }
       ],
@@ -15543,6 +15907,8 @@
         "text": "What does a lissajous knot sound like in the Bohlen–Pierce scale?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chord",
         "seed": 7,
         "chord": {
@@ -15646,7 +16012,9 @@
           "x": 0.06,
           "y": 0.13,
           "size": 0.8,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,

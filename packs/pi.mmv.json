@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0q0",
+          "id": "Lmvc7grna0",
           "name": "Layer 335",
           "enabled": true,
           "type": "function",
@@ -57,6 +57,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -198,6 +202,8 @@
         "text": "How did Archimedes find π?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "archimedes",
         "seed": 7,
         "chord": {
@@ -286,7 +292,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "archimedes",
               "seed": 7,
               "chord": {
@@ -378,7 +388,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "archimedes",
               "seed": 7,
               "chord": {
@@ -491,7 +505,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -558,7 +574,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0q0",
+          "id": "Lmvc7grna0",
           "name": "Layer 337",
           "enabled": true,
           "type": "function",
@@ -588,6 +604,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -729,6 +749,8 @@
         "text": "Can random dots find π?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "montecarlo",
         "seed": 7,
         "chord": {
@@ -818,7 +840,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "montecarlo",
               "seed": 7,
               "chord": {
@@ -911,7 +937,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "montecarlo",
               "seed": 7,
               "chord": {
@@ -1025,7 +1055,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1092,7 +1124,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0q0",
+          "id": "Lmvc7grna0",
           "name": "Layer 339",
           "enabled": true,
           "type": "function",
@@ -1122,6 +1154,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1263,6 +1299,8 @@
         "text": "Can needles on a floor find π?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "buffon",
         "seed": 7,
         "chord": {
@@ -1352,7 +1390,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "buffon",
               "seed": 7,
               "chord": {
@@ -1445,7 +1487,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "buffon",
               "seed": 7,
               "chord": {
@@ -1559,7 +1605,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1626,7 +1674,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0q0",
+          "id": "Lmvc7grna0",
           "name": "Layer 341",
           "enabled": true,
           "type": "function",
@@ -1656,6 +1704,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1797,6 +1849,8 @@
         "text": "Which formula finds π fastest?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "series",
         "seed": 7,
         "chord": {
@@ -1886,7 +1940,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "series",
               "seed": 7,
               "chord": {
@@ -1979,7 +2037,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "series",
               "seed": 7,
               "chord": {
@@ -2093,7 +2155,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -2160,7 +2224,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0q0",
+          "id": "Lmvc7grna0",
           "name": "Layer 343",
           "enabled": true,
           "type": "function",
@@ -2190,6 +2254,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -2331,6 +2399,8 @@
         "text": "Do the digits of π have a pattern?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "pidigits",
         "seed": 7,
         "chord": {
@@ -2421,7 +2491,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "pidigits",
               "seed": 7,
               "chord": {
@@ -2515,7 +2589,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "pidigits",
               "seed": 7,
               "chord": {
@@ -2630,7 +2708,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,

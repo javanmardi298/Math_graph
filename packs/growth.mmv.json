@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0y0",
+          "id": "Lmvc7groz0",
           "name": "Layer 393",
           "enabled": true,
           "type": "function",
@@ -57,6 +57,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -198,6 +202,8 @@
         "text": "Which colour takes over?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "colorwar",
         "seed": 11,
         "chord": {
@@ -286,7 +292,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "colorwar",
               "seed": 11,
               "chord": {
@@ -378,7 +388,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "colorwar",
               "seed": 11,
               "chord": {
@@ -491,7 +505,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -558,7 +574,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0y0",
+          "id": "Lmvc7groz0",
           "name": "Layer 395",
           "enabled": true,
           "type": "function",
@@ -588,6 +604,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -729,6 +749,8 @@
         "text": "When does it jam?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "growpack",
         "seed": 7,
         "chord": {
@@ -816,7 +838,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "growpack",
               "seed": 7,
               "chord": {
@@ -907,7 +933,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "growpack",
               "seed": 7,
               "chord": {
@@ -1020,7 +1050,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1087,7 +1119,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0y0",
+          "id": "Lmvc7grp20",
           "name": "Layer 397",
           "enabled": true,
           "type": "function",
@@ -1117,6 +1149,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1258,6 +1294,8 @@
         "text": "Can random steps build a coral?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "coral",
         "seed": 7,
         "chord": {
@@ -1345,7 +1383,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "coral",
               "seed": 7,
               "chord": {
@@ -1436,7 +1478,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "coral",
               "seed": 7,
               "chord": {
@@ -1549,7 +1595,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1616,7 +1664,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0y0",
+          "id": "Lmvc7grp20",
           "name": "Layer 399",
           "enabled": true,
           "type": "function",
@@ -1646,6 +1694,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1787,6 +1839,8 @@
         "text": "How does a crystal grow?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "snowflake",
         "seed": 7,
         "chord": {
@@ -1875,7 +1929,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "snowflake",
               "seed": 7,
               "chord": {
@@ -1967,7 +2025,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "snowflake",
               "seed": 7,
               "chord": {
@@ -2080,7 +2142,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,

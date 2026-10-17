@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0r0",
+          "id": "Lmvc7grnb0",
           "name": "Layer 345",
           "enabled": true,
           "type": "function",
@@ -57,6 +57,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -198,6 +202,8 @@
         "text": "What is the Mandelbrot set?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "mandel",
         "seed": 7,
         "chord": {
@@ -287,7 +293,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "mandel",
               "seed": 7,
               "chord": {
@@ -380,7 +390,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "mandel",
               "seed": 7,
               "chord": {
@@ -494,7 +508,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -561,7 +577,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0r0",
+          "id": "Lmvc7grnb0",
           "name": "Layer 347",
           "enabled": true,
           "type": "function",
@@ -591,6 +607,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -732,6 +752,8 @@
         "text": "One number shapes a whole fractal"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "mandel",
         "seed": 7,
         "chord": {
@@ -822,7 +844,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "mandel",
               "seed": 7,
               "chord": {
@@ -916,7 +942,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "mandel",
               "seed": 7,
               "chord": {
@@ -1031,7 +1061,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1098,7 +1130,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0r0",
+          "id": "Lmvc7grnb0",
           "name": "Layer 349",
           "enabled": true,
           "type": "function",
@@ -1128,6 +1160,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1269,6 +1305,8 @@
         "text": "Can one rule make infinite detail?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "lsystem",
         "seed": 7,
         "chord": {
@@ -1358,7 +1396,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "lsystem",
               "seed": 7,
               "chord": {
@@ -1451,7 +1493,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "lsystem",
               "seed": 7,
               "chord": {
@@ -1565,7 +1611,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,

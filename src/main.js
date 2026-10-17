@@ -385,6 +385,53 @@ function voicesAt(time) {
   return out;
 }
 
+/**
+ * Measure what the curves play over the whole run: the lowest and highest y and the lowest and
+ * highest note that actually sounds (after the scale has snapped them). null when nothing sounds.
+ */
+function measureCurve() {
+  const { layers } = store.state;
+  const solo = hasSolo(layers);
+  const N = 1200, dur = duration();
+  const ctx = evalCtx();
+  const p = { x: 0, y: 0, z: 0 };
+  let y0 = Infinity, y1 = -Infinity, low = Infinity, high = -Infinity;
+  for (let i = 0; i < N; i++) {
+    const t = (i / (N - 1)) * dur;
+    for (const l of layers) {
+      const c = compiled.get(l.id);
+      if (!c || !l.enabled || l.mute || (solo && !l.solo)) continue;
+      const lt = layerTiming(l, t);
+      if (lt.phase !== 'active') continue;
+      c.at(lt.u, ctx, p);
+      if (!Number.isFinite(p.y)) continue;
+      y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y);
+      const f = voiceFrame(l, p, store.state, solo);
+      if (f.midi != null) { low = Math.min(low, f.midi); high = Math.max(high, f.midi); }
+    }
+  }
+  return Number.isFinite(y0) && Number.isFinite(low) ? { y0, y1, low, high } : null;
+}
+
+/**
+ * Set the note range so the curve's lowest point plays `lo` and its highest `hi` (MIDI numbers).
+ * Pitch is linear in y over the graph window, so two numbers are enough.
+ */
+function fitNotes(lo, hi) {
+  const m = measureCurve();
+  const { view } = store.state;
+  if (!m || m.y1 - m.y0 < 1e-9) { toast('The curve is flat or silent: nothing to fit.'); return null; }
+  const H = view.yMax - view.yMin;
+  const span = ((hi - lo) * H) / (m.y1 - m.y0);
+  const nl = lo - ((m.y0 - view.yMin) / H) * span;
+  const nh = nl + span;
+  if (nl < 0 || nh > 127) { toast('That range does not fit: the graph window is too much taller than the curve. Narrow the window (Look tab) and try again.', 6000); return null; }
+  const r = (n) => Math.round(n * 100) / 100;
+  store.set('audio.noteLow', r(nl));
+  store.set('audio.noteHigh', r(nh));
+  return measureCurve();
+}
+
 /** The layer that drives the drums (the playing one in sequence mode). */
 function drumSourceLayer(time = clock.pos) {
   const active = activeLayerAt(time);
@@ -1548,6 +1595,8 @@ const panels = new Panels({
   snapshot,
   videoFormat: pickFormat,
   addKey,
+  measureCurve,
+  fitNotes,
   addKeyframeAt,
   jumpKeyframe,
   keyframesChanged,

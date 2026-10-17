@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0y0",
+          "id": "Lmvc7grp30",
           "name": "Layer 401",
           "enabled": true,
           "type": "function",
@@ -57,6 +57,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -198,6 +202,8 @@
         "text": "What does each ping do?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "radar",
         "seed": 7,
         "chord": {
@@ -286,7 +292,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "radar",
               "seed": 7,
               "chord": {
@@ -378,7 +388,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "radar",
               "seed": 7,
               "chord": {
@@ -491,7 +505,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -558,7 +574,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0y0",
+          "id": "Lmvc7grp30",
           "name": "Layer 403",
           "enabled": true,
           "type": "function",
@@ -588,6 +604,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -729,6 +749,8 @@
         "text": "Can random jumps draw a perfect shape?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "chaos",
         "seed": 7,
         "chord": {
@@ -819,7 +841,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "chaos",
               "seed": 7,
               "chord": {
@@ -914,7 +940,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "chaos",
               "seed": 7,
               "chord": {
@@ -1029,7 +1059,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1096,7 +1128,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0y0",
+          "id": "Lmvc7grp30",
           "name": "Layer 405",
           "enabled": true,
           "type": "function",
@@ -1126,6 +1158,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1267,6 +1303,8 @@
         "text": "Why do sunflowers use 137.5°?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "phyllo",
         "seed": 7,
         "chord": {
@@ -1356,7 +1394,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "phyllo",
               "seed": 7,
               "chord": {
@@ -1449,7 +1491,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "phyllo",
               "seed": 7,
               "chord": {
@@ -1563,7 +1609,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1630,7 +1678,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0y0",
+          "id": "Lmvc7grp30",
           "name": "Layer 407",
           "enabled": true,
           "type": "function",
@@ -1660,6 +1708,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1801,6 +1853,8 @@
         "text": "Will they line up again?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "pendulum",
         "seed": 7,
         "chord": {
@@ -1890,7 +1944,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "pendulum",
               "seed": 7,
               "chord": {
@@ -1983,7 +2041,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "pendulum",
               "seed": 7,
               "chord": {
@@ -2097,7 +2159,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -2164,7 +2228,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0y0",
+          "id": "Lmvc7grp30",
           "name": "Layer 409",
           "enabled": true,
           "type": "function",
@@ -2194,6 +2258,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -2335,6 +2403,8 @@
         "text": "Why is DNA a twisted ladder?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "dna",
         "seed": 7,
         "chord": {
@@ -2423,7 +2493,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "dna",
               "seed": 7,
               "chord": {
@@ -2515,7 +2589,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "dna",
               "seed": 7,
               "chord": {
@@ -2629,7 +2707,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -2696,7 +2776,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0y0",
+          "id": "Lmvc7grp30",
           "name": "Layer 411",
           "enabled": true,
           "type": "function",
@@ -2726,6 +2806,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -2867,6 +2951,8 @@
         "text": "Which sort is the fastest?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "sorting",
         "seed": 7,
         "chord": {
@@ -2957,7 +3043,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "sorting",
               "seed": 7,
               "chord": {
@@ -3051,7 +3141,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "sorting",
               "seed": 7,
               "chord": {
@@ -3165,7 +3259,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -3232,7 +3328,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0z0",
+          "id": "Lmvc7grp30",
           "name": "Layer 413",
           "enabled": true,
           "type": "function",
@@ -3262,6 +3358,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -3403,6 +3503,8 @@
         "text": "Can you hear 3 against 4?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "polygons",
         "seed": 7,
         "chord": {
@@ -3492,7 +3594,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "polygons",
               "seed": 7,
               "chord": {
@@ -3585,7 +3691,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "polygons",
               "seed": 7,
               "chord": {
@@ -3699,7 +3809,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,

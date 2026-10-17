@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0p0",
+          "id": "Lmvc7grn80",
           "name": "Layer 325",
           "enabled": true,
           "type": "function",
@@ -57,6 +57,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -198,6 +202,8 @@
         "text": "Can circles draw anything?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "fdraw",
         "seed": 7,
         "chord": {
@@ -287,7 +293,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "fdraw",
               "seed": 7,
               "chord": {
@@ -380,7 +390,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "fdraw",
               "seed": 7,
               "chord": {
@@ -494,7 +508,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -561,7 +577,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0p0",
+          "id": "Lmvc7grn80",
           "name": "Layer 327",
           "enabled": true,
           "type": "function",
@@ -591,6 +607,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -732,6 +752,8 @@
         "text": "What is a derivative, really?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "tangent",
         "seed": 7,
         "chord": {
@@ -821,7 +843,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "tangent",
               "seed": 7,
               "chord": {
@@ -913,7 +939,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "tangent",
               "seed": 7,
               "chord": {
@@ -1026,7 +1056,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1093,7 +1125,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0p0",
+          "id": "Lmvc7grn80",
           "name": "Layer 329",
           "enabled": true,
           "type": "function",
@@ -1123,6 +1155,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1264,6 +1300,8 @@
         "text": "How do you measure a curved area?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "riemann",
         "seed": 7,
         "chord": {
@@ -1359,7 +1397,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "riemann",
               "seed": 7,
               "chord": {
@@ -1458,7 +1500,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "riemann",
               "seed": 7,
               "chord": {
@@ -1574,7 +1620,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -1641,7 +1689,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0p0",
+          "id": "Lmvc7grn80",
           "name": "Layer 331",
           "enabled": true,
           "type": "function",
@@ -1671,6 +1719,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -1812,6 +1864,8 @@
         "text": "How does a calculator know sin and cos?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "taylor",
         "seed": 7,
         "chord": {
@@ -1901,7 +1955,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "taylor",
               "seed": 7,
               "chord": {
@@ -1994,7 +2052,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "taylor",
               "seed": 7,
               "chord": {
@@ -2108,7 +2170,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
@@ -2175,7 +2239,7 @@
       },
       "layers": [
         {
-          "id": "Lmv6ynw0q0",
+          "id": "Lmvc7grn80",
           "name": "Layer 333",
           "enabled": true,
           "type": "function",
@@ -2205,6 +2269,10 @@
           "solo": false,
           "withPrev": false,
           "caption": "",
+          "captionStart": 0,
+          "captionEnd": 0,
+          "start": 0,
+          "end": 0,
           "samples": 900
         }
       ],
@@ -2346,6 +2414,8 @@
         "text": "Where do sine and cosine come from?"
       },
       "circle": {
+        "start": 0,
+        "end": 0,
         "rule": "unitcircle",
         "seed": 7,
         "chord": {
@@ -2434,7 +2504,11 @@
             "id": "C2",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "unitcircle",
               "seed": 7,
               "chord": {
@@ -2526,7 +2600,11 @@
             "id": "C3",
             "enabled": true,
             "withPrev": false,
+            "start": 0,
+            "end": 0,
             "cfg": {
+              "start": 0,
+              "end": 0,
               "rule": "unitcircle",
               "seed": 7,
               "chord": {
@@ -2640,7 +2718,9 @@
           "x": null,
           "y": null,
           "size": 1,
-          "fit": true
+          "fit": true,
+          "start": 0,
+          "end": 0
         },
         "name": {
           "enabled": false,
