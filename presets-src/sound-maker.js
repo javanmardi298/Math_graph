@@ -30,11 +30,11 @@ const MOOD = {
 const WORLD = /India|Arabic|Persian|East Asia|Africa|Europe/;
 
 const hex = (n) => Math.round(Math.min(255, Math.max(0, n * 255))).toString(16).padStart(2, '0');
-function hsl(h, s, l) {
+export function hsl(h, s, l) {
   const a = s * Math.min(l, 1 - l), f = (n) => { const k = (n + h / 30) % 12; return l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)); };
   return `#${hex(f(0))}${hex(f(8))}${hex(f(4))}`;
 }
-function hueOf(c) {
+export function hueOf(c) {
   const [r, g, b] = [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16) / 255);
   const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
   if (!d) return 0;

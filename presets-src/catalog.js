@@ -17,11 +17,13 @@ import { SOUND_PRESETS } from './sound.js';
 import { STACK_PRESETS } from './circle-stories.js';
 import { SHOWCASE_PRESETS } from './sound-showcase.js';
 import { SOUND_SHAPE_PRESETS } from './sound-shapes.js';
+import { CURVE_PRESETS } from './sound-curves.js';
 
 /** Shelves in library order: [id, name, section]. */
 export const SHELVES = [
   ['start', '★ Start here', 'Picks'],
   ['sound-graph', 'Sound · What does it sound like?', 'Sound of math'],
+  ['sound-curves', 'Sound · Melodic shapes (bow tie, necktie, knots)', 'Sound of math'],
   ['sound-quiz', 'Sound · Guess the shape & A or B', 'Sound of math'],
   ['sound-waves', 'Sound · Waves, notes & intervals', 'Sound of math'],
   ['sound-shapes', 'Sound · Shapes in moods (46)', 'Sound of math'],
@@ -52,7 +54,7 @@ const GROUP_SHELF = {
   Pi: 'math-pi', Fractals: 'math-fractals',
 };
 /** Older explicit categories → shelf. */
-const CATEGORY_SHELF = { 'Formulas · Sound of a graph': 'sound-graph', 'Formulas · Guess & compare': 'sound-quiz', 'Sound · Showcase': 'sound-showcase', 'Sound · Shapes in moods': 'sound-shapes' };
+const CATEGORY_SHELF = { 'Formulas · Sound of a graph': 'sound-graph', 'Formulas · Guess & compare': 'sound-quiz', 'Sound · Showcase': 'sound-showcase', 'Sound · Shapes in moods': 'sound-shapes', 'Sound · Melodic shapes': 'sound-curves' };
 
 /** The shelf of a preset. */
 export function shelfOf(p) {
@@ -72,7 +74,7 @@ export const START_HERE = [
 ];
 
 /** Every built-in preset, in source order. */
-const SOURCES = [...FORMULA_PRESETS, ...CIRCLE_PRESETS, ...LAB_PRESETS, ...TOPIC_PRESETS, ...SOUND_PRESETS, ...STACK_PRESETS, ...SOUND_SHAPE_PRESETS, ...SHOWCASE_PRESETS];
+const SOURCES = [...FORMULA_PRESETS, ...CIRCLE_PRESETS, ...LAB_PRESETS, ...TOPIC_PRESETS, ...SOUND_PRESETS, ...STACK_PRESETS, ...SOUND_SHAPE_PRESETS, ...SHOWCASE_PRESETS, ...CURVE_PRESETS];
 // a typo in lengths.js must not pass silently
 for (const n of Object.keys(LENGTHS)) if (!SOURCES.some((p) => p.name === n)) throw new Error(`lengths.js: no preset called "${n}"`);
 export const ALL_PRESETS = SOURCES.map(withLength);

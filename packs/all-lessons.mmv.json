@@ -26,8 +26,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp60",
-     "name": "Layer 435",
+     "id": "Lmvg2689o0",
+     "name": "Layer 445",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -43,8 +43,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -576,8 +576,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp60",
-     "name": "Layer 437",
+     "id": "Lmvg2689p0",
+     "name": "Layer 447",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -593,8 +593,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -1128,8 +1128,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp60",
-     "name": "Layer 439",
+     "id": "Lmvg2689p0",
+     "name": "Layer 449",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -1145,8 +1145,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -1679,8 +1679,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp60",
-     "name": "Layer 441",
+     "id": "Lmvg2689p0",
+     "name": "Layer 451",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -1696,8 +1696,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -2231,8 +2231,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp60",
-     "name": "Layer 443",
+     "id": "Lmvg2689p0",
+     "name": "Layer 453",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -2248,8 +2248,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -2779,8 +2779,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp60",
-     "name": "Layer 445",
+     "id": "Lmvg2689p0",
+     "name": "Layer 455",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -2796,8 +2796,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -3231,8 +3231,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp60",
-     "name": "Layer 447",
+     "id": "Lmvg2689p0",
+     "name": "Layer 457",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -3248,8 +3248,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -3781,8 +3781,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp60",
-     "name": "Layer 449",
+     "id": "Lmvg2689p0",
+     "name": "Layer 459",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -3798,8 +3798,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -4327,8 +4327,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
-     "name": "Layer 451",
+     "id": "Lmvg2689p0",
+     "name": "Layer 461",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -4344,8 +4344,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -4875,8 +4875,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
-     "name": "Layer 453",
+     "id": "Lmvg2689p0",
+     "name": "Layer 463",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -4892,8 +4892,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -5424,8 +5424,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
-     "name": "Layer 455",
+     "id": "Lmvg2689p0",
+     "name": "Layer 465",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -5441,8 +5441,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -5975,8 +5975,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
-     "name": "Layer 457",
+     "id": "Lmvg2689p0",
+     "name": "Layer 467",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -5992,8 +5992,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -6523,8 +6523,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
-     "name": "Layer 459",
+     "id": "Lmvg2689p0",
+     "name": "Layer 469",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -6540,8 +6540,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -7071,8 +7071,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
-     "name": "Layer 461",
+     "id": "Lmvg2689p0",
+     "name": "Layer 471",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -7088,8 +7088,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -7619,8 +7619,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
-     "name": "Layer 463",
+     "id": "Lmvg2689p0",
+     "name": "Layer 473",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -7636,8 +7636,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -8175,8 +8175,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
-     "name": "Layer 465",
+     "id": "Lmvg2689p0",
+     "name": "Layer 475",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -8192,8 +8192,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -8729,8 +8729,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
-     "name": "Layer 467",
+     "id": "Lmvg2689q0",
+     "name": "Layer 477",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -8746,8 +8746,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -9285,8 +9285,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
-     "name": "Layer 469",
+     "id": "Lmvg2689q0",
+     "name": "Layer 479",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -9302,8 +9302,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -9836,7 +9836,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
+     "id": "Lmvg2689q0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -9854,7 +9854,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -9873,7 +9873,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp71",
+     "id": "Lmvg2689q1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -9891,7 +9891,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -9910,7 +9910,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp72",
+     "id": "Lmvg2689q2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -9928,7 +9928,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -10306,7 +10306,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
+     "id": "Lmvg2689q0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -10324,7 +10324,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -10343,7 +10343,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp71",
+     "id": "Lmvg2689q1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -10361,7 +10361,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -10380,7 +10380,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp72",
+     "id": "Lmvg2689q2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -10398,7 +10398,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -10776,7 +10776,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
+     "id": "Lmvg2689q0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -10794,7 +10794,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -10813,7 +10813,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp71",
+     "id": "Lmvg2689q1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -10831,7 +10831,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -10850,7 +10850,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp72",
+     "id": "Lmvg2689q2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -10868,7 +10868,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -11246,7 +11246,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
+     "id": "Lmvg2689q0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -11264,7 +11264,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -11283,7 +11283,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp71",
+     "id": "Lmvg2689q1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -11301,7 +11301,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -11320,7 +11320,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp72",
+     "id": "Lmvg2689q2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -11338,7 +11338,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 6,
      "style": "line",
      "wave": "triangle",
@@ -11716,7 +11716,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
+     "id": "Lmvg2689q0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -11734,7 +11734,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -11753,7 +11753,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp71",
+     "id": "Lmvg2689q1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -11771,7 +11771,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -11790,7 +11790,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp72",
+     "id": "Lmvg2689q2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -11808,7 +11808,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "line",
      "wave": "square",
@@ -12186,7 +12186,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
+     "id": "Lmvg2689q0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -12204,7 +12204,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -12223,7 +12223,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp71",
+     "id": "Lmvg2689q1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -12241,7 +12241,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -12260,7 +12260,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp72",
+     "id": "Lmvg2689q2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -12278,7 +12278,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -12656,7 +12656,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
+     "id": "Lmvg2689q0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -12674,7 +12674,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -12693,7 +12693,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp71",
+     "id": "Lmvg2689q1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -12711,7 +12711,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -12730,7 +12730,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp72",
+     "id": "Lmvg2689q2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -12748,7 +12748,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -13126,7 +13126,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp70",
+     "id": "Lmvg2689q0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -13144,7 +13144,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -13163,7 +13163,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp71",
+     "id": "Lmvg2689q1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -13181,7 +13181,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -13200,7 +13200,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp72",
+     "id": "Lmvg2689q2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -13218,7 +13218,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -13596,7 +13596,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
+     "id": "Lmvg2689q0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -13614,7 +13614,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -13633,7 +13633,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp81",
+     "id": "Lmvg2689q1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -13651,7 +13651,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -13670,7 +13670,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp82",
+     "id": "Lmvg2689q2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -13688,7 +13688,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "dots",
      "wave": "triangle",
@@ -14066,7 +14066,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
+     "id": "Lmvg2689q0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -14084,7 +14084,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -14103,7 +14103,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp81",
+     "id": "Lmvg2689q1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -14121,7 +14121,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -14140,7 +14140,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp82",
+     "id": "Lmvg2689q2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -14158,7 +14158,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -14536,7 +14536,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
+     "id": "Lmvg2689q0",
      "name": "Step 1",
      "enabled": true,
      "type": "function",
@@ -14554,7 +14554,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "sawtooth",
@@ -14573,7 +14573,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp81",
+     "id": "Lmvg2689q1",
      "name": "Step 2",
      "enabled": true,
      "type": "function",
@@ -14591,7 +14591,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "square",
@@ -14610,7 +14610,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp82",
+     "id": "Lmvg2689q2",
      "name": "Step 3",
      "enabled": true,
      "type": "function",
@@ -14628,7 +14628,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -15006,7 +15006,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
+     "id": "Lmvg2689q0",
      "name": "Step 1",
      "enabled": true,
      "type": "polar",
@@ -15024,7 +15024,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -15043,7 +15043,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp81",
+     "id": "Lmvg2689q1",
      "name": "Step 2",
      "enabled": true,
      "type": "polar",
@@ -15061,7 +15061,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -15080,7 +15080,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp82",
+     "id": "Lmvg2689q2",
      "name": "Step 3",
      "enabled": true,
      "type": "polar",
@@ -15098,7 +15098,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -15476,7 +15476,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
+     "id": "Lmvg2689q0",
      "name": "Step 1",
      "enabled": true,
      "type": "polar",
@@ -15494,7 +15494,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -15513,7 +15513,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp81",
+     "id": "Lmvg2689q1",
      "name": "Step 2",
      "enabled": true,
      "type": "polar",
@@ -15531,7 +15531,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -15550,7 +15550,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp82",
+     "id": "Lmvg2689q2",
      "name": "Step 3",
      "enabled": true,
      "type": "polar",
@@ -15568,7 +15568,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -15946,7 +15946,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
+     "id": "Lmvg2689r0",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -15964,7 +15964,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -15983,7 +15983,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp81",
+     "id": "Lmvg2689r1",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -16001,7 +16001,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -16020,7 +16020,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp82",
+     "id": "Lmvg2689r2",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -16038,7 +16038,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -16416,7 +16416,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
+     "id": "Lmvg2689r0",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -16434,7 +16434,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -16453,7 +16453,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp81",
+     "id": "Lmvg2689r1",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -16471,7 +16471,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -16490,7 +16490,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp82",
+     "id": "Lmvg2689r2",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -16508,7 +16508,7 @@
      },
      "colorMode": "solid",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -16886,7 +16886,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
+     "id": "Lmvg2689r0",
      "name": "Step 1",
      "enabled": true,
      "type": "surface",
@@ -16923,7 +16923,7 @@
      "samples": 64
     },
     {
-     "id": "Lmvc7grp81",
+     "id": "Lmvg2689r1",
      "name": "Step 2",
      "enabled": true,
      "type": "surface",
@@ -16960,7 +16960,7 @@
      "samples": 64
     },
     {
-     "id": "Lmvc7grp82",
+     "id": "Lmvg2689r2",
      "name": "Step 3",
      "enabled": true,
      "type": "surface",
@@ -17356,7 +17356,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
+     "id": "Lmvg2689r0",
      "name": "Step 1",
      "enabled": true,
      "type": "surface",
@@ -17393,7 +17393,7 @@
      "samples": 64
     },
     {
-     "id": "Lmvc7grp81",
+     "id": "Lmvg2689r1",
      "name": "Step 2",
      "enabled": true,
      "type": "surface",
@@ -17430,7 +17430,7 @@
      "samples": 64
     },
     {
-     "id": "Lmvc7grp82",
+     "id": "Lmvg2689r2",
      "name": "Step 3",
      "enabled": true,
      "type": "surface",
@@ -17826,7 +17826,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
+     "id": "Lmvg2689r0",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -17844,7 +17844,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -17863,7 +17863,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp81",
+     "id": "Lmvg2689r1",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -17881,7 +17881,7 @@
      },
      "colorMode": "rainbow",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -17900,7 +17900,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp82",
+     "id": "Lmvg2689r2",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -17918,7 +17918,7 @@
      },
      "colorMode": "rainbow",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -18296,7 +18296,7 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
+     "id": "Lmvg2689r0",
      "name": "Step 1",
      "enabled": true,
      "type": "parametric",
@@ -18314,7 +18314,7 @@
      },
      "colorMode": "solid",
      "color": "#22e4ff",
-     "color2": "#22e4ff",
+     "color2": "#ffd23d",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -18333,7 +18333,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp81",
+     "id": "Lmvg2689r1",
      "name": "Step 2",
      "enabled": true,
      "type": "parametric",
@@ -18351,7 +18351,7 @@
      },
      "colorMode": "solid",
      "color": "#8cff5a",
-     "color2": "#ff3d9a",
+     "color2": "#8cff5a",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -18370,7 +18370,7 @@
      "samples": 1400
     },
     {
-     "id": "Lmvc7grp82",
+     "id": "Lmvg2689r2",
      "name": "Step 3",
      "enabled": true,
      "type": "parametric",
@@ -18388,7 +18388,7 @@
      },
      "colorMode": "rainbow",
      "color": "#ffd23d",
-     "color2": "#ffd23d",
+     "color2": "#22e4ff",
      "width": 5,
      "style": "line",
      "wave": "triangle",
@@ -18766,8 +18766,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
-     "name": "Layer 547",
+     "id": "Lmvg2689r0",
+     "name": "Layer 557",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -18783,8 +18783,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -19317,8 +19317,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
-     "name": "Layer 549",
+     "id": "Lmvg2689r0",
+     "name": "Layer 559",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -19334,8 +19334,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -19866,8 +19866,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
-     "name": "Layer 551",
+     "id": "Lmvg2689r0",
+     "name": "Layer 561",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -19883,8 +19883,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -20431,8 +20431,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
-     "name": "Layer 553",
+     "id": "Lmvg2689s0",
+     "name": "Layer 563",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -20448,8 +20448,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -20982,8 +20982,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
-     "name": "Layer 555",
+     "id": "Lmvg2689s0",
+     "name": "Layer 565",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -20999,8 +20999,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -21531,8 +21531,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
-     "name": "Layer 557",
+     "id": "Lmvg2689s0",
+     "name": "Layer 567",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -21548,8 +21548,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -22079,8 +22079,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
-     "name": "Layer 559",
+     "id": "Lmvg2689s0",
+     "name": "Layer 569",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -22096,8 +22096,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -22630,8 +22630,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp80",
-     "name": "Layer 561",
+     "id": "Lmvg2689s0",
+     "name": "Layer 571",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -22647,8 +22647,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -23181,8 +23181,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 563",
+     "id": "Lmvg2689s0",
+     "name": "Layer 573",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -23198,8 +23198,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -23732,8 +23732,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 565",
+     "id": "Lmvg2689s0",
+     "name": "Layer 575",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -23749,8 +23749,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -24286,8 +24286,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 567",
+     "id": "Lmvg2689s0",
+     "name": "Layer 577",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -24303,8 +24303,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -24837,8 +24837,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 569",
+     "id": "Lmvg2689s0",
+     "name": "Layer 579",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -24854,8 +24854,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -25391,8 +25391,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 571",
+     "id": "Lmvg2689s0",
+     "name": "Layer 581",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -25408,8 +25408,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -25942,8 +25942,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 573",
+     "id": "Lmvg2689s0",
+     "name": "Layer 583",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -25959,8 +25959,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -26481,8 +26481,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 575",
+     "id": "Lmvg2689t0",
+     "name": "Layer 585",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -26498,8 +26498,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -27020,8 +27020,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 577",
+     "id": "Lmvg2689t0",
+     "name": "Layer 587",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -27037,8 +27037,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -27559,8 +27559,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 579",
+     "id": "Lmvg2689t0",
+     "name": "Layer 589",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -27576,8 +27576,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -28098,8 +28098,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 581",
+     "id": "Lmvg2689t0",
+     "name": "Layer 591",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -28115,8 +28115,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -28637,8 +28637,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 583",
+     "id": "Lmvg2689t0",
+     "name": "Layer 593",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -28654,8 +28654,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -29176,8 +29176,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 585",
+     "id": "Lmvg2689t0",
+     "name": "Layer 595",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -29193,8 +29193,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -29725,8 +29725,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 587",
+     "id": "Lmvg2689t0",
+     "name": "Layer 597",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -29742,8 +29742,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -30275,8 +30275,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 589",
+     "id": "Lmvg2689t0",
+     "name": "Layer 599",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -30292,8 +30292,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -30824,8 +30824,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 591",
+     "id": "Lmvg2689t0",
+     "name": "Layer 601",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -30841,8 +30841,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -31369,8 +31369,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 593",
+     "id": "Lmvg2689t0",
+     "name": "Layer 603",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -31386,8 +31386,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -31922,8 +31922,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grp90",
-     "name": "Layer 595",
+     "id": "Lmvg2689t0",
+     "name": "Layer 605",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -31939,8 +31939,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -32467,8 +32467,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 597",
+     "id": "Lmvg2689t0",
+     "name": "Layer 607",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -32484,8 +32484,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -33015,8 +33015,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 599",
+     "id": "Lmvg2689t0",
+     "name": "Layer 609",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -33032,8 +33032,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -33566,8 +33566,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 601",
+     "id": "Lmvg2689t0",
+     "name": "Layer 611",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -33583,8 +33583,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -34116,8 +34116,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 603",
+     "id": "Lmvg2689u0",
+     "name": "Layer 613",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -34133,8 +34133,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -34666,8 +34666,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 605",
+     "id": "Lmvg2689u0",
+     "name": "Layer 615",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -34683,8 +34683,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -35217,8 +35217,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 607",
+     "id": "Lmvg2689u0",
+     "name": "Layer 617",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -35234,8 +35234,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -35766,8 +35766,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 609",
+     "id": "Lmvg2689u0",
+     "name": "Layer 619",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -35783,8 +35783,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -36311,8 +36311,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 611",
+     "id": "Lmvg2689u0",
+     "name": "Layer 621",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -36328,8 +36328,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -36860,8 +36860,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 613",
+     "id": "Lmvg2689u0",
+     "name": "Layer 623",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -36877,8 +36877,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -37405,8 +37405,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 615",
+     "id": "Lmvg2689u0",
+     "name": "Layer 625",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -37422,8 +37422,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -37953,8 +37953,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 617",
+     "id": "Lmvg2689u0",
+     "name": "Layer 627",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -37970,8 +37970,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -38499,8 +38499,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 619",
+     "id": "Lmvg2689u0",
+     "name": "Layer 629",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -38516,8 +38516,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -39045,8 +39045,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 621",
+     "id": "Lmvg2689u0",
+     "name": "Layer 631",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -39062,8 +39062,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -39593,8 +39593,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 623",
+     "id": "Lmvg2689u0",
+     "name": "Layer 633",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -39610,8 +39610,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -40141,8 +40141,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 625",
+     "id": "Lmvg2689u0",
+     "name": "Layer 635",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -40158,8 +40158,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -40696,8 +40696,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 627",
+     "id": "Lmvg2689u0",
+     "name": "Layer 637",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -40713,8 +40713,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -41247,8 +41247,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 629",
+     "id": "Lmvg2689u0",
+     "name": "Layer 639",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -41264,8 +41264,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -41798,8 +41798,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 631",
+     "id": "Lmvg2689v0",
+     "name": "Layer 641",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -41815,8 +41815,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -42347,8 +42347,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 633",
+     "id": "Lmvg2689v0",
+     "name": "Layer 643",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -42364,8 +42364,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -42900,8 +42900,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 635",
+     "id": "Lmvg2689v0",
+     "name": "Layer 645",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -42917,8 +42917,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -43451,8 +43451,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpa0",
-     "name": "Layer 637",
+     "id": "Lmvg2689v0",
+     "name": "Layer 647",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -43468,8 +43468,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -44011,8 +44011,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpb0",
-     "name": "Layer 639",
+     "id": "Lmvg2689v0",
+     "name": "Layer 649",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -44028,8 +44028,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -44562,8 +44562,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpb0",
-     "name": "Layer 641",
+     "id": "Lmvg2689v0",
+     "name": "Layer 651",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -44579,8 +44579,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -45114,8 +45114,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpb0",
-     "name": "Layer 643",
+     "id": "Lmvg2689v0",
+     "name": "Layer 653",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -45131,8 +45131,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -45668,8 +45668,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpb0",
-     "name": "Layer 645",
+     "id": "Lmvg2689v0",
+     "name": "Layer 655",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -45685,8 +45685,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -46219,8 +46219,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpb0",
-     "name": "Layer 647",
+     "id": "Lmvg2689v0",
+     "name": "Layer 657",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -46236,8 +46236,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -46767,8 +46767,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpb0",
-     "name": "Layer 649",
+     "id": "Lmvg2689v0",
+     "name": "Layer 659",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -46784,8 +46784,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -47319,8 +47319,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpb0",
-     "name": "Layer 651",
+     "id": "Lmvg2689w0",
+     "name": "Layer 661",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -47336,8 +47336,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -47871,8 +47871,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpb0",
-     "name": "Layer 653",
+     "id": "Lmvg2689w0",
+     "name": "Layer 663",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -47888,8 +47888,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#22e4ff",
-     "color2": "#ff3d9a",
+     "color": "#ffd23d",
+     "color2": "#8cff5a",
      "width": 4,
      "style": "line",
      "wave": "sine",
@@ -48419,8 +48419,8 @@
    },
    "layers": [
     {
-     "id": "Lmvc7grpb0",
-     "name": "Layer 655",
+     "id": "Lmvg2689w0",
+     "name": "Layer 665",
      "enabled": true,
      "type": "function",
      "exprs": {
@@ -48436,8 +48436,8 @@
       "max": 6.283185307179586
      },
      "colorMode": "solid",
-     "color": "#ffd23d",
-     "color2": "#8cff5a",
+     "color": "#22e4ff",
+     "color2": "#ff3d9a",
      "width": 4,
      "style": "line",
      "wave": "sine",

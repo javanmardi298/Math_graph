@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grn20",
+          "id": "Lmvg268920",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -45,7 +45,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#ffd23d",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -64,7 +64,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn21",
+          "id": "Lmvg268921",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -82,7 +82,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#8cff5a",
+          "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -101,7 +101,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn22",
+          "id": "Lmvg268922",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -119,7 +119,7 @@
           },
           "colorMode": "solid",
           "color": "#ffd23d",
-          "color2": "#22e4ff",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -496,7 +496,7 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grn20",
+          "id": "Lmvg268920",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -514,7 +514,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#ffd23d",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -533,7 +533,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn21",
+          "id": "Lmvg268921",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -551,7 +551,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#8cff5a",
+          "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -570,7 +570,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn22",
+          "id": "Lmvg268922",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -588,7 +588,7 @@
           },
           "colorMode": "solid",
           "color": "#ffd23d",
-          "color2": "#22e4ff",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -965,7 +965,7 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grn20",
+          "id": "Lmvg268920",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -983,7 +983,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#ffd23d",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -1002,7 +1002,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn21",
+          "id": "Lmvg268921",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -1020,7 +1020,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#8cff5a",
+          "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -1039,7 +1039,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn22",
+          "id": "Lmvg268922",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -1057,7 +1057,7 @@
           },
           "colorMode": "solid",
           "color": "#ffd23d",
-          "color2": "#22e4ff",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -1434,7 +1434,7 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grn30",
+          "id": "Lmvg268920",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -1452,7 +1452,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#ffd23d",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -1471,7 +1471,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn31",
+          "id": "Lmvg268921",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -1489,7 +1489,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#8cff5a",
+          "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -1508,7 +1508,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn32",
+          "id": "Lmvg268922",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -1526,7 +1526,7 @@
           },
           "colorMode": "solid",
           "color": "#ffd23d",
-          "color2": "#22e4ff",
+          "color2": "#ffd23d",
           "width": 6,
           "style": "line",
           "wave": "triangle",
@@ -1903,7 +1903,7 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grn30",
+          "id": "Lmvg268920",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -1921,7 +1921,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#ffd23d",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -1940,7 +1940,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn31",
+          "id": "Lmvg268921",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -1958,7 +1958,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#8cff5a",
+          "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -1977,7 +1977,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn32",
+          "id": "Lmvg268922",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -1995,7 +1995,7 @@
           },
           "colorMode": "solid",
           "color": "#ffd23d",
-          "color2": "#22e4ff",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "line",
           "wave": "square",
@@ -2372,7 +2372,7 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grn30",
+          "id": "Lmvg268920",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -2390,7 +2390,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#ffd23d",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -2409,7 +2409,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn31",
+          "id": "Lmvg268921",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -2427,7 +2427,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#8cff5a",
+          "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -2446,7 +2446,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn32",
+          "id": "Lmvg268922",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -2464,7 +2464,7 @@
           },
           "colorMode": "solid",
           "color": "#ffd23d",
-          "color2": "#22e4ff",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -2841,7 +2841,7 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grn30",
+          "id": "Lmvg268920",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -2859,7 +2859,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#ffd23d",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -2878,7 +2878,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn31",
+          "id": "Lmvg268921",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -2896,7 +2896,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#8cff5a",
+          "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -2915,7 +2915,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn32",
+          "id": "Lmvg268922",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -2933,7 +2933,7 @@
           },
           "colorMode": "solid",
           "color": "#ffd23d",
-          "color2": "#22e4ff",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -3310,7 +3310,7 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grn30",
+          "id": "Lmvg268920",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -3328,7 +3328,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#ffd23d",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -3347,7 +3347,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn31",
+          "id": "Lmvg268921",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -3365,7 +3365,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#8cff5a",
+          "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -3384,7 +3384,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn32",
+          "id": "Lmvg268922",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -3402,7 +3402,7 @@
           },
           "colorMode": "solid",
           "color": "#ffd23d",
-          "color2": "#22e4ff",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -3779,7 +3779,7 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grn30",
+          "id": "Lmvg268920",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -3797,7 +3797,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#ffd23d",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -3816,7 +3816,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn31",
+          "id": "Lmvg268921",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -3834,7 +3834,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#8cff5a",
+          "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -3853,7 +3853,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn32",
+          "id": "Lmvg268922",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -3871,7 +3871,7 @@
           },
           "colorMode": "solid",
           "color": "#ffd23d",
-          "color2": "#22e4ff",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "dots",
           "wave": "triangle",
@@ -4248,7 +4248,7 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grn30",
+          "id": "Lmvg268920",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -4266,7 +4266,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#ffd23d",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -4285,7 +4285,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn31",
+          "id": "Lmvg268921",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -4303,7 +4303,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#8cff5a",
+          "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -4322,7 +4322,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn32",
+          "id": "Lmvg268922",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -4340,7 +4340,7 @@
           },
           "colorMode": "solid",
           "color": "#ffd23d",
-          "color2": "#22e4ff",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -4717,7 +4717,7 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grn30",
+          "id": "Lmvg268920",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -4735,7 +4735,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#ffd23d",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "sawtooth",
@@ -4754,7 +4754,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn31",
+          "id": "Lmvg268921",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -4772,7 +4772,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#8cff5a",
+          "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
           "wave": "square",
@@ -4791,7 +4791,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn32",
+          "id": "Lmvg268922",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -4809,7 +4809,7 @@
           },
           "colorMode": "solid",
           "color": "#ffd23d",
-          "color2": "#22e4ff",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -5186,7 +5186,7 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grn30",
+          "id": "Lmvg268930",
           "name": "Step 1",
           "enabled": true,
           "type": "polar",
@@ -5204,7 +5204,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#ffd23d",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -5223,7 +5223,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn31",
+          "id": "Lmvg268931",
           "name": "Step 2",
           "enabled": true,
           "type": "polar",
@@ -5241,7 +5241,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#8cff5a",
+          "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -5260,7 +5260,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn32",
+          "id": "Lmvg268932",
           "name": "Step 3",
           "enabled": true,
           "type": "polar",
@@ -5278,7 +5278,7 @@
           },
           "colorMode": "solid",
           "color": "#ffd23d",
-          "color2": "#22e4ff",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -5655,7 +5655,7 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grn30",
+          "id": "Lmvg268930",
           "name": "Step 1",
           "enabled": true,
           "type": "polar",
@@ -5673,7 +5673,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#ffd23d",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -5692,7 +5692,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn31",
+          "id": "Lmvg268931",
           "name": "Step 2",
           "enabled": true,
           "type": "polar",
@@ -5710,7 +5710,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#8cff5a",
+          "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -5729,7 +5729,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn32",
+          "id": "Lmvg268932",
           "name": "Step 3",
           "enabled": true,
           "type": "polar",
@@ -5747,7 +5747,7 @@
           },
           "colorMode": "solid",
           "color": "#ffd23d",
-          "color2": "#22e4ff",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -6124,7 +6124,7 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grn30",
+          "id": "Lmvg268930",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -6142,7 +6142,7 @@
           },
           "colorMode": "solid",
           "color": "#22e4ff",
-          "color2": "#ffd23d",
+          "color2": "#22e4ff",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -6161,7 +6161,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn31",
+          "id": "Lmvg268931",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -6179,7 +6179,7 @@
           },
           "colorMode": "solid",
           "color": "#8cff5a",
-          "color2": "#8cff5a",
+          "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
           "wave": "triangle",
@@ -6198,7 +6198,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvc7grn32",
+          "id": "Lmvg268932",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -6216,7 +6216,7 @@
           },
           "colorMode": "solid",
           "color": "#ffd23d",
-          "color2": "#22e4ff",
+          "color2": "#ffd23d",
           "width": 5,
           "style": "line",
           "wave": "triangle",

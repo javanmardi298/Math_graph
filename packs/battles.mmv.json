@@ -27,8 +27,8 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grp50",
-          "name": "Layer 425",
+          "id": "Lmvg2689n0",
+          "name": "Layer 435",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -44,8 +44,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#22e4ff",
-          "color2": "#ff3d9a",
+          "color": "#ffd23d",
+          "color2": "#8cff5a",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -574,8 +574,8 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grp50",
-          "name": "Layer 427",
+          "id": "Lmvg2689n0",
+          "name": "Layer 437",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -591,8 +591,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#ffd23d",
-          "color2": "#8cff5a",
+          "color": "#22e4ff",
+          "color2": "#ff3d9a",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -1125,8 +1125,8 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grp50",
-          "name": "Layer 429",
+          "id": "Lmvg2689o0",
+          "name": "Layer 439",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -1142,8 +1142,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#22e4ff",
-          "color2": "#ff3d9a",
+          "color": "#ffd23d",
+          "color2": "#8cff5a",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -1676,8 +1676,8 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grp50",
-          "name": "Layer 431",
+          "id": "Lmvg2689o0",
+          "name": "Layer 441",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -1693,8 +1693,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#ffd23d",
-          "color2": "#8cff5a",
+          "color": "#22e4ff",
+          "color2": "#ff3d9a",
           "width": 4,
           "style": "line",
           "wave": "sine",
@@ -2223,8 +2223,8 @@
       },
       "layers": [
         {
-          "id": "Lmvc7grp50",
-          "name": "Layer 433",
+          "id": "Lmvg2689o0",
+          "name": "Layer 443",
           "enabled": true,
           "type": "function",
           "exprs": {
@@ -2240,8 +2240,8 @@
             "max": 6.283185307179586
           },
           "colorMode": "solid",
-          "color": "#22e4ff",
-          "color2": "#ff3d9a",
+          "color": "#ffd23d",
+          "color2": "#8cff5a",
           "width": 4,
           "style": "line",
           "wave": "sine",
