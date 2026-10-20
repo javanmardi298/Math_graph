@@ -19,7 +19,7 @@ import { gridAt, barsToSeconds } from './math/rhythm.js';
 import { layerTiming as seqTiming } from './math/sequence.js';
 import { AudioEngine } from './audio/engine.js';
 import { instrumentOf } from './audio/instruments.js';
-import { voiceFrame, hasSolo } from './audio/sonify.js';
+import { voiceFrame, hasSolo, melodyMidi } from './audio/sonify.js';
 import { DrumScanner } from './audio/drum-scanner.js';
 import { BufferAnalyser } from './audio/buffer-analyser.js';
 import { valuesAt, applyValues, upsertKey, readValue, describe, animatable, toKeyPath, snapshotValues, addKeyframe, keyframeTimes, LANES } from './anim/keyframes.js';
@@ -375,6 +375,7 @@ function voicesAt(time) {
     const lt = layerTiming(l, tq);
     c.at(lt.u, ctx, p);
     const f = voiceFrame(l, p, store.state, solo);
+    if (f.midi != null && l.pitchFrom === 'melody') f.midi = melodyMidi(l, lt.u, store.state.audio) ?? f.midi;
     if (lt.phase !== 'active') f.gain = 0; // in sequence mode only the current layer sounds
     if (g) {
       f.step = g.index;

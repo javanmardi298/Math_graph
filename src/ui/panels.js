@@ -242,6 +242,12 @@ export class Panels {
     card.append(group('Sound', [
       this.soundPicker(l, ev),
       vol,
+      select('Notes from', { get: () => l.pitchFrom, set: (v) => { l.pitchFrom = v; store.emit(`${ev}.sound`); refreshAll(); } }, { height: 'The height of the curve', melody: 'A written melody, note by note' }),
+      ...(l.pitchFrom === 'melody' ? [
+        select('Melody', { get: () => l.melody, set: (v) => { l.melody = v; store.emit(`${ev}.sound`); refreshAll(); } }, Object.fromEntries(Object.entries(MELODIES).filter(([k]) => k !== 'scale').map(([k, m]) => [k, m.label]))),
+        ...(l.melody === 'custom' ? [text('Notes', bindObj(l, 'notes', `${ev}.sound`), { placeholder: 'E4 D#4 E4 D#4 E4 B3 D4 C4 A3' })] : []),
+        slider('Times through the drawing', bindObj(l, 'melodyLoops', `${ev}.sound`), { min: 1, max: 8, step: 1, fmt: (v) => `×${v}` }),
+      ] : []),
       slider('Octave', bindObj(l, 'octave', `${ev}.sound`), { min: -3, max: 3, step: 1, fmt: (v) => (v > 0 ? `+${v}` : `${v}`) }),
       slider('Pan', bindObj(l, 'pan', `${ev}.sound`), { min: -1, max: 1, step: 0.01, fmt: (v) => (Math.abs(v) < 0.01 ? 'C' : v < 0 ? `L${Math.round(-v * 100)}` : `R${Math.round(v * 100)}`) }),
       select('Z controls', bindObj(l, 'zMap', `${ev}.sound`), { volume: 'Volume', pan: 'Stereo pan', none: 'Nothing' }),

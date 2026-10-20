@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg268940",
+          "id": "Lmvg34cee0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -51,6 +51,10 @@
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -64,7 +68,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvg268941",
+          "id": "Lmvg34cee1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -88,6 +92,10 @@
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -101,7 +109,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvg268942",
+          "id": "Lmvg34cee2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -125,6 +133,10 @@
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -496,7 +508,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg268940",
+          "id": "Lmvg34cee0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -520,6 +532,10 @@
           "wave": "sawtooth",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -533,7 +549,7 @@
           "samples": 64
         },
         {
-          "id": "Lmvg268941",
+          "id": "Lmvg34cee1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -557,6 +573,10 @@
           "wave": "sawtooth",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -570,7 +590,7 @@
           "samples": 64
         },
         {
-          "id": "Lmvg268942",
+          "id": "Lmvg34cee2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -594,6 +614,10 @@
           "wave": "sawtooth",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -965,7 +989,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg268940",
+          "id": "Lmvg34cee0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -989,6 +1013,10 @@
           "wave": "sawtooth",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -1002,7 +1030,7 @@
           "samples": 64
         },
         {
-          "id": "Lmvg268941",
+          "id": "Lmvg34cee1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -1026,6 +1054,10 @@
           "wave": "sawtooth",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -1039,7 +1071,7 @@
           "samples": 64
         },
         {
-          "id": "Lmvg268942",
+          "id": "Lmvg34cee2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -1063,6 +1095,10 @@
           "wave": "sawtooth",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -1434,7 +1470,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg268940",
+          "id": "Lmvg34cee0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -1458,6 +1494,10 @@
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -1471,7 +1511,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvg268941",
+          "id": "Lmvg34cee1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -1495,6 +1535,10 @@
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -1508,7 +1552,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvg268942",
+          "id": "Lmvg34cee2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -1532,6 +1576,10 @@
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -1903,7 +1951,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg268940",
+          "id": "Lmvg34cee0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -1927,6 +1975,10 @@
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -1940,7 +1992,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvg268941",
+          "id": "Lmvg34cee1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -1964,6 +2016,10 @@
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -1977,7 +2033,7 @@
           "samples": 1400
         },
         {
-          "id": "Lmvg268942",
+          "id": "Lmvg34cee2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -2001,6 +2057,10 @@
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,

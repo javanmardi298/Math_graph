@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688l0",
+          "id": "Lmvg34cdx0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -51,6 +51,10 @@
           "wave": "flute-synth",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -376,7 +380,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688l0",
+          "id": "Lmvg34cdx0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -400,6 +404,10 @@
           "wave": "flute-synth",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -725,7 +733,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688l0",
+          "id": "Lmvg34cdx0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -749,6 +757,10 @@
           "wave": "harp",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -1074,7 +1086,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688l0",
+          "id": "Lmvg34cdx0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -1098,6 +1110,10 @@
           "wave": "sine",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -1423,7 +1439,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688l0",
+          "id": "Lmvg34cdx0",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -1447,6 +1463,10 @@
           "wave": "harp",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -1772,7 +1792,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688l0",
+          "id": "Lmvg34cdx0",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -1796,6 +1816,10 @@
           "wave": "psy-lead",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -2121,7 +2145,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688l0",
+          "id": "Lmvg34cdx0",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -2145,6 +2169,10 @@
           "wave": "bell",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -2470,7 +2498,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688l0",
+          "id": "Lmvg34cdx0",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -2494,6 +2522,10 @@
           "wave": "flute-synth",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -2819,7 +2851,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688l0",
+          "id": "Lmvg34cdy0",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -2843,6 +2875,10 @@
           "wave": "warm-pad",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -3168,7 +3204,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688l0",
+          "id": "Lmvg34cdy0",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -3192,6 +3228,10 @@
           "wave": "kalimba",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -3517,7 +3557,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdy0",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -3541,6 +3581,10 @@
           "wave": "marimba",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -3866,7 +3910,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdy0",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -3890,6 +3934,10 @@
           "wave": "supersaw",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -4215,7 +4263,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdy0",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -4239,6 +4287,10 @@
           "wave": "acid-303",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -4564,7 +4616,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdy0",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -4588,6 +4640,10 @@
           "wave": "vibrato-lead",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -4913,7 +4969,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdy0",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -4937,6 +4993,10 @@
           "wave": "sine",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -5262,7 +5322,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdy0",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -5286,6 +5346,10 @@
           "wave": "drone",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -5611,7 +5675,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdy0",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -5635,6 +5699,10 @@
           "wave": "bell",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -5960,7 +6028,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdy0",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -5984,6 +6052,10 @@
           "wave": "sine",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -6309,7 +6381,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdy0",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -6333,6 +6405,10 @@
           "wave": "flute-synth",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -6658,7 +6734,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdy0",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -6682,6 +6758,10 @@
           "wave": "kalimba",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -7007,7 +7087,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdy0",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -7031,6 +7111,10 @@
           "wave": "bell",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -7356,7 +7440,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdy0",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -7380,6 +7464,10 @@
           "wave": "kalimba",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -7705,7 +7793,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdy0",
           "name": "Three-leaf Clover",
           "enabled": true,
           "type": "polar",
@@ -7729,6 +7817,10 @@
           "wave": "harp",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -8054,7 +8146,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdy0",
           "name": "Three-leaf Clover",
           "enabled": true,
           "type": "polar",
@@ -8078,6 +8170,10 @@
           "wave": "glass-pad",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -8403,7 +8499,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdy0",
           "name": "Five-petal Rose",
           "enabled": true,
           "type": "polar",
@@ -8427,6 +8523,10 @@
           "wave": "vibrato-lead",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -8752,7 +8852,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdz0",
           "name": "Five-petal Rose",
           "enabled": true,
           "type": "polar",
@@ -8776,6 +8876,10 @@
           "wave": "harp",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -9101,7 +9205,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688m0",
+          "id": "Lmvg34cdz0",
           "name": "Cardioid",
           "enabled": true,
           "type": "polar",
@@ -9125,6 +9229,10 @@
           "wave": "psy-lead",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -9450,7 +9558,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34cdz0",
           "name": "Cardioid",
           "enabled": true,
           "type": "polar",
@@ -9474,6 +9582,10 @@
           "wave": "vibrato-lead",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -9799,7 +9911,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34cdz0",
           "name": "Figure Eight",
           "enabled": true,
           "type": "parametric",
@@ -9823,6 +9935,10 @@
           "wave": "e-piano",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -10148,7 +10264,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34cdz0",
           "name": "Figure Eight",
           "enabled": true,
           "type": "parametric",
@@ -10172,6 +10288,10 @@
           "wave": "e-piano",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -10497,7 +10617,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34cdz0",
           "name": "Pretzel",
           "enabled": true,
           "type": "parametric",
@@ -10521,6 +10641,10 @@
           "wave": "harp",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -10846,7 +10970,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34cdz0",
           "name": "Pretzel",
           "enabled": true,
           "type": "parametric",
@@ -10870,6 +10994,10 @@
           "wave": "vibrato-lead",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -11195,7 +11323,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34cdz0",
           "name": "Gear",
           "enabled": true,
           "type": "polar",
@@ -11219,6 +11347,10 @@
           "wave": "chiptune",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -11544,7 +11676,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34cdz0",
           "name": "Gear",
           "enabled": true,
           "type": "polar",
@@ -11568,6 +11700,10 @@
           "wave": "supersaw",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -11893,7 +12029,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34cdz0",
           "name": "Crown",
           "enabled": true,
           "type": "polar",
@@ -11917,6 +12053,10 @@
           "wave": "supersaw",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -12242,7 +12382,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34cdz0",
           "name": "Crown",
           "enabled": true,
           "type": "polar",
@@ -12266,6 +12406,10 @@
           "wave": "deep-organ",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -12591,7 +12735,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34cdz0",
           "name": "Trefoil Knot",
           "enabled": true,
           "type": "parametric",
@@ -12615,6 +12759,10 @@
           "wave": "drone",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -12940,7 +13088,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34cdz0",
           "name": "Trefoil Knot",
           "enabled": true,
           "type": "parametric",
@@ -12964,6 +13112,10 @@
           "wave": "glass-pad",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -13289,7 +13441,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34cdz0",
           "name": "Spirograph",
           "enabled": true,
           "type": "parametric",
@@ -13313,6 +13465,10 @@
           "wave": "space-arp",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -13638,7 +13794,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34cdz0",
           "name": "Spirograph",
           "enabled": true,
           "type": "parametric",
@@ -13662,6 +13818,10 @@
           "wave": "flute-synth",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -13987,7 +14147,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34cdz0",
           "name": "Nephroid",
           "enabled": true,
           "type": "parametric",
@@ -14011,6 +14171,10 @@
           "wave": "supersaw",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -14336,7 +14500,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34ce00",
           "name": "Nephroid",
           "enabled": true,
           "type": "parametric",
@@ -14360,6 +14524,10 @@
           "wave": "harp",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -14685,7 +14853,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34ce00",
           "name": "Looped Limaçon",
           "enabled": true,
           "type": "polar",
@@ -14709,6 +14877,10 @@
           "wave": "kalimba",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -15034,7 +15206,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688n0",
+          "id": "Lmvg34ce00",
           "name": "Looped Limaçon",
           "enabled": true,
           "type": "polar",
@@ -15058,6 +15230,10 @@
           "wave": "harp",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -15383,7 +15559,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688o0",
+          "id": "Lmvg34ce00",
           "name": "Lissajous Knot",
           "enabled": true,
           "type": "parametric",
@@ -15407,6 +15583,10 @@
           "wave": "dub-chord",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -15732,7 +15912,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2688o0",
+          "id": "Lmvg34ce00",
           "name": "Lissajous Knot",
           "enabled": true,
           "type": "parametric",
@@ -15756,6 +15936,10 @@
           "wave": "square",
           "volume": 1,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,

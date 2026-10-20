@@ -38,6 +38,8 @@ export function createLayer(overrides = {}) {
     wave: 'sine', // sine | square | sawtooth | triangle
     volume: 0.6,
     octave: 0,
+    pitchFrom: 'height', // height: the curve's height is the pitch | melody: a written melody, note by note along the drawing
+    melody: 'ode', notes: '', melodyLoops: 1, // which melody (circle/sound.js MELODIES; 'custom' = notes), and how many times it plays during the layer
     pan: 0,
     zMap: 'volume', // what the Z coordinate controls: volume | pan | none
     mute: false,

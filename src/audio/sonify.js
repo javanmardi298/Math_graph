@@ -3,7 +3,8 @@
  * Shared by the live synth, the offline WAV renderer and the MIDI exporter,
  * so all three always agree.
  */
-import { yToMidi } from '../math/music.js';
+import { yToMidi, quantize } from '../math/music.js';
+import { MELODIES, parseNotes } from '../circle/sound.js';
 
 /**
  * @param {object} layer
@@ -26,3 +27,22 @@ export function voiceFrame(layer, point, state, anySolo) {
 }
 
 export const hasSolo = (layers) => layers.some((l) => l.enabled && l.solo);
+
+const parsed = new Map();
+
+/**
+ * The note of a layer that plays a written melody: the layer's pass (0..1) is cut into one
+ * slice per note, so the drawing is the melody's tempo (and speed keyframes change it).
+ * Notes are snapped to the scale unless it is continuous. null = the layer plays by height.
+ */
+export function melodyMidi(layer, u, audio) {
+  if (layer.pitchFrom !== 'melody') return null;
+  const text = layer.melody === 'custom' ? layer.notes : MELODIES[layer.melody]?.notes;
+  let notes = parsed.get(text);
+  if (!notes) { notes = parseNotes(text); if (parsed.size > 50) parsed.clear(); parsed.set(text, notes); }
+  if (!notes.length) return null;
+  const n = notes.length * Math.max(1, Math.round(layer.melodyLoops || 1));
+  const k = Math.min(n - 1, Math.floor(Math.min(Math.max(u, 0), 1) * n));
+  const m = notes[k % notes.length] + (layer.octave || 0) * 12;
+  return audio.scale === 'continuous' ? m : quantize(m, audio.scale, audio.root || 0);
+}

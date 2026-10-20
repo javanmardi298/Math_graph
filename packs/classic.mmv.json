@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2689b0",
+          "id": "Lmvg34cen0",
           "name": "Layer 361",
           "enabled": true,
           "type": "function",
@@ -51,6 +51,10 @@
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -565,7 +569,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2689b0",
+          "id": "Lmvg34cen0",
           "name": "Layer 363",
           "enabled": true,
           "type": "function",
@@ -589,6 +593,10 @@
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -1103,7 +1111,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2689b0",
+          "id": "Lmvg34cen0",
           "name": "Layer 365",
           "enabled": true,
           "type": "function",
@@ -1127,6 +1135,10 @@
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -1641,7 +1653,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2689b0",
+          "id": "Lmvg34cen0",
           "name": "Layer 367",
           "enabled": true,
           "type": "function",
@@ -1665,6 +1677,10 @@
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -2179,7 +2195,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2689b0",
+          "id": "Lmvg34cen0",
           "name": "Layer 369",
           "enabled": true,
           "type": "function",
@@ -2203,6 +2219,10 @@
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -2717,7 +2737,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2689b0",
+          "id": "Lmvg34cen0",
           "name": "Layer 371",
           "enabled": true,
           "type": "function",
@@ -2741,6 +2761,10 @@
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,

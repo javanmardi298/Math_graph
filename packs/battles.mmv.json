@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2689n0",
+          "id": "Lmvg34cez0",
           "name": "Layer 435",
           "enabled": true,
           "type": "function",
@@ -51,6 +51,10 @@
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -574,7 +578,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2689n0",
+          "id": "Lmvg34cez0",
           "name": "Layer 437",
           "enabled": true,
           "type": "function",
@@ -598,6 +602,10 @@
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -1125,7 +1133,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2689o0",
+          "id": "Lmvg34cez0",
           "name": "Layer 439",
           "enabled": true,
           "type": "function",
@@ -1149,6 +1157,10 @@
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -1676,7 +1688,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2689o0",
+          "id": "Lmvg34cez0",
           "name": "Layer 441",
           "enabled": true,
           "type": "function",
@@ -1700,6 +1712,10 @@
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
@@ -2223,7 +2239,7 @@
       },
       "layers": [
         {
-          "id": "Lmvg2689o0",
+          "id": "Lmvg34cf00",
           "name": "Layer 443",
           "enabled": true,
           "type": "function",
@@ -2247,6 +2263,10 @@
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
+          "pitchFrom": "height",
+          "melody": "ode",
+          "notes": "",
+          "melodyLoops": 1,
           "pan": 0,
           "zMap": "volume",
           "mute": false,
