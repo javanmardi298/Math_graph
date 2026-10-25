@@ -1,6 +1,6 @@
 [
  {
-  "build": "997806e5eb",
+  "build": "1cbd3cbea2",
   "files": [
    "anim/keyframes.js",
    "anim/selection.js",
@@ -63,7 +63,7 @@
   ]
  },
  {
-  "build": "1cbd3cbea2",
+  "build": "cd7e8ca731",
   "files": [
    "anim/keyframes.js",
    "anim/selection.js",
@@ -90,6 +90,7 @@
    "circle/sim.js",
    "circle/sound.js",
    "circle/stack.js",
+   "circle/theory.js",
    "circle/view.js",
    "circle/waves.js",
    "daily/planner.js",
