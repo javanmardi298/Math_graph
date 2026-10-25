@@ -21,6 +21,7 @@ import { FOURIER_DRAW } from './fourier-draw.js';
 import { CALCULUS } from './calculus.js';
 import { PI_SCENES } from './pi.js';
 import { FRACTALS } from './fractals.js';
+import { THEORY } from './theory.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -1136,6 +1137,7 @@ export const SCENES = {
   ...CALCULUS,
   ...PI_SCENES,
   ...FRACTALS,
+  ...THEORY,
 };
 
 /** Settings of a scene: its defaults, overridden by what the user / preset set. */

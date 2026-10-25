@@ -17,7 +17,11 @@ import { h } from './controls.js';
 import { normalize } from '../state.js';
 
 const FAV_KEY = 'mmv.favorites.v1';
+const HIDE_KEY = 'mmv.hidden.v1';
+const FOLD_KEY = 'mmv.folds.v1';
 const PAGE = 100;
+const readSet = (key) => { try { const v = JSON.parse(localStorage.getItem(key)); return Array.isArray(v) ? new Set(v) : null; } catch { return null; } };
+const writeSet = (key, s) => { try { localStorage.setItem(key, JSON.stringify([...s])); } catch { /* storage blocked */ } };
 
 const readFavs = () => { try { return new Set(JSON.parse(localStorage.getItem(FAV_KEY)) || []); } catch { return new Set(); } };
 const writeFavs = (s) => { try { localStorage.setItem(FAV_KEY, JSON.stringify([...s])); } catch { /* storage blocked */ } };
@@ -34,6 +38,7 @@ export class LibraryView {
     this.items = readLibrary(); // instant; replaced by the IndexedDB copy a moment later
     this.backend = 'local';
     this.favs = readFavs();
+    this.hidden = readSet(HIDE_KEY) || new Set(); // built-in presets the user hid (restorable)
     // built-in presets sit on shelves (categories); your own ones in their collections
     // built-in presets are JSON files outside the app (presets/): fetched once, here
     this.builtins = [];
@@ -41,7 +46,8 @@ export class LibraryView {
     this.packs = [];
     this.catalogState = 'loading'; // loading | ready | failed
     this.filter = { q: '', source: 'all', aspect: 'any', mode: 'any', collection: '*', sort: 'shelf' };
-    this.collapsed = new Set();
+    this.folds = readSet(FOLD_KEY); // folded sections / shelves; null = first visit (everything folded except the first section)
+    this.collapsed = this.folds || new Set();
     this.selected = new Set();
     this.limit = PAGE;
     this.openMenu = null; // id of the row whose action menu is open
@@ -66,8 +72,15 @@ export class LibraryView {
       this.shelfOrder = cat.shelves.map((s) => s.name);
       // a preset can sit on two shelves ("Start here" and its own): the id says which
       this.builtins = shelves.flatMap(({ shelf, presets }) => presets.map((p) => ({
-        id: shelf.id === 'start' ? `b:★:${p.name}` : `b:${p.name}`, name: p.name, collection: shelf.name, builtin: true, savedAt: 0, preset: p,
+        id: shelf.id === 'start' ? `b:★:${p.name}` : `b:${p.name}`, name: p.name, collection: shelf.name, section: shelf.section, builtin: true, savedAt: 0, preset: p,
       })));
+      if (!this.folds) {
+        // first visit: show the section headers only, except the first (Picks) and your own presets
+        const secs = [...new Set(cat.shelves.map((x) => x.section))];
+        this.collapsed = new Set(secs.slice(1).map((x) => `sec:${x}`));
+        for (const sh of cat.shelves) if (sh.section !== secs[0]) this.collapsed.add(sh.name);
+        writeSet(FOLD_KEY, this.collapsed);
+      }
       this.packs = cat.packs.map((p) => ({ ...p, load: () => loadPack(p.id) }));
       this.catalogState = 'ready';
       this.renderPacks();
@@ -93,19 +106,22 @@ export class LibraryView {
     return true;
   }
 
-  all() { return [...this.builtins, ...this.items]; }
-  byId(id) { return this.all().find((x) => x.id === id); }
+  all() { return [...this.builtins.filter((x) => !this.hidden.has(x.id)), ...this.items]; }
+  hiddenList() { return this.builtins.filter((x) => this.hidden.has(x.id)); }
+  byId(id) { return [...this.builtins, ...this.items].find((x) => x.id === id); }
   collections() { return [...new Set(this.items.map((x) => x.collection).filter(Boolean))].sort((a, b) => a.localeCompare(b)); }
   shelves() {
     const order = (c) => { const i = this.shelfOrder.indexOf(c); return i < 0 ? 999 : i; };
-    return [...new Set(this.builtins.map((x) => x.collection))].sort((a, b) => order(a) - order(b) || a.localeCompare(b));
+    return [...new Set(this.builtins.filter((x) => !this.hidden.has(x.id)).map((x) => x.collection))].sort((a, b) => order(a) - order(b) || a.localeCompare(b));
   }
   shelfOf(x) { return x.builtin ? x.collection : x.collection || 'My presets'; }
+  sectionOf(x) { return x.builtin ? x.section || 'Built-in' : 'My presets'; }
+  saveFolds() { writeSet(FOLD_KEY, this.collapsed); }
 
   visible() {
     const f = this.filter;
     const q = f.q.trim().toLowerCase();
-    let list = this.all().filter((x) => {
+    let list = (f.source === 'hidden' ? this.hiddenList() : this.all()).filter((x) => {
       if (f.source === 'builtin' && !x.builtin) return false;
       if (f.source === 'mine' && x.builtin) return false;
       if (f.source === 'fav' && !this.favs.has(x.id)) return false;
@@ -146,7 +162,7 @@ export class LibraryView {
       return b;
     };
     this.chips = h('div.lib-chips', {},
-      chip('source', 'all', 'All'), chip('source', 'builtin', 'Built-in'), chip('source', 'mine', 'Mine'), chip('source', 'fav', '★ Favourites'),
+      chip('source', 'all', 'All'), chip('source', 'builtin', 'Built-in'), chip('source', 'mine', 'Mine'), chip('source', 'fav', '★ Favourites'), this.hiddenChip = chip('source', 'hidden', 'Hidden'),
       chip('aspect', '16:9', '16:9'), chip('aspect', '9:16', '9:16'), chip('mode', '2d', '2D'), chip('mode', '3d', '3D'), chip('mode', 'circle', '◎ Circle'));
 
     this.collSel = h('select.lib-select', { 'aria-label': 'Collection' });
@@ -174,6 +190,8 @@ export class LibraryView {
 
     this.el = h('section.tab.lib', {},
       h('div.lib-top', {}, this.search, this.chips, h('div.row', {}, this.collSel, this.sortSel,
+        h('button.btn.ghost.small', { type: 'button', title: 'Fold every section and shelf', 'aria-label': 'Collapse all', onclick: () => this.foldAll(true) }, '▸ All'),
+        h('button.btn.ghost.small', { type: 'button', title: 'Open every section and shelf', 'aria-label': 'Expand all', onclick: () => this.foldAll(false) }, '▾ All'),
         h('button.btn.ghost.small', { type: 'button', title: 'Load a random preset from the list', onclick: () => { const v = this.visible(); if (v.length) this.load(v[Math.floor(Math.random() * v.length)]); } }, '🎲'))),
       this.report,
       this.bulk,
@@ -216,6 +234,10 @@ export class LibraryView {
   render() {
     const f = this.filter;
     for (const b of this.chips.querySelectorAll('.lib-chip')) b.setAttribute('aria-pressed', String(f[b.dataset.key] === b.dataset.value));
+    const hn = this.hiddenList().length;
+    this.hiddenChip.hidden = !hn && f.source !== 'hidden';
+    this.hiddenChip.textContent = `Hidden (${hn})`;
+    if (f.source === 'hidden' && !hn) f.source = 'all';
     const colls = this.collections();
     const shelves = this.shelves();
     if (f.collection !== '*' && !shelves.includes(f.collection) && !colls.includes(f.collection)) f.collection = '*';
@@ -227,12 +249,13 @@ export class LibraryView {
     this.search.placeholder = `Search ${this.all().length} presets (name, collection, formula)…`;
 
     const list = this.visible();
-    const shown = list.slice(0, this.limit);
-    this.list.replaceChildren(...(shown.length ? this.rows(shown, list) : [h('p.hint.lib-empty', {}, this.items.length || f.source !== 'mine'
+    const grouped = f.sort === 'shelf';
+    const built = grouped ? this.rows(list, this.limit) : { nodes: list.slice(0, this.limit).map((x) => this.row(x)), hiddenRows: Math.max(0, list.length - this.limit) };
+    this.list.replaceChildren(...(list.length ? built.nodes : [h('p.hint.lib-empty', {}, this.items.length || f.source !== 'mine'
       ? 'No presets match. Clear the search or filters.'
       : 'You have no saved presets yet. Save the current setup below, or import preset files.')]));
-    this.more.hidden = list.length <= this.limit;
-    this.more.textContent = `Show ${Math.min(PAGE, list.length - this.limit)} more (${list.length - this.limit} hidden)`;
+    this.more.hidden = !built.hiddenRows;
+    this.more.textContent = `Show ${Math.min(PAGE, built.hiddenRows)} more (${built.hiddenRows} not shown yet)`;
     this.count.textContent = `${list.length} of ${this.all().length} presets${this.catalogState === 'loading' ? ' · loading the built-in ones…' : this.catalogState === 'failed' ? ' · built-in presets could not be loaded (offline?)' : ''}`;
 
     // Bulk bar
@@ -247,23 +270,59 @@ export class LibraryView {
       : `Saved in this browser: ${n} · ${fmtKB(JSON.stringify(this.items).length * 2)} of about ${fmtKB(STORAGE_BUDGET)}`;
   }
 
-  /** Rows, with a header per shelf when sorted by shelf (click a header to fold it). */
-  rows(shown, list) {
-    if (this.filter.sort !== 'shelf') return shown.map((x) => this.row(x));
+  foldAll(fold) {
+    this.collapsed = new Set();
+    if (fold) {
+      for (const x of this.all()) { this.collapsed.add(this.shelfOf(x)); this.collapsed.add(`sec:${this.sectionOf(x)}`); }
+    }
+    this.saveFolds();
+    this.render();
+  }
+
+  toggleFold(key) {
+    this.collapsed.has(key) ? this.collapsed.delete(key) : this.collapsed.add(key);
+    this.saveFolds();
+    this.render();
+  }
+
+  /**
+   * Rows, grouped when sorted by shelf: a section header (Sound of math, Math, Satisfying …) over
+   * the shelf headers over the presets. Click a header to fold it; the box at its left selects
+   * everything in it. Searching opens everything that matches.
+   */
+  rows(list, limit) {
+    let rowsLeft = limit, hiddenRows = 0;
+    const searching = !!this.filter.q.trim();
     const out = [];
-    let shelf = null;
-    for (const x of shown) {
-      const s = this.shelfOf(x);
+    let section = null, shelf = null;
+    const head = (cls, key, text, members, folded) => {
+      const all = members.every((y) => this.selected.has(y.id));
+      const box = h('input.lib-check.lib-shelf-check', { type: 'checkbox', 'aria-label': `Select all in ${text}`, title: 'Select all in this group' });
+      box.checked = all;
+      box.addEventListener('change', () => { for (const y of members) box.checked ? this.selected.add(y.id) : this.selected.delete(y.id); this.render(); });
+      return h(`div.${cls}`, {}, box,
+        h('button.lib-shelf-btn', { type: 'button', 'aria-expanded': String(!folded), onclick: () => this.toggleFold(key) },
+          h('span', {}, `${folded ? '▸' : '▾'} ${text}`), h('span.lib-shelf-n', {}, String(members.length))));
+    };
+    for (const x of list) {
+      const sec = this.sectionOf(x), s = this.shelfOf(x);
+      if (sec !== section) {
+        section = sec; shelf = null;
+        const members = list.filter((y) => this.sectionOf(y) === sec);
+        out.push(head('lib-section', `sec:${sec}`, sec, members, !searching && this.collapsed.has(`sec:${sec}`)));
+      }
+      if (!searching && this.collapsed.has(`sec:${sec}`)) continue;
       if (s !== shelf) {
         shelf = s;
-        const n = list.filter((y) => this.shelfOf(y) === s).length;
-        const folded = this.collapsed.has(s);
-        out.push(h('button.lib-shelf', { type: 'button', 'aria-expanded': String(!folded), onclick: () => { folded ? this.collapsed.delete(s) : this.collapsed.add(s); this.render(); } },
-          h('span', {}, `${folded ? '▸' : '▾'} ${s}`), h('span.lib-shelf-n', {}, String(n))));
+        const members = list.filter((y) => this.shelfOf(y) === s);
+        // a section with a single shelf of the same name needs no second header
+        if (members.length !== list.filter((y) => this.sectionOf(y) === sec).length || s !== sec) out.push(head('lib-shelf', s, s, members, !searching && this.collapsed.has(s)));
       }
-      if (!this.collapsed.has(s)) out.push(this.row(x));
+      if (searching || !this.collapsed.has(s)) {
+        if (rowsLeft > 0) { out.push(this.row(x)); rowsLeft--; } else hiddenRows++;
+      }
     }
-    return out;
+    return { nodes: out, hiddenRows };
   }
 
   row(x) {
@@ -317,7 +376,9 @@ export class LibraryView {
       ...(this.actions.addToDaily ? [act('Add to Daily', () => { this.openMenu = null; this.actions.addToDaily({ name: x.name, preset: clean(x.preset) }); this.render(); })] : []),
       act('Export', () => this.exportItems([x])),
       act('Duplicate', () => this.duplicate(x)),
-      ...(x.builtin ? [] : [
+      ...(x.builtin ? [this.hidden.has(x.id)
+        ? act('Restore to the list', () => { this.hidden.delete(x.id); writeSet(HIDE_KEY, this.hidden); this.openMenu = null; this.actions.toast(`Restored “${x.name}”.`); this.render(); })
+        : act('Hide from the list', () => { this.hidden.add(x.id); writeSet(HIDE_KEY, this.hidden); this.openMenu = null; this.selected.delete(x.id); this.actions.toast(`Hid “${x.name}”. Bring it back from the Hidden filter.`, 5000); this.render(); })] : [
         act('Rename', () => { this.editing = { id: x.id, field: 'name' }; this.openMenu = null; this.render(); }),
         act('Collection…', () => { this.editing = { id: x.id, field: 'collection' }; this.openMenu = null; this.render(); }),
         act(this.confirmDelete === x.id ? 'Click again to delete' : 'Delete', () => {
@@ -334,8 +395,9 @@ export class LibraryView {
   }
 
   renderBulk(list) {
-    const sel = this.all().filter((x) => this.selected.has(x.id));
+    const sel = [...this.builtins, ...this.items].filter((x) => this.selected.has(x.id));
     const mine = sel.filter((x) => !x.builtin);
+    const builtinSel = sel.filter((x) => x.builtin);
     const moveIn = h('input.lib-input', { placeholder: 'Move to collection…', list: 'lib-collections', dir: 'auto', 'aria-label': 'Move selected to collection' });
     const move = () => {
       for (const x of mine) x.collection = moveIn.value.trim();
@@ -353,6 +415,14 @@ export class LibraryView {
       h('div.row', {},
         h('button.btn.small.lib-render', { type: 'button', onclick: () => this.renderItems(sel), title: 'Render every selected preset to MP4 (Export tab settings) and download them in one .zip, each with its YouTube title and description' }, `🎬 Render ${sel.length} video${sel.length === 1 ? '' : 's'}`),
         h('button.btn.ghost.small', { type: 'button', onclick: () => this.exportItems(sel) }, `Export ${sel.length} preset${sel.length === 1 ? '' : 's'}`),
+        builtinSel.length ? h('button.btn.ghost.small', { type: 'button', title: this.filter.source === 'hidden' ? 'Put these built-in presets back in the list' : 'Hide these built-in presets (restore them any time from the Hidden filter)', onclick: () => {
+          const restore = this.filter.source === 'hidden';
+          for (const x of builtinSel) restore ? this.hidden.delete(x.id) : this.hidden.add(x.id);
+          writeSet(HIDE_KEY, this.hidden);
+          this.selected.clear();
+          this.actions.toast(`${restore ? 'Restored' : 'Hid'} ${builtinSel.length} preset${builtinSel.length === 1 ? '' : 's'}.`);
+          this.render();
+        } }, `${this.filter.source === 'hidden' ? 'Restore' : 'Hide'} ${builtinSel.length}`) : null,
         mine.length ? h('button.btn.ghost.small.danger', { type: 'button', onclick: () => {
           if (!armed) { this.confirmDelete = 'bulk'; this.render(); return; }
           const ids = new Set(mine.map((x) => x.id));
@@ -364,7 +434,7 @@ export class LibraryView {
           this.render();
         } }, armed ? `Click again to delete ${mine.length}` : `Delete ${mine.length}`) : null),
       mine.length ? h('div.row', {}, moveIn, h('button.btn.ghost.small', { type: 'button', onclick: move }, 'Move')) : null,
-      sel.length !== mine.length ? h('p.hint', {}, 'Built-in presets can be exported but not deleted or moved.') : null);
+      sel.length !== mine.length ? h('p.hint', {}, 'Built-in presets can be hidden (not deleted); bring them back from the Hidden filter.') : null);
   }
 
   /* ------------------------------------------------------------- actions */

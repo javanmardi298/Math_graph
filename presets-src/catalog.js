@@ -19,6 +19,7 @@ import { SHOWCASE_PRESETS } from './sound-showcase.js';
 import { SOUND_SHAPE_PRESETS } from './sound-shapes.js';
 import { CURVE_PRESETS } from './sound-curves.js';
 import { LAYER_PRESETS } from './sound-layers.js';
+import { THEORY_PRESETS } from './circle-theory.js';
 
 /** Shelves in library order: [id, name, section]. */
 export const SHELVES = [
@@ -30,10 +31,12 @@ export const SHELVES = [
   ['sound-waves', 'Sound · Waves, notes & intervals', 'Sound of math'],
   ['sound-shapes', 'Sound · Shapes in moods (46)', 'Sound of math'],
   ['sound-showcase', 'Sound · Showcase (50 sounds, on a spectrum)', 'Sound of math'],
+  ['music-theory', 'Music · Circle of fifths & theory', 'Sound of math'],
   ['math-fourier', 'Math · Fourier, names & flags', 'Math'],
   ['math-pi', 'Math · Pi', 'Math'],
   ['math-calculus', 'Math · Calculus & trig', 'Math'],
   ['math-fractals', 'Math · Fractals', 'Math'],
+  ['math-complex', 'Math · Roots of unity & complex numbers', 'Math'],
   ['math-patterns', 'Math · Patterns & rhythm', 'Math'],
   ['math-machines', 'Math · Drawing machines', 'Math'],
   ['physics', 'Physics · Vibration, cymatics & fields', 'Physics'],
@@ -53,10 +56,10 @@ const GROUP_SHELF = {
   'Classic circle': 'classic', 'Multiply & split': 'multiply', 'Fill the screen': 'fill', 'Bounce & draw': 'bounce',
   'Battles & growth': 'growth', 'Battles & formulas': 'games', 'Patterns & rhythm': 'math-patterns', 'Drawing machines': 'math-machines',
   'Vibration & waves': 'physics', 'Waves & sound': 'sound-waves', 'Fourier & curves': 'math-fourier', 'Calculus & trig': 'math-calculus',
-  Pi: 'math-pi', Fractals: 'math-fractals',
+  Pi: 'math-pi', Fractals: 'math-fractals', 'Music theory': 'music-theory', 'Complex numbers': 'math-complex',
 };
 /** Older explicit categories → shelf. */
-const CATEGORY_SHELF = { 'Formulas · Sound of a graph': 'sound-graph', 'Formulas · Guess & compare': 'sound-quiz', 'Sound · Showcase': 'sound-showcase', 'Sound · Shapes in moods': 'sound-shapes', 'Sound · Melodic shapes': 'sound-curves', 'Sound · Layered shows': 'sound-layers' };
+const CATEGORY_SHELF = { 'Formulas · Sound of a graph': 'sound-graph', 'Formulas · Guess & compare': 'sound-quiz', 'Sound · Showcase': 'sound-showcase', 'Sound · Shapes in moods': 'sound-shapes', 'Sound · Melodic shapes': 'sound-curves', 'Sound · Layered shows': 'sound-layers', 'Music · Circle of fifths': 'music-theory', 'Math · Complex numbers': 'math-complex' };
 
 /** The shelf of a preset. */
 export function shelfOf(p) {
@@ -76,7 +79,7 @@ export const START_HERE = [
 ];
 
 /** Every built-in preset, in source order. */
-const SOURCES = [...FORMULA_PRESETS, ...CIRCLE_PRESETS, ...LAB_PRESETS, ...TOPIC_PRESETS, ...SOUND_PRESETS, ...STACK_PRESETS, ...SOUND_SHAPE_PRESETS, ...SHOWCASE_PRESETS, ...CURVE_PRESETS, ...LAYER_PRESETS];
+const SOURCES = [...FORMULA_PRESETS, ...CIRCLE_PRESETS, ...LAB_PRESETS, ...TOPIC_PRESETS, ...SOUND_PRESETS, ...STACK_PRESETS, ...SOUND_SHAPE_PRESETS, ...SHOWCASE_PRESETS, ...CURVE_PRESETS, ...LAYER_PRESETS, ...THEORY_PRESETS];
 // a typo in lengths.js must not pass silently
 for (const n of Object.keys(LENGTHS)) if (!SOURCES.some((p) => p.name === n)) throw new Error(`lengths.js: no preset called "${n}"`);
 export const ALL_PRESETS = SOURCES.map(withLength);

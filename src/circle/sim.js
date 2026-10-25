@@ -397,6 +397,8 @@ const CAPTIONS = {
   unitcircle: 'A turning point draws sine and cosine',
   archimedes: 'How Archimedes trapped π', montecarlo: 'Random dots find π', buffon: 'Drop needles, find π',
   series: 'An endless sum that equals π', pidigits: 'The digits of π, made visible',
+  fifths: (P) => ({ walk: 'Every fifth is a new key', family: 'Four chords, four neighbours on the wheel', scale: 'A scale is seven neighbours', relative: 'Every major key has a minor twin', comma: 'Twelve fifths that never close' }[P.mode]),
+  roots: (P) => ({ roots: 'The roots of 1 make a perfect polygon', power: 'One root, all its powers', multiply: 'Multiplying turns and scales', sum: 'Add them up: nothing is left', euler: 'e to the i θ goes round the circle' }[P.mode]),
   mandel: (P) => (P.set === 'julia' ? 'One formula, endless shapes' : 'Zooming forever into one formula'), lsystem: 'One rule, repeated forever',
 };
 

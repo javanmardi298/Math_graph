@@ -565,9 +565,13 @@ body.mode-circle .circle-layers { display: flex; flex-direction: column; gap: 10
 .circle-layer-name:hover { text-decoration: underline; }
 .circle-layers .row select { flex: 1; min-width: 0; }
 .circle-edit-chips .chip[aria-pressed="true"] { background: var(--accent, #22e4ff); color: #000; }
-.lib-shelf { display: flex; justify-content: space-between; align-items: center; width: 100%; margin: 10px 0 2px; padding: 6px 4px; background: none; border: 0; border-bottom: 1px solid var(--line); color: var(--fg); font: 600 11px var(--f-mono, monospace); letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; }
-.lib-shelf:hover { color: var(--accent, #22e4ff); }
-.lib-shelf-n { color: var(--muted); font-weight: 400; }
+.lib-section, .lib-shelf { display: flex; align-items: center; gap: 6px; width: 100%; border-bottom: 1px solid var(--line); }
+.lib-section { margin: 14px 0 2px; padding: 6px 4px; font: 700 12px var(--f-mono, monospace); letter-spacing: 0.08em; text-transform: uppercase; background: color-mix(in srgb, var(--accent, #22e4ff) 8%, transparent); border-radius: 6px 6px 0 0; }
+.lib-shelf { margin: 8px 0 2px; padding: 4px 4px 4px 14px; font: 600 11px var(--f-mono, monospace); letter-spacing: 0.06em; text-transform: uppercase; }
+.lib-shelf-btn { flex: 1; display: flex; justify-content: space-between; align-items: center; min-width: 0; padding: 2px 0; background: none; border: 0; color: var(--fg); font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; text-align: left; }
+.lib-shelf-btn:hover { color: var(--accent, #22e4ff); }
+.lib-shelf-n { color: var(--muted); font-weight: 400; margin-left: 8px; }
+.lib-shelf-check { flex: none; }
 
 /* Daily tab: the posting plan */
 .daily-inner { display: flex; flex-direction: column; gap: 10px; }
@@ -688,3 +692,4 @@ body.mode-circle .circle-layers { display: flex; flex-direction: column; gap: 10
 .fit-notes .row label { display: flex; align-items: center; gap: 6px; font-size: 12.5px; flex: 1; }
 .fit-notes select { flex: 1; min-width: 0; }
 .note-readout { margin: 0; }
+.lib-top .row { flex-wrap: wrap; }
