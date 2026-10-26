@@ -95,6 +95,7 @@ export class SpiroTab {
     if (store.state.mode !== 'circle') store.set('mode', 'circle');
     store.set(`${this.base()}.rule`, rule);
     store.set(`${this.base()}.sound.pitch`, 'angle');
+    refreshAll(); // the 2D / 3D / ◎ switch in the top bar follows
     this.render();
   }
 

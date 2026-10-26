@@ -128,6 +128,17 @@ test('painting works for every paper, ink, frame, symmetry and the extras', () =
   for (const colorBy of ['time', 'speed', 'angle', 'radius', 'pen']) draw({ colorBy, pens: 3 });
   draw({ sym: 6, mirror: true, dials: true, ghost: true, pen: 'nib', kind: 'rotary' });
   draw({ kind: 'formula', fx: 'bad((', fy: '1' });
+  for (const machine of ['3d', 'plan']) for (const machineStyle of ['victorian', 'blueprint', 'neon']) for (const kind of ['quad', 'lateral', 'rotary', 'epicycle']) draw({ machine, machineStyle, kind, size: 0.55, y: -0.5 });
+  for (const machineLayout of ['top', 'corner', 'full', 'free']) for (const machineShow of ['on', 'intro', 'outro', 'inout', 'off']) draw({ machine: '3d', machineLayout, machineShow });
   assert.ok(calls.length > 500);
   delete globalThis.document;
+});
+
+test('showAlpha: on, off, intro and outro', async () => {
+  const { showAlpha } = await import('../src/circle/harmonograph.js');
+  assert.equal(showAlpha('on', 1, 2, 5, 3, 10), 1);
+  assert.equal(showAlpha('off', 1, 2, 5, 3, 10), 0);
+  assert.equal(showAlpha('intro', 1, 2, 5, 0, 10), 1);
+  assert.equal(showAlpha('intro', 1, 2, 5, 30, 10), 0);
+  assert.ok(showAlpha('intro', 1, 2, 5, 6, 10) > 0 && showAlpha('intro', 1, 2, 5, 6, 10) < 1);
 });

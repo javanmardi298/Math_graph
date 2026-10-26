@@ -20,6 +20,7 @@ import { tryCompile } from '../math/parser.js';
 import { SCALES } from '../math/music.js';
 import { hexA } from './palettes.js';
 import { bandFor } from './layout.js';
+import { drawMachine, MACHINE_VIEWS, MACHINE_STYLES, MACHINE_LAYOUTS } from './harmonograph-machine.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -79,6 +80,11 @@ const DEFAULTS = {
   pens: 1, penGap: 0.4, ink: 'neon', colorBy: 'time', hue0: 0, hueRate: 0.012, width: 1.2, ghost: false,
   // paper and furniture
   paper: 'velvet', frame: 'none', dials: false, pen: 'dot',
+  // where the drawing sits
+  size: 1, x: 0, y: 0,
+  // the machine as a picture (pendulums, rods, pen on paper), shown like the spirograph's toy
+  machine: 'off', machineStyle: 'victorian', machineShow: 'on', machineOpacity: 1, machineFade: 1.5, machineIntro: 8,
+  machineLayout: 'top', machineX: 0, machineY: 0.5, machineScale: 1, machineYaw: 36, machinePitch: 34, machineSpin: 0,
   // symmetry
   sym: 1, mirror: false,
   // sound
@@ -88,6 +94,29 @@ const DEFAULTS = {
 export const HARMONOGRAPH_DEFAULTS = DEFAULTS;
 
 /* ------------------------------------------------------------------------ the machine */
+
+/** How a picture element is shown: always, hidden, at the start only, until the drawing is done, or both ends. */
+export const SHOW_MODES = {
+  on: 'Always shown',
+  off: 'Hidden',
+  intro: 'Shown at the start, then fades away',
+  outro: 'Fades away when the drawing is finished',
+  inout: 'Fades in, and fades away at the end',
+};
+
+/** Opacity (0..1) of an element from its show mode, opacity, fade time, intro length, the time now and when the drawing finished. */
+export function showAlpha(mode, opacity, fade, intro, time, doneT) {
+  const base = clamp(+opacity, 0, 1), f = Math.max(0.05, +fade || 1.5);
+  switch (mode) {
+    case 'off': return 0;
+    case 'intro': return base * clamp(1 - (time - Math.max(0, +intro || 8)) / f, 0, 1);
+    case 'outro': return base * (doneT == null ? 1 : clamp(1 - (time - doneT) / f, 0, 1));
+    case 'inout': return base * clamp(time / f, 0, 1) * (doneT == null ? 1 : clamp(1 - (time - doneT) / f, 0, 1));
+    default: return base;
+  }
+}
+
+export { MACHINE_VIEWS, MACHINE_STYLES, MACHINE_LAYOUTS };
 
 const FORMULA_VARS = ['t', 's', 'a', 'b', 'c', 'd'];
 
@@ -137,9 +166,19 @@ export function machine(P) {
       }
     }
   };
+  /** What each pendulum is doing at pen time u (normalized, so that they add up to the pen): for the machine picture. */
+  const parts = (u) => {
+    const e = env(u);
+    if (kind === 'formula') return null;
+    if (kind === 'epicycle') {
+      return { kind, theta: 0, x: [0], y: [0], arms: A.map((a, i) => { const ang = (i % 2 ? -1 : 1) * F[i] * u + (i % 2 ? -1 : 1) * Ph[i]; return [(a * Math.cos(ang) * e) / sr, (a * Math.sin(ang) * e) / sr]; }) };
+    }
+    if (kind === 'lateral' || kind === 'lissajous') return { kind, theta: 0, arms: null, x: [(A[0] * Math.sin(F[0] * u + Ph[0]) * e) / (A[0] || 1)], y: [(A[1] * Math.sin(F[1] * u + Ph[1]) * e) / (A[1] || 1)] };
+    return { kind, theta: kind === 'rotary' ? table * u + tp : 0, arms: null, x: [(A[0] * Math.sin(F[0] * u + Ph[0]) * e) / sx, (A[2] * Math.sin(F[2] * u + Ph[2]) * e) / sx], y: [(A[1] * Math.sin(F[1] * u + Ph[1]) * e) / sy, (A[3] * Math.sin(F[3] * u + Ph[3]) * e) / sy] };
+  };
   // fastest angular speed in the drawing: sets how finely the pen path is sampled
   const maxW = Math.max(1, ...F.map(Math.abs)) + (kind === 'rotary' ? Math.abs(table) : 0);
-  return { at, env, maxW, kind, formulaOk: kind !== 'formula' || !!(fx && fy) };
+  return { at, env, parts, maxW, kind, formulaOk: kind !== 'formula' || !!(fx && fy) };
 }
 
 /** Which pendulums make a sound for a machine kind (indices into A, B, C, D). */
@@ -261,6 +300,11 @@ export const harmonograph = {
     ['paper', 'Paper', 's', Object.fromEntries(Object.entries(PAPERS).map(([k, v]) => [k, v.label]))], ['frame', 'Frame', 's', FRAMES], ['dials', 'Pendulum dials', 't'],
     ['pen', 'Pen', 's', { dot: 'Glowing dot', nib: 'Nib', none: 'Hidden' }],
     ['sym', 'Symmetry (copies around the centre)', 'r', 1, 12, 1], ['mirror', 'Mirror each copy', 't'],
+    ['size', 'Drawing size', 'r', 0.3, 1.5, 0.01], ['x', 'Move left / right', 'r', -1.5, 1.5, 0.01], ['y', 'Move up / down', 'r', -1.5, 1.5, 0.01],
+    ['machine', 'The machine (picture)', 's', MACHINE_VIEWS], ['machineStyle', 'Machine look', 's', MACHINE_STYLES], ['machineShow', 'Machine visibility', 's', SHOW_MODES], ['machineOpacity', 'Machine opacity', 'r', 0, 1, 0.01],
+    ['machineFade', 'Fade time (s)', 'r', 0.2, 8, 0.1], ['machineIntro', 'Visible at the start for (s)', 'r', 1, 60, 0.5], ['machineLayout', 'Where', 's', MACHINE_LAYOUTS],
+    ['machineX', 'Machine: left / right', 'r', -1.5, 1.5, 0.01], ['machineY', 'Machine: up / down', 'r', -1.5, 1.5, 0.01], ['machineScale', 'Machine: size', 'r', 0.3, 1.5, 0.01],
+    ['machineYaw', 'Machine: turn the view', 'r', -180, 180, 1, '°'], ['machinePitch', 'Machine: height of the view', 'r', 10, 80, 1, '°'], ['machineSpin', 'Machine: slow turn (°/s)', 'r', -20, 20, 0.5],
     ['sound', 'Sound', 's', { strum: 'Strum the pendulums', chord: 'Chord', cross: 'Every time the pen crosses the middle', off: 'Silent' }],
     ['arp', 'Strum order', 's', { up: 'Up', down: 'Down', pingpong: 'Up and down' }], ['every', 'A note every', 'r', 0.1, 4, 0.05, ' s'],
     ['base', 'Pendulum A plays (MIDI note)', 'r', 24, 84, 1], ['tuning', 'Tuning', 's', { just: 'Exact ratios (just intonation)', equal: 'Piano keys (equal temperament)' }],
@@ -286,7 +330,8 @@ export const harmonograph = {
     const fill = P.fit === 'fill' || (P.fit === 'auto' && (+P.sym || 1) <= 1 && (P.kind === 'lateral' || P.kind === 'quad' || P.kind === 'lissajous'));
     const sx = fill ? hw : Math.min(hw, hh);
     const sy = fill ? hh : Math.min(hw, hh);
-    return [x * sx * margin, y * sy * margin + (P.dials ? -0.05 * hh : 0)];
+    const z = +P.size || 1;
+    return [x * sx * margin * z + (+P.x || 0), y * sy * margin * z + (P.dials ? -0.05 * hh : 0) + (+P.y || 0)];
   },
 
   push(S, pen, u, shift) {
@@ -308,6 +353,7 @@ export const harmonograph = {
       sc.n++;
     }
     sc.u += du;
+    if (sc.doneT == null && sc.m.env(sc.u) < 0.06 && sc.u > 1) sc.doneT = S.t; // the swing has died away
     const [x, y] = this.where(S, P, sc.u);
     const vx = x - sc.lastX;
     const e = sc.m.env(sc.u);
@@ -353,7 +399,7 @@ export const harmonograph = {
     if (P.ghost) drawGhost(g, S, P, D, paper.light);
     paintInk(S, P, D, w, h, paper.light);
     drawFurniture(g, S, P, D, paper.light);
-    void sc;
+    drawMachinePanel(g, S, P, D);
   },
 
   stats: (S) => `swing ${Math.round(S.sc.m.env(S.sc.u) * 100)}%`,
@@ -364,6 +410,39 @@ export const harmonograph = {
     return `A ${f(P.fa)} · B ${f(P.fb)} · C ${f(P.fc)} · D ${f(P.fd)}`;
   },
 };
+
+/* ------------------------------------------------------------------- the machine panel */
+
+/** Where the machine panel sits, in pixels. */
+function machineRect(P, S, D) {
+  const { hw, hh } = S.W;
+  if (P.machineLayout === 'full') return { x0: D.X(-hw * 0.98), x1: D.X(hw * 0.98), y0: D.Y(hh * 0.98), y1: D.Y(-hh * 0.98) };
+  if (P.machineLayout === 'corner') return { x0: D.X(hw * 0.0), x1: D.X(hw * 0.97), y0: D.Y(-hh * 0.42), y1: D.Y(-hh * 0.98) };
+  if (P.machineLayout === 'free') {
+    const z = +P.machineScale || 1, cx = +P.machineX || 0, cy = +P.machineY || 0;
+    return { x0: D.X(cx - hw * 0.96 * z), x1: D.X(cx + hw * 0.96 * z), y0: D.Y(cy + hh * 0.45 * z), y1: D.Y(cy - hh * 0.45 * z) };
+  }
+  return { x0: D.X(-hw * 0.97), x1: D.X(hw * 0.97), y0: D.Y(hh * 0.98), y1: D.Y(hh * 0.06) };
+}
+
+function drawMachinePanel(g, S, P, D) {
+  if (!P.machine || P.machine === 'off') return;
+  const sc = S.sc;
+  const alpha = showAlpha(P.machineShow, P.machineOpacity, P.machineFade, P.machineIntro, S.t, sc.doneT);
+  if (alpha <= 0.003) return;
+  const parts = sc.m.parts(sc.u);
+  if (!parts) return;
+  // the ink of the drawing, as it lies on the paper (figure box → the paper's ±1)
+  const { hw, hh } = S.W, fill = P.fit === 'fill' || (P.fit === 'auto' && (+P.sym || 1) <= 1 && (P.kind === 'lateral' || P.kind === 'quad' || P.kind === 'lissajous'));
+  const sx = fill ? hw : Math.min(hw, hh), sy = fill ? hh : Math.min(hw, hh), margin = P.dials ? 0.84 : 0.95, z = +P.size || 1;
+  const cx = +P.x || 0, cy = (P.dials ? -0.05 * hh : 0) + (+P.y || 0);
+  const x0 = D.X(cx - sx * margin * z), x1 = D.X(cx + sx * margin * z), y0 = D.Y(cy + sy * margin * z), y1 = D.Y(cy - sy * margin * z);
+  const ink = sc.ink ? { canvas: sc.ink, sx: Math.max(0, x0), sy: Math.max(0, y0), sw: Math.max(1, x1 - x0), sh: Math.max(1, y1 - y0) } : null;
+  sc.machineTex ||= null;
+  const o = { P, view: P.machine, alpha, rect: machineRect(P, S, D), time: S.t, parts, ink, tex: sc.machineTex };
+  drawMachine(g, o);
+  sc.machineTex = o.tex;
+}
 
 /* ------------------------------------------------------------------------------ paper */
 

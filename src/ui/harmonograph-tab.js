@@ -13,10 +13,11 @@
  *   🎲 Lucky   a good-looking random machine (undo steps back)
  */
 import { store } from '../state.js';
-import { h, group, slider, select, toggle, text, refreshAll, disposeTree } from './controls.js';
+import { h, group, slider, select, toggle, text, refreshAll, disposeTree, segmented } from './controls.js';
 import { sceneParams } from '../circle/scenes.js';
 import { CIRCLE_PALETTES, PALETTES as INKS } from '../circle/palettes.js';
-import { INTERVALS, KINDS, PAPERS, INK_STYLES, COLOR_BY, FRAMES, luckyMachine, tuneToScale } from '../circle/harmonograph.js';
+import { INTERVALS, KINDS, PAPERS, INK_STYLES, COLOR_BY, FRAMES, SHOW_MODES, luckyMachine, tuneToScale } from '../circle/harmonograph.js';
+import { MACHINE_VIEWS, MACHINE_STYLES, MACHINE_LAYOUTS } from '../circle/harmonograph-machine.js';
 import { INSTRUMENTS, INSTRUMENT_GROUPS } from '../audio/instruments.js';
 import { SCALE_GROUPS, SCALE_LABELS, NOTE_NAMES } from '../math/music.js';
 
@@ -65,7 +66,7 @@ export class HarmonographTab {
     if (remember) this.remember();
     const base = this.base();
     store.set(`${base}.lab.${RULE}`, { ...(this.cur().lab?.[RULE] || {}), ...p });
-    if ('kind' in p) queueMicrotask(() => this.render()); // the list of pendulums depends on the machine
+    if ('kind' in p || 'machine' in p || 'machineShow' in p || 'machineLayout' in p) queueMicrotask(() => this.render()); // the list of pendulums depends on the machine
   }
 
   look(key) { return { get: () => this.cur().look?.[key], set: (v) => store.set(`${this.base()}.look.${key}`, v) }; }
@@ -92,6 +93,7 @@ export class HarmonographTab {
     if (store.state.mode !== 'circle') store.set('mode', 'circle');
     store.set(`${this.base()}.rule`, RULE);
     store.set(`${this.base()}.sound.pitch`, 'angle');
+    refreshAll(); // the 2D / 3D / ◎ switch in the top bar follows
     this.render();
   }
 
@@ -206,6 +208,20 @@ export class HarmonographTab {
       slider('Swing lasts', this.lab('life'), { min: 0, max: 180, step: 1, fmt: (v) => (v ? `${v} s` : 'never fades') }),
       slider('Drawing speed', this.lab('rate'), { min: 0.2, max: 8, step: 0.05 }));
     kids.push(group('Machine', machine, { hint: 'Frequencies are ratios: 3 : 2 is a fifth, 2 : 1 an octave. A tiny difference between two pendulums (detune) makes the figure turn into a rosette, and makes the notes beat.' }));
+
+    // the machine itself, drawn on the stage
+    const mv = [h('div.row', {}, segmented({ get: () => this.params().machine ?? 'off', set: (v) => this.patch({ machine: v }) },
+      [['off', '⊘ Hide'], ['3d', '▣ 3D'], ['plan', '▤ 2D plan']], { label: 'The machine' }))];
+    if (P.machine && P.machine !== 'off') {
+      mv.push(select('Style', this.lab('machineStyle'), MACHINE_STYLES), select('Visibility', this.lab('machineShow'), SHOW_MODES), slider('Opacity', this.lab('machineOpacity'), { min: 0, max: 1, step: 0.01 }));
+      if (['intro', 'outro', 'inout'].includes(P.machineShow)) mv.push(slider('Fade time', this.lab('machineFade'), { min: 0.2, max: 8, step: 0.1, unit: ' s' }));
+      if (P.machineShow === 'intro') mv.push(slider('Visible at the start for', this.lab('machineIntro'), { min: 1, max: 60, step: 0.5, unit: ' s' }));
+      mv.push(select('Where', this.lab('machineLayout'), MACHINE_LAYOUTS));
+      if (P.machineLayout === 'free') mv.push(slider('Machine left / right', this.lab('machineX'), { min: -1, max: 1, step: 0.01 }), slider('Machine up / down', this.lab('machineY'), { min: -1.2, max: 1.2, step: 0.01 }), slider('Machine size', this.lab('machineScale'), { min: 0.2, max: 2, step: 0.01 }));
+      if (P.machine === '3d') mv.push(slider('Turn the view', this.lab('machineYaw'), { min: -180, max: 180, step: 1, unit: '°' }), slider('Tilt', this.lab('machinePitch'), { min: 10, max: 80, step: 1, unit: '°' }), slider('Slow spin', this.lab('machineSpin'), { min: -30, max: 30, step: 0.5, unit: '°/s' }));
+      mv.push(slider('Drawing size', this.lab('size'), { min: 0.2, max: 1.6, step: 0.01 }), slider('Drawing left / right', this.lab('x'), { min: -1, max: 1, step: 0.01 }), slider('Drawing up / down', this.lab('y'), { min: -1.2, max: 1.2, step: 0.01 }));
+    }
+    kids.push(group('Machine on stage', mv, { open: P.machine && P.machine !== 'off', hint: 'Show the apparatus itself: pendulum rods and weights swinging, the pen moving over the paper. A 3D Victorian frame, or a technical plan seen from above. It can fade away after the intro, or stay.' }));
 
     // tune to a scale
     const scaleSel = h('select', {}, SCALE_GROUPS.filter(([, ks]) => ks.some((k) => k !== 'continuous' && k !== 'chromatic')).map(([g, ks]) => h('optgroup', { label: g }, ks.filter((k) => k !== 'continuous').map((k) => h('option', { value: k }, SCALE_LABELS[k])))));

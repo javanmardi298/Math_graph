@@ -16,7 +16,7 @@
  */
 import { tryCompile } from '../math/parser.js';
 import { hexA } from './palettes.js';
-import { PAPERS, INK_STYLES, FRAMES, paintPaper, drawFrame, makeCanvas, rng } from './harmonograph.js';
+import { PAPERS, INK_STYLES, FRAMES, paintPaper, drawFrame, makeCanvas, rng, showAlpha, SHOW_MODES } from './harmonograph.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -32,13 +32,7 @@ export const SPIRO_KINDS = {
   formula: 'My own formula',
 };
 export const TOY_STYLES = { toy: 'Toy (coloured plastic)', brass: 'Brass', blueprint: 'Blueprint outline', neon: 'Neon outline' };
-export const TOY_SHOW = {
-  on: 'Always shown',
-  off: 'Hidden',
-  intro: 'Shown at the start, then fades away',
-  outro: 'Fades away when the drawing is finished',
-  inout: 'Fades in, and fades away at the end',
-};
+export const TOY_SHOW = SHOW_MODES;
 export const COLOR_BY = {
   time: 'Along the drawing', turn: 'Each turn of the wheel', speed: 'Pen speed', radius: 'Distance from the centre', angle: 'Direction of the pen', pen: 'Each pen its own colour',
 };
@@ -441,14 +435,7 @@ export const spirograph = {
 
 /** Opacity of the toy now, from its show mode and the progress of the drawing. */
 export function toyAlpha(P, time, sc) {
-  const base = clamp(+P.toyOpacity, 0, 1), f = Math.max(0.05, +P.toyFade || 1.5);
-  switch (P.toyShow) {
-    case 'off': return 0;
-    case 'intro': { const t = time - Math.max(0, +P.toyIntro || 8); return base * clamp(1 - t / f, 0, 1); }
-    case 'outro': return base * (sc.doneT == null ? 1 : clamp(1 - (time - sc.doneT) / f, 0, 1));
-    case 'inout': return base * clamp(time / f, 0, 1) * (sc.doneT == null ? 1 : clamp(1 - (time - sc.doneT) / f, 0, 1));
-    default: return base;
-  }
+  return showAlpha(P.toyShow, P.toyOpacity, P.toyFade, P.toyIntro, time, sc.doneT);
 }
 
 function paintSpiroInk(S, P, D, w, h, light, px) {
