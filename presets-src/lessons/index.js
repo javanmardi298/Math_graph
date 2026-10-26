@@ -22,6 +22,7 @@ export const PACKS = [
   { id: 'machines', name: 'Circle: drawing machines', about: 'Harmonograph, planet dance, fractal tree, times tables, spirograph', load: () => import('./circle-patterns.js').then((m) => m.MACHINES) },
   { id: 'theory', name: 'Circle: fifths & complex numbers', about: 'The circle of fifths (keys, chords, scales, comma), roots of unity, Euler', load: () => import('./theory.js').then((m) => m.THEORY) },
   { id: 'harmonograph', name: 'Harmonograph', about: 'Pendulums that draw: intervals, chords, scales (quarter tones), detune, mandalas', load: () => import('./harmonograph.js').then((m) => m.HARMONOGRAPH) },
+  { id: 'spirograph', name: 'Spirograph & guilloche', about: 'Toothed wheels, petals and turns, the pen hole, cycloids, gears in gears, engraved patterns', load: () => import('./spirograph.js').then((m) => m.SPIRO_LESSONS) },
   { id: 'battles', name: 'Circle: battles & formulas', about: 'Rock paper scissors, predator & prey, blades, knives, formula spike', load: () => import('./circle-patterns.js').then((m) => m.BATTLES) },
 ];
 

@@ -23,6 +23,7 @@ import { PI_SCENES } from './pi.js';
 import { FRACTALS } from './fractals.js';
 import { THEORY } from './theory.js';
 import { harmonograph } from './harmonograph.js';
+import { spirograph, guilloche } from './spirograph.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -1140,6 +1141,8 @@ export const SCENES = {
   ...FRACTALS,
   ...THEORY,
   harmonograph,
+  spirograph,
+  guilloche,
 };
 
 /** Settings of a scene: its defaults, overridden by what the user / preset set. */

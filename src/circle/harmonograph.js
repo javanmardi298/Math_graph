@@ -19,6 +19,7 @@
 import { tryCompile } from '../math/parser.js';
 import { SCALES } from '../math/music.js';
 import { hexA } from './palettes.js';
+import { bandFor } from './layout.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -47,6 +48,7 @@ export const PAPERS = {
   blueprint: { label: 'Blueprint', light: false, bg: '#0b2a5b' },
   chalk: { label: 'Chalkboard', light: false, bg: '#15241d' },
   ember: { label: 'Dark ember', light: false, bg: '#160806' },
+  desk: { label: 'Toy desk (wood and a sheet of paper)', light: true, bg: '#4a2c16' },
   parchment: { label: 'Old parchment', light: true, bg: '#e6d6b0' },
   cream: { label: 'Cream paper', light: true, bg: '#f3eee2' },
 };
@@ -155,7 +157,7 @@ export function toneMidi(P, i) {
 /* ------------------------------------------------------------------- a good-looking random machine */
 
 /** Small deterministic generator (the same seed gives the same machine everywhere). */
-function rng(seed) {
+export function rng(seed) {
   let a = (seed >>> 0) || 1;
   return () => { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
 }
@@ -367,7 +369,7 @@ export const harmonograph = {
 
 const paperCache = new Map();
 
-function makeCanvas(w, h) {
+export function makeCanvas(w, h) {
   const c = document.createElement('canvas');
   c.width = w; c.height = h;
   return c;
@@ -416,6 +418,27 @@ function buildPaper(kind, w, h, k) {
     gr.addColorStop(0, '#3a1208'); gr.addColorStop(0.5, '#1a0907'); gr.addColorStop(1, '#0a0405');
     g.fillStyle = gr; g.fillRect(0, 0, w, h);
     radial(w / 2, h * 0.5, 0, diag * 0.5, [[0, 'rgba(255,120,50,0.12)'], [1, 'rgba(255,120,50,0)']]);
+  } else if (kind === 'desk') {
+    // a wooden desk with a sheet of paper taped on, where the band of the frame is
+    const gr = g.createLinearGradient(0, 0, w, h);
+    gr.addColorStop(0, '#7a5030'); gr.addColorStop(0.5, '#5d3a20'); gr.addColorStop(1, '#3d2412');
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 80; i++) {
+      g.strokeStyle = `rgba(30,15,5,${0.05 + 0.07 * R()})`; g.lineWidth = (1 + 2.4 * R()) * k * 1.6;
+      const y = (i / 80) * h;
+      g.beginPath(); g.moveTo(0, y); g.bezierCurveTo(w * 0.3, y + 14 * (R() - 0.5), w * 0.7, y + 14 * (R() - 0.5), w, y + 6 * (R() - 0.5)); g.stroke();
+    }
+    radial(w / 2, h * 0.45, 0, diag * 0.6, [[0, 'rgba(255,210,150,0.12)'], [1, 'rgba(0,0,0,0.5)']]);
+    const b = bandFor(w / h), m = 0.012 * w;
+    const x0 = b.x0 * w - m, y0 = b.y0 * h - m, sw = (b.x1 - b.x0) * w + 2 * m, sh = (b.y1 - b.y0) * h + 2 * m;
+    g.fillStyle = 'rgba(0,0,0,0.38)'; g.fillRect(x0 + 6 * k * 1.6, y0 + 8 * k * 1.6, sw, sh);
+    g.fillStyle = '#f7f3e8'; g.fillRect(x0, y0, sw, sh);
+    for (let i = 0; i < 900; i++) { g.fillStyle = `rgba(120,110,80,${0.02 + 0.03 * R()})`; g.fillRect(x0 + R() * sw, y0 + R() * sh, 1.5 * k * 1.6, 1); }
+    g.strokeStyle = 'rgba(0,0,0,0.14)'; g.lineWidth = Math.max(1, k * 1.2); g.strokeRect(x0, y0, sw, sh);
+    g.fillStyle = 'rgba(230,215,160,0.8)';
+    for (const [cx, cy, a] of [[x0, y0, -0.8], [x0 + sw, y0, 0.8], [x0, y0 + sh, 0.8], [x0 + sw, y0 + sh, -0.8]]) {
+      g.save(); g.translate(cx, cy); g.rotate(a); g.fillRect(-16 * k * 1.6, -6 * k * 1.6, 32 * k * 1.6, 12 * k * 1.6); g.restore();
+    }
   } else if (kind === 'parchment' || kind === 'cream') {
     const parch = kind === 'parchment';
     for (let i = 0; i < (parch ? 46 : 18); i++) {
@@ -433,7 +456,7 @@ function buildPaper(kind, w, h, k) {
   return c;
 }
 
-function paintPaper(g, kind, w, h, k) {
+export function paintPaper(g, kind, w, h, k) {
   const key = `${kind}|${w}x${h}`;
   let c = paperCache.get(key);
   if (!c) {
@@ -447,7 +470,7 @@ function paintPaper(g, kind, w, h, k) {
 
 /* ------------------------------------------------------------------------------ frame */
 
-function drawFrame(g, style, D, S, light) {
+export function drawFrame(g, style, D, S, light) {
   const { hw, hh } = S.W, { k } = D;
   const col = light ? 'rgba(80,56,28,0.7)' : hexA(D.pal.ring, 0.5);
   const x0 = D.X(-hw), x1 = D.X(hw), y0 = D.Y(hh), y1 = D.Y(-hh);

@@ -23,7 +23,7 @@ const TAU = Math.PI * 2;
 const NO_SPARKS = new Set(['rps', 'predator', 'knives', 'popper', 'pendulum', 'sorting', 'tree', 'dna', 'times', 'chaos', 'phyllo', 'harmono', 'orbits', 'spiro', 'packing', 'paper', 'mitosis', 'coral', 'snowflake', 'galton', 'pyramid', 'pachinko', 'beatfill',
   // vibration & waves: their notes are not hits at a place
   'chladni', 'tubes', 'ripple', 'filings', 'string', 'travel', 'fourier', 'beats', 'scope', 'doppler',
-  'fdraw', 'tangent', 'riemann', 'taylor', 'unitcircle', 'archimedes', 'montecarlo', 'buffon', 'series', 'pidigits', 'mandel', 'lsystem', 'harmonograph']);
+  'fdraw', 'tangent', 'riemann', 'taylor', 'unitcircle', 'archimedes', 'montecarlo', 'buffon', 'series', 'pidigits', 'mandel', 'lsystem', 'harmonograph', 'spirograph', 'guilloche']);
 
 /** One layer's simulation and its permanent ink. */
 class LayerView {
