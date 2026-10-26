@@ -10,6 +10,7 @@ import { LibraryView } from './library-view.js';
 import { DailyView } from './daily-view.js';
 import { SoundPresetView } from './sound-presets-view.js';
 import { AudioLabView } from './audio-lab.js';
+import { HarmonographTab } from './harmonograph-tab.js';
 import { getBrand, setBrand } from '../brand.js';
 import { saveShorts } from '../shorts-prefs.js';
 import { CAMERA_MOVE_DEFAULTS } from '../camera-moves.js';
@@ -328,6 +329,7 @@ export class Panels {
   buildRight() {
     const tabs = [
       ['circle', '◎ Circle', this.circleTab()],
+      ['harmonograph', '〰 Harmonograph', this.harmTab()],
       ['look', 'Look', this.lookTab()],
       ['fx', 'FX', this.fxTab()],
       ['sound', 'Sound', this.soundTab()],
@@ -595,6 +597,14 @@ export class Panels {
     });
     return this.library.el;
   }
+
+  harmTab() {
+    this.harm = new HarmonographTab({ circleTarget: () => this.circleTarget(), toast: this.actions.toast });
+    return this.harm.el;
+  }
+
+  /** Rebuild the Harmonograph tab (the layer or its simulation changed). */
+  renderHarmonograph() { this.harm?.render(); }
 
   audioTab() {
     this.audioLab = new AudioLabView({
@@ -1378,6 +1388,7 @@ export class Panels {
     this.circleEdit = Math.min(this.circleEdit || 0, store.state.circle.layers?.length || 0);
     this.renderCircle();
     this.renderCircleLayers();
+    this.renderHarmonograph();
     this.soundPresets?.forget();
     refreshAll();
     this.updateYtCount?.();

@@ -16,11 +16,20 @@ export const PALETTES = {
   pastel: { ring: '#ffffff', glow: '#c6b5ff', ball: '#ffffff', glow2: '#ffc6e0', line: (h) => `hsl(${360 * frac(h)} 80% 78%)` },
   matrix: { ring: '#b6ffcf', glow: '#20ff70', ball: '#e6ffee', glow2: '#00b35c', line: (h) => `hsl(${120 + 25 * frac(h)} 90% ${45 + 25 * frac(h * 3)}%)` },
   mono: { ring: '#ffffff', glow: '#9fb4ff', ball: '#ffffff', glow2: '#ffffff', line: () => 'rgba(235,240,255,0.95)' },
+  // inks for the harmonograph (also good on light paper): sepia, indigo, rose gold, ember, ice, verdigris, peacock
+  sepia: { ring: '#6b4a24', glow: '#a8742f', ball: '#3b2410', glow2: '#7a4a1c', line: (h) => `hsl(${22 + 14 * frac(h)} 62% ${16 + 12 * frac(h * 2)}%)` },
+  indigo: { ring: '#2a2f78', glow: '#3b44c7', ball: '#14174a', glow2: '#5a2fa8', line: (h) => `hsl(${228 + 56 * frac(h)} 62% ${30 + 16 * frac(h * 2)}%)` },
+  rosegold: { ring: '#ffd9cf', glow: '#f2a5a0', ball: '#fff0ea', glow2: '#e8c7a0', line: (h) => `hsl(${8 + 26 * frac(h)} 70% ${70 + 12 * frac(h * 2)}%)` },
+  ember: { ring: '#ffd2a0', glow: '#ff7a2f', ball: '#fff0dc', glow2: '#c8203a', line: (h) => `hsl(${(354 + 50 * frac(h)) % 360} 92% ${50 + 14 * frac(h * 3)}%)` },
+  ice: { ring: '#e6fbff', glow: '#7fe3ff', ball: '#ffffff', glow2: '#b9a8ff', line: (h) => `hsl(${186 + 74 * frac(h)} 85% ${72 + 12 * frac(h * 2)}%)` },
+  verdigris: { ring: '#d6fff1', glow: '#2fd6b0', ball: '#effff9', glow2: '#2f8f7f', line: (h) => `hsl(${150 + 40 * frac(h)} 60% ${52 + 18 * frac(h * 2)}%)` },
+  peacock: { ring: '#cfeeff', glow: '#1fb6ff', ball: '#ffffff', glow2: '#16a085', line: (h) => `hsl(${[190, 170, 215, 150, 255][Math.floor(frac(h) * 5)]} 80% ${52 + 10 * frac(h * 5)}%)` },
 };
 
 export const CIRCLE_PALETTES = {
   neon: 'Neon blue', rainbow: 'Rainbow', sunset: 'Sunset', gold: 'Gold', aurora: 'Aurora', candy: 'Candy',
   ocean: 'Ocean', fire: 'Fire', pastel: 'Pastel', matrix: 'Radar green', mono: 'White ink',
+  sepia: 'Sepia ink', indigo: 'Indigo ink', rosegold: 'Rose gold', ember: 'Ember', ice: 'Ice', verdigris: 'Verdigris', peacock: 'Peacock',
 };
 
 export const paletteOf = (name) => PALETTES[name] || PALETTES.neon;

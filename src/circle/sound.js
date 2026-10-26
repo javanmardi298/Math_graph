@@ -84,7 +84,7 @@ export function notesForEvents(events, cfg, audio, run = { last: -1, k: 0, burst
     run.recent.push(e.t);
     while (run.recent.length && run.recent[0] < e.t - 1) run.recent.shift();
     const rateGain = Math.min(1, Math.sqrt(6 / run.recent.length));
-    out.push({ t: e.t, midi, vel: (e.type === 'escape' || e.type === 'fill' ? 1 : 0.8 * rateGain) * density, kind: e.type, ball: e.ball });
+    out.push({ t: e.t, midi, vel: (e.type === 'escape' || e.type === 'fill' ? 1 : 0.8 * rateGain) * density * (e.vel ?? 1), kind: e.type, ball: e.ball });
   }
   Object.assign(run, { last, k, burst });
   return out;

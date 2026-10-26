@@ -65,6 +65,8 @@ const circle = new CircleView();
 stage.insertBefore(circle.canvas, overlay);
 let circleRuns = new Map(); // per circle layer: note thinning state for live play
 const isCircle = () => store.state.mode === 'circle';
+let harmBtn = null; // the Harmonograph shortcut in the top bar (created with the other top-bar buttons)
+function syncHarmButton() { harmBtn?.setAttribute('aria-pressed', String(isCircle() && store.state.circle.rule === 'harmonograph')); }
 /** The picture of the current mode (what exports and snapshots copy). */
 const sceneCanvas = () => (isCircle() ? circle.canvas : viz.canvas);
 /** What a Circle Lab simulation depends on besides its settings: length, tempo, frame shape. */
@@ -528,6 +530,7 @@ function applyCircleMode() {
   const on = isCircle();
   document.body.classList.toggle('mode-circle', on);
   circle.canvas.hidden = !on;
+  syncHarmButton();
   $('gl-host').style.visibility = on ? 'hidden' : '';
 }
 
@@ -594,7 +597,9 @@ store.on((path) => {
       viz.applySettings(); viz.buildGrid(); rebuildAll(); viz.resetCamera(); clock.snap = true;
       applyCircleMode();
       panels.renderCircle?.();
-      if (isCircle()) panels.showTab?.('circle');
+      panels.renderHarmonograph?.();
+      if (isCircle()) panels.showTab?.(store.state.circle.rule === 'harmonograph' ? 'harmonograph' : 'circle');
+      syncHarmButton();
       break;
     case 'circle':
       circle.invalidate();
@@ -604,6 +609,7 @@ store.on((path) => {
         // rebuild the Circle tab when the visible controls change (rule, pitch mode, the layer list)
         const tail = path.split('.').slice(-2).join('.');
         if (!second || second === 'combine' || path === 'circle.layers' || /(^|\.)rule$/.test(path) || tail === 'sound.pitch' || tail === 'sound.melody') panels.renderCircle?.();
+        if (!second || path === 'circle.layers' || /(^|\.)rule$/.test(path)) { panels.renderHarmonograph?.(); syncHarmButton(); }
         if (!second || second === 'layers' || second === 'combine') panels.renderCircleLayers?.();
       }
       break;
@@ -1638,6 +1644,10 @@ $('edit-layout-btn').addEventListener('click', () => setLayoutEditing(!layoutEdi
 
 // Top bar
 $('mode-slot').append(segmented(bindPath('mode'), [['2d', '2D', '2D graph (M)'], ['3d', '3D', '3D space (M)'], ['circle', '◎', 'Circle Lab: bouncing balls, chords and polyrhythms with a note on every hit']], { label: 'View mode' }));
+// Harmonograph: a shortcut into the Circle Lab with the pendulum machine (its own tab)
+harmBtn = h('button', { type: 'button', class: 'harm-mode-btn', title: 'Harmonograph: pendulums draw, every drawing is a chord (Circle Lab)', 'aria-label': 'Harmonograph', onclick: () => { panels.harm?.start(); panels.showTab?.('harmonograph'); } }, '〰');
+$('mode-slot').append(harmBtn);
+syncHarmButton();
 $('play-btn').addEventListener('click', togglePlay);
 $('rewind-btn').addEventListener('click', () => seek(0));
 $('theme-btn').addEventListener('click', () => toggleTheme());

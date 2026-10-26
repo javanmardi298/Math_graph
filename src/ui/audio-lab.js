@@ -13,6 +13,8 @@ import { INSTRUMENTS, INSTRUMENT_GROUPS } from '../audio/instruments.js';
 import { defaultState } from '../state.js';
 import { SCALE_GROUPS, SCALE_LABELS, NOTE_NAMES, quantize, noteName } from '../math/music.js';
 import { noteRange } from '../analysis/key.js';
+import { chordFromNotes } from '../analysis/chord.js';
+import { harmonographPreset } from '../analysis/to-harmonograph.js';
 import { extractPresetFromFile } from '../export/embed.js';
 import { isPreset, clean, singleFile } from '../library.js';
 import { analyzeFile, transcribe, instrumentCandidates, guessReverb, verify, buildPreset, shiftOf, REVERBS, MAX_SECONDS } from '../analysis/index.js';
@@ -251,9 +253,19 @@ export class AudioLabView {
       h('div.alab-actions', {},
         h('button.btn', { type: 'button', onclick: () => { this.actions.loadPreset(this.makePreset()); this.actions.toast('Preset opened. Press play.'); } }, 'Open as preset'),
         h('button.btn.ghost', { type: 'button', onclick: () => { const p = this.makePreset(); this.actions.savePreset(p, { name: p.name }); this.actions.toast('Saved to your library.'); } }, 'Save to library'),
+        h('button.btn.ghost', { type: 'button', title: 'Pendulums tuned to the notes of this recording draw its shape', onclick: () => this.openHarmonograph() }, '〰 Draw as harmonograph'),
         h('button.btn.ghost', { type: 'button', onclick: () => { const p = this.makePreset(); this.actions.download(new Blob([singleFile(p)], { type: 'application/json' }), `${p.name.replace(/[\\/:*?"<>|]+/g, '-')}.mmv.json`); } }, 'Download .mmv.json')),
     );
     this.refresh();
+  }
+
+  /** Pendulums at the frequency ratios of the recording's strongest notes. */
+  openHarmonograph() {
+    const chord = chordFromNotes(this.result.notes);
+    if (!chord) return this.actions.toast('No notes to draw.');
+    const names = chord.intervals.map((i) => NOTE_NAMES[(chord.tonic + i) % 12]).join(' · ');
+    this.actions.loadPreset(harmonographPreset(chord, { name: `${this.pick.name || this.name} (harmonograph)`, instrument: this.pick.instrument, tuning: this.result.tuning.hz, reverb: this.pick.reverb }));
+    this.actions.toast(`Harmonograph tuned to ${names}. Press play.`);
   }
 
   controlsOnlySensitivity() {

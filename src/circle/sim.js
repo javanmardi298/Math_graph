@@ -399,6 +399,7 @@ const CAPTIONS = {
   series: 'An endless sum that equals π', pidigits: 'The digits of π, made visible',
   fifths: (P) => ({ walk: 'Every fifth is a new key', family: 'Four chords, four neighbours on the wheel', scale: 'A scale is seven neighbours', relative: 'Every major key has a minor twin', comma: 'Twelve fifths that never close' }[P.mode]),
   roots: (P) => ({ roots: 'The roots of 1 make a perfect polygon', power: 'One root, all its powers', multiply: 'Multiplying turns and scales', sum: 'Add them up: nothing is left', euler: 'e to the i θ goes round the circle' }[P.mode]),
+  harmonograph: (P) => ({ lateral: 'Two pendulums draw one shape', quad: 'Four pendulums, one pen', rotary: 'Pendulums on a turning table', lissajous: 'Two notes draw one shape', epicycle: 'Circles on circles draw it', formula: 'Your formula, drawn by a pen' }[P.kind] || 'Pendulums draw this'),
   mandel: (P) => (P.set === 'julia' ? 'One formula, endless shapes' : 'Zooming forever into one formula'), lsystem: 'One rule, repeated forever',
 };
 

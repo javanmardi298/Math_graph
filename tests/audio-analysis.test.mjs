@@ -133,3 +133,17 @@ test('whole pipeline: file in, valid preset out', async () => {
   assert.equal(p.audio.scale, 'major');
   assert.ok(p.transport.duration >= 4);
 });
+
+test('a recording becomes a harmonograph: a major triad gives the ratios 4 : 5 : 6', async () => {
+  const { chordFromNotes } = await import('../src/analysis/chord.js');
+  const { harmonographPreset } = await import('../src/analysis/to-harmonograph.js');
+  const n = (pitch, i) => ({ start: i * 0.5, end: i * 0.5 + 0.45, pitch, vel: 0.8 });
+  const c = chordFromNotes([60, 64, 67, 60, 64, 67, 60, 72].map(n));
+  assert.equal(c.tonic, 0);
+  assert.deepEqual(c.intervals, [0, 4, 7]);
+  assert.deepEqual([c.freqs.fa, c.freqs.fb, c.freqs.fc].map((f) => +(f / c.freqs.fa).toFixed(3)), [1, 1.25, 1.5]);
+  const p = harmonographPreset(c, { name: 'x', instrument: 'harp' });
+  assert.equal(p.circle.rule, 'harmonograph');
+  assert.equal(p.circle.lab.harmonograph.fb, c.freqs.fb);
+  assert.equal(chordFromNotes([]), null);
+});
