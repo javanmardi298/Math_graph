@@ -92,6 +92,7 @@ fractions of the frame, so the layout is identical at 720p and 4K, and in export
 | Live parameters | `a b c d` sliders reshape curves while they play; `t` animates formulas over time |
 | Circle Lab (◎) | A separate mode for the “satisfying” circle genre, drawn with Canvas 2D (no WebGL): **chord walker** (jump a fixed fraction of a turn: rational steps close into star polygons, irrational ones such as 1/φ² never close), **bouncing balls** (gravity, bounciness, speed-up per bounce), **split on every bounce** (1 → 2 → 4 … up to 512), **grow on every bounce**, **escape the rings** (spinning rings with gaps) and **polyrhythm arcs**. Every hit plays a note: by where it lands on the circle, the next note of a melody (Ode to Joy, Für Elise, Twinkle, Greensleeves, Bach, Pachelbel, Grieg, or your own notes), a rising scale or one note per ball, with any of the 35 sounds and an optional drum per hit. Neon palettes, trails that build into the pattern (or fade), comet tails, sparks, ring pulses, counters and the rule as a formula line. Deterministic (same settings → same video), so live play, WAV, video and batch exports match. 12 presets with hooks and YouTube texts |
 | Theory scenes | **Circle of fifths** (walk the keys up in fifths or down in fourths, chord progressions such as I V vi IV, a scale as seven neighbours, major ⇄ relative minor, the Pythagorean comma with real 23.46¢ detuned notes) and **Roots of unity** (the roots of z^n = 1 appear and grow, primitive roots, powers and star polygons, every step size, multiplying by a complex number, the vanishing sum, Euler's e^(iθ)); 20 presets + 2 four-step stories + 4 lessons |
+| From audio (♪ tab) | **Upload a sound, get a preset.** (1) Exports from this app (WAV, MP4, WebM, PNG) **carry their preset inside** (“Hide the preset inside the file”, on by default in the Export-ready window): upload the same file again and it opens exactly as it was, nothing guessed; the Presets tab imports such files too. (2) Any other recording is **transcribed**: pitch tracking (YIN), notes with starts, lengths and loudness, tempo and beat grid (snap to 1/8, 1/16 or triplets), **tuning** (432 Hz recordings are followed), **key and scale** from the app's own scale list including quarter-tone maqam and dastgah, the nearest of the app's 35 instruments by timbre fingerprint, room size, and a **match score** from playing the result back through the synth and comparing. Everything stays editable (sensitivity, shortest note, octave, BPM ×2 / ÷2, scale and key, tuning, instrument, reverb, click a note to remove it), with A/B playback of the original and the transcription. The melody becomes one layer whose height is the pitch (a balanced `x < t ? … : …` staircase with gaps for rests), so it plays exactly through the normal sound engine. One clear melody line at a time: chords, drums, the visuals and keyframes cannot be read from sound |
 | Preset library | Sections → shelves → presets; fold or open everything, select a whole shelf, **hide built-in presets** (restorable from the Hidden filter), favourites, collections, search, bulk export / render / move / delete |
 | Camera | Auto-rotate, follow, field of view, **camera moves** (zoom, push-in / pull-out over the video, beat breathing, drift, handheld shake, tilt sway, spin, plus one-click styles; in 2D, 3D and the Circle Lab and in every export), plus **moves with the music**: follow the pen (close-up tracking shots, adjustable smoothness for a slow-motion feel), beat punch zoom on kicks/snares, roll; all keyframable together with camera position/zoom for pull-back reveals |
 | Visuals | 2D (orthographic) and 3D (orbit camera); trace, ghost or full drawing; solid, gradient, rainbow or pitch colouring; solid, dashed or dotted lines; neon bloom, particle trails, motion blur, fog, depth of field; playhead shapes or your own image; 6 colour palettes |
@@ -205,6 +206,7 @@ src/
     library-view.js     Presets tab (catalog shelves, my presets, lesson packs)
     daily-view.js       Daily tab (posting plan, queue, ideas)
     sound-presets-view.js  sound presets picker (Sound tab)
+    audio-lab.js        From audio tab (upload → preset: embedded preset or transcription)
   daily/
     remix.js            new presets from existing ones + YouTube words from templates
     planner.js          weekday themes, daily picks, repeat checks, CSV
@@ -214,6 +216,17 @@ src/
     ffmpeg-render.js    frame-perfect MP4 export through the local server's ffmpeg (+ batch folders)
     youtube.js          YouTube Shorts title/description/tags: suggestions, .txt and .csv
     shorts.js           Shorts hook (teaser, hook line, flash, whoosh/boom) and fade-out ending
+    embed.js            hides the preset inside WAV / MP4 / WebM / PNG exports and reads it back
+  analysis/             audio → preset (pure functions, tested in Node)
+    pitch.js            YIN pitch tracker (three registers: normal, high, bass)
+    notes.js            pitch track → notes (hysteresis, octave fixes, re-attacks)
+    tempo.js            tempo, beat phase, grid snapping
+    key.js              tuning, key and scale in quarter tones (uses the app's scale list)
+    timbre.js           timbre fingerprint + nearest instruments
+    fingerprints.js     generated: every instrument's fingerprint (scripts/build-fingerprints.mjs)
+    similarity.js       match score between two recordings
+    to-preset.js        notes → a preset (staircase formula, pitch map y = MIDI number)
+    index.js            analyzeFile / transcribe / verify
   circle/
     sim.js              Circle Lab simulations (deterministic, fixed step)
     theory.js           circle of fifths + roots of unity scenes
@@ -231,6 +244,7 @@ scripts/
   render.mjs            command-line batch export (Playwright + WebCodecs, ffmpeg for H.264)
   render-tools.mjs      finds Playwright and ffmpeg
   vendor-three.mjs, build-artifact.mjs
+  build-fingerprints.mjs  measures every instrument in headless Chromium → src/analysis/fingerprints.js (rerun when an instrument changes)
 tests/                  node:test unit tests
 ```
 

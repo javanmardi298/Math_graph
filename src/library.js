@@ -10,6 +10,7 @@
  * that report odd MIME types still work.
  */
 import { readZip } from './export/zip.js';
+import { extractPresetFromFile } from './export/embed.js';
 
 const KEY = 'mmv.presets.v1';
 export const STORAGE_BUDGET = 5 * 1024 * 1024; // typical localStorage quota
@@ -200,7 +201,10 @@ export async function readPresetFiles(files) {
         problems.push({ file: f.name, reason: `could not open the zip (${err.message})` });
       }
     } else if (KIND_BY_EXT[ext]) {
-      problems.push({ file: f.name, reason: `this is ${KIND_BY_EXT[ext]}, not a preset. Import takes the .json files from “Export”` });
+      // An export made by this app carries its preset inside (see export/embed.js).
+      const hidden = await extractPresetFromFile(f).catch(() => null);
+      if (hidden) { fromText(hidden, f.name, '', f.name.replace(/\.[^.]+$/, '')); continue; }
+      problems.push({ file: f.name, reason: `this is ${KIND_BY_EXT[ext]}, not a preset. it has no preset inside (only exports made by this app, with “Hide the preset inside the file” ticked, do). To rebuild a preset from a song, use the “From audio” tab` });
     } else {
       // A lone preset file joins no collection; a bundle file becomes one.
       fromText(await f.text(), f.name, '', f.name.replace(/(\.mmv)?\.json$/i, ''));

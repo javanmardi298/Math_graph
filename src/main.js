@@ -36,6 +36,7 @@ import { renderVideo, canRenderVideo } from './export/video-render.js';
 import { renderWithFfmpeg, ffmpegServer, createBatch, addBatchFile, zipBatch } from './export/ffmpeg-render.js';
 import { youtubeFor, youtubeText, youtubeCsv } from './export/youtube.js';
 import { makeZip } from './export/zip.js';
+import { embedInBlob } from './export/embed.js';
 import { bundleFile, singleFile } from './library.js';
 import { fixWebmDuration } from './export/webm-duration.js';
 import { shortsTiming, mapVideoTime, frameEffects, drawHook, hookTextFor, shortsAudio } from './export/shorts.js';
@@ -969,9 +970,16 @@ function showResult(src, filename, kind, sizeBytes, note = '') {
   $('result-name').value = dot > 0 ? filename.slice(0, dot) : filename;
   $('result-ext').textContent = ext;
   $('result-info').textContent = [bytes ? `${(bytes / 1048576).toFixed(2)} MB` : '', note].filter(Boolean).join(' · ');
+  // The preset travels inside the file itself (WAV, MP4, WebM, PNG), so the file alone brings it back.
+  const embedText = kind === 'zip' ? null : singleFile(store.snapshot());
+  const embed = $('embed-preset');
+  $('embed-wrap').hidden = kind === 'zip' || !isBlob;
+  try { embed.checked = localStorage.getItem('mmv.embed') !== '0'; } catch { embed.checked = true; }
+  embed.onchange = () => { try { localStorage.setItem('mmv.embed', embed.checked ? '1' : '0'); } catch { /* ignore */ } };
+  const withPreset = (blob) => (embedText && embed.checked ? embedInBlob(blob, embedText).catch(() => blob) : blob);
   $('result-download').onclick = async () => {
     const name = ($('result-name').value.trim().replace(/[\\/:*?"<>|]+/g, '-') || fileBase()) + ext;
-    if (isBlob) return download(src, name);
+    if (isBlob) return download(await withPreset(src), name);
     if (kind === 'zip') {
       // A batch zip on the local server can be gigabytes: let the browser stream it to disk.
       const a = h('a', { href: url, download: name });
@@ -1006,7 +1014,7 @@ function showResult(src, filename, kind, sizeBytes, note = '') {
     const base = $('result-name').value.trim().replace(/[\\/:*?"<>|]+/g, '-') || fileBase();
     const files = [];
     const bytesOf = async (blob) => new Uint8Array(await blob.arrayBuffer());
-    if ($('zip-file').checked) files.push({ name: base + ext, data: await bytesOf(isBlob ? src : await (await fetch(url)).blob()) });
+    if ($('zip-file').checked) files.push({ name: base + ext, data: await bytesOf(isBlob ? await withPreset(src) : await (await fetch(url)).blob()) });
     if (kind === 'video' && $('zip-yt').checked) files.push({ name: `${base}.txt`, data: new TextEncoder().encode(youtubeText(youtubeFor(store.state), base + ext)) });
     if ($('zip-preset').checked) files.push({ name: `${base}.mmv.json`, data: new TextEncoder().encode(singleFile(store.snapshot())) });
     if (!files.length) return toast('Tick at least one item for the .zip.');

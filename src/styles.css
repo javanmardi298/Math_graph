@@ -693,3 +693,26 @@ body.mode-circle .circle-layers { display: flex; flex-direction: column; gap: 10
 .fit-notes select { flex: 1; min-width: 0; }
 .note-readout { margin: 0; }
 .lib-top .row { flex-wrap: wrap; }
+
+/* ---------------------------------------------------------- From audio tab */
+.alab { display: flex; flex-direction: column; gap: 10px; }
+.alab.is-drop { outline: 2px dashed var(--accent); outline-offset: -4px; border-radius: 10px; }
+.alab-head { display: flex; flex-direction: column; gap: 2px; }
+.alab-drop { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px; border: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent); border-radius: 10px; }
+.alab-status:empty { display: none; }
+.alab-status { margin: 0; }
+.alab progress { width: 100%; height: 6px; accent-color: var(--accent); }
+.alab-out { display: flex; flex-direction: column; gap: 10px; }
+.alab-card { display: flex; flex-direction: column; gap: 8px; padding: 10px; border: 1px solid var(--line, color-mix(in srgb, currentColor 18%, transparent)); border-radius: 10px; background: color-mix(in srgb, currentColor 4%, transparent); }
+.alab-exact { border-color: color-mix(in srgb, var(--accent) 65%, transparent); }
+.alab-summary { margin: 0; font-size: 12.5px; line-height: 1.45; }
+.alab-roll { width: 100%; height: 150px; border-radius: 8px; display: block; }
+.alab-play, .alab-actions, .alab-bpm { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.alab-actions { padding-top: 2px; }
+.alab-score { margin: 0; }
+.alab-field { display: flex; flex-direction: column; gap: 4px; }
+.alab-field select, .alab-field input[type=number], .alab-field input[type=text] { width: 100%; }
+.alab-bpm input { width: 84px; }
+.alab-hint { font-size: 11px; opacity: 0.8; }
+.alab-field > label { text-align: left; }
+.alab-removed { margin: 0; }

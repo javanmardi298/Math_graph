@@ -1,7 +1,7 @@
 /**
  * Builds the two side panels:
  *   left  — formula layers, live parameters a–d, formula cheatsheet
- *   right — inspector tabs: Circle · Look · FX · Sound · Rhythm · Animate · Text · Camera · Presets · Daily · Export
+ *   right — inspector tabs: Circle · Look · FX · Sound · Rhythm · Animate · Text · Camera · Presets · Daily · From audio · Export
  */
 import { store, createLayer, LAYER_TYPES } from '../state.js';
 import { SCALE_LABELS, SCALE_GROUPS, NOTE_NAMES, noteName, scaleNotesBetween } from '../math/music.js';
@@ -9,6 +9,7 @@ import { compile, FUNCTIONS } from '../math/parser.js';
 import { LibraryView } from './library-view.js';
 import { DailyView } from './daily-view.js';
 import { SoundPresetView } from './sound-presets-view.js';
+import { AudioLabView } from './audio-lab.js';
 import { getBrand, setBrand } from '../brand.js';
 import { saveShorts } from '../shorts-prefs.js';
 import { CAMERA_MOVE_DEFAULTS } from '../camera-moves.js';
@@ -336,6 +337,7 @@ export class Panels {
       ['camera', 'Camera', this.cameraTab()],
       ['presets', 'Presets', this.presetsTab()],
       ['daily', '📅 Daily', this.dailyTab()],
+      ['audio', '♪ From audio', this.audioTab()],
       ['export', 'Export', this.exportTab()],
     ];
     const bar = document.getElementById('tabbar');
@@ -592,6 +594,16 @@ export class Panels {
       addToDaily: (x) => this.daily?.enqueue(x.name, x.preset, x.preset.$shelf || ''),
     });
     return this.library.el;
+  }
+
+  audioTab() {
+    this.audioLab = new AudioLabView({
+      loadPreset: (p) => this.actions.loadPreset(p),
+      toast: this.actions.toast,
+      download,
+      savePreset: (preset, o) => this.library.addPreset(preset, o),
+    });
+    return h('section.tab', {}, this.audioLab.el);
   }
 
   dailyTab() {
