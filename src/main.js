@@ -609,7 +609,7 @@ store.on((path) => {
         // rebuild the Circle tab when the visible controls change (rule, pitch mode, the layer list)
         const tail = path.split('.').slice(-2).join('.');
         if (!second || second === 'combine' || path === 'circle.layers' || /(^|\.)rule$/.test(path) || tail === 'sound.pitch' || tail === 'sound.melody') panels.renderCircle?.();
-        if (!second || path === 'circle.layers' || /(^|\.)rule$/.test(path)) { panels.renderHarmonograph?.(); syncHarmButton(); }
+        if (!second || path === 'circle.layers' || /(^|\.)rule$/.test(path)) { panels.renderHarmonograph?.(); panels.renderCircleLayers?.(); syncHarmButton(); }
         if (!second || second === 'layers' || second === 'combine') panels.renderCircleLayers?.();
       }
       break;

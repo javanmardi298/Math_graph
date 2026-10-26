@@ -191,6 +191,8 @@ export function luckyMachine(seed = 1, { kind = null } = {}) {
       life: 26 + Math.floor(R() * 36), rate: 2.2,
       sym: R() < 0.35 ? [3, 4, 5, 6, 8][Math.floor(R() * 5)] : 1, mirror: R() < 0.3,
     };
+    // keep every frequency inside the sliders (0.25 … 12): drop an octave while the top one is too high
+    while (Math.max(lab.fa, lab.fb, lab.fc, lab.fd) > 11.5) for (const key of ['fa', 'fb', 'fc', 'fd']) lab[key] /= 2;
     for (const key of ['fa', 'fb', 'fc', 'fd']) lab[key] = +lab[key].toFixed(4);
     // coverage of the figure on a coarse grid
     const m = machine({ ...DEFAULTS, ...lab });

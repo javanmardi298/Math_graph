@@ -104,6 +104,7 @@ test('the lucky machine is deterministic per seed, varied across seeds and alway
     assert.ok(PAPERS[lab.paper] && INK_STYLES[lab.ink] && look.palette);
     const m = machine({ ...D, ...lab });
     assert.ok(Number.isFinite(m.at(3)[0]));
+    for (const f of ['fa', 'fb', 'fc', 'fd']) assert.ok(lab[f] >= 0.25 && lab[f] <= 12, `${f} ${lab[f]}`);
   }
   assert.ok(Object.keys(luckyMachine(3, { kind: 'epicycle' }).lab).length > 10);
 });

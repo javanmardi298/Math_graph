@@ -718,7 +718,8 @@ body.mode-circle .circle-layers { display: flex; flex-direction: column; gap: 10
 .alab-removed { margin: 0; }
 
 /* ------------------------------------------------------------- Harmonograph tab */
-.harm-mode-btn { margin-left: 4px; height: 32px; min-width: 38px; border-radius: 10px; border: 1px solid var(--line, color-mix(in srgb, currentColor 22%, transparent)); background: transparent; color: inherit; font: 700 18px/1 var(--f-display, inherit); cursor: pointer; }
+.mode-slot-row, #mode-slot { display: flex; align-items: center; gap: 4px; flex-wrap: nowrap; }
+.harm-mode-btn { margin-left: 0; height: 30px; min-width: 34px; flex: none; border-radius: 10px; border: 1px solid var(--line, color-mix(in srgb, currentColor 22%, transparent)); background: transparent; color: inherit; font: 700 18px/1 var(--f-display, inherit); cursor: pointer; }
 .harm-mode-btn:hover, .harm-mode-btn[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 22%, transparent); border-color: var(--accent); }
 .harm-tab { display: flex; flex-direction: column; }
 .harm-top { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
