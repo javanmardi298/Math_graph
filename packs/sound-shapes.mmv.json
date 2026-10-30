@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wj0",
+          "id": "Lmvvidvom0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -37,7 +37,8 @@
             "x": "2.6 sin(s)^3",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -66,6 +67,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -126,11 +148,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -397,7 +424,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wj0",
+          "id": "Lmvvidvon0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -407,7 +434,8 @@
             "x": "2.6 sin(s)^3",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -436,6 +464,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -496,11 +545,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -767,7 +821,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wj0",
+          "id": "Lmvvidvon0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -777,7 +831,8 @@
             "x": "2.6 sin(s)^3",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -806,6 +861,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -866,11 +942,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -1137,7 +1218,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wj0",
+          "id": "Lmvvidvon0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -1147,7 +1228,8 @@
             "x": "2.6 sin(s)^3",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -1176,6 +1258,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -1236,11 +1339,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -1507,7 +1615,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wj0",
+          "id": "Lmvvidvon0",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -1517,7 +1625,8 @@
             "x": "0.62 sin(s) (exp(cos(s)) - 2cos(4s) - sin(s/12)^5)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -1546,6 +1655,27 @@
           "start": 0,
           "end": 0,
           "samples": 4000,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -1606,11 +1736,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -1877,7 +2012,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wj0",
+          "id": "Lmvvidvon0",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -1887,7 +2022,8 @@
             "x": "0.62 sin(s) (exp(cos(s)) - 2cos(4s) - sin(s/12)^5)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -1916,6 +2052,27 @@
           "start": 0,
           "end": 0,
           "samples": 4000,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -1976,11 +2133,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -2247,7 +2409,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvon0",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -2257,7 +2419,8 @@
             "x": "0.62 sin(s) (exp(cos(s)) - 2cos(4s) - sin(s/12)^5)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -2286,6 +2449,27 @@
           "start": 0,
           "end": 0,
           "samples": 4000,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -2346,11 +2530,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -2617,7 +2806,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvon0",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -2627,7 +2816,8 @@
             "x": "2.8 sin(s) cos(s) / (1 + sin(s)^2)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -2656,6 +2846,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -2716,11 +2927,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -2987,7 +3203,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvon0",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -2997,7 +3213,8 @@
             "x": "2.8 sin(s) cos(s) / (1 + sin(s)^2)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -3026,6 +3243,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -3086,11 +3324,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -3357,7 +3600,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvon0",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -3367,7 +3610,8 @@
             "x": "2.8 sin(s) cos(s) / (1 + sin(s)^2)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -3396,6 +3640,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -3456,11 +3721,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -3727,7 +3997,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvon0",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -3737,7 +4007,8 @@
             "x": "2.8 cos(s)^3",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -3766,6 +4037,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -3826,11 +4118,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -4097,7 +4394,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvon0",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -4107,7 +4404,8 @@
             "x": "2.8 cos(s)^3",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -4136,6 +4434,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -4196,11 +4515,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -4467,7 +4791,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvon0",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -4477,7 +4801,8 @@
             "x": "2.8 cos(s)^3",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -4506,6 +4831,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -4566,11 +4912,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -4837,7 +5188,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvon0",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -4847,7 +5198,8 @@
             "x": "0",
             "r": "0.15 theta",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -4876,6 +5228,27 @@
           "start": 0,
           "end": 0,
           "samples": 2400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -4936,11 +5309,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -5207,7 +5585,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvon0",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -5217,7 +5595,8 @@
             "x": "0",
             "r": "0.15 theta",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -5246,6 +5625,27 @@
           "start": 0,
           "end": 0,
           "samples": 2400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -5306,11 +5706,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -5577,7 +5982,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvoo0",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -5587,7 +5992,8 @@
             "x": "0",
             "r": "0.15 theta",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -5616,6 +6022,27 @@
           "start": 0,
           "end": 0,
           "samples": 2400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -5676,11 +6103,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -5947,7 +6379,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvoo0",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -5957,7 +6389,8 @@
             "x": "0",
             "r": "0.08 phi^(2theta/pi)",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -5986,6 +6419,27 @@
           "start": 0,
           "end": 0,
           "samples": 2400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -6046,11 +6500,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -6317,7 +6776,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvoo0",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -6327,7 +6786,8 @@
             "x": "0",
             "r": "0.08 phi^(2theta/pi)",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -6356,6 +6816,27 @@
           "start": 0,
           "end": 0,
           "samples": 2400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -6416,11 +6897,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -6687,7 +7173,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvoo0",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -6697,7 +7183,8 @@
             "x": "0",
             "r": "0.08 phi^(2theta/pi)",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -6726,6 +7213,27 @@
           "start": 0,
           "end": 0,
           "samples": 2400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -6786,11 +7294,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -7057,7 +7570,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvoo0",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -7067,7 +7580,8 @@
             "x": "0",
             "r": "2.8 cos(4theta)",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -7096,6 +7610,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -7156,11 +7691,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -7427,7 +7967,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvoo0",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -7437,7 +7977,8 @@
             "x": "0",
             "r": "2.8 cos(4theta)",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -7466,6 +8007,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -7526,11 +8088,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -7797,7 +8364,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvoo0",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -7807,7 +8374,8 @@
             "x": "0",
             "r": "2.8 cos(4theta)",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -7836,6 +8404,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -7896,11 +8485,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -8167,7 +8761,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvoo0",
           "name": "Three-leaf Clover",
           "enabled": true,
           "type": "polar",
@@ -8177,7 +8771,8 @@
             "x": "0",
             "r": "2.8 cos(3theta)",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -8206,6 +8801,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -8266,11 +8882,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -8537,7 +9158,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvoo0",
           "name": "Three-leaf Clover",
           "enabled": true,
           "type": "polar",
@@ -8547,7 +9168,8 @@
             "x": "0",
             "r": "2.8 cos(3theta)",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -8576,6 +9198,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -8636,11 +9279,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -8907,7 +9555,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvoo0",
           "name": "Five-petal Rose",
           "enabled": true,
           "type": "polar",
@@ -8917,7 +9565,8 @@
             "x": "0",
             "r": "2.8 cos(2.5theta)",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -8946,6 +9595,27 @@
           "start": 0,
           "end": 0,
           "samples": 2400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -9006,11 +9676,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -9277,7 +9952,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvoo0",
           "name": "Five-petal Rose",
           "enabled": true,
           "type": "polar",
@@ -9287,7 +9962,8 @@
             "x": "0",
             "r": "2.8 cos(2.5theta)",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -9316,6 +9992,27 @@
           "start": 0,
           "end": 0,
           "samples": 2400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -9376,11 +10073,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -9647,7 +10349,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvoo0",
           "name": "Cardioid",
           "enabled": true,
           "type": "polar",
@@ -9657,7 +10359,8 @@
             "x": "0",
             "r": "1.4 (1 + cos(theta))",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -9686,6 +10389,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -9746,11 +10470,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -10017,7 +10746,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wk0",
+          "id": "Lmvvidvoo0",
           "name": "Cardioid",
           "enabled": true,
           "type": "polar",
@@ -10027,7 +10756,8 @@
             "x": "0",
             "r": "1.4 (1 + cos(theta))",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -10056,6 +10786,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -10116,11 +10867,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -10387,7 +11143,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvop0",
           "name": "Figure Eight",
           "enabled": true,
           "type": "parametric",
@@ -10397,7 +11153,8 @@
             "x": "2.4 sin(s) cos(s)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -10426,6 +11183,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -10486,11 +11264,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -10757,7 +11540,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvop0",
           "name": "Figure Eight",
           "enabled": true,
           "type": "parametric",
@@ -10767,7 +11550,8 @@
             "x": "2.4 sin(s) cos(s)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -10796,6 +11580,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -10856,11 +11661,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -11127,7 +11937,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvop0",
           "name": "Pretzel",
           "enabled": true,
           "type": "parametric",
@@ -11137,7 +11947,8 @@
             "x": "2.6 sin(3s)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -11166,6 +11977,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -11226,11 +12058,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -11497,7 +12334,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvop0",
           "name": "Pretzel",
           "enabled": true,
           "type": "parametric",
@@ -11507,7 +12344,8 @@
             "x": "2.6 sin(3s)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -11536,6 +12374,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -11596,11 +12455,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -11867,7 +12731,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvop0",
           "name": "Gear",
           "enabled": true,
           "type": "polar",
@@ -11877,7 +12741,8 @@
             "x": "0",
             "r": "2.2 + 0.4 tanh(4 sin(10theta))",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -11906,6 +12771,27 @@
           "start": 0,
           "end": 0,
           "samples": 3000,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -11966,11 +12852,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -12237,7 +13128,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvop0",
           "name": "Gear",
           "enabled": true,
           "type": "polar",
@@ -12247,7 +13138,8 @@
             "x": "0",
             "r": "2.2 + 0.4 tanh(4 sin(10theta))",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -12276,6 +13168,27 @@
           "start": 0,
           "end": 0,
           "samples": 3000,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -12336,11 +13249,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -12607,7 +13525,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvop0",
           "name": "Crown",
           "enabled": true,
           "type": "polar",
@@ -12617,7 +13535,8 @@
             "x": "0",
             "r": "2 + 0.8 abs(sin(2.5theta))",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -12646,6 +13565,27 @@
           "start": 0,
           "end": 0,
           "samples": 2400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -12706,11 +13646,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -12977,7 +13922,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvop0",
           "name": "Crown",
           "enabled": true,
           "type": "polar",
@@ -12987,7 +13932,8 @@
             "x": "0",
             "r": "2 + 0.8 abs(sin(2.5theta))",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -13016,6 +13962,27 @@
           "start": 0,
           "end": 0,
           "samples": 2400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -13076,11 +14043,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -13347,7 +14319,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvop0",
           "name": "Trefoil Knot",
           "enabled": true,
           "type": "parametric",
@@ -13357,7 +14329,8 @@
             "x": "0.9 (sin(s) + 2 sin(2s))",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -13386,6 +14359,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -13446,11 +14440,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -13717,7 +14716,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvop0",
           "name": "Trefoil Knot",
           "enabled": true,
           "type": "parametric",
@@ -13727,7 +14726,8 @@
             "x": "0.9 (sin(s) + 2 sin(2s))",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -13756,6 +14756,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -13816,11 +14837,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -14087,7 +15113,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvop0",
           "name": "Spirograph",
           "enabled": true,
           "type": "parametric",
@@ -14097,7 +15123,8 @@
             "x": "1.1 cos(s) + 1.65 cos(2s/3)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -14126,6 +15153,27 @@
           "start": 0,
           "end": 0,
           "samples": 3000,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -14186,11 +15234,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -14457,7 +15510,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvoq0",
           "name": "Spirograph",
           "enabled": true,
           "type": "parametric",
@@ -14467,7 +15520,8 @@
             "x": "1.1 cos(s) + 1.65 cos(2s/3)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -14496,6 +15550,27 @@
           "start": 0,
           "end": 0,
           "samples": 3000,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -14556,11 +15631,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -14827,7 +15907,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvoq0",
           "name": "Nephroid",
           "enabled": true,
           "type": "parametric",
@@ -14837,7 +15917,8 @@
             "x": "0.95 (3cos(s) - cos(3s))",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -14866,6 +15947,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -14926,11 +16028,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -15197,7 +16304,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvoq0",
           "name": "Nephroid",
           "enabled": true,
           "type": "parametric",
@@ -15207,7 +16314,8 @@
             "x": "0.95 (3cos(s) - cos(3s))",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -15236,6 +16344,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -15296,11 +16425,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -15567,7 +16701,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvoq0",
           "name": "Looped Limaçon",
           "enabled": true,
           "type": "polar",
@@ -15577,7 +16711,8 @@
             "x": "0",
             "r": "0.9 + 1.8 cos(theta)",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -15606,6 +16741,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -15666,11 +16822,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -15937,7 +17098,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvoq0",
           "name": "Looped Limaçon",
           "enabled": true,
           "type": "polar",
@@ -15947,7 +17108,8 @@
             "x": "0",
             "r": "0.9 + 1.8 cos(theta)",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -15976,6 +17138,27 @@
           "start": 0,
           "end": 0,
           "samples": 1600,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -16036,11 +17219,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -16307,7 +17495,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvoq0",
           "name": "Lissajous Knot",
           "enabled": true,
           "type": "parametric",
@@ -16317,7 +17505,8 @@
             "x": "2.7 sin(5s + 1)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -16346,6 +17535,27 @@
           "start": 0,
           "end": 0,
           "samples": 2400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -16406,11 +17616,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -16677,7 +17892,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815wl0",
+          "id": "Lmvvidvoq0",
           "name": "Lissajous Knot",
           "enabled": true,
           "type": "parametric",
@@ -16687,7 +17902,8 @@
             "x": "2.7 sin(5s + 1)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -16716,6 +17932,27 @@
           "start": 0,
           "end": 0,
           "samples": 2400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -16776,11 +18013,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,

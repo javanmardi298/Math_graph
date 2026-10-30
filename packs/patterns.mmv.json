@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815xq0",
+          "id": "Lmvvidvpw0",
           "name": "Layer 411",
           "enabled": true,
           "type": "function",
@@ -37,7 +37,8 @@
             "x": "0",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -66,6 +67,27 @@
           "start": 0,
           "end": 0,
           "samples": 900,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -126,11 +148,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -595,7 +622,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815xq0",
+          "id": "Lmvvidvpw0",
           "name": "Layer 413",
           "enabled": true,
           "type": "function",
@@ -605,7 +632,8 @@
             "x": "0",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -634,6 +662,27 @@
           "start": 0,
           "end": 0,
           "samples": 900,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -694,11 +743,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -1170,7 +1224,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815xq0",
+          "id": "Lmvvidvpw0",
           "name": "Layer 415",
           "enabled": true,
           "type": "function",
@@ -1180,7 +1234,8 @@
             "x": "0",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -1209,6 +1264,27 @@
           "start": 0,
           "end": 0,
           "samples": 900,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -1269,11 +1345,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -1741,7 +1822,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815xq0",
+          "id": "Lmvvidvpw0",
           "name": "Layer 417",
           "enabled": true,
           "type": "function",
@@ -1751,7 +1832,8 @@
             "x": "0",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -1780,6 +1862,27 @@
           "start": 0,
           "end": 0,
           "samples": 900,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -1840,11 +1943,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -2312,7 +2420,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815xq0",
+          "id": "Lmvvidvpx0",
           "name": "Layer 419",
           "enabled": true,
           "type": "function",
@@ -2322,7 +2430,8 @@
             "x": "0",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -2351,6 +2460,27 @@
           "start": 0,
           "end": 0,
           "samples": 900,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -2411,11 +2541,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -2881,7 +3016,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815xq0",
+          "id": "Lmvvidvpx0",
           "name": "Layer 421",
           "enabled": true,
           "type": "function",
@@ -2891,7 +3026,8 @@
             "x": "0",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -2920,6 +3056,27 @@
           "start": 0,
           "end": 0,
           "samples": 900,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -2980,11 +3137,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -3454,7 +3616,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815xq0",
+          "id": "Lmvvidvpx0",
           "name": "Layer 423",
           "enabled": true,
           "type": "function",
@@ -3464,7 +3626,8 @@
             "x": "0",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -3493,6 +3656,27 @@
           "start": 0,
           "end": 0,
           "samples": 900,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -3553,11 +3737,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,

@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815xa0",
+          "id": "Lmvvidvpe0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -37,7 +37,8 @@
             "x": "2 cos(s)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -66,10 +67,31 @@
           "start": 0,
           "end": 0,
           "samples": 1400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         },
         {
-          "id": "Lmvv815xa1",
+          "id": "Lmvvidvpe1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -79,7 +101,8 @@
             "x": "2 cos(s)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -108,10 +131,31 @@
           "start": 0,
           "end": 0,
           "samples": 1400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         },
         {
-          "id": "Lmvv815xa2",
+          "id": "Lmvvidvpe2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -121,7 +165,8 @@
             "x": "0.1s cos(s)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -150,6 +195,27 @@
           "start": 0,
           "end": 0,
           "samples": 1400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -210,11 +276,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": true,
         "rotateSpeed": 1.2,
         "fov": 50,
@@ -527,7 +598,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815xa0",
+          "id": "Lmvvidvpe0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -537,7 +608,8 @@
             "x": "0",
             "r": "1",
             "f": "sin(x) cos(y)",
-            "path": "2.5 sin(0.9x)"
+            "path": "2.5 sin(0.9x)",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -566,10 +638,31 @@
           "start": 0,
           "end": 0,
           "samples": 64,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         },
         {
-          "id": "Lmvv815xa1",
+          "id": "Lmvvidvpe1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -579,7 +672,8 @@
             "x": "0",
             "r": "1",
             "f": "0.15 (x^2 - y^2)",
-            "path": "2.5 sin(0.9x)"
+            "path": "2.5 sin(0.9x)",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -608,10 +702,31 @@
           "start": 0,
           "end": 0,
           "samples": 64,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         },
         {
-          "id": "Lmvv815xa2",
+          "id": "Lmvvidvpe2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -621,7 +736,8 @@
             "x": "0",
             "r": "1",
             "f": "1.2 sin(2 hypot(x, y)) / (1 + 0.3 hypot(x, y))",
-            "path": "2.5 sin(0.9x)"
+            "path": "2.5 sin(0.9x)",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -650,6 +766,27 @@
           "start": 0,
           "end": 0,
           "samples": 64,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -710,11 +847,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": true,
         "rotateSpeed": 0.5,
         "fov": 45,
@@ -1027,7 +1169,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815xa0",
+          "id": "Lmvvidvpe0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -1037,7 +1179,8 @@
             "x": "0",
             "r": "1",
             "f": "0.2 (x^2 + y^2) - 2",
-            "path": "2.5 sin(0.9x)"
+            "path": "2.5 sin(0.9x)",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -1066,10 +1209,31 @@
           "start": 0,
           "end": 0,
           "samples": 64,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         },
         {
-          "id": "Lmvv815xa1",
+          "id": "Lmvvidvpe1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -1079,7 +1243,8 @@
             "x": "0",
             "r": "1",
             "f": "3 exp(-(x^2 + y^2)/3) - 1",
-            "path": "2.5 sin(0.9x)"
+            "path": "2.5 sin(0.9x)",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -1108,10 +1273,31 @@
           "start": 0,
           "end": 0,
           "samples": 64,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         },
         {
-          "id": "Lmvv815xa2",
+          "id": "Lmvvidvpe2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -1121,7 +1307,8 @@
             "x": "0",
             "r": "1",
             "f": "cos(x) + cos(y)",
-            "path": "2.5 sin(0.9x)"
+            "path": "2.5 sin(0.9x)",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -1150,6 +1337,27 @@
           "start": 0,
           "end": 0,
           "samples": 64,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -1210,11 +1418,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": true,
         "rotateSpeed": 0.5,
         "fov": 45,
@@ -1527,7 +1740,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815xa0",
+          "id": "Lmvvidvpe0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -1537,7 +1750,8 @@
             "x": "2.5 cos(s)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -1566,10 +1780,31 @@
           "start": 0,
           "end": 0,
           "samples": 1400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         },
         {
-          "id": "Lmvv815xa1",
+          "id": "Lmvvidvpe1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -1579,7 +1814,8 @@
             "x": "(2 + cos(3s)) cos(2s)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -1608,10 +1844,31 @@
           "start": 0,
           "end": 0,
           "samples": 1400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         },
         {
-          "id": "Lmvv815xa2",
+          "id": "Lmvvidvpe2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -1621,7 +1878,8 @@
             "x": "(2 + cos(5s)) cos(3s)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -1650,6 +1908,27 @@
           "start": 0,
           "end": 0,
           "samples": 2000,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -1710,11 +1989,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": true,
         "rotateSpeed": 1,
         "fov": 50,
@@ -2027,7 +2311,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv815xa0",
+          "id": "Lmvvidvpe0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -2037,7 +2321,8 @@
             "x": "3 sin(s)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -2066,10 +2351,31 @@
           "start": 0,
           "end": 0,
           "samples": 1400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         },
         {
-          "id": "Lmvv815xa1",
+          "id": "Lmvvidvpe1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -2079,7 +2385,8 @@
             "x": "3 sin(s)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -2108,10 +2415,31 @@
           "start": 0,
           "end": 0,
           "samples": 1400,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         },
         {
-          "id": "Lmvv815xa2",
+          "id": "Lmvvidvpe2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -2121,7 +2449,8 @@
             "x": "3 sin(3s)",
             "r": "1",
             "f": "0",
-            "path": "0"
+            "path": "0",
+            "pv": "0"
           },
           "range": {
             "min": 0,
@@ -2150,6 +2479,27 @@
           "start": 0,
           "end": 0,
           "samples": 2000,
+          "sim": {
+            "x0": 0.1,
+            "y0": 0,
+            "z0": 0,
+            "dt": 0.01,
+            "skip": 0,
+            "scale": 1,
+            "cx": 0,
+            "cy": 0,
+            "cz": 0,
+            "up": "y",
+            "alpha": 0.35
+          },
+          "surf": {
+            "vMin": 0,
+            "vMax": 6.283185307179586,
+            "nu": 96,
+            "nv": 48,
+            "solid": 0.16,
+            "wire": 0.45
+          },
           "hidden": false
         }
       ],
@@ -2210,11 +2560,16 @@
         },
         "tone": "off",
         "exposure": 1,
+        "backdropMotion": "still",
+        "loop": "off",
+        "loopSecs": 2.5,
+        "letterbox": 0,
         "aspect": "9:16"
       },
       "camera": {
         "ending": "auto",
         "endingSecs": 1.8,
+        "endingBars": 0,
         "autoRotate": true,
         "rotateSpeed": 0.8,
         "fov": 50,
