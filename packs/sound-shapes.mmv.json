@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1ra0",
+          "id": "Lmvv815wj0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -120,8 +120,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -393,7 +397,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1ra0",
+          "id": "Lmvv815wj0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -486,8 +490,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -759,7 +767,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1ra0",
+          "id": "Lmvv815wj0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -852,8 +860,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -1125,7 +1137,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1ra0",
+          "id": "Lmvv815wj0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -1218,8 +1230,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -1491,7 +1507,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1ra0",
+          "id": "Lmvv815wj0",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -1584,8 +1600,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -1857,7 +1877,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rd0",
+          "id": "Lmvv815wj0",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -1950,8 +1970,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -2223,7 +2247,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1re0",
+          "id": "Lmvv815wk0",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -2316,8 +2340,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -2589,7 +2617,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -2682,8 +2710,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -2955,7 +2987,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -3048,8 +3080,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -3321,7 +3357,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -3414,8 +3450,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -3687,7 +3727,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -3780,8 +3820,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -4053,7 +4097,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -4146,8 +4190,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -4419,7 +4467,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -4512,8 +4560,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -4785,7 +4837,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -4878,8 +4930,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -5151,7 +5207,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -5244,8 +5300,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -5517,7 +5577,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -5610,8 +5670,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -5883,7 +5947,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -5976,8 +6040,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -6249,7 +6317,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -6342,8 +6410,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -6615,7 +6687,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -6708,8 +6780,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -6981,7 +7057,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -7074,8 +7150,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -7347,7 +7427,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -7440,8 +7520,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -7713,7 +7797,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -7806,8 +7890,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -8079,7 +8167,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Three-leaf Clover",
           "enabled": true,
           "type": "polar",
@@ -8172,8 +8260,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -8445,7 +8537,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Three-leaf Clover",
           "enabled": true,
           "type": "polar",
@@ -8538,8 +8630,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -8811,7 +8907,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Five-petal Rose",
           "enabled": true,
           "type": "polar",
@@ -8904,8 +9000,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -9177,7 +9277,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Five-petal Rose",
           "enabled": true,
           "type": "polar",
@@ -9270,8 +9370,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -9543,7 +9647,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rf0",
+          "id": "Lmvv815wk0",
           "name": "Cardioid",
           "enabled": true,
           "type": "polar",
@@ -9636,8 +9740,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -9909,7 +10017,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wk0",
           "name": "Cardioid",
           "enabled": true,
           "type": "polar",
@@ -10002,8 +10110,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -10275,7 +10387,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Figure Eight",
           "enabled": true,
           "type": "parametric",
@@ -10368,8 +10480,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -10641,7 +10757,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Figure Eight",
           "enabled": true,
           "type": "parametric",
@@ -10734,8 +10850,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -11007,7 +11127,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Pretzel",
           "enabled": true,
           "type": "parametric",
@@ -11100,8 +11220,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -11373,7 +11497,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Pretzel",
           "enabled": true,
           "type": "parametric",
@@ -11466,8 +11590,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -11739,7 +11867,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Gear",
           "enabled": true,
           "type": "polar",
@@ -11832,8 +11960,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -12105,7 +12237,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Gear",
           "enabled": true,
           "type": "polar",
@@ -12198,8 +12330,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -12471,7 +12607,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Crown",
           "enabled": true,
           "type": "polar",
@@ -12564,8 +12700,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -12837,7 +12977,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Crown",
           "enabled": true,
           "type": "polar",
@@ -12930,8 +13070,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -13203,7 +13347,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Trefoil Knot",
           "enabled": true,
           "type": "parametric",
@@ -13296,8 +13440,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -13569,7 +13717,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Trefoil Knot",
           "enabled": true,
           "type": "parametric",
@@ -13662,8 +13810,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -13935,7 +14087,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Spirograph",
           "enabled": true,
           "type": "parametric",
@@ -14028,8 +14180,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -14301,7 +14457,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Spirograph",
           "enabled": true,
           "type": "parametric",
@@ -14394,8 +14550,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -14667,7 +14827,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Nephroid",
           "enabled": true,
           "type": "parametric",
@@ -14760,8 +14920,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -15033,7 +15197,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Nephroid",
           "enabled": true,
           "type": "parametric",
@@ -15126,8 +15290,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -15399,7 +15567,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Looped Limaçon",
           "enabled": true,
           "type": "polar",
@@ -15492,8 +15660,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -15765,7 +15937,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Looped Limaçon",
           "enabled": true,
           "type": "polar",
@@ -15858,8 +16030,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -16131,7 +16307,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Lissajous Knot",
           "enabled": true,
           "type": "parametric",
@@ -16224,8 +16400,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -16497,7 +16677,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rg0",
+          "id": "Lmvv815wl0",
           "name": "Lissajous Knot",
           "enabled": true,
           "type": "parametric",
@@ -16590,8 +16770,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {

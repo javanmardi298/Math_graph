@@ -21,6 +21,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js';
 import { cameraMove } from '../camera-moves.js';
 import { paintBackdrop } from './backdrops.js';
+import { FX_PARTS } from './fx-styles.js';
 
 const TRAIL_MAX = 400;
 const tmpColor = new THREE.Color();
@@ -162,7 +163,8 @@ const trailFragment = /* glsl */ `
 
 const FX_GLITCH = [0xff2a3d, 0x38ff7a, 0x2ae8ff]; // red, green, cyan: the three lights of the chromatic glitch
 const smooth01 = (x) => { const q = Math.min(1, Math.max(0, x)); return q * q * (3 - 2 * q); };
-const STRING_MAX = 400;
+const STRING_MAX = 400, BEAD_MAX = 600;
+const FX_PRISM = [0xff3d9a, 0xffe14d, 0x3dd9ff]; // magenta, yellow, cyan: the prism's copies, drawn with normal blending
 
 /**
  * Fade the lit tail of a line in place: full brightness at the pen, falling to `floor` over
@@ -257,7 +259,7 @@ class LayerView {
 
     // fx: three chromatic copies of the curve and of the playhead, and the strings (see visual.fx)
     this.fxGeo = new LineGeometry();
-    this.fxLines = FX_GLITCH.map((c) => {
+    this.fxLines = [...FX_GLITCH, 0xffffff, 0xffffff, 0xffffff].map((c) => {
       const ln = new Line2(this.fxGeo, new LineMaterial({ color: c, vertexColors: true, linewidth: layer.width, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, worldUnits: false }));
       ln.frustumCulled = false; ln.renderOrder = 2; ln.visible = false;
       this.group.add(ln);
@@ -275,18 +277,24 @@ class LayerView {
     this.strings = new THREE.LineSegments(sg, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.16, depthWrite: false, blending: THREE.AdditiveBlending }));
     this.strings.frustumCulled = false; this.strings.renderOrder = 1; this.strings.visible = false;
     this.group.add(this.strings);
+    const bg = new THREE.BufferGeometry();
+    bg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(BEAD_MAX * 3), 3));
+    bg.setAttribute('color', new THREE.BufferAttribute(new Float32Array(BEAD_MAX * 3), 3));
+    this.beads = new THREE.Points(bg, new THREE.PointsMaterial({ size: 1, vertexColors: true, sizeAttenuation: false, map: viz.dotTexture, transparent: true, depthWrite: false, alphaTest: 0.05 }));
+    this.beads.frustumCulled = false; this.beads.renderOrder = 3; this.beads.visible = false;
+    this.group.add(this.beads);
     this.applyStyle();
   }
 
   /** What the fx setting asks for on this layer. */
   fxMode() {
-    const fx = this.viz.state.visual.fx || {}, st = fx.style || 'off';
-    if (this.layer.type === 'surface' || this.layer.hidden) return { glitch: false, web: false, string: false, fx };
-    return { glitch: st === 'glitch' || st === 'glitchString', web: st === 'web', string: st === 'string' || st === 'glitchString', fx };
+    const fx = this.viz.state.visual.fx || {};
+    if (this.layer.type === 'surface' || this.layer.hidden) return { parts: {}, fx };
+    return { parts: FX_PARTS[fx.style] || {}, fx };
   }
 
   hideFx() {
-    for (const o of [...this.fxLines, ...this.fxMarkers, this.strings]) o.visible = false;
+    for (const o of [...this.fxLines, ...this.fxMarkers, this.strings, this.beads]) o.visible = false;
   }
 
   /** Strings from the centre to evenly spaced points of the curve (fixed once the curve is sampled). */
@@ -304,57 +312,101 @@ class LayerView {
     this.strN = n;
   }
 
+  /** Beads: points at even steps along the curve. */
+  buildBeads(n) {
+    if (!this.pts) return;
+    const pos = this.beads.geometry.attributes.position, col = this.beads.geometry.attributes.color;
+    n = Math.min(BEAD_MAX, Math.max(2, Math.round(n)));
+    for (let j = 0; j < n; j++) {
+      const i = Math.round((j / (n - 1)) * (this.count - 1));
+      pos.setXYZ(j, this.pts[i * 3], this.pts[i * 3 + 1], this.pts[i * 3 + 2]);
+      col.setXYZ(j, this.baseCols[i * 3], this.baseCols[i * 3 + 1], this.baseCols[i * 3 + 2]);
+    }
+    pos.needsUpdate = col.needsUpdate = true;
+    this.beadN = n;
+  }
+
   /**
-   * The fx of this frame: positions and fading of the chromatic copies, the web from the pen,
-   * the strings. Returns true when the normal line and marker are replaced.
+   * The fx of this frame: coloured copies of the curve, the laser web from the pen, strings,
+   * beads. Returns true when the normal line is replaced.
    */
   frameFx(shown, f, ctx) {
-    const { glitch, web, string, fx } = this.fxMode();
-    if (!glitch && !web && !string) { this.hideFx(); return false; }
+    const { parts, fx } = this.fxMode();
+    const mode = parts.lines, I = fx.intensity ?? 1;
+    if (!mode && !parts.string && !parts.beads) { this.hideFx(); return false; }
     const holdK = fx.hold > 0 && f.duration ? smooth01(1 - (f.duration - (f.time ?? 0)) / fx.hold) : 0; // the last shot: the whole curve lights up
     const tail = (fx.tail ?? 0.3) + (6 - (fx.tail ?? 0.3)) * holdK;
-    const res = this.viz.resolution;
-    const cam = this.viz.camera;
+    const res = this.viz.resolution, cam = this.viz.camera;
     cam.updateMatrixWorld();
     const right = tmpRight.setFromMatrixColumn(cam.matrixWorld, 0), up = tmpUp.setFromMatrixColumn(cam.matrixWorld, 1);
-    const spike = (Math.max(0, Math.sin(f.now * 5.3) * Math.sin(f.now * 1.7 + 1)) ** 3) * 2.2 + (this.bump || 0) * 1.5;
-    const unit = (fx.offset ?? 3.2) * (1 + spike) * f.k * f.worldPerPx;
+    const split = mode === 'glitch' || mode === 'prism';
+    const spike = mode === 'glitch' ? (Math.max(0, Math.sin(f.now * 5.3) * Math.sin(f.now * 1.7 + 1)) ** 3) * 2.2 + (this.bump || 0) * 1.5 : 0;
+    const unit = (fx.offset ?? 3.2) * (mode === 'prism' ? 1.8 : 1) * (1 + spike) * f.k * f.worldPerPx;
     const offs = [[-1, 0.35], [0.0, -0.2], [1, -0.35]];
+    const w = this.layer.width * f.k;
 
-    if (glitch || web) {
+    this.fxLines.forEach((ln) => { ln.visible = false; ln.position.set(0, 0, 0); ln.rotation.set(0, 0, 0); ln.scale.set(1, 1, 1); });
+    const use = (i, { color, opacity, width = w, additive = true }) => {
+      const ln = this.fxLines[i], m = ln.material, bl = additive ? THREE.AdditiveBlending : THREE.NormalBlending;
+      if (m.blending !== bl) { m.blending = bl; m.needsUpdate = true; }
+      ln.visible = true; m.resolution.copy(res); m.color.setHex(color); m.linewidth = width; m.opacity = Math.min(1, opacity);
+      return ln;
+    };
+    if (mode) {
       if (this.fxGeo.attributes.instanceStart) {
         this.fxGeo.instanceCount = Math.max(0, shown - 1);
-        writeFade(this.fxGeo, glitch ? null : this.baseCols, this.count, shown, tail, glitch ? 0 : 0.02);
+        const grey = split, floor = mode === 'web' ? 0.02 : mode === 'echo' || mode === 'kaleido' ? 0.2 : mode === 'ink' ? 0.35 : 0;
+        writeFade(this.fxGeo, grey ? null : this.baseCols, this.count, shown, mode === 'ink' || mode === 'echo' || mode === 'kaleido' ? Math.max(tail, 0.5) : tail, floor);
       }
-      this.line.visible = false; this.ghost.visible = false; if (this.marker) this.marker.visible = false;
-      this.fxLines.forEach((ln, i) => {
-        ln.visible = glitch ? true : i < 2;
-        ln.material.resolution.copy(res);
-        if (glitch) { ln.material.color.setHex(FX_GLITCH[i]); ln.material.linewidth = this.layer.width * f.k; ln.material.opacity = 0.55 * (1 - 0.5 * holdK); ln.position.set(0, 0, 0).addScaledVector(right, offs[i][0] * unit).addScaledVector(up, offs[i][1] * unit); }
-        else { ln.material.color.setHex(0xffffff); ln.material.linewidth = this.layer.width * f.k * (i === 0 ? 3.2 : 1); ln.material.opacity = i === 0 ? 0.22 : 1; ln.position.set(0, 0, 0); }
-      });
-    } else this.fxLines.forEach((ln) => { ln.visible = false; });
+      this.line.visible = false; this.ghost.visible = false;
+      if (split) {
+        for (let i = 0; i < 3; i++) use(i, mode === 'glitch' ? { color: FX_GLITCH[i], opacity: 0.55 * (1 - 0.5 * holdK) * I } : { color: FX_PRISM[i], opacity: 0.78 * I, additive: false })
+          .position.set(0, 0, 0).addScaledVector(right, offs[i][0] * unit).addScaledVector(up, offs[i][1] * unit);
+      } else if (mode === 'web') {
+        use(0, { color: 0xffffff, opacity: 0.2 * I, width: w * 3.2 }); use(1, { color: 0xffffff, opacity: I });
+      } else if (mode === 'echo') {
+        for (let i = 0; i < 5; i++) { const ln = use(i, { color: 0xffffff, opacity: (0.75 - i * 0.14) * I, width: w * (1 - i * 0.1) }); const sc = 1 - i * 0.07; ln.scale.set(sc, sc, sc); ln.rotation.z = -i * 0.05; }
+      } else if (mode === 'kaleido') {
+        const n = Math.min(6, Math.max(2, Math.round(fx.copies || 6)));
+        for (let i = 0; i < n; i++) use(i, { color: 0xffffff, opacity: (0.95 / Math.sqrt(n)) * I, width: w * 0.9 }).rotation.z = (i * Math.PI * 2) / n;
+      } else if (mode === 'ink') use(0, { color: 0xffffff, opacity: 0.95 * I, additive: false });
+    }
+    this.marker.visible = !split;
 
     // the three lights of the playhead
     const px = this.viz.state.visual.marker.size * (1 + (this.bump || 0)) * f.k * f.worldPerPx;
     this.fxMarkers.forEach((sp, i) => {
-      sp.visible = glitch;
-      if (!glitch) return;
+      sp.visible = split;
+      if (!split) return;
       sp.material.map = this.markerMat.map;
+      const bl = mode === 'glitch' ? THREE.AdditiveBlending : THREE.NormalBlending;
+      if (sp.material.blending !== bl) { sp.material.blending = bl; sp.material.needsUpdate = true; }
+      sp.material.color.setHex(mode === 'glitch' ? FX_GLITCH[i] : FX_PRISM[i]);
       sp.scale.set(px, px, 1);
       sp.position.copy(this.drawn).addScaledVector(right, offs[i][0] * unit * 1.4).addScaledVector(up, offs[i][1] * unit * 1.4);
     });
 
+    // beads
+    if (parts.beads) {
+      const n = Math.min(BEAD_MAX, Math.round(fx.strings || 90));
+      if (this.beadN !== n) this.buildBeads(n);
+      this.line.visible = false; this.ghost.visible = false;
+      this.beads.visible = true;
+      this.beads.geometry.setDrawRange(0, Math.min(this.beadN, Math.floor(((shown - 1) / (this.count - 1)) * (this.beadN - 1)) + 1));
+      this.beads.material.size = this.layer.width * 3.4 * f.k;
+      this.beads.material.opacity = Math.min(1, 0.95 * I);
+    } else this.beads.visible = false;
+
     // strings (from the centre) or a laser web (from the pen to the lit tail)
     const st = this.strings, pos = st.geometry.attributes.position, col = st.geometry.attributes.color;
-    st.material.opacity = fx.stringAlpha ?? 0.16;
-    if (string) {
+    st.material.opacity = Math.min(1, (fx.stringAlpha ?? 0.16) * I);
+    if (parts.string) {
       const n = Math.min(STRING_MAX, Math.round(fx.strings || 90));
       if (this.strN !== n) this.buildStrings(n);
       st.visible = true;
       const stride = (this.count - 1) / (this.strN - 1);
       st.geometry.setDrawRange(0, 2 * Math.min(this.strN, Math.floor((shown - 1) / stride) + 1));
-    } else if (web) {
+    } else if (parts.web) {
       const n = Math.max(10, Math.min(48, Math.round((fx.strings || 90) / 2)));
       const len = Math.max(2, tail * this.count * 0.9);
       for (let j = 0; j < n; j++) {
@@ -365,10 +417,10 @@ class LayerView {
       }
       pos.needsUpdate = col.needsUpdate = true;
       st.geometry.setDrawRange(0, n * 2);
-      st.material.opacity = Math.min(1, (fx.stringAlpha ?? 0.16) * 2.4);
+      st.material.opacity = Math.min(1, (fx.stringAlpha ?? 0.16) * 2.4 * I);
       st.visible = true;
     } else st.visible = false;
-    return glitch || web;
+    return !!mode || !!parts.beads;
   }
 
   applyStyle() {
@@ -393,7 +445,7 @@ class LayerView {
     this.count = pts.length / 3;
     const cols = curveColors(layer, pts, ctx.view, new Float32Array(pts.length));
     this.baseCols = cols;
-    this.strN = 0; // the strings are laid out again for the new curve
+    this.strN = 0; this.beadN = 0; // the strings and beads are laid out again for the new curve
     if (this.line) {
       this.fxGeo = new LineGeometry();
       this.fxGeo.setPositions(pts);
@@ -836,6 +888,8 @@ export class Visualizer {
     this.bokeh.uniforms.aperture.value = v.dof.aperture * 0.0025;
 
     this.applyBackdrop();
+    this.renderer.toneMapping = v.tone === 'soft' ? THREE.ACESFilmicToneMapping : THREE.NoToneMapping; // soft: bright overlaps roll off instead of clipping to white
+    this.renderer.toneMappingExposure = v.exposure ?? 1;
     this.renderPass.camera = this.camera;
     this.orthoControls.enabled = mode === '2d';
     this.perspControls.enabled = mode === '3d';

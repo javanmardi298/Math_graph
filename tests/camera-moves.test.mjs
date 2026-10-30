@@ -39,3 +39,14 @@ test('the final shot: nothing before it, a pull-back and a glow flare inside it,
   assert.equal(endingShot(c, { time: 3.5, duration: 4 }), null); // too short to carry a final shot
   assert.ok(cameraMove({ ...CAMERA_MOVE_DEFAULTS, ending: 'pushin', endingSecs: 2 }, { time: 20, duration: 20 }).zoom > 1);
 });
+
+test('every final shot is finite, ends where it says, and "off" does nothing', async () => {
+  const { ENDINGS } = await import('../src/camera-moves.js');
+  for (const id of Object.keys(ENDINGS)) {
+    const m = cameraMove({ ...CAMERA_MOVE_DEFAULTS, ending: id, endingSecs: 2 }, { time: 19.6, duration: 20 });
+    for (const v of [m.zoom, m.dx, m.dy, m.roll, m.flare]) assert.ok(Number.isFinite(v), id);
+    assert.equal(m.active, id !== 'off', id);
+  }
+  assert.ok(cameraMove({ ...CAMERA_MOVE_DEFAULTS, ending: 'crash', endingSecs: 2 }, { time: 20, duration: 20 }).zoom > 1.5);
+  assert.ok(cameraMove({ ...CAMERA_MOVE_DEFAULTS, ending: 'slide', endingSecs: 2 }, { time: 20, duration: 20 }).dx > 0);
+});

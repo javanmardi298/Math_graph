@@ -23,6 +23,7 @@ import { THEORY_PRESETS } from './circle-theory.js';
 import { HARMONOGRAPH_PRESETS } from './harmonograph.js';
 import { SPIRO_PRESETS } from './spirograph.js';
 import { CINEMATIC_PRESETS } from './cinematic.js';
+import { CINEMATIC2_PRESETS } from './cinematic2.js';
 
 /** Shelves in library order: [id, name, section]. */
 export const SHELVES = [
@@ -85,7 +86,7 @@ export const START_HERE = [
 ];
 
 /** Every built-in preset, in source order. */
-const SOURCES = [...FORMULA_PRESETS, ...CIRCLE_PRESETS, ...LAB_PRESETS, ...TOPIC_PRESETS, ...SOUND_PRESETS, ...STACK_PRESETS, ...SOUND_SHAPE_PRESETS, ...SHOWCASE_PRESETS, ...CURVE_PRESETS, ...LAYER_PRESETS, ...THEORY_PRESETS, ...HARMONOGRAPH_PRESETS, ...SPIRO_PRESETS, ...CINEMATIC_PRESETS];
+const SOURCES = [...FORMULA_PRESETS, ...CIRCLE_PRESETS, ...LAB_PRESETS, ...TOPIC_PRESETS, ...SOUND_PRESETS, ...STACK_PRESETS, ...SOUND_SHAPE_PRESETS, ...SHOWCASE_PRESETS, ...CURVE_PRESETS, ...LAYER_PRESETS, ...THEORY_PRESETS, ...HARMONOGRAPH_PRESETS, ...SPIRO_PRESETS, ...CINEMATIC_PRESETS, ...CINEMATIC2_PRESETS];
 // a typo in lengths.js must not pass silently
 for (const n of Object.keys(LENGTHS)) if (!SOURCES.some((p) => p.name === n)) throw new Error(`lengths.js: no preset called "${n}"`);
 export const ALL_PRESETS = SOURCES.map(withLength);

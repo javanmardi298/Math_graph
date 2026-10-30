@@ -20,8 +20,8 @@ import { hsl, hueOf } from './sound-maker.js';
 const TAU = Math.PI * 2;
 const TAGS = 'math art, math animation, parametric curves, chromatic aberration, glitch art, string art, satisfying, math music, shorts';
 const f2 = (v) => +v.toFixed(2);
-const f3 = (v) => +v.toFixed(3);
-const R = (decay, mix, tone = 1) => ({ decay, mix, tone, preDelay: 0.02 });
+export const f3 = (v) => +v.toFixed(3);
+export const R = (decay, mix, tone = 1) => ({ decay, mix, tone, preDelay: 0.02 });
 
 /** The six formulas: strings for a size k, the extent of the curve, and the text shown on the video. */
 const FORMULAS = {
@@ -106,7 +106,7 @@ function filmKeys(D, mode, g = 1) {
 }
 
 /** A hidden layer that only plays: one note of the closing chord. */
-function chordLayer(name, midi, view, audio, start, vol) {
+export function chordLayer(name, midi, view, audio, start, vol) {
   const { noteLow, noteHigh } = audio;
   const y = view.yMin + ((midi - noteLow) / (noteHigh - noteLow)) * (view.yMax - view.yMin);
   return { name, type: 'function', exprs: { y: `${f2(y)}`, z: '0' }, hidden: true, caption: '-', start, end: 0, samples: 40, wave: 'sine', volume: vol, width: 1, color: '#ffffff' };

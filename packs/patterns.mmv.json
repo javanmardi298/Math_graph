@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1sh0",
+          "id": "Lmvv815xq0",
           "name": "Layer 411",
           "enabled": true,
           "type": "function",
@@ -120,8 +120,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -591,7 +595,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1sh0",
+          "id": "Lmvv815xq0",
           "name": "Layer 413",
           "enabled": true,
           "type": "function",
@@ -684,8 +688,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -1162,7 +1170,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1sh0",
+          "id": "Lmvv815xq0",
           "name": "Layer 415",
           "enabled": true,
           "type": "function",
@@ -1255,8 +1263,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -1729,7 +1741,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1sh0",
+          "id": "Lmvv815xq0",
           "name": "Layer 417",
           "enabled": true,
           "type": "function",
@@ -1822,8 +1834,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -2296,7 +2312,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1sh0",
+          "id": "Lmvv815xq0",
           "name": "Layer 419",
           "enabled": true,
           "type": "function",
@@ -2389,8 +2405,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -2861,7 +2881,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1sh0",
+          "id": "Lmvv815xq0",
           "name": "Layer 421",
           "enabled": true,
           "type": "function",
@@ -2954,8 +2974,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -3430,7 +3454,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1sh0",
+          "id": "Lmvv815xq0",
           "name": "Layer 423",
           "enabled": true,
           "type": "function",
@@ -3523,8 +3547,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {

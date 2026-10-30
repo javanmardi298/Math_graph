@@ -87,10 +87,11 @@ export function defaultState() {
       // backdrop: a painted background behind the drawing (solid = the plain colour above).
       // fx: how the curve is drawn: off | glitch (red / green / cyan copies, chromatic aberration) |
       // string (faint strings from the centre to the curve) | web (laser web from the pen, fading tail) |
-      // glitchString (both). tail: the lit part of the curve behind the pen (fraction); hold: seconds
+      // glitchString (both), plus prism, echo, kaleido, ink, beads (see render/fx-styles.js). intensity: brightness of the copies. tail: the lit part of the curve behind the pen (fraction); hold: seconds
       // at the end in which the whole curve lights up (the final plan).
       backdrop: 'solid', backdropColor: '#4f6bff',
-      fx: { style: 'off', tail: 0.3, offset: 3.2, strings: 90, stringAlpha: 0.16, hold: 2 },
+      fx: { style: 'off', tail: 0.3, offset: 3.2, strings: 90, stringAlpha: 0.16, hold: 2, intensity: 1, copies: 6 },
+      tone: 'off', exposure: 1, // tone: soft = bright overlaps roll off instead of clipping to white
       aspect: '16:9', // fill | 16:9 | 9:16 | 1:1 | 4:5
     },
     // punch: zoom bump on every kick (0..1); track: how closely the camera follows the

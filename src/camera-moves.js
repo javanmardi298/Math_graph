@@ -18,9 +18,17 @@ const TAU = Math.PI * 2;
 
 export const CAMERA_MOVE_DEFAULTS = { zoom: 1, push: 0, breathe: 0, drift: 0, shake: 0, sway: 0, spin: 0 };
 
-export const ENDINGS = { auto: 'Soft pull-back', zoomout: 'Zoom out', pushin: 'Push in', spin: 'Slow turn and zoom out', flare: 'Glow flare only', off: 'None' };
-// per ending: zoom change, roll (degrees), glow flare at the cut to the last shot
-const ENDING_SHOTS = { auto: [-0.06, 0, 0.35], zoomout: [-0.2, 0, 0.8], pushin: [0.22, 0, 0.8], spin: [-0.12, 7, 0.7], flare: [0, 0, 1] };
+export const ENDINGS = {
+  auto: 'Soft pull-back', zoomout: 'Zoom out', pushin: 'Push in', spin: 'Slow turn and zoom out', flare: 'Glow flare only',
+  crash: 'Crash zoom: a fast push-in', rise: 'Crane up: rise and pull back', drop: 'Crane down: sink and push in', slide: 'Slide sideways and pull back',
+  dutch: 'Dutch angle: tilt and push in', whirl: 'Whirl: a quick turn while pulling back', breath: 'Held breath: almost still, a glow', off: 'None',
+};
+// per ending: zoom change, roll (degrees), glow flare at the cut, slide (dx, dy: fractions of the frame), easing
+const ENDING_SHOTS = {
+  auto: [-0.06, 0, 0.35], zoomout: [-0.2, 0, 0.8], pushin: [0.22, 0, 0.8], spin: [-0.12, 7, 0.7], flare: [0, 0, 1],
+  crash: [0.6, 0, 1, 0, 0, 'in'], rise: [-0.12, 0, 0.6, 0, -0.07], drop: [0.14, 0, 0.6, 0, 0.07], slide: [-0.1, 0, 0.6, 0.08, 0],
+  dutch: [0.12, 11, 0.7], whirl: [-0.28, 40, 0.9, 0, 0, 'out'], breath: [-0.03, 0, 0.5],
+};
 
 /**
  * The final plan: how far into it we are (0..1, eased) and its look. Null when not in it
@@ -32,10 +40,10 @@ export function endingShot(c, { time = 0, duration = 0 } = {}) {
   if (!shot || !(duration > secs * 2.5) || !(secs > 0)) return null;
   const k = 1 - (duration - time) / secs;
   if (k <= 0) return null;
-  const q = Math.min(1, k), e = q * q * (3 - 2 * q);
+  const q = Math.min(1, k), e = shot[5] === 'in' ? q * q * q : shot[5] === 'out' ? 1 - (1 - q) ** 3 : q * q * (3 - 2 * q);
   // the glow flares at the cut and settles over the shot
   const flare = shot[2] * (1 - e * 0.7) * Math.min(1, q * 8);
-  return { k: q, zoom: 1 + shot[0] * e, roll: shot[1] * e, flare };
+  return { k: q, zoom: 1 + shot[0] * e, roll: shot[1] * e, flare, dx: (shot[3] || 0) * e, dy: (shot[4] || 0) * e };
 }
 
 /** Smooth noise from a few incommensurate sines (never repeats in a video's length). */
@@ -62,6 +70,6 @@ export function cameraMove(c, { time = 0, progress = 0, bpm = 120, duration = 0 
   if (shake) { dx += 0.004 * shake * noise(time, 1); dy += 0.004 * shake * noise(time, 7); roll += 0.35 * shake * noise(time, 13); }
   if (sway) roll += 2.5 * sway * Math.sin(TAU * time / 7.5);
   if (spin) roll += spin * time;
-  if (end) { zoom *= end.zoom; roll += end.roll; }
+  if (end) { zoom *= end.zoom; roll += end.roll; dx += end.dx; dy += end.dy; }
   return { zoom, dx, dy, roll, flare: end ? end.flare : 0, active: true };
 }

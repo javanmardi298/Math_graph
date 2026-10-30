@@ -16,6 +16,7 @@ import { getBrand, setBrand } from '../brand.js';
 import { saveShorts } from '../shorts-prefs.js';
 import { CAMERA_MOVE_DEFAULTS, ENDINGS } from '../camera-moves.js';
 import { BACKDROPS } from '../render/backdrops.js';
+import { FX_STYLES } from '../render/fx-styles.js';
 
 /** One-click camera styles: [label, settings, tip]. */
 const CAMERA_STYLES = [
@@ -413,7 +414,11 @@ export class Panels {
     const p = bindPath;
     return h('section.tab', {},
       group('Light style', [
-        select('Curve drawn as', p('visual.fx.style'), { off: 'Plain line', glitch: 'Glitch: red · green · cyan (chromatic aberration)', string: 'String art: strings from the centre', web: 'Laser web: glowing tail and chords from the pen', glitchString: 'Glitch + string art' }),
+        select('Curve drawn as', p('visual.fx.style'), FX_STYLES),
+        slider('Brightness of the lines', p('visual.fx.intensity'), { min: 0.1, max: 1.5, step: 0.01 }),
+        slider('Kaleidoscope copies', p('visual.fx.copies'), { min: 2, max: 6, step: 1 }),
+        select('Tone', p('visual.tone'), { off: 'Plain (bright overlaps clip to white)', soft: 'Soft (bright overlaps roll off, no white screen)' }),
+        slider('Exposure', p('visual.exposure'), { min: 0.4, max: 1.8, step: 0.01 }),
         slider('Lit tail behind the pen', p('visual.fx.tail'), { min: 0.03, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
         slider('Colour split', p('visual.fx.offset'), { min: 0, max: 12, step: 0.1, unit: ' px' }),
         slider('Number of strings', p('visual.fx.strings'), { min: 10, max: 400, step: 1 }),

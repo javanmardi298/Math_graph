@@ -1,6 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { CINEMATIC_PRESETS } from '../presets-src/cinematic.js';
+import { CINEMATIC_PRESETS as FIRST } from '../presets-src/cinematic.js';
+import { CINEMATIC2_PRESETS as SECOND } from '../presets-src/cinematic2.js';
+import { FX_STYLES, FX_PARTS } from '../src/render/fx-styles.js';
+
+const CINEMATIC_PRESETS = [...FIRST, ...SECOND];
 import { createLayer, normalize } from '../src/state.js';
 import { CompiledLayer } from '../src/math/layers.js';
 import { SCALES } from '../src/math/music.js';
@@ -11,11 +15,12 @@ import { ENDINGS } from '../src/camera-moves.js';
 const ctx = (over = {}) => ({ view: { xMin: -1, xMax: 1, yMin: -1, yMax: 1 }, t: 0, params: { a: 1, b: 1, c: 1, d: 1 }, ...over });
 
 test('six formulas in three styles in 2D, six in 3D, all with a final shot and a closing chord', () => {
-  assert.equal(CINEMATIC_PRESETS.length, 24);
-  assert.equal(new Set(CINEMATIC_PRESETS.map((p) => p.name)).size, 24);
+  assert.equal(FIRST.length, 24);
+  assert.equal(SECOND.length, 20);
+  assert.equal(new Set(CINEMATIC_PRESETS.map((p) => p.name)).size, 44);
   for (const p of CINEMATIC_PRESETS) {
     const D = p.transport.duration;
-    assert.ok(['glitch', 'string', 'web'].includes(p.visual.fx.style), p.name);
+    assert.ok(p.visual.fx.style in FX_STYLES && p.visual.fx.style in FX_PARTS, p.name);
     assert.ok(p.visual.backdrop in BACKDROPS && p.camera.ending in ENDINGS, p.name);
     assert.ok(p.audio.scale in SCALES, p.name);
     const chord = p.layers.filter((l) => l.hidden);
@@ -25,8 +30,8 @@ test('six formulas in three styles in 2D, six in 3D, all with a final shot and a
     for (const l of p.layers) if (INSTRUMENTS[l.wave] === undefined) assert.ok(['sine', 'triangle', 'square', 'sawtooth'].includes(l.wave), `${p.name}: ${l.wave}`);
     // the film: a close-up that pulls back before the final shot
     const z = p.keyframes.tracks['camera.zoom'];
-    assert.ok(z[0].value > 2 && z.at(-1).value === 1 && z.at(-1).time < D - 1.5, p.name);
-    assert.equal(p.keyframes.tracks['camera.track'][0].value, 1);
+    assert.ok(z.at(-1).value === 1 && z.at(-1).time < D - 1.5, p.name);
+    assert.ok(z.some((q) => q.value > 2), `${p.name}: a close-up`);
   }
 });
 

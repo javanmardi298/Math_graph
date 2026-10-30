@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rn0",
+          "id": "Lmvv815wr0",
           "name": "Layer 223",
           "enabled": true,
           "type": "function",
@@ -120,8 +120,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -593,7 +597,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rq0",
+          "id": "Lmvv815ws0",
           "name": "Layer 225",
           "enabled": true,
           "type": "function",
@@ -686,8 +690,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -1161,7 +1169,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rq0",
+          "id": "Lmvv815ws0",
           "name": "Layer 227",
           "enabled": true,
           "type": "function",
@@ -1254,8 +1262,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -1728,7 +1740,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rq0",
+          "id": "Lmvv815ws0",
           "name": "Layer 229",
           "enabled": true,
           "type": "function",
@@ -1821,8 +1833,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -2296,7 +2312,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rq0",
+          "id": "Lmvv815ws0",
           "name": "Layer 231",
           "enabled": true,
           "type": "function",
@@ -2389,8 +2405,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -2860,7 +2880,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rq0",
+          "id": "Lmvv815ws0",
           "name": "Layer 233",
           "enabled": true,
           "type": "function",
@@ -2953,8 +2973,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -3328,7 +3352,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rq0",
+          "id": "Lmvv815ws0",
           "name": "Layer 235",
           "enabled": true,
           "type": "function",
@@ -3421,8 +3445,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -3894,7 +3922,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rr0",
+          "id": "Lmvv815ws0",
           "name": "Layer 237",
           "enabled": true,
           "type": "function",
@@ -3987,8 +4015,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {

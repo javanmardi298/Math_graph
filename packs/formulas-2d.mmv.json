@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rx0",
+          "id": "Lmvv815x60",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -69,7 +69,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1rx1",
+          "id": "Lmvv815x61",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -111,7 +111,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1rx2",
+          "id": "Lmvv815x62",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -204,8 +204,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -523,7 +527,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rx0",
+          "id": "Lmvv815x60",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -565,7 +569,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1rx1",
+          "id": "Lmvv815x61",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -607,7 +611,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1rx2",
+          "id": "Lmvv815x62",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -700,8 +704,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -1019,7 +1027,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rx0",
+          "id": "Lmvv815x60",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -1061,7 +1069,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1rx1",
+          "id": "Lmvv815x61",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -1103,7 +1111,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1rx2",
+          "id": "Lmvv815x62",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -1196,8 +1204,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -1515,7 +1527,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rx0",
+          "id": "Lmvv815x60",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -1557,7 +1569,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1rx1",
+          "id": "Lmvv815x61",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -1599,7 +1611,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1rx2",
+          "id": "Lmvv815x62",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -1692,8 +1704,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -2011,7 +2027,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rx0",
+          "id": "Lmvv815x60",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -2053,7 +2069,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1rx1",
+          "id": "Lmvv815x61",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -2095,7 +2111,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1rx2",
+          "id": "Lmvv815x62",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -2188,8 +2204,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -2507,7 +2527,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rx0",
+          "id": "Lmvv815x60",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -2549,7 +2569,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1rx1",
+          "id": "Lmvv815x61",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -2591,7 +2611,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1rx2",
+          "id": "Lmvv815x62",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -2684,8 +2704,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -3003,7 +3027,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1rx0",
+          "id": "Lmvv815x60",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -3045,7 +3069,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1rx1",
+          "id": "Lmvv815x61",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -3087,7 +3111,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1rx2",
+          "id": "Lmvv815x62",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -3180,8 +3204,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -3499,7 +3527,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1ry0",
+          "id": "Lmvv815x60",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -3541,7 +3569,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1ry1",
+          "id": "Lmvv815x61",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -3583,7 +3611,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1ry2",
+          "id": "Lmvv815x62",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -3676,8 +3704,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -3995,7 +4027,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1ry0",
+          "id": "Lmvv815x60",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -4037,7 +4069,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1ry1",
+          "id": "Lmvv815x61",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -4079,7 +4111,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1ry2",
+          "id": "Lmvv815x62",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -4172,8 +4204,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -4491,7 +4527,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1ry0",
+          "id": "Lmvv815x60",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -4533,7 +4569,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1ry1",
+          "id": "Lmvv815x61",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -4575,7 +4611,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1ry2",
+          "id": "Lmvv815x62",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -4668,8 +4704,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -4987,7 +5027,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1ry0",
+          "id": "Lmvv815x60",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -5029,7 +5069,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1ry1",
+          "id": "Lmvv815x61",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -5071,7 +5111,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1ry2",
+          "id": "Lmvv815x62",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -5164,8 +5204,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -5483,7 +5527,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1ry0",
+          "id": "Lmvv815x60",
           "name": "Step 1",
           "enabled": true,
           "type": "polar",
@@ -5525,7 +5569,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1ry1",
+          "id": "Lmvv815x61",
           "name": "Step 2",
           "enabled": true,
           "type": "polar",
@@ -5567,7 +5611,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1ry2",
+          "id": "Lmvv815x62",
           "name": "Step 3",
           "enabled": true,
           "type": "polar",
@@ -5660,8 +5704,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -5979,7 +6027,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1ry0",
+          "id": "Lmvv815x60",
           "name": "Step 1",
           "enabled": true,
           "type": "polar",
@@ -6021,7 +6069,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1ry1",
+          "id": "Lmvv815x61",
           "name": "Step 2",
           "enabled": true,
           "type": "polar",
@@ -6063,7 +6111,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1ry2",
+          "id": "Lmvv815x62",
           "name": "Step 3",
           "enabled": true,
           "type": "polar",
@@ -6156,8 +6204,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
@@ -6475,7 +6527,7 @@
       },
       "layers": [
         {
-          "id": "Lmvv6w1ry0",
+          "id": "Lmvv815x70",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -6517,7 +6569,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1ry1",
+          "id": "Lmvv815x71",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -6559,7 +6611,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvv6w1ry2",
+          "id": "Lmvv815x72",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -6652,8 +6704,12 @@
           "offset": 3.2,
           "strings": 90,
           "stringAlpha": 0.16,
-          "hold": 2
+          "hold": 2,
+          "intensity": 1,
+          "copies": 6
         },
+        "tone": "off",
+        "exposure": 1,
         "aspect": "9:16"
       },
       "camera": {
