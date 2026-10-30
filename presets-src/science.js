@@ -230,9 +230,9 @@ export const SHAPE_PRESETS = [
     about: { math: 'x = (1 + v/2·cos(u/2))cos u, z = (1 + v/2·cos(u/2))sin u, y = v/2·sin(u/2). The pen rides v = 0.7·sin(u/2) for two full turns.', aha: 'After one turn the pen is on the “other side”; after two it is back. There is only one side and one edge.', why: 'Conveyor belts are made as Möbius strips so they wear evenly on both faces.', sources: [] },
   }),
   film('Klein Bottle', {
-    cat: SHAPES, mode: '3d', ext: 3.3, D: 28, c1: '#c58cff', backdrop: 'cosmos', light2: '#8b7bff', fx: 'pulse', tail: 0.5, bloom: 0.45, open: 'orbit', loop: 'fade',
+    cat: SHAPES, mode: '3d', ext: 3.3, D: 28, c1: '#c58cff', backdrop: 'cosmos', light2: '#8b7bff', fx: 'pulse', tail: 0.5, bloom: 0.35, open: 'orbit', loop: 'fade',
     yr: [-1.2, 1.2], scale: 'harmonicMinor', root: 9,
-    layers: [SURF('Klein bottle', { x: '(2+cos(u/2)*sin(v)-sin(u/2)*sin(2*v))*cos(u)', y: 'sin(u/2)*sin(v)+cos(u/2)*sin(2*v)', z: '(2+cos(u/2)*sin(v)-sin(u/2)*sin(2*v))*sin(u)', pv: '3*u' }, { min: 0, max: r3(TAU) }, { vMin: 0, vMax: r3(TAU), nu: 120, nv: 40, solid: 0.12, wire: 0.4 }, { color: '#c58cff', color2: '#5ee0ff', wave: 'glass-pad' })],
+    layers: [SURF('Klein bottle', { x: '(2+cos(u/2)*sin(v)-sin(u/2)*sin(2*v))*cos(u)', y: 'sin(u/2)*sin(v)+cos(u/2)*sin(2*v)', z: '(2+cos(u/2)*sin(v)-sin(u/2)*sin(2*v))*sin(u)', pv: '3*u' }, { min: 0, max: r3(TAU) }, { vMin: 0, vMax: r3(TAU), nu: 120, nv: 40, solid: 0.06, wire: 0.3 }, { color: '#c58cff', color2: '#5ee0ff', wave: 'glass-pad' })],
     hook: 'A bottle with no inside', title: 'The Klein bottle: no inside, no outside 🍶',
     about: { math: 'The figure-8 immersion: x = (2 + cos(u/2) sin v − sin(u/2) sin 2v) cos u, z = (…) sin u, y = sin(u/2) sin v + cos(u/2) sin 2v.', aha: 'A closed surface with only one side. In 3D it has to pass through itself; in 4D it would not.', sources: [] },
   }),
@@ -240,7 +240,7 @@ export const SHAPE_PRESETS = [
     cat: SHAPES, mode: '3d', ext: 2.3, D: 28, c1: '#ffd166', backdrop: 'gradient', light2: '#ff8a3d', fx: 'tube', tail: 0.45, bloom: 0.45, open: 'orbit', loop: 'fade', params: { a: 1 },
     keys: { 'params.a': [{ time: 0, value: 1, ease: 'smooth' }, { time: 4, value: 1, ease: 'smooth' }, { time: 14, value: 0, ease: 'smooth' }, { time: 20, value: 0, ease: 'smooth' }, { time: 28, value: 1, ease: 'smooth' }] },
     yr: [-2, 2], scale: 'major', root: 7,
-    layers: [SURF('Minimal surface', { x: 'cos(a*pi/2)*sinh(v)*sin(u)+sin(a*pi/2)*cosh(v)*cos(u)', y: 'u*cos(a*pi/2)+v*sin(a*pi/2)', z: '-cos(a*pi/2)*sinh(v)*cos(u)+sin(a*pi/2)*cosh(v)*sin(u)', pv: '0.9*sin(2*u)' }, { min: r3(-Math.PI), max: r3(Math.PI) }, { vMin: -1.2, vMax: 1.2, nu: 90, nv: 30, solid: 0.18, wire: 0.5 }, { color: '#ffd166', color2: '#ff5a8a', wave: 'harp' })],
+    layers: [SURF('Minimal surface', { x: 'cos(a*pi/2)*sinh(v)*sin(u)+sin(a*pi/2)*cosh(v)*cos(u)', y: 'u*cos(a*pi/2)+v*sin(a*pi/2)', z: '-cos(a*pi/2)*sinh(v)*cos(u)+sin(a*pi/2)*cosh(v)*sin(u)', pv: '0.9*sin(2*u)' }, { min: r3(-Math.PI), max: r3(Math.PI) }, { vMin: -1.2, vMax: 1.2, nu: 90, nv: 30, solid: 0.1, wire: 0.4 }, { color: '#ffd166', color2: '#ff5a8a', wave: 'harp' })],
     hook: 'A soap film that twists into a spiral', title: 'A catenoid twists into a helicoid without stretching 🧼',
     about: { math: 'x = cos θ sinh v sin u + sin θ cosh v cos u, y = u cos θ + v sin θ, z = −cos θ sinh v cos u + sin θ cosh v sin u, with θ = a·90°: a = 1 catenoid, a = 0 helicoid.', aha: 'Every shape in between is also a minimal surface (a soap film), and the change bends it without stretching a single distance.', why: 'The catenoid is the soap film between two rings; the helicoid is a spiral ramp.', sources: src('catenoid') },
   }),
@@ -252,17 +252,17 @@ export const SHAPE_PRESETS = [
     about: { math: 'x = a cos u sin v, z = a sin u sin v, y = a(cos v + ln tan(v/2)) + bu with a = 1, b = 0.2.', aha: 'Everywhere on it the curvature is the same negative number: it is a twisted piece of hyperbolic geometry.', sources: src('dini') },
   }),
   film('Enneper Surface', {
-    cat: SHAPES, mode: '3d', ext: 2.6, D: 24, c1: '#7be0c3', backdrop: 'hex', light2: '#4fd1c5', fx: 'ants', tail: 0.5, bloom: 0.45, open: 'orbit', loop: 'fade',
+    cat: SHAPES, mode: '3d', ext: 3.6, D: 24, c1: '#7be0c3', backdrop: 'hex', light2: '#4fd1c5', fx: 'ants', tail: 0.5, bloom: 0.45, open: 'orbit', loop: 'fade',
     yr: [-2, 2], scale: 'pentatonic', root: 2,
     layers: [SURF('Enneper', { x: 'u-u^3/3+u*v^2', y: 'u^2-v^2', z: 'v-v^3/3+v*u^2', pv: '1.2*sin(2*u)' }, { min: -1.4, max: 1.4 }, { vMin: -1.4, vMax: 1.4, nu: 60, nv: 60, solid: 0.16, wire: 0.5 }, { color: '#7be0c3', color2: '#ffd27a', wave: 'kalimba' })],
     hook: 'A saddle that folds through itself', title: 'Enneper’s minimal surface 🌿',
     about: { math: 'x = u − u³/3 + uv², z = v − v³/3 + vu², y = u² − v² (Enneper, 1864).', aha: 'Like a soap film it has zero mean curvature everywhere, yet grown a little further it passes through itself.', sources: src('enneper') },
   }),
   film('Orbitals: d to d', {
-    cat: SHAPES, mode: '3d', ext: 1.6, D: 28, c1: '#5ee0ff', backdrop: 'rings', light2: '#4f6bff', fx: 'tube', tail: 0.5, bloom: 0.5, open: 'orbit', loop: 'fade', params: { a: 0 },
+    cat: SHAPES, mode: '3d', ext: 1.6, D: 28, c1: '#5ee0ff', backdrop: 'rings', light2: '#4f6bff', fx: 'tube', tail: 0.5, bloom: 0.35, open: 'orbit', loop: 'fade', params: { a: 0 },
     keys: { 'params.a': [{ time: 0, value: 0, ease: 'smooth' }, { time: 5, value: 0, ease: 'smooth' }, { time: 13, value: 1, ease: 'smooth' }, { time: 20, value: 1, ease: 'smooth' }, { time: 28, value: 0, ease: 'smooth' }] },
     yr: [-1.2, 1.2], scale: 'dorian', root: 0,
-    layers: [SURF('Orbital', { x: 'abs((1-a)*0.5*(3*cos(v)^2-1)+a*1.3*sin(v)^2*sin(2*u))*sin(v)*cos(u)', y: 'abs((1-a)*0.5*(3*cos(v)^2-1)+a*1.3*sin(v)^2*sin(2*u))*cos(v)', z: 'abs((1-a)*0.5*(3*cos(v)^2-1)+a*1.3*sin(v)^2*sin(2*u))*sin(v)*sin(u)', pv: '1.5708+1.2*sin(3*u)' }, { min: 0, max: r3(TAU) }, { vMin: 0, vMax: r3(Math.PI), nu: 72, nv: 48, solid: 0.2, wire: 0.45 }, { color: '#5ee0ff', color2: '#ff7ad9', wave: 'glass-pad' })],
+    layers: [SURF('Orbital', { x: 'abs((1-a)*0.5*(3*cos(v)^2-1)+a*1.3*sin(v)^2*sin(2*u))*sin(v)*cos(u)', y: 'abs((1-a)*0.5*(3*cos(v)^2-1)+a*1.3*sin(v)^2*sin(2*u))*cos(v)', z: 'abs((1-a)*0.5*(3*cos(v)^2-1)+a*1.3*sin(v)^2*sin(2*u))*sin(v)*sin(u)', pv: '1.5708+1.2*sin(3*u)' }, { min: 0, max: r3(TAU) }, { vMin: 0, vMax: r3(Math.PI), nu: 72, nv: 48, solid: 0.08, wire: 0.32 }, { color: '#5ee0ff', color2: '#ff7ad9', wave: 'glass-pad' })],
     hook: 'The shapes inside an atom', title: 'Atomic orbitals: d_z² becomes d_xy ⚛️',
     about: { math: 'Distance from the centre in each direction = |Y(θ, φ)|, the angular part of the hydrogen wave function: d_z² ∝ 3cos²θ − 1, d_xy ∝ sin²θ sin 2φ, blended by a.', aha: 'The lobes are the directions where an electron is most likely to be found. The same spherical harmonics describe how a drum or a planet vibrates.', why: 'They explain the shapes of molecules and the colours of gems.', sources: src('harmonics') },
   }),
@@ -364,9 +364,13 @@ function circleFilm(p) {
   const o = p.$o;
   const D = o.D ?? 30, looping = !!o.loopScene;
   const endingSecs = o.endingSecs ?? 4;
-  const tracks = { ...filmTracks({ D, open: ['blackout', 'flash'].includes(o.open) ? 'bars' : o.open || 'none', climax: o.climax || 'none', finale: looping ? 'none' : 'bars', loop: looping, endingSecs }) };
-  // camera moves the Circle Lab understands: zoom, roll, shake, drift, bars
-  for (const k of Object.keys(tracks)) if (!['camera.zoom', 'camera.roll', 'camera.shake', 'camera.drift', 'visual.letterbox'].includes(k)) delete tracks[k];
+  // the Circle Lab has no pen to follow, so its films are gentle: a slow settle from a closer view (or
+  // bars opening), the scene's own drama in the middle, and bars closing in before the final shot
+  const k = (list) => list.map(([time, value, ease = 'smooth']) => ({ time: r3(time), value, ease }));
+  const tracks = {};
+  if (o.open && o.open !== 'none') tracks['camera.zoom'] = k([[0, o.open === 'blackout' ? 1.25 : 1.15], [D * 0.3, 1]]);
+  if (o.open === 'blackout' || o.open === 'bars') tracks['visual.letterbox'] = k([[0, 1], [2.5, 0]]);
+  if (!looping) tracks['visual.letterbox'] = [...(tracks['visual.letterbox'] || k([[0, 0]])), ...k([[D - endingSecs - 0.3, 0], [D - endingSecs + 1, 1], [D, 1]])];
   return {
     name: p.name, $category: o.cat, mode: 'circle', transport: { duration: D, bpm: o.bpm ?? 100 },
     overlay: { layout: 4, name: { enabled: false } }, visual: { aspect: '9:16', letterbox: 0 },

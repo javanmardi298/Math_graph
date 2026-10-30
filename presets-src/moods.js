@@ -83,7 +83,7 @@ export const SATISFYING = [
   }),
   film('Beads on a Torus Knot', {
     cat: SAT, mode: '3d', ext: 3.4, D: 26, c1: '#ffcf5a', backdrop: 'gradient', light2: '#ff8a3d', fx: 'beads', strings: 220, bloom: 0.4, loop: 'fade', scale: 'major', root: 5,
-    layers: [L('(3, 7) torus knot', 'parametric', { x: '(2+cos(7*s))*cos(3*s)', y: '-sin(7*s)', z: '(2+cos(7*s))*sin(3*s)' }, { range: { min: 0, max: r3(TAU) }, samples: 2200, color: '#ffcf5a', color2: '#ff5a8a', wave: 'marimba', width: 2.6 })],
+    layers: [L('(3, 7) torus knot', 'parametric', { x: '(2+cos(7*s))*cos(3*s)', y: '-sin(7*s)', z: '(2+cos(7*s))*sin(3*s)' }, { range: { min: 0, max: r3(TAU) }, samples: 2200, color: '#ffcf5a', color2: '#ff5a8a', wave: 'marimba', width: 4.6 })],
     hook: 'Threading 220 beads', title: 'Beads threaded on a (3, 7) torus knot 📿',
     about: { math: 'x = (2 + cos 7t) cos 3t, z = (2 + cos 7t) sin 3t, y = −sin 7t: three times round the hole, seven times round the tube.', aha: '3 and 7 share no factor, so the string never crosses itself.' },
   }),
@@ -130,7 +130,7 @@ export const ASMR_PACK = [
 
 export const MINIMAL = [
   film('One Circle', {
-    cat: MIN, mode: '2d', ext: 1.2, D: 16, bg: '#000000', backdrop: 'grain', light2: '#ffffff', fx: 'comet', tail: 0.5, bloom: 0.25, loop: 'wrap', scale: 'pentatonic', root: 0, formulas: false,
+    cat: MIN, mode: '2d', ext: 1.2, D: 16, bg: '#000000', backdrop: 'grain', light2: '#ffffff', fx: 'tube', tail: 0.5, bloom: 0.25, loop: 'wrap', scale: 'pentatonic', root: 0, formulas: false,
     layers: [L('Circle', 'parametric', { x: 'cos(s)', y: 'sin(s)' }, { range: { min: 0, max: r3(TAU) }, samples: 1200, colorMode: 'solid', color: '#ffffff', color2: '#ffffff', wave: 'sine', width: 2.4 })],
     hook: 'x = cos t, y = sin t', title: 'One circle. One sine. ○',
     about: { math: 'x = cos t, y = sin t. The height is a sine wave, and so is the sound.', aha: 'Every wave and every rotation starts here.' },
@@ -155,7 +155,7 @@ export const MINIMAL = [
     about: { math: 'r = 0.035θ for five turns: the gaps between turns are all equal.', aha: 'The groove of a vinyl record follows this spiral.' },
   }),
   film('Figure Eight', {
-    cat: MIN, mode: '2d', ext: 1.2, D: 16, bg: '#000000', backdrop: 'grain', fx: 'comet', tail: 0.45, bloom: 0.25, loop: 'wrap', scale: 'pentatonic', root: 5, formulas: false,
+    cat: MIN, mode: '2d', ext: 1.2, D: 16, bg: '#000000', backdrop: 'grain', fx: 'tube', tail: 0.45, bloom: 0.25, loop: 'wrap', scale: 'pentatonic', root: 5, formulas: false,
     layers: [L('Lissajous 1:2', 'parametric', { x: 'sin(s)', y: 'sin(2*s)' }, { range: { min: 0, max: r3(TAU) }, samples: 1200, colorMode: 'solid', color: '#ffffff', color2: '#ffffff', wave: 'sine', width: 2.6 })],
     hook: 'One against two', title: 'An octave, drawn: 1 : 2 ∞',
     about: { math: 'x = sin t, y = sin 2t: one swing across, two up and down.', aha: 'This is what an octave looks like on an oscilloscope.' },
@@ -207,7 +207,7 @@ export const SHOWCASE = [
     keys: { 'params.a': [{ time: 0, value: 0, ease: 'smooth' }, { time: 6, value: 0, ease: 'smooth' }, { time: 18, value: 1, ease: 'smooth' }, { time: 31, value: 1, ease: 'smooth' }] },
     yr: [-1.2, 1.2], scale: 'lydian', root: 2,
     layers: [
-      SURF('Orbital', { x: 'abs((1-a)*0.5*(3*cos(v)^2-1)+a*2.4*sin(v)^2*cos(v)*sin(2*u))*sin(v)*cos(u)', y: 'abs((1-a)*0.5*(3*cos(v)^2-1)+a*2.4*sin(v)^2*cos(v)*sin(2*u))*cos(v)', z: 'abs((1-a)*0.5*(3*cos(v)^2-1)+a*2.4*sin(v)^2*cos(v)*sin(2*u))*sin(v)*sin(u)', pv: '1.5708+1.1*sin(4*u)' }, { min: 0, max: r3(TAU) }, { vMin: 0, vMax: r3(Math.PI), nu: 72, nv: 48, solid: 0.18, wire: 0.45 }, { color: '#5ee0ff', color2: '#ff7ad9', wave: 'glass-pad' }),
+      SURF('Orbital', { x: 'abs((1-a)*0.5*(3*cos(v)^2-1)+a*2.4*sin(v)^2*cos(v)*sin(2*u))*sin(v)*cos(u)', y: 'abs((1-a)*0.5*(3*cos(v)^2-1)+a*2.4*sin(v)^2*cos(v)*sin(2*u))*cos(v)', z: 'abs((1-a)*0.5*(3*cos(v)^2-1)+a*2.4*sin(v)^2*cos(v)*sin(2*u))*sin(v)*sin(u)', pv: '1.5708+1.1*sin(4*u)' }, { min: 0, max: r3(TAU) }, { vMin: 0, vMax: r3(Math.PI), nu: 72, nv: 48, solid: 0.08, wire: 0.32 }, { color: '#5ee0ff', color2: '#ff7ad9', wave: 'glass-pad' }),
       melody('D4 A4 F#5 E5 D5 A4 B4 F#5 G4 D5 B5 A5', { wave: 'music-box', volume: 0.5, melodyLoops: 2 }),
     ],
     hook: 'What does an electron look like?', title: 'Atom dream: d_z² melts into an f orbital ⚛️',
