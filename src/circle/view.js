@@ -90,7 +90,7 @@ export class CircleView {
    * (only when moving forward), per layer, for live sound: [{ id, cfg, events }].
    * @param {{snap?:boolean, width:number, height:number, env?:{duration:number,bpm:number,ratio:number}}} o
    */
-  renderAt(time, c, { snap = false, width, height, env = {}, camera = null, progress = 0, bpm = 120 } = {}) {
+  renderAt(time, c, { snap = false, width, height, env = {}, camera = null, progress = 0, duration = 0, bpm = 120 } = {}) {
     this.ensureSize(width, height);
     const envKey = `${env.duration}|${env.bpm}|${env.ratio}`;
     if (c !== this.c || envKey !== this.envKey) { this.c = c; this.envKey = envKey; this.dirty = true; }
@@ -121,7 +121,7 @@ export class CircleView {
       if (fresh.length) out.push({ id: s.layer.id, cfg, events: fresh });
     }
     this.paint(time, c, shown);
-    if (camera) this.cameraMove(camera, { time, progress, bpm });
+    if (camera) this.cameraMove(camera, { time, progress, bpm, duration });
     return out;
   }
 

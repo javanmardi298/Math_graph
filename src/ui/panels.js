@@ -14,7 +14,8 @@ import { HarmonographTab } from './harmonograph-tab.js';
 import { SpiroTab } from './spirograph-tab.js';
 import { getBrand, setBrand } from '../brand.js';
 import { saveShorts } from '../shorts-prefs.js';
-import { CAMERA_MOVE_DEFAULTS } from '../camera-moves.js';
+import { CAMERA_MOVE_DEFAULTS, ENDINGS } from '../camera-moves.js';
+import { BACKDROPS } from '../render/backdrops.js';
 
 /** One-click camera styles: [label, settings, tip]. */
 const CAMERA_STYLES = [
@@ -411,6 +412,18 @@ export class Panels {
   fxTab() {
     const p = bindPath;
     return h('section.tab', {},
+      group('Light style', [
+        select('Curve drawn as', p('visual.fx.style'), { off: 'Plain line', glitch: 'Glitch: red · green · cyan (chromatic aberration)', string: 'String art: strings from the centre', web: 'Laser web: glowing tail and chords from the pen', glitchString: 'Glitch + string art' }),
+        slider('Lit tail behind the pen', p('visual.fx.tail'), { min: 0.03, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
+        slider('Colour split', p('visual.fx.offset'), { min: 0, max: 12, step: 0.1, unit: ' px' }),
+        slider('Number of strings', p('visual.fx.strings'), { min: 10, max: 400, step: 1 }),
+        slider('String brightness', p('visual.fx.stringAlpha'), { min: 0.02, max: 0.8, step: 0.01 }),
+        slider('Whole curve lights up for the last', p('visual.fx.hold'), { min: 0, max: 6, step: 0.1, fmt: (v) => (v ? `${v} s` : 'never') }),
+      ], { hint: 'Glitch draws three glowing copies (red, green, cyan) a little apart and adds them, so overlaps turn white, with a jitter now and then. String art draws very faint strings from the centre to points of the curve as it grows. The laser web keeps a fading tail and links the pen to it. For the last seconds the tail opens and the whole curve lights up.' }),
+      group('Backdrop', [
+        select('Backdrop', p('visual.backdrop'), BACKDROPS),
+        color('Backdrop light', p('visual.backdropColor')),
+      ], { hint: 'A painted background behind the drawing; it stays put when the camera zooms. The plain background colour above is its dark base.' }),
       group('Neon glow (bloom)', [
         toggle('Enabled', p('visual.bloom.enabled')),
         slider('Strength', p('visual.bloom.strength'), { min: 0, max: 3, step: 0.01 }),
@@ -571,6 +584,10 @@ export class Panels {
         slider('Beat punch zoom', p('camera.punch'), { min: 0, max: 1, step: 0.01, fmt: (v) => (v ? `${Math.round(v * 100)}%` : 'Off') }),
         slider('Roll', p('camera.roll'), { min: -45, max: 45, step: 0.5, unit: '°' }),
       ], { hint: 'Follow the pen + a zoomed-in camera (scroll, or a camera keyframe with K) gives tracking shots; punch zooms in on kicks and snares (Rhythm tab drums with “pulse” on). All of these can be keyframed in the Animate tab for dramatic reveals.' }),
+      group('Final shot', [
+        select('The last seconds', p('camera.ending'), ENDINGS),
+        slider('Length', p('camera.endingSecs'), { min: 0.5, max: 5, step: 0.1, unit: ' s' }),
+      ], { hint: 'A deliberate last shot, so the video clearly ends: the camera pulls back or pushes in and the glow flares. In the Light style panel, the curve also lights up in full for the last seconds.' }),
       group('Camera moves', [
         h('div.chips', {}, CAMERA_STYLES.map(([label, cfg, tip]) => h('button.chip', { type: 'button', title: tip, onclick: () => {
           store.state.camera = { ...store.state.camera, ...CAMERA_MOVE_DEFAULTS, ...cfg };

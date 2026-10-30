@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqeg0",
+          "id": "Lmvv6w1r00",
           "name": "Cardioid",
           "enabled": true,
           "type": "polar",
@@ -65,7 +65,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -111,9 +112,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -380,7 +393,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqeg0",
+          "id": "Lmvv6w1r00",
           "name": "Three-leaf Clover",
           "enabled": true,
           "type": "polar",
@@ -418,7 +431,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -464,9 +478,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -733,7 +759,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqeg0",
+          "id": "Lmvv6w1r00",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -771,7 +797,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -817,9 +844,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -1086,7 +1125,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqeg0",
+          "id": "Lmvv6w1r10",
           "name": "Cardioid",
           "enabled": true,
           "type": "polar",
@@ -1124,7 +1163,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -1170,9 +1210,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -1439,7 +1491,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqeh0",
+          "id": "Lmvv6w1r10",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -1477,7 +1529,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -1523,9 +1576,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -1792,7 +1857,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqeh0",
+          "id": "Lmvv6w1r10",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -1830,7 +1895,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 2400
+          "samples": 2400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -1876,9 +1942,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -2145,7 +2223,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqeh0",
+          "id": "Lmvv6w1r10",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -2183,7 +2261,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 2400
+          "samples": 2400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -2229,9 +2308,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -2498,7 +2589,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqei0",
+          "id": "Lmvv6w1r10",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -2536,7 +2627,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 2400
+          "samples": 2400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -2582,9 +2674,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -2851,7 +2955,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqei0",
+          "id": "Lmvv6w1r10",
           "name": "Trefoil Knot",
           "enabled": true,
           "type": "parametric",
@@ -2889,7 +2993,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -2935,9 +3040,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -3204,7 +3321,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqei0",
+          "id": "Lmvv6w1r10",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -3242,7 +3359,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -3288,9 +3406,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -3557,7 +3687,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqei0",
+          "id": "Lmvv6w1r20",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -3595,7 +3725,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 4000
+          "samples": 4000,
+          "hidden": false
         }
       ],
       "visual": {
@@ -3641,9 +3772,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -3910,7 +4053,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqei0",
+          "id": "Lmvv6w1r40",
           "name": "Spirograph",
           "enabled": true,
           "type": "parametric",
@@ -3948,7 +4091,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 3000
+          "samples": 3000,
+          "hidden": false
         }
       ],
       "visual": {
@@ -3994,9 +4138,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -4263,7 +4419,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqei0",
+          "id": "Lmvv6w1r40",
           "name": "Trefoil Knot",
           "enabled": true,
           "type": "parametric",
@@ -4301,7 +4457,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -4347,9 +4504,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -4616,7 +4785,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqei0",
+          "id": "Lmvv6w1r40",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -4654,7 +4823,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 4000
+          "samples": 4000,
+          "hidden": false
         }
       ],
       "visual": {
@@ -4700,9 +4870,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -4969,7 +5151,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqei0",
+          "id": "Lmvv6w1r40",
           "name": "Spirograph",
           "enabled": true,
           "type": "parametric",
@@ -5007,7 +5189,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 3000
+          "samples": 3000,
+          "hidden": false
         }
       ],
       "visual": {
@@ -5053,9 +5236,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -5322,7 +5517,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqei0",
+          "id": "Lmvv6w1r40",
           "name": "Spirograph",
           "enabled": true,
           "type": "parametric",
@@ -5360,7 +5555,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 3000
+          "samples": 3000,
+          "hidden": false
         }
       ],
       "visual": {
@@ -5406,9 +5602,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -5675,7 +5883,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqei0",
+          "id": "Lmvv6w1r40",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -5713,7 +5921,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -5759,9 +5968,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -6028,7 +6249,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqei0",
+          "id": "Lmvv6w1r40",
           "name": "Gear",
           "enabled": true,
           "type": "polar",
@@ -6066,7 +6287,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 3000
+          "samples": 3000,
+          "hidden": false
         }
       ],
       "visual": {
@@ -6112,9 +6334,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -6381,7 +6615,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqei0",
+          "id": "Lmvv6w1r40",
           "name": "Gear",
           "enabled": true,
           "type": "polar",
@@ -6419,7 +6653,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 3000
+          "samples": 3000,
+          "hidden": false
         }
       ],
       "visual": {
@@ -6465,9 +6700,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -6734,7 +6981,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqei0",
+          "id": "Lmvv6w1r40",
           "name": "Gear",
           "enabled": true,
           "type": "polar",
@@ -6772,7 +7019,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 3000
+          "samples": 3000,
+          "hidden": false
         }
       ],
       "visual": {
@@ -6818,9 +7066,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -7087,7 +7347,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqej0",
+          "id": "Lmvv6w1r40",
           "name": "Lissajous Knot",
           "enabled": true,
           "type": "parametric",
@@ -7125,7 +7385,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 2400
+          "samples": 2400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -7171,9 +7432,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -7440,7 +7713,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqek0",
+          "id": "Lmvv6w1r40",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -7478,7 +7751,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 2400
+          "samples": 2400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -7524,9 +7798,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -7793,7 +8079,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqek0",
+          "id": "Lmvv6w1r40",
           "name": "Crown",
           "enabled": true,
           "type": "polar",
@@ -7831,7 +8117,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 2400
+          "samples": 2400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -7877,9 +8164,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -8146,7 +8445,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqek0",
+          "id": "Lmvv6w1r40",
           "name": "Three-leaf Clover",
           "enabled": true,
           "type": "polar",
@@ -8184,7 +8483,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -8230,9 +8530,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -8499,7 +8811,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqek0",
+          "id": "Lmvv6w1r50",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -8537,7 +8849,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -8583,9 +8896,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -8852,7 +9177,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqek0",
+          "id": "Lmvv6w1r50",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -8890,7 +9215,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -8936,9 +9262,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -9205,7 +9543,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqek0",
+          "id": "Lmvv6w1r50",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -9243,7 +9581,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -9289,9 +9628,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -9558,7 +9909,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqek0",
+          "id": "Lmvv6w1r50",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -9596,7 +9947,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -9642,9 +9994,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -9911,7 +10275,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqek0",
+          "id": "Lmvv6w1r50",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -9949,7 +10313,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -9995,9 +10360,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -10264,7 +10641,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqek0",
+          "id": "Lmvv6w1r50",
           "name": "Looped Limaçon",
           "enabled": true,
           "type": "polar",
@@ -10302,7 +10679,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -10348,9 +10726,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -10617,7 +11007,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqel0",
+          "id": "Lmvv6w1r50",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -10655,7 +11045,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -10701,9 +11092,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -10970,7 +11373,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqel0",
+          "id": "Lmvv6w1r50",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -11008,7 +11411,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -11054,9 +11458,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -11323,7 +11739,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqel0",
+          "id": "Lmvv6w1r50",
           "name": "Cardioid",
           "enabled": true,
           "type": "polar",
@@ -11361,7 +11777,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -11407,9 +11824,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -11676,7 +12105,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqel0",
+          "id": "Lmvv6w1r50",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -11714,7 +12143,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -11760,9 +12190,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -12029,7 +12471,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqel0",
+          "id": "Lmvv6w1r50",
           "name": "Three-leaf Clover",
           "enabled": true,
           "type": "polar",
@@ -12067,7 +12509,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -12113,9 +12556,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -12382,7 +12837,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqem0",
+          "id": "Lmvv6w1r50",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -12420,7 +12875,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -12466,9 +12922,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -12735,7 +13203,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqem0",
+          "id": "Lmvv6w1r50",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -12773,7 +13241,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -12819,9 +13288,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -13088,7 +13569,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqem0",
+          "id": "Lmvv6w1r50",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -13126,7 +13607,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 4000
+          "samples": 4000,
+          "hidden": false
         }
       ],
       "visual": {
@@ -13172,9 +13654,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -13441,7 +13935,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqem0",
+          "id": "Lmvv6w1r50",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -13479,7 +13973,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -13525,9 +14020,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -13794,7 +14301,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqem0",
+          "id": "Lmvv6w1r50",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -13832,7 +14339,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 4000
+          "samples": 4000,
+          "hidden": false
         }
       ],
       "visual": {
@@ -13878,9 +14386,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -14147,7 +14667,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqem0",
+          "id": "Lmvv6w1r60",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -14185,7 +14705,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -14231,9 +14752,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -14500,7 +15033,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqem0",
+          "id": "Lmvv6w1r60",
           "name": "Gear",
           "enabled": true,
           "type": "polar",
@@ -14538,7 +15071,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 3000
+          "samples": 3000,
+          "hidden": false
         }
       ],
       "visual": {
@@ -14584,9 +15118,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -14853,7 +15399,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqen0",
+          "id": "Lmvv6w1r60",
           "name": "Pretzel",
           "enabled": true,
           "type": "parametric",
@@ -14891,7 +15437,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -14937,9 +15484,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -15206,7 +15765,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqen0",
+          "id": "Lmvv6w1r60",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -15244,7 +15803,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -15290,9 +15850,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -15559,7 +16131,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqen0",
+          "id": "Lmvv6w1r60",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -15597,7 +16169,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -15643,9 +16216,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -15912,7 +16497,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqen0",
+          "id": "Lmvv6w1r60",
           "name": "Lissajous Knot",
           "enabled": true,
           "type": "parametric",
@@ -15950,7 +16535,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 2400
+          "samples": 2400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -15996,9 +16582,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -16265,7 +16863,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqen0",
+          "id": "Lmvv6w1r60",
           "name": "Pretzel",
           "enabled": true,
           "type": "parametric",
@@ -16303,7 +16901,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -16349,9 +16948,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -16618,7 +17229,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqeo0",
+          "id": "Lmvv6w1r60",
           "name": "Lissajous Knot",
           "enabled": true,
           "type": "parametric",
@@ -16656,7 +17267,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 2400
+          "samples": 2400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -16702,9 +17314,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -16971,7 +17595,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqeo0",
+          "id": "Lmvv6w1r60",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -17009,7 +17633,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 2400
+          "samples": 2400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -17055,9 +17680,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -17324,7 +17961,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqeo0",
+          "id": "Lmvv6w1r60",
           "name": "Trefoil Knot",
           "enabled": true,
           "type": "parametric",
@@ -17362,7 +17999,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1600
+          "samples": 1600,
+          "hidden": false
         }
       ],
       "visual": {
@@ -17408,9 +18046,21 @@
         "showNotes": false,
         "analyzer": "spectrum",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,

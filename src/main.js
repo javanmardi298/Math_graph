@@ -750,7 +750,7 @@ function renderScene(time, { dt, now, playing, snap }) {
   }
   const frames = voicesAt(time);
   for (const f of frames) notes.set(f.id, f.gain > 0 ? f.midi : null);
-  viz.render(items, ctx, { dt, now, snap, playing, time, progress: time / duration(), bpm: store.state.transport.bpm, pastMode: store.state.sequence.past, cameraLocked: hasPoseTrack() && (playing || RENDER_MODE) });
+  viz.render(items, ctx, { dt, now, snap, playing, time, progress: time / duration(), duration: duration(), bpm: store.state.transport.bpm, pastMode: store.state.sequence.past, cameraLocked: hasPoseTrack() && (playing || RENDER_MODE) });
   return frames;
 }
 
@@ -766,7 +766,7 @@ function circleText() {
 
 /** Circle Lab frame: draw the simulation; while playing live, every hit plays its note. */
 function renderCircle(time, { playing, snap }) {
-  const groups = circle.renderAt(time, store.state.circle, { snap, width: viz.canvas.width, height: viz.canvas.height, env: circleEnv(), camera: store.state.camera, progress: time / duration(), bpm: store.state.transport.bpm });
+  const groups = circle.renderAt(time, store.state.circle, { snap, width: viz.canvas.width, height: viz.canvas.height, env: circleEnv(), camera: store.state.camera, progress: time / duration(), duration: duration(), bpm: store.state.transport.bpm });
   if (snap) circleRuns = new Map();
   if (playing && groups.length && !exporting.busy && !RENDER_MODE && audio.ready) {
     for (const { id, cfg, events } of groups) {

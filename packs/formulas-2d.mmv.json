@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqf50",
+          "id": "Lmvv6w1rx0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -65,10 +65,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf51",
+          "id": "Lmvv6w1rx1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -106,10 +107,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf52",
+          "id": "Lmvv6w1rx2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -147,7 +149,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -193,9 +196,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -508,7 +523,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqf50",
+          "id": "Lmvv6w1rx0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -546,10 +561,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf51",
+          "id": "Lmvv6w1rx1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -587,10 +603,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf52",
+          "id": "Lmvv6w1rx2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -628,7 +645,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -674,9 +692,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -989,7 +1019,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqf50",
+          "id": "Lmvv6w1rx0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -1027,10 +1057,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf51",
+          "id": "Lmvv6w1rx1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -1068,10 +1099,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf52",
+          "id": "Lmvv6w1rx2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -1109,7 +1141,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -1155,9 +1188,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -1470,7 +1515,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqf50",
+          "id": "Lmvv6w1rx0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -1508,10 +1553,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf51",
+          "id": "Lmvv6w1rx1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -1549,10 +1595,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf52",
+          "id": "Lmvv6w1rx2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -1590,7 +1637,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -1636,9 +1684,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -1951,7 +2011,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqf50",
+          "id": "Lmvv6w1rx0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -1989,10 +2049,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf51",
+          "id": "Lmvv6w1rx1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -2030,10 +2091,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf52",
+          "id": "Lmvv6w1rx2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -2071,7 +2133,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -2117,9 +2180,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -2432,7 +2507,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqf60",
+          "id": "Lmvv6w1rx0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -2470,10 +2545,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf61",
+          "id": "Lmvv6w1rx1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -2511,10 +2587,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf62",
+          "id": "Lmvv6w1rx2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -2552,7 +2629,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -2598,9 +2676,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -2913,7 +3003,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqf60",
+          "id": "Lmvv6w1rx0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -2951,10 +3041,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf61",
+          "id": "Lmvv6w1rx1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -2992,10 +3083,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf62",
+          "id": "Lmvv6w1rx2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -3033,7 +3125,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -3079,9 +3172,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -3394,7 +3499,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqf60",
+          "id": "Lmvv6w1ry0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -3432,10 +3537,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf61",
+          "id": "Lmvv6w1ry1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -3473,10 +3579,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf62",
+          "id": "Lmvv6w1ry2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -3514,7 +3621,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -3560,9 +3668,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -3875,7 +3995,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqf60",
+          "id": "Lmvv6w1ry0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -3913,10 +4033,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf61",
+          "id": "Lmvv6w1ry1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -3954,10 +4075,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf62",
+          "id": "Lmvv6w1ry2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -3995,7 +4117,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -4041,9 +4164,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -4356,7 +4491,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqf60",
+          "id": "Lmvv6w1ry0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -4394,10 +4529,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf61",
+          "id": "Lmvv6w1ry1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -4435,10 +4571,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf62",
+          "id": "Lmvv6w1ry2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -4476,7 +4613,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -4522,9 +4660,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -4837,7 +4987,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqf60",
+          "id": "Lmvv6w1ry0",
           "name": "Step 1",
           "enabled": true,
           "type": "function",
@@ -4875,10 +5025,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf61",
+          "id": "Lmvv6w1ry1",
           "name": "Step 2",
           "enabled": true,
           "type": "function",
@@ -4916,10 +5067,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf62",
+          "id": "Lmvv6w1ry2",
           "name": "Step 3",
           "enabled": true,
           "type": "function",
@@ -4957,7 +5109,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -5003,9 +5156,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -5318,7 +5483,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqf60",
+          "id": "Lmvv6w1ry0",
           "name": "Step 1",
           "enabled": true,
           "type": "polar",
@@ -5356,10 +5521,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf61",
+          "id": "Lmvv6w1ry1",
           "name": "Step 2",
           "enabled": true,
           "type": "polar",
@@ -5397,10 +5563,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf62",
+          "id": "Lmvv6w1ry2",
           "name": "Step 3",
           "enabled": true,
           "type": "polar",
@@ -5438,7 +5605,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -5484,9 +5652,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -5799,7 +5979,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqf60",
+          "id": "Lmvv6w1ry0",
           "name": "Step 1",
           "enabled": true,
           "type": "polar",
@@ -5837,10 +6017,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf61",
+          "id": "Lmvv6w1ry1",
           "name": "Step 2",
           "enabled": true,
           "type": "polar",
@@ -5878,10 +6059,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf62",
+          "id": "Lmvv6w1ry2",
           "name": "Step 3",
           "enabled": true,
           "type": "polar",
@@ -5919,7 +6101,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -5965,9 +6148,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -6280,7 +6475,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqf60",
+          "id": "Lmvv6w1ry0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -6318,10 +6513,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf61",
+          "id": "Lmvv6w1ry1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -6359,10 +6555,11 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         },
         {
-          "id": "Lmvp5dqf62",
+          "id": "Lmvv6w1ry2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -6400,7 +6597,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 1400
+          "samples": 1400,
+          "hidden": false
         }
       ],
       "visual": {
@@ -6446,9 +6644,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,

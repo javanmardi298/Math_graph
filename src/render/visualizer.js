@@ -20,6 +20,7 @@ import { AfterimagePass } from 'three/addons/postprocessing/AfterimagePass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { SMAAPass } from 'three/addons/postprocessing/SMAAPass.js';
 import { cameraMove } from '../camera-moves.js';
+import { paintBackdrop } from './backdrops.js';
 
 const TRAIL_MAX = 400;
 const tmpColor = new THREE.Color();
@@ -157,6 +158,29 @@ const trailFragment = /* glsl */ `
     gl_FragColor = vec4(uColor * a, a);
   }`;
 
+/* --------------------------------------------------------------- fx helpers */
+
+const FX_GLITCH = [0xff2a3d, 0x38ff7a, 0x2ae8ff]; // red, green, cyan: the three lights of the chromatic glitch
+const smooth01 = (x) => { const q = Math.min(1, Math.max(0, x)); return q * q * (3 - 2 * q); };
+const STRING_MAX = 400;
+
+/**
+ * Fade the lit tail of a line in place: full brightness at the pen, falling to `floor` over
+ * `tail` × the whole curve behind it. `base` = per-vertex colours (null = white).
+ */
+function writeFade(geo, base, count, shown, tail, floor = 0) {
+  const attr = geo.attributes.instanceColorStart;
+  if (!attr) return;
+  const arr = attr.data.array, len = Math.max(2, tail * count), end = Math.min(count - 1, shown);
+  const a = (i) => { const d = (shown - 1 - i) / len; return d <= 0 ? 1 : Math.max(floor, Math.max(0, 1 - d) ** 1.7); };
+  for (let i = 0; i < end; i++) {
+    const a0 = a(i), a1 = a(i + 1), k = i * 6;
+    if (base) { arr[k] = base[i * 3] * a0; arr[k + 1] = base[i * 3 + 1] * a0; arr[k + 2] = base[i * 3 + 2] * a0; arr[k + 3] = base[i * 3 + 3] * a1; arr[k + 4] = base[i * 3 + 4] * a1; arr[k + 5] = base[i * 3 + 5] * a1; }
+    else { arr[k] = arr[k + 1] = arr[k + 2] = a0; arr[k + 3] = arr[k + 4] = arr[k + 5] = a1; }
+  }
+  attr.data.needsUpdate = true;
+}
+
 /* --------------------------------------------------------------- LayerView */
 
 /** All the Three.js objects for one formula layer. */
@@ -230,7 +254,121 @@ class LayerView {
       this.scan = new THREE.Line(new THREE.BufferGeometry(), new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9 }));
       this.group.add(this.surfSolid, this.surfWire, this.scan);
     }
+
+    // fx: three chromatic copies of the curve and of the playhead, and the strings (see visual.fx)
+    this.fxGeo = new LineGeometry();
+    this.fxLines = FX_GLITCH.map((c) => {
+      const ln = new Line2(this.fxGeo, new LineMaterial({ color: c, vertexColors: true, linewidth: layer.width, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, worldUnits: false }));
+      ln.frustumCulled = false; ln.renderOrder = 2; ln.visible = false;
+      this.group.add(ln);
+      return ln;
+    });
+    this.fxMarkers = FX_GLITCH.map((c) => {
+      const sp = new THREE.Sprite(new THREE.SpriteMaterial({ color: c, transparent: true, depthWrite: false, depthTest: false, fog: false, blending: THREE.AdditiveBlending }));
+      sp.renderOrder = 11; sp.visible = false;
+      this.group.add(sp);
+      return sp;
+    });
+    const sg = new THREE.BufferGeometry();
+    sg.setAttribute('position', new THREE.BufferAttribute(new Float32Array(STRING_MAX * 6), 3));
+    sg.setAttribute('color', new THREE.BufferAttribute(new Float32Array(STRING_MAX * 6), 3));
+    this.strings = new THREE.LineSegments(sg, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.16, depthWrite: false, blending: THREE.AdditiveBlending }));
+    this.strings.frustumCulled = false; this.strings.renderOrder = 1; this.strings.visible = false;
+    this.group.add(this.strings);
     this.applyStyle();
+  }
+
+  /** What the fx setting asks for on this layer. */
+  fxMode() {
+    const fx = this.viz.state.visual.fx || {}, st = fx.style || 'off';
+    if (this.layer.type === 'surface' || this.layer.hidden) return { glitch: false, web: false, string: false, fx };
+    return { glitch: st === 'glitch' || st === 'glitchString', web: st === 'web', string: st === 'string' || st === 'glitchString', fx };
+  }
+
+  hideFx() {
+    for (const o of [...this.fxLines, ...this.fxMarkers, this.strings]) o.visible = false;
+  }
+
+  /** Strings from the centre to evenly spaced points of the curve (fixed once the curve is sampled). */
+  buildStrings(n) {
+    if (!this.pts) return;
+    const pos = this.strings.geometry.attributes.position, col = this.strings.geometry.attributes.color;
+    n = Math.min(STRING_MAX, Math.max(2, Math.round(n)));
+    for (let j = 0; j < n; j++) {
+      const i = Math.round((j / (n - 1)) * (this.count - 1));
+      pos.setXYZ(j * 2, 0, 0, 0); pos.setXYZ(j * 2 + 1, this.pts[i * 3], this.pts[i * 3 + 1], this.pts[i * 3 + 2]);
+      col.setXYZ(j * 2, this.baseCols[i * 3] * 0.12, this.baseCols[i * 3 + 1] * 0.12, this.baseCols[i * 3 + 2] * 0.12);
+      col.setXYZ(j * 2 + 1, this.baseCols[i * 3], this.baseCols[i * 3 + 1], this.baseCols[i * 3 + 2]);
+    }
+    pos.needsUpdate = col.needsUpdate = true;
+    this.strN = n;
+  }
+
+  /**
+   * The fx of this frame: positions and fading of the chromatic copies, the web from the pen,
+   * the strings. Returns true when the normal line and marker are replaced.
+   */
+  frameFx(shown, f, ctx) {
+    const { glitch, web, string, fx } = this.fxMode();
+    if (!glitch && !web && !string) { this.hideFx(); return false; }
+    const holdK = fx.hold > 0 && f.duration ? smooth01(1 - (f.duration - (f.time ?? 0)) / fx.hold) : 0; // the last shot: the whole curve lights up
+    const tail = (fx.tail ?? 0.3) + (6 - (fx.tail ?? 0.3)) * holdK;
+    const res = this.viz.resolution;
+    const cam = this.viz.camera;
+    cam.updateMatrixWorld();
+    const right = tmpRight.setFromMatrixColumn(cam.matrixWorld, 0), up = tmpUp.setFromMatrixColumn(cam.matrixWorld, 1);
+    const spike = (Math.max(0, Math.sin(f.now * 5.3) * Math.sin(f.now * 1.7 + 1)) ** 3) * 2.2 + (this.bump || 0) * 1.5;
+    const unit = (fx.offset ?? 3.2) * (1 + spike) * f.k * f.worldPerPx;
+    const offs = [[-1, 0.35], [0.0, -0.2], [1, -0.35]];
+
+    if (glitch || web) {
+      if (this.fxGeo.attributes.instanceStart) {
+        this.fxGeo.instanceCount = Math.max(0, shown - 1);
+        writeFade(this.fxGeo, glitch ? null : this.baseCols, this.count, shown, tail, glitch ? 0 : 0.02);
+      }
+      this.line.visible = false; this.ghost.visible = false; if (this.marker) this.marker.visible = false;
+      this.fxLines.forEach((ln, i) => {
+        ln.visible = glitch ? true : i < 2;
+        ln.material.resolution.copy(res);
+        if (glitch) { ln.material.color.setHex(FX_GLITCH[i]); ln.material.linewidth = this.layer.width * f.k; ln.material.opacity = 0.55 * (1 - 0.5 * holdK); ln.position.set(0, 0, 0).addScaledVector(right, offs[i][0] * unit).addScaledVector(up, offs[i][1] * unit); }
+        else { ln.material.color.setHex(0xffffff); ln.material.linewidth = this.layer.width * f.k * (i === 0 ? 3.2 : 1); ln.material.opacity = i === 0 ? 0.22 : 1; ln.position.set(0, 0, 0); }
+      });
+    } else this.fxLines.forEach((ln) => { ln.visible = false; });
+
+    // the three lights of the playhead
+    const px = this.viz.state.visual.marker.size * (1 + (this.bump || 0)) * f.k * f.worldPerPx;
+    this.fxMarkers.forEach((sp, i) => {
+      sp.visible = glitch;
+      if (!glitch) return;
+      sp.material.map = this.markerMat.map;
+      sp.scale.set(px, px, 1);
+      sp.position.copy(this.drawn).addScaledVector(right, offs[i][0] * unit * 1.4).addScaledVector(up, offs[i][1] * unit * 1.4);
+    });
+
+    // strings (from the centre) or a laser web (from the pen to the lit tail)
+    const st = this.strings, pos = st.geometry.attributes.position, col = st.geometry.attributes.color;
+    st.material.opacity = fx.stringAlpha ?? 0.16;
+    if (string) {
+      const n = Math.min(STRING_MAX, Math.round(fx.strings || 90));
+      if (this.strN !== n) this.buildStrings(n);
+      st.visible = true;
+      const stride = (this.count - 1) / (this.strN - 1);
+      st.geometry.setDrawRange(0, 2 * Math.min(this.strN, Math.floor((shown - 1) / stride) + 1));
+    } else if (web) {
+      const n = Math.max(10, Math.min(48, Math.round((fx.strings || 90) / 2)));
+      const len = Math.max(2, tail * this.count * 0.9);
+      for (let j = 0; j < n; j++) {
+        const i = Math.max(0, Math.round(shown - 1 - (j / (n - 1)) * len)), a = (1 - j / n) ** 1.3;
+        pos.setXYZ(j * 2, this.drawn.x, this.drawn.y, this.drawn.z); pos.setXYZ(j * 2 + 1, this.pts[i * 3], this.pts[i * 3 + 1], this.pts[i * 3 + 2]);
+        col.setXYZ(j * 2, this.baseCols[i * 3] * a, this.baseCols[i * 3 + 1] * a, this.baseCols[i * 3 + 2] * a);
+        col.setXYZ(j * 2 + 1, this.baseCols[i * 3] * a * 0.5, this.baseCols[i * 3 + 1] * a * 0.5, this.baseCols[i * 3 + 2] * a * 0.5);
+      }
+      pos.needsUpdate = col.needsUpdate = true;
+      st.geometry.setDrawRange(0, n * 2);
+      st.material.opacity = Math.min(1, (fx.stringAlpha ?? 0.16) * 2.4);
+      st.visible = true;
+    } else st.visible = false;
+    return glitch || web;
   }
 
   applyStyle() {
@@ -254,6 +392,14 @@ class LayerView {
     this.pts = pts;
     this.count = pts.length / 3;
     const cols = curveColors(layer, pts, ctx.view, new Float32Array(pts.length));
+    this.baseCols = cols;
+    this.strN = 0; // the strings are laid out again for the new curve
+    if (this.line) {
+      this.fxGeo = new LineGeometry();
+      this.fxGeo.setPositions(pts);
+      this.fxGeo.setColors(new Float32Array(pts.length).fill(1));
+      for (const ln of this.fxLines) { ln.geometry.dispose?.(); ln.geometry = this.fxGeo; }
+    }
 
     if (this.line) {
       for (const ln of [this.line, this.ghost]) {
@@ -335,9 +481,10 @@ class LayerView {
     // Sequence mode: layers that haven't started are hidden; finished ones stay as a
     // faint ghost, stay fully drawn, or disappear, so you can see how the curves evolve.
     const past = phase === 'past';
-    this.group.visible = phase !== 'future' && !(past && f.pastMode === 'hide');
+    this.group.visible = phase !== 'future' && !(past && f.pastMode === 'hide') && !this.layer.hidden;
     this.trailMat.uniforms.uTime.value = f.now;
     if (!this.group.visible || past) {
+      this.hideFx();
       this.lastEmit = null;
       this.hasDrawn = false;
       if (!this.group.visible) return;
@@ -392,8 +539,11 @@ class LayerView {
       this.dotsMat.size = this.ghostDots.material.size = this.layer.width * 2.2 * f.k;
     }
 
-    // Marker
+    // fx replaces the plain line and marker (chromatic copies, laser web) or adds strings
     this.bump = (this.bump || 0) * Math.pow(0.004, f.dt); // drum hits make the marker jump, then settle
+    if (this.line && this.pts) this.frameFx(shown, f, ctx); else this.hideFx();
+
+    // Marker
     const px = v.marker.size * (1 + this.bump) * f.k * f.worldPerPx;
     this.marker.scale.set(px, px, 1);
     this.marker.position.copy(this.drawn);
@@ -462,6 +612,7 @@ class LayerView {
   }
 }
 const tmpVec = new THREE.Vector3();
+const tmpRight = new THREE.Vector3(), tmpUp = new THREE.Vector3();
 
 /* -------------------------------------------------------------- Visualizer */
 
@@ -597,6 +748,7 @@ export class Visualizer {
     this.bufferHeight = bh;
     this.bufferMin = Math.min(bw, bh); // sizes scale with the shorter side (portrait videos too)
     this.aspect = bw / bh;
+    if (this.state) this.applyBackdrop();
     this.persp.aspect = this.aspect;
     this.persp.updateProjectionMatrix();
     this.fitOrtho(false);
@@ -683,6 +835,7 @@ export class Visualizer {
     this.bokeh.uniforms.focus.value = v.dof.focus;
     this.bokeh.uniforms.aperture.value = v.dof.aperture * 0.0025;
 
+    this.applyBackdrop();
     this.renderPass.camera = this.camera;
     this.orthoControls.enabled = mode === '2d';
     this.perspControls.enabled = mode === '3d';
@@ -694,6 +847,25 @@ export class Visualizer {
 
   restyle() {
     for (const v of this.views.values()) v.applyStyle();
+  }
+
+  /** A painted backdrop (visual.backdrop) as the scene background, sized to the frame. */
+  applyBackdrop() {
+    const v = this.state.visual;
+    if (!v.backdrop || v.backdrop === 'solid' || !this.bufferHeight) { this.backdropKey = null; return; }
+    const bw = this.resolution.x, bh = this.resolution.y;
+    const key = [v.backdrop, v.background, v.backdropColor, Math.round(bw), Math.round(bh)].join('|');
+    if (key !== this.backdropKey) {
+      const sc = Math.min(1, 1280 / Math.max(bw, bh));
+      const cv = document.createElement('canvas');
+      cv.width = Math.max(2, Math.round(bw * sc)); cv.height = Math.max(2, Math.round(bh * sc));
+      paintBackdrop(cv.getContext('2d'), v.backdrop, cv.width, cv.height, v.background, v.backdropColor);
+      this.backdropTex?.dispose();
+      this.backdropTex = new THREE.CanvasTexture(cv);
+      this.backdropTex.colorSpace = THREE.SRGBColorSpace;
+      this.backdropKey = key;
+    }
+    this.scene.background = this.backdropTex;
   }
 
   /** Rebuild grid, axes and labels for the current view and mode. */
@@ -892,6 +1064,7 @@ export class Visualizer {
     const punch = (c.punch || 0) * this.punch;
     const mv = cameraMove(c, { time: f.time ?? 0, progress: f.progress ?? 0, bpm: f.bpm ?? 120 });
     const roll = THREE.MathUtils.degToRad((c.roll || 0) + mv.roll);
+    if (mv.flare) this.bloom.strength *= 1 + 0.8 * mv.flare; // the glow flares at the cut to the final shot
     if (!track && punch < 1e-4 && !roll && !mv.active) { this.composer.render(f.dt); return; }
 
     const is3d = this.state.mode === '3d';

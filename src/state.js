@@ -49,6 +49,7 @@ export function createLayer(overrides = {}) {
     captionStart: 0, captionEnd: 0, // when that text is on screen (seconds; 0 = from the start / to the end)
     start: 0, end: 0, // when the layer plays (seconds; 0 = from the start / to the end of the video)
     samples: 900,
+    hidden: false, // draw nothing (the layer only plays: a chord at the end, a bass line …)
     ...overrides,
   };
   layer.exprs = { ...createLayer.defaults, ...layer.exprs };
@@ -83,11 +84,18 @@ export function defaultState() {
       showNotes: false, // note names in the caption and the top bar
       analyzer: 'off', // spectrum | wave | off
       hideUntil: 0, // seconds: hide the curves (not the sound) until then, for guess-the-shape videos
+      // backdrop: a painted background behind the drawing (solid = the plain colour above).
+      // fx: how the curve is drawn: off | glitch (red / green / cyan copies, chromatic aberration) |
+      // string (faint strings from the centre to the curve) | web (laser web from the pen, fading tail) |
+      // glitchString (both). tail: the lit part of the curve behind the pen (fraction); hold: seconds
+      // at the end in which the whole curve lights up (the final plan).
+      backdrop: 'solid', backdropColor: '#4f6bff',
+      fx: { style: 'off', tail: 0.3, offset: 3.2, strings: 90, stringAlpha: 0.16, hold: 2 },
       aspect: '16:9', // fill | 16:9 | 9:16 | 1:1 | 4:5
     },
     // punch: zoom bump on every kick (0..1); track: how closely the camera follows the
     // drawing pen (0..1, both modes); roll: tilt in degrees. All three can be keyframed.
-    camera: { autoRotate: false, rotateSpeed: 0.8, fov: 45, follow: false, punch: 0, track: 0, trackSpeed: 0.06, roll: 0, zoom: 1, push: 0, breathe: 0, drift: 0, shake: 0, sway: 0, spin: 0 },
+    camera: { ending: 'auto', endingSecs: 1.8, autoRotate: false, rotateSpeed: 0.8, fov: 45, follow: false, punch: 0, track: 0, trackSpeed: 0.06, roll: 0, zoom: 1, push: 0, breathe: 0, drift: 0, shake: 0, sway: 0, spin: 0 },
     audio: {
       master: 0.7,
       noteLow: 36,

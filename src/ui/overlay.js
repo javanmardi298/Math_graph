@@ -143,7 +143,7 @@ export function drawOverlay(g, w, h, d) {
     // then the formula text follows only its own Show from / until, whatever the drawing does.
     const timed = (l) => o.formulas.start > 0 || o.formulas.end > 0 || l.captionStart > 0 || l.captionEnd > 0;
     const shown = (l) => (d.guessing ? timed(l) : phases.get(l.id) !== 'future');
-    const layers = all > 0 ? d.layers.filter((l) => l.enabled && shown(l) && alphaOf(l) > 0) : [];
+    const layers = all > 0 ? d.layers.filter((l) => l.enabled && !l.hidden && l.caption !== '-' && shown(l) && alphaOf(l) > 0) : [];
     const x = o.formulas.x == null ? 36 * k : o.formulas.x * w;
     // Leave room for an automatically placed analyzer in the same (top) corner.
     const sharesCorner = ana && o.analyzer.x == null && o.formulas.x == null && portrait;

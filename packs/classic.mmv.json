@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqfc0",
+          "id": "Lmvv6w1s80",
           "name": "Layer 361",
           "enabled": true,
           "type": "function",
@@ -65,7 +65,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 900
+          "samples": 900,
+          "hidden": false
         }
       ],
       "visual": {
@@ -111,9 +112,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -569,7 +582,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqfc0",
+          "id": "Lmvv6w1s80",
           "name": "Layer 363",
           "enabled": true,
           "type": "function",
@@ -607,7 +620,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 900
+          "samples": 900,
+          "hidden": false
         }
       ],
       "visual": {
@@ -653,9 +667,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -1111,7 +1137,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqfd0",
+          "id": "Lmvv6w1s80",
           "name": "Layer 365",
           "enabled": true,
           "type": "function",
@@ -1149,7 +1175,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 900
+          "samples": 900,
+          "hidden": false
         }
       ],
       "visual": {
@@ -1195,9 +1222,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -1653,7 +1692,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqfd0",
+          "id": "Lmvv6w1s80",
           "name": "Layer 367",
           "enabled": true,
           "type": "function",
@@ -1691,7 +1730,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 900
+          "samples": 900,
+          "hidden": false
         }
       ],
       "visual": {
@@ -1737,9 +1777,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -2195,7 +2247,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqfd0",
+          "id": "Lmvv6w1s90",
           "name": "Layer 369",
           "enabled": true,
           "type": "function",
@@ -2233,7 +2285,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 900
+          "samples": 900,
+          "hidden": false
         }
       ],
       "visual": {
@@ -2279,9 +2332,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
@@ -2737,7 +2802,7 @@
       },
       "layers": [
         {
-          "id": "Lmvp5dqfd0",
+          "id": "Lmvv6w1s90",
           "name": "Layer 371",
           "enabled": true,
           "type": "function",
@@ -2775,7 +2840,8 @@
           "captionEnd": 0,
           "start": 0,
           "end": 0,
-          "samples": 900
+          "samples": 900,
+          "hidden": false
         }
       ],
       "visual": {
@@ -2821,9 +2887,21 @@
         "showNotes": false,
         "analyzer": "off",
         "hideUntil": 0,
+        "backdrop": "solid",
+        "backdropColor": "#4f6bff",
+        "fx": {
+          "style": "off",
+          "tail": 0.3,
+          "offset": 3.2,
+          "strings": 90,
+          "stringAlpha": 0.16,
+          "hold": 2
+        },
         "aspect": "9:16"
       },
       "camera": {
+        "ending": "auto",
+        "endingSecs": 1.8,
         "autoRotate": false,
         "rotateSpeed": 0.8,
         "fov": 45,
