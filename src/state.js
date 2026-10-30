@@ -14,7 +14,18 @@ export const LAYER_TYPES = {
   parametric: { label: 'Parametric', fields: [['x', 'x(s) ='], ['y', 'y(s) ='], ['z', 'z(s) =']], vars: ['s'] },
   polar: { label: 'Polar r(θ)', fields: [['r', 'r(θ) ='], ['z', 'z(θ) =']], vars: ['theta'] },
   surface: { label: 'Surface (3D)', fields: [['f', 'height(x,y) ='], ['path', 'path y(x) =']], vars: ['x', 'y'] },
+  // a flow: dx/ds, dy/ds, dz/ds solved step by step from a starting point (strange attractors, orbits, spirals)
+  ode: { label: 'Flow (differential equations)', fields: [['x', 'dx/ds ='], ['y', 'dy/ds ='], ['z', 'dz/ds =']], vars: ['x', 'y', 'z', 's'] },
+  // a map: the next point from the last one, repeated many times; drawn as a cloud of points
+  map: { label: 'Map (iterated, cloud of points)', fields: [['x', 'next x ='], ['y', 'next y ='], ['z', 'next z =']], vars: ['x', 'y', 'z', 'n'] },
+  // a surface given by two parameters (Möbius strip, Klein bottle, shells, orbitals); the pen follows v(u)
+  psurface: { label: 'Surface (u, v)', fields: [['x', 'x(u,v) ='], ['y', 'y(u,v) ='], ['z', 'z(u,v) ='], ['pv', 'pen path v(u) =']], vars: ['u', 'v'] },
 };
+
+/** Settings of flows and maps: start point, step, warm-up, and how the result is placed (scale, centre, which axis is up). */
+export const SIM_DEFAULTS = { x0: 0.1, y0: 0, z0: 0, dt: 0.01, skip: 0, scale: 1, cx: 0, cy: 0, cz: 0, up: 'y', alpha: 0.35 };
+/** Settings of (u, v) surfaces: the v range and the mesh detail; u uses the layer's range. */
+export const SURF_DEFAULTS = { vMin: 0, vMax: Math.PI * 2, nu: 96, nv: 48, solid: 0.16, wire: 0.45 };
 
 /** Variables every formula may use in addition to its own. */
 export const GLOBAL_VARS = ['t', 'a', 'b', 'c', 'd'];
@@ -49,13 +60,17 @@ export function createLayer(overrides = {}) {
     captionStart: 0, captionEnd: 0, // when that text is on screen (seconds; 0 = from the start / to the end)
     start: 0, end: 0, // when the layer plays (seconds; 0 = from the start / to the end of the video)
     samples: 900,
+    sim: { ...SIM_DEFAULTS },
+    surf: { ...SURF_DEFAULTS },
     hidden: false, // draw nothing (the layer only plays: a chord at the end, a bass line …)
     ...overrides,
   };
   layer.exprs = { ...createLayer.defaults, ...layer.exprs };
+  layer.sim = { ...SIM_DEFAULTS, ...(overrides.sim || {}) };
+  layer.surf = { ...SURF_DEFAULTS, ...(overrides.surf || {}) };
   return layer;
 }
-createLayer.defaults = { y: '0', z: '0', x: '0', r: '1', f: '0', path: '0' };
+createLayer.defaults = { y: '0', z: '0', x: '0', r: '1', f: '0', path: '0', pv: '0' };
 
 export function defaultState() {
   return {
@@ -92,11 +107,15 @@ export function defaultState() {
       backdrop: 'solid', backdropColor: '#4f6bff',
       fx: { style: 'off', tail: 0.3, offset: 3.2, strings: 90, stringAlpha: 0.16, hold: 2, intensity: 1, copies: 6 },
       tone: 'off', exposure: 1, // tone: soft = bright overlaps roll off instead of clipping to white
+      backdropMotion: 'still', // still | drift | spin | breathe | zoom (periodic over the video, loops stay seamless)
+      // loop: off | wrap (a lit tail chases itself round a closed curve: start = end) | fade (fades in and out)
+      loop: 'off', loopSecs: 2.5,
+      letterbox: 0, // cinema bars, 0 … 1 (keyframeable)
       aspect: '16:9', // fill | 16:9 | 9:16 | 1:1 | 4:5
     },
     // punch: zoom bump on every kick (0..1); track: how closely the camera follows the
     // drawing pen (0..1, both modes); roll: tilt in degrees. All three can be keyframed.
-    camera: { ending: 'auto', endingSecs: 1.8, autoRotate: false, rotateSpeed: 0.8, fov: 45, follow: false, punch: 0, track: 0, trackSpeed: 0.06, roll: 0, zoom: 1, push: 0, breathe: 0, drift: 0, shake: 0, sway: 0, spin: 0 },
+    camera: { ending: 'auto', endingSecs: 1.8, endingBars: 0, autoRotate: false, rotateSpeed: 0.8, fov: 45, follow: false, punch: 0, track: 0, trackSpeed: 0.06, roll: 0, zoom: 1, push: 0, breathe: 0, drift: 0, shake: 0, sway: 0, spin: 0 },
     audio: {
       master: 0.7,
       noteLow: 36,

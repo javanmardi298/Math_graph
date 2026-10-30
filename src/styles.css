@@ -732,3 +732,9 @@ body.mode-circle .circle-layers { display: flex; flex-direction: column; gap: 10
 .harm-pend > strong { font: 700 12px/1.3 var(--f-display, inherit); letter-spacing: 0.04em; }
 .chips-label { margin: 8px 0 2px; font-size: 11px; opacity: 0.75; }
 .harm-foot { margin-top: 6px; }
+
+/* About this preset (Presets tab): the maths behind the preset, not shown on the video */
+.about-box { margin: 0 0 12px; padding: 10px 12px; border: 1px solid rgba(120, 160, 255, 0.25); border-radius: 10px; background: rgba(60, 90, 200, 0.08); }
+.about-box h3 { margin: 0 0 6px; font-size: 13px; }
+.about-box p { margin: 4px 0; font-size: 12px; line-height: 1.45; }
+.about-box a { color: inherit; }

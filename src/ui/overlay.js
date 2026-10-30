@@ -11,7 +11,10 @@ import { noteName } from '../math/music.js';
 import { getBrand, endCardAlpha } from '../brand.js';
 import { SHORTS_SAFE_BOTTOM } from '../state.js';
 
-const LABEL = { function: ['y'], parametric: ['x', 'y', 'z'], polar: ['r'], surface: ['f'] };
+import { endingShot } from '../camera-moves.js';
+
+const LABEL = { function: ['y'], parametric: ['x', 'y', 'z'], polar: ['r'], surface: ['f'], ode: ['x', 'y', 'z'], map: ['x', 'y', 'z'], psurface: ['x', 'y', 'z'] };
+const PREFIX = { ode: (k) => `d${k}/ds`, map: (k) => `${k}′` };
 
 /** Font stacks. Vazirmatn covers Persian/Arabic text in every style. */
 export const FONTS = {
@@ -54,7 +57,7 @@ export function textAlpha(tb, t) {
 export const formulaAuto = (l) => {
   // one line per coordinate; a z that is just 0 is not worth showing
   const keys = (l.type === 'function' ? ['y', 'z'] : LABEL[l.type]).filter((key) => key !== 'z' || l.exprs.z.trim() !== '0');
-  return keys.map((key) => `${key === 'f' ? 'h' : key} = ${l.exprs[key]}`).join('\n');
+  return keys.map((key) => `${PREFIX[l.type] ? PREFIX[l.type](key) : key === 'f' ? 'h' : key} = ${l.exprs[key]}`).join('\n');
 };
 export const formulaText = (l) => (l.caption && l.caption.trim() ? l.caption : formulaAuto(l));
 
@@ -94,6 +97,15 @@ export function drawOverlay(g, w, h, d) {
   const rects = { title: null, formulas: null, name: null, analyzer: null, texts: [] };
   g.save();
   g.textBaseline = 'alphabetic';
+
+  // cinema bars: keyframed (visual.letterbox) or brought in by the final shot (camera.endingBars / a bars ending)
+  const end = endingShot(state.camera || {}, { time: d.time ?? 0, duration: state.transport?.duration ?? 0 });
+  const bars = Math.max(+v.letterbox || 0, end ? end.bars : 0);
+  if (bars > 0.002) {
+    const bh = h * 0.12 * Math.min(1, bars);
+    g.fillStyle = '#000';
+    g.fillRect(0, 0, w, bh); g.fillRect(0, h - bh, w, bh);
+  }
 
   /* ---------------------------------------------------------------- title */
   if (o.title.enabled && legacyCaption) {

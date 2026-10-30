@@ -15,7 +15,8 @@ import { SpiroTab } from './spirograph-tab.js';
 import { getBrand, setBrand } from '../brand.js';
 import { saveShorts } from '../shorts-prefs.js';
 import { CAMERA_MOVE_DEFAULTS, ENDINGS } from '../camera-moves.js';
-import { BACKDROPS } from '../render/backdrops.js';
+import { BACKDROPS, BACKDROP_MOTIONS } from '../render/backdrops.js';
+import { OPENINGS, CLIMAXES, FINALES, filmTracks } from '../anim/film.js';
 import { FX_STYLES } from '../render/fx-styles.js';
 
 /** One-click camera styles: [label, settings, tip]. */
@@ -215,6 +216,26 @@ export class Panels {
       this.errorEls.set(`${l.id}.${key}`, { input, err });
       card.append(h('div.formula-row', {}, h('label.formula-label', { for: id }, label), input), err);
     }
+    if (l.type === 'ode' || l.type === 'map') {
+      l.sim ||= {};
+      const sb = (k) => bindObj(l.sim, k, `${ev}.exprs`);
+      card.append(group(l.type === 'ode' ? 'Start, step and placement' : 'Start and placement', [
+        h('div.grid2', {}, number('Start x', sb('x0'), { step: 0.01 }), number('Start y', sb('y0'), { step: 0.01 }), number('Start z', sb('z0'), { step: 0.01 }),
+          ...(l.type === 'ode' ? [number('Step ds', sb('dt'), { min: 0.0001, max: 1, step: 0.0005 })] : []), number('Warm-up steps', sb('skip'), { min: 0, step: 100 }), number('Scale', sb('scale'), { step: 0.01 }),
+          number('Centre x', sb('cx'), { step: 0.1 }), number('Centre y', sb('cy'), { step: 0.1 }), number('Centre z', sb('cz'), { step: 0.1 })),
+        select('Up on screen', sb('up'), { y: 'y is up', z: 'z is up (Lorenz, Rössler …)' }),
+        ...(l.type === 'map' ? [slider('Point brightness', sb('alpha'), { min: 0.02, max: 1, step: 0.01 })] : []),
+      ], { hint: l.type === 'ode' ? 'The curve is solved step by step from the start point (Runge–Kutta). Variables: x, y, z, s (the curve parameter), t (time) and a–d. Detail = number of steps.' : 'Each point is computed from the last one, many thousands of times, and drawn as a glowing cloud. Variables: x, y, z, n (step number), t and a–d. Detail = number of points.' }));
+    }
+    if (l.type === 'psurface') {
+      l.surf ||= {};
+      const sb = (k) => bindObj(l.surf, k, `${ev}.exprs`);
+      card.append(h('div.range-row', {}, this.rangeInput('u from', l, 'min'), this.rangeInput('to', l, 'max')));
+      card.append(group('Surface', [
+        h('div.grid2', {}, number('v from', sb('vMin'), { step: 0.1 }), number('v to', sb('vMax'), { step: 0.1 }), number('Mesh u', sb('nu'), { min: 8, max: 200 }), number('Mesh v', sb('nv'), { min: 4, max: 120 })),
+        slider('Surface opacity', sb('solid'), { min: 0, max: 1, step: 0.01 }), slider('Lattice opacity', sb('wire'), { min: 0, max: 1, step: 0.01 }),
+      ], { hint: 'x, y, z as functions of u and v. The pen rides the path v(u) across the surface while u runs from start to end; its height is the pitch. Surfaces show in 3D.' }));
+    }
     if (l.type === 'parametric' || l.type === 'polar') {
       const v = l.type === 'polar' ? 'θ' : 's';
       card.append(h('div.range-row', {},
@@ -229,7 +250,7 @@ export class Panels {
       color('Second colour', bindObj(l, 'color2', `${ev}.look`)),
       select('Line style', { get: () => l.style, set: (v) => { l.style = v; store.emit(`${ev}.style`); } }, { line: 'Solid line', dashed: 'Dashed', dots: 'Dots' }),
       slider('Thickness', { get: () => l.width, set: (v) => { l.width = v; store.emit(`${ev}.width`); } }, { min: 1, max: 14, step: 0.5, unit: 'px' }),
-      slider('Detail', bindObj(l, 'samples', `${ev}.exprs`), l.type === 'surface' ? { min: 16, max: 128, step: 1, fmt: (v) => `${v}²` } : { min: 100, max: 3000, step: 50, fmt: (v) => `${v} pts` }),
+      slider('Detail', bindObj(l, 'samples', `${ev}.exprs`), l.type === 'surface' ? { min: 16, max: 128, step: 1, fmt: (v) => `${v}²` } : l.type === 'ode' || l.type === 'map' ? { min: 1000, max: 200000, step: 1000, fmt: (v) => `${v} ${l.type === 'map' ? 'points' : 'steps'}` } : { min: 100, max: 3000, step: 50, fmt: (v) => `${v} pts` }),
     ], { open: false }));
 
     // Time: when this layer plays (each layer can have its own window)
@@ -424,11 +445,15 @@ export class Panels {
         slider('Number of strings', p('visual.fx.strings'), { min: 10, max: 400, step: 1 }),
         slider('String brightness', p('visual.fx.stringAlpha'), { min: 0.02, max: 0.8, step: 0.01 }),
         slider('Whole curve lights up for the last', p('visual.fx.hold'), { min: 0, max: 6, step: 0.1, fmt: (v) => (v ? `${v} s` : 'never') }),
+        select('Loop', p('visual.loop'), { off: 'No loop (a final shot ends the video)', wrap: 'Wrap: the lit tail chases itself round a closed curve', fade: 'Fade: the drawing fades in and out' }),
+        slider('Loop fade length', p('visual.loopSecs'), { min: 0.5, max: 6, step: 0.1, unit: ' s' }),
+        slider('Cinema bars', p('visual.letterbox'), { min: 0, max: 1, step: 0.01 }),
       ], { hint: 'Glitch draws three glowing copies (red, green, cyan) a little apart and adds them, so overlaps turn white, with a jitter now and then. String art draws very faint strings from the centre to points of the curve as it grows. The laser web keeps a fading tail and links the pen to it. For the last seconds the tail opens and the whole curve lights up.' }),
       group('Backdrop', [
         select('Backdrop', p('visual.backdrop'), BACKDROPS),
         color('Backdrop light', p('visual.backdropColor')),
-      ], { hint: 'A painted background behind the drawing; it stays put when the camera zooms. The plain background colour above is its dark base.' }),
+        select('Backdrop motion', p('visual.backdropMotion'), BACKDROP_MOTIONS),
+      ], { hint: 'A painted background behind the drawing; it stays put when the camera zooms. The plain background colour above is its dark base. Motion is slow and repeats exactly over the video, so loops stay seamless.' }),
       group('Neon glow (bloom)', [
         toggle('Enabled', p('visual.bloom.enabled')),
         slider('Strength', p('visual.bloom.strength'), { min: 0, max: 3, step: 0.01 }),
@@ -591,8 +616,10 @@ export class Panels {
       ], { hint: 'Follow the pen + a zoomed-in camera (scroll, or a camera keyframe with K) gives tracking shots; punch zooms in on kicks and snares (Rhythm tab drums with “pulse” on). All of these can be keyframed in the Animate tab for dramatic reveals.' }),
       group('Final shot', [
         select('The last seconds', p('camera.ending'), ENDINGS),
-        slider('Length', p('camera.endingSecs'), { min: 0.5, max: 5, step: 0.1, unit: ' s' }),
-      ], { hint: 'A deliberate last shot, so the video clearly ends: the camera pulls back or pushes in and the glow flares. In the Light style panel, the curve also lights up in full for the last seconds.' }),
+        slider('Length', p('camera.endingSecs'), { min: 0.5, max: 8, step: 0.1, unit: ' s' }),
+        slider('Cinema bars in the final shot', p('camera.endingBars'), { min: 0, max: 1, step: 0.01 }),
+      ], { hint: 'A deliberate last shot, so the video clearly ends: the camera moves (the first two thirds) and holds, the glow flares at the cut, bars can slide in, or it fades to black or flashes white. In the Light style panel, the curve also lights up in full for the last seconds. With a loop (Look tab) choose None here.' }),
+      this.filmGroup(),
       group('Camera moves', [
         h('div.chips', {}, CAMERA_STYLES.map(([label, cfg, tip]) => h('button.chip', { type: 'button', title: tip, onclick: () => {
           store.state.camera = { ...store.state.camera, ...CAMERA_MOVE_DEFAULTS, ...cfg };
@@ -610,6 +637,37 @@ export class Panels {
     );
   }
 
+  /** Film: an opening, a climax and a finale written as keyframes in one click (anim/film.js). */
+  filmGroup() {
+    this.film ||= { open: 'follow', climax: 'surge', finale: 'both', loop: false, styleTo: 'rainbow', climaxAt: 0.68 };
+    const F = this.film, fb = (k) => ({ get: () => F[k], set: (v) => { F[k] = v; } });
+    const apply = () => {
+      const st = store.state;
+      const tracks = filmTracks({ D: st.transport.duration, ...F, is3d: st.mode === '3d', endingSecs: st.camera.endingSecs, bloom: st.visual.bloom.strength, intensity: st.visual.fx?.intensity ?? 1, styleFrom: st.visual.fx?.style || 'off' });
+      st.keyframes.tracks = { ...st.keyframes.tracks, ...tracks };
+      if (F.loop) { st.camera.ending = 'off'; if (!st.visual.loop || st.visual.loop === 'off') st.visual.loop = 'fade'; }
+      this.actions.keyframesChanged();
+      store.emit('camera'); store.emit('visual');
+      refreshAll();
+      this.actions.toast(`Film written as ${Object.keys(tracks).length} keyframe tracks: see the Animate tab.`);
+    };
+    const remove = () => {
+      const st = store.state, paths = ['camera.zoom', 'camera.track', 'camera.roll', 'camera.shake', 'camera.drift', 'camera.rotateSpeed', 'transport.speed', 'visual.exposure', 'visual.letterbox', 'visual.bloom.strength', 'visual.fx.intensity', 'visual.fx.style'];
+      for (const k of paths) delete st.keyframes.tracks[k];
+      this.actions.keyframesChanged(); refreshAll();
+      this.actions.toast('Film keyframes removed.');
+    };
+    return group('Film: opening, climax, finale', [
+      select('Opening', fb('open'), OPENINGS),
+      select('Climax', fb('climax'), CLIMAXES),
+      slider('Climax at', fb('climaxAt'), { min: 0.3, max: 0.9, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
+      select('Style after a switch', fb('styleTo'), FX_STYLES),
+      select('Finale', fb('finale'), FINALES),
+      toggle('Loop: every move returns to its start', fb('loop')),
+      h('div.row', {}, h('button.btn', { type: 'button', onclick: apply }, 'Write the film'), h('button.btn', { type: 'button', onclick: remove }, 'Remove film keys')),
+    ], { open: false, hint: 'Turns any preset into a short film: an opening shot (close-up, dive, rise out of black, white flash …), a climax (a rush, a glow surge, a style switch) and a finale before the final shot. It is written as ordinary keyframes, so you can edit every move in the Animate tab. With Loop on, everything comes back to its start so the end flows into the beginning.' });
+  }
+
   presetsTab() {
     this.library = new LibraryView({
       loadPreset: (p) => this.actions.loadPreset(p),
@@ -619,7 +677,23 @@ export class Panels {
       renderVideos: (items) => this.actions.renderBatch(items),
       addToDaily: (x) => this.daily?.enqueue(x.name, x.preset, x.preset.$shelf || ''),
     });
-    return this.library.el;
+    // what the preset is about: the maths behind it, kept here in the panel (never drawn on the video)
+    this.aboutEl = h('section.about-box', { hidden: true });
+    return h('div.presets-wrap', {}, this.aboutEl, this.library.el);
+  }
+
+  /** The "About this preset" box: the maths, the surprise, where it is used, and sources. */
+  renderAbout() {
+    const el = this.aboutEl, a = store.state.about;
+    if (!el) return;
+    el.hidden = !a;
+    if (!a) { el.replaceChildren(); return; }
+    const row = (k, v) => (v ? h('p', {}, h('strong', {}, k), ' ', v) : null);
+    el.replaceChildren(
+      h('h3', {}, `About: ${a.title || store.state.name}`),
+      ...[row('The maths:', a.math), row('The surprise:', a.aha), row('Where it shows up:', a.why), row('Look and sound:', a.look)].filter(Boolean),
+      ...(a.sources?.length ? [h('p.hint', {}, 'Sources: ', ...a.sources.flatMap((src, i) => [i ? ' · ' : '', h('a', { href: src.url, target: '_blank', rel: 'noopener' }, src.label)]))] : []),
+    );
   }
 
   harmTab() {
@@ -1415,6 +1489,7 @@ export class Panels {
 
   /** Re-sync every control with state after a preset load. */
   refresh() {
+    this.renderAbout();
     // rebuild the Circle tab first: its controls may point at layers that no longer exist
     this.circleEdit = Math.min(this.circleEdit || 0, store.state.circle.layers?.length || 0);
     this.renderCircle();

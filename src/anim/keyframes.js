@@ -14,6 +14,10 @@ export const EASES = { smooth: 'Smooth', linear: 'Linear', hold: 'Hold (step)', 
  * kind: number (glides) | step (a number that jumps, e.g. the key note) | color |
  * choice (a name or a switch: scale, instrument, filter type … holds until the next key) | pose (camera view).
  */
+import { FX_STYLES } from '../render/fx-styles.js';
+import { BACKDROPS } from '../render/backdrops.js';
+
+const FX_IDS = Object.keys(FX_STYLES), BACKDROP_IDS = Object.keys(BACKDROPS);
 const NUM = (path, label, min, max) => ({ path, label, kind: 'number', min, max });
 const STEP = (path, label, min, max) => ({ path, label, kind: 'step', min, max });
 const COL = (path, label) => ({ path, label, kind: 'color' });
@@ -53,6 +57,14 @@ export function animatable(state, scales = Object.keys(SCALES), instruments = Ob
     { ...NUM('transport.speed', 'Playback speed', 0.1, 5), group: 'Speed' },
     ...['a', 'b', 'c', 'd'].map((p) => ({ ...NUM(`params.${p}`, `Parameter ${p}`, -5, 5), group: 'Formula' })),
     { ...NUM('visual.bloom.strength', 'Glow strength', 0, 3), group: 'Look' },
+    { ...NUM('visual.exposure', 'Exposure (0 = black)', 0, 4), group: 'Look' },
+    { ...NUM('visual.letterbox', 'Cinema bars', 0, 1), group: 'Look' },
+    { ...CHOICE('visual.fx.style', 'Drawing style', FX_IDS), group: 'Look' },
+    { ...NUM('visual.fx.intensity', 'Line brightness', 0, 2), group: 'Look' },
+    { ...NUM('visual.fx.tail', 'Lit tail', 0.02, 1), group: 'Look' },
+    { ...NUM('visual.fx.offset', 'Colour split', 0, 20), group: 'Look' },
+    { ...NUM('visual.fx.stringAlpha', 'String brightness', 0, 1), group: 'Look' },
+    { ...CHOICE('visual.backdrop', 'Backdrop', BACKDROP_IDS), group: 'Look' },
     { ...NUM('visual.bloom.radius', 'Glow radius', 0, 1.5), group: 'Look' },
     { ...NUM('visual.bloom.threshold', 'Glow threshold', 0, 1), group: 'Look' },
     { ...NUM('visual.marker.size', 'Playhead size', 8, 90), group: 'Look' },

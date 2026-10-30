@@ -29,6 +29,48 @@ const noise = (x) => {
   return (hash(i) * (1 - u) + hash(i + 1) * u) * 2 - 1;
 };
 
+/**
+ * Riemann zeta ζ(σ + it) through the alternating (Dirichlet eta) series with Borwein's
+ * acceleration: η(s) = −1/d_n Σ (−1)^k (d_k − d_n) / (k+1)^s, ζ = η / (1 − 2^(1−s)).
+ * With n = 64 terms it is accurate to many digits for |t| up to about 60, which is where the
+ * videos look (the first zeros on the critical line are at t ≈ 14.13, 21.02, 25.01, 30.42 …).
+ */
+const ZETA_N = 64;
+const ZETA_W = (() => {
+  // d_k = n Σ_{i≤k} (n+i−1)! 4^i / ((n−i)! (2i)!), built from term ratios to stay in range
+  const n = ZETA_N, d = [];
+  let term = 1 / n, sum = 0; // i = 0: n·(n−1)!/(n!·0!) = 1, scaled by 1/n below and back
+  for (let i = 0; i <= n; i++) {
+    if (i > 0) term *= ((n + i - 1) * 4 * (n - i + 1)) / ((2 * i - 1) * (2 * i));
+    sum += term;
+    d.push(sum);
+  }
+  return d.map((dk) => (dk - d[n]) / d[n]); // weights in [−1, 0]
+})();
+let zetaMemo = { s: NaN, t: NaN, re: 0, im: 0 };
+function zeta(sigma, t) {
+  if (sigma === zetaMemo.s && t === zetaMemo.t) return zetaMemo;
+  let re = 0, im = 0;
+  for (let k = 0; k < ZETA_N; k++) {
+    const l = Math.log(k + 1), m = Math.exp(-sigma * l), sg = k % 2 ? -1 : 1;
+    re += sg * ZETA_W[k] * m * Math.cos(t * l);
+    im -= sg * ZETA_W[k] * m * Math.sin(t * l);
+  }
+  re = -re; im = -im;
+  // divide by 1 − 2^(1−s)
+  const m2 = Math.pow(2, 1 - sigma), a2 = -t * Math.LN2;
+  const dr = 1 - m2 * Math.cos(a2), di = -m2 * Math.sin(a2), dd = dr * dr + di * di;
+  zetaMemo = { s: sigma, t, re: (re * dr + im * di) / dd, im: (im * dr - re * di) / dd };
+  return zetaMemo;
+}
+const isPrime = (n) => {
+  n = Math.round(n);
+  if (n < 2) return 0;
+  if (n % 2 === 0) return n === 2 ? 1 : 0;
+  for (let i = 3; i * i <= n; i += 2) if (n % i === 0) return 0;
+  return 1;
+};
+
 /** name → [implementation, minArgs, maxArgs] */
 export const FUNCTIONS = {
   sin: [Math.sin, 1, 1], cos: [Math.cos, 1, 1], tan: [Math.tan, 1, 1],
@@ -55,6 +97,11 @@ export const FUNCTIONS = {
   square: [(x) => (fract(x) < 0.5 ? 1 : -1), 1, 1],
   pulse: [(x, duty = 0.5) => (fract(x) < duty ? 1 : -1), 1, 2],
   noise: [noise, 1, 1], rand: [hash, 1, 1],
+  // ζ(1/2 + it) on the critical line (or ζ(σ + it) with two arguments): real and imaginary parts
+  zetare: [(a, b) => (b === undefined ? zeta(0.5, a) : zeta(a, b)).re, 1, 2],
+  zetaim: [(a, b) => (b === undefined ? zeta(0.5, a) : zeta(a, b)).im, 1, 2],
+  isprime: [isPrime, 1, 1],
+  gcd: [(a, b) => { a = Math.abs(Math.round(a)); b = Math.abs(Math.round(b)); while (b) [a, b] = [b, a % b]; return a; }, 2, 2],
   deg: [(x) => (x * 180) / Math.PI, 1, 1], rad: [(x) => (x * Math.PI) / 180, 1, 1],
 };
 

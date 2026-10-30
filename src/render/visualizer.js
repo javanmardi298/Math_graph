@@ -166,21 +166,28 @@ const smooth01 = (x) => { const q = Math.min(1, Math.max(0, x)); return q * q * 
 const STRING_MAX = 400, BEAD_MAX = 600;
 const FX_PRISM = [0xff3d9a, 0xffe14d, 0x3dd9ff]; // magenta, yellow, cyan: the prism's copies, drawn with normal blending
 
-/**
- * Fade the lit tail of a line in place: full brightness at the pen, falling to `floor` over
- * `tail` × the whole curve behind it. `base` = per-vertex colours (null = white).
- */
-function writeFade(geo, base, count, shown, tail, floor = 0) {
+/** Brightness of vertex i of the lit tail: full at the pen, falling to `floor` over `len` vertices (around the loop when cyclic). */
+function tailAt(i, shown, count, len, floor, cyclic) {
+  let d = shown - 1 - i;
+  if (cyclic) d = ((d % count) + count) % count;
+  d /= len;
+  return d <= 0 ? 1 : Math.max(floor, Math.max(0, 1 - d) ** 1.7);
+}
+/** Copy per-vertex colours into a LineGeometry's segment colours (segments 0 … upto−1), in place. */
+function writeVerts(geo, vcol, upto) {
   const attr = geo.attributes.instanceColorStart;
   if (!attr) return;
-  const arr = attr.data.array, len = Math.max(2, tail * count), end = Math.min(count - 1, shown);
-  const a = (i) => { const d = (shown - 1 - i) / len; return d <= 0 ? 1 : Math.max(floor, Math.max(0, 1 - d) ** 1.7); };
-  for (let i = 0; i < end; i++) {
-    const a0 = a(i), a1 = a(i + 1), k = i * 6;
-    if (base) { arr[k] = base[i * 3] * a0; arr[k + 1] = base[i * 3 + 1] * a0; arr[k + 2] = base[i * 3 + 2] * a0; arr[k + 3] = base[i * 3 + 3] * a1; arr[k + 4] = base[i * 3 + 4] * a1; arr[k + 5] = base[i * 3 + 5] * a1; }
-    else { arr[k] = arr[k + 1] = arr[k + 2] = a0; arr[k + 3] = arr[k + 4] = arr[k + 5] = a1; }
+  const arr = attr.data.array;
+  for (let i = 0; i < upto; i++) {
+    const k = i * 6, j = i * 3;
+    arr[k] = vcol[j]; arr[k + 1] = vcol[j + 1]; arr[k + 2] = vcol[j + 2]; arr[k + 3] = vcol[j + 3]; arr[k + 4] = vcol[j + 4]; arr[k + 5] = vcol[j + 5];
   }
   attr.data.needsUpdate = true;
+}
+/** HSL (h in turns) → RGB into out[o..o+2]. */
+function hslInto(out, o, h, s, l) {
+  const a = s * Math.min(l, 1 - l), f = (n) => { const k = (n + h * 12) % 12; return l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)); };
+  out[o] = f(0); out[o + 1] = f(8); out[o + 2] = f(4);
 }
 
 /* --------------------------------------------------------------- LayerView */
@@ -201,11 +208,15 @@ class LayerView {
       dashed, dashSize: 0.18, gapSize: 0.12, worldUnits: false, depthWrite: opacity >= 1,
     });
 
-    if (layer.style === 'dots') {
+    // maps are clouds of many small soft points, added together where they pile up
+    const cloud = layer.type === 'map';
+    this.dotFactor = cloud ? 0.75 : 2.2;
+    if (layer.style === 'dots' || cloud) {
       this.dotsGeo = new THREE.BufferGeometry();
       this.dotsMat = new THREE.PointsMaterial({
         size: 1, vertexColors: true, sizeAttenuation: false, map: viz.dotTexture,
-        transparent: true, depthWrite: false, alphaTest: 0.05,
+        transparent: true, depthWrite: false, alphaTest: cloud ? 0.01 : 0.05,
+        ...(cloud ? { blending: THREE.AdditiveBlending, opacity: layer.sim?.alpha ?? 0.35 } : {}),
       });
       this.dots = new THREE.Points(this.dotsGeo, this.dotsMat);
       this.group.add(this.dots);
@@ -248,7 +259,7 @@ class LayerView {
     this.group.add(this.trail);
 
     // Surface mesh (3D surface layers only)
-    if (layer.type === 'surface') {
+    if (layer.type === 'surface' || layer.type === 'psurface') {
       this.surfGeo = new THREE.BufferGeometry();
       this.surfSolid = new THREE.Mesh(this.surfGeo, new THREE.MeshBasicMaterial({ vertexColors: true, transparent: true, opacity: 0.1, side: THREE.DoubleSide, depthWrite: false }));
       this.wireGeo = new THREE.BufferGeometry();
@@ -332,44 +343,75 @@ class LayerView {
    */
   frameFx(shown, f, ctx) {
     const { parts, fx } = this.fxMode();
-    const mode = parts.lines, I = fx.intensity ?? 1;
+    const v = this.viz.state.visual, wrap = v.loop === 'wrap' && this.layer.type !== 'map';
+    let mode = parts.lines;
+    if (!mode && wrap) mode = 'tube'; // a seamless loop needs a lit tail that chases itself round the curve
+    const I = fx.intensity ?? 1;
     if (!mode && !parts.string && !parts.beads) { this.hideFx(); return false; }
-    const holdK = fx.hold > 0 && f.duration ? smooth01(1 - (f.duration - (f.time ?? 0)) / fx.hold) : 0; // the last shot: the whole curve lights up
+    const holdK = !v.loop || v.loop === 'off' ? (fx.hold > 0 && f.duration ? smooth01(1 - (f.duration - (f.time ?? 0)) / fx.hold) : 0) : 0; // the last shot: the whole curve lights up
     const tail = (fx.tail ?? 0.3) + (6 - (fx.tail ?? 0.3)) * holdK;
     const res = this.viz.resolution, cam = this.viz.camera;
     cam.updateMatrixWorld();
     const right = tmpRight.setFromMatrixColumn(cam.matrixWorld, 0), up = tmpUp.setFromMatrixColumn(cam.matrixWorld, 1);
     const split = mode === 'glitch' || mode === 'prism';
     const spike = mode === 'glitch' ? (Math.max(0, Math.sin(f.now * 5.3) * Math.sin(f.now * 1.7 + 1)) ** 3) * 2.2 + (this.bump || 0) * 1.5 : 0;
-    const unit = (fx.offset ?? 3.2) * (mode === 'prism' ? 1.8 : 1) * (1 + spike) * f.k * f.worldPerPx;
+    const unit = (fx.offset ?? 3.2) * (mode === 'prism' ? 1.8 : mode === 'sketch' ? 0.35 : 1) * (1 + spike) * f.k * f.worldPerPx;
     const offs = [[-1, 0.35], [0.0, -0.2], [1, -0.35]];
     const w = this.layer.width * f.k;
 
     this.fxLines.forEach((ln) => { ln.visible = false; ln.position.set(0, 0, 0); ln.rotation.set(0, 0, 0); ln.scale.set(1, 1, 1); });
-    const use = (i, { color, opacity, width = w, additive = true }) => {
+    const use = (i, { color, opacity, width = w, additive = true, dashed = false }) => {
       const ln = this.fxLines[i], m = ln.material, bl = additive ? THREE.AdditiveBlending : THREE.NormalBlending;
       if (m.blending !== bl) { m.blending = bl; m.needsUpdate = true; }
+      if (m.dashed !== dashed) { m.dashed = dashed; m.needsUpdate = true; }
       ln.visible = true; m.resolution.copy(res); m.color.setHex(color); m.linewidth = width; m.opacity = Math.min(1, opacity);
       return ln;
     };
     if (mode) {
+      const n = this.count;
       if (this.fxGeo.attributes.instanceStart) {
-        this.fxGeo.instanceCount = Math.max(0, shown - 1);
-        const grey = split, floor = mode === 'web' ? 0.02 : mode === 'echo' || mode === 'kaleido' ? 0.2 : mode === 'ink' ? 0.35 : 0;
-        writeFade(this.fxGeo, grey ? null : this.baseCols, this.count, shown, mode === 'ink' || mode === 'echo' || mode === 'kaleido' ? Math.max(tail, 0.5) : tail, floor);
+        const upto = wrap ? n - 1 : Math.min(n - 1, shown);
+        this.fxGeo.instanceCount = Math.max(0, upto);
+        const floor = { web: 0.02, tube: 0.04, comet: 0, echo: 0.2, kaleido: 0.2, mirror: 0.2, ink: 0.35, sketch: 0.35, ants: 0.5, rainbow: 0.12, pulse: 0.15 }[mode] ?? 0;
+        const tl = mode === 'comet' ? Math.min(tail, 0.12) : ['ink', 'echo', 'kaleido', 'mirror', 'sketch', 'ants'].includes(mode) ? Math.max(tail, 0.5) : tail;
+        const len = Math.max(2, tl * n), grey = split || mode === 'sketch';
+        const vc = (this.vcol && this.vcol.length === n * 3) ? this.vcol : (this.vcol = new Float32Array(n * 3));
+        const B = this.baseCols, now = f.now;
+        for (let i = 0; i < n; i++) {
+          const a = tailAt(i, shown, n, len, floor, wrap), j = i * 3;
+          if (mode === 'rainbow') { hslInto(vc, j, (i / n) * 2 - now * 0.12 + 10, 0.9, 0.58); vc[j] *= a; vc[j + 1] *= a; vc[j + 2] *= a; continue; }
+          let m = a;
+          if (mode === 'pulse') m *= 0.22 + 0.78 * (0.5 + 0.5 * Math.sin((i / n) * Math.PI * 2 * 9 - now * 3.2)) ** 6;
+          if (grey) { vc[j] = vc[j + 1] = vc[j + 2] = m; } else { vc[j] = B[j] * m; vc[j + 1] = B[j + 1] * m; vc[j + 2] = B[j + 2] * m; }
+        }
+        writeVerts(this.fxGeo, vc, upto);
       }
       this.line.visible = false; this.ghost.visible = false;
       if (split) {
         for (let i = 0; i < 3; i++) use(i, mode === 'glitch' ? { color: FX_GLITCH[i], opacity: 0.55 * (1 - 0.5 * holdK) * I } : { color: FX_PRISM[i], opacity: 0.78 * I, additive: false })
           .position.set(0, 0, 0).addScaledVector(right, offs[i][0] * unit).addScaledVector(up, offs[i][1] * unit);
-      } else if (mode === 'web') {
-        use(0, { color: 0xffffff, opacity: 0.2 * I, width: w * 3.2 }); use(1, { color: 0xffffff, opacity: I });
+      } else if (mode === 'web' || mode === 'tube' || mode === 'rainbow' || mode === 'pulse') {
+        use(0, { color: 0xffffff, opacity: (mode === 'tube' ? 0.26 : 0.2) * I, width: w * 3.2 }); use(1, { color: 0xffffff, opacity: I });
+      } else if (mode === 'comet') {
+        use(0, { color: 0xffffff, opacity: 0.3 * I, width: w * 2.2 }); use(1, { color: 0xffffff, opacity: I, width: w * 0.8 });
       } else if (mode === 'echo') {
         for (let i = 0; i < 5; i++) { const ln = use(i, { color: 0xffffff, opacity: (0.75 - i * 0.14) * I, width: w * (1 - i * 0.1) }); const sc = 1 - i * 0.07; ln.scale.set(sc, sc, sc); ln.rotation.z = -i * 0.05; }
       } else if (mode === 'kaleido') {
-        const n = Math.min(6, Math.max(2, Math.round(fx.copies || 6)));
-        for (let i = 0; i < n; i++) use(i, { color: 0xffffff, opacity: (0.95 / Math.sqrt(n)) * I, width: w * 0.9 }).rotation.z = (i * Math.PI * 2) / n;
+        const k = Math.min(6, Math.max(2, Math.round(fx.copies || 6)));
+        for (let i = 0; i < k; i++) use(i, { color: 0xffffff, opacity: (0.95 / Math.sqrt(k)) * I, width: w * 0.9 }).rotation.z = (i * Math.PI * 2) / k;
+      } else if (mode === 'mirror') {
+        [[1, 1], [-1, 1], [1, -1], [-1, -1]].forEach(([sx, sy], i) => use(i, { color: 0xffffff, opacity: 0.6 * I, width: w * 0.9 }).scale.set(sx, sy, 1));
       } else if (mode === 'ink') use(0, { color: 0xffffff, opacity: 0.95 * I, additive: false });
+      else if (mode === 'sketch') {
+        // a pencil: three thin strokes a hair apart, in the line's own colour
+        const col = new THREE.Color(this.layer.color).getHex();
+        for (let i = 0; i < 3; i++) use(i, { color: col, opacity: 0.38 * I, width: w * 0.55, additive: false }).position.set(0, 0, 0).addScaledVector(right, offs[i][0] * unit).addScaledVector(up, offs[2 - i][1] * unit * 2);
+      } else if (mode === 'ants') {
+        // marching ants: a dashed line whose dashes run along the curve
+        const ln = use(1, { color: 0xffffff, opacity: I, dashed: true }), L = this.fxLen || 1;
+        ln.material.dashSize = L / 90; ln.material.gapSize = L / 110; ln.material.dashOffset = -f.now * (L / 40);
+        use(0, { color: 0xffffff, opacity: 0.12 * I, width: w * 0.6 });
+      }
     }
     this.marker.visible = !split;
 
@@ -382,6 +424,7 @@ class LayerView {
       const bl = mode === 'glitch' ? THREE.AdditiveBlending : THREE.NormalBlending;
       if (sp.material.blending !== bl) { sp.material.blending = bl; sp.material.needsUpdate = true; }
       sp.material.color.setHex(mode === 'glitch' ? FX_GLITCH[i] : FX_PRISM[i]);
+      sp.material.opacity = 1;
       sp.scale.set(px, px, 1);
       sp.position.copy(this.drawn).addScaledVector(right, offs[i][0] * unit * 1.4).addScaledVector(up, offs[i][1] * unit * 1.4);
     });
@@ -410,7 +453,9 @@ class LayerView {
       const n = Math.max(10, Math.min(48, Math.round((fx.strings || 90) / 2)));
       const len = Math.max(2, tail * this.count * 0.9);
       for (let j = 0; j < n; j++) {
-        const i = Math.max(0, Math.round(shown - 1 - (j / (n - 1)) * len)), a = (1 - j / n) ** 1.3;
+        let i = Math.round(shown - 1 - (j / (n - 1)) * len);
+        i = wrap ? ((i % this.count) + this.count) % this.count : Math.max(0, i);
+        const a = (1 - j / n) ** 1.3;
         pos.setXYZ(j * 2, this.drawn.x, this.drawn.y, this.drawn.z); pos.setXYZ(j * 2 + 1, this.pts[i * 3], this.pts[i * 3 + 1], this.pts[i * 3 + 2]);
         col.setXYZ(j * 2, this.baseCols[i * 3] * a, this.baseCols[i * 3 + 1] * a, this.baseCols[i * 3 + 2] * a);
         col.setXYZ(j * 2 + 1, this.baseCols[i * 3] * a * 0.5, this.baseCols[i * 3 + 1] * a * 0.5, this.baseCols[i * 3 + 2] * a * 0.5);
@@ -421,6 +466,18 @@ class LayerView {
       st.visible = true;
     } else st.visible = false;
     return !!mode || !!parts.beads;
+  }
+
+  /** Loop fade (visual.loop = 'fade'): everything this layer draws dims by k (0 … 1) this frame. */
+  applyFade(k) {
+    if (this.line) { this.line.material.opacity = k; this.ghost.material.opacity *= k; }
+    if (this.dots) { if (this.layer.type !== 'map') this.dotsMat.opacity = k; else this.dotsMat.opacity *= k; this.ghostDots.material.opacity *= k; }
+    for (const ln of this.fxLines) if (ln.visible) ln.material.opacity *= k;
+    for (const sp of this.fxMarkers) if (sp.visible) sp.material.opacity *= k;
+    this.strings.material.opacity *= k; this.beads.material.opacity *= k;
+    this.markerMat.opacity = k;
+    if (this.surfSolid) { this.surfSolid.material.opacity = (this.layer.type === 'psurface' ? this.layer.surf?.solid ?? 0.16 : 0.1) * k; this.surfWire.material.opacity = (this.layer.type === 'psurface' ? this.layer.surf?.wire ?? 0.45 : 0.5) * k; }
+    this.trail.visible = this.viz.state.visual.trail.enabled && k > 0.4;
   }
 
   applyStyle() {
@@ -451,6 +508,9 @@ class LayerView {
       this.fxGeo.setPositions(pts);
       this.fxGeo.setColors(new Float32Array(pts.length).fill(1));
       for (const ln of this.fxLines) { ln.geometry.dispose?.(); ln.geometry = this.fxGeo; }
+      this.fxLines[0].computeLineDistances(); // for the marching ants
+      const dist = this.fxGeo.attributes.instanceDistanceEnd;
+      this.fxLen = dist ? dist.data.array[dist.data.array.length - 1] : 1;
     }
 
     if (this.line) {
@@ -471,8 +531,41 @@ class LayerView {
 
     if (this.surfGeo) {
       this.surfSolid.visible = this.surfWire.visible = is3d;
-      if (is3d) this.buildSurface(compiled, ctx);
+      if (is3d) (this.layer.type === 'psurface' ? this.buildPSurface(compiled, ctx) : this.buildSurface(compiled, ctx));
     }
+  }
+
+  /** A (u, v) surface: mesh + lattice, coloured from the first to the second colour along v. */
+  buildPSurface(compiled, ctx) {
+    const S = this.layer.surf || {}, r = this.layer.range;
+    const NU = Math.max(8, Math.min(200, S.nu | 0 || 96)), NV = Math.max(4, Math.min(120, S.nv | 0 || 48));
+    const pos = new Float32Array((NU + 1) * (NV + 1) * 3), col = new Float32Array(pos.length);
+    const a = new THREE.Color(this.layer.color), b = new THREE.Color(this.layer.color2), p = { x: 0, y: 0, z: 0 };
+    for (let j = 0; j <= NV; j++) {
+      const v = S.vMin + ((S.vMax - S.vMin) * j) / NV;
+      for (let i = 0; i <= NU; i++) {
+        const u = r.min + ((r.max - r.min) * i) / NU;
+        compiled.surfAt(u, v, ctx, p);
+        const k = (j * (NU + 1) + i) * 3;
+        pos[k] = Number.isFinite(p.x) ? p.x : 0; pos[k + 1] = Number.isFinite(p.y) ? p.y : 0; pos[k + 2] = Number.isFinite(p.z) ? p.z : 0;
+        tmpColor.copy(a).lerp(b, j / NV);
+        col[k] = tmpColor.r; col[k + 1] = tmpColor.g; col[k + 2] = tmpColor.b;
+      }
+    }
+    const key = `${NU}x${NV}`;
+    if (this.surfKey !== key) {
+      const idx = [], lines = [], W = NU + 1;
+      for (let j = 0; j < NV; j++) for (let i = 0; i < NU; i++) { const q = j * W + i; idx.push(q, q + 1, q + W, q + 1, q + W + 1, q + W); }
+      const eu = Math.max(1, Math.round(NU / 32)), ev = Math.max(1, Math.round(NV / 16));
+      for (let j = 0; j <= NV; j += ev) for (let i = 0; i < NU; i++) lines.push(j * W + i, j * W + i + 1);
+      for (let i = 0; i <= NU; i += eu) for (let j = 0; j < NV; j++) lines.push(j * W + i, (j + 1) * W + i);
+      this.surfGeo.dispose(); this.wireGeo.dispose();
+      this.surfGeo.setIndex(idx); this.wireGeo.setIndex(lines);
+      this.surfKey = key; this.surfIndex = null;
+    }
+    for (const g of [this.surfGeo, this.wireGeo]) { writeAttr(g, 'position', pos, 3); writeAttr(g, 'color', col, 3); g.computeBoundingSphere(); }
+    this.surfSolid.material.opacity = S.solid ?? 0.16;
+    this.surfWire.material.opacity = S.wire ?? 0.45;
   }
 
   buildSurface(compiled, ctx) {
@@ -557,13 +650,14 @@ class LayerView {
         this.dotsGeo.setDrawRange(0, this.count);
         this.ghostDots.visible = !keep;
         this.ghostDots.material.opacity = 0.22;
-        this.dotsMat.size = this.ghostDots.material.size = this.layer.width * 2.2 * f.k;
+        this.dotsMat.size = this.ghostDots.material.size = this.layer.width * this.dotFactor * f.k;
       }
+      this.applyFade(f.fade ?? 1);
       return;
     }
-    this.marker.visible = true;
+    this.marker.visible = this.layer.type !== 'map'; // a cloud has no pen to follow
     if (this.line) { this.line.visible = true; this.ghost.material.opacity = 0.16; }
-    else { this.dots.visible = true; this.ghostDots.material.opacity = 0.16; }
+    else { this.dots.visible = true; this.ghostDots.material.opacity = 0.16; if (this.layer.type === 'map') this.dotsMat.opacity = Math.min(1, (this.layer.sim?.alpha ?? 0.35) * (v.fx?.intensity ?? 1)); }
 
     // Smoothly chase the exact point so sudden jumps glide instead of teleporting.
     if (!this.hasDrawn || f.snap || v.marker.smoothing <= 0) {
@@ -588,7 +682,7 @@ class LayerView {
     } else {
       this.dotsGeo.setDrawRange(0, shown);
       this.ghostDots.visible = mode === 'ghost';
-      this.dotsMat.size = this.ghostDots.material.size = this.layer.width * 2.2 * f.k;
+      this.dotsMat.size = this.ghostDots.material.size = this.layer.width * this.dotFactor * f.k;
     }
 
     // fx replaces the plain line and marker (chromatic copies, laser web) or adds strings
@@ -619,7 +713,7 @@ class LayerView {
     tu.uSize.value = v.trail.size;
     tu.uLife.value = Math.max(0.2, v.trail.count / 110);
     tu.uSpread.value = 0.35 * (ctx.view.yMax - ctx.view.yMin) / 8;
-    if (v.trail.enabled && f.playing) {
+    if (v.trail.enabled && f.playing && this.layer.type !== 'map') {
       const g = this.trail.geometry;
       const pos = g.attributes.position, birth = g.attributes.aBirth;
       const emit = 3;
@@ -641,7 +735,7 @@ class LayerView {
     }
 
     // Surface scan line across the depth axis at the current x.
-    if (this.scan && is3d) {
+    if (this.scan && is3d && this.layer.type === 'surface') {
       const N = 48;
       const arr = new Float32Array((N + 1) * 3);
       for (let j = 0; j <= N; j++) {
@@ -653,6 +747,7 @@ class LayerView {
       this.scan.geometry.computeBoundingSphere();
       this.scan.visible = true;
     } else if (this.scan) this.scan.visible = false;
+    this.applyFade(f.fade ?? 1);
   }
 
   dispose() {
@@ -888,7 +983,7 @@ export class Visualizer {
     this.bokeh.uniforms.aperture.value = v.dof.aperture * 0.0025;
 
     this.applyBackdrop();
-    this.renderer.toneMapping = v.tone === 'soft' ? THREE.ACESFilmicToneMapping : THREE.NoToneMapping; // soft: bright overlaps roll off instead of clipping to white
+    this.renderer.toneMapping = v.tone === 'soft' ? THREE.ACESFilmicToneMapping : (v.exposure ?? 1) !== 1 ? THREE.LinearToneMapping : THREE.NoToneMapping; // soft: bright overlaps roll off instead of clipping to white
     this.renderer.toneMappingExposure = v.exposure ?? 1;
     this.renderPass.camera = this.camera;
     this.orthoControls.enabled = mode === '2d';
@@ -901,6 +996,23 @@ export class Visualizer {
 
   restyle() {
     for (const v of this.views.values()) v.applyStyle();
+  }
+
+  /**
+   * Slow movement of the painted backdrop (visual.backdropMotion): drift, spin, breathe, zoom.
+   * Periodic over the video's length, so looping videos stay seamless.
+   */
+  moveBackdrop(t, D) {
+    const tex = this.backdropTex, m = this.state.visual.backdropMotion || 'still';
+    if (!tex || this.scene.background !== tex) return;
+    const P = D > 0 ? D : 30, ph = (t / P) * Math.PI * 2;
+    tex.center.set(0.5, 0.5);
+    let rep = 1, rot = 0, ox = 0, oy = 0;
+    if (m === 'drift') { rep = 0.88; ox = 0.04 * Math.sin(ph); oy = 0.035 * Math.sin(ph * 2 + 1); }
+    else if (m === 'spin') { rep = 0.66; rot = ph; }
+    else if (m === 'breathe') { rep = 0.86 + 0.07 * Math.sin(ph * 2); }
+    else if (m === 'zoom') { rep = 0.96 - 0.3 * (0.5 - 0.5 * Math.cos(ph)); }
+    tex.repeat.set(rep, rep); tex.rotation = rot; tex.offset.set(ox, oy);
   }
 
   /** A painted backdrop (visual.backdrop) as the scene background, sized to the frame. */
@@ -1055,8 +1167,13 @@ export class Visualizer {
   render(items, ctx, f) {
     const k = this.bufferMin / 1000;
     const wpp = this.worldPerPx();
-    const frame = { ...f, k, worldPerPx: wpp };
+    const v = this.state.visual, T = f.time ?? 0, D = f.duration || 0;
+    // loop: 'fade' dims everything in and out so the last frame matches the (empty) first one
+    const L = v.loopSecs ?? 2.5;
+    const fade = v.loop === 'fade' && D > L * 2 ? Math.min(smooth01(T / (L * 0.35)), smooth01((D - T) / L)) : 1;
+    const frame = { ...f, k, worldPerPx: wpp, fade };
     for (const it of items) this.views.get(it.id)?.frame(it.u, it.point, frame, it.compiled, ctx, it.phase);
+    this.moveBackdrop(T, D);
 
     // Labels keep a constant on-screen size.
     for (const s of this.grid.children) {
@@ -1119,6 +1236,17 @@ export class Visualizer {
     const mv = cameraMove(c, { time: f.time ?? 0, progress: f.progress ?? 0, bpm: f.bpm ?? 120 });
     const roll = THREE.MathUtils.degToRad((c.roll || 0) + mv.roll);
     if (mv.flare) this.bloom.strength *= 1 + 0.8 * mv.flare; // the glow flares at the cut to the final shot
+    // fade to black (dim > 0) or white-out (dim < 0) at the very end: exposure, through tone mapping
+    const r = this.renderer, base = this.state.visual.exposure ?? 1;
+    if (mv.dim) {
+      if (r.toneMapping === THREE.NoToneMapping) r.toneMapping = THREE.LinearToneMapping;
+      r.toneMappingExposure = base * (mv.dim > 0 ? Math.max(0, 1 - mv.dim) : 1 - mv.dim);
+      this.dimmed = true;
+    } else if (this.dimmed) {
+      this.dimmed = false;
+      r.toneMapping = this.state.visual.tone === 'soft' ? THREE.ACESFilmicToneMapping : base !== 1 ? THREE.LinearToneMapping : THREE.NoToneMapping;
+      r.toneMappingExposure = base;
+    }
     if (!track && punch < 1e-4 && !roll && !mv.active) { this.composer.render(f.dt); return; }
 
     const is3d = this.state.mode === '3d';

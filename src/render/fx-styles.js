@@ -13,13 +13,23 @@ export const FX_STYLES = {
   kaleido: 'Kaleidoscope: 2–6 turned copies',
   ink: 'Ink: solid line, no glow',
   beads: 'Beads: a string of pearls',
+  tube: 'Neon tube: soft halo, fading tail',
+  comet: 'Comet: a short bright tail',
+  rainbow: 'Rainbow flow: colours run along the curve (psychedelic)',
+  pulse: 'Pulse: beads of light travel along the curve',
+  ants: 'Marching ants: dashes that run along the curve',
+  mirror: 'Mirror: four reflected copies',
+  sketch: 'Pencil sketch: three fine strokes',
   glitchString: 'Glitch + string art',
   prismString: 'Prism + string art',
+  rainbowString: 'Rainbow flow + string art',
 };
 
 /** What each style draws: coloured copies (`lines`), strings from the centre or the pen, beads. */
 export const FX_PARTS = {
   off: {}, glitch: { lines: 'glitch' }, prism: { lines: 'prism' }, string: { string: true }, web: { lines: 'web', web: true },
   echo: { lines: 'echo' }, kaleido: { lines: 'kaleido' }, ink: { lines: 'ink' }, beads: { beads: true },
-  glitchString: { lines: 'glitch', string: true }, prismString: { lines: 'prism', string: true },
+  tube: { lines: 'tube' }, comet: { lines: 'comet' }, rainbow: { lines: 'rainbow' }, pulse: { lines: 'pulse' }, ants: { lines: 'ants' },
+  mirror: { lines: 'mirror' }, sketch: { lines: 'sketch' },
+  glitchString: { lines: 'glitch', string: true }, prismString: { lines: 'prism', string: true }, rainbowString: { lines: 'rainbow', string: true },
 };

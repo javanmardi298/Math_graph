@@ -12,7 +12,9 @@
  *   vignette  a plain colour with a pool of light in the middle
  */
 export const BACKDROPS = { solid: 'Plain colour', stars: 'Stars', nebula: 'Nebula', aurora: 'Aurora', rings: 'Rings', horizon: 'Neon horizon', scanlines: 'Monitor', vignette: 'Pool of light',
-  paper: 'Paper (light, for ink)', dusk: 'Dusk', chalk: 'Chalkboard', blueprint: 'Blueprint grid', topo: 'Contour lines', waves: 'Ocean waves', bokeh: 'Bokeh', cosmos: 'Cosmos and a planet', embers: 'Embers' };
+  paper: 'Paper (light, for ink)', dusk: 'Dusk', chalk: 'Chalkboard', blueprint: 'Blueprint grid', topo: 'Contour lines', waves: 'Ocean waves', bokeh: 'Bokeh', cosmos: 'Cosmos and a planet', embers: 'Embers',
+  tunnel: 'Tunnel (psychedelic)', rays: 'Sunburst rays', hex: 'Hex grid', gradient: 'Soft gradient', grain: 'Film grain (minimal)', plasma: 'Plasma (psychedelic)' };
+export const BACKDROP_MOTIONS = { still: 'Still', drift: 'Drift', spin: 'Slow spin', breathe: 'Breathe', zoom: 'Zoom in and out' };
 
 const rng = (seed) => () => { seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
 
@@ -113,6 +115,36 @@ export function paintBackdrop(g, kind, w, h, base, accent) {
   } else if (kind === 'embers') {
     glow(w / 2, h, m * 1.1, A, 0.3);
     for (let i = 0; i < 160; i++) { const x = R() * w, y = h - R() ** 1.6 * h, s = R(); g.fillStyle = css(mix(A, [255, 220, 120], s), 0.15 + s * 0.6); g.beginPath(); g.arc(x, y, (0.5 + s * 2) * (m / 700), 0, 6.2832); g.fill(); }
+  }
+  else if (kind === 'tunnel') {
+    // concentric squares shrinking to a vanishing point, alternating two lights
+    for (let i = 30; i > 0; i--) { const r = (i / 30) ** 1.8 * Math.hypot(w, h) * 0.6, col = i % 2 ? A : A2; g.strokeStyle = css(col, 0.05 + 0.25 * (1 - i / 30)); g.lineWidth = Math.max(1, (m / 300) * (i / 30)); g.save(); g.translate(w / 2, h / 2); g.rotate(i * 0.07); g.strokeRect(-r, -r, r * 2, r * 2); g.restore(); }
+    glow(w / 2, h / 2, m * 0.25, A2, 0.3);
+  } else if (kind === 'rays') {
+    const n = 36;
+    for (let i = 0; i < n; i++) { const a0 = (i / n) * 6.2832, a1 = a0 + 6.2832 / n / 2, R2 = Math.hypot(w, h); g.fillStyle = css(i % 2 ? A : A2, 0.06); g.beginPath(); g.moveTo(w / 2, h / 2); g.lineTo(w / 2 + Math.cos(a0) * R2, h / 2 + Math.sin(a0) * R2); g.lineTo(w / 2 + Math.cos(a1) * R2, h / 2 + Math.sin(a1) * R2); g.closePath(); g.fill(); }
+    glow(w / 2, h / 2, m * 0.6, A, 0.2);
+  } else if (kind === 'hex') {
+    const r = m / 22, dx = r * Math.sqrt(3), dy = r * 1.5;
+    g.lineWidth = Math.max(1, m / 900);
+    for (let row = -1, y = 0; y < h + r; row++, y = row * dy) for (let x = (row % 2) * dx / 2 - dx; x < w + dx; x += dx) {
+      const d = Math.hypot(x - w / 2, y - h / 2) / (Math.hypot(w, h) / 2);
+      g.strokeStyle = css(A, 0.03 + 0.18 * (1 - d) ** 2); g.beginPath();
+      for (let k = 0; k <= 6; k++) { const a = (k / 6) * 6.2832 + Math.PI / 6, px = x + Math.cos(a) * r, py = y + Math.sin(a) * r; k ? g.lineTo(px, py) : g.moveTo(px, py); }
+      g.stroke();
+    }
+  } else if (kind === 'gradient') {
+    const gr = g.createLinearGradient(0, 0, w, h); gr.addColorStop(0, css(mix(B, A, 0.28))); gr.addColorStop(0.5, css(B)); gr.addColorStop(1, css(mix(B, A2, 0.3)));
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  } else if (kind === 'grain') {
+    for (let i = 0; i < 9000; i++) { g.fillStyle = css(R() > 0.5 ? [255, 255, 255] : [0, 0, 0], 0.035); g.fillRect(R() * w, R() * h, 1.2, 1.2); }
+  } else if (kind === 'plasma') {
+    // a sum of sines: the classic demo-scene plasma, in the two lights
+    const cell = Math.max(4, Math.round(m / 90));
+    for (let y = 0; y < h; y += cell) for (let x = 0; x < w; x += cell) {
+      const u = x / m, v = y / m, val = (Math.sin(u * 9) + Math.sin(v * 7 + u * 3) + Math.sin(Math.hypot(u - 0.5, v - 0.9) * 14) + Math.sin(u * 4 - v * 5)) / 4;
+      g.fillStyle = css(mix(mix(B, A, 0.5 + 0.5 * val), A2, 0.5 - 0.5 * val), 0.45); g.fillRect(x, y, cell, cell);
+    }
   }
   // every backdrop falls off to the edges, so the drawing reads in the middle (light ones get a warm shade, not black)
   const light = (B[0] + B[1] + B[2]) / 3 > 140;
