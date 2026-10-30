@@ -38,10 +38,12 @@ export class CompiledLayer {
    * The path of a flow (Runge–Kutta 4 from the start point) or a map (iterated), placed by the
    * layer's sim settings. Cached until the parameters change (or every call if it uses time).
    */
-  path(ctx) {
+  path(ctx, refresh = true) {
     const P = ctx.params, n = Math.max(2, this.layer.samples | 0);
     const key = `${P.a}|${P.b}|${P.c}|${P.d}|${n}|${this.usesTime ? ctx.t : ''}`;
-    if (this.cache && this.cache.key === key) return this.cache.pts;
+    // the sound (and the pen) may use the last drawn path: recomputing tens of thousands of points
+    // for every audio step of a morphing cloud would stall an export; drawing refreshes it
+    if (this.cache && (this.cache.key === key || !refresh)) return this.cache.pts;
     const S = this.layer.sim || {}, f = this.fns, sc = this.scope;
     sc.t = ctx.t; sc.a = P.a; sc.b = P.b; sc.c = P.c; sc.d = P.d;
     const pts = new Float32Array((n + 1) * 3);
@@ -113,7 +115,7 @@ export class CompiledLayer {
     s.t = ctx.t;
     s.a = ctx.params.a; s.b = ctx.params.b; s.c = ctx.params.c; s.d = ctx.params.d;
     if (this.stepped) {
-      const pts = this.path(ctx), n = pts.length / 3 - 1, k = Math.min(n, Math.max(0, u * n));
+      const pts = this.path(ctx, false), n = pts.length / 3 - 1, k = Math.min(n, Math.max(0, u * n));
       const i = Math.min(n - 1, Math.floor(k)), w = this.layer.type === 'map' ? 0 : k - i;
       out.x = pts[i * 3] + (pts[i * 3 + 3] - pts[i * 3]) * w;
       out.y = pts[i * 3 + 1] + (pts[i * 3 + 4] - pts[i * 3 + 1]) * w;
