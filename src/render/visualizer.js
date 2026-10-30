@@ -541,10 +541,11 @@ class LayerView {
     const NU = Math.max(8, Math.min(200, S.nu | 0 || 96)), NV = Math.max(4, Math.min(120, S.nv | 0 || 48));
     const pos = new Float32Array((NU + 1) * (NV + 1) * 3), col = new Float32Array(pos.length);
     const a = new THREE.Color(this.layer.color), b = new THREE.Color(this.layer.color2), p = { x: 0, y: 0, z: 0 };
+    const u0 = S.uMin ?? r.min, u1 = S.uMax ?? r.max; // the mesh can cover a different u range than the pen
     for (let j = 0; j <= NV; j++) {
       const v = S.vMin + ((S.vMax - S.vMin) * j) / NV;
       for (let i = 0; i <= NU; i++) {
-        const u = r.min + ((r.max - r.min) * i) / NU;
+        const u = u0 + ((u1 - u0) * i) / NU;
         compiled.surfAt(u, v, ctx, p);
         const k = (j * (NU + 1) + i) * 3;
         pos[k] = Number.isFinite(p.x) ? p.x : 0; pos[k + 1] = Number.isFinite(p.y) ? p.y : 0; pos[k + 2] = Number.isFinite(p.z) ? p.z : 0;

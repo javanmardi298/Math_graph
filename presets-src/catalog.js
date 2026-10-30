@@ -24,6 +24,8 @@ import { HARMONOGRAPH_PRESETS } from './harmonograph.js';
 import { SPIRO_PRESETS } from './spirograph.js';
 import { CINEMATIC_PRESETS } from './cinematic.js';
 import { CINEMATIC2_PRESETS } from './cinematic2.js';
+import { SCIENCE_PRESETS } from './science.js';
+import { MOOD_PRESETS } from './moods.js';
 
 /** Shelves in library order: [id, name, section]. */
 export const SHELVES = [
@@ -56,6 +58,15 @@ export const SHELVES = [
   ['formulas-2d', 'Formulas · 2D curves', 'Formulas'],
   ['formulas-3d', 'Formulas · 3D', 'Formulas'],
   ['formulas-cinematic', 'Formulas · Cinematic (glitch, string art, laser web)', 'Formulas'],
+  ['showcase-films', '★ Showcase films (everything the app can do)', 'Picks'],
+  ['mood-psychedelic', 'Mood · Psychedelic', 'Moods'],
+  ['mood-satisfying', 'Mood · Satisfying (perfect loops)', 'Moods'],
+  ['mood-asmr', 'Mood · ASMR (slow and soft)', 'Moods'],
+  ['mood-minimal', 'Mood · Minimal', 'Moods'],
+  ['science-chaos', 'Science · Chaos & strange attractors', 'Science'],
+  ['science-shapes', 'Science · Shapes in 3D (knots, surfaces, orbitals)', 'Science'],
+  ['science-numbers', 'Science · Numbers (zeta, primes, golden angle)', 'Science'],
+  ['science-motion', 'Science · Motion & sync (fireflies, three bodies, pendulums)', 'Science'],
 ];
 
 /** Circle Lab simulation group → shelf. */
@@ -66,7 +77,7 @@ const GROUP_SHELF = {
   Pi: 'math-pi', Fractals: 'math-fractals', 'Music theory': 'music-theory', 'Complex numbers': 'math-complex', Harmonograph: 'math-harmonograph', Spirograph: 'math-spirograph', 'Motion & sync': 'science-motion', Numbers: 'science-numbers',
 };
 /** Older explicit categories → shelf. */
-const CATEGORY_SHELF = { 'Formulas · Sound of a graph': 'sound-graph', 'Formulas · Guess & compare': 'sound-quiz', 'Sound · Showcase': 'sound-showcase', 'Sound · Shapes in moods': 'sound-shapes', 'Sound · Melodic shapes': 'sound-curves', 'Sound · Layered shows': 'sound-layers', 'Music · Circle of fifths': 'music-theory', 'Math · Complex numbers': 'math-complex', 'Math · Harmonograph': 'math-harmonograph', 'Math · Spirograph': 'math-spirograph', 'Formulas · Cinematic': 'formulas-cinematic' };
+const CATEGORY_SHELF = { 'Formulas · Sound of a graph': 'sound-graph', 'Formulas · Guess & compare': 'sound-quiz', 'Sound · Showcase': 'sound-showcase', 'Sound · Shapes in moods': 'sound-shapes', 'Sound · Melodic shapes': 'sound-curves', 'Sound · Layered shows': 'sound-layers', 'Music · Circle of fifths': 'music-theory', 'Math · Complex numbers': 'math-complex', 'Math · Harmonograph': 'math-harmonograph', 'Math · Spirograph': 'math-spirograph', 'Formulas · Cinematic': 'formulas-cinematic', 'Science · Chaos & attractors': 'science-chaos', 'Science · Shapes in 3D': 'science-shapes', 'Science · Numbers': 'science-numbers', 'Science · Motion & sync': 'science-motion', 'Mood · Psychedelic': 'mood-psychedelic', 'Mood · Satisfying': 'mood-satisfying', 'Mood · ASMR': 'mood-asmr', 'Mood · Minimal': 'mood-minimal', 'Showcase · Films': 'showcase-films' };
 
 /** The shelf of a preset. */
 export function shelfOf(p) {
@@ -86,7 +97,7 @@ export const START_HERE = [
 ];
 
 /** Every built-in preset, in source order. */
-const SOURCES = [...FORMULA_PRESETS, ...CIRCLE_PRESETS, ...LAB_PRESETS, ...TOPIC_PRESETS, ...SOUND_PRESETS, ...STACK_PRESETS, ...SOUND_SHAPE_PRESETS, ...SHOWCASE_PRESETS, ...CURVE_PRESETS, ...LAYER_PRESETS, ...THEORY_PRESETS, ...HARMONOGRAPH_PRESETS, ...SPIRO_PRESETS, ...CINEMATIC_PRESETS, ...CINEMATIC2_PRESETS];
+const SOURCES = [...FORMULA_PRESETS, ...CIRCLE_PRESETS, ...LAB_PRESETS, ...TOPIC_PRESETS, ...SOUND_PRESETS, ...STACK_PRESETS, ...SOUND_SHAPE_PRESETS, ...SHOWCASE_PRESETS, ...CURVE_PRESETS, ...LAYER_PRESETS, ...THEORY_PRESETS, ...HARMONOGRAPH_PRESETS, ...SPIRO_PRESETS, ...CINEMATIC_PRESETS, ...CINEMATIC2_PRESETS, ...SCIENCE_PRESETS, ...MOOD_PRESETS];
 // a typo in lengths.js must not pass silently
 for (const n of Object.keys(LENGTHS)) if (!SOURCES.some((p) => p.name === n)) throw new Error(`lengths.js: no preset called "${n}"`);
 export const ALL_PRESETS = SOURCES.map(withLength);
