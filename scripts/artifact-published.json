@@ -1,6 +1,6 @@
 [
  {
-  "build": "c82245c64a",
+  "build": "d8fda4d67f",
   "files": [
    "analysis/chord.js",
    "analysis/dsp.js",
@@ -67,6 +67,7 @@
    "math/sequence.js",
    "presets.js",
    "render/backdrops.js",
+   "render/fx-styles.js",
    "render/visualizer.js",
    "shorts-prefs.js",
    "state.js",
@@ -84,7 +85,7 @@
   ]
  },
  {
-  "build": "d8fda4d67f",
+  "build": "fb4685fcfe",
   "files": [
    "analysis/chord.js",
    "analysis/dsp.js",
@@ -98,6 +99,7 @@
    "analysis/timbre.js",
    "analysis/to-harmonograph.js",
    "analysis/to-preset.js",
+   "anim/film.js",
    "anim/keyframes.js",
    "anim/selection.js",
    "anim/timewarp.js",
@@ -119,6 +121,7 @@
    "circle/icons.js",
    "circle/lab.js",
    "circle/layout.js",
+   "circle/motion.js",
    "circle/palettes.js",
    "circle/pi.js",
    "circle/scenes.js",
