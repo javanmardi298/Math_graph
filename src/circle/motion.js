@@ -77,8 +77,8 @@ export const kuramoto = {
       for (const p of sc.o) {
         const fl = Math.max(0, 1 - (time - p.flash) / 0.6), wob = 0.02 * Math.sin(time * 0.7 + p.i);
         const x = D.X(p.x + wob), y = D.Y(p.y + 0.02 * Math.cos(time * 0.5 + p.i * 1.7));
-        g.globalAlpha = 0.18 + 0.82 * fl;
-        glow(g, x, y, (3 + 12 * fl) * k, pal.line(0.12 + 0.1 * (p.i / n)), k, 8 + 40 * fl);
+        g.globalAlpha = 0.35 + 0.65 * fl;
+        glow(g, x, y, (4.5 + 13 * fl) * k, pal.line(0.12 + 0.1 * (p.i / n)), k, 10 + 40 * fl);
         g.globalAlpha = 1;
       }
     }
@@ -99,7 +99,7 @@ export const shepard = {
   controls: [
     ['step', 'A step every', 'r', 0.12, 2, 0.01, ' s'], ['octaves', 'Octaves stacked', 'r', 3, 8, 1], ['centre', 'Loudest around (MIDI)', 'r', 40, 90, 1],
     ['width', 'How wide the loud band is', 'r', 4, 30, 0.5], ['dir', 'Direction', 's', { up: 'Up forever', down: 'Down forever' }],
-    ['look', 'Picture', 's', { spiral: 'Spiral staircase (pitch helix)', stairs: 'Endless staircase (Penrose)' }],
+    ['look', 'Picture', 's', { spiral: 'Pitch spiral (seen from above)', pole: 'Barber pole of light' }],
   ],
   /** The notes sounding at step k: one per octave, loudness from a bell over pitch. */
   chord(P, k) {
@@ -121,20 +121,18 @@ export const shepard = {
     const { g, pal, k } = D;
     const s = (S.st / P.step) * (P.dir === 'down' ? -1 : 1); // continuous step count
     const total = 12 * P.octaves;
-    if (P.look === 'stairs') {
-      // an endless square staircase: 12 steps per loop, climbing as the notes do, seen from above
-      const steps = 48;
-      for (let i = 0; i < steps; i++) {
-        const q = ((i - s) % 12 + 12) % 12, side = Math.floor(q / 3), f = (q % 3) / 3;
-        const L = 0.8, c = [[-L + 2 * L * f, -L], [L, -L + 2 * L * f], [L - 2 * L * f, L], [-L, L - 2 * L * f]][side];
-        const depth = 1 - i / steps, sc = 0.25 + 0.75 * depth;
-        const lit = Math.exp(-((((i - 24) / 10) ** 2)));
-        g.globalAlpha = 0.15 + 0.85 * depth;
-        g.fillStyle = pal.line((q / 12 + i / steps) % 1);
-        g.fillRect(D.X(c[0] * sc) - 9 * k * sc, D.Y(c[1] * sc) - 9 * k * sc, 18 * k * sc, 18 * k * sc);
-        if (lit > 0.3) glow(g, D.X(c[0] * sc), D.Y(c[1] * sc), 6 * k * sc * lit, '#ffffff', k, 18);
+    if (P.look === 'pole') {
+      // a barber pole of sound: every note is a band of light climbing the screen; brightness is
+      // the loudness bell, so bands fade in at the bottom and out at the top while all keep rising
+      const H = S.W.hh * 0.92;
+      for (let j = 0; j < total; j++) {
+        const pitch = 24 + (((j + s) % total) + total) % total, loud = Math.exp(-(((pitch - P.centre) / P.width) ** 2) / 2);
+        const y = -H + (2 * H * (pitch - 24)) / total, wid = 0.15 + 0.75 * loud;
+        g.globalAlpha = 0.05 + 0.95 * loud;
+        g.strokeStyle = pal.line((pitch % 12) / 12); g.lineWidth = (2 + 10 * loud) * k; g.shadowColor = g.strokeStyle; g.shadowBlur = 24 * loud * k;
+        g.beginPath(); g.moveTo(D.X(-wid), D.Y(y)); g.lineTo(D.X(wid), D.Y(y)); g.stroke();
       }
-      g.globalAlpha = 1;
+      g.shadowBlur = 0; g.globalAlpha = 1;
       return;
     }
     // pitch helix seen from above: angle = pitch class, radius = octave; every note glides one
@@ -331,9 +329,11 @@ export const primes = {
   ],
   init(S) { S.sc = { n: 0, primes: 0 }; },
   count(S, P) { const t = S.st; return Math.min(P.max, Math.floor(Math.abs(P.accel - 1) < 1e-6 ? P.rate0 * t : (P.rate0 * (P.accel ** t - 1)) / Math.log(P.accel))); },
-  pos(P, n) {
-    if (P.kind === 'ulam') { const [x, y] = ulam(n), s = 0.95 / Math.ceil(Math.sqrt(P.max) / 2); return [x * s, y * s]; }
-    const r = Math.sqrt(n) / Math.sqrt(P.max) * 0.97, a = TAU * Math.sqrt(n);
+  /** Position of n when `N` numbers are shown: the spiral zooms out as it grows, so it always fills the circle. */
+  pos(P, n, N = P.max) {
+    const M = Math.max(60, N);
+    if (P.kind === 'ulam') { const [x, y] = ulam(n), s = 0.95 / Math.ceil(Math.sqrt(M) / 2); return [x * s, y * s]; }
+    const r = (Math.sqrt(n) / Math.sqrt(M)) * 0.97, a = TAU * Math.sqrt(n);
     return [Math.cos(a) * r, Math.sin(a) * r];
   },
   step(S, P, dt, emit) {
@@ -343,19 +343,19 @@ export const primes = {
       const n = ++S.sc.n;
       if (!isPrime(n)) continue;
       S.sc.primes++;
-      const [x, y] = this.pos(P, n);
+      const [x, y] = this.pos(P, n, want);
       if (sounds++ < 3) emit({ type: 'hit', ball: n % 24, x, y, angle: Math.atan2(y, x), pitch: Math.hypot(x, y), vel: 0.5, balls: S.sc.primes });
     }
   },
   draw(S, P, D) {
-    const { g, pal, k } = D, N = S.sc.n, r0 = Math.max(0.8, (P.kind === 'ulam' ? 260 : 330) / Math.sqrt(P.max)) * k * P.size;
+    const { g, pal, k } = D, N = S.sc.n, r0 = Math.min(14, Math.max(0.8, (P.kind === 'ulam' ? 260 : 330) / Math.sqrt(Math.max(60, N)))) * k * P.size;
     for (let n = 1; n <= N; n++) {
       const pr = isPrime(n), eu = P.euler && (() => { const q = (-1 + Math.sqrt(1 + 4 * (n - 41))) / 2; return n >= 41 && Math.abs(q - Math.round(q)) < 1e-9; })();
       if (!pr && !eu && P.all <= 0) continue;
-      const [x, y] = this.pos(P, n);
+      const [x, y] = this.pos(P, n, N);
       if (eu) { glow(g, D.X(x), D.Y(y), r0 * 1.6, '#ffd166', k, 14); continue; }
       g.globalAlpha = pr ? 1 : P.all;
-      g.fillStyle = pr ? pal.line((Math.sqrt(n) / Math.sqrt(P.max)) * 0.8) : '#ffffff';
+      g.fillStyle = pr ? pal.line((Math.sqrt(n) / Math.sqrt(Math.max(60, N))) * 0.8) : '#ffffff';
       g.fillRect(D.X(x) - r0 / 2, D.Y(y) - r0 / 2, r0, r0);
     }
     g.globalAlpha = 1;
@@ -389,74 +389,81 @@ function pathAt(P, d) {
 
 export const brachisto = {
   label: 'Fastest slide: the brachistochrone race', group: 'Motion & sync',
-  defaults: { kind: 'race', slow: 0.35, beads: 5 },
+  defaults: { kind: 'race', slow: 0.35, beads: 5, size: 1 },
   controls: [
     ['kind', 'Experiment', 's', { race: 'Race: line, arc, parabola, cycloid', tautochrone: 'Tautochrone: from any height, all arrive together' }],
-    ['slow', 'Slow motion', 'r', 0.05, 1.5, 0.01], ['beads', 'Beads (tautochrone)', 'r', 2, 9, 1],
+    ['slow', 'Slow motion', 'r', 0.05, 1.5, 0.01], ['beads', 'Beads (tautochrone)', 'r', 2, 9, 1], ['size', 'Size', 'r', 0.5, 1.4, 0.01],
   ],
   init(S, P) {
-    const A = [-0.8, 0.75], X = 1.6, Y = 1.1; // from A to B = A + (X, −Y)
+    const z = P.size ?? 1, A = [-0.9 * z, 0.75 * z], X = 1.8 * z, Y = 1.25 * z; // from A to B = A + (X, −Y)
+    if (P.kind === 'tautochrone') {
+      // a cycloid valley (cusp to cusp); on it a bead's arc length from the bottom obeys s'' = −(g/4R)s,
+      // simple harmonic motion whose period does not depend on where it starts
+      const R = Math.min(Y / 2, (0.96 * z) / Math.PI), N = 600; // the whole valley (2πR wide) fits the frame
+      A[0] = -Math.PI * R; A[1] = R * 1.2;
+      const cyc = Array.from({ length: N + 1 }, (_, i) => { const p = (i / N) * TAU; return [A[0] + R * (p - Math.sin(p)), A[1] - R * (1 - Math.cos(p))]; });
+      const nb = Math.max(2, P.beads | 0);
+      S.sc = { kind: 'taut', A, R, cyc, w: Math.sqrt(9.81 / (4 * R)), beads: Array.from({ length: nb }, (_, i) => ({ i, phi0: Math.PI * (0.06 + 0.86 * (i / (nb - 1))) })), crossings: 0 };
+      return;
+    }
     const N = 600, lines = [];
     const add = (name, f) => lines.push({ name, path: makePath(Array.from({ length: N + 1 }, (_, i) => f(i / N))) });
     const { R, phi } = cycloidThrough(X, Y);
-    if (P.kind === 'tautochrone') {
-      // the cycloid from its cusp to its lowest point (φ = π): beads start at different heights
-      const Rt = Y / 2;
-      const cyc = makePath(Array.from({ length: N + 1 }, (_, i) => { const p = (i / N) * Math.PI * 2; return [A[0] + Rt * (p - Math.sin(p)), A[1] - Rt * (1 - Math.cos(p))]; }));
-      const nb = Math.max(2, P.beads | 0);
-      // start points: φ0 between 0.05π and 0.95π (all on the left half), the bottom is at φ = π
-      S.sc = { kind: 'taut', cyc, Rt, beads: Array.from({ length: nb }, (_, i) => { const p0 = Math.PI * (0.06 + 0.86 * (i / (nb - 1))); return { i, p0, d: cyc.s[Math.round((p0 / (TAU)) * N)], v: 0, done: false }; }) };
-      return;
-    }
     add('straight line', (u) => [A[0] + X * u, A[1] - Y * u]);
     add('circular arc', (u) => { const a = (Math.PI / 2) * u; return [A[0] + X * (1 - Math.cos(a)), A[1] - Y * Math.sin(a)]; }); // drops steeply first, then flattens
     add('parabola', (u) => [A[0] + X * u, A[1] - Y * (2 * u - u * u)]);
     add('cycloid', (u) => { const p = phi * u; return [A[0] + R * (p - Math.sin(p)), A[1] - R * (1 - Math.cos(p))]; });
     S.sc = { kind: 'race', A, lines: lines.map((l, i) => ({ ...l, i, d: 1e-5, v: 0, done: false, at: null })) };
   },
+  /** Tautochrone bead: position on the cycloid at scene time t (exact solution). */
+  tautAt(sc, b, t) {
+    const R = sc.R, s0 = 4 * R * Math.cos(b.phi0 / 2), s = s0 * Math.cos(sc.w * t); // arc length from the bottom, signed
+    const phi = s >= 0 ? 2 * Math.acos(Math.min(1, s / (4 * R))) : TAU - 2 * Math.acos(Math.min(1, -s / (4 * R)));
+    return [sc.A[0] + R * (phi - Math.sin(phi)), sc.A[1] - R * (1 - Math.cos(phi))];
+  },
   step(S, P, dt, emit) {
-    const sc = S.sc, g = 9.81, sim = dt * P.slow, n = 40, h = sim / n;
-    const run = (path, b, y0) => {
-      for (let i = 0; i < n && !b.done; i++) {
-        const [, y] = pathAt(path, b.d);
-        b.v = Math.sqrt(Math.max(1e-9, 2 * g * (y0 - y)));
-        b.d += b.v * h;
-        if (b.d >= path.len - 1e-6) { b.d = path.len; b.done = true; return true; }
-      }
-      return false;
-    };
+    const sc = S.sc;
     if (sc.kind === 'taut') {
-      const bottom = sc.cyc.s[Math.round((sc.cyc.s.length - 1) / 2)];
-      for (const b of sc.beads) {
-        if (b.done) continue;
-        const y0 = sc.cyc.pts[Math.round((b.p0 / TAU) * (sc.cyc.pts.length - 1))][1];
-        const path = { ...sc.cyc, len: bottom };
-        if (run(path, b, y0 + 1e-6)) { b.at = S.st; emit({ type: 'hit', ball: b.i, x: 0, y: 0, angle: 0, midi: pentMidi(b.i, 60), vel: 0.8, together: true, balls: sc.beads.length }); }
+      // all beads pass the bottom at the same moments: t = (2k + 1)·π / (2ω)
+      const t = S.st * P.slow, n = Math.floor((sc.w * t) / Math.PI + 0.5);
+      if (n > sc.crossings) {
+        sc.crossings = n;
+        if (!sc.at) sc.at = S.st;
+        sc.beads.forEach((b) => emit({ type: 'hit', ball: b.i, x: 0, y: 0, angle: 0, midi: pentMidi(b.i, 60), vel: 0.8, together: true, balls: sc.beads.length }));
       }
       return;
     }
-    for (const b of sc.lines) if (!b.done && run(b.path, b, sc.A[1] + 1e-6)) { b.at = S.st; emit({ type: 'hit', ball: b.i, x: 0, y: 0, angle: 0, midi: [72, 67, 64, 60][b.i], vel: 0.85, balls: 4 }); }
+    const g = 9.81, sim = dt * P.slow, n = 40, h = sim / n;
+    for (const b of sc.lines) {
+      for (let i = 0; i < n && !b.done; i++) {
+        const [, y] = pathAt(b.path, b.d);
+        b.v = Math.sqrt(Math.max(1e-9, 2 * g * (sc.A[1] + 1e-6 - y)));
+        b.d += b.v * h;
+        if (b.d >= b.path.len - 1e-6) {
+          b.d = b.path.len; b.done = true; b.at = S.st;
+          emit({ type: 'hit', ball: b.i, x: 0, y: 0, angle: 0, midi: [72, 67, 64, 60][b.i], vel: 0.85, balls: 4 });
+        }
+      }
+    }
   },
   draw(S, P, D) {
     const { g, pal, k } = D, sc = S.sc;
     const stroke = (pts, col, w) => { g.strokeStyle = col; g.lineWidth = w * k; g.beginPath(); pts.forEach(([x, y], i) => (i ? g.lineTo(D.X(x), D.Y(y)) : g.moveTo(D.X(x), D.Y(y)))); g.stroke(); };
     if (sc.kind === 'taut') {
-      stroke(sc.cyc.pts.slice(0, Math.round(sc.cyc.pts.length / 2) + 1), hexA(pal.ring, 0.8), 3);
-      for (const b of sc.beads) {
-        const [x, y] = pathAt(sc.cyc, b.d), col = pal.line(b.i / sc.beads.length);
-        glow(g, D.X(x), D.Y(y), 9 * k, col, k, b.done ? 34 : 16);
-      }
+      g.shadowColor = pal.glow; g.shadowBlur = 12 * k; stroke(sc.cyc, hexA(pal.ring, 0.9), 4); g.shadowBlur = 0;
+      const t = S.st * P.slow;
+      for (const b of sc.beads) { const [x, y] = this.tautAt(sc, b, t); glow(g, D.X(x), D.Y(y), 11 * k, pal.line(b.i / sc.beads.length), k, 24); }
       return;
     }
     sc.lines.forEach((l) => {
       const col = pal.line(l.i / 4);
-      stroke(l.path.pts, hexA(col, 0.55), 2.5);
+      g.shadowColor = col; g.shadowBlur = 8 * k; stroke(l.path.pts, hexA(col, 0.75), 3.5); g.shadowBlur = 0;
       const [x, y] = pathAt(l.path, l.d);
-      glow(g, D.X(x), D.Y(y), 9 * k, col, k, l.done ? 34 : 16);
-      if (l.done) { g.fillStyle = col; g.font = `${Math.round(16 * k)}px system-ui`; g.textAlign = 'left'; g.fillText(`${l.name}: ${(l.at * P.slow).toFixed(3)} s`, D.X(-0.85), D.Y(-0.55 - 0.1 * l.i)); }
+      glow(g, D.X(x), D.Y(y), 12 * k, col, k, l.done ? 40 : 20);
+      if (l.done) { g.fillStyle = col; g.font = `600 ${Math.round(26 * k)}px system-ui`; g.textAlign = 'left'; g.fillText(`${l.name}  ${(l.at * P.slow).toFixed(3)} s`, D.X(-0.9), D.Y(-0.75 - 0.16 * l.i)); }
     });
   },
-  stats: (S, P) => (S.sc.kind === 'taut' ? `arrived: ${S.sc.beads.filter((b) => b.done).length}` : `finished: ${S.sc.lines.filter((l) => l.done).length} / 4`),
+  stats: (S) => (S.sc.kind === 'taut' ? `passes of the bottom, all together: ${S.sc.crossings}` : `finished: ${S.sc.lines.filter((l) => l.done).length} / 4`),
   formula: () => 'x = R(φ − sin φ), y = −R(1 − cos φ): the fastest slide',
 };
 

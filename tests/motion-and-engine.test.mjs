@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { CircleSim, defaultCircle } from '../src/circle/sim.js';
-import { dpEnergy, FIGURE8, cycloidThrough, shepard } from '../src/circle/motion.js';
+import { dpEnergy, FIGURE8, cycloidThrough, shepard, brachisto } from '../src/circle/motion.js';
 import { createLayer } from '../src/state.js';
 import { CompiledLayer } from '../src/math/layers.js';
 import { FUNCTIONS } from '../src/math/parser.js';
@@ -31,9 +31,12 @@ test('brachistochrone: the cycloid wins; tautochrone: all arrive together at π�
   const at = Object.fromEntries(s.sc.lines.map((l) => [l.name, l.at]));
   assert.ok(at.cycloid < at['straight line'] && at.cycloid < at.parabola && at.cycloid <= at['circular arc']);
   s = mk('brachisto', { kind: 'tautochrone', slow: 0.35, beads: 5 });
-  for (let t = 0; t < 30; t += 1 / 60) s.advance(t, () => {});
-  const times = s.sc.beads.map((b) => b.at * 0.35), T = Math.PI * Math.sqrt(s.sc.Rt / 9.81);
-  for (const x of times) assert.ok(Math.abs(x - T) < 0.01, `${x} vs ${T}`);
+  const sc = s.sc, T = Math.PI * Math.sqrt(sc.R / 9.81); // π√(R/g): time from any start to the bottom
+  for (const b of sc.beads) {
+    const [x, y] = brachisto.tautAt(sc, b, T), bottom = [sc.A[0] + sc.R * Math.PI, sc.A[1] - 2 * sc.R];
+    assert.ok(Math.hypot(x - bottom[0], y - bottom[1]) < 1e-6, `bead ${b.i}`);
+    assert.ok(Math.hypot(...brachisto.tautAt(sc, b, 0).map((v, i) => v - brachisto.tautAt(sc, b, 4 * T)[i])) < 1e-6, 'periodic');
+  }
   const { R, phi } = cycloidThrough(1.6, 1.1);
   assert.ok(Math.abs(R * (phi - Math.sin(phi)) - 1.6) < 1e-6 && Math.abs(R * (1 - Math.cos(phi)) - 1.1) < 1e-6);
 });

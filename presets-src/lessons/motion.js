@@ -17,7 +17,7 @@ export const MOTION_LESSONS = [
   L('A Sound That Rises Forever', 'shepard', [
     { lab: { step: 0.5, octaves: 1 }, say: 'One note going up a semitone each step' },
     { lab: { step: 0.5, octaves: 6 }, say: 'Six octaves at once, loudest in the middle' },
-    { lab: { step: 0.35, octaves: 6, look: 'stairs' }, say: 'After 12 steps: the same chord again' },
+    { lab: { step: 0.35, octaves: 6, look: 'pole' }, say: 'After 12 steps: the same chord again' },
   ], { instrument: 'e-piano', duration: 36, audio: A, look: { palette: 'ice', background: '#03050b' }, hook: 'Does this sound ever stop rising?', title: 'The Shepard scale: rising forever 🔁', desc: 'The top note fades out while a new bottom note fades in, so the climb never ends.' }),
 
   L('Three Bodies', 'threebody', [
