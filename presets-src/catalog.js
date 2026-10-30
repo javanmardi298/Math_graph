@@ -63,7 +63,7 @@ const GROUP_SHELF = {
   'Classic circle': 'classic', 'Multiply & split': 'multiply', 'Fill the screen': 'fill', 'Bounce & draw': 'bounce',
   'Battles & growth': 'growth', 'Battles & formulas': 'games', 'Patterns & rhythm': 'math-patterns', 'Drawing machines': 'math-machines',
   'Vibration & waves': 'physics', 'Waves & sound': 'sound-waves', 'Fourier & curves': 'math-fourier', 'Calculus & trig': 'math-calculus',
-  Pi: 'math-pi', Fractals: 'math-fractals', 'Music theory': 'music-theory', 'Complex numbers': 'math-complex', Harmonograph: 'math-harmonograph', Spirograph: 'math-spirograph',
+  Pi: 'math-pi', Fractals: 'math-fractals', 'Music theory': 'music-theory', 'Complex numbers': 'math-complex', Harmonograph: 'math-harmonograph', Spirograph: 'math-spirograph', 'Motion & sync': 'science-motion', Numbers: 'science-numbers',
 };
 /** Older explicit categories → shelf. */
 const CATEGORY_SHELF = { 'Formulas · Sound of a graph': 'sound-graph', 'Formulas · Guess & compare': 'sound-quiz', 'Sound · Showcase': 'sound-showcase', 'Sound · Shapes in moods': 'sound-shapes', 'Sound · Melodic shapes': 'sound-curves', 'Sound · Layered shows': 'sound-layers', 'Music · Circle of fifths': 'music-theory', 'Math · Complex numbers': 'math-complex', 'Math · Harmonograph': 'math-harmonograph', 'Math · Spirograph': 'math-spirograph', 'Formulas · Cinematic': 'formulas-cinematic' };
