@@ -11,7 +11,7 @@ test('five lessons of about five minutes, 16:9, with large centred formulas', ()
     assert.ok(p.transport.duration >= 270 && p.transport.duration <= 330, `${p.name}: ${p.transport.duration}`);
     assert.equal(p.visual.aspect, '16:9');
     assert.equal(p.overlay.formulas.align, 'center');
-    assert.ok(p.overlay.formulas.size >= 1.5);
+    assert.ok(p.overlay.formulas.size >= 2);
     // little text: short step titles only
     for (const t of p.overlay.texts) assert.ok(t.text.length <= 60, `${p.name}: "${t.text}"`);
     assert.ok(p.about?.math);

@@ -17,7 +17,7 @@ const CAT = 'Classroom · Lessons (16:9, 5 min)';
 const TAGS = 'math lesson, trigonometry, fourier, calculus, chaos, high school math, education, math animation';
 
 /** Short title at the bottom of the frame. */
-const T = (text, start, end, { y = 0.9, size = 0.55 } = {}) => ({ id: `t${Math.round(start * 10)}-${text.length}`, text, x: 0.5, y, size, color: '#ffffff', font: 'display', align: 'center', bold: true, box: true, glow: false, start: r3(start), end: r3(end) });
+const T = (text, start, end, { y = 0.9, size = 0.7 } = {}) => ({ id: `t${Math.round(start * 10)}-${text.length}`, text, x: 0.5, y, size, color: '#ffffff', font: 'display', align: 'center', bold: true, box: true, glow: false, start: r3(start), end: r3(end) });
 
 /* layer makers (formula text shown on video = `say`; context layers are silent and unlabelled) */
 const base = { width: 3.2, colorMode: 'solid', wave: 'e-piano', volume: 0.85, samples: 1600 };
@@ -40,12 +40,13 @@ function lesson(name, { view, steps, intro, outro, scale = 'pentatonic', root = 
   let t = t0;
   const layers = [], texts = [T(intro, 0.4, t0 + 0.3, { y: 0.5, size: 1.1 })], pose = [];
   const H = (view.yMax - view.yMin) / 2, cx0 = (view.xMin + view.xMax) / 2, cy0 = (view.yMin + view.yMax) / 2;
-  const P = (time, [cx, cy, hh]) => ({ time: r3(time), value: { mode: '2d', p: [r3(cx), r3(cy), 50], t: [r3(cx), r3(cy), 0], zoom: r3(H / hh) }, ease: 'smooth' });
+  // 2D camera poses are relative to the window's centre (the drawing is shifted so the centre is at 0)
+  const P = (time, [cx, cy, hh]) => ({ time: r3(time), value: { mode: '2d', p: [r3(cx - cx0), r3(cy - cy0), 50], t: [r3(cx - cx0), r3(cy - cy0), 0], zoom: r3(H / hh) }, frame: [cx, cy, hh], ease: 'smooth' });
   pose.push(P(0, [cx0, cy0, H]));
   steps.forEach((st, i) => {
     const dur = st.dur ?? 32, s = t, e = t + dur;
     const frame = st.frame || [cx0, cy0, H];
-    pose.push(P(s, pose.at(-1).value.p.slice(0, 2).concat([H / pose.at(-1).value.zoom])), P(s + 1.6, frame));
+    pose.push(P(s, pose.at(-1).frame), P(s + 1.6, frame));
     texts.push(T(`${i + 1}. ${st.title}`, s + 0.3, e - 0.2));
     st.layers.forEach((l, j) => {
       const main = j === 0 || l.main;
@@ -60,7 +61,8 @@ function lesson(name, { view, steps, intro, outro, scale = 'pentatonic', root = 
   });
   const D = r3(t + 6);
   texts.push(T(outro, t + 0.4, D - 0.2, { y: 0.88, size: 0.75 }));
-  pose.push(P(t + 0.2, pose.at(-1).value.p.slice(0, 2).concat([H / pose.at(-1).value.zoom])), P(t + 2, [cx0, cy0, H]));
+  pose.push(P(t + 0.2, pose.at(-1).frame), P(t + 2, [cx0, cy0, H]));
+  for (const k of pose) delete k.frame;
   return {
     name, $category: CAT, mode: '2d', transport: { duration: D, bpm: 90 }, view,
     sequence: { enabled: false, past: 'hide' },
@@ -75,7 +77,7 @@ function lesson(name, { view, steps, intro, outro, scale = 'pentatonic', root = 
     camera: { ending: 'cinema', endingSecs: 4.5, endingBars: 0, track: 0, zoom: 1, roll: 0 },
     audio: { master: 0.85, scale, root, noteLow: lo, noteHigh: hi, glide: 20, articulation: 'pluck', reverb: { decay: 2.6, mix: 0.25, tone: 0.8, preDelay: 0.01 }, delay: { time: 0.375, feedback: 0.2, mix: 0.08, pingpong: false } },
     rhythm: { enabled: false, showGrid: false },
-    overlay: { layout: 4, name: { enabled: false }, title: { enabled: false }, formulas: { enabled: true, align: 'center', box: true, x: 0.5, y: 0.045, size: 1.7, fit: true, start: 0, end: 0 }, texts },
+    overlay: { layout: 4, name: { enabled: false }, title: { enabled: false }, formulas: { enabled: true, align: 'center', box: true, x: 0.5, y: 0.045, size: 2.2, fit: true, start: 0, end: 0 }, texts },
     keyframes: { tracks: { 'camera.pose': pose }, autoKey: false },
     hook: { text: hook },
     youtube: { title: `${title}`, description: `${desc}\n\nA five-minute visual lesson.`, tags: TAGS },
