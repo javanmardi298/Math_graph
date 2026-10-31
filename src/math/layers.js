@@ -81,7 +81,7 @@ export class CompiledLayer {
         if (ok(nx) && ok(ny) && ok(nz)) { x = nx; y = ny; z = nz; } else { x = S.x0 ?? 0.1; y = S.y0 ?? 0; z = S.z0 ?? 0; }
       };
       sc.n = 0;
-      for (let i = 0; i < Math.max(20, S.skip | 0); i++) next();
+      for (let i = 0; i < (S.skip ?? 20); i++) next(); // warm-up: skip the first points (0 keeps them, e.g. a spiral of triangles)
       for (let i = 0; i <= n; i++) { put(i, x, y, z); next(); }
     }
     this.cache = { key, pts };

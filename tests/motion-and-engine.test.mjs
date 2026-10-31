@@ -88,3 +88,19 @@ test('films: looping films end where they began; openings and finales write keyf
   assert.equal(F['visual.exposure'][0].value, 0);
   assert.ok(F['visual.letterbox'].at(-1).value === 1 && F['transport.speed'].some((k) => k.value > 1.5));
 });
+
+test('Bessel J: known zeros and values; maps: Theodorus, fern and the logistic road to chaos', () => {
+  const J = FUNCTIONS.besselj[0];
+  for (const [n, z] of [[0, 2.4048], [0, 5.5201], [1, 3.8317]]) assert.ok(Math.abs(J(n, z)) < 1e-3, `J${n}(${z})`);
+  assert.ok(Math.abs(J(1, 1) - 0.4400505857) < 1e-8 && Math.abs(J(0, 0) - 1) < 1e-12);
+  // Theodorus: the n-th vertex is at distance √n
+  const th = new CompiledLayer(createLayer({ type: 'map', exprs: { x: 'x-y/sqrt(x^2+y^2)', y: 'y+x/sqrt(x^2+y^2)', z: '0' }, samples: 100, sim: { x0: 1, y0: 0, skip: 0 } })).sample(ctx);
+  for (const n of [1, 2, 17, 100]) assert.ok(Math.abs(Math.hypot(th[(n - 1) * 3], th[(n - 1) * 3 + 1]) - Math.sqrt(n)) < 1e-4, `√${n}`);
+  // logistic: r = 2.9 settles on one value 1 − 1/r; r near 3.9 wanders
+  const lg = (r) => new CompiledLayer(createLayer({ type: 'map', exprs: { x: 'y*x*(1-x)', y: String(r), z: '0' }, samples: 400, sim: { x0: 0.5, y0: r, skip: 0 } })).sample(ctx);
+  const a = lg(2.9);
+  assert.ok(Math.abs(a[399 * 3] - (1 - 1 / 2.9)) < 1e-3);
+  const b = lg(3.9), vals = new Set();
+  for (let i = 300; i < 400; i++) vals.add(b[i * 3].toFixed(3));
+  assert.ok(vals.size > 50, 'chaos: many different values');
+});

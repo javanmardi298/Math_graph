@@ -490,6 +490,11 @@ class LayerView {
     this.trailMat.uniforms.uColor.value.copy(color);
     this.trail.visible = v.trail.enabled;
     this.trailMat.blending = this.viz.lightBackground ? THREE.NormalBlending : THREE.AdditiveBlending;
+    if (this.dotsMat && l.type === 'map') {
+      // glowing clouds add light on dark paper; on light paper the dots are ink
+      const bl = this.viz.lightBackground ? THREE.NormalBlending : THREE.AdditiveBlending;
+      if (this.dotsMat.blending !== bl) { this.dotsMat.blending = bl; this.dotsMat.needsUpdate = true; }
+    }
   }
 
   /** Re-sample the curve and push it to the GPU. */

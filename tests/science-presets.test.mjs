@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SCIENCE_PRESETS } from '../presets-src/science.js';
 import { MOOD_PRESETS } from '../presets-src/moods.js';
+import { SCIENCE2_PRESETS } from '../presets-src/science2.js';
 import { normalize } from '../src/state.js';
 import { CompiledLayer } from '../src/math/layers.js';
 import { SCENES } from '../src/circle/scenes.js';
@@ -10,7 +11,7 @@ import { BACKDROPS } from '../src/render/backdrops.js';
 import { ENDINGS } from '../src/camera-moves.js';
 import { shelfOf } from '../presets-src/catalog.js';
 
-const ALL = [...SCIENCE_PRESETS, ...MOOD_PRESETS];
+const ALL = [...SCIENCE_PRESETS, ...MOOD_PRESETS, ...SCIENCE2_PRESETS];
 const ctx = (st) => ({ t: 0, params: { a: 1, b: 1, c: 1, d: 1, ...(st.params || {}) }, view: st.view });
 
 test('every new preset explains its maths in the panel (about), not on the video', () => {

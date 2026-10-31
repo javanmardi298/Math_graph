@@ -23,7 +23,7 @@ export const LAYER_TYPES = {
 };
 
 /** Settings of flows and maps: start point, step, warm-up, and how the result is placed (scale, centre, which axis is up). */
-export const SIM_DEFAULTS = { x0: 0.1, y0: 0, z0: 0, dt: 0.01, skip: 0, scale: 1, cx: 0, cy: 0, cz: 0, up: 'y', alpha: 0.35 };
+export const SIM_DEFAULTS = { x0: 0.1, y0: 0, z0: 0, dt: 0.01, skip: 20, scale: 1, cx: 0, cy: 0, cz: 0, up: 'y', alpha: 0.35 };
 /** Settings of (u, v) surfaces: the v range and the mesh detail; u uses the layer's range. */
 export const SURF_DEFAULTS = { vMin: 0, vMax: Math.PI * 2, nu: 96, nv: 48, solid: 0.16, wire: 0.45 };
 

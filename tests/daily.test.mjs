@@ -12,7 +12,7 @@ const json = (p) => JSON.parse(readFileSync(new URL(p, root), 'utf8'));
 const idx = json('index.json');
 const catalog = { shelves: idx.shelves.map((s) => ({ shelf: s, presets: json(s.file).presets })), packs: idx.packs.map((p) => ({ id: p.id, presets: json(p.file).presets })) };
 const all = catalog.shelves.filter((s) => s.shelf.id !== 'start').flatMap(({ shelf, presets }) => presets.map((p) => ({ p, shelf: shelf.id })));
-const VARS = ['x', 'y', 'z', 'r', 't', 'a', 'b', 'c', 'd', 's', 'theta', 'u', 'v'];
+const VARS = ['x', 'y', 'z', 'r', 't', 'a', 'b', 'c', 'd', 's', 'theta', 'u', 'v', 'n'];
 
 test('remix: same seed, same preset; another seed, another one', () => {
   const { p, shelf } = all.find((x) => x.p.circle?.rule === 'fdraw');

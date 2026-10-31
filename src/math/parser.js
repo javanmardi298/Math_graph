@@ -63,6 +63,13 @@ function zeta(sigma, t) {
   zetaMemo = { s: sigma, t, re: (re * dr + im * di) / dd, im: (im * dr - re * di) / dd };
   return zetaMemo;
 }
+/** Bessel function of the first kind, Jₙ(x) = (1/π)∫₀^π cos(nτ − x sin τ) dτ (Simpson, 96 steps; whole n). */
+function besselJ(n, x) {
+  const N = 96, h = Math.PI / N;
+  let s = 0;
+  for (let i = 0; i <= N; i++) { const t = i * h, w = i === 0 || i === N ? 1 : i % 2 ? 4 : 2; s += w * Math.cos(n * t - x * Math.sin(t)); }
+  return (s * h) / 3 / Math.PI;
+}
 const isPrime = (n) => {
   n = Math.round(n);
   if (n < 2) return 0;
@@ -101,6 +108,7 @@ export const FUNCTIONS = {
   zetare: [(a, b) => (b === undefined ? zeta(0.5, a) : zeta(a, b)).re, 1, 2],
   zetaim: [(a, b) => (b === undefined ? zeta(0.5, a) : zeta(a, b)).im, 1, 2],
   isprime: [isPrime, 1, 1],
+  besselj: [(n, x) => besselJ(Math.round(n), x), 2, 2],
   gcd: [(a, b) => { a = Math.abs(Math.round(a)); b = Math.abs(Math.round(b)); while (b) [a, b] = [b, a % b]; return a; }, 2, 2],
   deg: [(x) => (x * 180) / Math.PI, 1, 1], rad: [(x) => (x * Math.PI) / 180, 1, 1],
 };
