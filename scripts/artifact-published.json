@@ -1,6 +1,6 @@
 [
  {
-  "build": "fb4685fcfe",
+  "build": "b52362dfa2",
   "files": [
    "analysis/chord.js",
    "analysis/dsp.js",
@@ -87,7 +87,7 @@
   ]
  },
  {
-  "build": "b52362dfa2",
+  "build": "7447e13233",
   "files": [
    "analysis/chord.js",
    "analysis/dsp.js",
