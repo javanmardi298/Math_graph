@@ -24,8 +24,8 @@ const base = { width: 3.2, colorMode: 'solid', wave: 'e-piano', volume: 0.85, sa
 const PA = (x, y, min, max, say, o = {}) => ({ ...base, type: 'parametric', exprs: { x, y, z: '0' }, range: { min: r3(min), max: r3(max) }, caption: say ?? '-', ...o });
 const PO = (r, min, max, say, o = {}) => ({ ...base, type: 'polar', exprs: { r, z: '0' }, range: { min: r3(min), max: r3(max) }, caption: say ?? '-', ...o });
 const FN = (y, say, o = {}) => ({ ...base, type: 'function', exprs: { y, z: '0' }, caption: say ?? '-', ...o });
-const MAP = (x, y, say, o = {}) => ({ ...base, type: 'map', exprs: { x, y, z: '0' }, caption: say ?? '-', width: 5, volume: 0, samples: 400, sim: { skip: 0, alpha: 1, ...(o.sim || {}) }, ...o });
-const ODE = (x, y, z, sim, say, o = {}) => ({ ...base, type: 'ode', exprs: { x, y, z }, sim: { skip: 0, ...sim }, caption: say ?? '-', samples: 6000, width: 2.4, ...o });
+const MAP = (x, y, say, o = {}) => ({ ...base, type: 'map', exprs: { x, y, z: '0' }, caption: say ?? '-', width: 5, volume: 0, samples: 400, ...o, sim: { skip: 0, alpha: 1, ...(o.sim || {}) } });
+const ODE = (x, y, z, sim, say, o = {}) => ({ ...base, type: 'ode', exprs: { x, y, z }, caption: say ?? '-', samples: 6000, width: 2.4, ...o, sim: { skip: 0, ...sim } });
 /** A faint, silent reference drawing. */
 const ghost = (l) => ({ ...l, caption: '-', volume: 0, width: 1.6, color: '#7f8aa8', color2: '#7f8aa8', colorMode: 'solid' });
 
