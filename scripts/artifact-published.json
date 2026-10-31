@@ -1,6 +1,6 @@
 [
  {
-  "build": "d8fda4d67f",
+  "build": "fb4685fcfe",
   "files": [
    "analysis/chord.js",
    "analysis/dsp.js",
@@ -14,6 +14,7 @@
    "analysis/timbre.js",
    "analysis/to-harmonograph.js",
    "analysis/to-preset.js",
+   "anim/film.js",
    "anim/keyframes.js",
    "anim/selection.js",
    "anim/timewarp.js",
@@ -35,6 +36,7 @@
    "circle/icons.js",
    "circle/lab.js",
    "circle/layout.js",
+   "circle/motion.js",
    "circle/palettes.js",
    "circle/pi.js",
    "circle/scenes.js",
@@ -85,7 +87,7 @@
   ]
  },
  {
-  "build": "fb4685fcfe",
+  "build": "b52362dfa2",
   "files": [
    "analysis/chord.js",
    "analysis/dsp.js",
