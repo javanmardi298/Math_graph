@@ -142,7 +142,7 @@ export const SCIENCE2_PRESETS = [
   /* ---------------------------------------------------------- numbers */
   film('The Spiral of Theodorus', {
     cat: NUMBERS, mode: '2d', ext: 1.05, D: 28, c1: '#ffd166', backdrop: 'paper', light: true, bloom: 0, open: 'push', ending: 'breath',
-    layers: [MAP('√n triangles', { x: 'x-y/sqrt(x^2+y^2)', y: 'y+x/sqrt(x^2+y^2)', z: '0' }, { samples: 320, width: 18, volume: 0, colorMode: 'gradient', color: '#1e3a5f', color2: '#a33b1d', sim: { x0: 1, y0: 0, alpha: 1, skip: 0, scale: 0.055 } }), melody('C4 D4 E4 G4 A4 C5 D5 E5 G5 A5 G5 E5 D5 C5 A4 G4', { wave: 'music-box', melodyLoops: 2, volume: 0.6 })],
+    layers: [MAP('√n triangles', { x: 'x-y/sqrt(x^2+y^2)', y: 'y+x/sqrt(x^2+y^2)', z: '0' }, { samples: 320, width: 3, volume: 0, colorMode: 'gradient', color: '#1e3a5f', color2: '#a33b1d', sim: { x0: 1, y0: 0, alpha: 1, skip: 0, scale: 0.055 } }), melody('C4 D4 E4 G4 A4 C5 D5 E5 G5 A5 G5 E5 D5 C5 A4 G4', { wave: 'music-box', melodyLoops: 2, volume: 0.6 })],
     hook: '√1, √2, √3 … a spiral of triangles', title: 'The spiral of Theodorus: √2, √3, √4 … 📐',
     about: { math: 'Each step adds a side of length 1 at a right angle to the line from the centre: (x, y) → (x − y/r, y + x/r). By Pythagoras the distance from the centre goes √1, √2, √3, √4 …', aha: 'Theodorus of Cyrene (5th century BC) is said to have proved that √3 … √17 are irrational, and the 17th triangle is exactly where the spiral first overlaps itself.', sources: [S.theodorus] },
   }),

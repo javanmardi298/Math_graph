@@ -164,6 +164,8 @@ const trailFragment = /* glsl */ `
 const FX_GLITCH = [0xff2a3d, 0x38ff7a, 0x2ae8ff]; // red, green, cyan: the three lights of the chromatic glitch
 const smooth01 = (x) => { const q = Math.min(1, Math.max(0, x)); return q * q * (3 - 2 * q); };
 const STRING_MAX = 400, BEAD_MAX = 600;
+/** A map with many points is a cloud of glowing dots; a short one (a sequence) is drawn as a line with a pen. */
+const isCloud = (l) => l.type === 'map' && (l.samples | 0) > 2000;
 const FX_PRISM = [0xff3d9a, 0xffe14d, 0x3dd9ff]; // magenta, yellow, cyan: the prism's copies, drawn with normal blending
 
 /** Brightness of vertex i of the lit tail: full at the pen, falling to `floor` over `len` vertices (around the loop when cyclic). */
@@ -209,7 +211,8 @@ class LayerView {
     });
 
     // maps are clouds of many small soft points, added together where they pile up
-    const cloud = layer.type === 'map';
+    const cloud = isCloud(layer);
+    this.cloud = cloud;
     this.dotFactor = cloud ? 0.75 : 2.2;
     if (layer.style === 'dots' || cloud) {
       this.dotsGeo = new THREE.BufferGeometry();
@@ -343,7 +346,7 @@ class LayerView {
    */
   frameFx(shown, f, ctx) {
     const { parts, fx } = this.fxMode();
-    const v = this.viz.state.visual, wrap = v.loop === 'wrap' && this.layer.type !== 'map';
+    const v = this.viz.state.visual, wrap = v.loop === 'wrap' && !this.cloud;
     let mode = parts.lines;
     if (!mode && wrap) mode = 'tube'; // a seamless loop needs a lit tail that chases itself round the curve
     const I = fx.intensity ?? 1;
@@ -471,7 +474,7 @@ class LayerView {
   /** Loop fade (visual.loop = 'fade'): everything this layer draws dims by k (0 … 1) this frame. */
   applyFade(k) {
     if (this.line) { this.line.material.opacity = k; this.ghost.material.opacity *= k; }
-    if (this.dots) { if (this.layer.type !== 'map') this.dotsMat.opacity = k; else this.dotsMat.opacity *= k; this.ghostDots.material.opacity *= k; }
+    if (this.dots) { if (!this.cloud) this.dotsMat.opacity = k; else this.dotsMat.opacity *= k; this.ghostDots.material.opacity *= k; }
     for (const ln of this.fxLines) if (ln.visible) ln.material.opacity *= k;
     for (const sp of this.fxMarkers) if (sp.visible) sp.material.opacity *= k;
     this.strings.material.opacity *= k; this.beads.material.opacity *= k;
@@ -490,7 +493,7 @@ class LayerView {
     this.trailMat.uniforms.uColor.value.copy(color);
     this.trail.visible = v.trail.enabled;
     this.trailMat.blending = this.viz.lightBackground ? THREE.NormalBlending : THREE.AdditiveBlending;
-    if (this.dotsMat && l.type === 'map') {
+    if (this.dotsMat && this.cloud) {
       // glowing clouds add light on dark paper; on light paper the dots are ink
       const bl = this.viz.lightBackground ? THREE.NormalBlending : THREE.AdditiveBlending;
       if (this.dotsMat.blending !== bl) { this.dotsMat.blending = bl; this.dotsMat.needsUpdate = true; }
@@ -661,9 +664,9 @@ class LayerView {
       this.applyFade(f.fade ?? 1);
       return;
     }
-    this.marker.visible = this.layer.type !== 'map'; // a cloud has no pen to follow
+    this.marker.visible = !this.cloud; // a cloud has no pen to follow
     if (this.line) { this.line.visible = true; this.ghost.material.opacity = 0.16; }
-    else { this.dots.visible = true; this.ghostDots.material.opacity = 0.16; if (this.layer.type === 'map') this.dotsMat.opacity = Math.min(1, (this.layer.sim?.alpha ?? 0.35) * (v.fx?.intensity ?? 1)); }
+    else { this.dots.visible = true; this.ghostDots.material.opacity = 0.16; if (this.cloud) this.dotsMat.opacity = Math.min(1, (this.layer.sim?.alpha ?? 0.35) * (v.fx?.intensity ?? 1)); }
 
     // Smoothly chase the exact point so sudden jumps glide instead of teleporting.
     if (!this.hasDrawn || f.snap || v.marker.smoothing <= 0) {
@@ -719,7 +722,7 @@ class LayerView {
     tu.uSize.value = v.trail.size;
     tu.uLife.value = Math.max(0.2, v.trail.count / 110);
     tu.uSpread.value = 0.35 * (ctx.view.yMax - ctx.view.yMin) / 8;
-    if (v.trail.enabled && f.playing && this.layer.type !== 'map') {
+    if (v.trail.enabled && f.playing && !this.cloud) {
       const g = this.trail.geometry;
       const pos = g.attributes.position, birth = g.attributes.aBirth;
       const emit = 3;
@@ -1133,7 +1136,7 @@ export class Visualizer {
     for (const l of layers) {
       if (!l.enabled) continue;
       keep.add(l.id);
-      const sig = JSON.stringify([l.style, l.type]);
+      const sig = JSON.stringify([l.style, l.type, isCloud(l)]);
       let view = this.views.get(l.id);
       if (view && view.sig !== sig) { this.content.remove(view.group); view.dispose(); view = null; }
       if (!view) {
