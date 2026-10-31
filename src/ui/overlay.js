@@ -159,7 +159,7 @@ export function drawOverlay(g, w, h, d) {
     const x = o.formulas.x == null ? 36 * k : o.formulas.x * w;
     // Leave room for an automatically placed analyzer in the same (top) corner.
     const sharesCorner = ana && o.analyzer.x == null && o.formulas.x == null && portrait;
-    const maxW = Math.max(80 * k, (sharesCorner ? ana.x - 30 * k : w - 24 * k) - x);
+    const maxW = o.formulas.align === 'center' ? w * 0.86 : Math.max(80 * k, (sharesCorner ? ana.x - 30 * k : w - 24 * k) - x);
     // Automatic place: top left, under an automatically placed title.
     const autoTop = rects.title && o.title.y == null ? rects.title.y + rects.title.h + 14 * k : 26 * k;
     const y = o.formulas.y == null ? autoTop : o.formulas.y * h;
@@ -182,7 +182,33 @@ export function drawOverlay(g, w, h, d) {
       while (fit > 0.45 && y + height(laid) > bottom) { fit -= 0.05; laid = blocks(fit); }
     }
     let bw = 0, row = 0;
-    for (const b of laid) {
+    if (o.formulas.align === 'center') {
+      // classroom style: each formula centred, large, on a soft board; no bullets
+      const cx = (o.formulas.x ?? 0.5) * w;
+      let maxLine = 0;
+      for (const b of laid) { g.font = `500 ${b.fs}px ${FONTS.mono}`; for (const t of b.lines) maxLine = Math.max(maxLine, g.measureText(t).width); }
+      const bh = height(laid), pad = 18 * k * s * fit;
+      const top = y - pad * 0.5;
+      const alphaAll = Math.max(...laid.map((b) => alphaOf(b.l)), 0);
+      if (o.formulas.box !== false && laid.length) {
+        g.globalAlpha = 0.55 * alphaAll;
+        g.fillStyle = ui.light ? 'rgba(255,255,255,0.85)' : 'rgba(6,8,16,0.82)';
+        const bx = cx - maxLine / 2 - pad, bwid = maxLine + 2 * pad, r = 14 * k;
+        g.beginPath(); g.moveTo(bx + r, top); g.arcTo(bx + bwid, top, bx + bwid, top + bh + pad, r); g.arcTo(bx + bwid, top + bh + pad, bx, top + bh + pad, r); g.arcTo(bx, top + bh + pad, bx, top, r); g.arcTo(bx, top, bx + bwid, top, r); g.closePath(); g.fill();
+      }
+      for (const b of laid) {
+        g.font = `500 ${b.fs}px ${FONTS.mono}`;
+        const dim = (phases.get(b.l.id) === 'past' ? 0.38 : 1) * alphaOf(b.l);
+        b.lines.forEach((text, i) => {
+          const base = y + (row + i + 0.72) * b.lineH, tw = g.measureText(text).width;
+          g.globalAlpha = dim; g.fillStyle = i === 0 && laid.length > 1 ? b.l.color : ui.fg;
+          g.fillText(text, cx - tw / 2, base);
+        });
+        row += b.lines.length;
+      }
+      g.globalAlpha = 1;
+      rects.formulas = { x: cx - maxLine / 2, y, w: Math.max(maxLine, 120 * k * s), h: Math.max(bh, 32 * k * s) };
+    } else for (const b of laid) {
       g.font = `500 ${b.fs}px ${FONTS.mono}`;
       const dim = (phases.get(b.l.id) === 'past' ? 0.38 : 1) * alphaOf(b.l);
       const first = y + (row + 0.72) * b.lineH;
@@ -207,8 +233,10 @@ export function drawOverlay(g, w, h, d) {
       });
       row += b.lines.length;
     }
-    const bh = height(laid);
-    rects.formulas = { x, y, w: Math.max(bw, 120 * k * s), h: Math.max(bh, 32 * k * s) };
+    if (o.formulas.align !== 'center') {
+      const bh = height(laid);
+      rects.formulas = { x, y, w: Math.max(bw, 120 * k * s), h: Math.max(bh, 32 * k * s) };
+    }
   }
 
   /* ----------------------------------------------------------- preset name */

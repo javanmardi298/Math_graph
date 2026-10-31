@@ -59,6 +59,7 @@ export function createLayer(overrides = {}) {
     caption: '', // the formula text shown on the video ('' = automatic); Shift+Enter breaks a line
     captionStart: 0, captionEnd: 0, // when that text is on screen (seconds; 0 = from the start / to the end)
     start: 0, end: 0, // when the layer plays (seconds; 0 = from the start / to the end of the video)
+    drawFor: 0, // with a time window: finish drawing after this many seconds, then stay (0 = draw over the whole window)
     samples: 900,
     sim: { ...SIM_DEFAULTS },
     surf: { ...SURF_DEFAULTS },

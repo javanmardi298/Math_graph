@@ -40,7 +40,9 @@ export function layerTiming(layers, layer, time, duration, inSequence) {
     const e = explicitEnd ? layer.end : duration;
     if (time < s) return { u: 0, phase: 'future' };
     if (explicitEnd && time >= e) return { u: 1, phase: 'past' };
-    return { u: Math.min(Math.max((time - s) / Math.max(1e-6, e - s), 0), 1), phase: 'active' };
+    // drawFor: the drawing is finished after that many seconds and stays until the window ends (lessons)
+    const span = layer.drawFor > 0 ? Math.min(layer.drawFor, e - s) : e - s;
+    return { u: Math.min(Math.max((time - s) / Math.max(1e-6, span), 0), 1), phase: 'active' };
   }
   if (!inSequence) return { u: Math.min(Math.max(time / duration, 0), 1), phase: 'active' };
   const groups = layerGroups(layers);
