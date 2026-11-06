@@ -82,6 +82,10 @@ In edit mode, drag any element to move it, drag its corner or scroll over it to 
 text to edit it, use arrow keys to nudge and Delete to remove a text box. Positions are stored as
 fractions of the frame, so the layout is identical at 720p and 4K, and in exports.
 
+## For agents and contributors
+
+[`docs/AGENT_GUIDE.md`](docs/AGENT_GUIDE.md) is the complete capability guide (layer types, formula language, look/fx/camera/film, sound, Circle Lab scenes, keyframes, presets workflow, recipes).
+
 ## Features
 
 | Area | What you get |
