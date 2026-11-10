@@ -233,6 +233,14 @@ class LayerView {
       this.group.add(this.ghost, this.line);
     }
 
+    // Fill: the area under the curve (down to y = 0) or the area swept from the origin, growing with the pen
+    this.fillMesh = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.3, side: THREE.DoubleSide, depthWrite: false, depthTest: false, fog: false }));
+    this.fillMesh.renderOrder = -1;
+    this.fillMesh.frustumCulled = false;
+    this.fillMesh.visible = false;
+    this.fillPer = 0;
+    this.group.add(this.fillMesh);
+
     // Playhead marker
     this.markerMat = new THREE.SpriteMaterial({ transparent: true, depthWrite: false, depthTest: false, fog: false });
     this.marker = new THREE.Sprite(this.markerMat);
@@ -479,6 +487,7 @@ class LayerView {
     for (const sp of this.fxMarkers) if (sp.visible) sp.material.opacity *= k;
     this.strings.material.opacity *= k; this.beads.material.opacity *= k;
     this.markerMat.opacity = k;
+    if (this.fillMesh.visible) this.fillMesh.material.opacity = (this.layer.fillAlpha ?? 0.3) * k;
     if (this.surfSolid) { this.surfSolid.material.opacity = (this.layer.type === 'psurface' ? this.layer.surf?.solid ?? 0.16 : 0.1) * k; this.surfWire.material.opacity = (this.layer.type === 'psurface' ? this.layer.surf?.wire ?? 0.45 : 0.5) * k; }
     this.trail.visible = this.viz.state.visual.trail.enabled && k > 0.4;
   }
@@ -490,6 +499,7 @@ class LayerView {
     this.markerMat.map = v.marker.shape === 'image' && this.viz.markerImage ? this.viz.markerImage : this.viz.shapeTex(v.marker.shape);
     this.markerMat.needsUpdate = true;
     this.cursor.material.color.copy(color);
+    this.fillMesh.material.color.set(l.fillColor || l.color);
     this.trailMat.uniforms.uColor.value.copy(color);
     this.trail.visible = v.trail.enabled;
     this.trailMat.blending = this.viz.lightBackground ? THREE.NormalBlending : THREE.AdditiveBlending;
@@ -537,10 +547,30 @@ class LayerView {
       }
     }
 
+    this.buildFill(pts);
+
     if (this.surfGeo) {
       this.surfSolid.visible = this.surfWire.visible = is3d;
       if (is3d) (this.layer.type === 'psurface' ? this.buildPSurface(compiled, ctx) : this.buildSurface(compiled, ctx));
     }
+  }
+
+  /** The fill mesh of the curve: `under` = strips down to y = 0, `origin` = a fan from (0, 0, 0). */
+  buildFill(pts) {
+    const mode = this.cloud ? 'none' : this.layer.fill || 'none';
+    this.fillPer = 0;
+    if (mode === 'none' || !pts || this.count < 2 || this.count > 40000) { this.fillMesh.visible = false; return; }
+    const n = this.count - 1, per = mode === 'under' ? 6 : 3;
+    const out = new Float32Array(n * per * 3);
+    let o = 0;
+    const put = (x, y, z) => { out[o++] = x; out[o++] = y; out[o++] = z; };
+    for (let i = 0; i < n; i++) {
+      const ax = pts[i * 3], ay = pts[i * 3 + 1], az = pts[i * 3 + 2], bx = pts[i * 3 + 3], by = pts[i * 3 + 4], bz = pts[i * 3 + 5];
+      if (mode === 'under') { put(ax, 0, az); put(ax, ay, az); put(bx, by, bz); put(ax, 0, az); put(bx, by, bz); put(bx, 0, bz); }
+      else { put(0, 0, 0); put(ax, ay, az); put(bx, by, bz); }
+    }
+    writeAttr(this.fillMesh.geometry, 'position', out, 3);
+    this.fillPer = per;
   }
 
   /** A (u, v) surface: mesh + lattice, coloured from the first to the second colour along v. */
@@ -645,6 +675,8 @@ class LayerView {
       const keep = f.pastMode === 'keep';
       this.marker.visible = this.cursor.visible = false;
       if (this.scan) this.scan.visible = false;
+      this.fillMesh.visible = keep && this.fillPer > 0;
+      if (this.fillMesh.visible) this.fillMesh.geometry.setDrawRange(0, (this.count - 1) * this.fillPer);
       if (this.line) {
         this.line.visible = keep;
         this.line.geometry.instanceCount = Math.max(0, this.count - 1);
@@ -692,6 +724,12 @@ class LayerView {
       this.dotsGeo.setDrawRange(0, shown);
       this.ghostDots.visible = mode === 'ghost';
       this.dotsMat.size = this.ghostDots.material.size = this.layer.width * this.dotFactor * f.k;
+    }
+
+    this.fillMesh.visible = this.fillPer > 0;
+    if (this.fillMesh.visible) {
+      this.fillMesh.geometry.setDrawRange(0, Math.max(0, shown - 1) * this.fillPer);
+      this.fillMesh.material.opacity = this.layer.fillAlpha ?? 0.3;
     }
 
     // fx replaces the plain line and marker (chromatic copies, laser web) or adds strings
@@ -768,6 +806,7 @@ class LayerView {
   }
 }
 const tmpVec = new THREE.Vector3();
+const tmpVec2 = new THREE.Vector3();
 const tmpRight = new THREE.Vector3(), tmpUp = new THREE.Vector3();
 
 /* -------------------------------------------------------------- Visualizer */
@@ -1256,7 +1295,7 @@ export class Visualizer {
       r.toneMapping = this.state.visual.tone === 'soft' ? THREE.ACESFilmicToneMapping : base !== 1 ? THREE.LinearToneMapping : THREE.NoToneMapping;
       r.toneMappingExposure = base;
     }
-    if (!track && punch < 1e-4 && !roll && !mv.active) { this.composer.render(f.dt); return; }
+    if (!track && punch < 1e-4 && !roll && !mv.active) { this.captureVP(); this.composer.render(f.dt); return; }
 
     const is3d = this.state.mode === '3d';
     const cam = this.camera;
@@ -1283,6 +1322,7 @@ export class Visualizer {
       else cam.zoom = saved.zoom * factor;
       cam.updateProjectionMatrix();
     }
+    this.captureVP();
     this.composer.render(f.dt);
     cam.position.copy(saved.p);
     cam.quaternion.copy(saved.q);
@@ -1290,6 +1330,31 @@ export class Visualizer {
       if (is3d) cam.fov = saved.fov; else cam.zoom = saved.zoom;
       cam.updateProjectionMatrix();
     }
+  }
+
+  /** Remember this frame's camera (with its cinematic moves), so the text overlay can place things on the drawing. */
+  captureVP() {
+    const cam = this.camera;
+    cam.updateMatrixWorld();
+    (this.vp ||= new THREE.Matrix4()).multiplyMatrices(cam.projectionMatrix, cam.matrixWorldInverse);
+  }
+
+  /** A point of the drawing (graph coordinates) → its place in the frame, as fractions (0, 0 = top left). */
+  screenOf(x, y, z = 0) {
+    if (!this.vp) return null;
+    const v = tmpVec2.set(x, y, this.state.mode === '3d' ? z : 0).add(this.content.position).applyMatrix4(this.vp);
+    return { x: (v.x + 1) / 2, y: (1 - v.y) / 2, front: v.z < 1 };
+  }
+
+  /** Where each visible layer's pen is in the frame: [{ id, x, y }] (fractions). */
+  penScreens() {
+    const out = [];
+    for (const [id, view] of this.views) {
+      if (!view.group.visible || !view.hasDrawn || view.cloud || !view.marker.visible) continue;
+      const p = this.screenOf(view.drawn.x, view.drawn.y, view.drawn.z);
+      if (p) out.push({ id, ...p });
+    }
+    return out;
   }
 
   /** PNG snapshot of the current frame. */

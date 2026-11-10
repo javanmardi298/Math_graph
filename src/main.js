@@ -13,10 +13,11 @@
  * no animation loop, and window.__mmv renders exact frames on demand.
  */
 import { store } from './state.js';
-import { DEFAULT_PRESET } from './presets.js';
+import { DEFAULT_PRESET, loadAllShelves } from './presets.js';
 import { CompiledLayer } from './math/layers.js';
 import { gridAt, barsToSeconds } from './math/rhythm.js';
 import { layerTiming as seqTiming } from './math/sequence.js';
+import { readoutOf, READOUT_LABELS } from './math/readout.js';
 import { AudioEngine } from './audio/engine.js';
 import { instrumentOf } from './audio/instruments.js';
 import { voiceFrame, hasSolo, melodyMidi } from './audio/sonify.js';
@@ -858,7 +859,32 @@ function overlayData(analysis = null, time = clock.pos) {
     waveform: analysis ? analysis.waveform : audio.waveform(),
     ui: { fg: light ? '#1a1c26' : '#eef2ff', accent: '#22e4ff', accent2: light ? '#e0245e' : '#ff3d9a', light },
     circle: isCircle() ? circleText() : null,
+    ...(isCircle() ? {} : graphExtras(time)),
   };
+}
+
+/** What the overlay needs from the scene for the legend, live numbers, axis names, drum ticks and the lens. */
+let drumHitCache = { v: -1, hits: [] }, stateVersion = 0;
+store.on(() => { stateVersion++; });
+function graphExtras(time) {
+  const st = store.state, o = st.overlay;
+  const out = { screenOf: (x, y, z) => viz.screenOf(x, y, z) };
+  if (st.visual.marker?.lens > 0) out.pens = viz.penScreens();
+  const asking = st.layers.filter((l) => l.enabled && !l.hidden && l.readout && l.readout !== 'none');
+  if (asking.length) {
+    const digits = o.readout?.digits ?? 3;
+    out.readouts = asking.map((l) => {
+      const tm = layerTiming(l, time);
+      if (tm.phase === 'future' || hiddenAt(time)) return null;
+      const val = readoutOf(l, compiled.get(l.id), evalCtx(time), tm.u);
+      return Number.isFinite(val) ? { label: l.readoutLabel || READOUT_LABELS[l.readout], text: val.toFixed(digits), color: l.color } : null;
+    }).filter(Boolean);
+  }
+  if (o.drumTicks && st.drums.enabled) {
+    if (drumHitCache.v !== stateVersion) { try { drumHitCache = { v: stateVersion, hits: drumEventsFull() }; } catch { drumHitCache = { v: stateVersion, hits: [] }; } }
+    out.drumHits = drumHitCache.hits;
+  }
+  return out;
 }
 
 function isLight(hex) {
@@ -1816,3 +1842,55 @@ function boot() {
   requestAnimationFrame(frame);
 }
 boot();
+
+/* ---------------------------------------------------------- agent API */
+
+/**
+ * window.mmv: a small, stable API for agents and scripts that drive the app from outside
+ * (browser automation, the console). Everything the UI does goes through the same store,
+ * so anything set here shows up in the panels and in exports. See docs/AGENT_GUIDE.md.
+ */
+window.mmv = {
+  /** The live store (state, get, set, load, snapshot, on). */
+  store,
+  /** A copy of the whole state (a preset). */
+  state: () => store.snapshot(),
+  /** Load a preset (a whole or partial state; missing keys get the defaults). */
+  load: (preset) => { store.load(preset); seek(0); },
+  /** Read / change one setting by its dotted path, e.g. set('visual.fx.style', 'glitch'). */
+  get: (path) => store.get(path),
+  set: (path, value) => { store.set(path, value); refreshAll(); },
+  /** Change one layer (by index) and rebuild it: layer(0, { exprs: { y: 'sin(3x)' }, fill: 'under' }). */
+  layer: (index, patch) => {
+    const l = store.state.layers[index];
+    if (!l) throw new Error(`No layer ${index}`);
+    for (const [k, v] of Object.entries(patch)) l[k] = v && typeof v === 'object' && !Array.isArray(v) ? { ...l[k], ...v } : v;
+    store.emit('layers');
+    return structuredClone(l);
+  },
+  /** Names of every built-in preset: [{ shelf, name }]. */
+  presets: async () => (await loadAllShelves()).flatMap(({ shelf, presets }) => presets.map((p) => ({ shelf: shelf.name, name: p.name }))),
+  /** Load a built-in preset by its name. */
+  loadByName: async (name) => {
+    for (const { presets } of await loadAllShelves()) { const p = presets.find((x) => x.name === name); if (p) { store.load(p); seek(0); return true; } }
+    return false;
+  },
+  /** Go to a time in seconds; play / pause. */
+  seek: (seconds) => seek(seconds / duration()),
+  play: () => play(),
+  pause: () => pause(),
+  /** The current frame (drawing + text) as a PNG data URL, at the size it has on screen. */
+  frame: () => {
+    if (!isCircle()) viz.composer.render(0);
+    const src = sceneCanvas();
+    const c = document.createElement('canvas');
+    c.width = src.width; c.height = src.height;
+    const g = c.getContext('2d');
+    g.drawImage(src, 0, 0);
+    drawOverlay(g, c.width, c.height, overlayData());
+    return c.toDataURL('image/png');
+  },
+  /** Formula errors of the layers ({ layerId: { field: message } }), empty when all compile. */
+  errors: () => Object.fromEntries(store.state.layers.map((l) => [l.id, compiled.get(l.id)?.errors || {}]).filter(([, e]) => Object.keys(e).length)),
+  help: 'mmv.state() · mmv.load(preset) · mmv.get(path) · mmv.set(path, value) · mmv.layer(i, patch) · mmv.presets() · mmv.loadByName(name) · mmv.seek(s) · mmv.play() · mmv.pause() · mmv.frame() · mmv.errors()',
+};

@@ -12,6 +12,8 @@ import { getBrand, endCardAlpha } from '../brand.js';
 import { SHORTS_SAFE_BOTTOM } from '../state.js';
 
 import { endingShot } from '../camera-moves.js';
+import { layoutMath, drawMath } from './mathtext.js';
+import { drawExtras } from './overlay-extras.js';
 
 const LABEL = { function: ['y'], parametric: ['x', 'y', 'z'], polar: ['r'], surface: ['f'], ode: ['x', 'y', 'z'], map: ['x', 'y', 'z'], psurface: ['x', 'y', 'z'] };
 const PREFIX = { ode: (k) => `d${k}/ds`, map: (k) => `${k}′` };
@@ -182,7 +184,25 @@ export function drawOverlay(g, w, h, d) {
       while (fit > 0.45 && y + height(laid) > bottom) { fit -= 0.05; laid = blocks(fit); }
     }
     let bw = 0, row = 0;
-    if (o.formulas.align === 'center') {
+    if (o.formulas.math && laid.length) {
+      // textbook style: every caption typeset as a formula (fractions, powers, Greek), centred, no board
+      const cx = (o.formulas.x ?? 0.5) * w, fs = 46 * k * s;
+      let yy = y, maxW = 0;
+      for (const b of laid) {
+        for (const line of formulaText(b.l).split('\n')) {
+          let px = fs, box = layoutMath(g, line, px);
+          if (box.w > w * 0.92) { px *= (w * 0.92) / box.w; box = layoutMath(g, line, px); }
+          g.globalAlpha = (phases.get(b.l.id) === 'past' ? 0.38 : 1) * alphaOf(b.l);
+          g.fillStyle = laid.length > 1 && o.formulas.tint ? b.l.color : ui.fg;
+          yy += box.asc + px * 0.12;
+          drawMath(g, line, cx, yy, px, { align: 'center' });
+          yy += box.desc + px * 0.3;
+          maxW = Math.max(maxW, box.w);
+        }
+      }
+      g.globalAlpha = 1;
+      rects.formulas = { x: cx - maxW / 2, y, w: Math.max(maxW, 120 * k * s), h: Math.max(yy - y, 32 * k * s) };
+    } else if (o.formulas.align === 'center') {
       // classroom style: each formula centred, large, on a soft board; no bullets
       const cx = (o.formulas.x ?? 0.5) * w;
       let maxLine = 0;
@@ -233,7 +253,7 @@ export function drawOverlay(g, w, h, d) {
       });
       row += b.lines.length;
     }
-    if (o.formulas.align !== 'center') {
+    if (o.formulas.align !== 'center' && !(o.formulas.math && laid.length)) {
       const bh = height(laid);
       rects.formulas = { x, y, w: Math.max(bw, 120 * k * s), h: Math.max(bh, 32 * k * s) };
     }
@@ -369,11 +389,14 @@ export function drawOverlay(g, w, h, d) {
     g.textAlign = align;
     g.direction = lines.some(isRtl) ? 'rtl' : 'ltr';
     const ax = align === 'left' ? rect.x + pad : align === 'right' ? rect.x + bw - pad : cx;
-    lines.forEach((line, i) => g.fillText(line, ax, rect.y + pad + i * lineH + fPx * 0.92));
+    if (tb.math) lines.forEach((line, i) => drawMath(g, line, cx, rect.y + pad + i * lineH + fPx * 0.92, fPx, { align: 'center' }));
+    else lines.forEach((line, i) => g.fillText(line, ax, rect.y + pad + i * lineH + fPx * 0.92));
     g.shadowBlur = 0;
     g.textAlign = 'left';
     g.direction = 'ltr';
   }
+
+  drawExtras(g, w, h, d, rects);
 
   drawBrand(g, w, h, k, state, d.time ?? 0, ui);
   g.restore();

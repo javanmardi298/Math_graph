@@ -401,6 +401,7 @@ const CAPTIONS = {
   roots: (P) => ({ roots: 'The roots of 1 make a perfect polygon', power: 'One root, all its powers', multiply: 'Multiplying turns and scales', sum: 'Add them up: nothing is left', euler: 'e to the i θ goes round the circle' }[P.mode]),
   harmonograph: (P) => ({ lateral: 'Two pendulums draw one shape', quad: 'Four pendulums, one pen', rotary: 'Pendulums on a turning table', lissajous: 'Two notes draw one shape', epicycle: 'Circles on circles draw it', formula: 'Your formula, drawn by a pen' }[P.kind] || 'Pendulums draw this'),
   kuramoto: () => 'Will the fireflies flash together?',
+  shapewave: 'Every shape hides a wave', derivgraph: 'The slope draws a new curve', dotmatrix: 'Maths on a wall of lights',
   shepard: () => 'This sound rises forever',
   threebody: (P) => (P.kind === 'burrau' ? 'Three stars, one gets thrown out' : 'Three suns dancing a figure eight'),
   dpendulum: () => 'They start almost the same…',

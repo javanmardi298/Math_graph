@@ -251,6 +251,9 @@ export class Panels {
       color('Second colour', bindObj(l, 'color2', `${ev}.look`)),
       select('Line style', { get: () => l.style, set: (v) => { l.style = v; store.emit(`${ev}.style`); } }, { line: 'Solid line', dashed: 'Dashed', dots: 'Dots' }),
       slider('Thickness', { get: () => l.width, set: (v) => { l.width = v; store.emit(`${ev}.width`); } }, { min: 1, max: 14, step: 0.5, unit: 'px' }),
+      select('Fill', bindObj(l, 'fill', `${ev}.look`), { none: 'No fill', under: 'Area under the curve (to y = 0)', origin: 'Area swept from the origin' }),
+      slider('Fill strength', bindObj(l, 'fillAlpha', `${ev}.look`), { min: 0.05, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
+      select('Live number on the video', bindObj(l, 'readout', `${ev}.look`), { none: 'None', area: 'Area so far (∫ y dx, or the swept area)', value: 'Value y', x: 'Position x', slope: 'Slope dy/dx', length: 'Length of the curve so far' }),
       slider('Detail', bindObj(l, 'samples', `${ev}.exprs`), l.type === 'surface' ? { min: 16, max: 128, step: 1, fmt: (v) => `${v}²` } : l.type === 'ode' || l.type === 'map' ? { min: 1000, max: 200000, step: 1000, fmt: (v) => `${v} ${l.type === 'map' ? 'points' : 'steps'}` } : { min: 100, max: 3000, step: 50, fmt: (v) => `${v} pts` }),
     ], { open: false }));
 
@@ -430,6 +433,7 @@ export class Panels {
         slider('Size', p('visual.marker.size'), { min: 8, max: 90, step: 1, unit: 'px' }),
         slider('Smoothing', p('visual.marker.smoothing'), { min: 0, max: 0.9, step: 0.01, fmt: (v) => (v === 0 ? 'Off' : `${Math.round(v * 100)}%`) }),
         toggle('Time cursor line', p('visual.marker.cursorLine')),
+        slider('Lens (a circle round the pen)', p('visual.marker.lens'), { min: 0, max: 0.2, step: 0.005, fmt: (v) => (v ? `${Math.round(v * 100)}% of the width` : 'Off') }),
       ]),
     );
   }
@@ -1197,10 +1201,20 @@ export class Panels {
         h('div.grid2', {}, number('All formulas: from (s)', p('overlay.formulas.start'), { min: 0, max: 600, step: 0.5 }), number('until (s)', p('overlay.formulas.end'), { min: 0, max: 600, step: 0.5 })),
         h('p.hint', {}, 'Times in seconds; 0 = from the start / until the end. Each formula can also have its own times above.'),
         toggle('Shrink to fit the frame', p('overlay.formulas.fit')),
+        toggle('Typeset as formulas (textbook look)', p('overlay.formulas.math')),
+        h('p.hint', {}, 'With typesetting on, write a formula text like f = 220 \\cdot 2^{n/12} or y = \\sin x + \\frac{\\sin 3x}{3} + \\cdots : \\frac{a}{b} is a fraction, ^ a power, _ an index, \\sqrt{x} a root, \\pi \\theta \\omega Greek, \\left( … \\right) tall brackets. Plain text such as 2^(n/12) works too.'),
         toggle('Show note names', p('visual.showNotes')),
         slider('Size', p('overlay.formulas.size'), { min: 0.3, max: 5, step: 0.05, fmt: (v) => `${Math.round(v * 100)}%` }),
         reset('formulas'),
       ]),
+      group('Legend, axis names, live numbers', [
+        toggle('Legend (a row naming the layers and the drums)', p('overlay.legend.enabled')),
+        slider('Legend size', p('overlay.legend.size'), { min: 0.4, max: 3, step: 0.05, fmt: (v) => `${Math.round(v * 100)}%` }),
+        h('div.grid2', {}, text('Name of the x axis', p('overlay.axes.x'), { placeholder: 't' }), text('Name of the y axis', p('overlay.axes.y'), { placeholder: 'f' })),
+        toggle('A tick under the graph for every drum hit', p('overlay.drumTicks')),
+        slider('Live number: size', p('overlay.readout.size'), { min: 0.4, max: 3, step: 0.05, fmt: (v) => `${Math.round(v * 100)}%` }),
+        slider('Live number: decimals', p('overlay.readout.digits'), { min: 0, max: 6, step: 1 }),
+      ], { open: false, hint: 'The legend uses each layer’s name. A layer shows a live number (area so far, value, slope, length) when you choose one in its Look settings. Axis names appear at the far ends of the axes.' }),
       group('Preset name', [
         toggle('Show preset name', p('overlay.name.enabled')),
         color('Colour', { get: () => o().name.color || '#eef2ff', set: (v) => { o().name.color = v; store.emit('overlay'); } }),

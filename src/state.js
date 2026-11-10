@@ -46,6 +46,9 @@ export function createLayer(overrides = {}) {
     color2: LAYER_COLORS[(i + 1) % LAYER_COLORS.length],
     width: 4,
     style: 'line', // line | dashed | dots
+    fill: 'none', // none | under (the area between the curve and y = 0) | origin (the area swept from the origin); grows with the pen
+    fillAlpha: 0.3, fillColor: '', // '' = the layer's colour
+    readout: 'none', // a live number on the video: none | area | value | slope | length | x (see overlay.readout)
     wave: 'sine', // sine | square | sawtooth | triangle
     volume: 0.6,
     octave: 0,
@@ -94,7 +97,7 @@ export function defaultState() {
       drawMode: 'trace', // full | trace | ghost
       bloom: { enabled: true, strength: 1.1, radius: 0.5, threshold: 0.05 },
       trail: { enabled: true, count: 160, size: 6 },
-      marker: { shape: 'circle', size: 26, image: null, cursorLine: true, smoothing: 0.35 },
+      marker: { shape: 'circle', size: 26, image: null, cursorLine: true, smoothing: 0.35, lens: 0 }, // lens: a thin circle round the pen (fraction of the frame width, 0 = none)
       fog: { enabled: false, density: 0.04 },
       dof: { enabled: false, focus: 14, aperture: 0.6 },
       motionBlur: { enabled: false, amount: 0.75 },
@@ -166,9 +169,15 @@ export function defaultState() {
       // layout 2: formulas top left, preset name top centre; title, subtitle, notes and analyzer off.
       layout: 4,
       title: { enabled: false, text: '', subtitle: false, subtitleText: '', x: null, y: null, size: 1, color: '' },
-      formulas: { enabled: true, x: null, y: null, size: 1, fit: true, start: 0, end: 0 }, // fit: shrink to stay inside the frame
+      formulas: { enabled: true, x: null, y: null, size: 1, fit: true, start: 0, end: 0, math: false }, // fit: shrink to stay inside the frame; math: typeset captions as formulas (\\frac{a}{b}, x^2, \\pi …)
       name: { enabled: true, x: null, y: null, size: 1, color: '' },
       analyzer: { x: null, y: null, size: 1 },
+      // legend: one row naming the layers (and the drums); readout: the live number of layers that ask for one;
+      // axes: the letters at the ends of the axes ('' = none); drumTicks: a tick for every drum hit under the graph
+      legend: { enabled: false, x: null, y: null, size: 1 },
+      readout: { x: null, y: null, size: 1, digits: 3 },
+      axes: { x: '', y: '' },
+      drumTicks: false,
       texts: [],
     },
     // Layer playback: all together, or one after another (each gets an equal slice of the timeline).
