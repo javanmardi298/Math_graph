@@ -7,6 +7,7 @@
  "presets/lessons/formulas-2d.json",
  "presets/lessons/formulas-3d.json",
  "presets/lessons/fourier-calculus.json",
+ "presets/lessons/fractal-lab.json",
  "presets/lessons/fractals.json",
  "presets/lessons/growth.json",
  "presets/lessons/harmonograph.json",
@@ -27,6 +28,7 @@
  "presets/shelves/formulas-2d.json",
  "presets/shelves/formulas-3d.json",
  "presets/shelves/formulas-cinematic.json",
+ "presets/shelves/fractals.json",
  "presets/shelves/games.json",
  "presets/shelves/growth.json",
  "presets/shelves/math-calculus.json",
@@ -60,5 +62,6 @@
  "presets/shelves/sound-waves.json",
  "presets/shelves/start.json",
  "presets/shelves/stories.json",
+ "presets/shelves/textbook.json",
  "presets/sounds.json"
 ]

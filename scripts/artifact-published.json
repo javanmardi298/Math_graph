@@ -1,6 +1,6 @@
 [
  {
-  "build": "b52362dfa2",
+  "build": "7447e13233",
   "files": [
    "analysis/chord.js",
    "analysis/dsp.js",
@@ -87,7 +87,7 @@
   ]
  },
  {
-  "build": "7447e13233",
+  "build": "b9aac03a97",
   "files": [
    "analysis/chord.js",
    "analysis/dsp.js",
@@ -117,6 +117,8 @@
    "circle/calculus.js",
    "circle/cymatics.js",
    "circle/fourier-draw.js",
+   "circle/fractal-gallery.js",
+   "circle/fractal-lab.js",
    "circle/fractals.js",
    "circle/harmonograph-machine.js",
    "circle/harmonograph.js",
@@ -127,6 +129,7 @@
    "circle/palettes.js",
    "circle/pi.js",
    "circle/scenes.js",
+   "circle/shapes-lab.js",
    "circle/sim.js",
    "circle/sound.js",
    "circle/spirograph.js",
@@ -152,6 +155,7 @@
    "math/layers.js",
    "math/music.js",
    "math/parser.js",
+   "math/readout.js",
    "math/rhythm.js",
    "math/sequence.js",
    "presets.js",
@@ -163,9 +167,12 @@
    "ui/audio-lab.js",
    "ui/controls.js",
    "ui/daily-view.js",
+   "ui/fractal-tab.js",
    "ui/harmonograph-tab.js",
    "ui/layout-editor.js",
    "ui/library-view.js",
+   "ui/mathtext.js",
+   "ui/overlay-extras.js",
    "ui/overlay.js",
    "ui/panels.js",
    "ui/sound-presets-view.js",
