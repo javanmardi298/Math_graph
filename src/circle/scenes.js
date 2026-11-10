@@ -26,6 +26,7 @@ import { harmonograph } from './harmonograph.js';
 import { spirograph, guilloche } from './spirograph.js';
 import { MOTION_SCENES } from './motion.js';
 import { SHAPES_LAB } from './shapes-lab.js';
+import { FRACTAL_LAB } from './fractal-lab.js';
 
 const TAU = Math.PI * 2;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -1147,6 +1148,7 @@ export const SCENES = {
   guilloche,
   ...MOTION_SCENES,
   ...SHAPES_LAB,
+  ...FRACTAL_LAB,
 };
 
 /** Settings of a scene: its defaults, overridden by what the user / preset set. */

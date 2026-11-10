@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27340",
+          "id": "Lmwb5ld5a0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -49,6 +49,10 @@
           "color2": "#ff4f87",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "flute-synth",
           "volume": 1,
           "octave": 0,
@@ -118,7 +122,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -368,7 +373,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -382,6 +388,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -447,7 +470,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27340",
+          "id": "Lmwb5ld5a0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -469,6 +492,10 @@
           "color2": "#ffd166",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "flute-synth",
           "volume": 1,
           "octave": 0,
@@ -538,7 +565,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -788,7 +816,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -802,6 +831,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -867,7 +913,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27340",
+          "id": "Lmwb5ld5b0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -889,6 +935,10 @@
           "color2": "#b79cff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "harp",
           "volume": 1,
           "octave": 0,
@@ -958,7 +1008,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -1208,7 +1259,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -1222,6 +1274,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -1287,7 +1356,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27340",
+          "id": "Lmwb5ld5b0",
           "name": "Heart",
           "enabled": true,
           "type": "parametric",
@@ -1309,6 +1378,10 @@
           "color2": "#b79cff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "sine",
           "volume": 1,
           "octave": 0,
@@ -1378,7 +1451,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -1628,7 +1702,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -1642,6 +1717,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -1707,7 +1799,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27340",
+          "id": "Lmwb5ld5b0",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -1729,6 +1821,10 @@
           "color2": "#ff75c6",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "harp",
           "volume": 1,
           "octave": 0,
@@ -1798,7 +1894,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -2048,7 +2145,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -2062,6 +2160,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -2127,7 +2242,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5b0",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -2149,6 +2264,10 @@
           "color2": "#6a5cff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "psy-lead",
           "volume": 1,
           "octave": 0,
@@ -2218,7 +2337,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -2468,7 +2588,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -2482,6 +2603,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -2547,7 +2685,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5b0",
           "name": "Butterfly",
           "enabled": true,
           "type": "parametric",
@@ -2569,6 +2707,10 @@
           "color2": "#ff75c6",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "bell",
           "volume": 1,
           "octave": 0,
@@ -2638,7 +2780,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -2888,7 +3031,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -2902,6 +3046,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -2967,7 +3128,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5b0",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -2989,6 +3150,10 @@
           "color2": "#ff6f4a",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "flute-synth",
           "volume": 1,
           "octave": 0,
@@ -3058,7 +3223,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -3308,7 +3474,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -3322,6 +3489,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -3387,7 +3571,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5b0",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -3409,6 +3593,10 @@
           "color2": "#c58cff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "warm-pad",
           "volume": 1,
           "octave": 0,
@@ -3478,7 +3666,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -3728,7 +3917,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -3742,6 +3932,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -3807,7 +4014,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5b0",
           "name": "Infinity Sign",
           "enabled": true,
           "type": "parametric",
@@ -3829,6 +4036,10 @@
           "color2": "#ff4f87",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "kalimba",
           "volume": 1,
           "octave": 0,
@@ -3898,7 +4109,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -4148,7 +4360,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -4162,6 +4375,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -4227,7 +4457,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5b0",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -4249,6 +4479,10 @@
           "color2": "#ff75c6",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "marimba",
           "volume": 1,
           "octave": 0,
@@ -4318,7 +4552,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -4568,7 +4803,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -4582,6 +4818,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -4647,7 +4900,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5b0",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -4669,6 +4922,10 @@
           "color2": "#ffb347",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "supersaw",
           "volume": 1,
           "octave": 0,
@@ -4738,7 +4995,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -4988,7 +5246,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -5002,6 +5261,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -5067,7 +5343,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5b0",
           "name": "Star",
           "enabled": true,
           "type": "parametric",
@@ -5089,6 +5365,10 @@
           "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "acid-303",
           "volume": 1,
           "octave": 0,
@@ -5158,7 +5438,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -5408,7 +5689,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -5422,6 +5704,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -5487,7 +5786,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5b0",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -5509,6 +5808,10 @@
           "color2": "#ff4f87",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "vibrato-lead",
           "volume": 1,
           "octave": 0,
@@ -5578,7 +5881,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -5828,7 +6132,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -5842,6 +6147,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -5907,7 +6229,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5b0",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -5929,6 +6251,10 @@
           "color2": "#6a5cff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "sine",
           "volume": 1,
           "octave": 0,
@@ -5998,7 +6324,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -6248,7 +6575,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -6262,6 +6590,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -6327,7 +6672,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5b0",
           "name": "Spiral",
           "enabled": true,
           "type": "polar",
@@ -6349,6 +6694,10 @@
           "color2": "#ffc84a",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "drone",
           "volume": 1,
           "octave": 0,
@@ -6418,7 +6767,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -6668,7 +7018,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -6682,6 +7033,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -6747,7 +7115,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5b0",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -6769,6 +7137,10 @@
           "color2": "#a4ff9e",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "bell",
           "volume": 1,
           "octave": 0,
@@ -6838,7 +7210,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -7088,7 +7461,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -7102,6 +7476,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -7167,7 +7558,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5b0",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -7189,6 +7580,10 @@
           "color2": "#c58cff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "sine",
           "volume": 1,
           "octave": 0,
@@ -7258,7 +7653,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -7508,7 +7904,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -7522,6 +7919,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -7587,7 +8001,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5b0",
           "name": "Golden Spiral",
           "enabled": true,
           "type": "polar",
@@ -7609,6 +8023,10 @@
           "color2": "#ff75c6",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "flute-synth",
           "volume": 1,
           "octave": 0,
@@ -7678,7 +8096,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -7928,7 +8347,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -7942,6 +8362,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -8007,7 +8444,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5c0",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -8029,6 +8466,10 @@
           "color2": "#b79cff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "kalimba",
           "volume": 1,
           "octave": 0,
@@ -8098,7 +8539,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -8348,7 +8790,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -8362,6 +8805,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -8427,7 +8887,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5c0",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -8449,6 +8909,10 @@
           "color2": "#ff4f87",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "bell",
           "volume": 1,
           "octave": 0,
@@ -8518,7 +8982,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -8768,7 +9233,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -8782,6 +9248,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -8847,7 +9330,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5c0",
           "name": "Flower",
           "enabled": true,
           "type": "polar",
@@ -8869,6 +9352,10 @@
           "color2": "#ffb347",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "kalimba",
           "volume": 1,
           "octave": 0,
@@ -8938,7 +9425,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -9188,7 +9676,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -9202,6 +9691,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -9267,7 +9773,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5c0",
           "name": "Three-leaf Clover",
           "enabled": true,
           "type": "polar",
@@ -9289,6 +9795,10 @@
           "color2": "#ff6b6b",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "harp",
           "volume": 1,
           "octave": 0,
@@ -9358,7 +9868,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -9608,7 +10119,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -9622,6 +10134,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -9687,7 +10216,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5c0",
           "name": "Three-leaf Clover",
           "enabled": true,
           "type": "polar",
@@ -9709,6 +10238,10 @@
           "color2": "#ff4f87",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "glass-pad",
           "volume": 1,
           "octave": 0,
@@ -9778,7 +10311,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -10028,7 +10562,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -10042,6 +10577,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -10107,7 +10659,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5c0",
           "name": "Five-petal Rose",
           "enabled": true,
           "type": "polar",
@@ -10129,6 +10681,10 @@
           "color2": "#ff6f4a",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "vibrato-lead",
           "volume": 1,
           "octave": 0,
@@ -10198,7 +10754,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -10448,7 +11005,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -10462,6 +11020,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -10527,7 +11102,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5c0",
           "name": "Five-petal Rose",
           "enabled": true,
           "type": "polar",
@@ -10549,6 +11124,10 @@
           "color2": "#ff6b6b",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "harp",
           "volume": 1,
           "octave": 0,
@@ -10618,7 +11197,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -10868,7 +11448,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -10882,6 +11463,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -10947,7 +11545,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5c0",
           "name": "Cardioid",
           "enabled": true,
           "type": "polar",
@@ -10969,6 +11567,10 @@
           "color2": "#ff6f4a",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "psy-lead",
           "volume": 1,
           "octave": 0,
@@ -11038,7 +11640,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -11288,7 +11891,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -11302,6 +11906,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -11367,7 +11988,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5c0",
           "name": "Cardioid",
           "enabled": true,
           "type": "polar",
@@ -11389,6 +12010,10 @@
           "color2": "#ff6b6b",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "vibrato-lead",
           "volume": 1,
           "octave": 0,
@@ -11458,7 +12083,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -11708,7 +12334,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -11722,6 +12349,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -11787,7 +12431,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27350",
+          "id": "Lmwb5ld5c0",
           "name": "Figure Eight",
           "enabled": true,
           "type": "parametric",
@@ -11809,6 +12453,10 @@
           "color2": "#ffd27a",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "e-piano",
           "volume": 1,
           "octave": 0,
@@ -11878,7 +12526,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -12128,7 +12777,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -12142,6 +12792,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -12207,7 +12874,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5c0",
           "name": "Figure Eight",
           "enabled": true,
           "type": "parametric",
@@ -12229,6 +12896,10 @@
           "color2": "#ffb347",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "e-piano",
           "volume": 1,
           "octave": 0,
@@ -12298,7 +12969,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -12548,7 +13220,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -12562,6 +13235,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -12627,7 +13317,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5c0",
           "name": "Pretzel",
           "enabled": true,
           "type": "parametric",
@@ -12649,6 +13339,10 @@
           "color2": "#ffb347",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "harp",
           "volume": 1,
           "octave": 0,
@@ -12718,7 +13412,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -12968,7 +13663,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -12982,6 +13678,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -13047,7 +13760,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5c0",
           "name": "Pretzel",
           "enabled": true,
           "type": "parametric",
@@ -13069,6 +13782,10 @@
           "color2": "#6a5cff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "vibrato-lead",
           "volume": 1,
           "octave": 0,
@@ -13138,7 +13855,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -13388,7 +14106,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -13402,6 +14121,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -13467,7 +14203,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5c0",
           "name": "Gear",
           "enabled": true,
           "type": "polar",
@@ -13489,6 +14225,10 @@
           "color2": "#ffb347",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "chiptune",
           "volume": 1,
           "octave": 0,
@@ -13558,7 +14298,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -13808,7 +14549,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -13822,6 +14564,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -13887,7 +14646,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5c0",
           "name": "Gear",
           "enabled": true,
           "type": "polar",
@@ -13909,6 +14668,10 @@
           "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "supersaw",
           "volume": 1,
           "octave": 0,
@@ -13978,7 +14741,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -14228,7 +14992,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -14242,6 +15007,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -14307,7 +15089,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5c0",
           "name": "Crown",
           "enabled": true,
           "type": "polar",
@@ -14329,6 +15111,10 @@
           "color2": "#ffc84a",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "supersaw",
           "volume": 1,
           "octave": 0,
@@ -14398,7 +15184,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -14648,7 +15435,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -14662,6 +15450,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -14727,7 +15532,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5c0",
           "name": "Crown",
           "enabled": true,
           "type": "polar",
@@ -14749,6 +15554,10 @@
           "color2": "#ffc84a",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "deep-organ",
           "volume": 1,
           "octave": 0,
@@ -14818,7 +15627,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -15068,7 +15878,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -15082,6 +15893,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -15147,7 +15975,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5d0",
           "name": "Trefoil Knot",
           "enabled": true,
           "type": "parametric",
@@ -15169,6 +15997,10 @@
           "color2": "#6a5cff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "drone",
           "volume": 1,
           "octave": 0,
@@ -15238,7 +16070,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -15488,7 +16321,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -15502,6 +16336,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -15567,7 +16418,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5d0",
           "name": "Trefoil Knot",
           "enabled": true,
           "type": "parametric",
@@ -15589,6 +16440,10 @@
           "color2": "#6a5cff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "glass-pad",
           "volume": 1,
           "octave": 0,
@@ -15658,7 +16513,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -15908,7 +16764,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -15922,6 +16779,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -15987,7 +16861,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5d0",
           "name": "Spirograph",
           "enabled": true,
           "type": "parametric",
@@ -16009,6 +16883,10 @@
           "color2": "#6a5cff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "space-arp",
           "volume": 1,
           "octave": 0,
@@ -16078,7 +16956,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -16328,7 +17207,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -16342,6 +17222,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -16407,7 +17304,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5d0",
           "name": "Spirograph",
           "enabled": true,
           "type": "parametric",
@@ -16429,6 +17326,10 @@
           "color2": "#ffd166",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "flute-synth",
           "volume": 1,
           "octave": 0,
@@ -16498,7 +17399,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -16748,7 +17650,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -16762,6 +17665,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -16827,7 +17747,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5d0",
           "name": "Nephroid",
           "enabled": true,
           "type": "parametric",
@@ -16849,6 +17769,10 @@
           "color2": "#c58cff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "supersaw",
           "volume": 1,
           "octave": 0,
@@ -16918,7 +17842,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -17168,7 +18093,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -17182,6 +18108,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -17247,7 +18190,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5d0",
           "name": "Nephroid",
           "enabled": true,
           "type": "parametric",
@@ -17269,6 +18212,10 @@
           "color2": "#ffd166",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "harp",
           "volume": 1,
           "octave": 0,
@@ -17338,7 +18285,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -17588,7 +18536,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -17602,6 +18551,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -17667,7 +18633,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5d0",
           "name": "Looped Limaçon",
           "enabled": true,
           "type": "polar",
@@ -17689,6 +18655,10 @@
           "color2": "#ffd27a",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "kalimba",
           "volume": 1,
           "octave": 0,
@@ -17758,7 +18728,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -18008,7 +18979,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -18022,6 +18994,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -18087,7 +19076,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5d0",
           "name": "Looped Limaçon",
           "enabled": true,
           "type": "polar",
@@ -18109,6 +19098,10 @@
           "color2": "#ff6f4a",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "harp",
           "volume": 1,
           "octave": 0,
@@ -18178,7 +19171,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -18428,7 +19422,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -18442,6 +19437,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -18507,7 +19519,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5d0",
           "name": "Lissajous Knot",
           "enabled": true,
           "type": "parametric",
@@ -18529,6 +19541,10 @@
           "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "dub-chord",
           "volume": 1,
           "octave": 0,
@@ -18598,7 +19614,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -18848,7 +19865,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -18862,6 +19880,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -18927,7 +19962,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav27360",
+          "id": "Lmwb5ld5d0",
           "name": "Lissajous Knot",
           "enabled": true,
           "type": "parametric",
@@ -18949,6 +19984,10 @@
           "color2": "#6a5cff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "square",
           "volume": 1,
           "octave": 0,
@@ -19018,7 +20057,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -19268,7 +20308,8 @@
           "size": 0.8,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -19282,6 +20323,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {

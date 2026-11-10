@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav273j0",
+          "id": "Lmwb5ld5s0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -49,6 +49,10 @@
           "color2": "#22e4ff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
@@ -94,7 +98,7 @@
           "hidden": false
         },
         {
-          "id": "Lmwav273j1",
+          "id": "Lmwb5ld5s1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -116,6 +120,10 @@
           "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
@@ -161,7 +169,7 @@
           "hidden": false
         },
         {
-          "id": "Lmwav273j2",
+          "id": "Lmwb5ld5s2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -183,6 +191,10 @@
           "color2": "#ffd23d",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
@@ -252,7 +264,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": true,
@@ -502,7 +515,8 @@
           "size": 1.5,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -516,6 +530,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": [
           {
             "id": "step1",
@@ -627,7 +658,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav273j0",
+          "id": "Lmwb5ld5s0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -649,6 +680,10 @@
           "color2": "#ff3d9a",
           "width": 2,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "sawtooth",
           "volume": 1,
           "octave": 0,
@@ -694,7 +729,7 @@
           "hidden": false
         },
         {
-          "id": "Lmwav273j1",
+          "id": "Lmwb5ld5s1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -716,6 +751,10 @@
           "color2": "#ff3d9a",
           "width": 2,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "sawtooth",
           "volume": 1,
           "octave": 0,
@@ -761,7 +800,7 @@
           "hidden": false
         },
         {
-          "id": "Lmwav273j2",
+          "id": "Lmwb5ld5s2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -783,6 +822,10 @@
           "color2": "#ff3d9a",
           "width": 2,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "sawtooth",
           "volume": 1,
           "octave": 0,
@@ -852,7 +895,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": true,
@@ -1102,7 +1146,8 @@
           "size": 1.5,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -1116,6 +1161,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": [
           {
             "id": "step1",
@@ -1227,7 +1289,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav273j0",
+          "id": "Lmwb5ld5s0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -1249,6 +1311,10 @@
           "color2": "#ff3d9a",
           "width": 2,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "sawtooth",
           "volume": 1,
           "octave": 0,
@@ -1294,7 +1360,7 @@
           "hidden": false
         },
         {
-          "id": "Lmwav273j1",
+          "id": "Lmwb5ld5s1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -1316,6 +1382,10 @@
           "color2": "#ff3d9a",
           "width": 2,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "sawtooth",
           "volume": 1,
           "octave": 0,
@@ -1361,7 +1431,7 @@
           "hidden": false
         },
         {
-          "id": "Lmwav273j2",
+          "id": "Lmwb5ld5s2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -1383,6 +1453,10 @@
           "color2": "#ff3d9a",
           "width": 2,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "sawtooth",
           "volume": 1,
           "octave": 0,
@@ -1452,7 +1526,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": true,
@@ -1702,7 +1777,8 @@
           "size": 1.5,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -1716,6 +1792,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": [
           {
             "id": "step1",
@@ -1827,7 +1920,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav273k0",
+          "id": "Lmwb5ld5t0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -1849,6 +1942,10 @@
           "color2": "#22e4ff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
@@ -1894,7 +1991,7 @@
           "hidden": false
         },
         {
-          "id": "Lmwav273k1",
+          "id": "Lmwb5ld5t1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -1916,6 +2013,10 @@
           "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
@@ -1961,7 +2062,7 @@
           "hidden": false
         },
         {
-          "id": "Lmwav273k2",
+          "id": "Lmwb5ld5t2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -1983,6 +2084,10 @@
           "color2": "#ffd23d",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
@@ -2052,7 +2157,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": true,
@@ -2302,7 +2408,8 @@
           "size": 1.5,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -2316,6 +2423,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": [
           {
             "id": "step1",
@@ -2427,7 +2551,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav273k0",
+          "id": "Lmwb5ld5t0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -2449,6 +2573,10 @@
           "color2": "#22e4ff",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
@@ -2494,7 +2622,7 @@
           "hidden": false
         },
         {
-          "id": "Lmwav273k1",
+          "id": "Lmwb5ld5t1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -2516,6 +2644,10 @@
           "color2": "#ff3d9a",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
@@ -2561,7 +2693,7 @@
           "hidden": false
         },
         {
-          "id": "Lmwav273k2",
+          "id": "Lmwb5ld5t2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -2583,6 +2715,10 @@
           "color2": "#ffd23d",
           "width": 5,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "triangle",
           "volume": 1,
           "octave": 0,
@@ -2652,7 +2788,8 @@
           "size": 30,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": true,
@@ -2902,7 +3039,8 @@
           "size": 1.5,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -2916,6 +3054,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": [
           {
             "id": "step1",

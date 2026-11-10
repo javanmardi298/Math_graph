@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav273s0",
+          "id": "Lmwb5ld650",
           "name": "Layer 385",
           "enabled": true,
           "type": "function",
@@ -49,6 +49,10 @@
           "color2": "#ff3d9a",
           "width": 4,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
@@ -118,7 +122,8 @@
           "size": 26,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -566,7 +571,8 @@
           "size": 1,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -580,6 +586,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -645,7 +668,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav273s0",
+          "id": "Lmwb5ld650",
           "name": "Layer 387",
           "enabled": true,
           "type": "function",
@@ -667,6 +690,10 @@
           "color2": "#8cff5a",
           "width": 4,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
@@ -736,7 +763,8 @@
           "size": 26,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -1187,7 +1215,8 @@
           "size": 1,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -1201,6 +1230,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -1266,7 +1312,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav273t0",
+          "id": "Lmwb5ld650",
           "name": "Layer 389",
           "enabled": true,
           "type": "function",
@@ -1288,6 +1334,10 @@
           "color2": "#ff3d9a",
           "width": 4,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
@@ -1357,7 +1407,8 @@
           "size": 26,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -1807,7 +1858,8 @@
           "size": 1,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -1821,6 +1873,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -1886,7 +1955,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav273t0",
+          "id": "Lmwb5ld650",
           "name": "Layer 391",
           "enabled": true,
           "type": "function",
@@ -1908,6 +1977,10 @@
           "color2": "#8cff5a",
           "width": 4,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
@@ -1977,7 +2050,8 @@
           "size": 26,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -2427,7 +2501,8 @@
           "size": 1,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -2441,6 +2516,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -2506,7 +2598,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav273t0",
+          "id": "Lmwb5ld650",
           "name": "Layer 393",
           "enabled": true,
           "type": "function",
@@ -2528,6 +2620,10 @@
           "color2": "#ff3d9a",
           "width": 4,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
@@ -2597,7 +2693,8 @@
           "size": 26,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -3048,7 +3145,8 @@
           "size": 1,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -3062,6 +3160,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {
@@ -3127,7 +3242,7 @@
       },
       "layers": [
         {
-          "id": "Lmwav273t0",
+          "id": "Lmwb5ld660",
           "name": "Layer 395",
           "enabled": true,
           "type": "function",
@@ -3149,6 +3264,10 @@
           "color2": "#8cff5a",
           "width": 4,
           "style": "line",
+          "fill": "none",
+          "fillAlpha": 0.3,
+          "fillColor": "",
+          "readout": "none",
           "wave": "sine",
           "volume": 0.6,
           "octave": 0,
@@ -3218,7 +3337,8 @@
           "size": 26,
           "image": null,
           "cursorLine": true,
-          "smoothing": 0.35
+          "smoothing": 0.35,
+          "lens": 0
         },
         "fog": {
           "enabled": false,
@@ -3667,7 +3787,8 @@
           "size": 1,
           "fit": true,
           "start": 0,
-          "end": 0
+          "end": 0,
+          "math": false
         },
         "name": {
           "enabled": false,
@@ -3681,6 +3802,23 @@
           "y": null,
           "size": 1
         },
+        "legend": {
+          "enabled": false,
+          "x": null,
+          "y": null,
+          "size": 1
+        },
+        "readout": {
+          "x": null,
+          "y": null,
+          "size": 1,
+          "digits": 3
+        },
+        "axes": {
+          "x": "",
+          "y": ""
+        },
+        "drumTicks": false,
         "texts": []
       },
       "sequence": {

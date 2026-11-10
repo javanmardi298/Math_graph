@@ -24,6 +24,7 @@ export const PACKS = [
   { id: 'harmonograph', name: 'Harmonograph', about: 'Pendulums that draw: intervals, chords, scales (quarter tones), detune, mandalas', load: () => import('./harmonograph.js').then((m) => m.HARMONOGRAPH) },
   { id: 'spirograph', name: 'Spirograph & guilloche', about: 'Toothed wheels, petals and turns, the pen hole, cycloids, gears in gears, engraved patterns', load: () => import('./spirograph.js').then((m) => m.SPIRO_LESSONS) },
   { id: 'motion', name: 'Motion, sync & numbers', about: 'Fireflies in step, the Shepard scale, three bodies, double pendulums, prime spirals, the fastest slide', load: () => import('./motion.js').then((m) => m.MOTION_LESSONS) },
+  { id: 'fractal-lab', name: 'Fractal workshop & graph scenes', about: 'Mandelbrot, Julia, Newton, Buddhabrot, Lyapunov, the chaos game; shapes as waves, derivatives, a wall of lights', load: () => import('./fractal-lab.js').then((m) => m.FRACTAL_LAB_LESSONS) },
   { id: 'battles', name: 'Circle: battles & formulas', about: 'Rock paper scissors, predator & prey, blades, knives, formula spike', load: () => import('./circle-patterns.js').then((m) => m.BATTLES) },
 ];
 

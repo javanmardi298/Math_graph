@@ -748,3 +748,19 @@ body.mode-circle .circle-layers { display: flex; flex-direction: column; gap: 10
 .drum-pattern { grid-column: 1 / -1; }
 .drum-pattern input { font-family: var(--font-mono, ui-monospace, monospace); letter-spacing: 0.12em; }
 .drum-pattern label:empty { display: none; }
+
+/* right panel: areas (one row), then the tabs of the chosen area */
+.tabbar { display: block; padding: 6px 6px 0; }
+.tabgroups { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 3px; padding-bottom: 6px; }
+.tabbar .tabgroups button { border: 1px solid var(--line); border-radius: 10px; padding: 7px 2px; font-size: 10.5px; letter-spacing: 0.02em; overflow: hidden; text-overflow: ellipsis; text-transform: uppercase; color: var(--muted, #8a93a6); background: transparent; border-bottom-width: 1px; }
+.tabbar .tabgroups button[aria-selected="true"] { color: var(--fg); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.tabsubs { display: flex; flex-wrap: wrap; gap: 0 2px; }
+.tabsubs[hidden] { display: none; }
+
+/* Fractals tab */
+.fractal-formula { font-family: "Latin Modern Math", "Cambria Math", "Times New Roman", serif; font-style: italic; font-size: 1.15rem; text-align: center; margin: 6px 0; padding: 8px; border: 1px solid var(--line); border-radius: 10px; }
+.fractal-palettes { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); }
+.fractal-palettes .harm-look { min-height: 34px; position: relative; overflow: hidden; padding: 0; }
+.fractal-palettes .harm-look[aria-pressed="true"] { outline: 2px solid var(--accent); }
+.fractal-palettes .harm-look > span.fractal-pal-name { position: absolute; left: 6px; bottom: 3px; height: auto; background: none; border: 0; font-size: 0.68rem; color: #fff; text-shadow: 0 0 4px #000, 0 0 2px #000; }
+.fractal-gallery .chip { font-size: 0.78rem; }

@@ -600,7 +600,8 @@ store.on((path) => {
       panels.renderCircle?.();
       panels.renderHarmonograph?.();
       panels.renderSpiro?.();
-      if (isCircle()) panels.showTab?.(store.state.circle.rule === 'harmonograph' ? 'harmonograph' : ['spirograph', 'guilloche'].includes(store.state.circle.rule) ? 'spiro' : 'circle');
+      panels.renderFractal?.();
+      if (isCircle()) panels.showTab?.(store.state.circle.rule === 'harmonograph' ? 'harmonograph' : ['spirograph', 'guilloche'].includes(store.state.circle.rule) ? 'spiro' : ['fractal', 'buddha', 'lyapunov', 'ifs'].includes(store.state.circle.rule) ? 'fractal' : 'circle');
       syncHarmButton();
       break;
     case 'circle':
@@ -611,7 +612,7 @@ store.on((path) => {
         // rebuild the Circle tab when the visible controls change (rule, pitch mode, the layer list)
         const tail = path.split('.').slice(-2).join('.');
         if (!second || second === 'combine' || path === 'circle.layers' || /(^|\.)rule$/.test(path) || tail === 'sound.pitch' || tail === 'sound.melody') panels.renderCircle?.();
-        if (!second || path === 'circle.layers' || /(^|\.)rule$/.test(path)) { panels.renderHarmonograph?.(); panels.renderSpiro?.(); panels.renderCircleLayers?.(); syncHarmButton(); }
+        if (!second || path === 'circle.layers' || /(^|\.)rule$/.test(path)) { panels.renderHarmonograph?.(); panels.renderSpiro?.(); panels.renderFractal?.(); panels.renderCircleLayers?.(); syncHarmButton(); }
         if (!second || second === 'layers' || second === 'combine') panels.renderCircleLayers?.();
       }
       break;
@@ -1687,6 +1688,7 @@ harmBtn = h('button', { type: 'button', class: 'harm-mode-btn', title: 'Harmonog
 $('mode-slot').append(harmBtn);
 const spiroBtn = h('button', { type: 'button', class: 'harm-mode-btn', title: 'Spirograph and guilloche: toothed wheels draw (Circle Lab)', 'aria-label': 'Spirograph', onclick: () => { panels.spiro?.start(['spirograph', 'guilloche'].includes(store.state.circle.rule) && isCircle() ? store.state.circle.rule : 'spirograph'); panels.showTab?.('spiro'); } }, '✺');
 $('mode-slot').append(spiroBtn);
+$('mode-slot').append(h('button', { type: 'button', class: 'harm-mode-btn', title: 'Fractals: Mandelbrot and Julia zooms, Newton, Buddhabrot, ferns and dragons (Circle Lab)', 'aria-label': 'Fractals', onclick: () => { if (!panels.fractal?.on) panels.fractal?.start('fractal'); panels.showTab?.('fractal'); } }, '❄'));
 syncHarmButton();
 $('play-btn').addEventListener('click', togglePlay);
 $('rewind-btn').addEventListener('click', () => seek(0));

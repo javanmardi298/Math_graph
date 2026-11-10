@@ -12,6 +12,7 @@ import { SoundPresetView } from './sound-presets-view.js';
 import { AudioLabView } from './audio-lab.js';
 import { HarmonographTab } from './harmonograph-tab.js';
 import { SpiroTab } from './spirograph-tab.js';
+import { FractalTab, FRACTAL_RULES } from './fractal-tab.js';
 import { getBrand, setBrand } from '../brand.js';
 import { saveShorts } from '../shorts-prefs.js';
 import { CAMERA_MOVE_DEFAULTS, ENDINGS } from '../camera-moves.js';
@@ -61,6 +62,19 @@ const MAX_LAYERS = 8;
 const SNIPPETS = ['sin()', 'cos()', 'exp()', 'mod(x, 1)', 'abs()', 'floor()', 'sqrt()', 'saw()', 'tri()', 'square()', 'noise()', 'pi', 't', 'a'];
 
 /* ------------------------------------------------------------ the panels */
+
+/**
+ * The right panel's areas: [id, label, tab keys, tooltip]. To add a tab, add it to `tabs` in
+ * buildRight and to one of these lists.
+ */
+export const TAB_GROUPS = [
+  ['create', 'Create', ['circle', 'harmonograph', 'spiro', 'fractal'], 'Circle Lab simulations, harmonograph, spirograph and fractals'],
+  ['look', 'Look', ['look', 'fx', 'text'], 'Colours, drawing styles, backdrops, effects and the text on the video'],
+  ['sound', 'Sound', ['sound', 'rhythm', 'audio'], 'Instruments, scales and effects, the beat grid and drums, a preset from a recording'],
+  ['motion', 'Motion', ['camera', 'animate'], 'Camera moves, final shots, films and keyframes'],
+  ['library', 'Library', ['presets', 'daily'], 'Presets and the daily posting plan'],
+  ['export', 'Export', ['export'], 'Video, audio, MIDI, image'],
+];
 
 export class Panels {
   /**
@@ -361,6 +375,7 @@ export class Panels {
       ['circle', '◎ Circle', this.circleTab()],
       ['harmonograph', '〰 Harmonograph', this.harmTab()],
       ['spiro', '✺ Spirograph', this.spiroTab()],
+      ['fractal', '❄ Fractals', this.fractalTab()],
       ['look', 'Look', this.lookTab()],
       ['fx', 'FX', this.fxTab()],
       ['sound', 'Sound', this.soundTab()],
@@ -377,13 +392,24 @@ export class Panels {
     const body = document.getElementById('tabbody');
     let saved = 'look';
     try { saved = localStorage.getItem('mmv.tab') || 'look'; } catch { /* storage blocked */ }
+    // Two rows: the area (what you are working on), then its tabs. Fourteen tabs in one wrapping
+    // row were hard to scan; the area row never wraps. TAB_GROUPS is the single place that sorts them.
+    const groupOf = (key) => TAB_GROUPS.find((gr) => gr[2].includes(key)) || TAB_GROUPS[0];
+    const groupBar = h('div.tabgroups', { role: 'tablist', 'aria-label': 'Areas' });
+    const subBar = h('div.tabsubs', { role: 'tablist', 'aria-label': 'Tabs' });
+    const lastIn = {};
     const show = (key) => {
+      const gr = groupOf(key);
+      lastIn[gr[0]] = key;
       for (const [k, , el] of tabs) el.hidden = k !== key;
-      bar.querySelectorAll('button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === key)));
+      groupBar.querySelectorAll('button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.group === gr[0])));
+      subBar.replaceChildren(...tabs.filter(([k]) => gr[2].includes(k)).map(([k, label]) => h('button', { type: 'button', role: 'tab', dataset: { tab: k }, 'aria-selected': String(k === key), onclick: () => show(k) }, label)));
+      subBar.hidden = gr[2].length < 2;
       try { localStorage.setItem('mmv.tab', key); } catch { /* ignore */ }
     };
-    for (const [key, label, el] of tabs) {
-      bar.append(h('button', { type: 'button', role: 'tab', dataset: { tab: key }, onclick: () => show(key) }, label));
+    for (const [id, label, keys, title] of TAB_GROUPS) groupBar.append(h('button', { type: 'button', role: 'tab', title, dataset: { group: id }, onclick: () => show(lastIn[id] || keys[0]) }, label));
+    bar.append(groupBar, subBar);
+    for (const [, , el] of tabs) {
       el.setAttribute('role', 'tabpanel');
       body.append(el);
     }
@@ -714,6 +740,13 @@ export class Panels {
     this.harm = new HarmonographTab({ circleTarget: () => this.circleTarget(), toast: this.actions.toast });
     return this.harm.el;
   }
+
+  fractalTab() {
+    this.fractal = new FractalTab({ circleTarget: () => this.circleTarget(), toast: this.actions.toast });
+    return this.fractal.el;
+  }
+
+  renderFractal() { this.fractal?.render(); }
 
   spiroTab() {
     this.spiro = new SpiroTab({ circleTarget: () => this.circleTarget(), toast: this.actions.toast });
@@ -1530,6 +1563,7 @@ export class Panels {
     this.renderCircleLayers();
     this.renderHarmonograph();
     this.renderSpiro();
+    this.renderFractal();
     this.soundPresets?.forget();
     refreshAll();
     this.updateYtCount?.();
