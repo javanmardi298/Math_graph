@@ -233,7 +233,7 @@ Exports embed their preset (WAV/MP4/WebM/PNG "Hide preset inside file") → re-u
 ## 5. Circle Lab (`mode:'circle'`)
 
 State: `state.circle = { rule, seed, lab:{[scene]:{…params}}, look, sound, speed, text, layers[], combine, start, end }`.
-`rule` is a scene id (Appendix A lists all 69 scenes and their `lab` keys) or a classic rule: `chord` (chord walker with `chord.step` expression, e.g. `1/phi^2`), `bounce`, `split`, `grow`, `escape`, `polyrhythm` (settings in `chord/physics/split/grow/escape/poly`).
+`rule` is a scene id (Appendix A lists all 76 scenes and their `lab` keys) or a classic rule: `chord` (chord walker with `chord.step` expression, e.g. `1/phi^2`), `bounce`, `split`, `grow`, `escape`, `polyrhythm` (settings in `chord/physics/split/grow/escape/poly`).
 
 - **`look`**: `palette` (neon, rainbow, sunset, gold, aurora, candy, ocean, fire, pastel, matrix, mono, sepia, indigo, rosegold, ember, ice, verdigris, peacock), `trail` lines|fade|none, `trailWidth`, `glow`, `ringWidth`, `ballSize`, `sparks`, `ringPulse`, `comet`, `counter`, `background`, `zoom`, `dx`, `dy`, `bloom`, `ambience`.
 - **`sound`**: `instrument`, `pitch` angle\|melody\|rise\|ball (where the hit lands / next melody note / rising scale / each ball its own note), `melody`, `notes`, `drum` off\|kick\|snare\|clap\|hat on every hit, `length`, `volume`, `maxRate` (note thinning). Scale/key/range come from the global Sound tab.
@@ -275,7 +275,7 @@ packs/*.mmv.json        importable bundles
 
 After editing: `node scripts/build-presets.mjs` (tests fail if `presets/` is stale) → `npm test`.
 Preset object = partial state + extras: `name` (unique), `$category` (shelf mapping), `mode`, `transport{duration,bpm}`, `view`, `params`, `layers`, `visual`, `camera`, `audio`, `overlay`, `keyframes`, `sequence`, `rhythm`, `drums`, `circle`, `hook{text}`, `youtube{title,description,tags}`, `about{title,math,surprise,where,sources[{label,url}]}`. Durations are also tuned in `presets-src/lengths.js`.
-Built-in shelves (40, 520 presets): Start here · Sound (graph, curves, layers, quiz, waves, shapes 46, showcase 50) · Music theory · Math (Fourier, π, calculus, fractals, complex, harmonograph 47, spirograph 41, patterns, machines) · Physics · Stories · Satisfying (classic, multiply, fill, bounce, growth, games) · Formulas (2D, 3D, **cinematic 44**) · Showcase films · **Classroom 5** · Moods (psychedelic, satisfying, ASMR, minimal) · Science (chaos, shapes, numbers, motion, life). 20 lesson packs with 114 lessons.
+Built-in shelves (42, 574 presets): Start here · Sound (graph, curves, layers, quiz, waves, shapes 46, showcase 50) · Music theory · Math (Fourier, π, calculus, fractals, complex, harmonograph 47, spirograph 41, patterns, machines) · Physics · Stories · Satisfying (classic, multiply, fill, bounce, growth, games) · Formulas (2D, 3D, **cinematic 44**) · Showcase films · **Classroom 5** · Moods (psychedelic, satisfying, ASMR, minimal) · Science (chaos, shapes, numbers, motion, life). 21 lesson packs with 122 lessons.
 
 ### 6.2 Library features
 
@@ -321,6 +321,93 @@ YouTube metadata (`youtube{title,description,tags}`) is saved in the preset, wri
 ## 8. Ideas still open (potential)
 
 More classroom lessons (derivative & tangent, integral as area, vectors & rotation, probability/normal distribution, complex plane, matrices as transformations, trigonometric identities, sequences & series, conic sections, polar↔Cartesian), more 3D surfaces (spherical harmonics gallery, Calabi–Yau-style slices), more maps (Newton fractals via `map`, Collatz), cymatics gallery, music-theory scenes (intervals as Lissajous, Tonnetz), ASMR/Minimal packs with new backdrops, per-preset loops for Circle Lab, Bézier keyframe curves, shareable URL presets.
+
+---
+
+---
+
+## 9. What was added in the big upgrade (read this if you knew the app before)
+
+### 9.1 Driving the app from outside: `window.mmv`
+
+Always available in the page (browser automation, the console):
+
+```js
+mmv.state()                      // a copy of the whole state (a preset)
+mmv.load(preset)                 // load a whole or partial preset
+mmv.get('visual.fx.style')       // read one setting
+mmv.set('audio.scale', 'shur')   // change one setting (panels refresh)
+mmv.layer(0, { exprs: { y: 'sin(3x)' }, fill: 'under', readout: 'area' })   // patch a layer and rebuild it
+await mmv.presets()              // [{ shelf, name }] of every built-in preset
+await mmv.loadByName('Fractal · Seahorse valley')
+mmv.seek(12); mmv.play(); mmv.pause();
+mmv.frame()                      // the current frame (drawing + text) as a PNG data URL
+mmv.errors()                     // formula errors per layer, {} when everything compiles
+```
+
+### 9.2 Right panel: areas, then tabs (`TAB_GROUPS` in `src/ui/panels.js`)
+
+| Area | Tabs |
+| --- | --- |
+| Create | ◎ Circle · 〰 Harmonograph · ✺ Spirograph · ❄ Fractals |
+| Look | Look · FX · Text |
+| Sound | Sound · Rhythm · ♪ From audio |
+| Motion | Camera · Animate |
+| Library | Presets · 📅 Daily |
+| Export | Export |
+
+### 9.3 Sound
+
+- **160 scales** (`src/math/music.js`): new groups *Jazz & modern*, *Chord tones* (`chordMajor`, `chordMin7`, `fifths`, `octaves` … snap any curve to a chord), more maqam / dastgah (`bayatTork`, `afshari`, `jiharkah`, `atharKurd`, `huseyni`, `ussak`), *Tunings & temperaments* (`pythagorean`, `justMinor`, `meantone`, `harmonics8`, `undertones`, `shruti22`, `edo5/10/15/17/22/31/53`).
+- **Custom scale**: `audio.scale: 'custom'` + `audio.customScale: '0 2 3.5 7'` (semitones), `'204c 386c 702c'` (cents) or `'9/8 5/4 3/2 2/1'` (ratios); a last step ≥ an octave is the period (`parseScale`).
+- **`audio.transpose`** (semitones, keyframeable: key changes), **`audio.eq {low, mid, high}`** in dB (keyframeable), **`audio.drumKit`**: `classic | 808 | acoustic | techno | lofi`.
+- **52 instruments**: new `808`, `808-dist`, `sub-bass`, `pluck-bass`, `lead-saw`, `theremin`, `strings`, `brass`, `church-organ`, `vibraphone`, `steel-drum`, `santur`, `tar`, `oud`, `ney`, `sitar`, `koto`. Patch field `drop {semi, time}` = pitch fall at the start of a note.
+- **Per layer**: `harmony` (`off | octave | octaveDown | fifth | power | third | minorThird | major | minor | sus4 | seventh | minor7 | stack`) and `detune` (cents between two copies). Keyframeable `layer.N.harmony`.
+- **Drums**: 7 pieces (`kick snare hat clap openhat tom perc`); trigger `pattern` reads `drums.patterns.<piece>`: one character per sixteenth note, `x` hit, `X` accent, `o` soft, `.` rest (`DRUM_PATTERNS` has ready beats: four, trap, boom, rock, dnb, reggaeton, techno, six8, half).
+
+### 9.4 Graph look ("textbook" videos)
+
+| Setting | What it does |
+| --- | --- |
+| `overlay.formulas.math: true` | captions are **typeset** (serif, fractions, powers, Greek). Write TeX-like text: `f' = f \frac{c}{c - v_r}`, `y = \sin x + \frac{\sin 3x}{3} + \cdots`, `f = 220 \cdot 2^{n/12}`, `r = 4 \sin\left(\frac{240\theta}{25}\right) + 10`, `\int_0^{\pi} \sin x \, dx = 2`. Plain text (`2^(n/12)`, `pi`, `*`) works too. In a sequence only the active layer's formula shows. Text boxes: `math: true`. Engine: `src/ui/mathtext.js` |
+| `overlay.legend {enabled, x, y, size}` | a row naming the layers and the drums ("— car — 808 ‖ kick/snare/hat"); a layer's `legend` overrides its name, `'-'` hides it |
+| `overlay.axes {x, y}` | letters at the ends of the axes (`t`, `f`, `n`) |
+| `overlay.drumTicks` | a tick under the graph for every drum hit (kick long, snare medium, hats short; future hits faint) |
+| `visual.marker.lens` | a thin circle round the pen (fraction of the frame width) |
+| `layer.fill` | `under` (area between the curve and y = 0) or `origin` (area swept from the origin: hearts, roses); `fillAlpha`, `fillColor`; grows with the pen |
+| `layer.readout` | a live number: `area` (∫ y dx, or the swept area with `fill: 'origin'`), `value`, `x`, `slope`, `length`; `overlay.readout {x, y, size, digits}`, `layer.readoutLabel` |
+
+Paper style = `visual.background '#ffffff'`, black layers, `fx.style 'ink'`, `drawMode 'ghost'` (future notes grey), bloom off. See `presets-src/fractals.js` → `TEXTBOOK_PRESETS` (Doppler, square wave from curves, octave staircase, π digits beat, integral with a filling area, heart, rose, polar ring, Euler helix).
+
+### 9.5 New Circle Lab scenes (`src/circle/shapes-lab.js`)
+
+- **`shapewave`** — a point runs round shapes and its height is unrolled into a wave: `rows: 'circle rose square star'` (also ellipse, rose3, rose5, triangle, pentagon, hexagon, star6, heart, cardioid, lemniscate, astroid, spiro, `formula` with `formula: 'cos(3*theta)'`), `speed`, `cycles`, `part: y|x|r`, `title`.
+- **`derivgraph`** — f over f′ (and f″ with `second`), a dashed link through the moving point: `f`, `xmin`, `xmax`, `period`, `tangent`, `title`, `textF`, `textD`.
+- **`dotmatrix`** — a wall of lights: `mode: number|plot|region`, `value` (formula of t), `unit`, `f` (curve), `region` (lit where f(x, y) < 0), `cols`, `block`, `style: led|plate|pixels`, `color: gradient|magenta|amber|green|white`, `scan` (a scan line plays the lit cells), `scanSpeed`.
+
+### 9.6 Fractals (`src/circle/fractal-lab.js`, tab `src/ui/fractal-tab.js`, cards `src/circle/fractal-gallery.js`)
+
+**`fractal`** (escape-time explorer). `circle.lab.fractal`:
+
+| Key | Values |
+| --- | --- |
+| `type` | `mandelbrot` z²+c · `multibrot` z^p+c · `burningship` (\|Re z\|+i\|Im z\|)²+c · `tricorn` conj(z)²+c · `celtic` · `buffalo` · `perpendicular` · `heart` · `phoenix` · `lambda` c·z(1−z) · `newton` (basins of z^p − 1) |
+| `julia` | false = Mandelbrot view (c = the pixel), true = Julia view (c fixed, `jx`, `jy`) |
+| `journey` | `zoom` (into `spot` or `cx, cy`; ×10^`depth`) · `julia` (c travels: `jpath` circle\|cardioid\|bulb\|line\|fixed, `jr`, `jspeed`, `jx2`, `jy2`) · `power` (`power` → `power2`) · `pan` · `still` |
+| `spot` | seahorse, spiral, elephant, lightning, needle, tendrils, starfish, feigenbaum, ship, shipMast, tricornArm, celticEye, custom |
+| `colors` | fire, ocean, neon, gold, rainbow, mono, twilight, electric, ice, forest, candy, lava, inferno, viridis, zebra, pastel, copper, aurora |
+| `coloring` | `smooth` · `bands` · `trap` (+ `trap`: point\|cross\|circle\|line) · `stripes` · `angle` (binary decomposition); `density`, `cycle`, `interior: black\|glow` |
+| other | `rotate`, `iter` (0 = automatic), `res`, `bleed` (fill the whole frame), `relax` (Newton step), `sound: journey\|orbit\|off`, `nps`, `showOrbit` |
+
+Rendering: a fragment shader on a private WebGL canvas; below a view width of 3·10⁻⁵ (zoom ≈ ×10⁵) it switches to exact 64-bit arithmetic on the CPU (slower, lower detail), so zooms to ×10¹³ work.
+**`buddha`** (Buddhabrot / anti-Buddhabrot: `rate`, `minIter`, `maxIter`, `anti`, `colors`, `gain`), **`lyapunov`** (`seq` such as `AB`, `AABAB`, `BBBBBBAAAAAA`; ranges `a0 a1 b0 b1`; `iters`, `reveal`, `cycle`), **`ifs`** (chaos game: `system` = fern, fern2, sierpinski, carpet, vicsek, dragon, twindragon, levy, koch, maple, tree, spiral, crystal, pentaflake, hexaflake, pythagoras; `rate0`, `accel`, `max`, `colorBy`). The older `mandel`, `lsystem`, `chaos`, `tree` scenes remain.
+To add a family: one row in `FRACTAL_TYPES` (flags = fold x, fold y, conjugate, fold Re after, fold Im after) is enough for the abs/conj family; other rules need a branch in both `orbit()` and the shader. To add a gallery card and a preset: one row in `GALLERY`.
+
+### 9.7 Other
+
+- Batch export in the browser: the result window lists every file with its own **Save** button (a zip of many videos can be too large for the artifact viewer to save in one piece).
+- New shelves: **Fractals** (38 presets) and **Textbook** (16); lesson pack *Fractal workshop & graph scenes* (8 lessons).
+- Tests: `tests/upgrade.test.mjs`.
 
 ---
 
@@ -416,6 +503,9 @@ lab keys: `algo` ∈ {bubble|cocktail|insertion|selection|quick|merge|heap|shell
 **`polygons`** — Polygon polyrhythm (a note on every corner)  
 lab keys: `from` 2…12; `to` 3…16; `lap` 1…32; `mode` ∈ {same|beat}
 
+**`dotmatrix`** — LED matrix: block digits, curves and shapes from lights  
+lab keys: `mode` ∈ {number|plot|region}; `value` (formula of t); `unit` (text); `f` (formula of x,t); `region` (formula of x,y,t); `cols` 8…72; `block` 1…6; `style` ∈ {led|plate|pixels}; `color` ∈ {gradient|magenta|amber|green|white}; `scan` (on/off); `scanSpeed` 0.5…16
+
 #### Drawing machines
 
 **`harmono`** — Harmonograph (decaying pendulums draw)  
@@ -503,6 +593,12 @@ lab keys: `fn` ∈ {sin|cos|exp|ln|geo|atan}; `terms` 1…20; `every` 0.5…8
 **`unitcircle`** — Unit circle: sine and cosine from a turning point  
 lab keys: `speed` 0.05…1; `show` ∈ {both|sin|cos}; `tan` (on/off); `notes` 0…8
 
+**`shapewave`** — Geometry of waves: a shape unrolled into a wave  
+lab keys: `rows` (text); `formula` (formula of theta,t); `speed` 0.05…1.5; `cycles` 1…6; `part` ∈ {y|x|r}; `notes` 0…8; `title` (text)
+
+**`derivgraph`** — Function and derivative: two graphs, one moving point  
+lab keys: `f` (formula of x,t); `xmin` -20…0; `xmax` 0…20; `period` 2…40; `second` (on/off); `tangent` (on/off); `title` (text); `textF` (text); `textD` (text); `notes` 0…8
+
 #### Pi
 
 **`archimedes`** — Archimedes: polygons squeeze π  
@@ -527,6 +623,18 @@ lab keys: `set` ∈ {mandelbrot|julia}; `spot` ∈ {seahorse|spiral|lightning|ne
 
 **`lsystem`** — Fractal curves: Koch, dragon, Hilbert …  
 lab keys: `curve` ∈ {koch|dragon|hilbert|arrowhead|gosper|levy}; `steps` (text); `every` 1…16; `draw` 0.1…1; `notes` 0…8
+
+**`fractal`** — Fractal explorer (Mandelbrot, Julia, Burning Ship, Newton …)  
+lab keys: `type` ∈ {mandelbrot|multibrot|burningship|tricorn|celtic|buffalo|perpendicular|heart|phoenix|lambda|newton}; `julia` (on/off); `journey` ∈ {zoom|julia|power|pan|still}; `spot` ∈ {seahorse|spiral|elephant|lightning|needle|tendrils|starfish|feigenbaum|ship|shipMast|tricornArm|celticEye|custom}; `cx` -2.5…2.5; `cy` -2.5…2.5; `depth` 0.5…13; `zoom` 0.3…200; `wait` 0…6; `jpath` ∈ {circle|cardioid|bulb|line|fixed}; `jr` 0.1…1.2; `jspeed` 0.002…0.3; `jx` -2…2; `jy` -2…2; `jx2` -2…2; `jy2` -2…2; `power` 2…9; `power2` 2…9; `relax` 0.3…1.9; `colors` ∈ {fire|ocean|neon|gold|rainbow|mono|twilight|electric|ice|forest|candy|lava|inferno|viridis|zebra|pastel|copper|aurora}; `coloring` ∈ {smooth|bands|trap|stripes|angle}; `trap` ∈ {point|cross|circle|line}; `density` 0.1…6; `cycle` -0.5…0.5; `interior` ∈ {black|glow}; `rotate` -0.2…0.2; `iter` 0…1800; `res` 160…1080; `sound` ∈ {journey|orbit|off}; `nps` 0…8; `showOrbit` (on/off); `bleed` (on/off)
+
+**`buddha`** — Buddhabrot (the paths of escaping points)  
+lab keys: `rate` 100…8000; `minIter` 1…200; `maxIter` 20…2000; `anti` (on/off); `colors` ∈ {fire|ocean|neon|gold|rainbow|mono|twilight|electric|ice|forest|candy|lava|inferno|viridis|zebra|pastel|copper|aurora}; `gain` 0.3…4; `res` 120…500; `nps` 0…8
+
+**`lyapunov`** — Lyapunov fractal (order and chaos of a population)  
+lab keys: `seq` (text); `a0` 0…4; `a1` 0…4; `b0` 0…4; `b1` 0…4; `colors` ∈ {fire|ocean|neon|gold|rainbow|mono|twilight|electric|ice|forest|candy|lava|inferno|viridis|zebra|pastel|copper|aurora}; `iters` 40…600; `res` 100…420; `cycle` -0.3…0.3; `reveal` 0…30; `nps` 0…8
+
+**`ifs`** — Chaos game and IFS (fern, dragon, snowflakes …)  
+lab keys: `system` ∈ {fern|fern2|sierpinski|carpet|vicsek|dragon|twindragon|levy|koch|maple|tree|spiral|crystal|pentaflake|hexaflake|pythagoras}; `rate0` 1…400; `accel` 1…2; `max` 5000…190000; `dot` 0.4…3; `colorBy` ∈ {map|height|time}; `nps` 0…8
 
 #### Music theory
 
@@ -572,3 +680,4 @@ lab keys: `kind` ∈ {race|tautochrone}; `slow` 0.05…1.5; `beads` 2…9; `size
 
 **`primes`** — Prime spirals (Sacks, Ulam)  
 lab keys: `kind` ∈ {sacks|ulam}; `max` 100…40000; `rate0` 1…200; `accel` 1…1.6; `all` 0…0.6; `euler` (on/off); `size` 0.3…3
+

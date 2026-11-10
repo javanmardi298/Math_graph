@@ -189,6 +189,7 @@ export function drawOverlay(g, w, h, d) {
       const cx = (o.formulas.x ?? 0.5) * w, fs = 46 * k * s;
       let yy = y, maxW = 0;
       for (const b of laid) {
+        if (phases.get(b.l.id) === 'past' && laid.some((x) => phases.get(x.l.id) === 'active')) continue; // one formula at a time in a sequence
         for (const line of formulaText(b.l).split('\n')) {
           let px = fs, box = layoutMath(g, line, px);
           if (box.w > w * 0.92) { px *= (w * 0.92) / box.w; box = layoutMath(g, line, px); }

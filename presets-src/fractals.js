@@ -85,7 +85,7 @@ export const TEXTBOOK_PRESETS = [
   base('What Does an Octave Sound Like?', {
     paper: true, D: 13, bpm: 120, view: { xMin: 0, xMax: 13, yMin: 0, yMax: 13 }, axes: { x: 'n', y: 'f' }, scale: 'chromatic', root: 9, lo: 57, hi: 70, articulation: 'pluck',
     layers: [{ name: 'height = pitch', type: 'function', exprs: { y: 'mod(x, 1) < 0.5 ? floor(x) + 1 : 0.02', z: '0' }, ...INK, width: 3, wave: 'e-piano', samples: 2600, caption: 'f = 220 \\cdot 2^{n/12}' }],
-    legend: true, hook: 'What does an octave sound like?', overlay: { texts: [] },
+    hook: 'What does an octave sound like?',
     desc: 'Twelve equal steps make an octave: each note is 2^(1/12) ≈ 1.0595 times the one before, and after twelve steps the frequency has exactly doubled: f = 220 · 2^(n/12).',
   }),
   base("Can Pi's Digits Make a Beat?", {
@@ -100,7 +100,7 @@ export const TEXTBOOK_PRESETS = [
   base('Integral: The Area Under sin x', {
     D: 18, view: { xMin: -0.25, xMax: 3.4, yMin: -0.35, yMax: 1.6 }, fy: 0.7, fs: 1.25, scale: 'major', root: 0, lo: 55, hi: 79,
     layers: [{ name: 'sin x', type: 'function', exprs: { y: 'x >= 0 && x <= pi ? sin(x) : 0', z: '0' }, color: '#58b7ff', color2: '#b06bff', colorMode: 'gradient', width: 3.5, fill: 'under', fillAlpha: 0.38, fillColor: '#3558d8', readout: 'area', wave: 'glass-pad', caption: '\\int_0^{\\pi} \\sin x \\, dx = 2' }],
-    visual: { showAxes: true, drawMode: 'ghost', marker: { shape: 'circle', size: 14, cursorLine: true, smoothing: 0.1, lens: 0 } }, overlay: { readout: { y: 0.6, size: 1, digits: 3 } },
+    visual: { showAxes: true, drawMode: 'ghost', marker: { shape: 'circle', size: 14, cursorLine: true, smoothing: 0.1, lens: 0 } }, overlay: { readout: { y: 0.63, size: 1.5, digits: 3 } },
     hook: 'How big is the area under one arch?', desc: 'The area under sin x from 0 to π fills up as the line sweeps across: exactly 2.',
   }),
   base('A Mathematical Way to Say I Love You', {
@@ -116,13 +116,13 @@ export const TEXTBOOK_PRESETS = [
     hook: 'A mathematical way to give flowers', desc: 'A rose curve r = cos 4θ: eight petals, each filled as the pen sweeps it out.',
   }),
   base('Math Is Beautiful: r = 4 sin(240θ/25) + 10', {
-    D: 28, view: { xMin: -15, xMax: 15, yMin: -31, yMax: 22 }, fy: 0.16, fs: 1.3, scale: 'wholeTone', root: 0, lo: 48, hi: 84,
-    layers: [{ name: 'ring', type: 'polar', range: { min: 0, max: 157.08 }, exprs: { r: '4sin(240theta/25) + 10', z: '0' }, color: '#ffe93b', colorMode: 'solid', width: 2.4, wave: 'vibraphone', samples: 9000, caption: 'r = 4 \\sin\\left(\\frac{240\\theta}{25}\\right) + 10' }],
-    visual: { showAxes: false, drawMode: 'trace', bloom: { enabled: true, strength: 0.35, radius: 0.3, threshold: 0.2 } }, overlay: { formulas: { enabled: true, math: true, x: 0.5, y: 0.16, size: 1.3, tint: false } },
-    camera: { ending: 'auto', endingSecs: 3 }, hook: 'One line of maths draws this', desc: 'r = 4 sin(240θ/25) + 10. The fraction 240/25 = 48/5 means the curve closes after 5 turns... of 2π each ×5: 25 full turns of θ, weaving 48 waves round the ring.',
+    D: 28, view: { xMin: -19, xMax: 19, yMin: -34, yMax: 34 }, fy: 0.1, fs: 1.3, scale: 'wholeTone', root: 0, lo: 48, hi: 84,
+    layers: [{ name: 'ring', type: 'polar', range: { min: 0, max: 31.416 }, exprs: { r: '4sin(240theta/25) + 10', z: '0' }, color: '#ffe93b', colorMode: 'solid', width: 2.4, wave: 'vibraphone', samples: 6000, caption: 'r = 4 \\sin\\left(\\frac{240\\theta}{25}\\right) + 10' }],
+    visual: { showAxes: false, drawMode: 'trace', bloom: { enabled: true, strength: 0.35, radius: 0.3, threshold: 0.2 } }, 
+    camera: { ending: 'auto', endingSecs: 3 }, hook: 'One line of maths draws this', desc: 'r = 4 sin(240θ/25) + 10. The fraction 240/25 is 48/5, so the curve closes after 5 turns of θ and weaves 48 waves round the ring.',
   }),
   base("Euler's Formula: You're Moving Forward", {
-    mode: '3d', D: 24, view: { xMin: -3, xMax: 3, yMin: -3, yMax: 3 }, fy: 0.72, fs: 1.1, scale: 'major', root: 7, lo: 52, hi: 84,
+    mode: '3d', D: 24, view: { xMin: -3, xMax: 3, yMin: -3, yMax: 3 }, fy: 0.8, fs: 1.05, scale: 'major', root: 7, lo: 52, hi: 84,
     layers: [
       { name: 'helix', type: 'parametric', range: { min: 0, max: 31.416 }, exprs: { x: '1.3cos(s)', y: 's/6.2 - 2.5', z: '1.3sin(s)' }, color: '#ff8ad8', colorMode: 'solid', width: 3, wave: 'glass-pad', samples: 1800, caption: 'e^{i\\omega t} = \\cos(\\omega t) + i \\sin(\\omega t)' },
       { name: 'cos', type: 'parametric', range: { min: 0, max: 31.416 }, exprs: { x: '1.3cos(s)', y: '-2.5', z: '0' }, color: '#5fe05f', colorMode: 'solid', width: 3, wave: 'sine', volume: 0.25, caption: '-' },
