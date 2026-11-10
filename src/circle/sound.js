@@ -10,7 +10,7 @@
  * Hits can come thousands per second (splitting balls), so notes are thinned to a
  * maximum rate and quieter when dense: the soundtrack stays musical, never a buzz.
  */
-import { quantize, scaleNotesBetween } from '../math/music.js';
+import { quantize, scaleNotesBetween, useCustomScale } from '../math/music.js';
 
 const N = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
 
@@ -38,6 +38,7 @@ export const MELODIES = {
 
 /** Note numbers of the scale between low and high. */
 function scaleNotes(audio) {
+  if (audio.scale === 'custom') useCustomScale(audio.customScale);
   const scale = audio.scale === 'continuous' || !audio.scale ? 'major' : audio.scale;
   const out = scaleNotesBetween(scale, audio.root || 0, audio.noteLow, audio.noteHigh);
   return out.length ? out : [60];

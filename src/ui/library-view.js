@@ -407,7 +407,7 @@ export class LibraryView {
     };
     moveIn.addEventListener('keydown', (e) => { if (e.key === 'Enter') move(); });
     const armed = this.confirmDelete === 'bulk';
-    this.bulk.replaceChildren(
+    this.bulk.replaceChildren(...[
       h('div.row', {},
         h('strong', {}, `${sel.length} selected`),
         h('button.link', { type: 'button', onclick: () => { for (const x of list) this.selected.add(x.id); this.render(); } }, `Select all ${list.length}`),
@@ -434,7 +434,7 @@ export class LibraryView {
           this.render();
         } }, armed ? `Click again to delete ${mine.length}` : `Delete ${mine.length}`) : null),
       mine.length ? h('div.row', {}, moveIn, h('button.btn.ghost.small', { type: 'button', onclick: move }, 'Move')) : null,
-      sel.length !== mine.length ? h('p.hint', {}, 'Built-in presets can be hidden (not deleted); bring them back from the Hidden filter.') : null);
+      sel.length !== mine.length ? h('p.hint', {}, 'Built-in presets can be hidden (not deleted); bring them back from the Hidden filter.') : null].filter(Boolean));
   }
 
   /* ------------------------------------------------------------- actions */

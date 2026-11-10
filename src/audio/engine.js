@@ -16,7 +16,7 @@
  */
 import { midiToFreq } from '../math/music.js';
 import { DrumKit } from './drums.js';
-import { Voice } from './instruments.js';
+import { Voice, voiceKey } from './instruments.js';
 
 export class AudioEngine {
   constructor() {
@@ -178,7 +178,11 @@ export class AudioEngine {
     // The Web Audio compressor adds automatic make-up gain; take it back so peaks stay below -1 dB.
     this.post = ctx.createGain();
     this.post.gain.value = 0.8;
-    this.master.connect(this.limiter).connect(this.post);
+    // Master tone: low shelf, a mid bell and a high shelf (0 dB = untouched)
+    this.eqLow = ctx.createBiquadFilter(); this.eqLow.type = 'lowshelf'; this.eqLow.frequency.value = 160;
+    this.eqMid = ctx.createBiquadFilter(); this.eqMid.type = 'peaking'; this.eqMid.frequency.value = 1100; this.eqMid.Q.value = 0.8;
+    this.eqHigh = ctx.createBiquadFilter(); this.eqHigh.type = 'highshelf'; this.eqHigh.frequency.value = 5200;
+    this.master.connect(this.eqLow).connect(this.eqMid).connect(this.eqHigh).connect(this.limiter).connect(this.post);
     this.post.connect(this.analyser).connect(ctx.destination);
     if (ctx.createMediaStreamDestination) {
       this.streamDest = ctx.createMediaStreamDestination();
@@ -205,7 +209,7 @@ export class AudioEngine {
 
   /** Frequency of a (fractional) MIDI note with the chosen tuning (A4 = 440 Hz by default). */
   freq(midi) {
-    return midiToFreq(midi) * ((this.settings?.tuning || 440) / 440);
+    return midiToFreq(midi + (this.settings?.transpose || 0)) * ((this.settings?.tuning || 440) / 440);
   }
 
   /** The audio track for MediaRecorder. */
@@ -229,6 +233,11 @@ export class AudioEngine {
     const t = at ?? this.ctx.currentTime;
     const tc = 0.03;
     this.master.gain.setTargetAtTime(a.master, t, tc);
+    const eq = a.eq || {};
+    this.eqLow.gain.setTargetAtTime(eq.low || 0, t, tc);
+    this.eqMid.gain.setTargetAtTime(eq.mid || 0, t, tc);
+    this.eqHigh.gain.setTargetAtTime(eq.high || 0, t, tc);
+    if (this.drums) this.drums.kit = a.drumKit || 'classic';
     this.filter.type = a.filter.type;
     this.filter.frequency.setTargetAtTime(a.filter.cutoff, t, tc);
     this.filter.Q.setTargetAtTime(a.filter.q, t, tc);
@@ -324,7 +333,7 @@ export class AudioEngine {
   recover() {
     const ctx = this.ctx, t = ctx.currentTime;
     console.warn('Audio: non-finite samples in the output; rebuilding the effects chain.');
-    try { this.post.disconnect(); this.limiter.disconnect(); this.master.disconnect(); this.comp.disconnect(); this.analyser.disconnect(); } catch { /* already gone */ }
+    try { this.post.disconnect(); this.limiter.disconnect(); this.eqLow?.disconnect(); this.eqMid?.disconnect(); this.eqHigh?.disconnect(); this.master.disconnect(); this.comp.disconnect(); this.analyser.disconnect(); } catch { /* already gone */ }
     for (const v of this.voices.values()) { v.stop(t); v.dispose(); }
     for (const pool of this.notePools?.values() || []) for (const v of pool.voices) if (v) { v.stop(t); v.dispose(); }
     for (const o of [this.chorusLfo, this.phaserLfo, this.tremLfo, this.panLfo, this.filterLfo, this.pumpLfo, ...this.droneOsc.map((d) => d.o)]) { try { o.stop(); } catch { /* not started */ } }
@@ -360,9 +369,9 @@ export class AudioEngine {
     }
     for (const l of layers) {
       const v = this.voices.get(l.id);
-      if (v && v.id === l.wave) continue;
+      if (v && v.id === voiceKey(l)) continue;
       if (v) { v.stop(t); v.dispose(); } // the sound changed: build the new instrument
-      const nv = new Voice(this.ctx, l.wave, this.bus);
+      const nv = new Voice(this.ctx, voiceKey(l), this.bus);
       nv.lastNote = null;
       this.voices.set(l.id, nv);
     }
@@ -444,7 +453,7 @@ export class AudioEngine {
       }
       const frames = frameAt(tlAt(time));
       // an instrument keyframe swaps a layer's sound along the way
-      if (layers.some((l) => eng.voices.get(l.id)?.id !== l.wave)) eng.syncLayers(layers, time);
+      if (layers.some((l) => eng.voices.get(l.id)?.id !== voiceKey(l))) eng.syncLayers(layers, time);
       eng.update(frames, { playing: true, glide, articulation }, time);
     }
     for (const e of drumEvents) { const r = realAt(e.time); if (r < duration) eng.drum(e.kind, e.vel, r); }

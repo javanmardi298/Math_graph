@@ -101,11 +101,95 @@ export const INSTRUMENTS = {
     filter: { type: 'lowpass', freq: 3000, q: 1 }, lfo: { target: 'pitch', rate: 5.5, depth: 18 }, gain: 0.88, program: 80 },
   'flute-synth': { label: 'Synth flute', group: 'Retro & leads', osc: [{ type: 'sine' }, { type: 'triangle', semi: 12, gain: 0.15 }],
     lfo: { target: 'pitch', rate: 4.8, depth: 7 }, amp: A(0.06, 0.5, 0.8), mode: 'legato', gain: 0.76, program: 73 },
+
+  // ------------------------------------------------------------------ bass & 808
+  // drop: the note starts `semi` semitones high and falls to pitch in `time` seconds (the 808 "boom")
+  '808': { label: '808 bass (boom)', group: 'Bass & 808', osc: [{ type: 'sine' }, { type: 'triangle', gain: 0.12 }], drop: { semi: 9, time: 0.06 },
+    amp: A(0.002, 1.3, 0.55), mode: 'pluck', gain: 1.5, program: 38 },
+  '808-dist': { label: '808 bass (distorted)', group: 'Bass & 808', osc: [{ type: 'sine' }, { type: 'square', gain: 0.2 }, { type: 'sawtooth', semi: 12, gain: 0.06 }], drop: { semi: 12, time: 0.05 },
+    filter: { type: 'lowpass', freq: 520, q: 1.2, env: 2.5, decay: 0.18 }, amp: A(0.002, 1.0, 0.5), mode: 'pluck', gain: 1.25, program: 38 },
+  'sub-bass': { label: 'Sub bass (pure)', group: 'Bass & 808', osc: [{ type: 'sine' }], sub: 0.6, amp: A(0.01, 0.4, 0.9), gain: 1.2, program: 39 },
+  'pluck-bass': { label: 'Pluck bass', group: 'Bass & 808', osc: [{ type: 'sawtooth' }, { type: 'square', gain: 0.3 }], sub: 0.3,
+    filter: { type: 'lowpass', freq: 420, q: 3, env: 5, decay: 0.09 }, amp: A(0.002, 0.2, 0.2), mode: 'pluck', gain: 0.8, program: 38 },
+
+  // ------------------------------------------------------------------ leads & orchestral
+  'lead-saw': { label: 'Saw lead', group: 'Leads & orchestral', osc: [{ type: 'sawtooth', cents: -9, gain: 0.5 }, { type: 'sawtooth', cents: 9, gain: 0.5 }],
+    filter: { type: 'lowpass', freq: 4200, q: 1.2 }, lfo: { target: 'pitch', rate: 5.2, depth: 6 }, amp: A(0.01, 0.3, 0.85), gain: 0.62, program: 81 },
+  theremin: { label: 'Theremin', group: 'Leads & orchestral', osc: [{ type: 'sine' }, { type: 'triangle', gain: 0.12 }],
+    lfo: { target: 'pitch', rate: 5.6, depth: 14 }, amp: A(0.08, 0.5, 0.9), mode: 'legato', gain: 0.85, program: 79 },
+  strings: { label: 'String section', group: 'Leads & orchestral', osc: [-11, 0, 11].map((cents) => ({ type: 'sawtooth', cents, gain: 0.34 })),
+    filter: { type: 'lowpass', freq: 2600, q: 0.7 }, amp: A(0.22, 0.8, 0.9), mode: 'legato', gain: 0.7, program: 48 },
+  brass: { label: 'Brass', group: 'Leads & orchestral', osc: [{ type: 'sawtooth' }, { type: 'sawtooth', cents: 6, gain: 0.5 }],
+    filter: { type: 'lowpass', freq: 900, q: 1, env: 3, decay: 0.3 }, amp: A(0.04, 0.4, 0.8), gain: 0.7, program: 61 },
+  'church-organ': { label: 'Church organ', group: 'Leads & orchestral', osc: [{ wave: 'organ' }, { type: 'sine', semi: 12, gain: 0.4 }, { type: 'sine', semi: 19, gain: 0.2 }, { type: 'sine', semi: -12, gain: 0.5 }],
+    amp: A(0.03, 0.5, 0.95), mode: 'legato', gain: 0.75, program: 19 },
+  vibraphone: { label: 'Vibraphone', group: 'Keys & bells', osc: [{ type: 'sine' }, { type: 'sine', semi: 24, gain: 0.18 }],
+    fm: { ratio: 4, index: 0.7, env: 2, decay: 0.4 }, amp: A(0.002, 1.5, 0.05), mode: 'pluck', gain: 1.0, program: 11 },
+  'steel-drum': { label: 'Steel drum', group: 'Keys & bells', osc: [{ type: 'sine' }, { type: 'sine', semi: 12, gain: 0.3 }],
+    fm: { ratio: 2, index: 1.5, env: 2.2, decay: 0.2 }, amp: A(0.002, 0.55, 0.04), mode: 'pluck', gain: 1.0, program: 114 },
+
+  // ------------------------------------------------------------------ world
+  santur: { label: 'Santur (hammered dulcimer)', group: 'World', osc: [{ type: 'sawtooth', cents: -5, gain: 0.35 }, { type: 'sawtooth', cents: 5, gain: 0.35 }, { type: 'sine', semi: 12, gain: 0.3 }],
+    filter: { type: 'lowpass', key: 6, q: 0.9, env: 2, decay: 0.25 }, amp: A(0.001, 0.9, 0.02), mode: 'pluck', gain: 1.0, program: 15 },
+  tar: { label: 'Tar / setar (plucked)', group: 'World', osc: [{ type: 'sawtooth', gain: 0.5 }, { type: 'square', gain: 0.15 }, { type: 'sawtooth', semi: 12, cents: 4, gain: 0.12 }],
+    filter: { type: 'lowpass', key: 4.5, q: 2.2, env: 3, decay: 0.12 }, amp: A(0.002, 0.5, 0.03), mode: 'pluck', gain: 1.2, program: 105 },
+  oud: { label: 'Oud', group: 'World', osc: [{ type: 'triangle', gain: 0.7 }, { type: 'sawtooth', gain: 0.25 }], sub: 0.15,
+    filter: { type: 'lowpass', key: 3, q: 1.4, env: 3.5, decay: 0.1 }, amp: A(0.003, 0.6, 0.04), mode: 'pluck', gain: 1.3, program: 24 },
+  ney: { label: 'Ney (reed flute)', group: 'World', osc: [{ type: 'sine' }, { type: 'triangle', semi: 12, gain: 0.22 }, { type: 'sine', semi: 19, gain: 0.06 }],
+    lfo: { target: 'pitch', rate: 5, depth: 11 }, amp: A(0.09, 0.5, 0.85), mode: 'legato', gain: 0.8, program: 77 },
+  sitar: { label: 'Sitar', group: 'World', osc: [{ type: 'sawtooth', gain: 0.6 }, { type: 'sawtooth', semi: 12, cents: 7, gain: 0.2 }],
+    fm: { ratio: 2, index: 2.2, env: 1.5, decay: 0.6 }, filter: { type: 'bandpass', key: 3, q: 1.2 }, amp: A(0.002, 1.3, 0.08), mode: 'pluck', gain: 2.2, program: 104 },
+  koto: { label: 'Koto', group: 'World', osc: [{ type: 'triangle' }, { type: 'sine', semi: 12, gain: 0.2 }],
+    fm: { ratio: 3, index: 1, env: 3, decay: 0.1 }, amp: A(0.001, 0.65, 0.02), mode: 'pluck', gain: 1.0, program: 107 },
 };
 
 export const INSTRUMENT_GROUPS = [...new Set(Object.values(INSTRUMENTS).map((i) => i.group))];
 
-export const instrumentOf = (id) => INSTRUMENTS[id] || INSTRUMENTS.sine;
+/**
+ * Harmony of a layer: parallel copies of the instrument at fixed intervals (semitones), so one
+ * curve plays octaves, fifths or whole chords. The copies are quieter than the note itself.
+ */
+export const HARMONIES = {
+  off: { label: 'Single note', semis: [] },
+  octave: { label: 'Octave above', semis: [12] },
+  octaveDown: { label: 'Octave below', semis: [-12] },
+  fifth: { label: 'Fifth (power chord)', semis: [7] },
+  power: { label: 'Fifth and octave', semis: [7, 12] },
+  third: { label: 'Major third', semis: [4] },
+  minorThird: { label: 'Minor third', semis: [3] },
+  major: { label: 'Major chord', semis: [4, 7] },
+  minor: { label: 'Minor chord', semis: [3, 7] },
+  sus4: { label: 'Sus4 chord', semis: [5, 7] },
+  seventh: { label: 'Dominant 7th chord', semis: [4, 7, 10] },
+  minor7: { label: 'Minor 7th chord', semis: [3, 7, 10] },
+  stack: { label: 'Three octaves', semis: [-12, 12] },
+};
+
+/** The key of a layer's voice: its sound, harmony and detune ("bell|fifth|12"). */
+export const voiceKey = (l) => (l.harmony && l.harmony !== 'off') || l.detune ? `${l.wave}|${l.harmony || 'off'}|${l.detune || 0}` : l.wave;
+
+const derived = new Map();
+/** The patch of an instrument id, or of a voice key (instrument + harmony + detune in cents). */
+export function instrumentOf(id) {
+  if (INSTRUMENTS[id]) return INSTRUMENTS[id];
+  const [base, harmony = 'off', detune = '0'] = String(id).split('|');
+  const inst = INSTRUMENTS[base] || INSTRUMENTS.sine;
+  if (!String(id).includes('|')) return inst;
+  let patch = derived.get(id);
+  if (!patch) {
+    const semis = HARMONIES[harmony]?.semis || [], cents = +detune || 0;
+    const osc = [];
+    for (const o of inst.osc) {
+      osc.push(cents ? { ...o, cents: (o.cents || 0) - cents / 2, gain: (o.gain ?? 1) * 0.6 } : o);
+      if (cents) osc.push({ ...o, cents: (o.cents || 0) + cents / 2, gain: (o.gain ?? 1) * 0.6 });
+      for (const semi of semis) osc.push({ ...o, semi: (o.semi || 0) + semi, gain: (o.gain ?? 1) * 0.55 });
+    }
+    patch = { ...inst, osc, gain: (inst.gain ?? 1) / Math.sqrt(1 + semis.length * 0.45) };
+    if (derived.size > 200) derived.clear();
+    derived.set(id, patch);
+  }
+  return patch;
+}
 
 /* ------------------------------------------------------------ custom waves */
 
@@ -169,7 +253,7 @@ export class Voice {
       g.gain.value = o.gain ?? 1;
       osc.connect(g).connect(head);
       this.nodes.push(osc);
-      return { osc, mult: ratio(o.semi) };
+      return { osc, mult: ratio(o.semi), cents: o.cents || 0 };
     });
     if (p.sub) {
       const osc = ctx.createOscillator();
@@ -247,6 +331,16 @@ export class Voice {
       hold(fq, t, live);
       fq.linearRampToValueAtTime(Math.min(18000, base * (1 + f.env)), t + 0.003);
       fq.setTargetAtTime(base, t + 0.004, Math.max(0.01, (f.decay ?? 0.15) / 3));
+    }
+    const drop = this.inst.drop;
+    if (drop) {
+      for (const o of this.oscs) {
+        const d = o.osc.detune, c = o.cents || 0;
+        hold(d, t, live);
+        d.setValueAtTime(c + drop.semi * 100, t);
+        d.exponentialRampToValueAtTime(Math.abs(c) < 1 ? 0.01 : c, t + drop.time);
+        d.setValueAtTime(c, t + drop.time + 0.001);
+      }
     }
     const fm = this.inst.fm;
     if (fm?.env) {

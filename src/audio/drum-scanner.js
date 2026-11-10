@@ -7,8 +7,8 @@
  */
 import { beatSeconds, stepSeconds } from '../math/rhythm.js';
 
-export const DRUM_KINDS = ['kick', 'snare', 'hat', 'clap'];
-export const DRUM_LABELS = { kick: 'Kick', snare: 'Snare', hat: 'Hi-hat', clap: 'Clap' };
+export const DRUM_KINDS = ['kick', 'snare', 'hat', 'clap', 'openhat', 'tom', 'perc'];
+export const DRUM_LABELS = { kick: 'Kick', snare: 'Snare', hat: 'Hi-hat', clap: 'Clap', openhat: 'Open hat', tom: 'Tom', perc: 'Perc (cowbell / rim)' };
 export const TRIGGERS = {
   off: 'Off',
   peak: 'Curve peaks',
@@ -20,6 +20,28 @@ export const TRIGGERS = {
   offbeat: 'Off-beats',
   step: 'Every grid step',
   bar: 'Every bar',
+  pattern: 'My pattern (16 steps a bar)',
+};
+
+/**
+ * A drum pattern: one character per sixteenth note, repeating. x = hit, X = accent, o = soft,
+ * anything else = rest (spaces and | are ignored, so "x...|x..." reads like bars).
+ */
+export function patternSteps(text) {
+  return [...String(text || '').replace(/[\s|]/g, '')].map((ch) => (ch === 'X' ? 1 : ch === 'x' ? 0.8 : ch === 'o' ? 0.45 : 0));
+}
+
+/** Ready-made patterns for the Rhythm tab: [label, { kick, snare, hat, clap, openhat, tom, perc }]. */
+export const DRUM_PATTERNS = {
+  four: ['Four on the floor (house)', { kick: 'X...x...x...x...', snare: '', hat: '..x...x...x...x.', clap: '....X.......X...', openhat: '', tom: '', perc: '' }],
+  trap: ['Trap (808)', { kick: 'X.....x...x.....', snare: '........X.......', hat: 'x.x.x.xxx.x.x.xx', clap: '', openhat: '..............x.', tom: '', perc: '' }],
+  boom: ['Boom bap (hip-hop)', { kick: 'X.....x.x.......', snare: '....X.......X...', hat: 'x.x.x.x.x.x.x.x.', clap: '', openhat: '', tom: '', perc: '' }],
+  rock: ['Rock', { kick: 'X.......x.x.....', snare: '....X.......X...', hat: 'x.x.x.x.x.x.x.x.', clap: '', openhat: '', tom: '', perc: '' }],
+  dnb: ['Drum and bass', { kick: 'X.........x.....', snare: '....X.......X...', hat: 'x.x.x.x.x.x.x.x.', clap: '', openhat: '', tom: '', perc: '......o.......o.' }],
+  reggaeton: ['Reggaeton (dembow)', { kick: 'X...x...x...x...', snare: '...x..x....x..x.', hat: 'x.x.x.x.x.x.x.x.', clap: '', openhat: '', tom: '', perc: '' }],
+  techno: ['Techno', { kick: 'X...X...X...X...', snare: '', hat: '..x...x...x...x.', clap: '....x.......x...', openhat: '..x...x...x...x.', tom: '', perc: 'o..o..o..o..o..o' }],
+  six8: ['6/8 (Persian, waltz feel)', { kick: 'X.....x.....', snare: '...x.....x..', hat: 'x.xx.xx.xx.x', clap: '', openhat: '', tom: '..........o.', perc: '' }],
+  half: ['Half time', { kick: 'X.......x.......', snare: '........X.......', hat: 'x...x...x...x...', clap: '', openhat: '', tom: '', perc: '' }],
 };
 
 const SAMPLE = 1 / 400; // seconds between curve samples
@@ -72,6 +94,20 @@ export class DrumScanner {
       if (!fresh && Math.abs(n * period + offset - t0) < 1e-9) n++;
       for (let time = n * period + offset; time <= t1 + 1e-9; time = ++n * period + offset) {
         fire(trigger, time, trigger === 'offbeat' || trigger === 'step' ? 0.7 : 1);
+      }
+    }
+
+    // Patterns: a hit on every sixteenth note whose character in the pattern is a hit
+    if (wants.pattern) {
+      const six = beat / 4;
+      let n = Math.ceil(t0 / six - 1e-9);
+      if (!fresh && Math.abs(n * six - t0) < 1e-9) n++;
+      for (let time = n * six; time <= t1 + 1e-9; time = ++n * six) {
+        for (const kind of wants.pattern) {
+          const steps = patternSteps(cfg.patterns?.[kind]);
+          const vel = steps.length ? steps[((n % steps.length) + steps.length) % steps.length] : 0;
+          if (vel > 0 && time - (this.lastHit[kind] ?? -1) >= COOLDOWN) { this.lastHit[kind] = time; events.push({ kind, time, vel }); }
+        }
       }
     }
 

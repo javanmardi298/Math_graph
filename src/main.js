@@ -587,7 +587,7 @@ store.on((path) => {
         const layer = store.state.layers.find((l) => l.id === second);
         if (!layer) break;
         if (third === 'exprs' || third === 'look') { rebuildLayer(layer); viz.restyle(); updateTimelineCurves(); if (third === 'exprs') panels.renderFormulaTexts?.(); }
-        if (third === 'wave') audio.syncLayers(store.state.layers);
+        if (third === 'wave' || third === 'harmony' || third === 'detune') audio.syncLayers(store.state.layers);
         if (third === 'mute') updateTimelineCurves();
         if (third === 'name') panels.renderKeyframes();
       }
@@ -963,7 +963,7 @@ function fileBase() {
 }
 
 /** Show a finished export with a preview, an editable file name and a download button. */
-function showResult(src, filename, kind, sizeBytes, note = '') {
+function showResult(src, filename, kind, sizeBytes, note = '', parts = null) {
   const dlg = $('result-dialog');
   const isBlob = src instanceof Blob;
   const url = isBlob ? URL.createObjectURL(src) : src;
@@ -997,6 +997,17 @@ function showResult(src, filename, kind, sizeBytes, note = '') {
     }
     download(await (await fetch(url)).blob(), name);
   };
+  // A batch made in the browser: every file can also be saved on its own (a zip of many
+  // videos can be too large for the viewer that shows the published app to save in one piece).
+  const partsBox = $('result-parts');
+  partsBox.hidden = !parts?.length;
+  partsBox.replaceChildren(...(parts?.length ? [
+    h('p.hint', {}, 'Save everything as one .zip with Download below, or save the files one by one (use this when the .zip is too large to save):'),
+    ...parts.map((f) => h('div.result-part', {},
+      h('span.result-part-name', { title: f.name }, f.name),
+      h('span.hint', {}, f.data.byteLength > 1048576 ? `${(f.data.byteLength / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(f.data.byteLength / 1024))} KB`),
+      h('button.btn.ghost.small', { type: 'button', onclick: () => download(new Blob([f.data]), f.name) }, 'Save'))),
+  ] : []));
   // A single video gets its YouTube title/description as a .txt with the same name.
   const yt = $('result-youtube');
   yt.hidden = kind !== 'video';
@@ -1111,7 +1122,7 @@ async function exportWav() {
   }
 }
 
-const GM_DRUMS = { kick: 36, snare: 38, hat: 42, clap: 39 };
+const GM_DRUMS = { kick: 36, snare: 38, hat: 42, clap: 39, openhat: 46, tom: 45, perc: 56 };
 
 /** Circle Lab as MIDI: one track per layer (its instrument), plus the hit drums. */
 function exportCircleMidi() {
@@ -1570,7 +1581,7 @@ async function renderBatch(entries) {
         for (const [name, text] of extras) files.push({ name, data: textEnc.encode(text) });
         const zip = new Blob([makeZip(files.map((f) => ({ ...f, name: `${batchName}/${f.name}` })))], { type: 'application/zip' });
         ui.close();
-        showResult(zip, `${batchName}.zip`, 'zip', null, summary);
+        showResult(zip, `${batchName}.zip`, 'zip', null, summary, files);
       }
     } catch (err) {
       ui.close();

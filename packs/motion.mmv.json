@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvw6pg7s0",
+          "id": "Lmwav274k0",
           "name": "Layer 467",
           "enabled": true,
           "type": "function",
@@ -57,6 +57,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -184,6 +186,14 @@
         "glide": 25,
         "articulation": "legato",
         "tuning": 440,
+        "transpose": 0,
+        "customScale": "0 2 4 5 7 9 11",
+        "eq": {
+          "low": 0,
+          "mid": 0,
+          "high": 0
+        },
+        "drumKit": "classic",
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
@@ -694,8 +704,20 @@
         "snare": "peak",
         "hat": "step",
         "clap": "off",
+        "openhat": "off",
+        "tom": "off",
+        "perc": "off",
         "sensitivity": 0.08,
-        "pulse": true
+        "pulse": true,
+        "patterns": {
+          "kick": "X...x...x...x...",
+          "snare": "....X.......X...",
+          "hat": "x.x.x.x.x.x.x.x.",
+          "clap": "",
+          "openhat": "",
+          "tom": "",
+          "perc": ""
+        }
       },
       "keyframes": {
         "tracks": {},
@@ -726,7 +748,7 @@
       },
       "layers": [
         {
-          "id": "Lmvw6pg7s0",
+          "id": "Lmwav274k0",
           "name": "Layer 469",
           "enabled": true,
           "type": "function",
@@ -756,6 +778,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -883,6 +907,14 @@
         "glide": 25,
         "articulation": "legato",
         "tuning": 440,
+        "transpose": 0,
+        "customScale": "0 2 4 5 7 9 11",
+        "eq": {
+          "low": 0,
+          "mid": 0,
+          "high": 0
+        },
+        "drumKit": "classic",
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
@@ -1291,8 +1323,20 @@
         "snare": "peak",
         "hat": "step",
         "clap": "off",
+        "openhat": "off",
+        "tom": "off",
+        "perc": "off",
         "sensitivity": 0.08,
-        "pulse": true
+        "pulse": true,
+        "patterns": {
+          "kick": "X...x...x...x...",
+          "snare": "....X.......X...",
+          "hat": "x.x.x.x.x.x.x.x.",
+          "clap": "",
+          "openhat": "",
+          "tom": "",
+          "perc": ""
+        }
       },
       "keyframes": {
         "tracks": {},
@@ -1323,7 +1367,7 @@
       },
       "layers": [
         {
-          "id": "Lmvw6pg7t0",
+          "id": "Lmwav274k0",
           "name": "Layer 471",
           "enabled": true,
           "type": "function",
@@ -1353,6 +1397,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -1480,6 +1526,14 @@
         "glide": 25,
         "articulation": "legato",
         "tuning": 440,
+        "transpose": 0,
+        "customScale": "0 2 4 5 7 9 11",
+        "eq": {
+          "low": 0,
+          "mid": 0,
+          "high": 0
+        },
+        "drumKit": "classic",
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
@@ -1890,8 +1944,20 @@
         "snare": "peak",
         "hat": "step",
         "clap": "off",
+        "openhat": "off",
+        "tom": "off",
+        "perc": "off",
         "sensitivity": 0.08,
-        "pulse": true
+        "pulse": true,
+        "patterns": {
+          "kick": "X...x...x...x...",
+          "snare": "....X.......X...",
+          "hat": "x.x.x.x.x.x.x.x.",
+          "clap": "",
+          "openhat": "",
+          "tom": "",
+          "perc": ""
+        }
       },
       "keyframes": {
         "tracks": {},
@@ -1922,7 +1988,7 @@
       },
       "layers": [
         {
-          "id": "Lmvw6pg7t0",
+          "id": "Lmwav274k0",
           "name": "Layer 473",
           "enabled": true,
           "type": "function",
@@ -1952,6 +2018,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -2079,6 +2147,14 @@
         "glide": 25,
         "articulation": "legato",
         "tuning": 440,
+        "transpose": 0,
+        "customScale": "0 2 4 5 7 9 11",
+        "eq": {
+          "low": 0,
+          "mid": 0,
+          "high": 0
+        },
+        "drumKit": "classic",
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
@@ -2487,8 +2563,20 @@
         "snare": "peak",
         "hat": "step",
         "clap": "off",
+        "openhat": "off",
+        "tom": "off",
+        "perc": "off",
         "sensitivity": 0.08,
-        "pulse": true
+        "pulse": true,
+        "patterns": {
+          "kick": "X...x...x...x...",
+          "snare": "....X.......X...",
+          "hat": "x.x.x.x.x.x.x.x.",
+          "clap": "",
+          "openhat": "",
+          "tom": "",
+          "perc": ""
+        }
       },
       "keyframes": {
         "tracks": {},
@@ -2519,7 +2607,7 @@
       },
       "layers": [
         {
-          "id": "Lmvw6pg7t0",
+          "id": "Lmwav274k0",
           "name": "Layer 475",
           "enabled": true,
           "type": "function",
@@ -2549,6 +2637,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -2676,6 +2766,14 @@
         "glide": 25,
         "articulation": "legato",
         "tuning": 440,
+        "transpose": 0,
+        "customScale": "0 2 4 5 7 9 11",
+        "eq": {
+          "low": 0,
+          "mid": 0,
+          "high": 0
+        },
+        "drumKit": "classic",
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
@@ -3184,8 +3282,20 @@
         "snare": "peak",
         "hat": "step",
         "clap": "off",
+        "openhat": "off",
+        "tom": "off",
+        "perc": "off",
         "sensitivity": 0.08,
-        "pulse": true
+        "pulse": true,
+        "patterns": {
+          "kick": "X...x...x...x...",
+          "snare": "....X.......X...",
+          "hat": "x.x.x.x.x.x.x.x.",
+          "clap": "",
+          "openhat": "",
+          "tom": "",
+          "perc": ""
+        }
       },
       "keyframes": {
         "tracks": {},
@@ -3216,7 +3326,7 @@
       },
       "layers": [
         {
-          "id": "Lmvw6pg7t0",
+          "id": "Lmwav274k0",
           "name": "Layer 477",
           "enabled": true,
           "type": "function",
@@ -3246,6 +3356,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -3373,6 +3485,14 @@
         "glide": 25,
         "articulation": "legato",
         "tuning": 440,
+        "transpose": 0,
+        "customScale": "0 2 4 5 7 9 11",
+        "eq": {
+          "low": 0,
+          "mid": 0,
+          "high": 0
+        },
+        "drumKit": "classic",
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
@@ -3779,8 +3899,20 @@
         "snare": "peak",
         "hat": "step",
         "clap": "off",
+        "openhat": "off",
+        "tom": "off",
+        "perc": "off",
         "sensitivity": 0.08,
-        "pulse": true
+        "pulse": true,
+        "patterns": {
+          "kick": "X...x...x...x...",
+          "snare": "....X.......X...",
+          "hat": "x.x.x.x.x.x.x.x.",
+          "clap": "",
+          "openhat": "",
+          "tom": "",
+          "perc": ""
+        }
       },
       "keyframes": {
         "tracks": {},

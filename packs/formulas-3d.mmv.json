@@ -27,7 +27,7 @@
       },
       "layers": [
         {
-          "id": "Lmvw6pg6p0",
+          "id": "Lmwav273j0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -57,6 +57,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -92,7 +94,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvw6pg6p1",
+          "id": "Lmwav273j1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -122,6 +124,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -157,7 +161,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvw6pg6p2",
+          "id": "Lmwav273j2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -187,6 +191,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -314,6 +320,14 @@
         "glide": 25,
         "articulation": "pluck",
         "tuning": 440,
+        "transpose": 0,
+        "customScale": "0 2 4 5 7 9 11",
+        "eq": {
+          "low": 0,
+          "mid": 0,
+          "high": 0
+        },
+        "drumKit": "classic",
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
@@ -569,8 +583,20 @@
         "snare": "peak",
         "hat": "step",
         "clap": "off",
+        "openhat": "off",
+        "tom": "off",
+        "perc": "off",
         "sensitivity": 0.08,
-        "pulse": true
+        "pulse": true,
+        "patterns": {
+          "kick": "X...x...x...x...",
+          "snare": "....X.......X...",
+          "hat": "x.x.x.x.x.x.x.x.",
+          "clap": "",
+          "openhat": "",
+          "tom": "",
+          "perc": ""
+        }
       },
       "keyframes": {
         "tracks": {},
@@ -601,7 +627,7 @@
       },
       "layers": [
         {
-          "id": "Lmvw6pg6p0",
+          "id": "Lmwav273j0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -631,6 +657,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -666,7 +694,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvw6pg6p1",
+          "id": "Lmwav273j1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -696,6 +724,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -731,7 +761,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvw6pg6p2",
+          "id": "Lmwav273j2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -761,6 +791,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -888,6 +920,14 @@
         "glide": 25,
         "articulation": "pluck",
         "tuning": 440,
+        "transpose": 0,
+        "customScale": "0 2 4 5 7 9 11",
+        "eq": {
+          "low": 0,
+          "mid": 0,
+          "high": 0
+        },
+        "drumKit": "classic",
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
@@ -1143,8 +1183,20 @@
         "snare": "peak",
         "hat": "step",
         "clap": "off",
+        "openhat": "off",
+        "tom": "off",
+        "perc": "off",
         "sensitivity": 0.08,
-        "pulse": true
+        "pulse": true,
+        "patterns": {
+          "kick": "X...x...x...x...",
+          "snare": "....X.......X...",
+          "hat": "x.x.x.x.x.x.x.x.",
+          "clap": "",
+          "openhat": "",
+          "tom": "",
+          "perc": ""
+        }
       },
       "keyframes": {
         "tracks": {},
@@ -1175,7 +1227,7 @@
       },
       "layers": [
         {
-          "id": "Lmvw6pg6p0",
+          "id": "Lmwav273j0",
           "name": "Step 1",
           "enabled": true,
           "type": "surface",
@@ -1205,6 +1257,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -1240,7 +1294,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvw6pg6p1",
+          "id": "Lmwav273j1",
           "name": "Step 2",
           "enabled": true,
           "type": "surface",
@@ -1270,6 +1324,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -1305,7 +1361,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvw6pg6p2",
+          "id": "Lmwav273j2",
           "name": "Step 3",
           "enabled": true,
           "type": "surface",
@@ -1335,6 +1391,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -1462,6 +1520,14 @@
         "glide": 25,
         "articulation": "pluck",
         "tuning": 440,
+        "transpose": 0,
+        "customScale": "0 2 4 5 7 9 11",
+        "eq": {
+          "low": 0,
+          "mid": 0,
+          "high": 0
+        },
+        "drumKit": "classic",
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
@@ -1717,8 +1783,20 @@
         "snare": "peak",
         "hat": "step",
         "clap": "off",
+        "openhat": "off",
+        "tom": "off",
+        "perc": "off",
         "sensitivity": 0.08,
-        "pulse": true
+        "pulse": true,
+        "patterns": {
+          "kick": "X...x...x...x...",
+          "snare": "....X.......X...",
+          "hat": "x.x.x.x.x.x.x.x.",
+          "clap": "",
+          "openhat": "",
+          "tom": "",
+          "perc": ""
+        }
       },
       "keyframes": {
         "tracks": {},
@@ -1749,7 +1827,7 @@
       },
       "layers": [
         {
-          "id": "Lmvw6pg6p0",
+          "id": "Lmwav273k0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -1779,6 +1857,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -1814,7 +1894,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvw6pg6p1",
+          "id": "Lmwav273k1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -1844,6 +1924,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -1879,7 +1961,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvw6pg6p2",
+          "id": "Lmwav273k2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -1909,6 +1991,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -2036,6 +2120,14 @@
         "glide": 25,
         "articulation": "pluck",
         "tuning": 440,
+        "transpose": 0,
+        "customScale": "0 2 4 5 7 9 11",
+        "eq": {
+          "low": 0,
+          "mid": 0,
+          "high": 0
+        },
+        "drumKit": "classic",
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
@@ -2291,8 +2383,20 @@
         "snare": "peak",
         "hat": "step",
         "clap": "off",
+        "openhat": "off",
+        "tom": "off",
+        "perc": "off",
         "sensitivity": 0.08,
-        "pulse": true
+        "pulse": true,
+        "patterns": {
+          "kick": "X...x...x...x...",
+          "snare": "....X.......X...",
+          "hat": "x.x.x.x.x.x.x.x.",
+          "clap": "",
+          "openhat": "",
+          "tom": "",
+          "perc": ""
+        }
       },
       "keyframes": {
         "tracks": {},
@@ -2323,7 +2427,7 @@
       },
       "layers": [
         {
-          "id": "Lmvw6pg6p0",
+          "id": "Lmwav273k0",
           "name": "Step 1",
           "enabled": true,
           "type": "parametric",
@@ -2353,6 +2457,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -2388,7 +2494,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvw6pg6p1",
+          "id": "Lmwav273k1",
           "name": "Step 2",
           "enabled": true,
           "type": "parametric",
@@ -2418,6 +2524,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -2453,7 +2561,7 @@
           "hidden": false
         },
         {
-          "id": "Lmvw6pg6p2",
+          "id": "Lmwav273k2",
           "name": "Step 3",
           "enabled": true,
           "type": "parametric",
@@ -2483,6 +2591,8 @@
           "notes": "",
           "melodyLoops": 1,
           "pan": 0,
+          "harmony": "off",
+          "detune": 0,
           "zMap": "volume",
           "mute": false,
           "solo": false,
@@ -2610,6 +2720,14 @@
         "glide": 25,
         "articulation": "pluck",
         "tuning": 440,
+        "transpose": 0,
+        "customScale": "0 2 4 5 7 9 11",
+        "eq": {
+          "low": 0,
+          "mid": 0,
+          "high": 0
+        },
+        "drumKit": "classic",
         "filter": {
           "type": "lowpass",
           "cutoff": 9000,
@@ -2865,8 +2983,20 @@
         "snare": "peak",
         "hat": "step",
         "clap": "off",
+        "openhat": "off",
+        "tom": "off",
+        "perc": "off",
         "sensitivity": 0.08,
-        "pulse": true
+        "pulse": true,
+        "patterns": {
+          "kick": "X...x...x...x...",
+          "snare": "....X.......X...",
+          "hat": "x.x.x.x.x.x.x.x.",
+          "clap": "",
+          "openhat": "",
+          "tom": "",
+          "perc": ""
+        }
       },
       "keyframes": {
         "tracks": {},

@@ -3,7 +3,7 @@
  * Shared by the live synth, the offline WAV renderer and the MIDI exporter,
  * so all three always agree.
  */
-import { yToMidi, quantize } from '../math/music.js';
+import { yToMidi, quantize, useCustomScale } from '../math/music.js';
 import { MELODIES, parseNotes } from '../circle/sound.js';
 
 /**
@@ -15,6 +15,7 @@ import { MELODIES, parseNotes } from '../circle/sound.js';
  */
 export function voiceFrame(layer, point, state, anySolo) {
   const { view, audio } = state;
+  if (audio.scale === 'custom') useCustomScale(audio.customScale);
   const silent = !layer.enabled || layer.mute || (anySolo && !layer.solo);
   const midi = silent ? null : yToMidi(point.y, { ...audio, yMin: view.yMin, yMax: view.yMax }, layer.octave);
   const zRange = (view.yMax - view.yMin) / 2 || 1;
@@ -37,6 +38,7 @@ const parsed = new Map();
  */
 export function melodyMidi(layer, u, audio) {
   if (layer.pitchFrom !== 'melody') return null;
+  if (audio.scale === 'custom') useCustomScale(audio.customScale);
   const text = layer.melody === 'custom' ? layer.notes : MELODIES[layer.melody]?.notes;
   let notes = parsed.get(text);
   if (!notes) { notes = parseNotes(text); if (parsed.size > 50) parsed.clear(); parsed.set(text, notes); }

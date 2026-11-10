@@ -47,10 +47,11 @@ import { SPEED_CURVES } from '../circle/layout.js';
 import { newLayer } from '../circle/stack.js';
 import { CIRCLE_PALETTES } from '../circle/view.js';
 import { MELODIES } from '../circle/sound.js';
-import { DRUM_KINDS, DRUM_LABELS, TRIGGERS } from '../audio/drum-scanner.js';
+import { DRUM_KINDS, DRUM_LABELS, TRIGGERS, DRUM_PATTERNS } from '../audio/drum-scanner.js';
+import { KITS } from '../audio/drums.js';
 import { animatable, describe, removeKey, EASES, LANES, laneOf, keyframeTimes, pathsAt, moveKeyframe, deleteKeyframe, copyKeyframe, setEaseAt } from '../anim/keyframes.js';
 import { selection, select as selectKey, clearSelection, onSelect } from '../anim/selection.js';
-import { INSTRUMENTS, INSTRUMENT_GROUPS } from '../audio/instruments.js';
+import { INSTRUMENTS, INSTRUMENT_GROUPS, HARMONIES } from '../audio/instruments.js';
 import { h, bindPath, bindObj, slider, color, select, toggle, segmented, number, text, group, disposeTree, refreshAll } from './controls.js';
 import { FONT_LABELS, formulaAuto } from './overlay.js';
 
@@ -275,6 +276,8 @@ export class Panels {
         slider('Times through the drawing', bindObj(l, 'melodyLoops', `${ev}.sound`), { min: 1, max: 8, step: 1, fmt: (v) => `×${v}` }),
       ] : []),
       slider('Octave', bindObj(l, 'octave', `${ev}.sound`), { min: -3, max: 3, step: 1, fmt: (v) => (v > 0 ? `+${v}` : `${v}`) }),
+      select('Harmony', bindObj(l, 'harmony', `${ev}.harmony`), Object.fromEntries(Object.entries(HARMONIES).map(([k, v]) => [k, v.label]))),
+      slider('Detune (thicker)', bindObj(l, 'detune', `${ev}.detune`), { min: 0, max: 60, step: 1, unit: ' ct' }),
       slider('Pan', bindObj(l, 'pan', `${ev}.sound`), { min: -1, max: 1, step: 0.01, fmt: (v) => (Math.abs(v) < 0.01 ? 'C' : v < 0 ? `L${Math.round(-v * 100)}` : `R${Math.round(v * 100)}`) }),
       select('Z controls', bindObj(l, 'zMap', `${ev}.sound`), { volume: 'Volume', pan: 'Stereo pan', none: 'Nothing' }),
     ], { open: false }));
@@ -535,10 +538,17 @@ export class Panels {
         this.fitNotesBox(),
         scale,
         select('Key', p('audio.root'), NOTE_NAMES.map((n, i) => [i, n])),
+        text('Custom scale steps', p('audio.customScale'), { placeholder: '0 2 3.5 5 7 9 10   or   9/8 5/4 3/2 2/1   or   204c 386c 702c' }),
+        slider('Transpose', p('audio.transpose'), { min: -24, max: 24, step: 1, fmt: (v) => (v > 0 ? `+${v} st` : `${v} st`) }),
         select('Tuning (A4)', p('audio.tuning'), [[440, '440 Hz · standard'], [432, '432 Hz · “calm”'], [444, '444 Hz · bright'], [415, '415 Hz · baroque'], [466, '466 Hz · high']]),
         slider('Glide', p('audio.glide'), { min: 0, max: 400, step: 1, unit: ' ms' }),
         h('div.ctl', {}, h('span.ctl-label', {}, 'Articulation'), segmented(p('audio.articulation'), [['legato', 'Legato', 'Continuous tone'], ['pluck', 'Pluck', 'New attack on every note change']], { label: 'Articulation' })),
-      ], { hint: 'Pick a scale so any curve stays in key: 115 scales from the modes to Arabic maqamat, Persian dastgah, Indian ragas, Japanese, Chinese, gamelan, Ethiopian and psychedelic/microtonal ones. Continuous = pure glissando.' }),
+      ], { hint: 'Pick a scale so any curve stays in key: 160 scales from the modes and chord tones to Arabic maqamat, Persian dastgah, Indian ragas, Japanese, Chinese, gamelan, Ethiopian, historical tunings and equal divisions. Continuous = pure glissando. Custom: choose the scale “Custom” and write its steps (semitones such as 3.5, cents such as 702c, or ratios such as 3/2; a last step of an octave or more is where it repeats). Transpose moves every note by semitones and can be keyframed for key changes.' }),
+      group('Master tone (EQ)', [
+        slider('Low (bass)', p('audio.eq.low'), { min: -18, max: 18, step: 0.5, unit: ' dB' }),
+        slider('Mid', p('audio.eq.mid'), { min: -18, max: 18, step: 0.5, unit: ' dB' }),
+        slider('High (air)', p('audio.eq.high'), { min: -18, max: 18, step: 0.5, unit: ' dB' }),
+      ], { open: false, hint: 'Shapes the whole mix after the effects: more bass for 808 lines, less high for a soft ASMR sound. 0 dB leaves it untouched.' }),
       group('Drone (tanpura / pad)', [
         slider('Volume', p('audio.drone.volume'), { min: 0, max: 1, step: 0.01, fmt: pct }),
         select('Octave', p('audio.drone.octave'), [[1, 'Low (C2)'], [2, 'Middle (C3)'], [3, 'High (C4)']]),
@@ -1289,6 +1299,7 @@ export class Panels {
     this.drumSourceSlot = h('div');
     const drumRows = DRUM_KINDS.map((kind) => h('div.drum-row', {},
       select(DRUM_LABELS[kind], p(`drums.${kind}`), TRIGGERS),
+      h('div.drum-pattern', { title: 'Pattern, one character per sixteenth note: x hit, X accent, o soft, . rest. Used when the trigger is “My pattern”.' }, text('', p(`drums.patterns.${kind}`), { placeholder: 'x...x...x...x...' })),
       h('button.icon-btn', { type: 'button', title: `Play the ${DRUM_LABELS[kind].toLowerCase()}`, 'aria-label': `Play the ${DRUM_LABELS[kind].toLowerCase()}`, onclick: () => this.actions.auditionDrum(kind) }, '▶')));
     const tab = h('section.tab', {},
       group('Beat grid', [
@@ -1303,12 +1314,21 @@ export class Panels {
       ], { hint: 'The pitch is held for each step, so any curve becomes a rhythmic melody. Pair it with Pluck articulation (Sound tab) for crisp notes.' }),
       group('Drums', [
         toggle('Enabled', p('drums.enabled')),
+        select('Kit', p('audio.drumKit'), Object.fromEntries(Object.entries(KITS).map(([k, v]) => [k, v.label]))),
+        h('div.chips', {}, ...Object.entries(DRUM_PATTERNS).map(([id, [label, rows]]) => h('button.chip', { type: 'button', title: 'Write this beat into the pattern rows and switch every piece to “My pattern”', onclick: () => {
+          const d = store.state.drums;
+          d.patterns = { ...rows };
+          for (const k of DRUM_KINDS) d[k] = rows[k] ? 'pattern' : 'off';
+          d.enabled = true;
+          store.emit('drums');
+          refreshAll();
+        } }, label))),
         this.drumSourceSlot,
         ...drumRows,
         slider('Sensitivity', p('drums.sensitivity'), { min: 0.01, max: 0.5, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
         slider('Drum volume', p('drums.volume'), { min: 0, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
         toggle('Flash and rings on hits', p('drums.pulse')),
-      ], { hint: 'Hits come from the source layer: its peaks, valleys and crossings of the middle line, or from the clock. Sensitivity is how big a turn must be to count as a peak.' }),
+      ], { hint: 'Hits come from the source layer (its peaks, valleys and crossings of the middle line), from the clock, or from a pattern you write: one character per sixteenth note (x hit, X accent, o soft, . rest). The chips write a whole beat. Sensitivity is how big a turn must be to count as a peak.' }),
     );
     this.renderRhythm();
     return tab;

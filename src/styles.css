@@ -738,3 +738,13 @@ body.mode-circle .circle-layers { display: flex; flex-direction: column; gap: 10
 .about-box h3 { margin: 0 0 6px; font-size: 13px; }
 .about-box p { margin: 4px 0; font-size: 12px; line-height: 1.45; }
 .about-box a { color: inherit; }
+
+/* files of a batch made in the browser, each with its own Save button */
+.result-parts { max-height: 30vh; overflow: auto; display: grid; gap: 6px; margin: 8px 0; }
+.result-part { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center; }
+.result-part-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.86rem; }
+
+/* drum pattern rows (Rhythm tab) */
+.drum-pattern { grid-column: 1 / -1; }
+.drum-pattern input { font-family: var(--font-mono, ui-monospace, monospace); letter-spacing: 0.12em; }
+.drum-pattern label:empty { display: none; }

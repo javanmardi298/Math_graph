@@ -52,6 +52,8 @@ export function createLayer(overrides = {}) {
     pitchFrom: 'height', // height: the curve's height is the pitch | melody: a written melody, note by note along the drawing
     melody: 'ode', notes: '', melodyLoops: 1, // which melody (circle/sound.js MELODIES; 'custom' = notes), and how many times it plays during the layer
     pan: 0,
+    harmony: 'off', // parallel notes: off | octave | fifth | power | major | minor | seventh … (instruments.js HARMONIES)
+    detune: 0, // cents between two copies of the sound (0 = one copy): thick, chorus-like
     zMap: 'volume', // what the Z coordinate controls: volume | pan | none
     mute: false,
     solo: false,
@@ -126,6 +128,10 @@ export function defaultState() {
       glide: 25,
       articulation: 'legato', // legato | pluck
       tuning: 440, // A4 in Hz (432 = the "calm" tuning some channels use)
+      transpose: 0, // semitones added to every note after the scale (key changes, keyframeable)
+      customScale: '0 2 4 5 7 9 11', // the steps of the scale called `custom` (semitones, 702c cents or 3/2 ratios)
+      eq: { low: 0, mid: 0, high: 0 }, // master tone in dB: low shelf 160 Hz, bell 1.1 kHz, high shelf 5.2 kHz
+      drumKit: 'classic', // classic | 808 | acoustic | techno | lofi (audio/drums.js KITS)
       // lfo: wah, the cutoff swings by this fraction at lfoRate Hz
       filter: { type: 'lowpass', cutoff: 9000, q: 0.8, lfo: 0, lfoRate: 0.5 },
       distortion: 0,
@@ -170,7 +176,10 @@ export function defaultState() {
     // Beat grid: sample the pitch once per step so curves become rhythmic notes.
     rhythm: { enabled: false, division: '1/8', gate: 0.8, swing: 0, showGrid: true },
     // Drum kit triggered by events on a source layer's curve (or by the clock).
-    drums: { enabled: false, source: 0, volume: 0.8, kick: 'valley', snare: 'peak', hat: 'step', clap: 'off', sensitivity: 0.08, pulse: true },
+    // Each piece fires on a trigger (drum-scanner.js TRIGGERS); `pattern` reads its row of `patterns`
+    // (x = hit, X = accent, o = soft, . = rest; one character per sixteenth note). showTicks draws the hits.
+    drums: { enabled: false, source: 0, volume: 0.8, kick: 'valley', snare: 'peak', hat: 'step', clap: 'off', openhat: 'off', tom: 'off', perc: 'off', sensitivity: 0.08, pulse: true,
+      patterns: { kick: 'X...x...x...x...', snare: '....X.......X...', hat: 'x.x.x.x.x.x.x.x.', clap: '', openhat: '', tom: '', perc: '' } },
     // Keyframe animation: { tracks: { [path]: [{ time, value, ease }] } }
     keyframes: { tracks: {}, autoKey: false },
   };

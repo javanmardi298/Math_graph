@@ -85,6 +85,11 @@ export function animatable(state, scales = Object.keys(SCALES), instruments = Ob
     { ...STEP('audio.noteLow', 'Lowest note', 0, 100), group: 'Sound' },
     { ...STEP('audio.noteHigh', 'Highest note', 12, 127), group: 'Sound' },
     { ...NUM('audio.tuning', 'Tuning (A4 Hz)', 400, 480), group: 'Sound' },
+    { ...STEP('audio.transpose', 'Transpose (semitones)', -24, 24), group: 'Sound' },
+    { ...NUM('audio.eq.low', 'EQ low (dB)', -18, 18), group: 'Sound' },
+    { ...NUM('audio.eq.mid', 'EQ mid (dB)', -18, 18), group: 'Sound' },
+    { ...NUM('audio.eq.high', 'EQ high (dB)', -18, 18), group: 'Sound' },
+    { ...CHOICE('audio.drumKit', 'Drum kit', ['classic', '808', 'acoustic', 'techno', 'lofi']), group: 'Sound' },
     { ...CHOICE('audio.filter.type', 'Filter type', FILTERS), group: 'Sound' },
     { ...NUM('audio.filter.cutoff', 'Filter cutoff (Hz)', 20, 20000), group: 'Sound' },
     { ...NUM('audio.filter.q', 'Filter resonance', 0.1, 18), group: 'Sound' },
@@ -117,6 +122,7 @@ export function animatable(state, scales = Object.keys(SCALES), instruments = Ob
     list.push({ ...STEP(`layer.${i}.octave`, 'Octave', -3, 3), group });
     list.push({ ...CHOICE(`layer.${i}.wave`, 'Instrument', instruments), group });
     list.push({ ...CHOICE(`layer.${i}.mute`, 'Mute', [false, true]), group });
+    list.push({ ...CHOICE(`layer.${i}.harmony`, 'Harmony', ['off', 'octave', 'octaveDown', 'fifth', 'power', 'third', 'minorThird', 'major', 'minor', 'sus4', 'seventh', 'minor7', 'stack']), group });
   });
   return list;
 }

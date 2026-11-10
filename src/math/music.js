@@ -147,6 +147,51 @@ const TABLE = [
   ['neapolitanMajor', 'Neapolitan major', 'European folk & Jewish', [0, 1, 3, 5, 7, 9, 11]],
   ['celtic', 'Celtic / Scottish pentatonic', 'European folk & Jewish', [0, 2, 5, 7, 9]],
   ['egyptian', 'Egyptian (suspended pentatonic)', 'European folk & Jewish', [0, 2, 5, 7, 10]],
+  // --- added in the sound upgrade: jazz colours, chord tones, more maqam / dastgah, historical and equal tunings
+  ['dorianB2', 'Dorian ♭2 (Phrygian ♮6)', 'Jazz & modern', [0, 1, 3, 5, 7, 9, 10]],
+  ['mixolydianB6', 'Mixolydian ♭6 (Hindu)', 'Jazz & modern', [0, 2, 4, 5, 7, 8, 10]],
+  ['locrianNat2', 'Locrian ♮2 (half-diminished)', 'Jazz & modern', [0, 2, 3, 5, 6, 8, 10]],
+  ['majorLocrian', 'Major Locrian', 'Jazz & modern', [0, 2, 4, 5, 6, 8, 10]],
+  ['leadingWholeTone', 'Leading whole tone', 'Jazz & modern', [0, 2, 4, 6, 8, 10, 11]],
+  ['sixToneSymmetric', 'Six-tone symmetric', 'Jazz & modern', [0, 1, 4, 5, 8, 9]],
+  ['bluesNine', 'Nine-note blues', 'Jazz & modern', [0, 2, 3, 4, 5, 7, 9, 10, 11]],
+  ['minor6Pent', 'Minor 6 pentatonic', 'Jazz & modern', [0, 3, 5, 7, 9]],
+  ['dominantPent', 'Dominant pentatonic', 'Jazz & modern', [0, 2, 4, 7, 10]],
+  ['scriabin', 'Scriabin', 'Jazz & modern', [0, 1, 4, 7, 9]],
+  ['istrian', 'Istrian', 'Jazz & modern', [0, 1, 3, 4, 6, 7]],
+  ['ukrainianDorian', 'Ukrainian Dorian', 'European folk & Jewish', [0, 2, 3, 6, 7, 9, 10]],
+  ['chordMajor', 'Major triad (1 3 5)', 'Chord tones', [0, 4, 7]],
+  ['chordMinor', 'Minor triad (1 ♭3 5)', 'Chord tones', [0, 3, 7]],
+  ['chordMaj7', 'Major 7th chord', 'Chord tones', [0, 4, 7, 11]],
+  ['chordMin7', 'Minor 7th chord', 'Chord tones', [0, 3, 7, 10]],
+  ['chordDom7', 'Dominant 7th chord', 'Chord tones', [0, 4, 7, 10]],
+  ['chordDim7', 'Diminished 7th chord', 'Chord tones', [0, 3, 6, 9]],
+  ['chordSus4', 'Sus4 chord', 'Chord tones', [0, 5, 7]],
+  ['chordMaj9', 'Major 9th chord', 'Chord tones', [0, 2, 4, 7, 11]],
+  ['chordMin9', 'Minor 9th chord', 'Chord tones', [0, 2, 3, 7, 10]],
+  ['chordAdd6', 'Major 6th chord', 'Chord tones', [0, 4, 7, 9]],
+  ['fifths', 'Root and fifth (power)', 'Chord tones', [0, 7]],
+  ['octaves', 'Octaves only', 'Chord tones', [0]],
+  ['bayatTork', 'Bayat-e Tork (approx.)', 'Persian dastgah', [0, 2, 3.5, 5, 7, 9, 10]],
+  ['afshari', 'Afshari (approx.)', 'Persian dastgah', [0, 2, 3.5, 5, 7, 8.5, 10]],
+  ['jiharkah', 'Jiharkah (approx.)', 'Arabic & Turkish maqam', [0, 2, 4, 5, 7, 9, 10.5]],
+  ['atharKurd', 'Athar Kurd', 'Arabic & Turkish maqam', [0, 1, 3, 6, 7, 8, 11]],
+  ['huseyni', 'Hüseyni (Turkish, approx.)', 'Arabic & Turkish maqam', [0, 1.6, 3, 5, 7, 8.6, 10]],
+  ['ussak', 'Uşşak (Turkish, approx.)', 'Arabic & Turkish maqam', [0, 1.4, 3, 5, 7, 8, 10]],
+  ['pythagorean', 'Pythagorean major (pure fifths)', 'Tunings & temperaments', t([0, 203.9, 407.8, 498, 702, 905.9, 1109.8])],
+  ['justMinor', 'Just minor (5-limit)', 'Tunings & temperaments', t([0, 203.9, 315.6, 498, 702, 813.7, 1017.6])],
+  ['meantone', 'Quarter-comma meantone major', 'Tunings & temperaments', t([0, 193.2, 386.3, 503.4, 696.6, 889.7, 1082.9])],
+  ['harmonics8', 'Harmonics 8–16', 'Tunings & temperaments', t([0, 203.9, 386.3, 551.3, 702, 840.5, 968.8, 1088.3])],
+  ['undertones', 'Undertone series', 'Tunings & temperaments', t([0, 111.7, 231.2, 359.5, 498, 648.7, 813.7, 996.1])],
+  ['shruti22', '22 shruti (Indian just)', 'Tunings & temperaments', t([0, 90, 112, 182, 204, 294, 316, 386, 408, 498, 520, 590, 612, 702, 792, 814, 884, 906, 996, 1018, 1088, 1110])],
+  ['edo5', '5 equal steps', 'Tunings & temperaments', edo(5)],
+  ['edo10', '10 equal steps', 'Tunings & temperaments', edo(10)],
+  ['edo15', '15 equal steps', 'Tunings & temperaments', edo(15)],
+  ['edo17', '17 equal steps', 'Tunings & temperaments', edo(17)],
+  ['edo22', '22 equal steps', 'Tunings & temperaments', edo(22)],
+  ['edo31', '31 equal steps', 'Tunings & temperaments', edo(31)],
+  ['edo53', '53 equal steps (commas)', 'Tunings & temperaments', edo(53)],
+  ['custom', 'Custom (your own steps, Sound tab)', 'Custom', [0, 2, 4, 5, 7, 9, 11]],
 ];
 
 export const SCALES = Object.fromEntries(TABLE.map(([k, , , steps]) => [k, steps]));
@@ -200,4 +245,33 @@ export function yToMidi(y, map, octaveShift = 0) {
   const clamped = Math.min(Math.max(k, 0), 1);
   const raw = map.noteLow + clamped * (map.noteHigh - map.noteLow) + octaveShift * 12;
   return quantize(raw, map.scale, map.root);
+}
+
+/**
+ * A custom scale from text: steps above the root separated by spaces or commas. A plain number is
+ * semitones (3.5 = a quarter tone above 3), `702c` is cents, `3/2` a frequency ratio. A last step of
+ * one octave or more (12, 1200c, 2/1, 3/1 …) is the interval at which the scale repeats.
+ * @returns {{steps:number[], period:number}}
+ */
+export function parseScale(text) {
+  const vals = String(text || '').split(/[\s,;]+/).map((tok) => {
+    let m;
+    if ((m = /^(\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)$/.exec(tok))) return 12 * Math.log2(+m[1] / +m[2]);
+    if ((m = /^(-?\d+(?:\.\d+)?)c$/i.exec(tok))) return +m[1] / 100;
+    return tok === '' ? NaN : +tok;
+  }).filter((v) => Number.isFinite(v) && v >= 0 && v <= 48);
+  const big = vals.filter((v) => v >= 11.999);
+  const period = big.length ? Math.max(...big) : 12;
+  const steps = [...new Set([0, ...vals.filter((v) => v < period - 1e-6)].map((v) => +v.toFixed(3)))].sort((a, b) => a - b);
+  return { steps, period: +period.toFixed(3) };
+}
+
+let customText = null;
+/** Make `custom` the scale written in `text` (cheap to call often: it only re-parses a new text). */
+export function useCustomScale(text) {
+  if (text === customText) return;
+  customText = text;
+  const { steps, period } = parseScale(text || '0 2 4 5 7 9 11');
+  SCALES.custom = steps.length ? steps : [0];
+  SCALE_PERIOD.custom = period;
 }
