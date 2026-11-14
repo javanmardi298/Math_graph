@@ -411,6 +411,74 @@ To add a family: one row in `FRACTAL_TYPES` (flags = fold x, fold y, conjugate, 
 
 ---
 
+## 10. The control upgrade: exact previews, checks, keyable scenes, mixing, loudness
+
+Everything here is additive: existing presets load and look as before.
+
+### 10.1 `window.mmv` — the full list
+
+| Call | What it does |
+|---|---|
+| `state()` · `load(preset)` · `get(path)` · `set(path, value)` · `layer(i, patch)` | read and change the state |
+| `presets()` · `loadByName(name)` | built-in presets |
+| `seek(s)` · `play()` · `pause()` | the playhead |
+| `frame()` | the current frame **as the export draws it** (camera moves and endings, keyframes, bars, text) |
+| `renderStill(t, { width, height, video, lead })` | the frame at `t` seconds through the export pipeline. `width`/`height` = an export size (e.g. 1080 × 1920). `video: true` = `t` is video time (teaser, hook line, fade-out). `lead` (1.5 s) is played first so the following camera, trails and drum pulses are where they would be |
+| `validate(preset?)` | `{ ok, errors, warnings, problems: [{ level, path, message }], summary }` (see 10.2) |
+| `describe()` · `describe('fractal')` | every simulation · one simulation's settings with type, range, default and path |
+| `animatable()` | everything that can be keyframed right now |
+| `key(path, time, value?, ease?)` | add a key (value omitted = the current value) |
+| `marker(time, label)` · `markers()` | story beats |
+| `save(name)` · `export()` | save into the library · the preset as `.mmv.json` text |
+| `renderVideos([{ name, preset }])` | batch render to one zip |
+| `loudness()` · `normalize()` · `master(id)` | measure the soundtrack · set the level to −14 LUFS · a mastering preset |
+| `errors()` | formula errors of the layers |
+
+### 10.2 The check (`src/validate.js`)
+
+`validateState(state)` is pure (the tests run it). Levels: **error** (a formula that does not compile, an unknown scene / instrument / scale / blend / choice, no layer switched on), **warning** (keys, texts, layers or story beats after the end of the video; a key for a property that cannot be animated; a setting that does not exist), **info** (a value beyond its slider range; everything timed ends before half of the video — a length left over from another preset; plain text over a fractal that fills the frame). Loading a preset shows a toast only for errors and for things after the end. People run it in **Export → Check this video**.
+
+### 10.3 Keyframes for Circle Lab and fractals (lane **Scene**)
+
+Every setting of the scene on stage is animatable: `circle.lab.<rule>.<key>` (first stage) and `circle.layers.<i>.cfg.lab.<rule>.<key>` (others); plus `circle.opacity`, `circle.layers.<i>.opacity`, and per stage `look.zoom`, `look.dx`, `look.dy`, `look.glow`, `look.bloom`, `sound.volume`. Sliders glide, whole-number sliders step, lists and switches hold until the next key. Key mode records them like any other control. The soundtrack replay reads the same keys.
+
+Scenes that are a function of time (the fractals) follow keys exactly. Scenes with a memory (balls, growth) take the new value from that moment on; settings used only when the scene starts (counts, seeds) do not restart it.
+
+**Fractal timing recipes**
+- *c arrives at an exact moment*: `julia: true`, `journey: 'still'`, `jpath: 'fixed'`, then key `jx` and `jy`. Or keep a path and key `jphase` (rounds along the path) with `jspeed: 0`.
+- *A dive of your own*: `journey: 'still'`, `spot: 'custom'`, key `cx`, `cy` and `zexp` (extra zoom as a power of ten: 0 → 6 is ×1 → ×1 000 000 at a steady pace).
+- *Colour*: key `shift` (rounds of the palette) for an exact cycle, `colors` to change the palette at a moment.
+- *Readable text*: `bright`, `contrast`, `sat` (1 = unchanged), or the dark palettes `dusk` and `ash`.
+- *c as a live number*: `circle.look.counter: true` shows `c = …` (or the zoom, or the power).
+
+### 10.4 Mixing scenes
+
+- Per layer: `opacity` (0 … 1) and `blend`: `normal`, `screen` (black becomes see-through: a Buddhabrot over a tree), `add`, `multiply`, `overlay`, `difference`. The first layer keeps them in `circle.opacity` / `circle.blend`, the others in `circle.layers[i].opacity` / `.blend`. Controls sit on each layer card.
+- Between steps of “one after another”: `circle.transition` = `fade` (default) | `dissolve` | `zoom` | `wipe` | `cut`, and `circle.transitionSecs` (0.1 … 3).
+
+### 10.5 Camera
+
+`camera.trackLayer`: whose pen the camera follows with `camera.track` (0 = the layer drawing now, n = layer n). Keyframeable. No invisible guide layer is needed any more.
+
+### 10.6 Sound
+
+- **Loudness** (`src/audio/loudness.js`, `mmv.loudness()`, Sound tab → Output): integrated LUFS (ITU-R BS.1770, checked against the −23 LUFS reference tone), peak, clipped samples, loudness range, silent stretches, low / middle / high balance, a curve per second and plain advice. `mmv.normalize()` sets the master volume for −14 LUFS. It measures; it cannot judge whether the music is good.
+- **Loudness formula per layer**: `layer.volExpr`, 0 … 1.5 multiplied into the layer's volume; variables `x y z` (the pen), `u` (0 … 1 along the layer), `t` (seconds). `'u^2'` swells, `'abs(cos(3x))'` pulses.
+- **Mastering presets**: `clean`, `warm`, `cinematic`, `lofi`, `bright`, `club`, `dream` set EQ, drive, crush, filter, reverb, delay (and modulation / pump for some); nothing else.
+- **Four instruments with noise**: `ney-breath`, `santur-hammer`, `strings-bowed`, `flute-breath`. Patch field `noise { gain, key, q, burst, decay }` = band-passed noise through the amp: steady breath (`gain`) and the strike at the start of a note (`burst`). Still synthesis, no samples.
+
+### 10.7 Story beats
+
+`state.markers = [{ time, label }]`: yellow flags on the timeline (Animate tab → Story beats; “Five-beat sheet” spreads hook, rise, turn, climax, ending). A keyframe dragged near a beat snaps onto it. Nothing of them is drawn on the video.
+
+### 10.8 Batch render
+
+- `youtube.title / description / tags` and `hook.text` stored as lists are turned into text on load, and the export code accepts lists too (this was the “`.trim is not a function`” stop).
+- One broken preset no longer stops the batch: it is listed in `FAILED.txt` and the rest render.
+- `record.batchVideosOnly` (Export tab): the zip holds only the MP4s.
+
+---
+
 # Appendix A — Circle Lab scenes and their `lab` parameters (generated)
 
 Use as `circle: { rule: '<id>', lab: { '<id>': { …keys… } } }`. Ranges are the slider limits; `∈ {…}` are the allowed choices; "(formula)" fields take a math expression; unspecified keys keep their defaults (see `SCENES[id].defaults` in `src/circle/scenes.js`).

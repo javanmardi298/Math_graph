@@ -43,7 +43,7 @@ export class FractalTab {
 
   /** Binding to one setting of the current fractal scene. */
   lab(key) {
-    return { get: () => this.P()[key], set: (v) => { const c = this.cur(); store.set(`${this.base()}.lab.${c.rule}`, { ...(c.lab?.[c.rule] || {}), [key]: v }); } };
+    return { get: () => this.P()[key], set: (v) => { const c = this.cur(); (c.lab ||= {})[c.rule] ||= {}; store.set(`${this.base()}.lab.${c.rule}.${key}`, v); } };
   }
   patch(obj, rule = this.rule) {
     const c = this.cur();
@@ -134,7 +134,7 @@ export class FractalTab {
   explorerView() {
     const P = this.P(), T = FRACTAL_TYPES[P.type] || FRACTAL_TYPES.mandelbrot;
     const julia = P.julia || T.juliaOnly, newton = T.kind === 3;
-    const journeyKeys = { zoom: ['spot', ...(P.spot === 'custom' ? ['cx', 'cy'] : []), 'depth', 'wait'], julia: ['jpath', ...(P.jpath === 'line' ? ['jx', 'jy', 'jx2', 'jy2'] : P.jpath === 'fixed' ? ['jx', 'jy'] : P.jpath === 'bulb' ? [] : ['jr']), 'jspeed'], power: ['power', 'power2'], pan: ['zoom'], still: ['zoom'] }[P.journey] || [];
+    const journeyKeys = { zoom: ['spot', ...(P.spot === 'custom' ? ['cx', 'cy'] : []), 'depth', 'wait'], julia: ['jpath', ...(P.jpath === 'line' ? ['jx', 'jy', 'jx2', 'jy2'] : P.jpath === 'fixed' ? ['jx', 'jy'] : P.jpath === 'bulb' ? [] : ['jr']), 'jspeed', 'jphase'], power: ['power', 'power2'], pan: ['zoom', 'zexp'], still: ['zoom', 'zexp', 'spot', ...(P.spot === 'custom' ? ['cx', 'cy'] : [])] }[P.journey] || [];
     const rerender = (ctl) => { ctl.addEventListener('change', () => setTimeout(() => this.render(), 0)); return ctl; };
     return [
       group('Family and formula', [
@@ -146,15 +146,15 @@ export class FractalTab {
         ...(julia && !newton && P.journey !== 'julia' ? this.rows(['jx', 'jy']) : []),
       ], { hint: 'The same rule is repeated for every point. Mandelbrot view: the point is c and z starts at 0; black = the orbit never escapes. Julia view: c stays fixed and the point is where z starts; every c has its own Julia set.' }),
       group('Journey', [rerender(this.rows(['journey'])[0]), ...journeyKeys.map((k) => (k === 'spot' || k === 'jpath' ? rerender(this.rows([k])[0]) : this.rows([k])[0])).filter(Boolean)],
-        { hint: 'Zoom: ×10 for every step of depth; beyond about ×100 000 the picture is computed with exact numbers (slower, lower detail). Julia morph: c travels and the set changes shape. Make the video length (timeline) longer for a slower journey.' }),
+        { hint: 'Zoom: ×10 for every step of depth; beyond about ×100 000 the picture is computed with exact numbers (slower, lower detail). Julia morph: c travels and the set changes shape. Make the video length (timeline) longer for a slower journey. Exact timing: turn on Key mode (● Key on the timeline), pause where the moment should fall and move a slider here: c, the place on the path, the extra zoom, the colours and every other slider can be keyed. For a dive of your own: journey Stand still, spot My own point, then key the point and the extra zoom.' }),
       group('Colour', [
         this.paletteCards(),
         rerender(this.rows(['coloring'])[0]),
         ...(P.coloring === 'trap' || P.interior === 'glow' ? this.rows(['trap']) : []),
-        ...this.rows(['density', 'cycle']),
+        ...this.rows(['density', 'cycle', 'shift', 'bright', 'contrast', 'sat']),
         ...(newton ? [] : [rerender(this.rows(['interior'])[0])]),
       ]),
-      group('Picture', this.rows(['rotate', 'iter', 'res', 'bleed', 'showOrbit']), { open: false, hint: 'More iterations show finer filaments deep in a zoom. Detail is the width of the computed picture in pixels.' }),
+      group('Picture', [...this.rows(['rotate', 'iter', 'res', 'bleed', 'showOrbit']), toggle('Show the live number on the video (c, the zoom or the power)', { get: () => !!this.cur().look?.counter, set: (v) => store.set(`${this.base()}.look.counter`, v) })], { open: false, hint: 'More iterations show finer filaments deep in a zoom. Detail is the width of the computed picture in pixels.' }),
       this.soundGroup(['sound', 'nps']),
     ];
   }

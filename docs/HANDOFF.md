@@ -16,8 +16,8 @@ Circle Lab scene with its parameter ranges) is `docs/AGENT_GUIDE.md`; the user-f
 | Repo | `javanmardi298/Math_graph`, working branch **`ccr-3480e387-89blux`** (never push elsewhere; no PR unless asked) |
 | Published as | claude.ai Artifact **https://claude.ai/artifact/PK3ZcQ5Q2Y5d1yG9GZ25DQ** (version 59). To update it from a new conversation pass this URL as `url` after reading it once. |
 | Tech | Vanilla ES modules, **no build step**. three.js r170 (vendored) for 2D/3D, Canvas 2D for the Circle Lab, a private WebGL shader for fractals, Web Audio for sound, WebCodecs/ffmpeg for MP4. Works offline. |
-| Run | `npm start` → http://localhost:5173 · `npm test` (204 tests, `node:test`) |
-| Size | 574 built-in presets on 42 shelves, 21 lesson packs (122 lessons), 76 Circle Lab scenes, 52 instruments, 160 scales |
+| Run | `npm start` → http://localhost:5173 · `npm test` (214 tests, `node:test`) |
+| Size | 574 built-in presets on 42 shelves, 21 lesson packs (122 lessons), 76 Circle Lab scenes, 56 instruments, 160 scales |
 
 ### Owner's standing rules (do not break)
 
@@ -144,7 +144,7 @@ docs/                  HANDOFF.md (this), AGENT_GUIDE.md (full reference)
 - **Add or change presets**: edit `presets-src/*.js` (helpers: `science.js` `film()/L()/ODE()/MAP()/SURF()`, `classroom.js` `lesson()`, `fractals.js`, `lessons/kit.js` `circleLesson()`), register shelves in `presets-src/catalog.js`, then `node scripts/build-presets.mjs` and `npm test`. Names must be unique. Every Circle scene needs at least one lesson (a test checks it).
 - **Add an instrument**: add to `INSTRUMENTS`, then `node scripts/build-fingerprints.mjs` (needs headless Chromium).
 - **Add a Circle scene**: an object `{label, group, defaults, controls, init, step, draw, stats, formula}` exported into `SCENES`; add a caption in `sim.js CAPTIONS` and a lesson.
-- **Check visually**: `node scripts/serve.mjs 5200`, open with Playwright (`createRequire('/usr/lib/node_modules/')('playwright')`, flags `--use-gl=swiftshader --enable-unsafe-swiftshader`), then use **`window.mmv`**: `load(preset)`, `loadByName(name)`, `set(path, value)`, `layer(i, patch)`, `seek(s)`, `frame()` (PNG data URL), `errors()`, `presets()`.
+- **Check visually**: `node scripts/serve.mjs 5200`, open with Playwright (`createRequire('/usr/lib/node_modules/')('playwright')`, flags `--use-gl=swiftshader --enable-unsafe-swiftshader`), then use **`window.mmv`**: `load(preset)`, `loadByName(name)`, `set(path, value)`, `layer(i, patch)`, `seek(s)`, `frame()` and `renderStill(t, { width, height, video })` (PNG data URL through the export pipeline), `validate()`, `describe(scene)`, `animatable()`, `key(path, time, value)`, `save(name)`, `loudness()`, `errors()`, `presets()`. Full list: `docs/AGENT_GUIDE.md` section 10.
 - **Publish the artifact**: `node scripts/build-artifact.mjs` → `dist/artifact.html` + `dist/artifact-publish-N.json`; publish each map in order to the artifact URL (list existing paths in `overwrite_unread`), then commit `scripts/artifact-published.json` + `scripts/artifact-presets.json` as "Record artifact vNN build" and push.
 
 ## 5. Known gotchas
@@ -158,6 +158,22 @@ docs/                  HANDOFF.md (this), AGENT_GUIDE.md (full reference)
 - Never run `pkill -f` in the sandbox shell (it kills the shell).
 
 ## 6. State of the work (last session)
+
+**Control upgrade (latest session)**, all in `docs/AGENT_GUIDE.md` section 10:
+- Batch render: list-typed `youtube.tags / title / description` are normalized on load and accepted by the export code (the real cause of “`.trim is not a function`”); one broken preset is listed in `FAILED.txt` instead of stopping the batch; `record.batchVideosOnly` puts only the MP4s in the zip.
+- `mmv.frame()` / `mmv.renderStill()` go through the export pipeline (`composeStill` in `src/main.js`); the PNG export button too.
+- `src/validate.js`: `validateState`, `describeScene`; Export tab → Check this video; a toast on load for errors and things after the end.
+- Keyframes for every Circle Lab / fractal setting (lane Scene, `sceneAnimatable` in `src/anim/keyframes.js`; `CircleSim.live` feeds the soundtrack replay). Fractal: `zexp`, `jphase`, `shift`, `bright`, `contrast`, `sat`, palettes `dusk` and `ash`.
+- Circle layers: `opacity`, `blend` (`BLENDS`), `circle.transition` (`TRANSITIONS`) and `transitionSecs` (`src/circle/stack.js`, painted in `src/circle/view.js`).
+- `camera.trackLayer`; `layer.volExpr`; `state.markers` (story beats on the timeline).
+- `src/audio/loudness.js`: `measureLoudness` (BS.1770 LUFS), `MASTERING`; instruments with a `noise` part: `ney-breath`, `santur-hammer`, `strings-bowed`, `flute-breath`.
+- Tests: `tests/stage-upgrade.test.mjs`. Existing presets were not changed.
+
+**Not verified this session**: nothing was listened to (the loudness meter was checked against a reference tone, the four noise instruments only measured); the batch was rendered in headless Chrome with the browser encoder (three tiny presets), not with ffmpeg and not inside the published artifact; scenes with a memory follow keyed settings only from that moment on.
+
+**Not built, by decision**: sampled instruments (offline, size and licence), a match-zoom transition, measuring the real brightness under a text (the check only warns about plain text over a full-frame fractal), transitions between formula layers in 2D / 3D.
+
+**Earlier session:**
 
 Done and pushed (commit `2d5f8a4`, artifact v59): batch-save fix, sound upgrade, textbook graph features, three new scenes, Fractals tab, grouped tab bar, `window.mmv`, Fractals + Textbook shelves, tests, docs.
 

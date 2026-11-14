@@ -7,6 +7,7 @@
  */
 import { SCALES } from '../math/music.js';
 import { INSTRUMENTS } from '../audio/instruments.js';
+import { SCENES } from '../circle/scenes.js';
 
 export const EASES = { smooth: 'Smooth', linear: 'Linear', hold: 'Hold (step)', in: 'Ease in (slow start)', out: 'Ease out (slow end)' };
 
@@ -30,11 +31,11 @@ const ANALYZERS = ['off', 'spectrum', 'wave'];
 const MARKERS = ['circle', 'ring', 'star', 'diamond'];
 
 /** The lane (row on the timeline) a property belongs to. */
-export const LANES = ['Camera', 'Speed', 'Sound', 'Look', 'Formula', 'Layers'];
+export const LANES = ['Camera', 'Speed', 'Sound', 'Look', 'Formula', 'Layers', 'Scene'];
 export function laneOf(path) {
   const root = path.split('.')[0];
   if (path === 'transport.speed') return 'Speed';
-  return { camera: 'Camera', audio: 'Sound', visual: 'Look', params: 'Formula', layer: 'Layers' }[root] || 'Look';
+  return { camera: 'Camera', audio: 'Sound', visual: 'Look', params: 'Formula', layer: 'Layers', circle: 'Scene' }[root] || 'Look';
 }
 
 /** Everything that can be animated, given the current layer list. */
@@ -45,6 +46,7 @@ export function animatable(state, scales = Object.keys(SCALES), instruments = Ob
     { ...NUM('camera.rotateSpeed', 'Auto-rotate speed', -6, 6), group: 'Camera' },
     { ...NUM('camera.track', 'Follow the pen', 0, 1), group: 'Camera' },
     { ...NUM('camera.trackSpeed', 'Follow smoothness', 0.01, 0.3), group: 'Camera' },
+    { ...STEP('camera.trackLayer', 'Follow which layer (0 = the one drawing)', 0, 12), group: 'Camera' },
     { ...NUM('camera.punch', 'Beat punch zoom', 0, 1), group: 'Camera' },
     { ...NUM('camera.roll', 'Roll (degrees)', -45, 45), group: 'Camera' },
     { ...NUM('camera.zoom', 'Zoom', 0.4, 4), group: 'Camera' },
@@ -124,8 +126,41 @@ export function animatable(state, scales = Object.keys(SCALES), instruments = Ob
     list.push({ ...CHOICE(`layer.${i}.mute`, 'Mute', [false, true]), group });
     list.push({ ...CHOICE(`layer.${i}.harmony`, 'Harmony', ['off', 'octave', 'octaveDown', 'fifth', 'power', 'third', 'minorThird', 'major', 'minor', 'sus4', 'seventh', 'minor7', 'stack']), group });
   });
+  list.push(...sceneAnimatable(state));
   return list;
 }
+
+/** Circle Lab stage settings that glide (every stage, whatever the simulation). */
+const STAGE = [['look.zoom', 'Picture zoom', 0.3, 4], ['look.dx', 'Picture shift x', -1, 1], ['look.dy', 'Picture shift y', -1, 1], ['look.glow', 'Glow', 0, 3], ['look.bloom', 'Bloom', 0, 3], ['sound.volume', 'Scene volume', 0, 1]];
+
+/**
+ * The settings of the Circle Lab simulations (fractals included) as animatable values:
+ * `circle.lab.<rule>.<key>` for the first stage, `circle.layers.<i>.cfg.lab.<rule>.<key>` for
+ * the others. Sliders glide, whole-number sliders step, lists and switches hold until the next key.
+ */
+export function sceneAnimatable(state) {
+  const c = state.circle;
+  if (!c || state.mode !== 'circle') return [];
+  const out = [];
+  const stages = [{ base: 'circle', cfg: c, layer: null, n: 1 }, ...(c.layers || []).map((l, i) => ({ base: `circle.layers.${i}.cfg`, cfg: l.cfg, layer: `circle.layers.${i}`, n: i + 2 }))];
+  for (const { base, cfg, layer, n } of stages) {
+    if (!cfg) continue;
+    const sc = SCENES[cfg.rule];
+    const group = `Scene ${n} · ${sc?.label?.split(' (')[0] || cfg.rule}`;
+    out.push({ ...NUM(`${layer || 'circle'}.opacity`, 'Opacity', 0, 1), group });
+    for (const [k, label, min, max] of STAGE) out.push({ ...NUM(`${base}.${k}`, label, min, max), group });
+    for (const [key, label, kind, a, b, step] of sc?.controls || []) {
+      const path = `${base}.lab.${cfg.rule}.${key}`;
+      if (kind === 'r') out.push({ ...(step >= 1 ? STEP : NUM)(path, label, a, b), group });
+      else if (kind === 's') out.push({ ...CHOICE(path, label, Object.keys(a || {})), group });
+      else if (kind === 't') out.push({ ...CHOICE(path, label, [false, true]), group });
+    }
+  }
+  return out;
+}
+
+/** `rule.key` of every whole-number scene setting (they step instead of gliding). */
+const SCENE_STEPS = new Set(Object.entries(SCENES).flatMap(([rule, sc]) => (sc.controls || []).filter((x) => x[2] === 'r' && x[5] >= 1).map((x) => `${rule}.${x[0]}`)));
 
 export const describe = (state, path) => animatable(state).find((a) => a.path === path);
 
@@ -133,7 +168,13 @@ export const describe = (state, path) => animatable(state).find((a) => a.path ==
 export function readValue(state, path) {
   const keys = path.split('.');
   if (keys[0] === 'layer') return state.layers[+keys[1]]?.[keys[2]];
-  return keys.reduce((o, k) => (o == null ? o : o[k]), state);
+  const v = keys.reduce((o, k) => (o == null ? o : o[k]), state);
+  if (v === undefined && keys[0] === 'circle') {
+    if (keys[keys.length - 1] === 'opacity') return 1;
+    const i = keys.indexOf('lab'); // a scene setting nobody touched yet: its default
+    if (i > 0 && keys.length === i + 3) return SCENES[keys[i + 1]]?.defaults?.[keys[i + 2]];
+  }
+  return v;
 }
 
 /** Write a property's value. Returns false if the target doesn't exist. */
@@ -146,6 +187,11 @@ export function writeValue(state, path, value) {
     return true;
   }
   const last = keys.pop();
+  if (keys[0] === 'circle' && keys.includes('lab')) {
+    // scene settings live in lab.<rule>, which only exists once something was changed
+    let o = state;
+    for (const k of keys) { if (o[k] == null) { if (k === 'cfg' || /^\d+$/.test(k) || k === 'layers') return false; o[k] = {}; } o = o[k]; }
+  }
   const target = keys.reduce((o, k) => (o == null ? o : o[k]), state);
   if (!target) return false;
   target[last] = value;
@@ -201,7 +247,7 @@ export function evaluate(keys, time, hold = false) {
 
 /** Numbers that jump instead of gliding (the key, reverb length …). */
 const STEP_PATHS = new Set(animatable({ layers: [] }).filter((a) => a.kind === 'step').map((a) => a.path));
-export const isStep = (path) => STEP_PATHS.has(path) || /^layer\.\d+\.octave$/.test(path);
+export const isStep = (path) => STEP_PATHS.has(path) || /^layer\.\d+\.octave$/.test(path) || (path.startsWith('circle.') && SCENE_STEPS.has(path.split('.').slice(-2).join('.')));
 
 /** Add a key, replacing any key within `tolerance` seconds. Keeps keys sorted. */
 export function upsertKey(tracks, path, time, value, ease = 'smooth', tolerance = 0.05) {

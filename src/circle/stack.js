@@ -18,7 +18,7 @@ export const FADE = 0.45; // seconds of cross-fade between steps
 
 /** Every layer, the first one being state.circle itself. */
 export function circleLayers(c) {
-  return [{ id: 'main', enabled: true, withPrev: false, start: c.start || 0, end: c.end || 0, cfg: c }, ...(c.layers || [])];
+  return [{ id: 'main', enabled: true, withPrev: false, start: c.start || 0, end: c.end || 0, opacity: c.opacity, blend: c.blend, cfg: c }, ...(c.layers || [])];
 }
 
 /**
@@ -45,21 +45,28 @@ export function circleSchedule(c, duration) {
  * What is on screen at `time`: each entry with its own clock and opacity. A finished
  * step stays (frozen on its last frame) while the next one fades in.
  */
-export function visibleAt(schedule, time) {
+export function visibleAt(schedule, time, fade = FADE) {
   const out = [];
   for (const s of schedule) {
     const last = s.group === s.groups - 1;
     if (time < s.start) continue;
-    let alpha = 1;
-    if (s.start > 0 && time < s.start + FADE) alpha = (time - s.start) / FADE; // fading in
+    let alpha = 1, edge = null;
+    if (s.start > 0 && time < s.start + fade) { alpha = (time - s.start) / fade; edge = 'in'; } // fading in
     if (!last && time >= s.end) {
-      if (time >= s.end + FADE) continue;
-      alpha = 1 - (time - s.end) / FADE; // fading out, frozen
+      if (time >= s.end + fade) continue;
+      alpha = 1 - (time - s.end) / fade; // fading out, frozen
+      edge = 'out';
     }
-    out.push({ ...s, local: Math.min(time, s.end) - s.start, alpha: Math.max(0, Math.min(1, alpha)) });
+    out.push({ ...s, local: Math.min(time, s.end) - s.start, alpha: Math.max(0, Math.min(1, alpha)), edge });
   }
   return out;
 }
+
+/** How one step hands over to the next (circle.transition), and the blend modes of a layer (layer.blend). */
+export const TRANSITIONS = { fade: 'Fade with a slight zoom', dissolve: 'Dissolve (plain cross-fade)', zoom: 'Zoom through', wipe: 'Wipe from the left', cut: 'Hard cut' };
+export const BLENDS = { normal: 'Normal (covers what is under it)', screen: 'Screen (black becomes see-through)', add: 'Add (light on light)', multiply: 'Multiply (darkens)', overlay: 'Overlay (contrast)', difference: 'Difference' };
+/** Seconds one step takes to hand over, for a circle setting. */
+export const transitionSecs = (c) => (c.transition === 'cut' ? 0 : Math.max(0.05, Math.min(4, +c.transitionSecs || FADE)));
 
 /** The layer whose text and counter are shown at `time` (the first one of the current step). */
 export function headlineAt(schedule, time) {

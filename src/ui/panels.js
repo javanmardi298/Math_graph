@@ -45,7 +45,8 @@ import { CIRCLE_RULES, chordStep, ruleGroups } from '../circle/sim.js';
 import { SCENES, sceneParams } from '../circle/scenes.js';
 import { formulaError } from '../circle/battles.js';
 import { SPEED_CURVES } from '../circle/layout.js';
-import { newLayer } from '../circle/stack.js';
+import { newLayer, BLENDS, TRANSITIONS } from '../circle/stack.js';
+import { MASTERING, applyMastering } from '../audio/loudness.js';
 import { CIRCLE_PALETTES } from '../circle/view.js';
 import { MELODIES } from '../circle/sound.js';
 import { DRUM_KINDS, DRUM_LABELS, TRIGGERS, DRUM_PATTERNS } from '../audio/drum-scanner.js';
@@ -297,6 +298,8 @@ export class Panels {
       slider('Detune (thicker)', bindObj(l, 'detune', `${ev}.detune`), { min: 0, max: 60, step: 1, unit: ' ct' }),
       slider('Pan', bindObj(l, 'pan', `${ev}.sound`), { min: -1, max: 1, step: 0.01, fmt: (v) => (Math.abs(v) < 0.01 ? 'C' : v < 0 ? `L${Math.round(-v * 100)}` : `R${Math.round(v * 100)}`) }),
       select('Z controls', bindObj(l, 'zMap', `${ev}.sound`), { volume: 'Volume', pan: 'Stereo pan', none: 'Nothing' }),
+      text('Loudness formula (empty = none)', bindObj(l, 'volExpr', `${ev}.sound`), { placeholder: 'e.g.  abs(cos(3x))   or   u^2   or   1 - u' }),
+      h('p.hint', {}, 'Shapes this layer’s loudness along its drawing, from 0 (silent) to 1 (its volume) and up to 1.5. Use x, y, z of the pen, u = 0 … 1 along the layer and t = seconds: u^2 swells, 1 - u fades away, abs(sin(8u)) pulses.'),
     ], { open: false }));
 
     this.showErrors(l.id, this.actions.errorsFor(l.id));
@@ -561,7 +564,11 @@ export class Panels {
       this.soundPresets.el,
       group('Output', [
         slider('Master volume', p('audio.master'), { min: 0, max: 1, step: 0.01, fmt: (v) => `${Math.round(v * 100)}%` }),
+        this.loudnessBox(),
       ]),
+      group('Mastering in one click', [
+        h('div.chips', {}, Object.entries(MASTERING).map(([id, m]) => h('button.chip', { type: 'button', title: m.label, onclick: () => { applyMastering(store.state.audio, id); store.emit('audio'); refreshAll(); this.actions.toast(`Mastering: ${m.label}. It set the EQ, drive, filter, reverb and delay; fine-tune them below.`, 5000); } }, m.label.split(' (')[0]))),
+      ], { open: false, hint: 'A mood for the whole mix: each one sets the master EQ, drive, filter, reverb and delay together (Clean puts them back to neutral). Instruments, scale and volumes stay as they are.' }),
       group('Pitch mapping', [
         slider('Lowest note (y min)', p('audio.noteLow'), { min: 0, max: 100, step: 1, fmt: noteFmt }),
         slider('Highest note (y max)', p('audio.noteHigh'), { min: 12, max: 127, step: 1, fmt: noteFmt }),
@@ -650,6 +657,7 @@ export class Panels {
       ], { hint: 'Drag to orbit · right-drag or two fingers to pan · scroll to zoom. In 2D, drag pans and scroll zooms.' }),
       group('Moves with the music', [
         slider('Follow the pen', p('camera.track'), { min: 0, max: 1, step: 0.01, fmt: (v) => (v ? `${Math.round(v * 100)}%` : 'Off') }),
+        select('Follow which layer', { get: () => String(store.state.camera.trackLayer || 0), set: (v) => store.set('camera.trackLayer', +v) }, Object.fromEntries([['0', 'The one drawing now'], ...Array.from({ length: 8 }, (_, i) => [String(i + 1), `Layer ${i + 1}`])])),
         slider('Follow smoothness', p('camera.trackSpeed'), { min: 0.01, max: 0.3, step: 0.01, fmt: (v) => (v < 0.05 ? 'Slow-motion' : v < 0.12 ? 'Smooth' : 'Tight') }),
         slider('Beat punch zoom', p('camera.punch'), { min: 0, max: 1, step: 0.01, fmt: (v) => (v ? `${Math.round(v * 100)}%` : 'Off') }),
         slider('Roll', p('camera.roll'), { min: -45, max: 45, step: 0.5, unit: '°' }),
@@ -842,7 +850,7 @@ export class Panels {
       const cur = () => this.circleTarget().L;
       const sb = (key) => ({
         get: () => sceneParams(cur())[key],
-        set: (v) => { const cc = cur(); store.set(`${base}.lab.${cc.rule}`, { ...(cc.lab?.[cc.rule] || {}), [key]: v }); },
+        set: (v) => { const cc = cur(); (cc.lab ||= {})[cc.rule] ||= {}; store.set(`${base}.lab.${cc.rule}.${key}`, v); }, // one path per setting, so Key mode can record it
       });
       const ctls = scene.controls.filter(Boolean).map(([key, label, kind, a, b, st, unit]) => {
         if (kind === 's') return select(label, sb(key), a);
@@ -1020,6 +1028,16 @@ export class Panels {
           h('button.icon-btn', { type: 'button', title: 'Move down', disabled: i === 0 || i === all.length - 1, onclick: () => move(1) }, '↓'),
           h('button.icon-btn', { type: 'button', title: 'Duplicate', disabled: all.length >= 6, onclick: () => { layers.splice(i, 0, { ...newLayer(l.cfg, l.cfg.rule, `C${Date.now().toString(36)}`), withPrev: false }); this.circleEdit = i + 1; change(); } }, '⧉'),
           h('button.icon-btn.danger', { type: 'button', title: 'Delete layer', disabled: i === 0, onclick: () => { layers.splice(i - 1, 1); this.circleEdit = Math.min(i, layers.length); change(); } }, '✕'))));
+      if (all.length > 1) {
+        // how this layer sits on the ones under it (layer 1 keeps its values in state.circle itself)
+        const own = i === 0 ? c : l, base = i === 0 ? 'circle' : `circle.layers.${i - 1}`;
+        const op = h('input', { type: 'range', min: 0, max: 1, step: 0.01, value: own.opacity ?? 1, 'aria-label': 'Opacity', title: 'Opacity of this layer' });
+        op.addEventListener('input', () => { store.set(`${base}.opacity`, +op.value); });
+        const bl = h('select', { 'aria-label': 'Blend mode', title: 'How it mixes with the layers under it' }, Object.entries(BLENDS).map(([v, t]) => h('option', { value: v }, t.split(' (')[0])));
+        bl.value = own.blend || 'normal';
+        bl.addEventListener('change', () => { store.set(`${base}.blend`, bl.value); });
+        card.append(h('div.circle-layer-mix', {}, h('span.ctl-label', {}, 'Mix'), op, bl));
+      }
       return card;
     });
     const addSel = h('select', { 'aria-label': 'Simulation for the new layer' }, ruleGroups().map(([g, items]) => h('optgroup', { label: g }, items.map(([id, label]) => h('option', { value: id }, label)))));
@@ -1034,6 +1052,10 @@ export class Panels {
       h('div.ctl', {}, h('span.ctl-label', {}, 'Play layers'),
         segmented(bindPath('circle.combine'), [['sequence', 'One after another', 'Each step plays in turn (linked layers play together inside a step)'], ['together', 'Together', 'All layers play at the same time, on top of each other']], { label: 'Layer playback' })),
       h('p.hint', {}, all.length < 2 ? 'Add a layer to tell a story: e.g. a question, then the answer.' : seq ? `${steps} step${steps === 1 ? '' : 's'} × ${(dur / steps).toFixed(1)} s` : `${all.filter((l) => l.enabled).length} layers at once · use “Size & place” to give each its spot`),
+      ...(seq && steps > 1 ? [
+        select('Between steps', bindPath('circle.transition'), TRANSITIONS),
+        slider('Transition length', bindPath('circle.transitionSecs'), { min: 0.1, max: 3, step: 0.05, unit: ' s' }),
+      ] : []),
       h('div.layer-list', {}, cards),
       h('div.row', {}, addSel, add));
   }
@@ -1125,6 +1147,82 @@ export class Panels {
   }
 
   /** The one place to export anything: pick what to make, press the one button. */
+  /** Measure the soundtrack without listening: loudness (LUFS), peak, silences, balance; and set the level for YouTube. */
+  loudnessBox() {
+    const out = h('div.loudness-out', { hidden: true });
+    const show = (m) => {
+      const bar = (label, v) => h('div.loud-bar', {}, h('span', {}, label), h('i', { style: `width:${Math.round(v * 100)}%` }), h('b', {}, `${Math.round(v * 100)}%`));
+      out.hidden = false;
+      out.replaceChildren(
+        h('div.loud-nums', {},
+          h('div', {}, h('b', {}, Number.isFinite(m.lufs) ? `${m.lufs}` : 'silent'), h('span', {}, 'LUFS (YouTube: −14)')),
+          h('div', {}, h('b', {}, Number.isFinite(m.peakDb) ? `${m.peakDb}` : '–'), h('span', {}, 'peak dB')),
+          h('div', {}, h('b', {}, `${m.range}`), h('span', {}, 'range LU')),
+          h('div', {}, h('b', {}, `${Math.round(m.silentShare * 100)}%`), h('span', {}, 'silent'))),
+        bar('Low < 200 Hz', m.balance.low), bar('Middle', m.balance.mid), bar('High > 4 kHz', m.balance.high),
+        h('ul.loud-advice', {}, m.advice.map((a) => h('li', {}, a))));
+    };
+    const run = (fn, label) => async (e) => {
+      const b = e.currentTarget, was = b.textContent;
+      b.disabled = true; b.textContent = label;
+      try { show(await fn()); } catch (err) { this.actions.toast(`Could not measure the sound: ${err.message}`, 6000); }
+      b.disabled = false; b.textContent = was;
+    };
+    return h('div.loudness', {},
+      h('div.row', {},
+        h('button.btn.ghost', { type: 'button', onclick: run(() => this.actions.measureSound(), 'Measuring…') }, 'Measure loudness'),
+        h('button.btn.ghost', { type: 'button', title: 'Sets the master volume so the soundtrack sits at −14 LUFS', onclick: run(() => this.actions.normalizeLoudness(), 'Setting the level…') }, 'Set level for YouTube')),
+      h('p.hint', {}, 'Renders the whole soundtrack silently and measures it the way YouTube does. It tells you if the video is too quiet or too loud, clips, has dead air or is all bass: a check that needs no headphones (it cannot tell if the music is beautiful).'),
+      out);
+  }
+
+  /** Story beats: named moments on the timeline (opening, rise, climax, ending) that keys snap to. */
+  beatsGroup() {
+    const list = h('div.beats-list');
+    const render = () => {
+      const ms = store.state.markers || [];
+      list.replaceChildren(...(ms.length ? ms.map((m, i) => {
+        const name = h('input.lib-input', { value: m.label, 'aria-label': 'Beat name' });
+        name.addEventListener('change', () => { m.label = name.value; store.emit('markers'); });
+        const time = h('input.lib-input.beat-time', { type: 'number', min: 0, step: 0.1, value: m.time, 'aria-label': 'Seconds' });
+        time.addEventListener('change', () => { m.time = Math.max(0, +time.value || 0); ms.sort((x, y) => x.time - y.time); store.emit('markers'); render(); });
+        return h('div.row.beat-row', {}, time, name,
+          h('button.icon-btn', { type: 'button', title: 'Jump to this beat', onclick: () => this.actions.seekTo(m.time) }, '▸'),
+          h('button.icon-btn.danger', { type: 'button', title: 'Remove', onclick: () => { ms.splice(i, 1); store.emit('markers'); render(); } }, '✕'));
+      }) : [h('p.hint', {}, 'No beats yet.')]));
+    };
+    const add = (label, at) => { const ms = (store.state.markers ||= []); ms.push({ time: +(at ?? this.actions.playheadTime()).toFixed(2), label }); ms.sort((x, y) => x.time - y.time); store.emit('markers'); render(); };
+    const sheet = () => {
+      const d = store.state.transport.duration;
+      store.state.markers = [['Hook', 0], ['Rise', d * 0.2], ['Turn', d * 0.5], ['Climax', d * 0.75], ['Ending', d * 0.92]].map(([label, t]) => ({ time: +t.toFixed(2), label }));
+      store.emit('markers'); render();
+    };
+    this.renderBeats = render;
+    render();
+    return group('Story beats', [
+      h('div.row', {},
+        h('button.btn.ghost', { type: 'button', onclick: () => add('Beat') }, '⚑ Beat at the playhead'),
+        h('button.btn.ghost', { type: 'button', title: 'Hook, rise, turn, climax and ending spread over the video', onclick: sheet }, 'Five-beat sheet')),
+      list,
+    ], { open: false, hint: 'Name the moments of the video (hook, rise, climax, ending). They show as yellow flags on the timeline, and a keyframe you drag snaps onto them, so the camera move, the sound change and the reveal can land on the same instant. They are a planning aid: nothing of them is drawn on the video.' });
+  }
+
+  /** The health check of this video (validate.js), as a list. */
+  checkBox() {
+    const out = h('div.check-out');
+    const run = () => {
+      const r = this.actions.validate();
+      const icon = { error: '✖', warning: '▲', info: 'ℹ' };
+      out.replaceChildren(r.problems.length
+        ? h('ul.check-list', {}, r.problems.map((x) => h('li', { class: `check-${x.level}` }, h('b', {}, `${icon[x.level]} `), x.message, h('code', {}, ` ${x.path}`))))
+        : h('p.hint', {}, '✓ Nothing wrong found: every formula compiles, every key and text is inside the video, every setting exists.'));
+    };
+    return group('Check this video', [
+      h('div.row', {}, h('button.btn.ghost', { type: 'button', onclick: run }, 'Check now')),
+      out,
+    ], { open: false, hint: 'Looks for what silently goes wrong: formulas that do not compile, keys and texts after the end of the video, settings that do nothing, a video length left over from another preset, text that will be hard to read.' });
+  }
+
   exportTab() {
     const p = bindPath;
     const live = this.actions.videoFormat();
@@ -1169,6 +1267,7 @@ export class Panels {
         select('Motion blur', p('record.subframes'), [[1, 'Off · fastest'], [2, 'Natural · 2 sub-frames'], [4, 'Cinematic · 4 sub-frames']]),
         select('Encoder', p('record.engine'), { auto: 'Automatic · ffmpeg when available', ffmpeg: 'ffmpeg on this computer (npm start)', browser: 'Browser (WebCodecs)' }),
         toggle('Browser encoder: use the GPU (faster, unstable on some drivers)', p('record.gpuEncoder')),
+        toggle('Rendering several presets: videos only (just the MP4s in one zip, no text files)', p('record.batchVideosOnly')),
       ], { open: false }),
       group('Shorts: hook & ending', [
         toggle('Hook in the first seconds', shortsBind('record.hook.enabled')),
@@ -1424,6 +1523,7 @@ export class Panels {
         this.keyPropSlot,
         h('div.row', {}, h('button.btn.ghost', { type: 'button', onclick: () => this.actions.addKey(this.keyPath, this.keyEase) }, '◆ Add key for this property')),
       ], { open: false, hint: 'Pick any single property and key it at the playhead.' }),
+      this.beatsGroup(),
       group('Tracks', [this.keyTracks], { open: false }),
     );
     onSelect(() => this.scheduleKeyRender());
@@ -1557,6 +1657,7 @@ export class Panels {
   /** Re-sync every control with state after a preset load. */
   refresh() {
     this.renderAbout();
+    this.renderBeats?.();
     // rebuild the Circle tab first: its controls may point at layers that no longer exist
     this.circleEdit = Math.min(this.circleEdit || 0, store.state.circle.layers?.length || 0);
     this.renderCircle();

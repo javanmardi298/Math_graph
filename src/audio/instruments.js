@@ -12,6 +12,9 @@
  *   amp     { attack, decay, sustain }             envelope used when notes retrigger
  *   mode    'pluck' | 'legato'                     overrides the global articulation
  *   lfo     { target: 'filter' | 'pitch', rate, depth }
+ *   noise   { gain, key, q, burst, decay }         filtered noise through the amp: breath (gain) and the
+ *                                                  strike of a hammer or bow (burst, fading over decay s);
+ *                                                  key = centre of the band as a multiple of the note
  *   gain    loudness compensation
  *   program General MIDI program for the MIDI export
  *
@@ -137,6 +140,15 @@ export const INSTRUMENTS = {
     filter: { type: 'lowpass', key: 3, q: 1.4, env: 3.5, decay: 0.1 }, amp: A(0.003, 0.6, 0.04), mode: 'pluck', gain: 1.3, program: 24 },
   ney: { label: 'Ney (reed flute)', group: 'World', osc: [{ type: 'sine' }, { type: 'triangle', semi: 12, gain: 0.22 }, { type: 'sine', semi: 19, gain: 0.06 }],
     lfo: { target: 'pitch', rate: 5, depth: 11 }, amp: A(0.09, 0.5, 0.85), mode: 'legato', gain: 0.8, program: 77 },
+  // the same instruments with the part a pure tone lacks: breath in the pipe, the hammer on the string, the bow's rosin
+  'ney-breath': { label: 'Ney with breath', group: 'World', osc: [{ type: 'sine' }, { type: 'triangle', semi: 12, gain: 0.2 }, { type: 'sine', semi: 19, gain: 0.07 }, { type: 'sine', semi: 24, gain: 0.03 }],
+    noise: { gain: 0.16, key: 2, q: 1.6, burst: 0.5, decay: 0.09 }, lfo: { target: 'pitch', rate: 4.6, depth: 13 }, amp: A(0.11, 0.5, 0.85), mode: 'legato', gain: 0.8, program: 77 },
+  'santur-hammer': { label: 'Santur with hammers', group: 'World', osc: [{ type: 'sawtooth', cents: -6, gain: 0.3 }, { type: 'sawtooth', cents: 6, gain: 0.3 }, { type: 'sine', semi: 12, cents: 3, gain: 0.3 }, { type: 'sine', semi: 24, gain: 0.08 }],
+    noise: { gain: 0, key: 6, q: 0.8, burst: 0.9, decay: 0.018 }, filter: { type: 'lowpass', key: 7, q: 0.9, env: 2.4, decay: 0.3 }, amp: A(0.001, 1.3, 0.015), mode: 'pluck', gain: 1.0, program: 15 },
+  'strings-bowed': { label: 'Bowed strings (with rosin)', group: 'Leads & orchestral', osc: [-13, -4, 5, 12].map((cents) => ({ type: 'sawtooth', cents, gain: 0.26 })),
+    noise: { gain: 0.05, key: 5, q: 0.6, burst: 0.25, decay: 0.12 }, filter: { type: 'lowpass', key: 5, q: 0.6 }, lfo: { target: 'pitch', rate: 5.4, depth: 9 }, amp: A(0.16, 0.6, 0.9), mode: 'legato', gain: 0.75, program: 48 },
+  'flute-breath': { label: 'Flute with breath', group: 'Leads & orchestral', osc: [{ type: 'sine' }, { type: 'sine', semi: 12, gain: 0.14 }, { type: 'triangle', semi: 19, gain: 0.03 }],
+    noise: { gain: 0.09, key: 3, q: 1.2, burst: 0.35, decay: 0.07 }, lfo: { target: 'pitch', rate: 5.2, depth: 8 }, amp: A(0.06, 0.4, 0.9), mode: 'legato', gain: 0.85, program: 73 },
   sitar: { label: 'Sitar', group: 'World', osc: [{ type: 'sawtooth', gain: 0.6 }, { type: 'sawtooth', semi: 12, cents: 7, gain: 0.2 }],
     fm: { ratio: 2, index: 2.2, env: 1.5, decay: 0.6 }, filter: { type: 'bandpass', key: 3, q: 1.2 }, amp: A(0.002, 1.3, 0.08), mode: 'pluck', gain: 2.2, program: 104 },
   koto: { label: 'Koto', group: 'World', osc: [{ type: 'triangle' }, { type: 'sine', semi: 12, gain: 0.2 }],
@@ -217,6 +229,20 @@ export function periodicWave(ctx, name) {
   return m.get(name);
 }
 
+/** Two seconds of white noise, the same samples every time (so offline renders repeat exactly). One per audio context. */
+const noiseBuffers = new WeakMap();
+function noiseBuffer(ctx) {
+  let buf = noiseBuffers.get(ctx);
+  if (!buf) {
+    buf = ctx.createBuffer(1, Math.round(ctx.sampleRate * 2), ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    let seed = 0x2f6e2b1;
+    for (let i = 0; i < d.length; i++) { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; d[i] = seed / 2147483648 - 1; }
+    noiseBuffers.set(ctx, buf);
+  }
+  return buf;
+}
+
 /* ---------------------------------------------------------------- voice */
 
 const ratio = (semi = 0) => Math.pow(2, semi / 12);
@@ -271,6 +297,19 @@ export class Voice {
       for (const o of this.oscs) this.modGain.connect(o.osc.frequency);
       this.nodes.push(this.mod);
     }
+    if (p.noise) {
+      // breath, hammer and bow: noise in a band that follows the note, shaped by the same amp as the tone
+      const src = ctx.createBufferSource();
+      src.buffer = noiseBuffer(ctx);
+      src.loop = true;
+      this.noiseBand = ctx.createBiquadFilter();
+      this.noiseBand.type = 'bandpass';
+      this.noiseBand.Q.value = p.noise.q ?? 1;
+      this.noiseGain = ctx.createGain();
+      this.noiseGain.gain.value = p.noise.gain ?? 0;
+      src.connect(this.noiseBand).connect(this.noiseGain).connect(this.amp);
+      this.nodes.push(src);
+    }
     if (p.lfo) {
       this.lfo = ctx.createOscillator();
       this.lfo.frequency.value = p.lfo.rate;
@@ -306,6 +345,7 @@ export class Voice {
       if (!fm.env) this.modGain.gain.setTargetAtTime(freq * fm.index, t, tc);
     }
     if (this.inst.filter?.key) this.filter.frequency.setTargetAtTime(this.baseCutoff(), t, 0.02);
+    if (this.noiseBand) this.noiseBand.frequency.setTargetAtTime(Math.min(16000, freq * (this.inst.noise.key ?? 2)), t, 0.02);
     if (this.inst.lfo?.target === 'filter' && this.filter) this.lfoGain.gain.setTargetAtTime(this.baseCutoff() * this.inst.lfo.depth * 0.5, t, 0.05);
   }
 
@@ -331,6 +371,13 @@ export class Voice {
       hold(fq, t, live);
       fq.linearRampToValueAtTime(Math.min(18000, base * (1 + f.env)), t + 0.003);
       fq.setTargetAtTime(base, t + 0.004, Math.max(0.01, (f.decay ?? 0.15) / 3));
+    }
+    const nz = this.inst.noise;
+    if (nz?.burst) {
+      const ng = this.noiseGain.gain;
+      hold(ng, t, live);
+      ng.setValueAtTime((nz.gain ?? 0) + nz.burst, t);
+      ng.setTargetAtTime(nz.gain ?? 0, t + 0.002, Math.max(0.004, (nz.decay ?? 0.05) / 3));
     }
     const drop = this.inst.drop;
     if (drop) {

@@ -118,6 +118,8 @@ export class Timeline {
     if (e?.altKey) return Math.min(dur, Math.max(0, t));
     const ph = this.u * dur;
     if (Math.abs(t - ph) < dur * 0.006) return ph;
+    // story beats pull keys onto themselves
+    for (const m of store.state.markers || []) if (Math.abs(t - m.time) < dur * 0.012) return Math.min(dur, Math.max(0, m.time));
     return Math.min(dur, Math.max(0, Math.round(t / 0.05) * 0.05));
   }
 
@@ -262,6 +264,27 @@ export class Timeline {
         if (on) { g.strokeStyle = accent2; g.lineWidth = Math.max(1, dpr); g.stroke(); }
       }
     });
+
+    // Story beats: a flag with its name at each marker, over every row
+    const marks = store.state.markers || [];
+    if (marks.length) {
+      g.save();
+      g.font = `600 ${Math.round(10 * dpr)}px "JetBrains Mono", monospace`;
+      g.textBaseline = 'top';
+      for (const m of marks) {
+        if (!(m.time >= 0 && m.time <= dur)) continue;
+        const x = (m.time / dur) * w;
+        g.globalAlpha = 0.9;
+        g.fillStyle = '#ffd23d';
+        g.fillRect(x - dpr * 0.75, 0, dpr * 1.5, h);
+        const label = String(m.label || '').slice(0, 18), tw = g.measureText(label).width + 8 * dpr;
+        const lx = x + tw > w ? x - tw : x;
+        g.fillRect(lx, 0, tw, 13 * dpr);
+        g.fillStyle = '#10131f';
+        g.fillText(label, lx + 4 * dpr, 2 * dpr);
+      }
+      g.restore();
+    }
 
     // Played region + playhead
     const px = this.u * w;

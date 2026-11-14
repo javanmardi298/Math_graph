@@ -1273,7 +1273,9 @@ export class Visualizer {
   renderWithCameraMoves(items, f) {
     const c = this.state.camera;
     this.punch *= Math.pow(0.004, f.dt); // ~0.25 s decay
-    const lead = items.find((it) => it.phase === 'active') || items[0];
+    // the pen the camera follows: the layer chosen in camera.trackLayer (1 = the first), else the one drawing now
+    const want = c.trackLayer > 0 ? this.state.layers[Math.round(c.trackLayer) - 1]?.id : null;
+    const lead = (want && items.find((it) => it.id === want)) || items.find((it) => it.phase === 'active') || items[0];
     const track = Math.min(1, Math.max(0, c.track || 0));
     if (lead) {
       const goal = tmpVec.set(lead.point.x, lead.point.y, lead.point.z).add(this.content.position);

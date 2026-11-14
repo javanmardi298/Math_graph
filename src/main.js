@@ -45,6 +45,10 @@ import { FONTS } from './ui/overlay.js';
 import { CircleView } from './circle/view.js';
 import { eventsUntil, captionLine, CIRCLE_RULES } from './circle/sim.js';
 import { circleSchedule } from './circle/stack.js';
+import { sceneParams } from './circle/scenes.js';
+import { validateState, validationLine, describeScene, VOL_VARS } from './validate.js';
+import { measureLoudness, MASTERING, applyMastering } from './audio/loudness.js';
+import { tryCompile } from './math/parser.js';
 import { notesForEvents } from './circle/sound.js';
 import { LayoutEditor } from './ui/layout-editor.js';
 import { writeMidi, samplesToNotes } from './export/midi.js';
@@ -269,6 +273,7 @@ function updateTimelineCurves() {
 let applyingKeys = false;
 const hasTracks = () => Object.keys(activeTracks()).length > 0;
 const hasPoseTrack = () => !!activeTracks()['camera.pose']?.length;
+const hasSceneTracks = () => Object.keys(activeTracks()).some((p) => p.startsWith('circle.'));
 
 /**
  * Write every animated value for `time` into the state.
@@ -365,6 +370,18 @@ function withTimeTravel(fn) {
  * With the beat grid on, the curve is sampled at the start of the current step
  * and the note is cut after `gate` of the step.
  */
+/** Loudness formulas of the layers, compiled once per text. */
+const volFns = new Map();
+/** The layer's loudness formula at this point of its drawing: 0 … 1.5 (1 when it is empty or broken). */
+function volumeAt(l, p, u, t) {
+  const src = String(l.volExpr).trim();
+  if (!src) return 1;
+  let c = volFns.get(src);
+  if (!c) { if (volFns.size > 60) volFns.clear(); volFns.set(src, (c = tryCompile(src, VOL_VARS, () => 1))); }
+  const v = c.fn({ x: p.x, y: p.y, z: p.z, u, t });
+  return Number.isFinite(v) ? Math.min(1.5, Math.max(0, v)) : 1;
+}
+
 function voicesAt(time) {
   const { layers, transport, rhythm } = store.state;
   const solo = hasSolo(layers);
@@ -379,6 +396,7 @@ function voicesAt(time) {
     const lt = layerTiming(l, tq);
     c.at(lt.u, ctx, p);
     const f = voiceFrame(l, p, store.state, solo);
+    if (l.volExpr && f.gain > 0) f.gain *= volumeAt(l, p, lt.u, tq);
     if (f.midi != null && l.pitchFrom === 'melody') f.midi = melodyMidi(l, lt.u, store.state.audio) ?? f.midi;
     if (lt.phase !== 'active') f.gain = 0; // in sequence mode only the current layer sounds
     if (g) {
@@ -412,6 +430,7 @@ function measureCurve() {
       if (!Number.isFinite(p.y)) continue;
       y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y);
       const f = voiceFrame(l, p, store.state, solo);
+    if (l.volExpr && f.gain > 0) f.gain *= volumeAt(l, p, lt.u, tq);
       if (f.midi != null) { low = Math.min(low, f.midi); high = Math.max(high, f.midi); }
     }
   }
@@ -655,6 +674,9 @@ store.on((path) => {
       clock.snap = true;
       panels.renderSequence();
       break;
+    case 'markers':
+      timeline.draw(); saveSession();
+      break;
     case 'keyframes':
       keyframesChanged();
       break;
@@ -768,7 +790,7 @@ function circleText() {
 
 /** Circle Lab frame: draw the simulation; while playing live, every hit plays its note. */
 function renderCircle(time, { playing, snap }) {
-  const groups = circle.renderAt(time, store.state.circle, { snap, width: viz.canvas.width, height: viz.canvas.height, env: circleEnv(), camera: store.state.camera, progress: time / duration(), duration: duration(), bpm: store.state.transport.bpm });
+  const groups = circle.renderAt(time, store.state.circle, { snap, width: viz.canvas.width, height: viz.canvas.height, env: circleEnv(), camera: store.state.camera, progress: time / duration(), duration: duration(), bpm: store.state.transport.bpm, live: hasSceneTracks() });
   if (snap) circleRuns = new Map();
   if (playing && groups.length && !exporting.busy && !RENDER_MODE && audio.ready) {
     for (const { id, cfg, events } of groups) {
@@ -1108,7 +1130,9 @@ function circleNoteTracks() {
   const env = circleEnv();
   return circleSchedule(c, duration()).map((s) => {
     const cfg = s.layer.cfg, len = s.end - s.start;
-    const notes = notesForEvents(eventsUntil(cfg, len, { ...env, duration: len }), cfg, a).map((n) => ({ ...n, t: n.t + s.start }));
+    // keyframed scene settings: the replay reads them at every moment, like the picture does
+    const live = hasSceneTracks() ? (t) => { applyKeyframesAt(s.start + t, false); return sceneParams(cfg); } : null;
+    const notes = withTimeTravel(() => notesForEvents(eventsUntil(cfg, len, { ...env, duration: len, live }), cfg, a)).map((n) => ({ ...n, t: n.t + s.start }));
     return { layer: s.layer, cfg, notes };
   });
 }
@@ -1203,15 +1227,8 @@ function exportMidi() {
 }
 
 function snapshot() {
-  if (!isCircle()) viz.composer.render(0);
-  const src = sceneCanvas();
-  const c = document.createElement('canvas');
-  c.width = src.width;
-  c.height = src.height;
-  const g = c.getContext('2d');
-  g.drawImage(src, 0, 0);
-  drawOverlay(g, c.width, c.height, overlayData());
-  c.toBlob((blob) => blob && showResult(blob, `${fileBase()}.png`, 'image'), 'image/png');
+  // the picture as the export draws it at this moment (camera moves, bars, text)
+  composeStill(clock.pos).toBlob((blob) => blob && showResult(blob, `${fileBase()}.png`, 'image'), 'image/png');
 }
 
 function applyPalette(pal) {
@@ -1230,7 +1247,11 @@ function loadPreset(pr) {
   store.load(pr);
   seek(0);
   if (wasPlaying) { audio.syncLayers(store.state.layers); applyDrumVolume(); }
-  toast(`Preset “${store.state.name}” loaded.`);
+  // things that silently go wrong (a broken formula, keys or text after the end): say so right away
+  const check = validateState(pr);
+  const urgent = check.problems.filter((x) => x.level === 'error' || /after the end/.test(x.message));
+  if (urgent.length) toast(`Preset “${store.state.name}” loaded · check it: ${urgent.slice(0, 2).map((x) => x.message).join(' · ')}${urgent.length > 2 ? ` · and ${urgent.length - 2} more (Export tab → Check this video)` : ''}`, 9000);
+  else toast(`Preset “${store.state.name}” loaded.`);
 }
 
 function fitToBars(bars) {
@@ -1292,7 +1313,7 @@ class FrameComposer {
       const time = m.time;
       // The cut from the teaser to the start: a fresh start (trails, camera follow, drum hits).
       const snap = m.phase !== this.lastPhase && m.phase !== 'outro';
-      if (snap && m.phase === 'main') this.hitIndex = 0;
+      if (snap && m.phase === 'main') { this.hitIndex = 0; while (this.hitIndex < this.hits.length && this.hits[this.hitIndex].time < time - 0.5) this.hitIndex++; } // a still starts mid-video: old hits stay quiet
       this.lastPhase = m.phase;
       const dt = snap ? 1 / fps : Math.max(time - this.last, 1e-4);
       this.last = time;
@@ -1346,6 +1367,61 @@ async function prepareComposition({ width, height, fps, subframes }) {
     analyser: new BufferAnalyser(buf), hits: drumEventsFull(),
   });
   return { comp, buf, frames: Math.ceil(T.total * fps), timing: T };
+}
+
+/**
+ * One frame exactly as the exported video shows it: camera moves and endings, keyframes, trails,
+ * drum pulses, cinema bars and text. The seconds before it are played first (`lead`), so things
+ * that build up over time (the camera following the pen, trails, pulses) are where they would be.
+ * @param {number} t seconds: timeline time, or video time (teaser, hook line, fade-out) with video: true
+ * @param {{width?:number, height?:number, video?:boolean, lead?:number}} [o] size in pixels (default: the stage)
+ * @returns {HTMLCanvasElement}
+ */
+function composeStill(t = clock.pos, { width, height, video = false, lead = 1.5 } = {}) {
+  if (exporting.busy) throw new Error('An export is running: wait for it to finish.');
+  const fps = 30, keep = clock.pos;
+  const fixed = width > 0 && height > 0 ? { w: Math.round(width), h: Math.round(height) } : null;
+  if (fixed) viz.setFixedSize(fixed);
+  try {
+    const T = video ? shortsTiming(store.state.record, duration(), { speed: playbackSpeed(), warp: timeWarp() })
+      : shortsTiming({ hook: { enabled: false }, outro: 0 }, duration());
+    const comp = new FrameComposer({
+      width: fixed?.w || viz.canvas.width, height: fixed?.h || viz.canvas.height, fps, timing: T,
+      hookText: hookTextFor(store.state), analyser: null, hits: drumEventsFull(),
+    });
+    const last = Math.round(Math.min(Math.max(+t || 0, 0), T.total) * fps), first = Math.max(0, last - Math.round(Math.max(0, lead) * fps));
+    let out = null;
+    for (let i = first; i <= last; i++) out = comp.frame(i);
+    return out;
+  } finally {
+    if (fixed) viz.setFixedSize(null);
+    clock.pos = keep;
+    clock.snap = true;
+    applyKeyframesAt(keep, true);
+  }
+}
+
+/** The soundtrack rendered offline and measured (LUFS, peak, silences, balance): hearing without ears. */
+async function measureSound() {
+  if (exporting.busy) throw new Error('An export is running: wait for it to finish.');
+  const buf = await renderWavBuffer();
+  const channels = Array.from({ length: buf.numberOfChannels }, (_, i) => buf.getChannelData(i));
+  return measureLoudness(channels, buf.sampleRate);
+}
+
+/** Set the master volume so the soundtrack sits at YouTube's level (−14 LUFS); returns the new measurement. */
+async function normalizeLoudness() {
+  let m = await measureSound();
+  if (!Number.isFinite(m.lufs)) return m;
+  // the limiter and the drive bend the answer, so correct twice
+  for (let i = 0; i < 2 && Math.abs(m.gainToTarget) > 0.5; i++) {
+    const next = Math.min(1, Math.max(0.02, store.state.audio.master * 10 ** (m.gainToTarget / 20)));
+    if (Math.abs(next - store.state.audio.master) < 0.005) break;
+    store.set('audio.master', +next.toFixed(3));
+    m = await measureSound();
+  }
+  refreshAll();
+  return m;
 }
 
 const fmtEta = (s) => (s >= 90 ? `${Math.round(s / 60)} min` : `${Math.max(1, Math.round(s))} s`);
@@ -1551,6 +1627,7 @@ async function renderBatch(entries) {
   const { server } = enc;
   const original = store.snapshot();
   const record = structuredClone(original.record); // the Export tab's settings apply to every video
+  const plain = !!record.batchVideosOnly; // only the MP4s in the zip: no text files, no CSV, no presets
   const stamp = new Date().toISOString().slice(0, 16).replace('T', ' ').replace(':', '-');
   const batchName = `Math-Melody videos ${stamp}`;
   const pad = String(entries.length).length;
@@ -1563,27 +1640,31 @@ async function renderBatch(entries) {
       if (server) batch = await createBatch(batchName);
       for (let i = 0; i < entries.length && !ui.token.cancelled; i++) {
         const e = entries[i];
-        store.load({ ...e.preset, name: e.name || e.preset.name });
-        store.state.record = structuredClone(record);
-        const base = `${String(i + 1).padStart(Math.max(2, pad), '0')} ${fileSafe(store.state.name)}`;
-        const meta = youtubeFor(store.state);
         const prefix = `Video ${i + 1} / ${entries.length} · `;
-        ui.title(`${prefix}${store.state.name}`);
         try {
+          // Everything about one video happens in here: a broken preset is listed in FAILED.txt and the batch goes on
+          store.load({ ...e.preset, name: e.name || e.preset.name });
+          store.state.record = structuredClone(record);
+          const base = `${String(i + 1).padStart(Math.max(2, pad), '0')} ${fileSafe(store.state.name)}`;
+          const meta = plain ? {} : youtubeFor(store.state);
+          ui.title(`${prefix}${store.state.name}`);
           const r = await renderTimeline({
             server, token: ui.token, keep: batch ? { batch: batch.id, file: `${base}.mp4` } : null,
             onPhase: (m) => ui.phase(prefix + m), onStatus: ui.status,
             onProgress: (p) => ui.progress(p, prefix, (i + p.frame / p.frames) / entries.length),
           });
-          const txt = youtubeText(meta, `${base}.mp4`);
-          if (batch) await addBatchFile(batch.id, `${base}.txt`, txt);
-          else files.push({ name: `${base}.mp4`, data: new Uint8Array(await r.blob.arrayBuffer()) }, { name: `${base}.txt`, data: textEnc.encode(txt) });
+          if (!batch) files.push({ name: `${base}.mp4`, data: new Uint8Array(await r.blob.arrayBuffer()) });
+          if (!plain) {
+            const txt = youtubeText(meta, `${base}.mp4`);
+            if (batch) await addBatchFile(batch.id, `${base}.txt`, txt);
+            else files.push({ name: `${base}.txt`, data: textEnc.encode(txt) });
+          }
           done.push({ file: `${base}.mp4`, ...meta, preset: store.snapshot() });
           rendered.push(e.name || e.preset.name);
         } catch (err) {
           if (err.message === 'cancelled') break;
           if (err.message === 'graphics context lost') throw err;
-          failed.push({ name: store.state.name, error: err.message });
+          failed.push({ name: e.name || e.preset?.name || `Video ${i + 1}`, error: err.message });
         }
       }
       if (!done.length) {
@@ -1592,9 +1673,9 @@ async function renderBatch(entries) {
         return;
       }
       // Batch extras: every title/description in one CSV, and the presets themselves.
-      const csv = youtubeCsv(done);
-      const bundle = bundleFile(done.map((d) => d.preset));
-      const extras = [['YouTube titles and descriptions.csv', csv], ['presets.mmv.json', bundle]];
+      const csv = plain ? '' : youtubeCsv(done);
+      const bundle = plain ? '' : bundleFile(done.map((d) => d.preset));
+      const extras = plain ? [] : [['YouTube titles and descriptions.csv', csv], ['presets.mmv.json', bundle]];
       if (failed.length) extras.push(['FAILED.txt', failed.map((f) => `${f.name}: ${f.error}`).join('\n')]);
       ui.phase('Packing the zip…');
       ui.status('');
@@ -1661,6 +1742,9 @@ const panels = new Panels({
   auditionDrum,
   exportVideo,
   renderBatch,
+  measureSound,
+  normalizeLoudness,
+  validate: () => window.mmv.validate(),
   previewSound: async (id) => { await ensureAudio(); audio.preview(id); },
   previewShorts,
   canRenderVideo,
@@ -1881,18 +1965,58 @@ window.mmv = {
   seek: (seconds) => seek(seconds / duration()),
   play: () => play(),
   pause: () => pause(),
-  /** The current frame (drawing + text) as a PNG data URL, at the size it has on screen. */
-  frame: () => {
-    if (!isCircle()) viz.composer.render(0);
-    const src = sceneCanvas();
-    const c = document.createElement('canvas');
-    c.width = src.width; c.height = src.height;
-    const g = c.getContext('2d');
-    g.drawImage(src, 0, 0);
-    drawOverlay(g, c.width, c.height, overlayData());
-    return c.toDataURL('image/png');
+  /** The current frame as a PNG data URL, exactly as the export draws it (camera moves, endings, bars, text). */
+  frame: (o) => composeStill(clock.pos, o).toDataURL('image/png'),
+  /**
+   * The frame at `t` seconds through the export pipeline, as a PNG data URL.
+   * renderStill(12)                       timeline second 12 at the stage size
+   * renderStill(12, { width: 1080, height: 1920 })   at an export size
+   * renderStill(0.4, { video: true })     video time: the teaser, the hook line, the fade-out
+   * `lead` (default 1.5 s) is how much is played before it so trails and the following camera settle.
+   */
+  renderStill: (t, o) => composeStill(t, o).toDataURL('image/png'),
+  /** Problems of the loaded preset (or of the one handed in): { ok, errors, warnings, problems: [{ level, path, message }], summary }. */
+  validate: (preset) => {
+    const r = validateState(preset || store.snapshot());
+    if (!preset) for (const [id, e] of Object.entries(window.mmv.errors())) for (const [field, msg] of Object.entries(e)) if (!r.problems.some((x) => x.message.includes(msg))) r.problems.push({ level: 'error', path: `layers.${id}.exprs.${field}`, message: msg });
+    return r;
   },
+  /** describe() lists every simulation; describe('fractal') gives its settings with ranges, defaults and paths. */
+  describe: (scene) => describeScene(scene),
+  /** Everything that can be keyframed right now: [{ path, label, kind, min, max, options, group }]. */
+  animatable: () => animatable(store.state),
+  /** Add a key: key('circle.lab.fractal.jx', 12, -0.75, 'smooth'). Value omitted = the current value. */
+  key: (path, time, value, ease = 'smooth') => {
+    if (!describe(store.state, path)) throw new Error(`“${path}” cannot be keyframed: see mmv.animatable().`);
+    const v = value === undefined ? (path === 'camera.pose' ? viz.getPose() : readValue(store.state, path)) : value;
+    upsertKey(store.state.keyframes.tracks, path, +time, v, ease);
+    keyframesChanged();
+    return store.state.keyframes.tracks[path];
+  },
+  /** Save the loaded preset into the library (Presets tab) under `name`; the same name updates it. */
+  save: (name) => {
+    const lib = panels.library;
+    if (!lib) throw new Error('The library is not ready yet.');
+    if (name) store.state.name = String(name);
+    const as = String(name || store.state.name || 'My preset');
+    lib.saveName.value = as;
+    lib.saveCurrent();
+    return as;
+  },
+  /** Render several presets to videos in one zip: renderVideos([{ name, preset }, …]). With record.batchVideosOnly the zip holds only the MP4s. Returns the names that were made. */
+  renderVideos: (entries) => renderBatch(entries.map((e) => (e.preset ? e : { name: e.name, preset: e }))),
+  /** The loaded preset as the text of a .mmv.json file. */
+  export: () => singleFile(store.snapshot()),
+  /** Render the soundtrack offline and measure it: { lufs, peakDb, clipped, silences, balance, curve, advice }. */
+  loudness: () => measureSound(),
+  /** Set the master volume so the soundtrack sits at −14 LUFS (YouTube's level). */
+  normalize: () => normalizeLoudness(),
+  /** One-click mastering: mmv.master('warm' | 'cinematic' | 'lofi' | 'bright' | 'club' | 'dream' | 'clean'). */
+  master: (id) => { if (!applyMastering(store.state.audio, id)) throw new Error(`Unknown mastering “${id}”: ${Object.keys(MASTERING).join(', ')}`); store.emit('audio'); refreshAll(); return structuredClone(store.state.audio); },
+  /** Story beats on the timeline: marker(8, 'Climax') adds one, markers() lists them. */
+  marker: (time, label) => { store.state.markers.push({ time: +time, label: String(label || 'Beat') }); store.state.markers.sort((x, y) => x.time - y.time); store.emit('markers'); return structuredClone(store.state.markers); },
+  markers: () => structuredClone(store.state.markers),
   /** Formula errors of the layers ({ layerId: { field: message } }), empty when all compile. */
   errors: () => Object.fromEntries(store.state.layers.map((l) => [l.id, compiled.get(l.id)?.errors || {}]).filter(([, e]) => Object.keys(e).length)),
-  help: 'mmv.state() · mmv.load(preset) · mmv.get(path) · mmv.set(path, value) · mmv.layer(i, patch) · mmv.presets() · mmv.loadByName(name) · mmv.seek(s) · mmv.play() · mmv.pause() · mmv.frame() · mmv.errors()',
+  help: 'mmv.state() · load(preset) · get(path) · set(path, value) · layer(i, patch) · presets() · loadByName(name) · seek(s) · play() · pause() · frame() · renderStill(t, { width, height, video }) · validate() · describe(scene) · animatable() · key(path, time, value) · save(name) · renderVideos([{ name, preset }]) · export() · loudness() · normalize() · master(id) · marker(time, label) · errors()',
 };

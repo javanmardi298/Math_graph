@@ -5,6 +5,7 @@
 
 import { applyShorts } from './shorts-prefs.js';
 import { defaultCircle } from './circle/sim.js';
+import { asText } from './export/youtube.js';
 
 let nextId = 1;
 
@@ -58,6 +59,7 @@ export function createLayer(overrides = {}) {
     harmony: 'off', // parallel notes: off | octave | fifth | power | major | minor | seventh … (instruments.js HARMONIES)
     detune: 0, // cents between two copies of the sound (0 = one copy): thick, chorus-like
     zMap: 'volume', // what the Z coordinate controls: volume | pan | none
+    volExpr: '', // loudness over the drawing as a formula, 0 … 1.5 ('' = none): x y z of the pen, u = 0 … 1 along the layer, t = seconds
     mute: false,
     solo: false,
     withPrev: false, // in "one after another": play together with the layer above
@@ -120,8 +122,9 @@ export function defaultState() {
       aspect: '16:9', // fill | 16:9 | 9:16 | 1:1 | 4:5
     },
     // punch: zoom bump on every kick (0..1); track: how closely the camera follows the
-    // drawing pen (0..1, both modes); roll: tilt in degrees. All three can be keyframed.
-    camera: { ending: 'auto', endingSecs: 1.8, endingBars: 0, autoRotate: false, rotateSpeed: 0.8, fov: 45, follow: false, punch: 0, track: 0, trackSpeed: 0.06, roll: 0, zoom: 1, push: 0, breathe: 0, drift: 0, shake: 0, sway: 0, spin: 0 },
+    // drawing pen (0..1, both modes); trackLayer: whose pen (0 = the layer drawing now, n = layer n);
+    // roll: tilt in degrees. All of them can be keyframed.
+    camera: { ending: 'auto', endingSecs: 1.8, endingBars: 0, autoRotate: false, rotateSpeed: 0.8, fov: 45, follow: false, punch: 0, track: 0, trackLayer: 0, trackSpeed: 0.06, roll: 0, zoom: 1, push: 0, breathe: 0, drift: 0, shake: 0, sway: 0, spin: 0 },
     audio: {
       master: 0.7,
       noteLow: 36,
@@ -153,7 +156,7 @@ export function defaultState() {
     // hook: Shorts opening (teaser of the finished picture + hook line + flash/boom at the cut);
     // outro: seconds of fade to black at the end. Both apply to every exported video.
     record: {
-      resolution: '1080p', fps: 60, fromStart: true, fileName: '', quality: 'high', subframes: 1, gpuEncoder: false, engine: 'auto',
+      resolution: '1080p', fps: 60, fromStart: true, fileName: '', quality: 'high', subframes: 1, gpuEncoder: false, engine: 'auto', batchVideosOnly: false,
       hook: { enabled: true, teaser: 0.8, flash: true, impact: true }, outro: 0.6, loop: false, loopBlend: 0.8,
     },
     // The hook line shown over the first ~2 s of a video ('' = the YouTube title without hashtags).
@@ -191,6 +194,8 @@ export function defaultState() {
       patterns: { kick: 'X...x...x...x...', snare: '....X.......X...', hat: 'x.x.x.x.x.x.x.x.', clap: '', openhat: '', tom: '', perc: '' } },
     // Keyframe animation: { tracks: { [path]: [{ time, value, ease }] } }
     keyframes: { tracks: {}, autoKey: false },
+    // Story beats: named moments on the timeline ({ time, label }); keys snap to them when dragged
+    markers: [],
   };
 }
 
@@ -277,12 +282,19 @@ class Store {
 /** A complete state from a saved or partial preset (missing settings get the defaults). */
 export function normalize(snapshot) {
   const merged = mergeDeep(defaultState(), structuredClone(snapshot));
+  merged.markers = (Array.isArray(merged.markers) ? merged.markers : []).filter((m) => m && Number.isFinite(+m.time)).map((m) => ({ time: +m.time, label: asText(m.label, ' ') || 'Beat' })).sort((x, y) => x.time - y.time);
+  // Text fields that some presets store as lists (tags: ['a', 'b']) are always text here
+  const yt = merged.youtube = merged.youtube && typeof merged.youtube === 'object' && !Array.isArray(merged.youtube) ? merged.youtube : {};
+  yt.title = asText(yt.title, ' ');
+  yt.description = asText(yt.description, '\n');
+  yt.tags = asText(yt.tags);
+  merged.hook = { ...(merged.hook && typeof merged.hook === 'object' ? merged.hook : {}), text: asText(typeof merged.hook === 'string' ? merged.hook : merged.hook?.text, ' ') };
   if ((snapshot.overlay?.layout ?? 1) < 2) applyLayout2(merged);
   if ((snapshot.overlay?.layout ?? 1) < 3) applyLayout3(merged);
   if ((snapshot.overlay?.layout ?? 1) < 4) applyLayout4(merged);
   // Circle layers: each one a complete circle setting (older or partial ones get the defaults)
   merged.circle.layers = (merged.circle.layers || []).map((l, i) => ({
-    id: l.id || `C${i + 1}`, enabled: l.enabled !== false, withPrev: !!l.withPrev, start: +l.start || 0, end: +l.end || 0, cfg: mergeDeep(defaultCircle(), { ...(l.cfg || {}), layers: [] }),
+    id: l.id || `C${i + 1}`, enabled: l.enabled !== false, withPrev: !!l.withPrev, start: +l.start || 0, end: +l.end || 0, opacity: l.opacity == null ? 1 : Math.max(0, Math.min(1, +l.opacity || 0)), blend: l.blend || 'normal', cfg: mergeDeep(defaultCircle(), { ...(l.cfg || {}), layers: [] }),
   }));
   merged.layers = (merged.layers || []).map((l) => createLayer({ ...l, id: undefined, exprs: { ...l.exprs } }));
   merged.layers.forEach((l, i) => { l.id = `L${Date.now().toString(36)}${i}`; });

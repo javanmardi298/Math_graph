@@ -15,7 +15,10 @@ import { cameraMove } from '../camera-moves.js';
 import { CircleSim, DT } from './sim.js';
 import { pixelFrame } from './layout.js';
 import { PALETTES, CIRCLE_PALETTES, frac, hexA, paletteOf } from './palettes.js';
-import { circleSchedule, visibleAt, headlineAt } from './stack.js';
+import { circleSchedule, visibleAt, headlineAt, transitionSecs } from './stack.js';
+import { sceneParams } from './scenes.js';
+
+const BLEND_OPS = { normal: 'source-over', screen: 'screen', add: 'lighter', multiply: 'multiply', overlay: 'overlay', difference: 'difference' };
 
 export { CIRCLE_PALETTES, PALETTES };
 
@@ -90,7 +93,7 @@ export class CircleView {
    * (only when moving forward), per layer, for live sound: [{ id, cfg, events }].
    * @param {{snap?:boolean, width:number, height:number, env?:{duration:number,bpm:number,ratio:number}}} o
    */
-  renderAt(time, c, { snap = false, width, height, env = {}, camera = null, progress = 0, duration = 0, bpm = 120 } = {}) {
+  renderAt(time, c, { snap = false, width, height, env = {}, camera = null, progress = 0, duration = 0, bpm = 120, live = false } = {}) {
     this.ensureSize(width, height);
     const envKey = `${env.duration}|${env.bpm}|${env.ratio}`;
     if (c !== this.c || envKey !== this.envKey) { this.c = c; this.envKey = envKey; this.dirty = true; }
@@ -104,7 +107,7 @@ export class CircleView {
     this.schedule = schedule;
     this.time = time;
     const out = [];
-    const shown = visibleAt(schedule, time);
+    const shown = visibleAt(schedule, time, transitionSecs(c));
     for (const s of shown) {
       let lv = this.layers.get(s.layer.id);
       if (!lv) this.layers.set(s.layer.id, (lv = new LayerView()));
@@ -112,6 +115,7 @@ export class CircleView {
       const cfg = s.layer.cfg;
       const lenv = { ...env, duration: s.end - s.start };
       if (!lv.sim || lv.cfg !== cfg || s.local < lv.sim.t - DT * 2 || (snap && s.local < lv.sim.t)) lv.reset(cfg, lenv);
+      if (live && lv.sim.P) Object.assign(lv.sim.P, sceneParams(cfg)); // keyframed scene settings
       const jumping = s.local - lv.sim.t > 0.5; // a seek: don't flood sound and sparks
       const fresh = [];
       lv.sim.advance(s.local, (e) => { if (!jumping && s.alpha > 0.5) fresh.push({ ...e, t: e.t + s.start }); lv.recent.push(e); });
@@ -280,8 +284,11 @@ export class CircleView {
     for (const s of shown) {
       const lv = this.layers.get(s.layer.id);
       if (!lv?.sim) continue;
-      if (s.alpha >= 0.999) { this.paintLayer(g, lv, s.local); continue; }
-      // fading: draw the layer on its own, then blend it in with a slight zoom
+      const opacity = Math.max(0, Math.min(1, s.layer.opacity ?? 1)), op = BLEND_OPS[s.layer.blend] || 'source-over';
+      const kind = s.edge ? (c.transition || 'fade') : 'none';
+      if (opacity <= 0) continue;
+      if (s.alpha >= 0.999 && opacity >= 0.999 && op === 'source-over') { this.paintLayer(g, lv, s.local); continue; }
+      // fading, see-through or blended: draw the layer on its own, then put it on the picture
       const sc = this.scratch;
       if (sc.width !== this.canvas.width || sc.height !== this.canvas.height) { sc.width = this.canvas.width; sc.height = this.canvas.height; }
       const sg = sc.getContext('2d');
@@ -289,10 +296,20 @@ export class CircleView {
       sg.globalAlpha = 1; sg.globalCompositeOperation = 'source-over';
       sg.clearRect(0, 0, sc.width, sc.height);
       this.paintLayer(sg, lv, s.local);
-      g.globalAlpha = s.alpha;
-      const z = 0.94 + 0.06 * s.alpha;
+      const a = s.alpha, e = a * a * (3 - 2 * a);
+      g.save();
+      g.globalCompositeOperation = op;
+      let z = 1;
+      if (kind === 'wipe') {
+        g.globalAlpha = opacity;
+        if (s.edge === 'in') { g.beginPath(); g.rect(0, 0, sc.width * e, sc.height); g.clip(); } // the old step stays whole underneath
+      } else {
+        g.globalAlpha = a * opacity;
+        if (kind === 'fade') z = 0.94 + 0.06 * a;
+        else if (kind === 'zoom') z = s.edge === 'out' ? 1 + 1.2 * (1 - e) : 0.55 + 0.45 * e;
+      }
       g.drawImage(sc, (sc.width * (1 - z)) / 2, (sc.height * (1 - z)) / 2, sc.width * z, sc.height * z);
-      g.globalAlpha = 1;
+      g.restore();
     }
     this.vignette(F0);
     this.bloom(F0, L0);

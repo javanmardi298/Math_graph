@@ -46,24 +46,40 @@ export const FRACTAL_PALETTES = {
   pastel: ['#fdf2ff', '#ffc6e0', '#c6b5ff', '#b5e8ff', '#c9ffe8', '#fff3b5', '#ffc6e0'],
   copper: ['#000000', '#3b1c0a', '#a1561d', '#f0a060', '#ffe6c8', '#7fd0c8', '#0d3b46'],
   aurora: ['#01030f', '#05304a', '#0fae8f', '#9bffb0', '#f4ffd0', '#b28cff', '#2a0f55'],
+  // dark palettes: the picture stays low, so white text on top of it is always readable
+  dusk: ['#020308', '#0a0d24', '#1a1840', '#3a2358', '#6b3460', '#a05a5a', '#6b3460', '#3a2358', '#1a1840', '#0a0d24'],
+  ash: ['#020202', '#101214', '#23272b', '#3d4347', '#5f666b', '#8a8f92', '#5f666b', '#3d4347', '#23272b', '#101214'],
 };
-export const PALETTE_LABELS = { fire: 'Fire', ocean: 'Ocean', neon: 'Neon', gold: 'Gold', rainbow: 'Rainbow', mono: 'Silver', twilight: 'Twilight', electric: 'Electric', ice: 'Ice', forest: 'Forest', candy: 'Candy', lava: 'Lava', inferno: 'Inferno', viridis: 'Viridis', zebra: 'Zebra', pastel: 'Pastel', copper: 'Copper and teal', aurora: 'Aurora' };
+export const PALETTE_LABELS = { fire: 'Fire', ocean: 'Ocean', neon: 'Neon', gold: 'Gold', rainbow: 'Rainbow', mono: 'Silver', twilight: 'Twilight', electric: 'Electric', ice: 'Ice', forest: 'Forest', candy: 'Candy', lava: 'Lava', inferno: 'Inferno', viridis: 'Viridis', zebra: 'Zebra', pastel: 'Pastel', copper: 'Copper and teal', aurora: 'Aurora', dusk: 'Dusk (dark)', ash: 'Ash (dark)' };
 
 const luts = new Map();
-/** 256-step RGB lookup of a palette (cyclic unless `open`: inferno and viridis run once and mirror back). */
-export function paletteLut(name) {
-  if (luts.has(name)) return luts.get(name);
+/**
+ * 256-step RGB lookup of a palette (cyclic unless `open`: inferno and viridis run once and mirror back).
+ * `tone` = { bright, contrast, sat } (1 = unchanged) is baked into the table, so it costs nothing per pixel.
+ */
+export function paletteLut(name, tone = null) {
+  const b = Math.round((tone?.bright ?? 1) * 100) / 100, k = Math.round((tone?.contrast ?? 1) * 100) / 100, sa = Math.round((tone?.sat ?? 1) * 100) / 100;
+  const key = b === 1 && k === 1 && sa === 1 ? name : `${name}|${b}|${k}|${sa}`;
+  if (luts.has(key)) return luts.get(key);
   let stops = (FRACTAL_PALETTES[name] || FRACTAL_PALETTES.fire).map((h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)));
   if (name === 'inferno' || name === 'viridis') stops = [...stops, ...stops.slice(1, -1).reverse()];
   const out = new Uint8Array(256 * 4);
   for (let i = 0; i < 256; i++) {
-    const u = (i / 256) * stops.length, a = Math.floor(u) % stops.length, b = (a + 1) % stops.length, f = u - Math.floor(u);
-    for (let c = 0; c < 3; c++) out[i * 4 + c] = stops[a][c] + (stops[b][c] - stops[a][c]) * f;
+    const u = (i / 256) * stops.length, a = Math.floor(u) % stops.length, n = (a + 1) % stops.length, f = u - Math.floor(u);
+    const rgb = [0, 1, 2].map((c) => stops[a][c] + (stops[n][c] - stops[a][c]) * f);
+    if (key !== name) {
+      const grey = 0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2];
+      for (let c = 0; c < 3; c++) rgb[c] = clamp(((grey + (rgb[c] - grey) * sa - 127.5) * k + 127.5) * b, 0, 255);
+    }
+    for (let c = 0; c < 3; c++) out[i * 4 + c] = rgb[c];
     out[i * 4 + 3] = 255;
   }
-  luts.set(name, out);
+  if (luts.size > 200) luts.clear(); // keyframed brightness makes many tables
+  luts.set(key, out);
   return out;
 }
+/** The tone of a scene's settings (null when untouched), and its cache key. */
+const toneOf = (P) => ((P.bright ?? 1) !== 1 || (P.contrast ?? 1) !== 1 || (P.sat ?? 1) !== 1 ? { bright: P.bright ?? 1, contrast: P.contrast ?? 1, sat: P.sat ?? 1 } : null);
 
 /* ================================================================== types */
 
@@ -137,15 +153,16 @@ function frameOf(S, P) {
     cx += span * 0.22 * Math.cos(TAU * 0.03 * t); cy += span * 0.16 * Math.sin(TAU * 0.041 * t);
     zoom = P.zoom || 1;
   } else zoom = P.zoom || 1;
+  zoom *= 10 ** (P.zexp || 0); // extra zoom as a power of ten: keys on it dive at a steady pace
   if (P.journey !== 'zoom' && (P.cx || P.cy) && P.spot === 'custom') { cx = P.cx; cy = P.cy; }
   if (P.journey === 'power') power = P.power + (P.power2 - P.power) * ease;
   span /= zoom;
   const path = JULIA_PATHS[P.jpath] || JULIA_PATHS.circle;
-  const c = P.journey === 'julia' ? path.at(t * P.jspeed, P) : julia ? (P.jpath === 'fixed' || P.journey !== 'julia' ? [P.jx, P.jy] : path.at(0, P)) : [0, 0];
+  const c = P.journey === 'julia' ? path.at(t * P.jspeed + (P.jphase || 0), P) : julia ? (P.jpath === 'fixed' || P.journey !== 'julia' ? [P.jx, P.jy] : path.at(0, P)) : [0, 0];
   const iter = P.iter > 0 ? Math.round(P.iter) : Math.round(clamp(140 + 105 * Math.log10(Math.max(1, zoom)), 140, 1800));
   return {
     T, julia, cx, cy, span, zoom, power, c, iter,
-    rot: TAU * (P.rotate || 0) * t, offset: (P.cycle || 0) * t,
+    rot: TAU * (P.rotate || 0) * t, offset: (P.cycle || 0) * t + (P.shift || 0),
     coloring: COLORINGS[P.coloring] ?? 0, trap: TRAPS[P.trap] ?? 0, density: P.density ?? 1, interior: P.interior === 'glow' ? 1 : 0, relax: P.relax ?? 1,
   };
 }
@@ -336,11 +353,12 @@ function gpuReady() {
   } catch { gpu.failed = true; return false; }
 }
 
-function renderGpu(F, palette, W, H) {
+function renderGpu(F, palette, W, H, tone = null) {
   const { gl, canvas } = gpu;
   if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
   gl.viewport(0, 0, W, H);
-  if (gpu.pal !== palette) { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 256, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, paletteLut(palette)); gpu.pal = palette; }
+  const lut = paletteLut(palette, tone);
+  if (gpu.pal !== lut) { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 256, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, lut); gpu.pal = lut; }
   const U = (name) => (gpu.loc[name] ||= gl.getUniformLocation(gpu.prog, name));
   const f = F.T.flags;
   gl.uniform2f(U('uRes'), W, H); gl.uniform2f(U('uCenter'), F.cx, F.cy); gl.uniform2f(U('uC'), F.c[0], F.c[1]);
@@ -363,6 +381,7 @@ const fractal = {
     jpath: 'circle', jr: 0.7885, jspeed: 0.04, jx: -0.8, jy: 0.156, jx2: 0.285, jy2: 0.01, power: 3, power2: 6, relax: 1,
     colors: 'fire', coloring: 'smooth', density: 1, cycle: 0.02, interior: 'black', trap: 'point', rotate: 0, res: 540, iter: 0,
     sound: 'journey', nps: 2, showOrbit: false, bleed: true,
+    bright: 1, contrast: 1, sat: 1, shift: 0, zexp: 0, jphase: 0,
   },
   controls: [
     ['type', 'Family', 's', Object.fromEntries(Object.entries(FRACTAL_TYPES).map(([k, v]) => [k, `${v.label}:  ${v.formula}`]))],
@@ -370,9 +389,10 @@ const fractal = {
     ['journey', 'Journey', 's', { zoom: 'Zoom into a spot', julia: 'Julia morph: c travels', power: 'The power grows', pan: 'Slow pan', still: 'Stand still (colours cycle)' }],
     ['spot', 'Zoom: into', 's', Object.fromEntries(Object.entries(FRACTAL_SPOTS).map(([k, v]) => [k, v[0]]))],
     ['cx', 'My point: real part', 'r', -2.5, 2.5, 0.0000001], ['cy', 'My point: imaginary part', 'r', -2.5, 2.5, 0.0000001],
-    ['depth', 'Zoom: ×10 to the power', 'r', 0.5, 13, 0.5], ['zoom', 'Fixed zoom (other journeys)', 'r', 0.3, 200, 0.1], ['wait', 'Seconds before it starts', 'r', 0, 6, 0.5],
+    ['depth', 'Zoom: ×10 to the power', 'r', 0.5, 13, 0.5], ['zoom', 'Fixed zoom (other journeys)', 'r', 0.3, 200, 0.1], ['zexp', 'Extra zoom: ×10 to the power (key this for your own dive)', 'r', 0, 13, 0.01], ['wait', 'Seconds before it starts', 'r', 0, 6, 0.5],
     ['jpath', 'Julia: path of c', 's', Object.fromEntries(Object.entries(JULIA_PATHS).map(([k, v]) => [k, v.label]))],
-    ['jr', 'Julia: size of the path', 'r', 0.1, 1.2, 0.0001], ['jspeed', 'Julia: rounds per second', 'r', 0.002, 0.3, 0.001],
+    ['jr', 'Julia: size of the path', 'r', 0.1, 1.2, 0.0001], ['jspeed', 'Julia: rounds per second (0 = only keys move c)', 'r', 0, 0.3, 0.001],
+    ['jphase', 'Julia: place on the path, in rounds (key this for exact timing)', 'r', 0, 4, 0.001],
     ['jx', 'Julia: c real part (fixed / start)', 'r', -2, 2, 0.0001], ['jy', 'Julia: c imaginary part', 'r', -2, 2, 0.0001],
     ['jx2', 'Julia: end point, real part', 'r', -2, 2, 0.0001], ['jy2', 'Julia: end point, imaginary part', 'r', -2, 2, 0.0001],
     ['power', 'Power p (Multibrot, Newton)', 'r', 2, 9, 0.01], ['power2', 'Power at the end (power journey)', 'r', 2, 9, 0.01], ['relax', 'Newton: step a (1 = classic)', 'r', 0.3, 1.9, 0.01],
@@ -380,6 +400,8 @@ const fractal = {
     ['coloring', 'Colouring', 's', { smooth: 'Smooth (how fast it escapes)', bands: 'Bands (whole steps)', trap: 'Orbit trap (how close the orbit comes)', stripes: 'Stripes (direction of the orbit)', angle: 'Binary decomposition (checkered)' }],
     ['trap', 'Trap shape', 's', { point: 'A point', cross: 'A cross', circle: 'A circle', line: 'A line' }],
     ['density', 'Colour bands (density)', 'r', 0.1, 6, 0.05], ['cycle', 'Colour cycling per second', 'r', -0.5, 0.5, 0.005],
+    ['shift', 'Colour shift (rounds of the palette; key this)', 'r', 0, 4, 0.01],
+    ['bright', 'Brightness', 'r', 0.2, 2.5, 0.01], ['contrast', 'Contrast', 'r', 0.4, 2.5, 0.01], ['sat', 'Colour strength (0 = grey)', 'r', 0, 2, 0.01],
     ['interior', 'Inside the set', 's', { black: 'Black', glow: 'Glow (how close the orbit comes to the trap)' }],
     ['rotate', 'Turn the picture (rounds per second)', 'r', -0.2, 0.2, 0.002],
     ['iter', 'Iterations (0 = automatic)', 'r', 0, 1800, 10], ['res', 'Detail (pixels across)', 'r', 160, 1080, 20],
@@ -425,12 +447,12 @@ const fractal = {
     if (bleed) { F.cx += ((cv.width / 2 - D.X(0)) / D.R) * (F.span / (2 * hw)) * Math.cos(F.rot); F.cy += ((D.Y(0) - cv.height / 2) / D.R) * (F.span / (2 * hw)) * (F.T.flip ? -1 : 1); F.spanBand = F.span; F.span *= cv.width / (2 * hw * D.R); }
     const W = clamp(Math.round(useGpu ? P.res : Math.min(P.res, deep ? 300 : 260)), 80, 1080), H = Math.max(2, Math.round((W * box.h) / box.w));
     let src;
-    if (useGpu) src = renderGpu(F, P.colors, W, H);
+    if (useGpu) src = renderGpu(F, P.colors, W, H, toneOf(P));
     else {
       const c = (cpuCanvas ||= document.createElement('canvas'));
       if (c.width !== W || c.height !== H) { c.width = W; c.height = H; }
       const cg = c.getContext('2d'), img = cg.createImageData(W, H);
-      renderCpu(F, paletteLut(P.colors), img, W, H);
+      renderCpu(F, paletteLut(P.colors, toneOf(P)), img, W, H);
       cg.putImageData(img, 0, 0);
       src = c;
     }

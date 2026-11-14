@@ -9,12 +9,19 @@ const TITLE_MAX = 100; // YouTube's limit
 const DESC_MAX = 5000;
 const TAGS_MAX = 500; // all tags together
 
+/** Any stored value as text: a list of tags becomes "a, b, c", a list of lines becomes lines. */
+export function asText(v, joiner = ', ') {
+  if (Array.isArray(v)) return v.map((x) => asText(x, joiner)).filter(Boolean).join(joiner);
+  if (v == null || typeof v === 'object') return '';
+  return String(v);
+}
+
 /**
  * YouTube rejects titles, descriptions and tags that contain < or > ("Angled brackets
  * aren't allowed"). Swap them for look-alikes it accepts, and ≤ ≥ stay as they are.
  */
 export function youtubeSafe(text) {
-  return String(text ?? '')
+  return asText(text)
     .replace(/<=/g, '≤').replace(/>=/g, '≥')
     .replace(/</g, '‹').replace(/>/g, '›');
 }
@@ -36,10 +43,11 @@ function fitTags(tags) {
 /** Problems YouTube would reject, for the editor to show. */
 export function youtubeProblems(meta) {
   const out = [];
-  const raw = `${meta.title || ''}${meta.description || ''}${meta.tags || ''}`;
+  const title = asText(meta.title, ' '), description = asText(meta.description, '\n');
+  const raw = `${title}${description}${asText(meta.tags)}`;
   if (/[<>]/.test(raw)) out.push('Contains < or >: YouTube rejects these; they are replaced with ‹ › in every export.');
-  if ((meta.title || '').length > TITLE_MAX) out.push(`Title is longer than ${TITLE_MAX} characters.`);
-  if ((meta.description || '').length > DESC_MAX) out.push(`Description is longer than ${DESC_MAX} characters.`);
+  if (title.length > TITLE_MAX) out.push(`Title is longer than ${TITLE_MAX} characters.`);
+  if (description.length > DESC_MAX) out.push(`Description is longer than ${DESC_MAX} characters.`);
   return out;
 }
 const BASE_TAGS = ['math', 'mathematics', 'math visualization', 'math music', 'sonification', 'graphs', 'math art', 'shorts'];
@@ -75,15 +83,15 @@ export function youtubeFor(state) {
   const own = state.youtube || {};
   const auto = suggestYoutube(state);
   return {
-    title: youtubeSafe((own.title || '').trim() || auto.title).slice(0, TITLE_MAX),
-    description: youtubeSafe((own.description || '').trim() || auto.description).slice(0, DESC_MAX),
-    tags: fitTags((own.tags || '').trim() || auto.tags),
+    title: youtubeSafe(asText(own.title, ' ').trim() || auto.title).slice(0, TITLE_MAX),
+    description: youtubeSafe(asText(own.description, '\n').trim() || auto.description).slice(0, DESC_MAX),
+    tags: fitTags(asText(own.tags).trim() || auto.tags),
   };
 }
 
 /** Text file that sits next to a video. */
 export function youtubeText(meta, videoFile = '') {
-  meta = { title: youtubeSafe(meta.title), description: youtubeSafe(meta.description), tags: fitTags(meta.tags || '') };
+  meta = { title: youtubeSafe(meta.title), description: youtubeSafe(asText(meta.description, '\n')), tags: fitTags(meta.tags || '') };
   return [
     videoFile ? `VIDEO\n${videoFile}\n` : '',
     `TITLE\n${meta.title}\n`,

@@ -70,6 +70,10 @@ export function defaultCircle() {
     // more simulations in the same video (see stack.js): played one after another or together
     layers: [],
     combine: 'sequence',
+    // opacity and blend of this (the first) layer; the others carry their own (layer.opacity, layer.blend: stack.js BLENDS)
+    opacity: 1, blend: 'normal',
+    // how one step hands over to the next (stack.js TRANSITIONS) and how long it takes
+    transition: 'fade', transitionSecs: 0.45,
   };
 }
 
@@ -331,6 +335,8 @@ export class CircleSim {
     this.st += sdt;
     const r = this.cfg.rule;
     if (this.scene) {
+      // keyframed scene settings: the caller hands in the settings of this moment (30 times a second)
+      if (this.live && (this.liveN = (this.liveN || 0) + 1) % 8 === 1) { const P = this.live(this.t); if (P) Object.assign(this.P, P); }
       this.scene.step(this, this.P, sdt, (e) => { this.hits++; onEvent?.({ ...e, t: this.t, n: this.hits }); });
     } else if (r === 'chord') this.stepChord(onEvent);
     else if (r === 'polyrhythm') this.stepPoly(onEvent);
@@ -345,7 +351,9 @@ export class CircleSim {
 
 /** Every sound/visual event from 0 to `duration` (for the offline soundtrack). */
 export function eventsUntil(cfg, duration, env = {}) {
-  const sim = new CircleSim(cfg, { duration, ...env });
+  const { live, ...rest } = env;
+  const sim = new CircleSim(cfg, { duration, ...rest });
+  if (live) sim.live = live;
   const out = [];
   sim.advance(duration, (e) => out.push(e));
   return out;
